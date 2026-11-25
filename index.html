@@ -2,11 +2,13 @@
 <html lang="nb">
 <head>
   <meta charset="utf-8">
+  <link rel="icon" href="data:,">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IN2120 – interaktiv eksamensguide</title>
-  <meta name="description" content="Interaktiv eksamensguide for IN2120 Informasjonssikkerhet: kryptografi, PKI, nettverk, angrep, autentisering, IAM og risikostyring, med øving i Inspera-format.">
+  <meta name="description" content="Interaktiv eksamensguide for IN2120 Informasjonssikkerhet: slik ser eksamen ut, temaene etter poeng, og alle eksamensoppgavene H2021–H2025 med øving i Inspera-format.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme')||'light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level')||'normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125g">
+  <link rel="stylesheet" href="assets/css/forside.css?v=20261125g">
 </head>
 <body data-page="index">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -18,42 +20,71 @@
       <header class="a4-head">
         <div>
           <h1 id="a4-title">IN2120 – interaktiv eksamensguide</h1>
-          <p class="a4-lead">Informasjonssikkerhet steg for steg, knyttet til eksamensoppgavene fra 2021–2025 og øvd i samme format som i Inspera.
+          <p class="a4-lead">Informasjonssikkerhet steg for steg, knyttet til eksamensoppgavene H2021–H2025 og øvd i samme format som i Inspera.
             Velg forklaringsnivå øverst eller på hvert felt, fra <b>5-åring</b> til <b>Teknisk</b>.</p>
         </div>
-        <!-- Fra plan/eksamensmonster.md § 1 og § 3 (H2021–H2025). -->
-        <dl class="a4-facts">
-          <dt>Tid</dt><dd>4 timer</dd>
-          <dt>Poeng</dt><dd>100</dd>
-          <dt>Hjelpemidler</dt><dd>ingen</dd>
-          <dt>Format</dt><dd>Inspera, 37–42 oppgaver</dd>
-        </dl>
+        <!-- Fylles av forside.js fra eksamensbanken (varighet, hjelpemidler, antall oppgaver). -->
+        <dl class="a4-facts" id="a4-facts"></dl>
       </header>
 
+      <section class="crash-box" id="crash-box" aria-label="Kom i gang"></section>
+
       <section class="a4-exam" aria-labelledby="eo-h">
-        <h2 id="eo-h">Slik ser eksamen ut</h2>
-        <p>Settet er delt i temadeler som følger forelesningene: generelt, kryptografi og PKI, angrep og skadevare, nettverk,
-          autentisering og IAM, styring og risiko, og noen år sikker utvikling, fysisk sikkerhet eller cyberoperasjoner.
-          De fleste oppgavene rettes automatisk: matriser, flervalg, nedtrekk i tekst, dra-og-slipp og korte tekstfelt.</p>
-        <p><b>Poengregelen</b> står på hver oppgave. Feil svar kan gi minuspoeng, men en oppgave gir aldri under 0 poeng totalt.
-          Øvingene i guiden retter etter nøyaktig samme regel, så du ser hva gjetting koster.</p>
-        <p><b>Trenden:</b> 2021–2023 var nesten alt automatisk rettet. I 2024 var 20 poeng fritekst, og i 2025 hele 55 poeng
-          (forklaringer, en Snort-regel, formler). Øv derfor også på å skrive korte, presise svar.</p>
-        <p><a class="btn primary sm" href="eksamen.html">Øv på et helt sett</a></p>
+        <div class="a4-sechead">
+          <h2 id="eo-h">Slik ser eksamen ut</h2>
+          <p>Digital eksamen i Inspera. Linjalen viser delene i settet, bredden er poeng og fargen er blokken med flest poeng i delen.</p>
+        </div>
+        <div id="exam-flow"></div>
+      </section>
+
+      <section class="a4-rules" aria-labelledby="a4-rules-h">
+        <div class="a4-sechead">
+          <h2 id="a4-rules-h">Gjelder hver oppgave</h2>
+          <p>Fra forsiden og poenglinjene i settene H2021–H2025.</p>
+        </div>
+        <ul>
+          <li><b>Les poenglinja først.</b> Hver oppgave har sin egen, for eksempel «Poeng: 0,5p for riktig, -0,5p for feil, 0p for ubesvart, maks 2p, min 0p.» (H2025 oppgave 1).
+            <span class="fs-soft" id="fs-rule-neg"></span></li>
+          <li><b>Aldri under 0 per oppgave.</b> Forsiden: minuspoeng kan gis, men «total poengsum for hele oppgaven er minimum 0». Minus i én oppgave tar ikke poeng fra en annen.</li>
+          <li><b>Blankt gir som regel 0.</b> <span id="fs-rule-blank"></span> Når feil koster like mye som riktig gir, og raden har tre eller flere valg, taper du i snitt på å gjette blindt. Kan du utelukke nok, kan det lønne seg.</li>
+          <li><b>Tekstfelt rettes mot en liste.</b> Forsiden ber deg lese nøye «der du skal fylle inn verdier i en tekstboks». Skriv akkurat det som spørres om (et tall, et navn, en forkortelse), i formatet oppgaven ber om.</li>
+          <li><b>Fritekst: fagbegrep + forklaring.</b> Retteinstruksene gir poeng for å vise prinsippet og nevne det sentrale fagordet (H2025 10), og et nakent «nei» gir lite uten begrunnelse (H2024 23). Vær kortfattet, som forsiden ber om.</li>
+          <li><b>Lette oppgaver først.</b> Du kan gå fram og tilbake, og forsiden tipser om å svare på de lette først og komme tilbake til resten.</li>
+        </ul>
+      </section>
+
+      <section class="a4-temaer" aria-labelledby="eo-temaer">
+        <div class="a4-sechead">
+          <h2 id="eo-temaer">Temaene etter poeng</h2>
+          <p id="eo-temaer-sub"></p>
+        </div>
+        <div id="exam-topics" class="a4-topics"></div>
+      </section>
+
+      <section class="a4-kart" aria-labelledby="a4-kart-h">
+        <div class="a4-sechead">
+          <h2 id="a4-kart-h">Oppgavekart H2021–H2025</h2>
+          <p>Én rute per oppgave i arkets rekkefølge, med nummer og poeng. Fargen er blokken, stiplet kant og ✎ betyr fritekst.
+            Ruten går rett til kortet på blokksiden. ✓ og ↻ viser det du har merket som «Fikk det til» og «Øv mer».
+            Trykk på en blokk for å fremheve den.</p>
+        </div>
+        <div id="task-map" class="fs-map"></div>
       </section>
 
       <footer class="a4-foot">
         <div class="a4-how">
-          <h2>Slik bruker du siden</h2>
+          <h2>Slik bruker du guiden</h2>
           <ol>
-            <li><b>Velg nivå.</b> Bryteren øverst gjelder hele siden; hver forklaring har sin egen.</li>
-            <li><b>Les og spill</b> demoene med <span class="kbd">←</span> <span class="kbd">→</span> eller Spill av.</li>
-            <li><b>Øv</b> med quiz og eksamensoppgavene. Trykk «Rett som på eksamen», og sammenlign friteksten med «Perfekt svar» og sensors retteinstrukser.</li>
+            <li><b>Velg nivå.</b> «5-åring» gir et hverdagsbilde, «Normalt» kursnivået og «Teknisk» detaljene. Bryteren øverst gjelder hele siden, og hver forklaring har sin egen.</li>
+            <li><b>Spill og prøv demoene</b> med <span class="kbd">←</span> <span class="kbd">→</span> eller Spill av. Typene:
+              <i>gjett før neste</i> steg, <i>dra</i> brikker på plass, <i>matrise</i>, <i>regn først</i>, <i>scenario</i> og <i>finn feilen</i>.</li>
+            <li><b>Øv med eksamenskortene.</b> Fanene: <span id="fs-tabs" class="fs-tabs"></span>.
+              Trykk «Rett som på eksamen», og merk kortet «Fikk det til» eller «Øv mer». Fremdriften lagres bare i denne nettleseren.</li>
           </ol>
         </div>
-        <nav class="a4-blocks" aria-label="Blokkene">
+        <nav class="a4-blocks fs-blocks" aria-label="Blokkene">
           <h2>Blokkene</h2>
-          <div id="block-cards"></div>
+          <div id="block-cards" class="fs-bgrid"></div>
         </nav>
       </footer>
 
@@ -64,37 +95,13 @@
     IN2120-guide · laget for eksamensøving · fungerer frakoblet (file://) og på GitHub Pages.
   </footer>
 
-  <script src="assets/js/core.js?v=20261125f"></script>
-  <script src="assets/js/symboler.js?v=20261125f"></script>
-  <script>
-  (function () {
-    var IN = window.IN, el = IN.el;
-    var ready = {}, pageHref = {};
-    IN.PAGES.forEach(function (p) { ready[p.id] = p.ready; pageHref[p.id] = p.href; });
-
-    // Blokkene. p = eksamenspoeng H2021–H2025 (plan/eksamensmonster.md).
-    var BLOCKS = [
-      { page: "grunnbegreper", n: "1",  title: "Grunnbegreper og fysisk", p: 38, desc: "KIT-egenskapene, sikkerhetstjenester, lov og fysisk sikkerhet." },
-      { page: "krypto",        n: "2",  title: "Kryptografi",             p: 78, desc: "Symmetrisk og asymmetrisk, hash, MAC, signatur, moduser og Diffie–Hellman." },
-      { page: "pki",           n: "3",  title: "PKI",                     p: 26, desc: "Sertifikater, X.509, CA-kjeder, tillitsmodeller og tilbakekalling." },
-      { page: "angrep",        n: "4",  title: "Angrep og pentest",       p: 77, desc: "Phishing, skadevare, angrepsvektorer, pentest, boksfarger og § 204." },
-      { page: "system",        n: "5",  title: "Systemsikkerhet",         p: 17, desc: "Pålitelig databehandling, TPM, sikker oppstart og virtualisering." },
-      { page: "risiko",        n: "6",  title: "Risiko og styring",       p: 83, desc: "ISMS, ISO 27000-serien, risikovurdering og sikker utvikling." },
-      { page: "autentisering", n: "7",  title: "Autentisering",           p: 36, desc: "Passord og hashing, faktorer, styrke og autentiseringsnivåer." },
-      { page: "iam",           n: "8",  title: "IAM",                     p: 41, desc: "Identitetshåndtering, tilgangskontroll, føderering, OAuth og OIDC." },
-      { page: "nettverk",      n: "9",  title: "Nettverk",                p: 89, desc: "TLS, IPsec og VPN, brannmurer, IDS/Snort og lagdelt forsvar." },
-      { page: "cyberops",      n: "10", title: "Cyberops og KI",          p: 18, desc: "Cyberoperasjoner, kill chain og KI i sikkerhet." }
-    ];
-    var blockHost = IN.qs("#block-cards");
-    BLOCKS.forEach(function (b) {
-      var kids = [el("span", { class: "a4-bn", text: b.n }), el("span", { text: b.title })];
-      if (b.p) kids.push(el("span", { class: "a4-bt", text: b.p + " p" }));
-      if (!ready[b.page]) kids.push(el("span", { class: "tag", text: "snart" }));
-      blockHost.appendChild(ready[b.page]
-        ? el("a", { class: "a4-block", href: pageHref[b.page], title: b.desc + " Eksamenspoeng 2021–2025: " + b.p + "." }, kids)
-        : el("span", { class: "a4-block a4-off", title: b.desc }, kids));
-    });
-  })();
-  </script>
+  <script src="assets/js/core.js?v=20261125g"></script>
+  <script src="assets/js/symboler.js?v=20261125g"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125g"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125g"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125g"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125g"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125g"></script>
+  <script src="assets/js/forside.js?v=20261125g"></script>
 </body>
 </html>
