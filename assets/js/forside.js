@@ -87,8 +87,10 @@
     var last = YEARS.length ? BANK[YEARS[YEARS.length - 1]] : {};
     var counts = YEARS.map(function (y) { return (BANK[y].oppgaver || []).length; });
     var facts = [
-      ["Eksamen", EXAM_DATE.getDate() + "." + (EXAM_DATE.getMonth() + 1) + "." + EXAM_DATE.getFullYear()],
-      ["Tid", last.varighet || "4 timer"],
+      ["Eksamen", EXAM_DATE.getDate() + "." + (EXAM_DATE.getMonth() + 1) + "." + EXAM_DATE.getFullYear() + " kl. 09:00"],
+      ["Tid", "4 timer"],
+      ["Oppmøte", "30 minutter før start"],
+      ["Sted", "Silurveien 2"],
       ["Hjelpemidler", String(last.hjelpemidler || "ingen").toLowerCase()],
       ["Format", "Inspera" + (counts.length ? ", " + range(counts) + " oppgaver" : "")]
     ];
