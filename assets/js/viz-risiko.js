@@ -418,6 +418,7 @@
     host = qsHost(host); if (!host || !IN.regnForst) return null;
     return IN.regnForst(host, {
       id: "risiko-regn-sk",
+      rentTall: true,
       sporsmal: function (inn) {
         return {
           eli5: "<p>Nettbutikken til Smuldre bryter sammen omtrent én gang hvert <b>" + inn.N + ".</b> år. Hver gang taper bakeriet <b>" + fmt(inn.A) +
@@ -465,6 +466,7 @@
     host = qsHost(host); if (!host || !IN.regnForst) return null;
     return IN.regnForst(host, {
       id: "risiko-regn-roi",
+      rentTall: true,
       sporsmal: function (inn) {
         var t = "Risikoen er <b>" + fmt(inn.G) + " kr per år</b>. Et tiltak koster <b>" + fmt(inn.C) + " kr per år</b>, og etter tiltaket er risikoen <b>" + fmt(inn.Ny) + " kr per år</b>.";
         return {

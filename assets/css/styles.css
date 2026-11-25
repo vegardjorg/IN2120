@@ -501,7 +501,7 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 }
 .badge:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); color: var(--color-on-surface); }
 .badge b { color: var(--color-primary); }
-.badge .pts { color: var(--color-on-tone-ok); font-weight: 600; }
+.badge .pts { color: var(--color-on-surface); font-weight: 600; } /* poeng er ingen tilstand: nøytral og halvfet (IN2010) */
 
 /* ---------- Faner (tabs, underlinjestil) ---------- */
 .tabs { display: flex; flex-wrap: wrap; gap: var(--d-xs); border-bottom: 1px solid var(--color-outline-variant); margin: 1rem 0 0; }
@@ -543,31 +543,45 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 .exam-anchor { scroll-margin-top: 7.5rem; }
 .exam-jump a { font-weight: 600; white-space: nowrap; }
 
-/* ---------- Callouts (tonede containere) ---------- */
+/* ---------- Callouts ----------
+   (Fargerevisjon fra IN2010.) Bare tre typer har farget flate: felle (rød), sensor (gul) og begrep (blå).
+   Resten er en nøytral strek med merkelapp; strekens stil skiller dem: 5-åring prikket, teknisk stiplet,
+   eksempel heltrukket, «Hva eksamen spør om» (snarvei) heltrukket med →. */
 .callout {
-  border-left: 4px solid var(--color-outline); border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: var(--d-sm) var(--d-md); margin: .9rem 0;
+  border-left: 3px solid var(--color-outline); border-radius: 0;
+  padding: .15rem 0 .15rem .8rem; margin: .9rem 0;
 }
 .callout > .lbl {
-  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .06em;
-  text-transform: uppercase; margin-bottom: .2rem;
+  display: inline; font-size: var(--text-xs); font-weight: 700; margin-right: .35rem;
+  color: var(--color-on-surface-variant);
 }
 .callout > :last-child { margin-bottom: 0; }
+.callout.eli5     { border-left-style: dotted; border-left-width: 4px; }
+.callout.uni      { border-left-style: dashed; }
+.callout.snarvei > .lbl::before { content: "→ "; }
+.callout.begrep, .callout.sensor, .callout.felle {
+  border-left-width: 4px; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--d-sm) var(--d-md);
+}
 .callout.begrep   { border-color: var(--color-primary);            background: var(--color-tone-info);    color: var(--color-on-tone-info); }
 .callout.begrep .lbl   { color: var(--color-on-tone-info); }
-.callout.eli5     { border-color: var(--color-on-tone-ok);         background: var(--color-tone-ok);      color: var(--color-on-tone-ok); }
-.callout.eli5 .lbl     { color: var(--color-on-tone-ok); }
-.callout.eksempel { border-color: var(--color-outline);           background: var(--color-surface-container); color: var(--color-on-surface); }
-.callout.eksempel .lbl { color: var(--color-on-surface-variant); }
-.callout.uni      { border-color: var(--color-on-tone-heavy);     background: var(--color-tone-heavy);   color: var(--color-on-tone-heavy); }
-.callout.uni .lbl      { color: var(--color-on-tone-heavy); }
 .callout.sensor   { border-color: var(--color-on-tone-warn);      background: var(--color-tone-warn);    color: var(--color-on-tone-warn); }
 .callout.sensor .lbl   { color: var(--color-on-tone-warn); }
 .callout.felle    { border-color: var(--color-on-tone-danger);    background: var(--color-tone-danger);  color: var(--color-on-tone-danger); }
 .callout.felle .lbl    { color: var(--color-on-tone-danger); }
-.callout.snarvei  { border-color: var(--color-on-tone-caution);   background: var(--color-tone-caution); color: var(--color-on-tone-caution); }
-.callout.snarvei .lbl  { color: var(--color-on-tone-caution); }
 .callout code { background: color-mix(in srgb, var(--color-on-surface) 8%, transparent); padding: 1px 4px; border-radius: var(--radius); }
+/* «Husk»-liste: tre eller flere callouts på rad blir én nøytral liste med små merkelapper (IN.huskLists) */
+.husk { margin: .9rem 0; padding: .15rem 0 .15rem .8rem; border-left: 3px solid var(--color-outline); }
+.husk > h4 { margin: 0 0 .25rem; font-size: var(--text-sm); }
+.husk > ul, .husk > ol { margin: 0; padding-left: 1.1rem; }
+.husk > p { margin: .4rem 0 .2rem; }
+.husk > ul > li { margin: .3rem 0; }
+.husk .t { display: inline-block; font-size: var(--text-xs); font-weight: 700; line-height: 1.45; padding: 0 .35rem; border-radius: var(--radius); margin-right: .3rem; }
+.husk .t.felle  { background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.husk .t.sensor { background: var(--color-tone-warn); color: var(--color-on-tone-warn); }
+.husk .t.begrep { background: var(--color-tone-info); color: var(--color-on-tone-info); }
+.husk .t.raad, .husk .t.uni, .husk .t.eli5, .husk .t.eksempel { border: 1px solid var(--color-outline); color: var(--color-on-surface-variant); }
+.husk .t.uni { border-style: dashed; } .husk .t.eli5 { border-style: dotted; }
+:root[data-level="eli5"] .husk li.uni { display: none; }
 
 /* ---------- Piller (statusvariabler) ---------- */
 .pill {
@@ -1131,8 +1145,7 @@ html:has(body[data-page="index"]) { scroll-padding-top: 7rem; }
 .a4-pname { display: flex; flex-direction: column; align-items: flex-start; gap: .05rem; min-width: 0; }
 .a4-pk { display: flex; align-items: center; flex-wrap: wrap; gap: .1rem .4rem; font-size: 12px; color: var(--a4-soft); }
 .a4-pbody { min-width: 0; display: grid; gap: .2rem; align-content: start; }
-.a4-sheet .a4-pts { font-size: 11.5px; font-weight: 700; padding: 0 .4rem; border-radius: 999px; white-space: nowrap;
-  background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.a4-sheet .a4-pts { font-size: 11.5px; font-weight: 600; white-space: nowrap; color: var(--color-on-surface); }
 .a4-legend { margin-top: .45rem !important; }
 
 /* Fanelenker med oppgaveikoner */
@@ -1167,7 +1180,7 @@ a.a4-task:hover, a.a4-task:focus-visible { color: var(--color-primary); border-c
 .a4-freq { display: inline-flex; align-items: center; gap: .4rem; font-size: 11.5px; color: var(--a4-soft); line-height: 1.25; }
 .a4-dots { display: inline-flex; gap: 2px; flex: none; }
 .a4-dots i { width: 7px; height: 7px; border-radius: 50%; border: 1.25px solid var(--color-outline); }
-.a4-dots i.on { background: var(--c-sorted); border-color: var(--c-sorted); }
+.a4-dots i.on { background: var(--color-on-surface-variant); border-color: var(--color-on-surface-variant); }
 .a4-tbody { min-width: 0; display: grid; gap: .15rem; }
 .a4-tip-txt { color: var(--a4-soft); }
 .a4-tip-txt b { font-weight: 600; color: var(--a4-ink); }
@@ -1540,7 +1553,25 @@ body[data-page="strategi"] .bigo-compact .bigo-val { white-space: normal; overfl
   #levelbar { position: static; }
 }
 @media (pointer: coarse) {
-  .btn.sm, .level-mini .seg-btn { min-height: 32px; }
+  /* Trykkmål på berøringsskjerm (M9) */
+  .btn, .seg-btn, .ov-seg-o span { min-height: 44px; }
+  .btn.sm { min-height: 40px; }
+  .level-mini .seg-btn { min-height: 40px; }
+}
+/* Lokale nivåbrytere skjules på smal skjerm: toppbryteren holder, og teksten følger den (lokalt nivå er aldri valgt da) */
+@media (max-width: 560px) {
+  .level-mini { display: none; }
+  .explain-bar:not(:has(> :not(.level-mini))) { display: none; }
+}
+
+/* Tydelig grense mellom øvinger (M10, mild): tynn toppstrek og mer luft over øvingsoverskrifter.
+   En h4 regnes som øvingsoverskrift når den står rett foran en widget-vert (div med id), eventuelt med én
+   spørsmålslinje eller callout imellom, eller rett foran en Inspera-tittel. Vanlig tekst og eksempler rammes ikke. */
+main h4.ov-h:not(:first-child),
+main h4:not(:first-child):not(.et-h):not(:is(h2, h3, h4) + h4):not(:is(.callout, .examtask, details, .husk) h4):has(+ div[id]),
+main h4:not(:first-child):not(.et-h):not(:is(h2, h3, h4) + h4):not(:is(.callout, .examtask, details, .husk) h4):has(+ :is(p, .callout) + div[id]),
+main h4:not(:first-child):not(.et-h):not(:is(h2, h3, h4) + h4):not(:is(.callout, .examtask, details, .husk) h4):has(+ .insp-tittel) {
+  margin-top: 2rem; padding-top: .85rem; border-top: 1px solid var(--color-outline-variant);
 }
 /* Fargebrikkene er lyse i mørkt tema: mørk tekst gir lesbar kontrast */
 :root[data-theme="dark"] .chip { color: #111; }
@@ -1709,7 +1740,7 @@ body.has-crash-ret .ny-versjon{bottom:72px}
 .cr-qlist li { margin: .25rem 0; }
 .cr-qlist li.cr-qempty { list-style: none; margin-left: -1.3rem; }
 .cr-qlist .cr-pts { margin-left: .4rem; }
-.cr-pts { display: inline-block; font-size: var(--text-xs); font-weight: 700; padding: 0 .4rem; border-radius: 999px; background: var(--color-tone-info); color: var(--color-on-tone-info); white-space: nowrap; }
+.cr-pts { display: inline-block; font-size: var(--text-xs); font-weight: 600; color: var(--color-on-surface); white-space: nowrap; }
 
 .cr-ehead { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .7rem; }
 .cr-ehead h2 { margin: 0; font-size: var(--text-lg); }
@@ -2213,7 +2244,7 @@ blockquote.sensor .et-sv-krit, blockquote.sensor .et-sv-fasit + .et-sv-fasit { m
 
 /* ===== Crash course: start og fast fremdriftslinje ===== */
 /* Grønn hovedknapp (Start/Fortsett). Lys: hvit tekst på #2e7d32 (5,1:1). Mørk: mørk tekst på #81c784 (ca. 9:1). */
-:root { --cr-go-bg: var(--c-sorted); --cr-go-on: #ffffff; }
+:root { --cr-go-bg: var(--color-on-tone-ok); --cr-go-on: #ffffff; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --cr-go-on: #0f1a10; } }
 :root[data-theme="dark"] { --cr-go-on: #0f1a10; }
 .btn.cr-go { background: var(--cr-go-bg); border-color: var(--cr-go-bg); color: var(--cr-go-on); font-weight: 700; text-decoration: none; }

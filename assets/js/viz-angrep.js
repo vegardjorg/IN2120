@@ -112,10 +112,26 @@
       ]);
       det.appendChild(nav);
     }
-    wrap.appendChild(el("div", { class: "an-tl-scroll" }, [ol]));
+    // Uttoningshint når tidslinja er bredere enn plassen (vises bare når den faktisk scroller)
+    var scr = el("div", { class: "an-tl-scroll" }, [ol]);
+    var sveip = el("p", { class: "small muted an-tl-sveip", hidden: true, text: "Sveip sidelengs for flere stadier." });
+    function fade() {
+      var max = scr.scrollWidth - scr.clientWidth;
+      var kan = max > 2;
+      scr.classList.toggle("an-fade-r", kan && scr.scrollLeft < max - 2);
+      scr.classList.toggle("an-fade-l", kan && scr.scrollLeft > 2);
+      sveip.hidden = !kan;
+    }
+    scr.addEventListener("scroll", fade, { passive: true });
+    window.addEventListener("resize", fade);
+    wrap.appendChild(scr);
+    wrap.appendChild(sveip);
     wrap.appendChild(det);
     host.appendChild(wrap);
     set(0);
+    fade();
+    // Fanen kan være skjult ved oppstart (bredde 0): sjekk på nytt når tidslinja blir synlig
+    if (window.ResizeObserver) new ResizeObserver(fade).observe(scr);
     return { set: set };
   };
 
@@ -341,7 +357,7 @@
       { id: "rap", html: "Rapport", forklaring: "Et eget, siste stadium: funn, alvorlighet og tiltak. Rapporten er det kunden betaler for." }
     ],
     answer: ["plan", "rek", "innl", "utv", "fot", "gev", "rap"],
-    oppsummering: "Huskeregel: avtale → finn ut → kom inn → få mer → bli værende → vis det → skriv det. Klikk på stadiene under for hva forsvareren kan gjøre i hvert av dem.",
+    oppsummering: "Huskeregel: avtale → finn ut → kom inn → få mer → bli værende → vis det → skriv det. Trykk på stadiene under for hva forsvareren kan gjøre i hvert av dem.",
     kilde: { ref: "Forelesning om pentesting (d05), lysark 16", egneOrd: true }
   };
   A.faserSort = function (host) { return IN.sortTask(host, D.faserSort, { instant: false }); };

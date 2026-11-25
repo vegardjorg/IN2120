@@ -6,10 +6,10 @@
   <title>Blokk 6 · Risiko og styring · IN2120</title>
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261125n">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -51,6 +51,10 @@
         </ul></div>
       <div id="ex-styring"></div>
 
+      <h4>CMMI-trappen</h4>
+      <div class="rk-hva"><b>Hva du skal gjøre:</b> sett nivåene i rekkefølge, og trykk «Sjekk svar». Forklaringen per brikke viser hvor Smuldre står.</div>
+      <div id="viz-cmmi"></div>
+
       <h4>Eksempel: Smuldre Bakeri får et ISMS</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         Smuldre har 12 ansatte, tre utsalg, en nettbutikk, kasse- og ordresystem i sky, et kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken.
@@ -60,10 +64,6 @@
           <li>Ledelsen går gjennom hendelsesloggen og risikovurderingen hvert halvår.</li>
         </ul>
         I dag er bakeriet på CMMI-nivå 1 fordi tiltakene er tilfeldige. Med policy og ledelsesforankring kommer det til nivå 3, og med helhetlig, målt risikostyring til nivå 4.</div>
-
-      <h4>CMMI-trappen</h4>
-      <p class="small muted">Sett nivåene i rekkefølge, og trykk «Sjekk svar». Forklaringen per brikke viser hvor Smuldre står.</p>
-      <div id="viz-cmmi"></div>
 
       <h4>Dokumenthierarkiet</h4>
       <p class="small">Fra det mest overordnede til det mest konkrete (ism s. 35), med eksempler fra Smuldre:</p>
@@ -155,6 +155,7 @@
         </ul></div>
 
       <h4>Øv i Inspera-format</h4>
+      <div class="rk-hva"><b>Hva du skal gjøre:</b> to oppgaver som på eksamen, hver med egen tittel. Svar og sjekk dem hver for seg. Først hvilken standard, så hvor i PDCA.</div>
       <div id="ov-iso"></div>
       <div id="ov-pdca"></div>
       <h4>Test deg selv</h4>
@@ -341,7 +342,13 @@
       <h3>Risikostyringsprosessen og behandling av risiko</h3>
       <p class="rk-hull">Bygger på ukesoppgave t06 og eksamensfigurene, ikke på et 2026-lysark.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
-        Prosessen etter ISO 27005, slik eksamensfiguren viser den:
+        Prosessen etter ISO 27005, slik eksamensfiguren viser den, har fire hovedsteg og to beslutningspunkter.
+        «Nei» i et beslutningspunkt sender prosessen tilbake. Rekkefølgen står under øvingen.</div>
+
+      <h4>Sett sammen prosessen</h4>
+      <div id="viz-prosess"></div>
+      <div class="callout begrep"><span class="lbl">Fasit</span>
+        Rekkefølgen etter ISO 27005:
         <ol>
           <li><b>Kontekstetablering</b>: planlegging, risikokriterier (akseptgrense) og valg av risikoeier.</li>
           <li><b>Risikovurdering (ROS)</b>: identifisering → analyse → evaluering.</li>
@@ -350,11 +357,8 @@
           <li><b>Beslutningspunkt 2</b>: er planen akseptabel?</li>
           <li><b>Implementer sikkerhetstiltak</b>.</li>
         </ol>
-        «Nei» i et beslutningspunkt sender prosessen tilbake.</div>
+      </div>
       <div id="ex-prosess"></div>
-
-      <h4>Sett sammen prosessen</h4>
-      <div id="viz-prosess"></div>
       <details class="rk-fig"><summary>Fasitfiguren: klikk en boks eller en rombe</summary>
         <div id="viz-prosess-fig"></div>
       </details>
@@ -390,6 +394,7 @@
         </ul></div>
 
       <h4>Øv i Inspera-format</h4>
+      <div class="rk-hva"><b>Hva du skal gjøre:</b> to oppgaver som på eksamen, hver med egen tittel. Svar og sjekk dem hver for seg. Først hvilket beslutningspunkt som sier «Nei», så boksene i prosessfiguren.</div>
       <div id="ov-prosess"></div>
       <div id="ov-prosess-d"></div>
       <h4>Test deg selv</h4>
@@ -404,16 +409,17 @@
       <p class="rk-hull">Det finnes ikke noe 2026-lysark for sikker utvikling. Fanen bygger på eksamenssettene H2021, H2022 og H2025. Eksamensforelesningen sier at det kan komme spørsmål fra bokstoff som ikke er forelest.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Innebygd informasjonssikkerhet</b>: sikkerhet i hele livssyklusen til programvaren, i <b>7 faser</b>: opplæring → krav → design → koding → test → produksjonssetting → forvaltning (H2021 9.1, H2022 4.1).</li>
+          <li><b>Innebygd informasjonssikkerhet</b>: sikkerhet i hele livssyklusen til programvaren, i <b>7 faser</b> (H2021 9.1, H2022 4.1). Rekkefølgen står under øvingene om livssyklusen.</li>
           <li><b>STRIDE</b>: sjekkliste for trusselmodellering. Spoofing, Tampering, Repudiation, Information disclosure, Denial of service og Elevation of privilege.</li>
           <li><b>OWASP Top 10</b>: rangerer de ti mest kritiske sikkerhetsrisikoene for nettapplikasjoner og gir råd om tiltak. Siste utgave kom i november 2025 (H2025 32).</li>
         </ul></div>
-      <div id="ex-utvikling"></div>
 
       <h4>Livssyklusen</h4>
       <div id="viz-livssyklus"></div>
       <h4>Aktivitet til fase</h4>
       <div id="viz-livssyklus-akt"></div>
+      <p class="small"><b>Fasit, livssyklusen:</b> opplæring → krav → design → koding → test → produksjonssetting → forvaltning (H2021 9.1, H2022 4.1).</p>
+      <div id="ex-utvikling"></div>
 
       <h4>STRIDE: trussel og brutt mål</h4>
       <div class="table-wrap"><table>
@@ -477,6 +483,7 @@
         </ul></div>
 
       <h4>Øv i Inspera-format</h4>
+      <div class="rk-hva"><b>Hva du skal gjøre:</b> to oppgaver som på eksamen, hver med egen tittel. Svar og sjekk dem hver for seg. Først nedtrekk om STRIDE, OWASP og faser, så en fritekst om hele STRIDE som du vurderer selv.</div>
       <div id="ov-utvikling"></div>
       <div id="ov-utvikling-fri"></div>
       <h4>Test deg selv</h4>
@@ -495,21 +502,21 @@
 
   <footer class="footer">IN2120-guide · Blokk 6 · Risiko og styring · <a href="07-autentisering.html">Neste: blokk 7, autentisering</a></footer>
 
-  <script src="assets/js/core.js?v=20261125f"></script>
-  <script src="assets/js/symboler.js?v=20261125f"></script>
-  <script src="assets/js/pseudocode.js?v=20261125f"></script>
-  <script src="assets/js/stepplayer.js?v=20261125f"></script>
-  <script src="assets/js/varline.js?v=20261125f"></script>
-  <script src="assets/js/inspera.js?v=20261125f"></script>
-  <script src="assets/js/dra.js?v=20261125f"></script>
-  <script src="assets/js/ovelse.js?v=20261125f"></script>
-  <script src="assets/js/bank.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
-  <script src="assets/js/viz-risiko.js?v=20261125f"></script>
+  <script src="assets/js/core.js?v=20261125n"></script>
+  <script src="assets/js/symboler.js?v=20261125n"></script>
+  <script src="assets/js/pseudocode.js?v=20261125n"></script>
+  <script src="assets/js/stepplayer.js?v=20261125n"></script>
+  <script src="assets/js/varline.js?v=20261125n"></script>
+  <script src="assets/js/inspera.js?v=20261125n"></script>
+  <script src="assets/js/dra.js?v=20261125n"></script>
+  <script src="assets/js/ovelse.js?v=20261125n"></script>
+  <script src="assets/js/bank.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
+  <script src="assets/js/viz-risiko.js?v=20261125n"></script>
   <script>
   (function () {
     "use strict";
@@ -580,19 +587,19 @@
     var R05 = function (maks) { return { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: maks }; };
     var T05 = function (maks) { return "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks " + maks + "; minimum 0."; };
     var OV = {
-      "ov-styring": { key: "ov-risiko-1", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+      "ov-styring": { title: "Forsvarlig nivå eller samsvar?", key: "ov-risiko-1", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["Forsvarlig nivå", "Samsvar"], multi: false, rader: [
           { s: "Bakeriets risikovurdering sier at løsepengevirus må ned til akseptabelt nivå", svar: [0], explain: "<p>Et krav fra risikovurderingen er oppfylt når risikoen er forsvarlig.</p>" },
           { s: "Personopplysningsloven krever varsling av brudd innen 72 timer", svar: [1], explain: "<p>Et lovkrav er oppfylt ved samsvar.</p>" },
           { s: "Leverandøren av betalingsterminaler krever et bestemt oppsett i kontrakten", svar: [1], explain: "<p>Et kontraktskrav måles også i samsvar.</p>" },
           { s: "Ledelsen vil at risikoen for nedetid i julen skal være akseptabel", svar: [0], explain: "<p>Et risikobasert mål vurderes som forsvarlig nivå.</p>" } ] } },
-      "ov-iso": { key: "ov-risiko-2", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+      "ov-iso": { title: "Hvilken ISO-standard?", key: "ov-risiko-2", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["27000", "27001", "27002", "27005"], multi: false, rader: [
           { s: "Bakeriet skal sertifiseres og trenger kravene", svar: [1], explain: "<p>Krav og sertifisering hører til 27001.</p>" },
           { s: "Bakeriet leter etter et tiltak for sikkerhetskopiering", svar: [2], explain: "<p>Tiltak finner man i tiltaksbanken 27002.</p>" },
           { s: "Bakeriet vil vite hvordan risikovurderingen bør legges opp", svar: [3], explain: "<p>Risikostyring hører til 27005.</p>" },
           { s: "Bakeriet trenger definisjonen av «informasjonssikkerhetshendelse»", svar: [0], explain: "<p>Begreper og oversikt står i 27000.</p>" } ] } },
-      "ov-pdca": { key: "ov-risiko-3", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
+      "ov-pdca": { title: "ISMS i PDCA", key: "ov-risiko-3", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
         kolonner: ["Plan", "Do", "Check", "Act"], multi: false, rader: [
           { s: "Smuldre bestemmer hvem som har ansvar for sikkerheten (kap. 5 Ledelse)", svar: [0], explain: "<p>Kapittel 4–7 er Plan: å etablere ISMS-et.</p>" },
           { s: "Smuldre sørger for opplæring og ressurser (kap. 7 Støtte)", svar: [0], explain: "<p>Støtte er siste kapittel i Plan.</p>" },
@@ -600,13 +607,13 @@
           { s: "Smuldre driver kassene og backupen etter rutinene (kap. 8 Drift)", svar: [1], explain: "<p>Drift er Do.</p>" },
           { s: "Den årlige internrevisjonen (kap. 9)", svar: [2], explain: "<p>Evaluering er Check.</p>" },
           { s: "Avvikene fra revisjonen rettes (kap. 10)", svar: [3], explain: "<p>Forbedring er Act.</p>" } ] } },
-      "ov-rammeverk": { key: "ov-risiko-4", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+      "ov-rammeverk": { title: "NSM eller NIST CSF 2.0?", key: "ov-risiko-4", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["NSM", "NIST CSF 2.0", "begge", "ingen"], multi: false, rader: [
           { s: "Har en egen funksjon for styring (GOVERN)", svar: [1], explain: "<p>GOVERN er ny i CSF 2.0. NSM dekker styring i en egen veileder, ikke som kategori.</p>" },
           { s: "Er gratis tilgjengelig", svar: [2], explain: "<p>Begge publiseres gratis.</p>" },
           { s: "Har fire kategorier", svar: [0], explain: "<p>NSM har 4 kategorier. NIST har 6 funksjoner.</p>" },
           { s: "Kan man sertifiseres mot", svar: [3], explain: "<p>Ingen av dem er sertifiseringsstandarder. Det er ISO 27001.</p>" } ] } },
-      "ov-begreper": { key: "ov-risiko-5", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
+      "ov-begreper": { title: "Verdi, trussel, sårbarhet …", key: "ov-risiko-5", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
         kolonner: ["Verdi", "Trussel", "Sårbarhet", "Hendelse", "Konsekvens", "Risiko"], multi: false, rader: [
           { s: "Kunderegisteret med 4 000 e-postadresser", svar: [0], explain: "<p>Har krav til konfidensialitet, altså en verdi.</p>" },
           { s: "En svindler som sender falske fakturaer", svar: [1], explain: "<p>Skadelig aktivitet som kan utnytte en svakhet.</p>" },
@@ -614,7 +621,7 @@
           { s: "Kassasystemet er kryptert og utilgjengelig", svar: [3], explain: "<p>Brudd på tilgjengelighet er en hendelse.</p>" },
           { s: "Bakeriet taper julesalget fordi nettbutikken er nede", svar: [4], explain: "<p>Skaden som følger av hendelsen, er en konsekvens.</p>" },
           { s: "Løsepengevirus kan utnytte en upatchet kasse-PC og stanse salget", svar: [5], explain: "<p>Kombinasjonen av trussel, sårbarhet og verdi er en risiko.</p>" } ] } },
-      "ov-vurdering": { key: "ov-risiko-6", points: 4, inspera: { type: "N", regelTekst: "Poeng: 1 for riktig. 0 for feil eller ubesvart, maks 4, minimum 0.",
+      "ov-vurdering": { title: "Regn ut risiko og ROI", key: "ov-risiko-6", points: 4, inspera: { type: "N", regelTekst: "Poeng: 1 for riktig. 0 for feil eller ubesvart, maks 4, minimum 0.",
         regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
         tekst: "<p>Nettbutikken går ned i gjennomsnitt hvert femte år. Hver gang taper bakeriet 300 000 i salg og bruker 100 000 på gjenoppretting. Sannsynlighet: {0}. Konsekvens: {1}. Risiko per år: {2}. Et tiltak til 20 000 reduserer risikoen med 60 000. ROI: {3}.</p>",
         felt: [
@@ -622,13 +629,13 @@
           { etikett: "Konsekvens", valg: ["300000", "100000", "400000", "200000"], svar: 2, explain: "<p>Kvantitativt summeres aspektene: 300 000 + 100 000.</p>" },
           { etikett: "Risiko", valg: ["80000", "2000000", "400000", "60000"], svar: 0, explain: "<p>0,2 × 400 000 = 80 000 kr per år.</p>" },
           { etikett: "ROI", valg: ["3", "2", "0.33", "40000"], svar: 1, explain: "<p>(60 000 − 20 000) / 20 000 = 2.</p>" } ] } },
-      "ov-prosess": { key: "ov-risiko-7", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+      "ov-prosess": { title: "Hva er galt i risikovurderingen?", key: "ov-risiko-7", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["Punkt 1", "Punkt 2"], multi: false, rader: [
           { s: "Alle fem risikoene fikk nivå 6", svar: [0], explain: "<p>Dårlig spredning gjør vurderingen meningsløs. Kalibrer på nytt.</p>" },
           { s: "Ledelsen synes tiltakene koster mer enn de sparer", svar: [1], explain: "<p>Det gjelder planen og budsjettet.</p>" },
           { s: "Ingen vet hvor ofte løsepengevirus rammer bakerier", svar: [0], explain: "<p>Uvisshet i anslagene. Skaff mer informasjon.</p>" },
           { s: "Planen lar tre høye risikoer stå uten tiltak", svar: [1], explain: "<p>For høy restrisiko i planen.</p>" } ] } },
-      "ov-prosess-d": { key: "ov-risiko-8", points: 3.5, inspera: { type: "D", regelTekst: "Poeng: 0,5 for hver riktig boks. 0 for feil eller ubesvart, maks 3,5, minimum 0.",
+      "ov-prosess-d": { title: "Fyll inn prosessfiguren", key: "ov-risiko-8", points: 3.5, inspera: { type: "D", regelTekst: "Poeng: 0,5 for hver riktig boks. 0 for feil eller ubesvart, maks 3,5, minimum 0.",
         regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 3.5 },
         bank: ["Kontekstetablering", "Bestem risikoeier", "Risikovurdering (ROS)", "Risikoanalyse", "Risikohåndteringsplan", "Aksepter risiko", "Implementer sikkerhetstiltak"],
         tekst: null,
@@ -640,7 +647,7 @@
           { etikett: "Venstre kolonne, etter beslutningspunkt 1", svar: 4, explain: "<p>Etter et «Ja» i punkt 1 lages planen.</p>" },
           { etikett: "Underboks til høyre for planen", svar: 5, explain: "<p>Å akseptere risiko er en del av planen.</p>" },
           { etikett: "Venstre kolonne, nederst (etter punkt 2)", svar: 6, explain: "<p>Til slutt innføres tiltakene.</p>" } ] } },
-      "ov-utvikling": { key: "ov-risiko-9", points: 2, inspera: { type: "N", regelTekst: "Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.",
+      "ov-utvikling": { title: "STRIDE, OWASP og fase", key: "ov-risiko-9", points: 2, inspera: { type: "N", regelTekst: "Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.",
         regel: R05(2),
         tekst: "<p>En student endrer beløpet i påfyllingskallet til Kantinekortet. I STRIDE er dette {0}, og det bryter {1}. En vanlig bruker åpner adminsiden ved å skrive adressen direkte. I OWASP Top 10:2021 er dette {2}. Statisk analyse av API-koden hører til fasen {3}.</p>",
         felt: [
@@ -648,7 +655,7 @@
           { etikett: "Mål", valg: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], svar: 1, explain: "<p>Tukling bryter integritet.</p>" },
           { etikett: "OWASP", valg: ["1. Brudd på tilgangskontroll", "3. Injeksjon", "5. Feilkonfigurert sikkerhet", "10. SSRF"], svar: 0, explain: "<p>Tjeneren sjekker ikke rollen. Det er brudd på tilgangskontroll.</p>" },
           { etikett: "Fase", valg: ["Krav", "Design", "Koding", "Test"], svar: 2, explain: "<p>Statisk analyse og kodegjennomgang hører til koding.</p>" } ] } },
-      "ov-utvikling-fri": { key: "ov-risiko-10", points: 6, inspera: { type: "E", regelTekst: "Rettes etter skjønn. 0,5 p for en trussel som passer bokstaven og 0,5 p for riktig brutt mål, maks 6.",
+      "ov-utvikling-fri": { title: "STRIDE for nettbutikken (fritekst)", key: "ov-risiko-10", points: 6, inspera: { type: "E", regelTekst: "Rettes etter skjønn. 0,5 p for en trussel som passer bokstaven og 0,5 p for riktig brutt mål, maks 6.",
         regel: { riktig: 0, feil: 0, blankt: 0, min: 0, maks: 6 },
         deler: [{ del: "", poeng: 6, grense: "seks linjer",
           sporsmal: "<p>Smuldre Bakeri lager en ny nettbutikk: kundene logger inn og bestiller, butikksjefen har en adminside, og betalingen går via en leverandør. Gå gjennom STRIDE. For hver bokstav: beskriv én konkret trussel mot nettbutikken og hvilket sikkerhetsmål den bryter.</p>" }],

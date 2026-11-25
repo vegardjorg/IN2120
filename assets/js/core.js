@@ -1702,8 +1702,43 @@
     document.body.classList.add("has-crash-ret");
   }
 
+  /* ---------- «Husk»-lister (fra IN2010, F1b) ----------
+     Tre eller flere callouts rett etter hverandre blir én nøytral liste med små merkelapper.
+     Alt innhold beholdes: merkelappen blir en liten etikett + uthevet tittel, teksten står uendret. */
+  var HUSK_T = { felle: "Felle", sensor: "Sensor", begrep: "Begrep", snarvei: "Eksamen", uni: "Teknisk", eli5: "5-åring", eksempel: "Eksempel" };
+  var HUSK_STRIP = /^(vanlig\s+felle|felle|universitetsnivå|teknisk|snarvei på eksamen|snarvei|vårt råd|eksempel|5-åring|som for en 5-åring)\s*[:·–-]?\s*/i;
+  IN.huskLists = function (root) {
+    var seen = [];
+    qsa(".callout", root || document).forEach(function (c) {
+      if (seen.indexOf(c) >= 0 || c.closest(".examtask, .husk, .et-card")) return;
+      var run = [c], n = c.nextElementSibling;
+      while (n && n.classList.contains("callout")) { run.push(n); n = n.nextElementSibling; }
+      run.forEach(function (x) { seen.push(x); });
+      // Bare korte, rene tekstcallouts: et eksempel med tabell, figur eller widget skal stå for seg selv.
+      var foldable = function (x) { return !x.querySelector("table, pre, figure, svg, canvas, button, input, ol, ul, [id^='viz'], [data-viz]") && x.textContent.length < 420; };
+      if (run.length < 3 || !run.every(foldable)) return;
+      var ul = el("ul");
+      run.forEach(function (x) {
+        var kind = Object.keys(HUSK_T).filter(function (k) { return x.classList.contains(k); })[0] || "eksempel";
+        var li = el("li", { class: kind });
+        if (x.id) li.id = x.id;
+        var lbl = x.querySelector(":scope > .lbl");
+        var title = lbl ? lbl.textContent.replace(HUSK_STRIP, "").trim() : "";
+        if (lbl) lbl.parentNode.removeChild(lbl);
+        li.appendChild(el("span", { class: "t " + (kind === "snarvei" ? "raad" : kind), text: HUSK_T[kind] }));
+        if (title) li.appendChild(el("b", { text: title.charAt(0).toUpperCase() + title.slice(1) + (/[.?!:]$/.test(title) ? " " : ". ") }));
+        while (x.firstChild) li.appendChild(x.firstChild);
+        ul.appendChild(li);
+      });
+      var box = el("div", { class: "husk" }, [el("h4", { text: "Husk" }), ul]);
+      c.parentNode.insertBefore(box, c);
+      run.forEach(function (x) { x.parentNode.removeChild(x); });
+    });
+  };
+
   /* ---------- Oppstart ---------- */
   function boot() {
+    IN.huskLists(document);
     buildNav();
     buildLevelBar();
     IN.tabs(document);

@@ -280,11 +280,16 @@
     var extra = null;
     if (spec.render) { extra = el("div", { class: "dra-extra" }); try { spec.render(extra); } catch (e) { if (window.console) console.error("[dra] render", e); } }
     var hintId = uid + "-hint";
-    var hint = el("p", { class: "dra-hint", id: hintId, text: mode === "sort"
-      ? "Trykk på en linje og så på plassen den skal til, eller dra i ☰. Tastatur: Mellomrom løfter, ↑/↓ flytter, Mellomrom slipper, Esc angrer. Alt+↑/↓ flytter direkte."
-      : mode === "match"
-        ? "Trykk på en brikke og så på plassen den hører til, eller dra i ☰. Tastatur: Mellomrom velger, piltastene velger plass, Mellomrom slipper, Esc angrer."
-        : "Trykk på en brikke og så på bøtta den hører til, eller dra i ☰. Tastatur: Mellomrom velger, piltastene velger bøtte, Mellomrom slipper, Esc angrer." });
+    // M6: én linje for trykk, én for tastatur. Tastaturlinja vises bare med (pointer: fine), se STIL nederst.
+    var hint = el("div", { class: "dra-hint", id: hintId }, [
+      el("span", { class: "dra-hint-t", text: mode === "sort"
+        ? "Trykk på en linje, så på plassen den skal flyttes til. Du kan også dra i ☰."
+        : mode === "match"
+          ? "Trykk på en brikke, så på plassen. Du kan også dra i ☰."
+          : "Trykk på en brikke, så på bøtta. Du kan også dra i ☰." }),
+      el("span", { class: "dra-hint-k", text: mode === "sort"
+        ? "Tastatur: Mellomrom løfter, ↑/↓ flytter, Mellomrom slipper, Esc angrer. Alt+↑/↓ flytter direkte."
+        : "Tastatur: Mellomrom velger, piltastene velger " + (mode === "match" ? "plass" : "bøtte") + ", Mellomrom slipper, Esc angrer." })]);
     var board = el("div", { class: "dra-board" });
 
     /* ---- Brikker ---- */
@@ -380,7 +385,47 @@
       });
       if (refs.some(function (r) { return r.egneOrd; })) fnEl = el("p", { class: "qz-kilde-fn", text: "* formulert med egne ord" });
     }
-    [head, promptEl, regelEl, extra, hint, board, foot, res, expHead, expList, kildeEl, fnEl, live].forEach(function (x) { if (x) wrap.appendChild(x); });
+    /* ---- M7: klebrig linje nederst når en brikke er valgt og bøttene er utenfor skjermen ---- */
+    var quick = null, quickT = null, quickB = null, quickRaf = null;
+    if (mode !== "sort") {
+      quickT = el("p", { class: "dra-quick-t" });
+      quickB = el("div", { class: "dra-quick-b" });
+      quick = el("div", { class: "dra-quick", role: "group", "aria-label": "Velg " + (mode === "match" ? "plass" : "bøtte"), hidden: true }, [quickT, quickB]);
+      ns.zones.forEach(function (z) {
+        var qb = el("button", { class: "btn sm", type: "button", "data-qz": z.id, html: pick(z.label) });
+        qb.addEventListener("click", function () { onZoneClick(z.id); });
+        quickB.appendChild(qb);
+      });
+      var qx = el("button", { class: "btn sm dra-quick-x", type: "button", text: "✕ Angre valget", onclick: function () { deselect("Valget er angret."); } });
+      quickB.appendChild(qx);
+    }
+    function zonesVisible() {
+      var h = window.innerHeight || document.documentElement.clientHeight;
+      return ns.zones.some(function (z) {
+        var r = zoneEls[z.id]._btn.getBoundingClientRect();
+        return r.height > 0 && r.top >= 0 && r.bottom <= h;
+      });
+    }
+    function paintQuick() {
+      if (!quick) return;
+      var on = !!sel && !locked() && !(drag && drag.on) && wrap.isConnected && !zonesVisible();
+      if (on) {
+        quickT.innerHTML = "";
+        quickT.appendChild(el("b", { text: "Valgt: " }));
+        quickT.appendChild(document.createTextNode(itemText(sel) + " →"));
+        Array.prototype.forEach.call(quickB.children, function (b) {
+          var z = b.getAttribute("data-qz");
+          if (z) b.classList.toggle("primary", st.place[sel] === z);
+        });
+      }
+      quick.hidden = !on;
+    }
+    function onScrollQuick() {
+      if (!quick || quickRaf) return;
+      quickRaf = window.requestAnimationFrame(function () { quickRaf = null; paintQuick(); });
+    }
+
+    [head, promptEl, regelEl, extra, hint, board, foot, res, expHead, expList, kildeEl, fnEl, quick, live].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap);
 
     /* ---------------- Tegning ---------------- */
@@ -468,6 +513,7 @@
       score.innerHTML = scoreHtml(counts());
       bCheck.disabled = locked();
       bReset.disabled = false;
+      paintQuick();
     }
 
     /* ---------------- Handlinger ---------------- */
@@ -499,7 +545,7 @@
       } else { kb = null; target = null; }
       paint();
       say(itemText(id) + " valgt. " + (mode === "sort"
-        ? (viaKb ? "Flytt med pil opp og ned, slipp med Mellomrom." : "Trykk på linja den skal bytte plass med.")
+        ? (viaKb ? "Flytt med pil opp og ned, slipp med Mellomrom." : "Trykk på plassen den skal flyttes til.")
         : (viaKb ? "Velg " + (mode === "match" ? "plass" : "bøtte") + " med piltastene, slipp med Mellomrom." : "Trykk på " + (mode === "match" ? "plassen." : "en bøtte."))));
     }
     function deselect(msg) {
@@ -761,8 +807,10 @@
     document.addEventListener("in:svar-straks", onPref);
     document.addEventListener("keydown", onDocKey);
     window.addEventListener("in:level", onLevel);
+    if (quick) { window.addEventListener("scroll", onScrollQuick, { passive: true }); window.addEventListener("resize", onScrollQuick); }
     host._draOff = function () {
       dead = true;
+      if (quick) { window.removeEventListener("scroll", onScrollQuick); window.removeEventListener("resize", onScrollQuick); quick.hidden = true; }
       document.removeEventListener("in:svar-straks", onPref);
       document.removeEventListener("keydown", onDocKey);
       window.removeEventListener("in:level", onLevel);
@@ -780,6 +828,24 @@
       move: function (id, idx) { if (mode === "sort") moveSort(String(id), idx); }
     };
   };
+
+  /* Stil som hører til M6/M7 (tastaturlinja og den klebrige bøttelinja). Legges inn én gang, så
+     dra.js virker uten endring i ovelse.css. Kan flyttes dit senere. */
+  var STIL = ".dra-hint>span{display:block}.dra-hint-k{display:none!important}" +
+    "@media (pointer:fine){.dra-hint-k{display:block!important}}" +
+    ".dra-quick{position:fixed;left:0;right:0;bottom:0;z-index:900;max-height:45vh;overflow-y:auto;box-sizing:border-box;" +
+    "padding:.5rem 16px calc(.5rem + env(safe-area-inset-bottom,0px));background:var(--color-surface-container-high,var(--color-surface,#fff));" +
+    "color:var(--color-on-surface);border-top:1px solid var(--color-outline-variant);box-shadow:var(--elevation,0 -2px 8px rgba(0,0,0,.2));font-size:var(--text-sm)}" +
+    ".dra-quick[hidden]{display:none}.dra-quick-t{margin:0 0 .35rem;overflow-wrap:anywhere}" +
+    ".dra-quick-b{display:flex;flex-wrap:wrap;gap:.35rem}.dra-quick-b .btn{min-height:44px;text-align:left;white-space:normal}";
+  function stil() {
+    if (typeof document === "undefined" || document.getElementById("dra-js-stil")) return;
+    var s = document.createElement("style");
+    s.id = "dra-js-stil"; s.textContent = STIL;
+    (document.head || document.documentElement).appendChild(s);
+  }
+  var _dragTask = IN.dragTask;
+  IN.dragTask = function (host, spec, opts) { stil(); return _dragTask(host, spec, opts); };
 
   IN.sortTask = function (host, spec, opts) { spec = spec || {}; spec.mode = "sort"; return IN.dragTask(host, spec, opts); };
   IN.bucketTask = function (host, spec, opts) { spec = spec || {}; spec.mode = "bucket"; return IN.dragTask(host, spec, opts); };

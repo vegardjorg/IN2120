@@ -8,11 +8,11 @@
    IN.vizCyber.aktorer(host)     tre aktørkort (motivasjon, ressurser, evne) og hendelser som skal klassifiseres
    IN.vizCyber.sporing(host)     kjeden Aktør → VPN → VPS 1 → VPS 2 → Mål, «hva ser du herfra?» og et
                                  forenklet TLS-fingeravtrykk (JA3/JA4-idéen)
-   IN.vizCyber.killchain(host)   sju trinn i trapp, plasser hendelser (justert skåring som H2021-10.1),
+   IN.vizCyber.killchain(host)   plasser hendelser på de sju trinnene (IN.matchTask, justert skåring som H2021-10.1),
                                  «Knert her» og ATT&CK-taktikk som bryter
-   IN.vizCyber.cti(host)         CTI-pyramiden, DML-trappa, levetidsglider og kort som skal plasseres
+   IN.vizCyber.cti(host)         CTI-pyramiden, DML-trappa, levetidsglider og kort som skal plasseres (IN.bucketTask)
    IN.vizCyber.operasjoner(host) mengdediagram: informasjonsoperasjoner ⊃ cyberoperasjoner
-   IN.vizCyber.kiRinger(host)    KI ⊃ ML ⊃ DL ⊃ GenKI som klikkbare ringer
+   IN.vizCyber.kiRinger(host)    KI ⊃ ML ⊃ DL ⊃ GenKI som trykkbare ringer
    IN.vizCyber.kiIds(host)       netflow-glidere → lite nevralt nett → klassifisering eller autoenkoder
    IN.vizCyber.kiAngrep(host)    trening/inferens-figuren der angrepskort plasseres
    IN.vizCyber.injeksjon(host)   prompt injection i fire steg (IN.stepPlayer), med og uten bekreftelse
@@ -52,126 +52,27 @@
     function h(s) { var x = 7; for (var i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) % 9973; return x; }
     return arr.slice().sort(function (a, b) { return h(a.id + a.text) - h(b.id + b.text); });
   }
-  function inneholder(svar, v) { return [].concat(svar).indexOf(v) >= 0; }
+  function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
   /* ============================================================
-     Felles: plassér kort (klikk kort → klikk sted, eller dra og slipp)
-     cfg = { pool, status, cards:[{id,text,ans,why}], targets:[{id,navn,el,list,max}], onChange }
+     Felles: plasseringsøvingene bruker dra.js (IN.bucketTask / IN.matchTask): trykk og plasser,
+     pointer-dra og tastatur. cards = [{id, text, ans, why}] blir brikker i fast stokket rekkefølge,
+     zones = [{id, label, hint}]. Ingen lagring (ingen spec.id), som før.
      ============================================================ */
-  function sorter(cfg) {
-    var sel = null, place = {}, cardEl = {}, tById = {};
-    var pool = cfg.pool, status = cfg.status;
-
-    function say(t) { if (status) status.textContent = t; }
-    function clearMarks() {
-      Object.keys(cardEl).forEach(function (k) { cardEl[k].classList.remove("cy-ok", "cy-feil"); });
-      cfg.targets.forEach(function (t) { t.el.classList.remove("cy-hit"); });
-      if (cfg.onChange) cfg.onChange();
-    }
-    function select(id) {
-      sel = id;
-      Object.keys(cardEl).forEach(function (k) { press(cardEl[k], k === id); });
-      if (cfg.wrap) cfg.wrap.classList.toggle("cy-picking", !!id);
-      if (id) {
-        var c = cfg.cards.filter(function (x) { return x.id === id; })[0];
-        say("Valgt: «" + c.text + "». Klikk på stedet der kortet hører hjemme.");
-      }
-    }
-    function unplace(cid) {
-      delete place[cid];
-      pool.appendChild(cardEl[cid]);
-    }
-    function put(cid, tid) {
-      var t = tById[tid];
-      if (t.max) {
-        var occ = Object.keys(place).filter(function (k) { return place[k] === tid && k !== cid; });
-        while (occ.length >= t.max) unplace(occ.shift());
-      }
-      place[cid] = tid;
-      t.list.appendChild(cardEl[cid]);
-      select(null);
-      say("Lagt på «" + t.navn + "».");
-      clearMarks();
-    }
-    cfg.targets.forEach(function (t) {
-      tById[t.id] = t;
-      var n = t.el;
-      n.classList.add("cy-drop");
-      if (n.tagName !== "BUTTON" && !n.hasAttribute("tabindex")) { n.setAttribute("tabindex", "0"); n.setAttribute("role", "button"); }
-      if (!n.hasAttribute("aria-label")) n.setAttribute("aria-label", "Legg kortet på: " + t.navn);
-      n.addEventListener("click", function (e) {
-        if (e.target.closest && e.target.closest(".cy-card, .cy-nokill")) return;
-        e.stopPropagation();
-        if (sel) put(sel, t.id);
-      });
-      n.addEventListener("keydown", function (e) {
-        if ((e.key === "Enter" || e.key === " ") && e.target === n) { e.preventDefault(); e.stopPropagation(); if (sel) put(sel, t.id); }
-      });
-      n.addEventListener("dragover", function (e) { e.preventDefault(); e.stopPropagation(); n.classList.add("over"); });
-      n.addEventListener("dragleave", function () { n.classList.remove("over"); });
-      n.addEventListener("drop", function (e) {
-        e.preventDefault(); e.stopPropagation(); n.classList.remove("over");
-        var id = ""; try { id = e.dataTransfer.getData("text/plain"); } catch (x) {}
-        if (id && cardEl[id]) put(id, t.id);
-      });
-    });
-    pool.addEventListener("dragover", function (e) { e.preventDefault(); });
-    pool.addEventListener("drop", function (e) {
-      e.preventDefault();
-      var id = ""; try { id = e.dataTransfer.getData("text/plain"); } catch (x) {}
-      if (id && cardEl[id] && place[id] != null) { unplace(id); select(null); clearMarks(); }
-    });
-    stokk(cfg.cards).forEach(function (c) {
-      var b = el("button", { type: "button", class: "cy-card", draggable: "true", "aria-pressed": "false", text: c.text });
-      b.addEventListener("click", function (e) {
-        e.stopPropagation();
-        if (place[c.id] != null) { unplace(c.id); clearMarks(); select(c.id); }
-        else select(sel === c.id ? null : c.id);
-      });
-      b.addEventListener("dragstart", function (e) {
-        try { e.dataTransfer.setData("text/plain", c.id); e.dataTransfer.effectAllowed = "move"; } catch (x) {}
-        select(c.id);
-      });
-      cardEl[c.id] = b; pool.appendChild(b);
-    });
-
-    function check() {
-      var res = { right: 0, wrong: 0, blank: 0, items: [] };
-      clearMarks();
-      cfg.cards.forEach(function (c) {
-        var tid = place[c.id];
-        if (tid == null) { res.blank++; res.items.push({ c: c, tid: null, ok: false }); return; }
-        var ok = inneholder(c.ans, tid);
-        cardEl[c.id].classList.add(ok ? "cy-ok" : "cy-feil");
-        if (ok) { res.right++; tById[tid].el.classList.add("cy-hit"); } else res.wrong++;
-        res.items.push({ c: c, tid: tid, ok: ok });
-      });
-      return res;
-    }
-    function reset() {
-      Object.keys(place).forEach(unplace);
-      select(null); clearMarks(); say("");
-    }
-    return { check: check, reset: reset, put: put, placement: function () { return place; }, target: function (id) { return tById[id]; } };
-  }
-
-  // Tilbakemelding etter «Sjekk»: én linje per kort, med forklaring
-  function feedback(out, res, targets) {
-    clear(out);
-    var navn = {}; targets.forEach(function (t) { navn[t.id] = t.navn; });
-    out.appendChild(el("p", { class: "cy-sum" }, [el("b", { text: res.right + " av " + res.items.length + " riktig" }),
-      res.blank ? " (" + res.blank + " ikke plassert)" : ""]));
-    var ul = el("ul", { class: "cy-fb" });
-    res.items.forEach(function (it) {
-      if (it.tid == null) return;
-      var riktig = [].concat(it.c.ans).map(function (a) { return navn[a]; }).join(" eller ");
-      ul.appendChild(el("li", { class: it.ok ? "ok" : "feil" }, [
-        el("b", { text: (it.ok ? "Riktig: " : "Feil: ") + it.c.text }),
-        it.ok ? " → " + navn[it.tid] + ". " : " Du la det på «" + navn[it.tid] + "», men det hører til «" + riktig + "». ",
-        el("span", { html: it.c.why || "" })
-      ]));
-    });
-    out.appendChild(ul);
+  function draOppg(kind, host, cfg, opts) {
+    var ans = {};
+    cfg.cards.forEach(function (c) { ans[c.id] = c.ans; });
+    var spec = {
+      prompt: cfg.prompt || null,
+      items: stokk(cfg.cards).map(function (c) { return { id: c.id, html: esc(c.text), forklaring: c.why || "" }; }),
+      zones: cfg.zones,
+      answer: ans,
+      poolLabel: cfg.poolLabel || "Ikke plassert"
+    };
+    var o = { instant: false, checkLabel: "Sjekk", cls: cfg.cls || null };
+    if (opts) for (var k in opts) o[k] = opts[k];
+    if (!IN[kind]) { host.appendChild(el("p", { class: "small muted", text: "Øvingen trenger dra.js." })); return null; }
+    return IN[kind](host, spec, o);
   }
 
   /* ============================================================
@@ -228,7 +129,7 @@
 
     function vis(i) {
       cur = i; clear(txt); msg.textContent = ""; wrap.classList.remove("cy-svart");
-      head.textContent = "Hendelse " + (i + 1) + " av " + HEND.length + ". Hvilket nivå passer best? Klikk på et kort.";
+      head.textContent = "Hendelse " + (i + 1) + " av " + HEND.length + ". Hvilket nivå passer best? Trykk på et kort.";
       HEND[i].deler.forEach(function (d) {
         txt.appendChild(typeof d === "string" ? document.createTextNode(d) : el("span", { class: "cy-clue cy-k-" + d.k, "data-k": d.k, text: d.t }));
       });
@@ -379,60 +280,61 @@
     clear(host);
     var knert = -1, attck = false;
     var wrap = el("div", { class: "cy-kc-wrap" });
-    var status = el("p", { class: "small muted cy-status", "aria-live": "polite" });
-    var pool = el("div", { class: "cy-pool", "aria-label": "Hendelser som ikke er plassert" });
-    wrap.appendChild(el("p", { class: "small cy-pool-h", text: "Hendelsene i Grågås-angrepet, i stokket rekkefølge:" }));
-    wrap.appendChild(pool);
-    wrap.appendChild(status);
-
-    var row = el("ol", { class: "cy-kc" });
-    var steps = KC.map(function (k, i) {
-      var list = el("div", { class: "cy-list cy-slot" });
-      var tac = el("span", { class: "cy-kc-attck small", text: "ATT&CK: " + k.attck + (i === 6 ? " (flere taktikker kan passe her)" : "") });
-      var bk = el("button", { type: "button", class: "btn sm cy-nokill", text: "Knert her", "aria-pressed": "false" });
-      bk.addEventListener("click", function (e) { e.stopPropagation(); knert = knert === i ? -1 : i; tegnKnert(); });
-      var li = el("li", { class: "cy-kc-step", style: "--i:" + i }, [
-        el("div", { class: "cy-hex", "aria-hidden": "true" }, [el("span", { class: "cy-hex-n", text: String(i + 1) }), el("span", { class: "cy-hex-t", text: k.no })]),
-        el("span", { class: "cy-kc-en small muted", text: k.en }),
-        tac, list, bk
-      ]);
-      li.setAttribute("aria-label", "Trinn " + (i + 1) + ": " + k.no + ". Legg kortet her.");
-      row.appendChild(li);
-      return { li: li, list: list, bk: bk };
-    });
-    wrap.appendChild(el("div", { class: "cy-scroll" }, row));
+    var bAtt = btn("Vis ATT&CK-taktikk", function () { attck = !attck; press(bAtt, attck); wrap.classList.toggle("cy-attck", attck); }, null, { "aria-pressed": "false" });
+    wrap.appendChild(el("div", { class: "cy-ctl" }, [bAtt]));
+    var taskHost = el("div", { class: "cy-kc-task" });
+    wrap.appendChild(taskHost);
 
     var cards = KC.map(function (k, i) { return { id: "k" + i, text: k.gra, ans: "t" + i, why: k.no + " er trinn " + (i + 1) + "." }; });
-    var targets = steps.map(function (s, i) { return { id: "t" + i, navn: (i + 1) + " " + KC[i].no, el: s.li, list: s.list, max: 1 }; });
-    var out = el("div", { class: "cy-out", "aria-live": "polite" });
-    var S = sorter({ wrap: wrap, pool: pool, status: status, cards: cards, targets: targets, onChange: function () { clear(out); } });
+    var zones = KC.map(function (k, i) {
+      return { id: "t" + i, label: (i + 1) + " " + esc(k.no),
+        hint: esc(k.en) + '<span class="cy-kc-attck"> · ATT&amp;CK: ' + esc(k.attck) + (i === 6 ? " (flere taktikker kan passe her)" : "") + "</span>" };
+    });
+    // Justert skåring som H2021-10.1: lengste sekvens i riktig rekkefølge, 0,5 per trinn, alle sju gir 4.
+    function justert(c) {
+      var at = {};
+      c.detail.forEach(function (d) { if (d.answered) at[d.value] = +String(d.id).slice(1); });
+      var seq = [];
+      for (var i = 0; i < 7; i++) if (at["t" + i] != null) seq.push(at["t" + i]);
+      var L = lis(seq);
+      return { L: L, p: c.right === 7 ? 4 : L * 0.5 };
+    }
+    var task = draOppg("matchTask", taskHost, {
+      prompt: "Hendelsene i Grågås-angrepet står i stokket rekkefølge. Legg hver hendelse på trinnet den hører til.",
+      cards: cards, zones: zones, poolLabel: "Hendelser som ikke er plassert", cls: "cy-kc-dra"
+    }, {
+      checkLabel: "Sjekk plasseringen",
+      result: function (c) {
+        var j = justert(c);
+        return el("p", { class: "cy-sum" }, [
+          el("b", { text: "Justert skåring: " + num(j.p, 1) + " av 4 poeng. " }),
+          "Den lengste sekvensen i riktig rekkefølge har " + j.L + " trinn, og hvert trinn gir 0,5. Feil kort imellom trekker ikke. Alle sju riktige gir 4. Slik rettes ",
+          lenke("H2021-10.1", "H2021 10.1"), "."
+        ]);
+      }
+    });
 
-    var bAtt = btn("Vis ATT&CK-taktikk", function () { attck = !attck; press(bAtt, attck); wrap.classList.toggle("cy-attck", attck); }, null, { "aria-pressed": "false" });
-    wrap.appendChild(el("div", { class: "cy-ctl" }, [
-      btn("Sjekk plasseringen", sjekk, "primary"),
-      btn("↺ Nullstill", function () { S.reset(); clear(out); }),
-      bAtt
-    ]));
-    wrap.appendChild(out);
+    // Knert her: de sju trinnene som en trapp (stablet på mobil)
+    wrap.appendChild(el("h5", { class: "cy-h5", text: "Knert angrepet" }));
+    var row = el("ol", { class: "cy-kc", "aria-label": "De sju trinnene" });
+    var steps = KC.map(function (k, i) {
+      var bk = el("button", { type: "button", class: "btn sm cy-nokill", text: "Knert her", "aria-pressed": "false",
+        "aria-label": "Knert her: trinn " + (i + 1) + ", " + k.no });
+      bk.addEventListener("click", function () { knert = knert === i ? -1 : i; tegnKnert(); });
+      var li = el("li", { class: "cy-kc-step", style: "--i:" + i }, [
+        el("span", { class: "cy-hex", "aria-hidden": "true", text: String(i + 1) }),
+        el("span", { class: "cy-kc-navn" }, [el("b", { text: k.no }), el("span", { class: "cy-kc-en small muted", text: k.en }),
+          el("span", { class: "cy-kc-attck small", text: "ATT&CK: " + k.attck })]),
+        bk
+      ]);
+      row.appendChild(li);
+      return { li: li, bk: bk };
+    });
+    wrap.appendChild(row);
     var kInfo = el("p", { class: "cy-msg cy-knert", "aria-live": "polite" });
     wrap.appendChild(kInfo);
     host.appendChild(wrap);
 
-    function sjekk() {
-      var res = S.check(), place = S.placement();
-      var seq = [];
-      for (var i = 0; i < 7; i++) {
-        var cid = Object.keys(place).filter(function (k) { return place[k] === "t" + i; })[0];
-        if (cid) seq.push(+cid.slice(1));
-      }
-      var L = lis(seq), p = res.right === 7 ? 4 : L * 0.5;
-      feedback(out, res, targets);
-      out.insertBefore(el("p", { class: "cy-sum" }, [
-        el("b", { text: "Justert skåring: " + num(p, 1) + " av 4 poeng. " }),
-        "Den lengste sekvensen i riktig rekkefølge har " + L + " trinn, og hvert trinn gir 0,5. Feil kort imellom trekker ikke. Alle sju riktige gir 4. Slik rettes ",
-        lenke("H2021-10.1", "H2021 10.1"), "."
-      ]), out.firstChild);
-    }
     function tegnKnert() {
       steps.forEach(function (s, i) {
         s.li.classList.toggle("cy-grey", knert >= 0 && i > knert);
@@ -446,7 +348,8 @@
         "Mulig tiltak her: " + KC[knert].knert + " Tiltakene er våre egne eksempler, ikke en liste fra kildene.";
     }
     tegnKnert();
-    return { check: sjekk, reset: S.reset };
+    return { check: task && task.check, reset: task && task.reset, task: task,
+      poeng: function () { return task ? justert(task.counts()).p : 0; } };
   };
 
   /* ============================================================
@@ -476,16 +379,15 @@
     var grid = el("div", { class: "cy-cti-g" });
     var pyr = el("div", { class: "cy-pyr" });
     var lag = CTI.map(function (c, i) {
-      var list = el("div", { class: "cy-list" });
       var life = el("span", { class: "cy-life" }, el("span", { class: "cy-life-bar" }));
       var lifeTxt = el("span", { class: "small muted cy-life-t" });
       var d = el("div", { class: "cy-lag cy-lag-" + c.id, style: "--w:" + (64 + i * 18) + "%" }, [
-        el("b", { text: c.navn }), el("span", { class: "small", text: c.om }), el("span", { class: "cy-life-row" }, [life, lifeTxt]), list
+        el("b", { text: c.navn }), el("span", { class: "small", text: c.om }), el("span", { class: "cy-life-row" }, [life, lifeTxt])
       ]);
       d.addEventListener("focus", function () { mark(i); });
       d.addEventListener("mouseenter", function () { mark(i); });
       pyr.appendChild(d);
-      return { el: d, list: list, bar: life.firstChild, txt: lifeTxt };
+      return { el: d, bar: life.firstChild, txt: lifeTxt };
     });
     grid.appendChild(pyr);
     var lad = el("ol", { class: "cy-dml", reversed: true, "aria-label": "DML-trappa" });
@@ -502,19 +404,13 @@
     wrap.appendChild(el("div", { class: "cy-ctl" }, [el("label", { for: sl.id, class: "small", text: "Uker etter delingen:" }), sl, slTxt]));
     wrap.appendChild(el("p", { class: "small muted", text: "Søylene viser hvor nyttig delt informasjon fortsatt er. Halveringstidene (1 uke, 1 år, 5 år) er illustrative, ikke tall fra kurset." }));
 
-    var status = el("p", { class: "small muted cy-status", "aria-live": "polite" });
-    var pool = el("div", { class: "cy-pool" });
-    wrap.appendChild(el("p", { class: "small cy-pool-h", text: "Hva Fjordnett deler etter angrepet. Legg hvert kort på riktig nivå:" }));
-    wrap.appendChild(pool); wrap.appendChild(status);
-    var targets = CTI.map(function (c, i) { return { id: c.id, navn: c.navn, el: lag[i].el, list: lag[i].list }; });
-    var out = el("div", { class: "cy-out", "aria-live": "polite" });
-    var S = sorter({ wrap: wrap, pool: pool, status: status, cards: CTI_KORT, targets: targets, onChange: function () { clear(out); } });
-    wrap.appendChild(el("div", { class: "cy-ctl" }, [
-      btn("Sjekk", function () { feedback(out, S.check(), targets); }, "primary"),
-      btn("↺ Nullstill", function () { S.reset(); clear(out); })
-    ]));
-    wrap.appendChild(out);
+    var taskHost = el("div", { class: "cy-cti-task" });
+    wrap.appendChild(taskHost);
     host.appendChild(wrap);
+    var task = draOppg("bucketTask", taskHost, {
+      prompt: "Kortene er det Fjordnett deler etter angrepet.",
+      cards: CTI_KORT, zones: CTI.map(function (c) { return { id: c.id, label: esc(c.navn), hint: esc(c.om) }; })
+    });
 
     function mark(i) {
       rungs.forEach(function (r, k) { r.classList.toggle("on", CTI[i].dml.indexOf(k) >= 0); });
@@ -531,7 +427,7 @@
     }
     sl.addEventListener("input", uker);
     uker(); mark(2);
-    return { check: function () { return S.check(); } };
+    return { check: task && task.check, task: task };
   };
 
   /* ============================================================
@@ -581,7 +477,7 @@
       gs.forEach(function (g, i) { g.classList.toggle("cur", OPS[i] === o); });
       msg.innerHTML = "<b>" + o.navn.join(" ") + ":</b> " + o.txt;
     }
-    msg.textContent = "Klikk på en sirkel.";
+    msg.textContent = "Trykk på en sirkel.";
     return { vis: vis };
   };
 
@@ -599,7 +495,7 @@
     clear(host);
     var wrap = el("div", { class: "cy-ring-w" });
     var s = svg("svg", { viewBox: "0 0 320 320", class: "cy-ring-svg", role: "group", "aria-label": "KI, ML, DL og GenKI som ringer inni hverandre" });
-    var msg = el("p", { class: "cy-msg", "aria-live": "polite", text: "Klikk på en ring." });
+    var msg = el("p", { class: "cy-msg", "aria-live": "polite", text: "Trykk på en ring." });
     var gs = RINGER.map(function (r, i) {
       var g = svg("g", { class: "cy-ring cy-ring-" + i, tabindex: "0", role: "button", "aria-label": r.navn });
       g.appendChild(svg("circle", { cx: 160, cy: 160, r: r.r }));
@@ -763,38 +659,33 @@
     host = host$(host); if (!host) return null;
     clear(host);
     var wrap = el("div", { class: "cy-ka" });
-    var status = el("p", { class: "small muted cy-status", "aria-live": "polite" });
-    var pool = el("div", { class: "cy-pool" });
-    wrap.appendChild(el("p", { class: "small cy-pool-h", text: "Seks angrep. Legg hvert kort der det treffer:" }));
-    wrap.appendChild(pool); wrap.appendChild(status);
-
-    var lData = el("div", { class: "cy-list" }), lIn = el("div", { class: "cy-list" }), lKj = el("div", { class: "cy-list" });
-    var nData = el("div", { class: "cy-ka-node cy-ka-t" }, [el("b", { text: "Data" }), el("span", { class: "small muted", text: "treningsdata" }), lData]);
-    var nIn = el("div", { class: "cy-ka-node cy-ka-t" }, [el("b", { text: "Input" }), el("span", { class: "small muted", text: "ved inferens" }), lIn]);
-    var fig = el("div", { class: "cy-ka-fig" }, [
+    var nData = el("div", { class: "cy-ka-node cy-ka-t" }, [el("b", { text: "Data" }), el("span", { class: "small muted", text: "treningsdata" })]);
+    var nIn = el("div", { class: "cy-ka-node cy-ka-t" }, [el("b", { text: "Input" }), el("span", { class: "small muted", text: "ved inferens" })]);
+    var fig = el("div", { class: "cy-ka-fig", role: "img", "aria-label": "Trening: data og modell. Inferens: input, modell og output. Rundt alt: hele leveransekjeden." }, [
       el("div", { class: "cy-ka-ph" }, [el("span", { class: "cy-ka-lbl", text: "Trening" }),
         el("div", { class: "cy-ka-row" }, [nData, el("span", { class: "cy-ka-arr", "aria-hidden": "true", text: "⇄" }), el("div", { class: "cy-ka-node" }, el("b", { text: "Modell" }))])]),
       el("span", { class: "cy-ka-arr cy-ka-mid", "aria-hidden": "true", text: "→ trent modell →" }),
       el("div", { class: "cy-ka-ph" }, [el("span", { class: "cy-ka-lbl", text: "Inferens" }),
         el("div", { class: "cy-ka-row" }, [nIn, el("span", { class: "cy-ka-arr", "aria-hidden": "true", text: "→" }), el("div", { class: "cy-ka-node" }, el("b", { text: "Modell" })),
           el("span", { class: "cy-ka-arr", "aria-hidden": "true", text: "→" }), el("div", { class: "cy-ka-node" }, [el("b", { text: "Output" }), el("span", { class: "small muted", text: "riktig eller feil" })])])]),
-      el("div", { class: "cy-ka-kj" }, [el("span", { class: "small", text: "Hele kjeden (klikk på rammen):" }), lKj])
+      el("div", { class: "cy-ka-kj" }, el("span", { class: "small", text: "Rammen rundt: hele leveransekjeden" }))
     ]);
-    wrap.appendChild(el("div", { class: "cy-scroll" }, fig));
-    var targets = [
-      { id: "data", navn: "Treningsdata", el: nData, list: lData },
-      { id: "input", navn: "Input ved inferens", el: nIn, list: lIn },
-      { id: "kjede", navn: "Hele leveransekjeden", el: fig, list: lKj }
-    ];
-    var out = el("div", { class: "cy-out", "aria-live": "polite" });
-    var S = sorter({ wrap: wrap, pool: pool, status: status, cards: KI_KORT, targets: targets, onChange: function () { clear(out); } });
-    wrap.appendChild(el("div", { class: "cy-ctl" }, [
-      btn("Sjekk", function () { feedback(out, S.check(), targets); }, "primary"),
-      btn("↺ Nullstill", function () { S.reset(); clear(out); })
-    ]));
-    wrap.appendChild(out);
+    wrap.appendChild(fig);
+    var taskHost = el("div", { class: "cy-ka-task" });
+    wrap.appendChild(taskHost);
     host.appendChild(wrap);
-    return { check: function () { return S.check(); } };
+    var task = draOppg("bucketTask", taskHost, {
+      cards: KI_KORT,
+      zones: [{ id: "data", label: "Treningsdata" }, { id: "input", label: "Input ved inferens" }, { id: "kjede", label: "Hele leveransekjeden" }]
+    }, {
+      // Etter «Sjekk» ringes de tre stedene inn i figuren, slik lysarket gjør
+      onCheck: function () { [nData, nIn, fig].forEach(function (n) { n.classList.add("cy-hit"); }); }
+    });
+    // «↺ Nullstill» tar ringene bort igjen
+    taskHost.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest(".qz-foot .btn:not(.primary)")) [nData, nIn, fig].forEach(function (n) { n.classList.remove("cy-hit"); });
+    });
+    return { check: task && task.check, task: task };
   };
 
   /* ============================================================
@@ -905,29 +796,14 @@
     host = host$(host); if (!host) return null;
     clear(host);
     var wrap = el("div", { class: "cy-aia" });
-    var pyr = el("div", { class: "cy-pyr" });
-    var lag = AIA.map(function (a, i) {
-      var list = el("div", { class: "cy-list" });
-      var d = el("div", { class: "cy-lag cy-aia-" + a.id, style: "--w:" + (46 + i * 18) + "%" }, [
-        el("b", { text: a.navn }), el("span", { class: "small", text: a.krav }), list
-      ]);
-      pyr.appendChild(d);
-      return { el: d, list: list };
-    });
-    wrap.appendChild(pyr);
-    var status = el("p", { class: "small muted cy-status", "aria-live": "polite" });
-    var pool = el("div", { class: "cy-pool" });
-    wrap.appendChild(el("p", { class: "small cy-pool-h", text: "Legg hvert KI-system på riktig nivå:" }));
-    wrap.appendChild(pool); wrap.appendChild(status);
-    var targets = AIA.map(function (a, i) { return { id: a.id, navn: a.navn + " (" + a.krav.toLowerCase() + ")", el: lag[i].el, list: lag[i].list }; });
-    var out = el("div", { class: "cy-out", "aria-live": "polite" });
-    var S = sorter({ wrap: wrap, pool: pool, status: status, cards: AIA_KORT, targets: targets, onChange: function () { clear(out); } });
-    wrap.appendChild(el("div", { class: "cy-ctl" }, [
-      btn("Sjekk", function () { feedback(out, S.check(), targets); }, "primary"),
-      btn("↺ Nullstill", function () { S.reset(); clear(out); })
-    ]));
-    wrap.appendChild(out);
+    var taskHost = el("div");
+    wrap.appendChild(taskHost);
     host.appendChild(wrap);
-    return { check: function () { return S.check(); } };
+    // Bøttene stables som en pyramide (blokk-cyber.css, .cy-aia-dra)
+    var task = draOppg("bucketTask", taskHost, {
+      cards: AIA_KORT, cls: "cy-aia-dra",
+      zones: AIA.map(function (a) { return { id: a.id, label: esc(a.navn), hint: esc(a.krav) }; })
+    });
+    return { check: task && task.check, task: task };
   };
 })();

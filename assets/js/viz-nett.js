@@ -694,9 +694,10 @@
     host = host$(host); if (!host || !IN.matrise) return null;
     clear(host);
     var hV = el("div", { class: "nt-mod" }), hT = el("div", { class: "nt-mod" });
-    host.appendChild(H("p", "nt-mod-h", "<b>Sky-VPN</b>"));
+    // Hver matrise får sin egen mellomtittel, så de to øvingene ikke flyter sammen
+    host.appendChild(el("h5", { class: "nt-mod-h", text: "1. Sky-VPN: hvem ser hva?" }));
     host.appendChild(hV);
-    host.appendChild(H("p", "nt-mod-h", "<b>Tor</b>"));
+    host.appendChild(el("h5", { class: "nt-mod-h", text: "2. Tor: hvem ser hva?" }));
     host.appendChild(hT);
     var vpn = IN.matrise(hV, {
       id: "nett-mat-vpn",

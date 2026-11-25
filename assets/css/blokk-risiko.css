@@ -116,3 +116,7 @@ details.rk-fig > summary:focus-visible { outline: var(--focus); outline-offset: 
 .rk-key { display: inline-block; width: .8em; height: .8em; margin-right: .3em; vertical-align: -1px; }
 
 @media (prefers-reduced-motion: reduce) { .rk-tri-mid { transition: none; } }
+
+/* Grenser mellom øvinger og grupper (fase 3, mild variant uten rammer): tynn toppstrek og mer luft over
+   hver mellomtittel i panelene, og en kort ingress «Hva du skal gjøre» der to oppgaver står etter hverandre. */
+.rk-hva { font-size: var(--text-sm); color: var(--color-on-surface-variant); margin: .25rem 0 .7rem; }

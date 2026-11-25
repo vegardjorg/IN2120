@@ -148,20 +148,21 @@
   KR.nokkelrom = function (host) {
     host = host$(host); if (!host || !IN.regnForst) return;
     clear(host);
-    var h1 = el("div"), h2 = el("div");
+    var h1 = el("div"), h1t = el("div"), h2 = el("div");
     host.appendChild(el("p", { class: "kr-oppg", html: "<b>a)</b> Fullt nøkkelsøk med n-bits nøkkel" }));
     host.appendChild(h1);
+    host.appendChild(el("p", { class: "kr-oppg", html: "<b>a2)</b> Hvor lang tid tar søket?" }));
+    host.appendChild(h1t);
     host.appendChild(el("p", { class: "kr-oppg", html: "<b>b)</b> Nøkkel som et kodeord (som Vigenère)" }));
     host.appendChild(h2);
 
-    IN.regnForst(h1, {
+    var rfBit = IN.regnForst(h1, {
       id: "krypto-nokkelrom-bit",
       sporsmal: function (inn) {
         return "En nøkkel har <b>" + inn.n + " bit</b>. Hvor mange nøkler må en angriper <b>i snitt</b> prøve ved fullt nøkkelsøk?";
       },
       inndata: [
-        { navn: "n", etikett: "Antall bit n", verdi: 56, min: 8, max: 128, steg: 1 },
-        { navn: "v", etikett: "Angriperen prøver 10<sup>v</sup> nøkler per sekund, v =", verdi: 12, min: 6, max: 15, steg: 1 }
+        { navn: "n", etikett: "Antall bit n", verdi: 56, min: 8, max: 128, steg: 1 }
       ],
       fasit: function (inn) { return KR.nokkelSnitt(inn.n); },
       enhet: "nøkler",
@@ -173,14 +174,44 @@
         { verdi: function (inn) { return inn.n / 2; }, hint: "n er antall bit. Antall nøkler er 2<sup>n</sup>, og snittet er halvparten av det." }
       ],
       forklaring: function (inn) {
-        var t = tid((inn.n - 1) * L10_2 - inn.v);
         return {
-          eli5: "<p>Hver bit kan være 0 eller 1, så hver ny bit dobler antall nøkler. Med " + inn.n + " bit blir det 2 · 2 · … · 2 = 2" + sup(inn.n) + ". En tyv som prøver alle, treffer i snitt etter halvparten. Med 10" + sup(inn.v) + " forsøk i sekundet tar det " + t + ".</p>",
-          normal: "<p>Med n bit finnes 2<sup>n</sup> nøkler, og i snitt må angriperen prøve halvparten: 2<sup>n</sup>/2 = 2<sup>n−1</sup>. Her er det 2" + sup(inn.n - 1) + " ≈ " + vit((inn.n - 1) * L10_2) + ".</p><p>Med 10" + sup(inn.v) + " nøkler per sekund tar det i snitt <b>" + t + "</b>. Én bit mer dobler tiden.</p>",
-          teknisk: "<p>|K| = 2<sup>n</sup>, og forventet antall forsøk ved uttømmende søk er |K|/2 = 2<sup>n−1</sup> ≈ " + vit((inn.n - 1) * L10_2) + ". Tid i snitt: 2<sup>n−1</sup> / 10" + sup(inn.v) + " s, altså " + t + ".</p><p>Stort nøkkelrom er nødvendig, men ikke nok: algoritmen må også tåle kryptanalyse. Substitusjonschiffer og Vigenère knekkes med frekvensanalyse uansett nøkkelrom.</p>"
+          eli5: "<p>Hver bit kan være 0 eller 1, så hver ny bit dobler antall nøkler. Med " + inn.n + " bit blir det 2 · 2 · … · 2 = 2" + sup(inn.n) + ". En tyv som prøver alle, treffer i snitt etter halvparten.</p>",
+          normal: "<p>Med n bit finnes 2<sup>n</sup> nøkler, og i snitt må angriperen prøve halvparten: 2<sup>n</sup>/2 = 2<sup>n−1</sup>. Her er det 2" + sup(inn.n - 1) + " ≈ " + vit((inn.n - 1) * L10_2) + ". Én bit mer dobler arbeidet.</p>",
+          teknisk: "<p>|K| = 2<sup>n</sup>, og forventet antall forsøk ved uttømmende søk er |K|/2 = 2<sup>n−1</sup> ≈ " + vit((inn.n - 1) * L10_2) + ".</p><p>Stort nøkkelrom er nødvendig, men ikke nok: algoritmen må også tåle kryptanalyse. Substitusjonschiffer og Vigenère knekkes med frekvensanalyse uansett nøkkelrom.</p>"
         };
       }
     });
+
+    /* a2) Tiden for søket i a), som størrelsesorden. n følger glideren i a) (koblet), v har egen glider. */
+    var TRINN = IN.regnForst.tidstrinn ? IN.regnForst.tidstrinn() : null;
+    var rfTid = TRINN && IN.regnForst(h1t, {
+      id: "krypto-nokkelrom-tid",
+      sporsmal: function (inn) {
+        return "Samme nøkkel på <b>" + inn.n + " bit</b> som i a). Angriperen prøver <b>10" + sup(inn.v) + " nøkler per sekund</b>. Hvor lang tid tar fullt nøkkelsøk <b>i snitt</b>? Regn ut tiden og velg størrelsesorden.";
+      },
+      inndata: [
+        { navn: "n", etikett: "Antall bit n", verdi: 56, min: 8, max: 128, steg: 1 },
+        { navn: "v", etikett: "Angriperen prøver 10<sup>v</sup> nøkler per sekund, v =", verdi: 12, min: 6, max: 15, steg: 1 }
+      ],
+      skjulInndata: ["n"],
+      svarform: "orden",
+      trinn: TRINN,
+      fasit: function (inn) { return Math.pow(10, (inn.n - 1) * L10_2 - inn.v); },
+      fasitTekst: function (inn, f) { return "<b>" + TRINN[IN.regnForst.trinnFor(f, TRINN)].tekst + "</b>: 2" + sup(inn.n - 1) + " / 10" + sup(inn.v) + " s, altså " + tid((inn.n - 1) * L10_2 - inn.v) + "."; },
+      vanligeFeil: [
+        { verdi: function (inn) { return Math.pow(10, inn.n * L10_2 - inn.v); }, hint: "Det er tiden for å prøve <i>alle</i> 2<sup>n</sup> nøklene. I snitt holder halvparten, 2<sup>n−1</sup>." },
+        { verdi: function (inn) { return Math.pow(10, (inn.n - 1) * L10_2 + inn.v); }, hint: "Du har ganget med farten. Antall nøkler <i>delt på</i> nøkler per sekund gir sekunder." }
+      ],
+      forklaring: function (inn) {
+        var t = tid((inn.n - 1) * L10_2 - inn.v);
+        return {
+          eli5: "<p>Tell hvor mange nøkler tyven må prøve i snitt (svaret i a), og del på hvor mange hun rekker per sekund. Med 10" + sup(inn.v) + " forsøk i sekundet tar det " + t + ".</p>",
+          normal: "<p>Tid = 2<sup>n−1</sup> / nøkler per sekund = 2" + sup(inn.n - 1) + " / 10" + sup(inn.v) + " s. Med 10" + sup(inn.v) + " nøkler per sekund tar det i snitt <b>" + t + "</b>. Én bit mer dobler tiden.</p>",
+          teknisk: "<p>Tid i snitt: 2<sup>n−1</sup> / 10" + sup(inn.v) + " s ≈ 10<sup>" + String(Math.round(((inn.n - 1) * L10_2 - inn.v) * 10) / 10).replace(".", ",") + "</sup> s, altså " + t + ". Ti bit ekstra gir omtrent tusen ganger lenger tid (2¹⁰ ≈ 10³).</p>"
+        };
+      }
+    });
+    if (rfBit && rfTid && IN.regnForst.koble) IN.regnForst.koble([rfBit, rfTid], ["n"]);
 
     IN.regnForst(h2, {
       id: "krypto-nokkelrom-alf",
@@ -299,39 +330,65 @@
   KR.xorOv = function (host) {
     host = host$(host); if (!host) return;
     clear(host);
-    var nr = 0, forsok = 0, vist = false, M, K;
+    var nr = 0, forsok = 0, vist = false, M, K, svar = [], celler = [];
     var wrap = el("div", { class: "kr-xov" });
     var q = el("p", { class: "kr-xov-q" });
     var rows = el("div", { class: "kr-bits" });
-    var fid = "kr-xov-" + Math.random().toString(36).slice(2, 7);
-    var inp = el("input", { id: fid, type: "text", class: "kr-xov-in mono", inputmode: "numeric", autocomplete: "off", spellcheck: "false", maxlength: "11", placeholder: "8 biter" });
     var bS = el("button", { class: "btn primary sm", type: "button", text: "Sjekk" });
     var bV = el("button", { class: "btn sm", type: "button", text: "Vis svar", disabled: "" });
     var bN = el("button", { class: "btn sm", type: "button", text: "Ny oppgave" });
     var fb = el("p", { class: "kr-xov-fb", role: "status", "aria-live": "polite" });
     wrap.appendChild(q); wrap.appendChild(rows);
-    wrap.appendChild(el("div", { class: "kr-ctl" }, [el("label", { for: fid, html: "C = M ⊕ K =" }), inp, bS, bV, bN]));
+    wrap.appendChild(el("div", { class: "kr-ctl" }, [bS, bV, bN]));
     wrap.appendChild(fb);
     host.appendChild(wrap);
+    function svarTekst() { return svar.map(function (b) { return b == null ? "?" : b; }).join(""); }
+    function malCelle(i) {
+      var c = celler[i], b = svar[i];
+      c.textContent = b == null ? "?" : b;
+      c.className = "kr-bit kr-xov-b" + (b === "1" ? " one" : b === "0" ? " zero" : " unk");
+      c.setAttribute("aria-label", "Bit " + (i + 1) + " av " + M.length + ": " + (b == null ? "ikke satt" : b) + (vist ? "" : ". Trykk for å bytte."));
+    }
+    function settBit(i, b) {
+      if (vist) return;
+      svar[i] = b; malCelle(i);
+      if (fb.className === "kr-xov-fb") fb.innerHTML = "";
+    }
     function tegn(res) {
       clear(rows);
       rows.appendChild(bitRow("M", M));
       rows.appendChild(bitRow("K", K));
-      if (!vist) { rows.appendChild(bitRow("C = M ⊕ K", "????????".slice(0, M.length), { cls: "res" })); return; }
-      var f = bits(pb(M) ^ pb(K), M.length), r = bitRow("C = M ⊕ K", f, { cls: "res" });
-      if (res && res.feil) res.feil.forEach(function (i) { var c = r.children[i + 1]; if (c) c.classList.add("wrong"); });
+      var r = el("div", { class: "kr-bitrow res", role: "group", "aria-label": "Ditt svar: C = M ⊕ K, " + M.length + " biter" });
+      r.appendChild(el("span", { class: "kr-bitlbl", html: "C = M ⊕ K" }));
+      celler = [];
+      for (var i = 0; i < M.length; i++) (function (i) {
+        var c = el("button", { type: "button", class: "kr-bit kr-xov-b" });
+        c.addEventListener("click", function () { settBit(i, svar[i] === "0" ? "1" : "0"); });
+        c.addEventListener("keydown", function (e) {
+          if (e.key === "0" || e.key === "1") { e.preventDefault(); settBit(i, e.key); if (celler[i + 1]) celler[i + 1].focus(); }
+          else if (e.key === "ArrowRight" && celler[i + 1]) { e.preventDefault(); celler[i + 1].focus(); }
+          else if (e.key === "ArrowLeft" && celler[i - 1]) { e.preventDefault(); celler[i - 1].focus(); }
+          else if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); sjekk(); }
+        });
+        celler.push(c); r.appendChild(c); malCelle(i);
+        if (vist) c.disabled = true;
+      })(i);
       rows.appendChild(r);
+      if (!vist) return;
+      var f = bits(pb(M) ^ pb(K), M.length);
+      if (res && res.feil) res.feil.forEach(function (i) { if (celler[i]) celler[i].classList.add("wrong"); });
+      if (res && res.feil && res.feil.length) rows.appendChild(bitRow("Fasit", f, { cls: "ok" }));
     }
     function ny() {
       var o = XOR_OPPG[nr % XOR_OPPG.length]; M = o[0]; K = o[1];
-      forsok = 0; vist = false; inp.value = ""; inp.disabled = false; bS.disabled = false; bV.disabled = true;
-      inp.removeAttribute("aria-invalid");
-      q.innerHTML = "Regn chifferteksten selv før du ser svaret. Like biter gir 0, ulike gir 1.";
+      forsok = 0; vist = false; bS.disabled = false; bV.disabled = true;
+      svar = M.split("").map(function () { return null; });
+      q.innerHTML = "Regn chifferteksten selv, én kolonne om gangen: like biter gir 0, ulike gir 1. Trykk på hver bit i raden C for å sette den til 0 eller 1.";
       fb.className = "kr-xov-fb"; fb.innerHTML = "";
       tegn();
     }
     function avslutt(res, riktig) {
-      vist = true; inp.disabled = true; bS.disabled = true; bV.disabled = true;
+      vist = true; bS.disabled = true; bV.disabled = true;
       tegn(res);
       var f = bits(pb(M) ^ pb(K), M.length);
       fb.className = "kr-xov-fb " + (riktig ? "ok" : "bad");
@@ -341,9 +398,9 @@
     }
     function sjekk() {
       if (vist) return;
-      var res = KR.xorSjekk(inp.value, M, K);
-      if (!res.gyldig) { inp.setAttribute("aria-invalid", "true"); fb.className = "kr-xov-fb"; fb.innerHTML = res.hint; return; }
-      inp.removeAttribute("aria-invalid");
+      var mangler = svar.filter(function (b) { return b == null; }).length;
+      if (mangler) { fb.className = "kr-xov-fb"; fb.innerHTML = "Sett alle " + M.length + " bitene først (" + mangler + " gjenstår)."; return; }
+      var res = KR.xorSjekk(svarTekst(), M, K);
       forsok++; bV.disabled = false;
       if (res.ok) {
         if (IN.progress) { try { IN.progress.solved("regn", "krypto-xor", forsok === 1 ? 1 : 0.5, 1); } catch (e) {} }
@@ -354,10 +411,11 @@
       fb.innerHTML = "<b>Ikke riktig.</b> " + res.hint + " Ett forsøk igjen.";
     }
     bS.addEventListener("click", sjekk);
-    inp.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); sjekk(); } });
-    bV.addEventListener("click", function () { if (!vist && forsok) avslutt(KR.xorSjekk(inp.value, M, K), false); });
+    bV.addEventListener("click", function () { if (!vist && forsok) avslutt(KR.xorSjekk(svarTekst(), M, K), false); });
     bN.addEventListener("click", function () { nr++; ny(); });
     ny();
+    return { sett: function (str) { String(str).split("").forEach(function (b, i) { if (i < svar.length) settBit(i, b === "1" ? "1" : b === "0" ? "0" : null); }); },
+      sjekk: sjekk, ny: function () { nr++; ny(); }, svar: svarTekst, fasit: function () { return bits(pb(M) ^ pb(K), M.length); }, feedback: function () { return fb.textContent; } };
   };
 
   /* ---------- Bit-flipping ---------- */

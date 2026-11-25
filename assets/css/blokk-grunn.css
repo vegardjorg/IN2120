@@ -80,6 +80,20 @@ a.badge { text-decoration: none; }
 .gr-cell:hover, .gr-cell:focus-visible { border-left-color: var(--color-primary); }
 .gr-placed { font-weight: 600; color: var(--gr-ok); }
 .gr-empty { color: var(--color-on-surface-variant); }
+/* Uttoningshint når rutenettet scroller vannrett (fade-r/fade-l settes i viz-grunn.js) */
+.gr-sveip { margin: 0; }
+.gr-gridwrap.fade-r {
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+          mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+}
+.gr-gridwrap.fade-l {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 100%);
+}
+.gr-gridwrap.fade-l.fade-r {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+}
 
 /* Stegspillere her får høyde etter innhold */
 .gr-sp .sp-stage { height: auto; min-height: 220px; display: block; align-items: initial; padding: var(--d-sm, .6rem); }
@@ -96,7 +110,7 @@ a.badge { text-decoration: none; }
 /* Bemanning */
 .gr-ppl { display: flex; flex-direction: column; gap: .3rem; }
 .gr-lbl { display: flex; flex-wrap: wrap; gap: .4rem .8rem; align-items: center; font-size: var(--text-sm); }
-.gr-sel { font: inherit; font-size: var(--text-sm); padding: 3px 6px; border: 1px solid var(--color-outline); border-radius: var(--radius);
+.gr-sel { font: inherit; font-size: var(--text-sm); min-height: 44px; padding: 6px 8px; border: 1px solid var(--color-outline); border-radius: var(--radius);
   background: var(--color-surface-container-lowest); color: var(--color-on-surface); }
 
 /* Forsvar i dybden */
@@ -124,23 +138,23 @@ a.badge { text-decoration: none; }
 .gr-kost { color: var(--color-primary); letter-spacing: .1em; }
 .gr-kost .off { color: var(--gr-line); }
 
-/* SJA-skjema (egen utfylling). Tabellen stables på smal skjerm. */
+/* SJA-skjema (egen utfylling): tre delsteg, hvert med fare (liste), risiko (liste) og tiltak (fritekst).
+   Desktop: tre felt på én linje. Smal skjerm: feltene stables. */
 .gr-sjaform .gr-task { margin: 0 0 .5rem; font-size: var(--text-sm); }
-.gr-sjat td { padding: 4px 4px; }
-.gr-sjat tbody th { width: 1.6em; font-weight: 600; color: var(--color-on-surface-variant); padding-top: 12px; }
-.gr-sjat .ov-sel { width: 100%; min-width: 0; }
-.gr-sjat td[data-k="Risiko"] { width: 7.5em; }
+.gr-sjat { display: flex; flex-direction: column; gap: .55rem; }
+.gr-sjar { margin: 0; padding: .3rem 0 .45rem .7rem; border: 0; border-left: 3px solid var(--gr-line); min-width: 0;
+  display: grid; grid-template-columns: minmax(0, 1.4fr) 7.5rem minmax(0, 1.6fr); gap: .35rem .6rem; align-items: end; }
+.gr-sjar.ok { border-left-color: var(--gr-ok); }
+.gr-sjar.nei { border-left-color: var(--gr-bad); }
+.gr-sjar > legend { padding: 0; margin: 0 0 .25rem; font-size: var(--text-sm); float: left; width: 100%; grid-column: 1 / -1; }
+.gr-sjaf { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.gr-sjak { font-size: var(--text-xs); color: var(--color-on-surface-variant); }
+.gr-sjaf .ov-sel { width: 100%; min-width: 0; min-height: 44px; }
 .gr-sja-vis { margin-top: var(--d-md, .9rem); display: flex; flex-direction: column; gap: .45rem; }
 .gr-sja-vis > p { margin: 0; }
 @media (max-width: 640px) {
-  .gr-sjat thead { display: none; }
-  .gr-sjat, .gr-sjat tbody, .gr-sjat tr, .gr-sjat td, .gr-sjat tbody th { display: block; width: auto; }
-  .gr-sjat tr { padding: .3rem 0 .4rem .6rem; border-left: 3px solid var(--gr-line); border-bottom: 1px solid var(--gr-line); }
-  .gr-sjat tbody th { padding: 0; border: 0; }
-  .gr-sjat tbody th::before { content: "Delsteg "; }
-  .gr-sjat td { border: 0; padding: 2px 0; }
-  .gr-sjat td[data-k="Risiko"] { width: auto; }
-  .gr-sjat td::before { content: attr(data-k); display: block; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
+  .gr-sjar { grid-template-columns: 6.5rem minmax(0, 1fr); }
+  .gr-sjaf-fare { grid-column: 1 / -1; }
 }
 
 /* § 204-treet */
@@ -173,3 +187,9 @@ a.badge { text-decoration: none; }
 .gr-dorer > div { padding: .1rem 0 .1rem .7rem; border-left: 3px solid var(--color-primary); }
 .gr-dorer > div:last-child { border-left-color: var(--color-tertiary); }
 .gr-dorer p { margin: .2rem 0; }
+
+/* Grenser mellom øvinger og grupper (fase 3, mild variant uten rammer): tynn toppstrek og mer luft over
+   hver mellomtittel i panelene. */
+details.gr-etter { margin: .4rem 0 0; font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+details.gr-etter > summary { cursor: pointer; }
+details.gr-etter > p { margin: .3rem 0 0 1.1rem; }

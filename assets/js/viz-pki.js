@@ -343,7 +343,7 @@
       var sub = el("div", { class: "pki-regn" });
       w.appendChild(sub);
       IN.regnForst(sub, {
-        id: d.id, sporsmal: d.sporsmal, fasit: d.fasit, toleranse: 0, enhet: d.enhet,
+        id: d.id, rentTall: true, sporsmal: d.sporsmal, fasit: d.fasit, toleranse: 0, enhet: d.enhet,
         inndata: [{ navn: "n", etikett: "Antall noder n", verdi: d.n, min: 2, max: 100, steg: 1 }],
         vanligeFeil: d.feil.map(function (x) { return { verdi: function (inn) { return x.f(inn.n); }, hint: x.hint }; }),
         forklaring: d.forklaring,

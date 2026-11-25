@@ -6,10 +6,10 @@
   <title>Blokk 9 · Nettverk · IN2120</title>
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261125n">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -479,21 +479,21 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261125f"></script>
-  <script src="assets/js/symboler.js?v=20261125f"></script>
-  <script src="assets/js/pseudocode.js?v=20261125f"></script>
-  <script src="assets/js/stepplayer.js?v=20261125f"></script>
-  <script src="assets/js/varline.js?v=20261125f"></script>
-  <script src="assets/js/inspera.js?v=20261125f"></script>
-  <script src="assets/js/dra.js?v=20261125f"></script>
-  <script src="assets/js/ovelse.js?v=20261125f"></script>
-  <script src="assets/js/bank.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
-  <script src="assets/js/viz-nett.js?v=20261125f"></script>
+  <script src="assets/js/core.js?v=20261125n"></script>
+  <script src="assets/js/symboler.js?v=20261125n"></script>
+  <script src="assets/js/pseudocode.js?v=20261125n"></script>
+  <script src="assets/js/stepplayer.js?v=20261125n"></script>
+  <script src="assets/js/varline.js?v=20261125n"></script>
+  <script src="assets/js/inspera.js?v=20261125n"></script>
+  <script src="assets/js/dra.js?v=20261125n"></script>
+  <script src="assets/js/ovelse.js?v=20261125n"></script>
+  <script src="assets/js/bank.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
+  <script src="assets/js/viz-nett.js?v=20261125n"></script>
   <script>
   (function () {
     "use strict";
@@ -691,7 +691,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
     /* ---------- Inspera-øvinger (egne oppgaver) ---------- */
     var OV = [
-      { key: "ov-nett-1", points: 4, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,5 poeng, hvert gale −0,5, ubesvart 0. Minimum 0.",
+      { title: "Hvilket lag?", key: "ov-nett-1", points: 4, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,5 poeng, hvert gale −0,5, ubesvart 0. Minimum 0.",
         regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 4 },
         kolonner: ["Link", "Internett", "Transport", "Applikasjon", "App (over stakken)"], multi: false,
         rader: [
@@ -703,7 +703,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           { s: "TLS Record", svar: [2], explain: "<p>Sitter rett over TCP.</p>" },
           { s: "DNS", svar: [3], explain: "<p>Navneoppslag er en applikasjonstjeneste (port 53).</p>" },
           { s: "Nettleseren Firefox", svar: [4], explain: "<p>Et program, ikke en protokoll.</p>" } ] } },
-      { key: "ov-nett-2", points: 3, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,5 poeng, hvert gale −0,5, ubesvart 0. Minimum 0.",
+      { title: "Hvilken port?", key: "ov-nett-2", points: 3, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,5 poeng, hvert gale −0,5, ubesvart 0. Minimum 0.",
         regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
         kolonner: ["21", "23", "25", "53", "443", "445", "3389"], multi: false,
         rader: [
@@ -713,7 +713,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           { s: "Telnet", svar: [1], explain: "<p>Ukryptert fjerninnlogging: 23 (rett etter SSH på 22).</p>" },
           { s: "HTTPS", svar: [4], explain: "<p>HTTP over TLS: 443.</p>" },
           { s: "RDP", svar: [6], explain: "<p>Fjernskrivebord: 3389.</p>" } ] } },
-      { key: "ov-nett-3", points: 4, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, 0 for feil eller ubesvart. Maks 4.",
+      { title: "TLS 1.3-håndtrykket", key: "ov-nett-3", points: 4, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, 0 for feil eller ubesvart. Maks 4.",
         regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
         tekst: "<p>I TLS 1.3 sender klienten sin offentlige DH-delnøkkel i {0}. Tjeneren beviser at den eier nøkkelen i sertifikatet med {1}. Fremoverhemmelighold kommer av at {2}. Dataene i økten beskyttes av {3}.</p>",
         felt: [
@@ -721,14 +721,14 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           { valg: ["ServerHello", "CertificateVerify", "EncryptedExtensions"], svar: 1, explain: "En digital signatur med den private nøkkelen." },
           { valg: ["øktnøkkelen krypteres med tjenerens offentlige nøkkel", "nye DH-delnøkler lages for hver økt og slettes", "sertifikatet fornyes hvert år"], svar: 1, explain: "Efemær DH." },
           { valg: ["Handshake-protokollen", "Record-protokollen", "Alert-protokollen"], svar: 1, explain: "Record bruker nøkkelen Handshake etablerte." } ] } },
-      { key: "ov-nett-4", points: 3, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, −1 for feil, 0 for ubesvart. Minimum 0, maks 3.",
+      { title: "HSTS og TLS-inspeksjon", key: "ov-nett-4", points: 3, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, −1 for feil, 0 for ubesvart. Minimum 0, maks 3.",
         regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
         tekst: "<p>{0} gjør at nettleseren selv bytter til https. En virksomhet som vil lese ansattes HTTPS-trafikk, bruker {1}. Sårbarheten ved første besøk dekkes av {2}.</p>",
         felt: [
           { valg: ["HSTS", "DNS", "IPsec"], svar: 0, explain: "HSTS-policyen lagres i nettleseren." },
           { valg: ["anomalideteksjon", "TLS-inspeksjon", "NAT"], svar: 1, explain: "Proxyen utgir seg for å være tjeneren." },
           { valg: ["HSTS-preload", "et lengre sertifikat", "TLS Record"], svar: 0, explain: "Innebygd liste i nettleseren." } ] } },
-      { key: "ov-nett-5", points: 2, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,25 poeng, hvert gale −0,25, ubesvart 0. Minimum 0.",
+      { title: "Slipper brannmuren gjennom?", key: "ov-nett-5", points: 2, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,25 poeng, hvert gale −0,25, ubesvart 0. Minimum 0.",
         regel: { riktig: 0.25, feil: -0.25, blankt: 0, min: 0, maks: 2 },
         kolonner: ["Ja", "Nei"], multi: false,
         rader: [
@@ -740,16 +740,16 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           { s: "DNS-oppslag (UDP 53) fra 172.20.1.1", svar: [0], explain: "Regel 4 gjelder bare TCP; regel 5 treffer." },
           { s: "HTTP fra 192.0.2.50", svar: [1], explain: "Regel 8." },
           { s: "DNS-oppslag (UDP 53) fra 10.9.9.9", svar: [0], explain: "Regel 5 står før regel 7." } ] } },
-      { key: "ov-nett-6", points: 2, inspera: { type: "K", deler: [{ del: "", poeng: 2, grense: "to iptables-regler" }] } },
-      { key: "ov-nett-7", points: 3, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, 0 for feil eller ubesvart. Maks 3.",
+      { title: "Skriv iptables-regelen", key: "ov-nett-6", points: 2, inspera: { type: "K", deler: [{ del: "", poeng: 2, grense: "to iptables-regler" }] } },
+      { title: "Les Snort-reglene", key: "ov-nett-7", points: 3, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, 0 for feil eller ubesvart. Maks 3.",
         regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
         tekst: "<p><code>alert tcp 10.5.5.5 any -&gt; 10.6.6.6 22 (…)</code> beskriver {0}. <code>alert tcp any any -&gt; 10.6.6.6 80 (…)</code> beskriver {1}. En IDS som lærer normal trafikk og varsler om avvik, er {2}.</p>",
         felt: [
           { valg: ["SSH fra 10.6.6.6 til 10.5.5.5", "SSH fra 10.5.5.5 til 10.6.6.6", "HTTPS til 10.6.6.6"], svar: 1, explain: "Kilden står til venstre for pilen; 22 er målporten." },
           { valg: ["ukryptert webtrafikk til 10.6.6.6", "kryptert webtrafikk til 10.6.6.6", "Telnet til 10.6.6.6"], svar: 0, explain: "Port 80 = HTTP." },
           { valg: ["signaturbasert", "anomalibasert", "en honningkrukke"], svar: 1, explain: "Modell av normal oppførsel." } ] } },
-      { key: "ov-nett-8", points: 3, inspera: { type: "K", deler: [{ del: "", poeng: 3, grense: "to–tre setninger" }] } },
-      { key: "ov-nett-9", points: 3, inspera: { type: "D", regelTekst: "1 poeng for hver riktig, −1 for feil, 0 for ubesvart. Minimum 0.",
+      { title: "Anomalibasert IDS (fritekst)", key: "ov-nett-8", points: 3, inspera: { type: "K", deler: [{ del: "", poeng: 3, grense: "to–tre setninger" }] } },
+      { title: "Tor-lagene", key: "ov-nett-9", points: 3, inspera: { type: "D", regelTekst: "1 poeng for hver riktig, −1 for feil, 0 for ubesvart. Minimum 0.",
         regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 }, tekst: null,
         bank: ["Nøkkel delt med X", "Nøkkel delt med Y", "Nøkkel delt med Z", "Nøkkel delt med Petter"],
         felt: [

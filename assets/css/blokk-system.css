@@ -109,23 +109,9 @@ a.badge { text-decoration: none; }
 .sys-kart-fri { color: var(--color-on-surface-variant); }
 
 /* ---------- Lag ---------- */
-.sys-bank { display: flex; flex-wrap: wrap; gap: .3rem .5rem; }
-button.sys-chip { font: inherit; font-size: var(--text-sm); color: inherit; background: transparent; border: 0; border-left: 3px solid var(--color-outline);
-  border-bottom: 1px solid var(--sys-line); padding: .2rem .5rem; cursor: grab; }
-button.sys-chip:hover { background: var(--color-surface-container-low); }
-button.sys-chip.valgt { border-left-color: var(--color-primary); background: var(--color-surface-container); font-weight: 600; }
-button.sys-chip:focus-visible, .sys-slot:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
-.sys-lagstakk { display: flex; flex-direction: column; min-width: 0; }
-.sys-slot { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: .1rem .6rem; align-items: baseline; text-align: left; font: inherit; font-size: var(--text-sm);
-  color: inherit; cursor: pointer; background: transparent; border: 0; border-left: 4px solid var(--color-outline-variant); border-bottom: 1px solid var(--sys-line);
-  padding: .45rem .3rem .45rem .6rem; width: 100%; }
-.sys-slot:hover { background: var(--color-surface-container-low); }
-.sys-slot.fylt { border-left-color: var(--sys-info); }
-.sys-slot.ok { border-left-color: var(--sys-ok); }
-.sys-slot.nei, .sys-slot.tom { border-left-color: var(--sys-bad); }
-.sys-slot-niv { font-size: 11px; color: var(--color-on-surface-variant); }
-.sys-slot-v { font-weight: 600; }
-.sys-slot-f { grid-column: 2; font-size: 12px; color: var(--color-on-tone-danger); }
+/* Bygg stablene: IN.bucketTask (dra.js). Lagene står under hverandre som en stabel. */
+.sys-lagdra .dra-zones { grid-template-columns: minmax(0, 1fr); }
+.sys-lagdra .dra-zone:last-child { margin-top: .5rem; border-top-style: dashed; }
 .sys-maal { font-size: var(--text-sm); padding: .25rem 0 .25rem .6rem; border-left: 3px solid var(--sys-line); border-bottom: 1px solid var(--sys-line); }
 .sys-maal.ok { border-left-color: var(--sys-ok); }
 .sys-maal.nei { border-left-color: var(--sys-bad); }
@@ -207,3 +193,8 @@ button.sys-chip:focus-visible, .sys-slot:focus-visible { outline: 2px solid var(
 .sys-prio-b { display: inline-flex; gap: .25rem; flex: 0 0 auto; }
 
 @media (prefers-reduced-motion: reduce) { .sys-viz * { transition: none !important; } }
+
+/* Skjult kanal: gjett først, verktøyet vises etterpå */
+.sys-gjett { display: flex; flex-direction: column; gap: .4rem; }
+.sys-verktoy { display: flex; flex-direction: column; gap: .4rem; margin-top: .3rem; }
+.sys-verktoy[hidden] { display: none; }

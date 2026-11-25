@@ -253,8 +253,19 @@
     var bR = btn("↺ Nullstill", function () { valgt = null; plass = {}; feil = 0; msg.textContent = "Velg et tiltak, og klikk så på ruta det hører hjemme i."; paint(); });
     var msg = el("p", { class: "gr-note", "aria-live": "polite", text: "Velg et tiltak, og klikk så på ruta det hører hjemme i." });
     var pool = el("div", { class: "gr-row gr-pool", role: "group", "aria-label": "Tiltak" });
-    var gridHost = el("div", { class: "table-wrap" });
-    root.appendChild(el("div", { class: "gr-row" }, [bN, bR])); root.appendChild(msg); root.appendChild(pool); root.appendChild(gridHost);
+    var gridHost = el("div", { class: "table-wrap gr-gridwrap" });
+    var sveip = el("p", { class: "gr-note gr-sveip", hidden: true, text: "Rutenettet er bredere enn skjermen. Sveip sideveis for å se alle tre typene." });
+    root.appendChild(el("div", { class: "gr-row" }, [bN, bR])); root.appendChild(msg); root.appendChild(pool); root.appendChild(sveip); root.appendChild(gridHost);
+    /* Uttoningshint på den siden der rutenettet har mer innhold (som menyen i styles.css) */
+    function fade() {
+      var over = gridHost.scrollWidth > gridHost.clientWidth + 1;
+      gridHost.classList.toggle("fade-r", over && gridHost.scrollLeft + gridHost.clientWidth < gridHost.scrollWidth - 2);
+      gridHost.classList.toggle("fade-l", over && gridHost.scrollLeft > 2);
+      sveip.hidden = !over;
+    }
+    gridHost.addEventListener("scroll", fade, { passive: true });
+    window.addEventListener("resize", fade);
+    if (window.ResizeObserver) new ResizeObserver(fade).observe(gridHost); /* også når fanen blir synlig */
 
     function paint() {
       clear(pool);
@@ -284,6 +295,7 @@
         tb.appendChild(tr);
       });
       tab.appendChild(tb); gridHost.appendChild(tab);
+      fade();
     }
     function drop(d, k) {
       if (valgt == null) { msg.textContent = "Velg et tiltak først."; return; }
@@ -299,6 +311,8 @@
     }
     paint();
     clear(host); host.appendChild(root);
+    fade();
+    if (window.requestAnimationFrame) requestAnimationFrame(fade);
   }
 
   /* =========================================================
@@ -324,7 +338,11 @@
     "Metoden: dele opp oppgaven og vurdere <b>risikoen</b> i hver del for å redusere den (uten ordet risiko gir sensor høyst 2 av 3)"
   ];
   var SJA_KEY = "in2120:grunn:sja";
-  var SJA_KOL = [["Delsteg", "f.eks. Hente og plassere personløfteren"], ["Fare", "hva kan gå galt?"], ["Risiko", ""], ["Tiltak", "hva gjør dere før steget?"]];
+  /* Skjemaet har tre rader (delsteg 1, 3 og 4 i forslaget). Delsteget er gitt, faren velges fra en liste,
+     risikoen fra lav/middels/høy, og bare tiltaket skrives. Lagringsformen er uendret (fire rader à
+     [delsteg, fare, risiko, tiltak]); rad 2 og kolonnen delsteg brukes ikke av skjemaet. */
+  var SJA_RADER = [0, 2, 3];
+  var SJA_FARER = [SJA[2].fare, SJA[0].fare, SJA[3].fare, SJA[1].fare];
   function sjaTom() { return { r: SJA.map(function () { return ["", "", "", ""]; }), f: "", k: [], v: false }; }
   function sjaLes() {
     var t = sjaTom();
@@ -347,30 +365,29 @@
     var st = sjaLes(), uidS = "gr-sja" + (++uid);
     function lagre() { try { IN.store.set(SJA_KEY, JSON.stringify(st)); } catch (e) {} }
     var root = el("div", { class: "ov gr-sjaform" });
-    root.appendChild(el("p", { class: "gr-task on", html: "<b>Arbeidsoppgave:</b> skifte et lysrør 4,5 m oppe i taket i gymsalen, med personløfter. Fyll ut SJA-en selv før du ser forslaget. Ett delsteg per rad." }));
+    root.appendChild(el("p", { class: "gr-task on", html: "<b>Arbeidsoppgave:</b> skifte et lysrør 4,5 m oppe i taket i gymsalen, med personløfter. Tre av de fire delstegene er gitt (delsteg 2, kjøre opp, står i forslaget). På eksamen deler du opp selv. Velg fare og risiko for hvert steg, skriv et tiltak, og se forslaget etterpå." }));
 
-    var t = el("table", { class: "gr-tab gr-sjat" });
-    t.appendChild(el("thead", {}, [el("tr", {}, [el("th", { text: "" })].concat(SJA_KOL.map(function (k) { return el("th", { scope: "col", text: k[0] }); })))]));
-    var tb = el("tbody");
-    SJA.forEach(function (_, r) {
-      var tr = el("tr", {}, [el("th", { scope: "row", text: String(r + 1) })]);
-      SJA_KOL.forEach(function (k, c) {
-        var ctl;
-        var lab = "Rad " + (r + 1) + ", " + k[0].toLowerCase();
-        if (c === 2) {
-          ctl = el("select", { class: "ov-sel", "aria-label": lab }, ["", "lav", "middels", "høy"].map(function (v) { return el("option", { value: v, text: v || "–" }); }));
-          ctl.value = st.r[r][c];
-          ctl.addEventListener("change", function () { st.r[r][c] = ctl.value; lagre(); });
-        } else {
-          ctl = el("input", { type: "text", class: "ov-sel gr-inp", "aria-label": lab, placeholder: r === 0 ? k[1] : "" });
-          ctl.value = st.r[r][c];
-          ctl.addEventListener("input", function () { st.r[r][c] = ctl.value; lagre(); });
-        }
-        tr.appendChild(el("td", { "data-k": k[0] }, [ctl]));
-      });
-      tb.appendChild(tr);
+    var t = el("div", { class: "gr-sjat" });
+    var radEl = [];
+    SJA_RADER.forEach(function (r, n) {
+      var navn = SJA[r].steg.replace(/^\d+\s*/, "");
+      var rad = el("fieldset", { class: "gr-sjar" }, [el("legend", { html: "<b>Delsteg " + (r + 1) + ":</b> " + navn })]);
+      function felt(k, ctl, ekstra) { rad.appendChild(el("label", { class: "gr-sjaf" + (ekstra ? " " + ekstra : "") }, [el("span", { class: "gr-sjak", text: k }), ctl])); }
+      var fare = el("select", { class: "ov-sel" }, [el("option", { value: "", text: "velg fare" })].concat(SJA_FARER.map(function (v) { return el("option", { value: v, text: v }); })));
+      fare.value = st.r[r][1];
+      fare.addEventListener("change", function () { st.r[r][1] = fare.value; lagre(); });
+      felt("Fare", fare, "gr-sjaf-fare");
+      var ris = el("select", { class: "ov-sel" }, ["", "lav", "middels", "høy"].map(function (v) { return el("option", { value: v, text: v || "–" }); }));
+      ris.value = st.r[r][2];
+      ris.addEventListener("change", function () { st.r[r][2] = ris.value; lagre(); });
+      felt("Risiko", ris);
+      var tilt = el("input", { type: "text", class: "ov-sel gr-inp", placeholder: n === 0 ? "hva gjør dere før steget?" : "" });
+      tilt.value = st.r[r][3];
+      tilt.addEventListener("input", function () { st.r[r][3] = tilt.value; lagre(); });
+      felt("Tiltak", tilt);
+      radEl.push({ el: rad, r: r });
+      t.appendChild(rad);
     });
-    t.appendChild(tb);
     root.appendChild(t);
 
     var fid = uidS + "-fri";
@@ -387,6 +404,7 @@
     var bTom = el("button", { class: "btn", type: "button", text: "↺ Tøm skjemaet", onclick: function () {
       st = sjaTom(); lagre();
       IN.qsa("input[type=text], select", t).forEach(function (x) { x.value = ""; });
+      radEl.forEach(function (x) { x.el.classList.remove("ok", "nei"); });
       ta.value = ""; paint(false);
     } });
     root.appendChild(el("div", { class: "qz-foot" }, [bVis, bTom]));
@@ -394,6 +412,10 @@
 
     function paint(fokus) {
       clear(vis); vis.hidden = !st.v; bVis.hidden = st.v;
+      radEl.forEach(function (x) {
+        var valgt = st.r[x.r][1], ok = valgt === SJA[x.r].fare;
+        x.el.classList.toggle("ok", st.v && ok); x.el.classList.toggle("nei", st.v && !!valgt && !ok);
+      });
       if (!st.v) return;
       var h = el("p", { class: "gr-b", tabindex: "-1", text: "Forslag: SJA for lysrøret" });
       vis.appendChild(h);
@@ -405,7 +427,7 @@
       });
       mt.appendChild(mb);
       vis.appendChild(el("div", { class: "table-wrap" }, [mt]));
-      vis.appendChild(el("p", { class: "small muted", text: "Risikonivåene er grove skjønnsvurderinger. Andre delsteg og tiltak kan være like gode, så lenge sjekklisten under er dekket." }));
+      vis.appendChild(el("p", { class: "small muted", text: "Grønn kant på et delsteg i skjemaet: du valgte samme fare som forslaget. Risikonivåene er grove skjønnsvurderinger. Andre delsteg og tiltak kan være like gode, så lenge sjekklisten under er dekket." }));
       vis.appendChild(el("div", { class: "gr-out on", html: IN.level && IN.level.pick ? IN.level.pick(SJA_MODELL) : SJA_MODELL.normal }));
       var cnt = el("p", { class: "ov-fri-n", role: "status", "aria-live": "polite" });
       var fs = el("fieldset", { class: "ov-sjekk" }, [el("legend", { text: "Sjekk svaret ditt selv: kryss av det du fikk med" })]);

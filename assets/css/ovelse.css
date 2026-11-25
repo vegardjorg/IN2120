@@ -139,8 +139,8 @@
 
 /* ================= Regn først ================= */
 .ov-inn { display: flex; flex-wrap: wrap; gap: var(--d-xs) var(--d-lg); margin: 0 0 var(--d-sm); padding: var(--d-xs) 0; border-top: 1px solid var(--color-outline-variant); border-bottom: 1px solid var(--color-outline-variant); }
-.ov-inn-f { display: flex; align-items: center; gap: var(--d-sm); flex: 1 1 14rem; min-width: 0; font-size: var(--text-sm); }
-.ov-inn-f label { flex: none; }
+.ov-inn-f { display: flex; flex-wrap: wrap; align-items: center; gap: var(--d-xs) var(--d-sm); flex: 1 1 14rem; min-width: 0; max-width: 100%; font-size: var(--text-sm); }
+.ov-inn-f label { flex: 0 1 auto; min-width: 0; }
 .ov-inn-f input[type="range"] { flex: 1 1 auto; min-width: 6rem; accent-color: var(--color-primary); min-height: 40px; }
 .ov-inn-v { flex: none; min-width: 2.2rem; white-space: nowrap;font-family: var(--font-mono); font-weight: 700; text-align: right; }
 .ov-svarrad { display: flex; flex-wrap: wrap; align-items: center; gap: var(--d-sm); }
@@ -148,6 +148,31 @@
 .ov-num { flex: 1 1 12rem; min-width: 0; max-width: 22rem; font-family: var(--font-mono); }
 .ov-enhet { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
 .ov-tips { margin: .3rem 0 0; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
+/* Hjelpetaster (^, ·10^) bare på berøringsskjerm */
+.ov-taster { display: none; gap: 4px; }
+@media (pointer: coarse) { .ov-taster { display: inline-flex; } }
+.ov-tast {
+  min-width: 44px; min-height: 44px; padding: 0 .55rem; box-sizing: border-box; cursor: pointer;
+  border: 1px solid var(--color-outline-variant); border-radius: var(--radius-md); background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface); font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 700;
+}
+.ov-tast:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+/* Svarform «orden»: knapperad med størrelsesordener */
+.ov-svarrad-orden { flex-direction: column; align-items: stretch; }
+.ov-orden { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; }
+.ov-orden-b {
+  flex: 0 1 auto; min-height: 44px; min-width: 44px; padding: .35rem .7rem; box-sizing: border-box; cursor: pointer;
+  background: none; border: 0; border-bottom: 2px solid var(--color-outline-variant); border-radius: 0;
+  color: var(--color-on-surface-variant); font: inherit; font-size: var(--text-sm); font-weight: 600; line-height: 1.3; text-align: center;
+  overflow-wrap: anywhere;
+}
+.ov-orden-b:hover:not([aria-disabled]) { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
+.ov-orden-b:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.ov-orden-b[aria-pressed="true"] { border-bottom-color: var(--color-primary); color: var(--color-on-surface); background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
+.ov-orden-b[aria-disabled] { cursor: default; }
+.ov-orden-b.is-right { border-bottom-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.ov-orden-b.is-wrong { border-bottom-color: var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.ov-orden-k { display: flex; flex-wrap: wrap; gap: var(--d-sm); }
 .ov-losn { margin: var(--d-sm) 0 0; padding: .1rem 0 .1rem .7rem; border-left: 3px solid var(--color-outline); font-size: var(--text-sm); line-height: 1.5; }
 .ov-regn.is-right .ov-losn { border-left-color: var(--color-on-tone-ok); }
 .ov-regn.is-wrong .ov-losn { border-left-color: var(--color-on-tone-danger); }
@@ -290,6 +315,7 @@
   .dra-slot .dra-zbtn, .dra-slot .dra-zhint, .dra-slot .dra-zbody, .dra-slot .dra-empty { grid-column: 1; grid-row: auto; }
   .ov-kit { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .ov-num { max-width: none; }
+  .ov-orden-b { flex: 1 1 8rem; }
   /* Matrisen stables: én rad = én blokk, kolonnenavnet står foran hver celle */
   .ov-mat-t, .ov-mat-t tbody, .ov-mat-t tr, .ov-mat-t th, .ov-mat-t td { display: block; width: auto; }
   .ov-mat-t thead { display: none; }

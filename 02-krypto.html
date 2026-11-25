@@ -6,10 +6,10 @@
   <title>Blokk 2 · Kryptografi · IN2120</title>
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261125n">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -65,7 +65,7 @@
       <p class="small muted">Én bit ekstra dobler arbeidet. 1 024 nøkler tilsvarer 10 bit, fordi 2¹⁰ = 1 024.</p>
 
       <h4>Regn selv: nøkkelrom og fullt søk</h4>
-      <p class="small muted">Endre tallene med gliderne, regn ut svaret og trykk «Sjekk». Du kan skrive regnestykker som 2^55 eller 29^5. Tiden for et fullt søk vises sammen med fasiten.</p>
+      <p class="small muted">Endre tallene med gliderne, regn ut svaret og trykk «Sjekk». Du kan skrive regnestykker som 2^55 eller 29^5. I a2 velger du hvor lang tid søket tar, som størrelsesorden.</p>
       <div id="viz-nokkelrom"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -485,7 +485,10 @@
         </ul></div>
       <div id="ex-pqc"></div>
 
-      <h4>Eksempel: hva skjer med hva?</h4>
+      <h4>Sorter: hvem rammes, og hva erstatter dem?</h4>
+      <div id="viz-pqc" class="kr-pqc"></div>
+
+      <details class="grense kr-pqc-eks"><summary>Eksempel: hva skjer med hva? (åpne etter at du har sortert, den røper svaret)</summary>
       <div class="table-wrap"><table>
         <thead><tr><th>Mekanisme</th><th>Kvantetrussel</th><th>Tiltak</th></tr></thead>
         <tbody>
@@ -495,9 +498,7 @@
           <tr><td>DH-nøkkelutveksling i TLS</td><td>stor</td><td>ML-KEM</td></tr>
         </tbody>
       </table></div>
-
-      <h4>Sorter: hvem rammes, og hva erstatter dem?</h4>
-      <div id="viz-pqc" class="kr-pqc"></div>
+      </details>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <ul>
@@ -529,22 +530,22 @@
 
   <footer class="footer">IN2120-guide · Blokk 2 · Kryptografi · <a href="03-pki.html">Neste: blokk 3, PKI</a></footer>
 
-  <script src="assets/js/core.js?v=20261125f"></script>
-  <script src="assets/js/symboler.js?v=20261125f"></script>
-  <script src="assets/js/pseudocode.js?v=20261125f"></script>
-  <script src="assets/js/stepplayer.js?v=20261125f"></script>
-  <script src="assets/js/varline.js?v=20261125f"></script>
-  <script src="assets/js/inspera.js?v=20261125f"></script>
-  <script src="assets/js/dra.js?v=20261125f"></script>
-  <script src="assets/js/ovelse.js?v=20261125f"></script>
-  <script src="assets/js/bank.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
-  <script src="assets/js/viz-krypto.js?v=20261125f"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261125f"></script>
+  <script src="assets/js/core.js?v=20261125n"></script>
+  <script src="assets/js/symboler.js?v=20261125n"></script>
+  <script src="assets/js/pseudocode.js?v=20261125n"></script>
+  <script src="assets/js/stepplayer.js?v=20261125n"></script>
+  <script src="assets/js/varline.js?v=20261125n"></script>
+  <script src="assets/js/inspera.js?v=20261125n"></script>
+  <script src="assets/js/dra.js?v=20261125n"></script>
+  <script src="assets/js/ovelse.js?v=20261125n"></script>
+  <script src="assets/js/bank.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
+  <script src="assets/js/viz-krypto.js?v=20261125n"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261125n"></script>
   <script>
   (function () {
     "use strict";

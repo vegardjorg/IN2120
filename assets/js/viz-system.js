@@ -7,10 +7,10 @@
                              og «Angriper eskalerer»
    IN.sysStakk(host)         bufferoverflyt på konseptnivå: stakkrammen fylles (stegspiller), kanarifugl, NX og
                              ASLR, og virtuelt minne for to prosesser. Ingen utnyttelseskode.
-   IN.sysLag(host)           lagene i tradisjonell, type 1, type 2 og container. Plasser bokser, sjekk,
-                             og «Angrep fra gjest»
+   IN.sysLag(host)           lagene i tradisjonell, type 1, type 2 og container. Plasser bokser med
+                             IN.bucketTask (dra.js), sjekk, og «Angrep fra gjest»
    IN.sysOppstart(host)      UEFI-sikker oppstart med PK/db/dbx, TPM-logg (målt oppstart), BitLocker og attestering
-   IN.sysKanal(host)         sorter scenarioer: sidekanal, skjult kanal eller ingen. Båndbreddekalkulator
+   IN.sysKanal(host)         sorter scenarioer: sidekanal, skjult kanal eller ingen. Gjett først, så båndbreddekalkulator
    IN.sysCvss(host)          CVSS-skalaen med fire bånd, flyten CVE → NVD → virksomhet, og prioritering
    IN.sysSjekk()             selvtest av tallene og fasitene, gir [{navn, ok, fikk, ventet}]
    Lagring (bare valg i modusene): in2120:viz-system:<modus> via IN.store.
@@ -438,86 +438,80 @@
   };
   var LAG_BANK = ["App", "Gjeste-OS", "Hypervisor", "OS", "Verts-OS", "Docker Engine", "Container", "Binaries/biblioteker", "Maskinvare"];
 
+  // Fasit for én arkitektur som dra.js-oppgave: hver boks i banken hører til ett lag eller til «Brukes ikke her».
+  function lagSpec(fane) {
+    var L = LAG[fane], n = L.lag.length;
+    var zones = L.lag.map(function (x, i) {
+      return { id: "l" + i, label: "Lag " + (i + 1) + (i === 0 ? " · topp" : i === n - 1 ? " · bunn" : "") };
+    });
+    zones.push({ id: "ubrukt", label: "Brukes ikke her" });
+    var answer = {}, items = LAG_BANK.map(function (navn, k) {
+      var i = L.lag.indexOf(navn), id = "b" + k;
+      answer[id] = i >= 0 ? "l" + i : "ubrukt";
+      return { id: id, html: esc(navn), forklaring: i >= 0
+        ? "Lag " + (i + 1) + " fra toppen" + (L.niv[i] ? ", nivå " + L.niv[i] : "") + "."
+        : "Ikke et eget lag i stabelen for " + L.navn.toLowerCase() + "." };
+    });
+    var niv = L.lag.map(function (x, i) { return L.niv[i] && L.niv[i] !== "–" ? x + " " + L.niv[i] : null; }).filter(Boolean).join(" · ");
+    return { items: items, zones: zones, answer: answer, poolLabel: "Banken",
+      oppsummering: "<p>" + forklarLag(fane) + "</p><p class=\"sys-note\">Nivåtall: " + esc(niv) + " (" + L.kilde + ").</p>" };
+  }
+
   IN.sysLag = function (host) {
     host = host$(host); if (!host) return;
     clear(host);
     var w = el("div", { class: "sys-viz" });
     var fane = sget("lag", "type1"); if (!LAG[fane]) fane = "type1";
-    var plass = {}, valgt = null, sjekket = false, angrep = false;
+    var angrep = false, task = null;
 
     var tRow = el("div", { class: "sys-row", role: "group", "aria-label": "Velg arkitektur" });
     var tBtn = {};
     Object.keys(LAG).forEach(function (k) {
-      var b = btn(LAG[k].navn, function () { fane = k; plass = {}; valgt = null; sjekket = false; angrep = false; sset("lag", k); paint(); });
+      var b = btn(LAG[k].navn, function () { fane = k; angrep = false; sset("lag", k); bygg(); paintSide(); });
       tBtn[k] = b; tRow.appendChild(b);
     });
     w.appendChild(tRow);
-    w.appendChild(H("p", "sys-note", "Klikk en boks i banken og så et lag i stabelen (eller dra boksen dit). Klikk et fylt lag for å tømme det. Ikke alle boksene skal brukes."));
-    var bankEl = el("div", { class: "sys-bank", role: "group", "aria-label": "Bokser" });
-    w.appendChild(bankEl);
+    w.appendChild(H("p", "sys-note", "Ikke alle boksene skal brukes. Legg dem du ikke trenger, i «Brukes ikke her»."));
     var lay = el("div", { class: "sys-lay" });
-    var stakk = el("div", { class: "sys-lagstakk" });
+    var taskHost = el("div", { class: "sys-lagdra" });
     var side = el("div", { class: "sys-side" });
-    lay.appendChild(stakk); lay.appendChild(side);
+    lay.appendChild(taskHost); lay.appendChild(side);
     w.appendChild(lay);
     w.appendChild(el("div", { class: "sys-row" }, [
-      btn("Sjekk", function () { sjekket = true; paint(); }, "primary"),
-      btn("Vis fasit", function () { LAG[fane].lag.forEach(function (x, i) { plass[i] = x; }); sjekket = true; paint(); }),
-      btn("Angrep fra gjest", function () { angrep = true; paint(); }),
-      btn("Nullstill", function () { plass = {}; valgt = null; sjekket = false; angrep = false; paint(); })
+      btn("Vis fasit", function () {
+        if (!task) return;
+        var sp = lagSpec(fane);
+        sp.items.forEach(function (it) { task.place(it.id, sp.answer[it.id]); });
+        task.check();
+      }),
+      btn("Angrep fra gjest", function () { angrep = true; paintSide(); })
     ]));
     var out = el("div", { class: "sys-out", "aria-live": "polite" });
     w.appendChild(out);
     host.appendChild(w);
 
-    function plasser(i, navn) { plass[i] = navn; valgt = null; sjekket = false; paint(); }
-
-    function paint() {
-      var L = LAG[fane];
+    function bygg() {
       for (var k in tBtn) press(tBtn[k], k === fane);
-      clear(bankEl);
-      LAG_BANK.forEach(function (navn) {
-        var c = el("button", { class: "sys-chip sys-dra" + (valgt === navn ? " valgt" : ""), type: "button", draggable: "true", text: navn, "aria-pressed": valgt === navn ? "true" : "false" });
-        c.addEventListener("click", function () { valgt = valgt === navn ? null : navn; paint(); });
-        c.addEventListener("dragstart", function (e) { try { e.dataTransfer.setData("text/plain", navn); } catch (x) {} });
-        bankEl.appendChild(c);
-      });
-      clear(stakk);
-      stakk.appendChild(H("div", "sys-adr-h", L.navn + " · topp"));
-      L.lag.forEach(function (fasit, i) {
-        var v = plass[i];
-        var ok = sjekket && v === fasit, nei = sjekket && v != null && v !== fasit;
-        var slot = el("button", { class: "sys-slot" + (v ? " fylt" : "") + (ok ? " ok" : "") + (nei ? " nei" : "") + (sjekket && v == null ? " tom" : ""), type: "button",
-          "aria-label": "Lag " + (i + 1) + " fra toppen: " + (v || "tomt") });
-        slot.appendChild(H("span", "sys-slot-niv", sjekket ? (L.niv[i] ? "nivå " + L.niv[i] : "") : ""));
-        slot.appendChild(H("span", "sys-slot-v", v || "…"));
-        if (nei) slot.appendChild(H("span", "sys-slot-f", "riktig: " + fasit));
-        if (sjekket && v == null) slot.appendChild(H("span", "sys-slot-f", "mangler: " + fasit));
-        slot.addEventListener("click", function () { if (valgt) plasser(i, valgt); else if (plass[i]) { delete plass[i]; sjekket = false; paint(); } });
-        slot.addEventListener("dragover", function (e) { e.preventDefault(); });
-        slot.addEventListener("drop", function (e) { e.preventDefault(); var d = ""; try { d = e.dataTransfer.getData("text/plain"); } catch (x) {} if (d) plasser(i, d); });
-        stakk.appendChild(slot);
-      });
-      stakk.appendChild(H("div", "sys-adr-h", "bunn · " + L.kilde));
-
+      if (!IN.bucketTask) { clear(taskHost); taskHost.appendChild(H("p", "sys-note", "Øvingen trenger dra.js.")); task = null; return; }
+      var sp = lagSpec(fane);
+      sp.prompt = "<b>" + LAG[fane].navn + "</b>: legg boksene i stabelen fra toppen og ned.";
+      task = IN.bucketTask(taskHost, sp, { instant: false, checkLabel: "Sjekk", cls: "sys-lagoppg" });
+    }
+    function paintSide() {
       clear(side);
       side.appendChild(H("div", "sys-k", "Sikkerhetsmål for virtualisering (d08 s. 19)"));
       var maal = maalStatus(fane, angrep);
       ["Gjestene kan ikke nå eller påvirke hverandre", "Gjestene kan ikke påvirke hypervisoren", "Gjestene kan ikke oppdage at de er virtualisert"].forEach(function (t, i) {
         side.appendChild(H("div", "sys-maal " + maal[i][0], "<b>" + (i + 1) + ".</b> " + t + (maal[i][1] ? "<br><span class=\"sys-note\">" + maal[i][1] + "</span>" : "")));
       });
-      if (angrep) side.appendChild(angrepFig(fane));
-
-      if (sjekket) {
-        var r = 0; L.lag.forEach(function (f, i) { if (plass[i] === f) r++; });
-        out.className = "sys-out " + (r === L.lag.length ? "ok" : "nei");
-        out.innerHTML = "<p><b>" + r + " av " + L.lag.length + " lag riktig.</b> " + forklarLag(fane) + "</p>";
-      } else if (angrep) {
+      if (angrep) {
+        side.appendChild(angrepFig(fane));
         out.className = "sys-out " + (fane === "cont" ? "nei" : "ok");
         out.innerHTML = "<p>" + angrepTekst(fane) + "</p>";
       } else { out.className = "sys-out"; out.innerHTML = ""; }
     }
-    paint();
+    bygg(); paintSide();
+    return { task: function () { return task; }, fane: function () { return fane; } };
   };
 
   function forklarLag(f) {
@@ -673,6 +667,9 @@
     { id: "strom", medium: "strøm", s: "En angriper måler strømforbruket til et betalingskort mens det signerer.", svar: "side", hvem: "Offeret (kortet) lekker uten å vite det.", hvorfor: "Strømforbruk er en sidekanal (d08 s. 24)." },
     { id: "tor", medium: "nett", s: "En bruker setter opp en kryptert forbindelse gjennom Tor.", svar: "ingen", hvem: "Ingen angriper og ingen lekkasje.", hvorfor: "Tor er et anonymiseringsnettverk, ikke et angrep." }
   ];
+  // Gjett først: størrelsesorden for tiden. maks i sekunder (siste trinn uten øvre grense).
+  var GJETT = [{ maks: 60, tekst: "Under ett minutt" }, { maks: 3600, tekst: "Minutter" }, { maks: 86400, tekst: "Timer" }, { maks: Infinity, tekst: "Døgn eller mer" }];
+  function gjettTrinn(sek) { for (var i = 0; i < GJETT.length; i++) if (sek < GJETT[i].maks) return i; return GJETT.length - 1; }
   var KOL = [{ id: "side", navn: "Sidekanal (utilsiktet)" }, { id: "skjult", navn: "Skjult kanal (bevisst)" }, { id: "ingen", navn: "Ingen / annet" }];
 
   IN.sysKanal = function (host) {
@@ -692,8 +689,27 @@
     var out = el("div", { class: "sys-out", "aria-live": "polite" });
     w.appendChild(out);
 
-    // Kalkulator
+    // Gjett først (egen knapperad), så verktøyet
     w.appendChild(H("h5", "sys-h", "Hvor lang tid tar en skjult kanal?"));
+    var gjett = el("div", { class: "sys-gjett" });
+    gjett.appendChild(H("p", "", "<b>Gjett først.</b> Skadevare lekker en AES-256-nøkkel (256 bit) gjennom en skjult kanal på 0,5 bit/s. Hvor lang tid tar det?"));
+    var gRow = el("div", { class: "sys-row", role: "group", "aria-label": "Ditt gjett" });
+    var gOut = el("div", { class: "sys-out", "aria-live": "polite" });
+    var gBtn = GJETT.map(function (g, i) {
+      var b = btn(g.tekst, function () { svarGjett(i); });
+      press(b, false); gRow.appendChild(b); return b;
+    });
+    gjett.appendChild(gRow); gjett.appendChild(gOut);
+    w.appendChild(gjett);
+    var verktoy = el("div", { class: "sys-verktoy", hidden: true });
+    verktoy.appendChild(H("p", "sys-note", "<b>Verktøy:</b> prøv andre tall. Dette er en kalkulator, ikke en oppgave."));
+    function svarGjett(i) {
+      var t = kanalTid(0.5, 256), fasit = gjettTrinn(t), ok = i === fasit;
+      gBtn.forEach(function (b, k) { press(b, k === i); b.disabled = true; });
+      gOut.className = "sys-out " + (ok ? "ok" : "nei");
+      gOut.innerHTML = "<p><b>" + (ok ? "Riktig." : "Ikke helt. Riktig er «" + GJETT[fasit].tekst + "».") + "</b> 256 bit / 0,5 bit/s = 512 s, altså " + varighet(t) + ".</p>";
+      verktoy.hidden = false;
+    }
     var bps = el("input", { type: "number", class: "sys-num", min: "0.01", step: "0.1", value: "0.5", "aria-label": "Bit per sekund" });
     var storr = el("select", { class: "sys-sel", "aria-label": "Hemmelighetens størrelse" });
     [["128", "AES-128-nøkkel (128 bit)"], ["256", "AES-256-nøkkel (256 bit)"], ["64", "passord på 8 tegn (64 bit)"], ["2048", "RSA-2048-modul (2048 bit)"]].forEach(function (p, i) {
@@ -708,8 +724,9 @@
       kalk.innerHTML = "<p class=\"sys-mono\">" + n + " bit / " + komma(b) + " bit/s = " + komma(Math.round(t * 10) / 10) + " s</p><p>Det tar <b>" + varighet(t) + "</b>. Lav båndbredde er ingen trøst for små hemmeligheter.</p>";
     }
     bps.addEventListener("input", regn); storr.addEventListener("change", regn);
-    w.appendChild(el("div", { class: "sys-row" }, [el("label", { class: "sys-lbl" }, ["Bit per sekund: ", bps]), el("label", { class: "sys-lbl" }, ["Hemmelighet: ", storr])]));
-    w.appendChild(kalk);
+    verktoy.appendChild(el("div", { class: "sys-row" }, [el("label", { class: "sys-lbl" }, ["Bit per sekund: ", bps]), el("label", { class: "sys-lbl" }, ["Hemmelighet: ", storr])]));
+    verktoy.appendChild(kalk);
+    w.appendChild(verktoy);
     host.appendChild(w);
     regn();
 
@@ -855,6 +872,9 @@
     t("CVSS-grenser", [0, 0.1, 3.9, 4.0, 6.9, 7.0, 8.9, 9.0, 10].map(function (x) { return cvssKat(x).id; }),
       ["ingen", "lav", "lav", "middels", "middels", "hoy", "hoy", "kritisk", "kritisk"]);
     t("256 bit ved 0,5 bit/s", kanalTid(0.5, 256), 512);
+    t("gjett: 512 s er «Minutter»", GJETT[gjettTrinn(512)].tekst, "Minutter");
+    t("Bygg stablene: type 1 bøtter", (function () { var a = lagSpec("type1").answer; return LAG_BANK.map(function (x, k) { return a["b" + k]; }); })(),
+      ["l0", "l1", "l2", "ubrukt", "ubrukt", "ubrukt", "ubrukt", "ubrukt", "l3"]);
     t("stakkfelt med kanarifugl", stakkFelt(true).map(function (f) { return f.id; }), ["b0", "b1", "kan", "rfp", "ret"]);
     t("H22 2.4 type 1 fra topp", LAG.type1.lag, ["App", "Gjeste-OS", "Hypervisor", "Maskinvare"]);
     t("H22 2.5 container fra topp", LAG.cont.lag, ["Container", "Docker Engine", "Verts-OS", "Maskinvare"]);

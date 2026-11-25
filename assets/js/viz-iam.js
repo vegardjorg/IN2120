@@ -33,7 +33,7 @@
   /* ---------- Sekvensdiagram ---------- */
   function drawSeq(cfg, k) {
     var P = cfg.parter, M = cfg.meldinger, pre = cfg.pre || [];
-    var W = Math.max(560, 150 * P.length), mx = 70, colW = (W - 2 * mx) / Math.max(1, P.length - 1);
+    var W = seqW(cfg), mx = 70, colW = (W - 2 * mx) / Math.max(1, P.length - 1);
     var top = 12, boxH = 40, y0 = top + boxH + 22 + pre.length * 26, dy = 36;
     var H = y0 + M.length * dy + 14;
     var X = function (i) { return mx + i * colW; };
@@ -93,6 +93,40 @@
     return g;
   }
 
+  /* Smal skjerm: vertikal meldingsliste (avsender → mottaker: melding) i stedet for diagrammet,
+     som ellers måtte skaleres så mye at teksten ble uleselig. Samme meldinger 1 … k, siste uthevet. */
+  // Lista brukes når diagrammet måtte skaleres under 75 % (teksten ville blitt under ca. 9 px).
+  var SMAL = 0.75;
+  function seqW(cfg) { return Math.max(560, 150 * cfg.parter.length); }
+  function partNavn(p) { return String(p).replace(/-\n/g, "").replace(/\n/g, " "); }
+  function drawListe(cfg, k) {
+    var P = cfg.parter, M = cfg.meldinger, pre = cfg.pre || [];
+    var box = el("div", { class: "iam-liste", role: "group", "aria-label": cfg.aria || "Sekvensdiagram som liste" });
+    box.appendChild(el("p", { class: "iam-l-parter small" }, [el("span", { class: "muted", text: "Parter: " })].concat(
+      P.map(function (p, i) { return el("span", { class: "iam-l-part", text: partNavn(p) + (i < P.length - 1 ? " · " : "") }); }))));
+    pre.forEach(function (p) {
+      box.appendChild(el("p", { class: "iam-l-pre small", html: "<b>" + esc(partNavn(P[p.fra])) + "</b> ⇢ <b>" + esc(partNavn(P[p.til])) + "</b>: " + esc(p.tekst) }));
+    });
+    var ol = el("ol", { class: "iam-l-ol" });
+    M.forEach(function (m, i) {
+      if (i >= k) return;
+      var cur = i === k - 1, nr = m.nr != null ? String(m.nr) : String(i + 1);
+      var hvem = m.fra === m.til ? "<b>" + esc(partNavn(P[m.fra])) + "</b> (internt)"
+        : "<b>" + esc(partNavn(P[m.fra])) + "</b> " + (m.stiplet ? "⇢" : "→") + " <b>" + esc(partNavn(P[m.til])) + "</b>";
+      var li = el("li", { class: "iam-l-msg" + (cur ? " cur" : " done") + (m.stiplet ? " dash" : ""), "aria-current": cur ? "step" : null }, [
+        el("span", { class: "iam-l-nr", "aria-hidden": "true", text: nr }),
+        el("span", { class: "iam-l-body" }, [
+          el("span", { class: "iam-l-hvem", html: hvem }),
+          el("span", { class: "iam-l-txt", html: esc(m.tekst) + (m.merke ? ' <span class="iam-l-merke">' + esc(m.merke) + "</span>" : "") })
+        ])
+      ]);
+      ol.appendChild(li);
+    });
+    if (!k) box.appendChild(el("p", { class: "small muted iam-l-tom", text: "Trykk «Neste» for første melding." }));
+    else box.appendChild(ol);
+    return box;
+  }
+
   function seq(host, cfg) {
     host = host$(host);
     if (!host) return null;
@@ -113,7 +147,9 @@
       render: function (s, ctx) {
         ctx.stage.classList.add("iam-stage");
         clear(ctx.stage);
-        ctx.stage.appendChild(drawSeq(cfg, s.k));
+        var smal = ctx.width > 0 && ctx.width < SMAL * seqW(cfg);
+        ctx.stage.classList.toggle("iam-smal", smal);
+        ctx.stage.appendChild(smal ? drawListe(cfg, s.k) : drawSeq(cfg, s.k));
       }
     });
   }
@@ -210,7 +246,7 @@
         var list = el("div", { class: "iam-cell-l" });
         var b = el("button", { class: "iam-cell-b", type: "button", text: "Plasser her", "aria-label": "Plasser i " + rn.toLowerCase() + ", " + kn.toLowerCase(),
           onclick: function () { drop(r, c); } });
-        var td = el("td", {}, [list, b]);
+        var td = el("td", { "data-kol": kn }, [list, b]);
         cells.push({ r: r, c: c, list: list, b: b, td: td });
         tr.appendChild(td);
       });

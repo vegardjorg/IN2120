@@ -10,6 +10,10 @@
      kryss av punktene i sjekklisten (se sjekkliste() under) og få en egenvurdert poengsum. Perfekt svar og
      sensorveiledningen vises i øvingen etter vurderingen. Egenvurdering sender in:insp med manual: true.
      opts: { onScore: fn({key, score, maks, manual}), compact: bool, iKort: bool }
+       Utenfor kort får øvingen en synlig tittel h5.insp-tittel (oppg.title og poeng), se tittel() under.
+       Poenglinja er én kort linje (arkets tekst) i en lukket <details> med «Slik retter øvingen».
+       Type M: hver avkrysning ligger i label.insp-m-o som fyller cella. Under 560 px stables matrisen
+       (viz.css): én blokk per rad, valgene som knapperad. Lagring og retting er uendret.
        iKort: øvingen står i fanen «Oppgave» i et eksamenskort (bank.js). Da viser den ikke perfekt svar og
        sensorveiledningen selv, men knapper som åpner fanene «Løsning» og «Sensorveiledning» i samme kort
        (card._show). Finnes ikke kortet eller fanen, vises de i øvingen som før. «Fasit og forklaring»
@@ -256,6 +260,24 @@
     return box;
   }
 
+  /* Fast kolonneoverskrift i matrisen (brei skjerm): stå rett under toppmenyen og nivålinja. */
+  var stickBundet = false;
+  function stickTop() {
+    var h = 0;
+    ["topnav", "levelbar"].forEach(function (id) {
+      var n = document.getElementById(id);
+      if (n && window.getComputedStyle(n).position === "sticky") h = Math.max(h, (parseFloat(window.getComputedStyle(n).top) || 0) + n.offsetHeight);
+    });
+    if (h) document.documentElement.style.setProperty("--insp-stick-top", Math.round(h) + "px");
+  }
+  function bindStick() {
+    if (stickBundet) return;
+    stickBundet = true;
+    stickTop();
+    window.addEventListener("resize", stickTop);
+    if (document.readyState !== "complete") window.addEventListener("load", stickTop);
+  }
+
   /* ---------- Hovedrenderer ---------- */
   IN.inspera = function (host, o, opts) {
     if (typeof host === "string") host = IN.qs(host);
@@ -272,15 +294,21 @@
 
     var wrap = el("div", { class: "insp insp-" + t + (opts.compact ? " insp-compact" : ""), "data-key": key });
 
-    // Poenglinja: ordrett fra arket + regelen slik vi teller den
+    // Poenglinja: én kort linje (ordrett fra arket). «Slik retter øvingen» ligger i en lukket <details>.
     if (!manual) {
-      var rl = el("div", { class: "insp-regel small" });
-      if (q.regelTekst) rl.appendChild(el("p", { class: "insp-regel-ark", html: "<b>Poeng (arket):</b> " + q.regelTekst }));
-      rl.appendChild(el("p", { class: "insp-regel-vi muted", text: "Slik retter øvingen: riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") +
+      var viTxt = "Slik retter øvingen: riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") +
         ", ubesvart " + (rb ? sgn(rb) : "0") + " per " + (t === "M" ? "rad" : t === "FF" ? "avkrysset alternativ" : (t === "F1" || t === "H") ? "oppgave" : "felt") +
-        ". Aldri under " + num(min) + (maks != null ? ", høyst " + num(maks) : "") + " poeng." }));
-      if (q.regelMerknad) rl.appendChild(el("p", { class: "insp-regel-mk muted", html: q.regelMerknad }));
+        ". Aldri under " + num(min) + (maks != null ? ", høyst " + num(maks) : "") + " poeng.";
+      var arkTxt = q.regelTekst ? String(q.regelTekst).replace(/^\s*Poeng\s*:\s*/i, "") : null;
+      var rl = el("details", { class: "insp-regel small" });
+      rl.appendChild(el("summary", { html: (arkTxt ? "<b>Arket:</b> " + arkTxt : "<b>Poeng:</b> riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") + ", ubesvart " + (rb ? sgn(rb) : "0")) +
+        ' <span class="insp-regel-mer">slik retter øvingen</span>' }));
+      rl.appendChild(el("p", { class: "insp-regel-vi muted", text: viTxt }));
+      // «Velg 3 …» er en instruks og står synlig. Andre merknader (retting, distraktorer) står i <details>.
+      var mkInstruks = q.regelMerknad && /^\s*velg\b/i.test(plain(q.regelMerknad));
+      if (q.regelMerknad && !mkInstruks) rl.appendChild(el("p", { class: "insp-regel-mk muted", html: q.regelMerknad }));
       wrap.appendChild(rl);
+      if (mkInstruks) wrap.appendChild(el("p", { class: "insp-regel-mk small", html: q.regelMerknad }));
     }
 
     var body = el("div", { class: "insp-body" });
@@ -307,7 +335,8 @@
           var inp = el("input", { type: q.multi ? "checkbox" : "radio", name: name, value: String(ci),
             "aria-label": (row.s || "").replace(/<[^>]+>/g, "") + ": " + String(k).replace(/<[^>]+>/g, "") });
           inputs.push(inp);
-          tr.appendChild(el("td", {}, [inp]));
+          // Labelen fyller cella (stort trykkmål). Kolonnenavnet vises som knappetekst når matrisen stables (≤ 560 px).
+          tr.appendChild(el("td", {}, [el("label", { class: "insp-m-o" }, [inp, html(el("span", { class: "insp-m-k", "aria-hidden": "true" }), k)])]));
         });
         var st = el("td", { class: "insp-m-st" }); tr.appendChild(st);
         tb.appendChild(tr);
@@ -323,6 +352,7 @@
         });
       });
       tab.appendChild(tb); tw.appendChild(tab); body.appendChild(tw);
+      bindStick();
     }
 
     /* --- FF med flere spørsmål: sporsmal[] med svar: [idx …], én enhet per alternativ --- */
@@ -452,7 +482,7 @@
         nodes.forEach(function (n, i) { fl.appendChild(el("p", { class: "insp-felt" }, [html(el("span", { class: "insp-et" }), (felt[i].etikett || "Felt " + (i + 1)) + ": "), n])); });
         body.appendChild(fl);
       }
-      if (t === "D" && q.bank && q.bank.length) body.insertBefore(el("p", { class: "insp-bank small muted", html: "<b>Boksene du kan dra inn:</b> " + q.bank.map(function (b) { return '<span class="insp-chip">' + b + "</span>"; }).join(" ") }), body.firstChild);
+      if (t === "D" && q.bank && q.bank.length) body.insertBefore(el("p", { class: "insp-bank small muted", html: "<b>Ordene du kan velge mellom (på eksamen drar du dem inn):</b> " + q.bank.map(function (b) { return '<span class="insp-chip">' + b + "</span>"; }).join(" ") }), body.firstChild);
     }
 
     /* --- K / E: manuelt rettet, med sjekkliste for egenvurdering --- */
@@ -488,6 +518,32 @@
     }
     wrap.appendChild(bar); wrap.appendChild(res); if (vurd) wrap.appendChild(vurd); wrap.appendChild(fasitBox);
     host.appendChild(wrap);
+    if (!opts.iKort) tittel();
+
+    /* Synlig tittel (oppgavetittel og poeng) utenfor eksamenskort, så to oppgaver på rad blir to enheter.
+       Står spørsmålsteksten rett foran verten (p, pre, .ov-tekst eller en callout som ikke er et eksempel),
+       settes tittelen foran den. Ellers øverst i verten. I eksamenskortet har kortet allerede tittelen. */
+    function tittel() {
+      if (host._inspTittel && host._inspTittel.parentNode) host._inspTittel.parentNode.removeChild(host._inspTittel);
+      var pts = maks != null ? maks : (o.points != null ? +o.points : null);
+      var h = el("h5", { class: "insp-tittel", "data-for": key }, [
+        html(el("span", { class: "insp-tittel-t" }), o.title || "Inspera-oppgave"),
+        pts != null ? el("span", { class: "insp-tittel-p", text: num(pts) + " poeng" }) : null
+      ]);
+      function prompt(e) {
+        if (!e || e.id || e.querySelector && e.querySelector("[id]")) return false;
+        var tg = e.tagName;
+        if (tg === "P" || tg === "PRE") return !/\binsp-/.test(e.className);
+        if (e.classList.contains("ov-tekst")) return true;
+        if (e.classList.contains("callout")) { var lb = e.querySelector(".lbl"); return !(lb && /^\s*eksempel\s*$/i.test(lb.textContent)); }
+        return false;
+      }
+      var anchor = null, p = host.previousElementSibling;
+      for (var i = 0; i < 2 && prompt(p); i++) { anchor = p; p = p.previousElementSibling; }
+      if (anchor) anchor.parentNode.insertBefore(h, anchor); else host.insertBefore(h, wrap);
+      host._inspTittel = h;
+      wrap.classList.add("insp-har-tittel");
+    }
 
     /* ---------- Egenvurdering (K/E) ---------- */
     function allText() { return units.map(function (u) { return u.get() || ""; }).join("\n"); }

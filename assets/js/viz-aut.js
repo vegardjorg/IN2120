@@ -214,7 +214,7 @@
         id: "aut-nr-antall",
         sporsmal: function (inn) {
           return "Et passord har nøyaktig <b>" + inn.L + "</b> tegn, og hvert tegn velges fritt blant <b>" + inn.A + "</b> mulige tegn" +
-            tegnsettTekst(inn.A) + ". Hvor mange ulike passord finnes? Endre A og L med gliderne for en ny oppgave.";
+            tegnsettTekst(inn.A) + ". Hvor mange ulike passord finnes? Endre A og L med gliderne over for en ny oppgave.";
         },
         inndata: NR_INN,
         fasit: function (inn) { return calc.keyspace(inn.A, inn.L); },
@@ -241,17 +241,16 @@
         id: "aut-nr-tid",
         sporsmal: function (inn) {
           return "Samme type passord: A = <b>" + inn.A + "</b> tegn og lengde L = <b>" + inn.L + "</b>. Angriperen har en lekket hash og prøver <b>10<sup>10</sup> gjetninger per sekund</b> (rask hashfunksjon). " +
-            "Hvor mange <b>sekunder</b> tar det i verste fall å prøve alle passordene?";
+            "Hvor lang tid tar det i verste fall å prøve alle passordene? Regn ut tiden og velg størrelsesorden.";
         },
         inndata: NR_INN,
+        skjulInndata: true,
+        svarform: "orden",
+        trinn: IN.regnForst.tidstrinn(),
         fasit: function (inn) { return calc.sekunder(inn.A, inn.L, NR_FART); },
-        enhet: "sekunder",
-        toleranse: 0.03,
-        fasitTekst: function (inn, f) { return IN.regnForst.format(f) + " sekunder, det vil si " + tid(f) + ". I snitt (halvparten): " + tid(f / 2) + "."; },
+        fasitTekst: function (inn, f) { return "<b>" + IN.regnForst.tidstrinn()[IN.regnForst.trinnFor(f, IN.regnForst.tidstrinn())].tekst + "</b>: " + IN.regnForst.format(f) + " sekunder, det vil si " + tid(f) + ". I snitt (halvparten): " + tid(f / 2) + "."; },
         vanligeFeil: [
           { verdi: function (inn) { return calc.snitt(inn.A, inn.L, NR_FART); }, hint: "Det er tiden <i>i snitt</i> (halvparten av rommet). Spørsmålet gjelder verste fall: alle passordene." },
-          { verdi: function (inn) { return calc.sekunder(inn.A, inn.L, NR_FART) / 3600; }, hint: "Det ser ut som timer. Svaret skal være i sekunder." },
-          { verdi: function (inn) { return calc.sekunder(inn.A, inn.L, NR_FART) / YEAR; }, hint: "Det ser ut som år. Svaret skal være i sekunder." },
           { verdi: function (inn) { return calc.keyspace(inn.A, inn.L) * NR_FART; }, hint: "Du har ganget med farten. Antall passord <i>delt på</i> gjetninger per sekund gir sekunder." },
           { verdi: function (inn) { return Math.pow(inn.L, inn.A) / NR_FART; }, hint: "Du har byttet om grunntall og eksponent. Antallet er A<sup>L</sup>, ikke L<sup>A</sup>." },
           { verdi: function (inn) { return calc.keyspace(inn.A, inn.L); }, hint: "Det er antall passord. Del på 10<sup>10</sup> gjetninger per sekund for å få tiden." }
@@ -267,7 +266,9 @@
         }
       });
       // «Samme type passord»: A og L følger hverandre i begge oppgavene.
+      // Gliderne vises én gang, over begge spørsmålene (rf2 har skjulInndata).
       if (rf1 && rf2 && IN.regnForst.koble) IN.regnForst.koble([rf1, rf2]);
+      if (rf1 && rf1.inndataEl) wrap.insertBefore(rf1.inndataEl, wrap.firstChild);
     }
     kalkulator(kalk);
   }
@@ -557,7 +558,7 @@
   /* Regn først: FMR for en gitt terskel, før kurvene vises. */
   function bioSporsmal(inn) {
     return "Testen har ti genuine forsøk med skåringene <span class=\"mono\">" + GEN.join(", ") + "</span> og ti ikke-genuine med <span class=\"mono\">" + IMP.join(", ") +
-      "</span>. Systemet gir match når <span class=\"mono\">S ≥ T</span>. Med terskel <b>T = " + inn.T + "</b>: hva er <b>FMR</b>? Svar som andel, for eksempel 0,3 eller 3/10.";
+      "</span>. Systemet gir match når <span class=\"mono\">S ≥ T</span>. Med terskel <b>T = " + inn.T + "</b>: hva er <b>FMR</b>? Svar som andel, for eksempel 0,3.";
   }
   function biometri(host) {
     host = host0(host); if (!host) return;
@@ -579,6 +580,7 @@
       id: "aut-bio-fmr",
       sporsmal: bioSporsmal,
       inndata: [{ navn: "T", etikett: "Terskel T", verdi: 65, min: 40, max: 80, steg: 1 }],
+      rentTall: true,
       fasit: function (inn) { return calc.rater(GEN, IMP, inn.T).FMR; },
       toleranse: 0.001,
       fasitTekst: function (inn, f) {

@@ -26,29 +26,7 @@
 .cy-scroll { overflow-x: auto; padding: .2rem 0 .4rem; }
 .cy-h5 { margin: 1.2rem 0 .3rem; font-size: var(--text-sm); }
 .cy-col-h { font-weight: 700; font-size: var(--text-sm); margin: 0 0 .35rem; }
-.cy-status { min-height: 1.4em; margin: .2rem 0; }
-.cy-pool-h { margin: .6rem 0 .25rem; }
-.cy-pool { display: flex; flex-wrap: wrap; gap: .35rem; min-height: 2.4rem; padding: .35rem 0;
-  border-top: 1px solid var(--color-outline-variant); border-bottom: 1px solid var(--color-outline-variant); }
-.cy-card { font: inherit; font-size: var(--text-sm); text-align: left; line-height: 1.3; cursor: grab; max-width: 22rem;
-  padding: .3rem .55rem; border-radius: var(--radius); border: 1px solid var(--color-outline);
-  background: var(--color-surface); color: var(--color-on-surface); }
-.cy-card:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
-.cy-card[aria-pressed="true"] { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary); }
-.cy-card.cy-ok { border-color: var(--color-on-tone-ok); border-left-width: 4px; }
-.cy-card.cy-feil { border-color: var(--color-on-tone-danger); border-left-width: 4px; }
-.cy-card:focus-visible, .cy-drop:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
-.cy-drop { cursor: pointer; }
-.cy-picking .cy-drop { outline: 1px dashed var(--color-primary); outline-offset: 2px; }
-.cy-drop.over { outline: 2px solid var(--color-primary); }
-.cy-list { display: flex; flex-direction: column; gap: .25rem; margin-top: .3rem; }
-.cy-list:empty { min-height: 1.6rem; border-bottom: 1px dashed var(--color-outline-variant); }
-.cy-out { margin-top: .4rem; }
 .cy-sum { margin: .3rem 0; }
-.cy-fb { margin: .2rem 0 .5rem; padding-left: 1.1rem; font-size: var(--text-sm); }
-.cy-fb li { margin: .2rem 0; }
-.cy-fb li.ok > b { color: var(--color-on-tone-ok); }
-.cy-fb li.feil > b { color: var(--color-on-tone-danger); }
 
 /* ---------- Aktørnivåene ---------- */
 .cy-akt-txt { font-size: 1.02rem; line-height: 1.7; margin: .3rem 0 .6rem; }
@@ -96,21 +74,22 @@
 .cy-merke.same { border-color: var(--color-on-tone-ok); color: var(--color-on-tone-ok); }
 .cy-merke.diff { border-color: var(--color-on-tone-danger); color: var(--color-on-tone-danger); }
 
-/* ---------- Kill chain ---------- */
-.cy-kc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(108px, 1fr)); gap: .5rem;
-  min-width: 800px; align-items: start; }
-.cy-kc-step { display: flex; flex-direction: column; gap: .3rem; margin-top: calc(var(--i, 0) * 18px); padding: .2rem; border-radius: var(--radius);
-  transition: opacity .2s; }
-.cy-hex { clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); background: var(--color-primary-container);
-  color: var(--color-on-primary-container); min-height: 74px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: .3rem 1.4rem; }
-.cy-hex-n { font-weight: 800; font-size: 1.05rem; }
-.cy-hex-t { font-size: var(--text-xs); font-weight: 700; line-height: 1.2; }
-.cy-kc-en { text-align: center; font-size: var(--text-xs); }
-.cy-kc-attck { display: none; text-align: center; color: var(--color-tertiary); font-size: var(--text-xs); font-weight: 600; }
+/* ---------- Kill chain ----------
+   Plasseringen er IN.matchTask (dra.js): plassene står under hverandre, også på mobil.
+   «Knert her» er en trapp på bred skjerm og en vanlig liste på smal. */
+.cy-kc { list-style: none; margin: .3rem 0; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
+.cy-kc-step { display: flex; align-items: center; gap: .6rem; margin-left: calc(var(--i, 0) * 1.4rem); transition: opacity .2s; }
+@media (max-width: 640px) { .cy-kc-step { margin-left: 0; } }
+.cy-hex { flex: none; width: 2.6rem; height: 2.3rem; display: grid; place-items: center; font-weight: 800;
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  background: var(--color-primary-container); color: var(--color-on-primary-container); }
+.cy-kc-navn { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.cy-kc-en { font-size: var(--text-xs); }
+.cy-kc-attck { display: none; color: var(--color-tertiary); font-size: var(--text-xs); font-weight: 600; }
 .cy-attck .cy-kc-attck { display: block; }
-.cy-kc-step .cy-card { max-width: none; font-size: var(--text-xs); }
-.cy-kc-step .cy-nokill { align-self: center; }
+.cy-attck .dra-zhint .cy-kc-attck { display: inline; }
+.cy-kc-step .cy-nokill { flex: none; }
+.cy-kc-dra .dra-slot .dra-zhint { margin: -.4rem 0 .15rem; }
 .cy-kc-step.cy-grey { opacity: .3; }
 .cy-kc-step.cy-killed .cy-hex { background: var(--color-on-tone-ok); color: var(--color-surface); }
 .cy-knert { border-left-color: var(--color-on-tone-ok); }
@@ -181,17 +160,16 @@
 .cy-ae th, .cy-ae td { padding: .15rem .6rem; }
 
 /* ---------- Angrep mot KI ---------- */
-.cy-ka-fig { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .6rem 1rem; padding: .6rem .7rem; min-width: 560px;
+.cy-ka-fig { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .6rem 1rem; padding: .6rem .7rem; margin-bottom: .6rem;
   border: 1px dashed var(--color-outline); border-radius: var(--radius-md); }
 .cy-ka-ph { display: flex; flex-direction: column; gap: .3rem; }
 .cy-ka-lbl { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--color-on-surface-variant); }
-.cy-ka-row { display: flex; align-items: flex-start; gap: .5rem; }
-.cy-ka-node { display: flex; flex-direction: column; min-width: 6.5rem; padding: .3rem .5rem; border-left: 3px solid var(--color-outline); }
-.cy-ka-t { border-left-color: var(--color-primary); min-width: 10rem; }
+.cy-ka-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem; }
+.cy-ka-node { display: flex; flex-direction: column; min-width: 5rem; padding: .3rem .5rem; border-left: 3px solid var(--color-outline); }
+.cy-ka-t { border-left-color: var(--color-primary); min-width: 7rem; }
 .cy-ka-arr { align-self: center; color: var(--color-on-surface-variant); font-weight: 700; }
 .cy-ka-mid { margin-top: 1.4rem; font-size: var(--text-sm); }
 .cy-ka-kj { flex: 1 0 100%; border-top: 1px solid var(--color-outline-variant); padding-top: .3rem; }
-.cy-ka-kj .cy-list { flex-direction: row; flex-wrap: wrap; }
 .cy-ka-node.cy-hit { box-shadow: 0 0 0 3px var(--color-on-tone-danger); border-radius: 50% / 40%; }
 .cy-ka-fig.cy-hit { border: 3px solid var(--color-on-tone-danger); }
 
@@ -208,12 +186,19 @@
 .cy-pi-dlg { margin: .5rem 0 0; padding-left: .6rem; border-left: 3px solid var(--color-on-tone-ok); color: var(--color-on-tone-ok); }
 .cy-pi-brudd { margin: .5rem 0 0; padding-left: .6rem; border-left: 3px solid var(--color-on-tone-danger); color: var(--color-on-tone-danger); }
 
-/* ---------- AI Act ---------- */
-.cy-aia-u { border-left-color: var(--color-on-tone-danger); }
-.cy-aia-h { border-left-color: var(--color-on-tone-caution); }
-.cy-aia-b { border-left-color: var(--color-on-tone-warn); }
-.cy-aia-m { border-left-color: var(--color-on-tone-ok); }
-.cy-lag.cy-hit { background: var(--color-surface-container-high); }
+/* ---------- AI Act: bøttene i dra.js stables som en pyramide ---------- */
+.cy-aia-dra .dra-zones { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.cy-aia-dra .dra-bucket { width: 100%; border-left-width: 4px; }
+.cy-aia-dra .dra-bucket:nth-child(1) { max-width: 52%; border-left-color: var(--color-on-tone-danger); }
+.cy-aia-dra .dra-bucket:nth-child(2) { max-width: 68%; border-left-color: var(--color-on-tone-caution); }
+.cy-aia-dra .dra-bucket:nth-child(3) { max-width: 84%; border-left-color: var(--color-on-tone-warn); }
+.cy-aia-dra .dra-bucket:nth-child(4) { border-left-color: var(--color-on-tone-ok); }
+@media (max-width: 560px) { .cy-aia-dra .dra-bucket:nth-child(n) { max-width: none; } }
+
+/* Eksempel som røper fasiten: lukket <details> under øvingen */
+.cy-eks { margin: .9rem 0 1rem; }
+.cy-eks > summary { cursor: pointer; padding: .55rem 0; }
+.cy-eks[open] > summary { margin-bottom: .3rem; }
 
 /* Tabeller på siden */
 .cy-tab th[scope="row"] { white-space: nowrap; }

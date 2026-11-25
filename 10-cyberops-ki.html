@@ -6,9 +6,10 @@
   <title>Blokk 10 · Cyberops og KI · IN2120</title>
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261125n">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -65,7 +66,7 @@
       <p>«Pixelulv» spores fort, fordi trafikken kommer rett fra hjemmeruteren. «Grågås» er nesten umulig å spore via IP, men TLS-fingeravtrykket fra verktøyet er det samme i alle 14 månedene, og det kobler hendelsene sammen.</p>
 
       <h4>Hvilket nivå er aktøren?</h4>
-      <p class="small muted">Les hendelsen og klikk på kortet du tror passer. Etterpå får ledetrådene i teksten samme farge som raden de hører til.</p>
+      <p class="small muted">Les hendelsen og trykk på kortet du tror passer. Etterpå får ledetrådene i teksten samme farge som raden de hører til.</p>
       <div id="viz-aktorer"></div>
 
       <h4>Hvem ser hva i kjeden?</h4>
@@ -128,7 +129,12 @@
         </tbody></table></div>
       <p class="cy-forbehold"><span class="lbl">Forbehold</span>MITRE ATT&amp;CK står ikke på cyberops-lysarket fra 2026. Den kommer fra ukesoppgaven og fra eksamen (H2021 10.3 og H2024 36), så den kan fortsatt komme.</p>
 
-      <h4>Eksempel: Grågås angriper Fjordnett</h4>
+      <h4>Plasser hendelsene og knert angrepet</h4>
+      <p class="small muted">«Sjekk plasseringen» regner ut poeng med den justerte skåringen fra eksamen. «Knert her» viser hvor mye av angrepet som aldri skjer.</p>
+      <div id="viz-killchain"></div>
+
+      <details class="cy-eks">
+        <summary><b>Eksempel: Grågås angriper Fjordnett</b> (fasiten til øvingen over, åpne etter «Sjekk»)</summary>
       <div class="table-wrap"><table class="cy-tab">
         <thead><tr><th>#</th><th>Hva Grågås gjør</th><th>Trinn</th><th>Mulig knertepunkt (forsvar)</th></tr></thead>
         <tbody>
@@ -141,10 +147,7 @@
           <tr><td>7</td><td>Anbudsdokumentene kopieres ut</td><td>Aksjon (måloppnåelse)</td><td>Varsle ved store, uvanlige uttrekk</td></tr>
         </tbody></table></div>
       <p>Stopper e-postfilteret vedlegget i trinn 3, når angrepet aldri trinn 4–7. Det er hele poenget med «kill». Tiltakskolonnen er våre egne eksempler og er ukjent i kildene som liste.</p>
-
-      <h4>Plasser hendelsene og knert angrepet</h4>
-      <p class="small muted">Klikk på en hendelse og så på trinnet den hører til, eller dra den dit. «Sjekk» regner ut poeng med den justerte skåringen fra eksamen. «Knert her» viser hvor mye av angrepet som aldri skjer.</p>
-      <div id="viz-killchain"></div>
+      </details>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor er trinn 2 bevæpning og ikke overlevering?</summary>
@@ -192,7 +195,12 @@
         </ul></div>
       <div id="ex-cti"></div>
 
-      <h4>Eksempel: hva Fjordnett deler etter angrepet</h4>
+      <h4>Pyramiden, DML-trappa og levetiden</h4>
+      <p class="small muted">Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så kortene på riktig nivå.</p>
+      <div id="viz-cti"></div>
+
+      <details class="cy-eks">
+        <summary><b>Eksempel: hva Fjordnett deler etter angrepet</b> (røper fire av kortene, åpne etter «Sjekk»)</summary>
       <div class="table-wrap"><table class="cy-tab">
         <thead><tr><th>Delt informasjon</th><th>Nivå</th><th>Nyttig hvor lenge?</th></tr></thead>
         <tbody>
@@ -202,10 +210,7 @@
           <tr><td>«Statlig aktør som er ute etter anbud i kraft- og nettsektoren»</td><td>Strategisk</td><td>År</td></tr>
         </tbody></table></div>
       <p>Uken etter angriper Grågås et annet firma fra nye IP-adresser, og hashen treffer ikke, fordi makroen er endret. TTP-en treffer derimot. IP-adressene er fra områder som er satt av til dokumentasjon.</p>
-
-      <h4>Pyramiden, DML-trappa og levetiden</h4>
-      <p class="small muted">Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så kortene på riktig nivå.</p>
-      <div id="viz-cti"></div>
+      </details>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor er MITRE ATT&amp;CK taktisk og ikke teknisk CTI?</summary>
@@ -268,7 +273,7 @@
         </tbody></table></div>
 
       <h4>Informasjonsoperasjoner og cyberoperasjoner</h4>
-      <p class="small muted">Klikk på en sirkel for å se hva den står for. Cyberoperasjonene er en del av den store sirkelen, ikke det samme.</p>
+      <p class="small muted">Trykk på en sirkel for å se hva den står for. Cyberoperasjonene er en del av den store sirkelen, ikke det samme.</p>
       <div id="viz-operasjoner"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -406,7 +411,7 @@
       <p>I AI Act-perspektiv er Fjordhjelp en chattebot som samhandler med mennesker, altså <b>begrenset risiko</b>: brukerne må få vite at de snakker med en KI. Hadde Fjordnett brukt KI til å sortere jobbsøkere, ville det vært <b>høy risiko</b> (HR-systemer).</p>
 
       <h4>Hvor treffer angrepet?</h4>
-      <p class="small muted">Figuren viser trening og inferens. Legg hvert angrep der det treffer. Riktige plasseringer får en rød ring, slik lysarket ringer inn stedene.</p>
+      <p class="small muted">Figuren viser trening og inferens. Legg hvert angrep der det treffer. Etter «Sjekk» ringes de tre stedene inn med rødt, slik lysarket gjør.</p>
       <div id="viz-kiangrep"></div>
 
       <h4>Prompt injection steg for steg</h4>
@@ -414,7 +419,7 @@
       <div id="sp-injeksjon"></div>
 
       <h4>AI Act-pyramiden</h4>
-      <p class="small muted">Legg hvert KI-system på riktig risikonivå. Etter «Sjekk» ser du kravet.</p>
+      <p class="small muted">Legg hvert KI-system på riktig risikonivå. Kravet til nivået står under navnet, og etter «Sjekk» får du en forklaring per system.</p>
       <div id="viz-aiact"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -457,19 +462,20 @@
 
   <footer class="footer">IN2120-guide · Blokk 10 · Cyberops og KI · <a href="eksamen.html">Neste: øv på et helt sett</a></footer>
 
-  <script src="assets/js/core.js?v=20261125f"></script>
-  <script src="assets/js/symboler.js?v=20261125f"></script>
-  <script src="assets/js/pseudocode.js?v=20261125f"></script>
-  <script src="assets/js/stepplayer.js?v=20261125f"></script>
-  <script src="assets/js/varline.js?v=20261125f"></script>
-  <script src="assets/js/inspera.js?v=20261125f"></script>
-  <script src="assets/js/bank.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
-  <script src="assets/js/viz-cyber.js?v=20261125f"></script>
+  <script src="assets/js/core.js?v=20261125n"></script>
+  <script src="assets/js/symboler.js?v=20261125n"></script>
+  <script src="assets/js/pseudocode.js?v=20261125n"></script>
+  <script src="assets/js/stepplayer.js?v=20261125n"></script>
+  <script src="assets/js/varline.js?v=20261125n"></script>
+  <script src="assets/js/inspera.js?v=20261125n"></script>
+  <script src="assets/js/dra.js?v=20261125n"></script>
+  <script src="assets/js/bank.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
+  <script src="assets/js/viz-cyber.js?v=20261125n"></script>
   <script>
   (function () {
     "use strict";

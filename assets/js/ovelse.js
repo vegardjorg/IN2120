@@ -26,11 +26,33 @@
                                   Setter en lytter inndata tilbake i samme widget, kalles ikke lytterne på nytt.
        etter?: fn(node, inndata)  kalles når svaret vises; node er en tom plass under forklaringen
        forsok?: 2                 antall forsøk før fasit vises
+       rentTall?: false           true: svaret er et rent tall (ingen ^), og feltet får inputmode="decimal"
+                                  (talltastatur på telefon). Ellers vanlig tastatur, så ^, ·10^ og e kan skrives,
+                                  og på berøringsskjerm vises hjelpetastene «^» og «·10^» ved feltet.
+       skjulInndata?: true | [navn]   tegn ikke inndatagliderne (alle, eller bare de navngitte). For koblede
+                                  widgeter (IN.regnForst.koble): gliderne vises én gang, i den andre widgeten.
+                                  handle.inndataEl er glidergruppen (eller null), og kan flyttes av kalleren.
+       svarform?: "tall" | "orden"
+                                  "orden": studenten velger størrelsesorden i en knapperad (44 px) i stedet for
+                                  å skrive et tall. Krever trinn:
+       trinn?: [{ maks: tall, tekst }, …, { tekst }]   stigende øvre grenser; siste trinn har ingen maks.
+                                  Et tall x havner i første trinn med x < maks. Fasiten er trinnet fasit(inndata)
+                                  havner i (fasit er fortsatt et tall, f.eks. sekunder). toleranse og enhet brukes ikke.
+                                  vanligeFeil virker per trinn: { verdi } slår til når verdien havner i det valgte
+                                  trinnet (og det ikke er fasittrinnet); { trinn: i } slår til på trinn i;
+                                  { test: fn(trinnIndeks, inndata) } får trinnindeksen som svar.
+                                  Standard fasitTekst er trinnets tekst. IN.regnForst.tidstrinn() gir trinnene
+                                  sekunder, minutter, timer, dager, år, tusener av år, lenger enn universets alder.
      }
      Godtar «218 340 105 584 896», «2,18·10^14», «2.18e14», «62^8», «2**8», «10¹²», «(26+10)^8».
      Svaret er skjult til studenten har sjekket et tall. «Vis svar» blir aktiv etter første forsøk.
+     Tipslinja («Desimalkomma …») vises bare ved første tall-widget på siden, eller etter et ugyldig svar.
      handle: { el, sjekk(tekst) → {status, verdi}, visSvar(), nullstill(), settInndata(navn, v),
-               inndata(), fasit(), tilstand() → {forsok, vist, riktig}, lytt(fn(inndata, navn)) }
+               inndata(), fasit(), tilstand() → {forsok, vist, riktig}, lytt(fn(inndata, navn)),
+               inndataEl, velg(i) (orden: marker trinn i), fasitTrinn() → indeks | null (orden) }
+       Med svarform "orden" tar sjekk() en trinnindeks eller trinnteksten (uten argument: valgt trinn),
+       og verdi i svaret er trinnindeksen.
+     IN.regnForst.trinnFor(x, trinn) → indeks     IN.regnForst.tidstrinn() → [{maks, tekst}] (sekunder)
      IN.regnForst.parse(tekst) → tall | NaN     IN.regnForst.format(tall) → html
      IN.regnForst.tall(x, des = 2) → «10 000», «1 234,5», «−3»   (tusenskille som i format: smalt hardt
                                   mellomrom U+202F, som parse godtar; desimalkomma; aldri 10-potens; for etiketter)
@@ -242,6 +264,14 @@
     if (/e/.test(p[0])) return (x < 0 ? "−" : "") + String(r);
     return (x < 0 && r !== 0 ? "−" : "") + tusen(p[0]) + (p[1] ? "," + p[1] : "");
   }
+  /* Størrelsesorden: første trinn med x < maks (siste trinn har ingen maks). */
+  function trinnFor(x, trinn) {
+    trinn = arr(trinn);
+    if (!isFinite(x)) return x > 0 ? trinn.length - 1 : 0;
+    for (var i = 0; i < trinn.length - 1; i++) if (trinn[i].maks == null || x < +trinn[i].maks) return i;
+    return trinn.length - 1;
+  }
+  var tipsVist = false;   // tipslinja vises bare ved første tall-widget på siden
   function naer(a, b, tol) {
     if (!isFinite(a) || !isFinite(b)) return false;
     if (b === 0) return Math.abs(a) <= tol;
@@ -271,9 +301,12 @@
     var wrap = el("div", { class: "ov ov-regn" });
     var q = el("div", { class: "ov-q", id: uid + "-q" });
     var ctl = null, ctlInputs = {};
-    if (o.inndata && o.inndata.length) {
+    var skjul = o.skjulInndata === true ? null : arr(o.skjulInndata).map(String);
+    var synlig = o.skjulInndata === true ? [] : arr(o.inndata).filter(function (d) { return skjul.indexOf(String(d.navn)) < 0; });
+    var orden = o.svarform === "orden" && arr(o.trinn).length > 1;
+    if (synlig.length) {
       ctl = el("div", { class: "ov-inn", role: "group", "aria-label": "Endre oppgaven" });
-      o.inndata.forEach(function (d) {
+      synlig.forEach(function (d) {
         var id = uid + "-i-" + d.navn, range = d.type ? d.type === "range" : (d.min != null && d.max != null);
         var inp = el("input", { id: id, type: range ? "range" : "number", min: d.min, max: d.max, step: d.steg || 1, value: String(d.verdi) });
         visV[d.navn] = function (v) { return d.format ? String(d.format(v)) : tallTekst(v); };
@@ -288,15 +321,51 @@
       });
     }
     var fid = uid + "-svar";
-    var input = el("input", { id: fid, type: "text", class: "ov-num", inputmode: "decimal", autocomplete: "off", spellcheck: "false",
-      "aria-describedby": uid + "-q " + uid + "-tips", placeholder: "f.eks. 2,18·10^14" });
-    input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); sjekk(); } });
     var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk", onclick: function () { sjekk(); } });
     var bVis = el("button", { class: "btn", type: "button", text: "Vis svar", disabled: true, onclick: function () { visSvar(); } });
-    var row = el("div", { class: "ov-svarrad" }, [
-      el("label", { for: fid, class: "ov-svar-l", text: "Ditt svar" }), input,
-      o.enhet ? el("span", { class: "ov-enhet", html: pick(o.enhet) }) : null, bSjekk, bVis].filter(Boolean));
-    var tips = el("p", { class: "ov-tips", id: uid + "-tips", text: "Desimalkomma, mellomrom som tusenskille, 10^12, 62^8 og 1e12 går fint." });
+    var input = null, row, tips = null, keys = null, trinnB = [], valgt = null;
+    if (orden) {
+      var trinnRad = el("div", { class: "ov-orden", role: "group", "aria-labelledby": uid + "-q" });
+      o.trinn.forEach(function (t, i) {
+        var b = el("button", { class: "ov-orden-b", type: "button", "aria-pressed": "false", onclick: function () { velg(valgt === i ? null : i); } });
+        put(b, t.tekst);
+        trinnB.push(b); trinnRad.appendChild(b);
+      });
+      row = el("div", { class: "ov-svarrad ov-svarrad-orden" }, [
+        el("span", { class: "ov-svar-l", text: "Ditt svar" }), trinnRad, el("div", { class: "ov-orden-k" }, [bSjekk, bVis])]);
+    } else {
+      var ren = !!o.rentTall;
+      var ia = { id: fid, type: "text", class: "ov-num", autocomplete: "off", spellcheck: "false", autocapitalize: "off",
+        "aria-describedby": uid + "-q " + uid + "-tips", placeholder: ren ? "f.eks. 0,25" : "f.eks. 2,18·10^14" };
+      if (ren) ia.inputmode = "decimal";
+      input = el("input", ia);
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); sjekk(); } });
+      if (!ren) {
+        keys = el("span", { class: "ov-taster", role: "group", "aria-label": "Hjelpetaster" });
+        ["^", "·10^"].forEach(function (k) {
+          var b = el("button", { class: "ov-tast", type: "button", text: k, "aria-label": k === "^" ? "Skriv opphøyd i (^)" : "Skriv ganger ti opphøyd i (·10^)" });
+          b.addEventListener("pointerdown", function (e) { e.preventDefault(); });   // behold fokus og tastaturet
+          b.addEventListener("click", function () { settInn(k); });
+          keys.appendChild(b);
+        });
+      }
+      row = el("div", { class: "ov-svarrad" }, [
+        el("label", { for: fid, class: "ov-svar-l", text: "Ditt svar" }), input, keys,
+        o.enhet ? el("span", { class: "ov-enhet", html: pick(o.enhet) }) : null, bSjekk, bVis].filter(Boolean));
+      tips = el("p", { class: "ov-tips", id: uid + "-tips", text: ren ? "Desimalkomma går fint, for eksempel 0,25." : "Desimalkomma, mellomrom som tusenskille, 10^12, 62^8 og 1e12 går fint." });
+      if (tipsVist) tips.hidden = true; else tipsVist = true;
+    }
+    function settInn(k) {
+      var a = input.selectionStart != null ? input.selectionStart : input.value.length, b = input.selectionEnd != null ? input.selectionEnd : a;
+      input.value = input.value.slice(0, a) + k + input.value.slice(b);
+      try { input.focus(); input.setSelectionRange(a + k.length, a + k.length); } catch (e) {}
+    }
+    function velg(i) {
+      if (st.vist) return;
+      valgt = i == null || !(i >= 0 && i < trinnB.length) ? null : i;
+      trinnB.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === valgt)); });
+    }
+    function fasitTrinn() { return orden ? trinnFor(fasit(), o.trinn) : null; }
     var fb = feedback();
     var losn = el("div", { class: "ov-losn", hidden: true });
     var losnFasit = el("p", { class: "ov-fasit" });
@@ -312,7 +381,7 @@
       var f = fasit();
       var ft = o.fasitTekst ? (typeof o.fasitTekst === "function" ? o.fasitTekst(inn, f) : o.fasitTekst) : null;
       losnFasit.innerHTML = "<b>Fasit:</b> ";
-      var span = el("span"); put(span, ft || formatTall(f) + (o.enhet ? " " + pick(o.enhet) : ""));
+      var span = el("span"); put(span, ft || (orden ? pick(o.trinn[fasitTrinn()].tekst) : formatTall(f) + (o.enhet ? " " + pick(o.enhet) : "")));
       losnFasit.appendChild(span);
       put(losnFork, typeof o.forklaring === "function" ? o.forklaring(inn) : o.forklaring);
     }
@@ -321,6 +390,13 @@
       for (var i = 0; i < fe.length; i++) {
         var f = fe[i];
         if (f.test) { try { if (f.test(v, inn)) return f; } catch (e) {} continue; }
+        if (orden) {
+          var ft = fasitTrinn();
+          if (v === ft) continue;
+          if (f.trinn != null && +f.trinn === v) return f;
+          if (f.verdi != null && trinnFor(typeof f.verdi === "function" ? +f.verdi(inn) : +f.verdi, o.trinn) === v) return f;
+          continue;
+        }
         if (f.verdi != null) {
           var fv = typeof f.verdi === "function" ? +f.verdi(inn) : +f.verdi;
           if (godt(v, fv)) return f;
@@ -338,13 +414,55 @@
       while (etterHost.firstChild) etterHost.removeChild(etterHost.firstChild);
       if (o.etter) { try { o.etter(etterHost, inn); } catch (e) { if (window.console) console.error("[regnForst] etter", e); } }
     }
+    function sjekkOrden(arg) {
+      if (arg != null) {
+        var ix = typeof arg === "number" ? arg : -1;
+        if (typeof arg === "string") o.trinn.forEach(function (t, j) { if (ix < 0 && (plain(pick(t.tekst)) === arg.trim() || String(j) === arg.trim())) ix = j; });
+        if (!st.vist) velg(ix);
+      }
+      if (st.vist && st.riktig) return { status: "ferdig", verdi: valgt };
+      if (valgt == null) {
+        setFb(fb, "warn", "Velg en størrelsesorden først, og trykk «Sjekk».");
+        return { status: "ugyldig", verdi: null };
+      }
+      var v = valgt, ft = fasitTrinn();
+      st.forsok++;
+      bVis.disabled = st.vist;
+      if (v === ft) {
+        st.riktig = true;
+        setFb(fb, "right", "<b>Riktig.</b> Svaret er «" + plain(pick(o.trinn[v].tekst)) + "»" + (st.forsok > 1 ? " (forsøk " + st.forsok + ")" : ""));
+        if (!st.vist) solved("regn", o.id, st.forsok === 1 ? 1 : 0.5, 1);
+        reveal(true);
+        markerTrinn();
+        return { status: "riktig", verdi: v };
+      }
+      var f = matchFeil(v);
+      var msg = "<b>Ikke riktig.</b> " + (f ? pick(f.hint) : (v < ft ? "Fasiten er en høyere størrelsesorden." : "Fasiten er en lavere størrelsesorden.") + " Regn ut tallet og sammenlign.");
+      if (st.forsok >= maxTry && !st.vist) {
+        setFb(fb, "wrong", msg + " Her er fasiten.");
+        solved("regn", o.id, 0, 1);
+        reveal(false);
+        markerTrinn();
+      } else setFb(fb, "wrong", msg + (st.vist ? "" : " Du har " + (maxTry - st.forsok) + " forsøk igjen."));
+      return { status: f ? "vanlig-feil" : "feil", verdi: v, hint: f ? pick(f.hint) : null };
+    }
+    function markerTrinn() {
+      var ft = fasitTrinn();
+      trinnB.forEach(function (b, j) {
+        b.classList.toggle("is-right", j === ft);
+        b.classList.toggle("is-wrong", j === valgt && j !== ft);
+        b.setAttribute("aria-disabled", "true");
+      });
+    }
     function sjekk(tekst) {
+      if (orden) return sjekkOrden(tekst);
       if (tekst != null) input.value = String(tekst);
       if (st.vist && st.riktig) return { status: "ferdig", verdi: parseTall(input.value, plain(pick(o.enhet))) };
       var v = parseTall(input.value, plain(pick(o.enhet)));
       if (!isFinite(v)) {
         setFb(fb, "warn", "Skriv et tall eller et regnestykke, for eksempel <b>62^8</b> eller <b>2,18·10^14</b>.");
         input.setAttribute("aria-invalid", "true");
+        if (tips) tips.hidden = false;
         return { status: "ugyldig", verdi: NaN };
       }
       input.removeAttribute("aria-invalid");
@@ -372,10 +490,13 @@
       setFb(fb, "", "Fasiten vises under.");
       solved("regn", o.id, 0, 1);
       reveal(false);
+      if (orden) markerTrinn();
     }
     function nullstill(stille) {
       st = { forsok: 0, vist: false, riktig: false };
-      input.value = ""; input.removeAttribute("aria-invalid");
+      if (input) { input.value = ""; input.removeAttribute("aria-invalid"); }
+      valgt = null;
+      trinnB.forEach(function (b) { b.setAttribute("aria-pressed", "false"); b.removeAttribute("aria-disabled"); b.classList.remove("is-right", "is-wrong"); });
       losn.hidden = true; bVis.disabled = true;
       wrap.classList.remove("is-right", "is-wrong");
       while (etterHost.firstChild) etterHost.removeChild(etterHost.firstChild);
@@ -402,7 +523,8 @@
       inndata: kopiInn,
       fasit: fasit, tilstand: function () { return { forsok: st.forsok, vist: st.vist, riktig: st.riktig }; },
       feedback: function () { return fb.textContent; },
-      lytt: function (f) { if (typeof f === "function") lyttere.push(f); }
+      lytt: function (f) { if (typeof f === "function") lyttere.push(f); },
+      inndataEl: ctl, velg: function (i) { if (orden) velg(i); }, fasitTrinn: fasitTrinn
     };
   };
   IN.regnForst.koble = function (handles, navn) {
@@ -419,6 +541,15 @@
       });
     });
     return handles;
+  };
+  IN.regnForst.trinnFor = trinnFor;
+  IN.regnForst.tidstrinn = function () {
+    var M = 60, T = 3600, D = 86400, AAR = 31557600;
+    return [
+      { maks: M, tekst: "sekunder" }, { maks: T, tekst: "minutter" }, { maks: D, tekst: "timer" },
+      { maks: AAR, tekst: "dager" }, { maks: 1000 * AAR, tekst: "år" }, { maks: 13.8e9 * AAR, tekst: "tusener av år" },
+      { tekst: "lenger enn universets alder" }
+    ];
   };
   IN.regnForst.tall = tallTekst;
   IN.regnForst.parse = parseTall;

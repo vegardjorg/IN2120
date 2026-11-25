@@ -14,14 +14,39 @@
        pseudo: handle, legend:[{cls,label}], speed, parseInput, inputLabel,
        inputAria (standard «Egen input»), customInput:false (skjul «Eget:»-feltet),
        countControl:{min,max,unit} (unit standard «elementer»),
-       gjett: true|false (standard true når minst ett steg har spor) }
+       gjett: true|false (standard true når minst ett steg har spor),
+       fit: true|false (standard true: skaler ned innhold som er bredere enn scenen),
+       fitMin: tall (nedre grense for skaleringen, standard 0.7) }
+     Tilpasning til bredden: etter hver render måles barna i ctx.stage. Er et barn bredere enn scenen,
+     får det CSS-zoom ned til fitMin. Er det fortsatt for bredt, scroller scenen og rammen viser et
+     uttoningshint. ctx.width er scenens innerbredde (px), så render kan velge en smal tegning selv.
+     Når bredden endres (rotasjon, fane vises), tegnes steget på nytt.
      «Gjett før neste»: et steg kan ha
        spor: { sporsmal (html | {eli5,normal,teknisk}), valg: [tekst], fasit: indeks | [indekser], forklaring? }
        spor: { sporsmal, tall: true, fasit: tall, toleranse?, forklaring? }
      Står studenten på steget FØR et steg med spor, vises spørsmålet, og «Neste», autospill og → er låst
      til studenten svarer eller trykker «Hopp over». Svar huskes per spiller (til ny input / Nullstill).
      Avkrysningen «Gjett før hvert steg» over spilleren lagres i in2120:gjett ("1"/"0"). */
+  /* Stiler for breddetilpasningen. Legges inn én gang her, så alle sider får dem uten egen css
+     (kan flyttes til styles.css ved neste opprydding). */
+  function fitCss() {
+    if (document.getElementById("sp-fit-css")) return;
+    var st = document.createElement("style");
+    st.id = "sp-fit-css";
+    st.textContent =
+      ".sp-frame{position:relative}" +
+      ".sp-swipe{display:none}" +
+      ".sp-frame.sp-overflow::after{content:\"\";position:absolute;top:1px;right:1px;width:2.2rem;height:calc(var(--sp-stage-h,100%) - 2px);" +
+        "pointer-events:none;border-radius:0 var(--radius-lg,12px) 0 0;" +
+        "background:linear-gradient(to right,transparent,var(--color-surface,#fff));transition:opacity .2s}" +
+      ".sp-frame.sp-overflow.sp-at-end::after{opacity:0}" +
+      ".sp-frame.sp-overflow .sp-swipe{display:block;padding:0 var(--d-sm,.5rem) .3rem;color:var(--color-on-surface-variant);text-align:right}" +
+      ".sp-frame.sp-overflow.sp-at-end .sp-swipe{visibility:hidden}";
+    (document.head || document.documentElement).appendChild(st);
+  }
+
   IN.stepPlayer = function (host, opts) {
+    fitCss();
     if (typeof host === "string") host = IN.qs(host);
     opts = opts || {};
     var speed = opts.speed || 900;
@@ -89,7 +114,10 @@
       html: (window.matchMedia && matchMedia("(hover: none)").matches)
         ? "Trykk «Neste» og «Forrige» for å gå steg for steg."
         : "Hold musa over demoen: <span class=\"kbd\">←</span> <span class=\"kbd\">→</span> for steg · <span class=\"kbd\">mellomrom</span> spill/pause" });
-    wrap.appendChild(el("div", { class: "sp-frame" }, [stage, el("div", { class: "sp-foot" }, [hint, counter])]));
+    var frame = el("div", { class: "sp-frame" }, [stage, el("div", { class: "sp-foot" }, [hint, counter])]);
+    var swipe = el("span", { class: "sp-swipe small", "aria-hidden": "true", text: "Sveip sideveis for å se hele →" });
+    frame.appendChild(swipe);
+    wrap.appendChild(frame);
 
     // Kontroller
     var bPrev = el("button", { class: "btn sm", type: "button", html: "← Forrige", onclick: function () { step(-1); } });
@@ -227,7 +255,8 @@
 
     function renderStep() {
       var s = steps[idx] || {};
-      opts.render(s, { stage: stage, level: scope.get(), index: idx, total: steps.length });
+      opts.render(s, { stage: stage, level: scope.get(), index: idx, total: steps.length, width: innerW() });
+      fit();
       if (opts.pseudo && s.line != null) opts.pseudo.highlight(s.line);
       else if (opts.pseudo) opts.pseudo.clear();
       paintExplain(s);
@@ -247,6 +276,48 @@
       bPlay.disabled = lock;
       gBox.classList.toggle("is-locked", lock);
     }
+    /* ---------- Tilpasning til bredden ---------- */
+    var FIT = opts.fit !== false, FITMIN = +opts.fitMin || 0.7;
+    var canZoom = typeof document !== "undefined" && "zoom" in document.documentElement.style;
+    function innerW() {
+      var w = stage.clientWidth;
+      if (!w) return 0;
+      var cs = getComputedStyle(stage);
+      return w - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    }
+    function fit() {
+      frame.classList.remove("sp-overflow", "sp-at-end");
+      var avail = innerW();
+      if (!avail) return;
+      var kids = Array.prototype.slice.call(stage.children);
+      if (FIT && canZoom) {
+        kids.forEach(function (k) {
+          k.style.zoom = "";
+          var need = Math.max(k.getBoundingClientRect().width, k.scrollWidth || 0);
+          if (need > avail + 1) {
+            var z = Math.max(FITMIN, Math.floor(avail / need * 1000) / 1000);
+            k.style.zoom = String(z);
+            k.classList.add("sp-zoomed");
+          } else k.classList.remove("sp-zoomed");
+        });
+      }
+      if (stage.scrollWidth > stage.clientWidth + 1) { frame.classList.add("sp-overflow"); frame.style.setProperty("--sp-stage-h", stage.offsetHeight + "px"); edge(); }
+    }
+    function edge() {
+      frame.classList.toggle("sp-at-end", stage.scrollLeft + stage.clientWidth >= stage.scrollWidth - 2);
+    }
+    stage.addEventListener("scroll", edge, { passive: true });
+    var lastW = -1, rzT = null;
+    function onResize() {
+      var w = stage.clientWidth;
+      if (w === lastW) return;
+      lastW = w;
+      clearTimeout(rzT);
+      rzT = setTimeout(function () { if (steps.length && stage.clientWidth) renderStep(); }, 120);
+    }
+    if (typeof ResizeObserver !== "undefined") new ResizeObserver(onResize).observe(stage);
+    else window.addEventListener("resize", onResize);
+
     function paintExplain(s) {
       clear(explain);
       var txt = IN.level.pick(s.text, scope.get());
