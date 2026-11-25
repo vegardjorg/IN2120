@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blokk 1 · Grunnbegreper og fysisk · IN2120</title>
+  <meta name="description" content="Grunnbegreper, fysisk sikkerhet og lov i IN2120: sikkerhet, trygghet, visshet og garanti, KIT og sikkerhetstjenestene, typer og domener for sikkerhetstiltak, personellsikkerhet og HMS med SJA, fysisk skjerming og kontinuitet, straffeloven § 204 og myndighetene – med visualiseringer, øving i Inspera-format og eksamensoppgavene.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/blokk-grunn.css?v=20261125f">
+</head>
+<body data-page="grunnbegreper">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Blokk 1 · Grunnbegreper, fysisk sikkerhet og lov</h1>
+      <p class="lead">Del 1 av eksamen er alltid «Generelt», og KIT-matrisen har kommet hvert år fra 2021 til 2025. Her lærer du å skille sikkerhet fra trygghet og visshet, å finne hvilket KIT-mål et angrep bryter, å sortere sikkerhetstiltak etter type og domene, reglene for SJA og arbeid i høyden, fysisk skjerming og kontinuitet, og det kurset sier om lov: straffeloven § 204 og myndighetene.</p>
+      <div class="badges">
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-36"><b>H2025</b> · Arbeid i høyden: hvor mange trengs? · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-1_1"><b>H2021</b> · Hvilket sikkerhetsmål brytes? · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-1"><b>H2023</b> · Sikkerhet, trygghet og visshet i bilder · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-3"><b>H2024</b> · KIT-mål per angrep · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-1"><b>H2024</b> · Viktigste mål før, under og etter · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-34"><b>H2025</b> · Formål og metode med SJA · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-2"><b>H2024</b> · Safety, assurance, security, certainty · <span class="pts">2p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-1"><b>H2025</b> · Usikkerhet, unøyaktighet, utrygghet, uvisshet · <span class="pts">2p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-7"><b>H2025</b> · NSM og NCSC · <span class="pts">2p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-35"><b>H2025</b> · TEMPEST · <span class="pts">1p</span></a>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Grunnbegreper og fysisk sikkerhet">
+      <button data-tab="trygghet">Sikkerhet, trygghet, visshet</button>
+      <button data-tab="kit">KIT og tjenestene</button>
+      <button data-tab="tiltak">Typer tiltak</button>
+      <button data-tab="personell">Personell og HMS</button>
+      <button data-tab="fysisk">Fysisk skjerming</button>
+      <button data-tab="lov">Lov og myndigheter</button>
+      <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <!-- ===================== 1 · SIKKERHET, TRYGGHET OG VISSHET ===================== -->
+    <section data-panel="trygghet">
+      <h3>Sikkerhet, trygghet, visshet og garanti</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Sikkerhet</b> (security) er vern mot skade som noen <i>vil</i> gjøre: angripere og tilsiktede handlinger.
+        <b>Trygghet</b> (safety) er vern mot skade som <i>ingen</i> vil: ulykker, feil og naturkrefter.
+        <b>Visshet</b> (certainty) er at man <i>vet</i> noe sikkert. Motsatsen, <b>uvisshet</b>, er at utfallet ikke kan vites på forhånd.
+        <b>Garanti</b> (assurance) er begrunnet tillit til at sikkerhetstiltakene virker som tenkt.
+        <b>Unøyaktighet</b> er ikke et sikkerhetsbegrep, bare at en måling er omtrentlig. Eksamen bruker det som distraktor.
+        <br><span class="small">Eksamensbasert: lysarkene i 2026 definerer ikke disse ordene. Definisjonene bygger på eksamenssettene H2023–H2025.</span></div>
+      <div id="ex-trygghet"></div>
+
+      <h4>Tre gjerder</h4>
+      <div id="viz-gjerder"></div>
+
+      <h4>Eksempel: Fjellbekk barnehage</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        <p>Barnehagen har 40 barn og 11 ansatte, en foreldreapp (meldinger, fravær, bilder), lønnssystem i sky, et lite serverskap i kjelleren og en lekeplass med klatrestativ. Styreren heter Ingrid, og Tarjei er IT-ansvarlig på deltid.</p>
+        <div class="table-wrap"><table class="gr-tab">
+          <thead><tr><th>Situasjon</th><th>Begrep</th><th>Hvorfor</th></tr></thead>
+          <tbody>
+            <tr><td>Klatrestativet mangler fallunderlag</td><td>utrygghet</td><td>ulykke, ingen motstander</td></tr>
+            <tr><td>Alle ansatte bruker passordet «barnehage1» i foreldreappen</td><td>usikkerhet</td><td>en angriper kan gjette det</td></tr>
+            <tr><td>Ingrid vet ikke om det blir snø til akedagen på fredag</td><td>uvisshet</td><td>utfallet kan ikke vites</td></tr>
+            <tr><td>Tarjei anslår takhøyden i kjelleren til «omtrent 3 meter» uten målebånd</td><td>unøyaktighet</td><td>målingen er omtrentlig</td></tr>
+            <tr><td>Appleverandøren viser en uavhengig revisjonsrapport om tilgangsstyringen</td><td>garanti</td><td>tillit til at tiltaket virker</td></tr>
+          </tbody></table></div>
+        <p>To slags krav: barnehagens egen risikovurdering sier at bilder av barn ikke skal kunne lekke. Det er oppfylt når risikoen er senket til et <b>forsvarlig nivå</b>. Kommunens avtale med leverandøren krever tofaktor for ansatte. Det er oppfylt ved <b>samsvar</b>: enten følger man avtalen, eller ikke.</p></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er stillas trygghet og ikke sikkerhet?</summary>
+          <p>Stillaset hindrer fall. Ingen faller med vilje, så det er vern mot ulykke (H2023 1).</p></details>
+        <details class="grense"><summary>Hvorfor er en grensestein visshet og ikke sikkerhet?</summary>
+          <p>Den stopper ingen. Den gjør bare at man vet hvor grensen går (H2023 1).</p></details>
+        <details class="grense"><summary>Hvorfor er «passord = 123456» usikkerhet og ikke uvisshet?</summary>
+          <p>Problemet er at en angriper kan gjette passordet, altså en tilsiktet trussel. Uvisshet ville vært at et utfall ikke kan vites (H2025 1).</p></details>
+        <details class="grense"><summary>Hvorfor er myntkast uvisshet og ikke usikkerhet?</summary>
+          <p>Det finnes ingen angriper. Utfallet er bare ukjent (H2025 1).</p></details>
+        <details class="grense"><summary>Hvorfor heter assurance «garanti» og ikke «sikring»?</summary>
+          <p>Det er ordet eksamen bruker (H2024 2). Det betyr ikke en juridisk garanti, men tillit til at tiltakene virker.</p></details>
+        <details class="grense"><summary>Hvorfor er et lovkrav oppfylt ved «samsvar» og ikke ved «forsvarlig nivå»?</summary>
+          <p>Et lovkrav sier hva som skal gjøres. Det vurderes ikke mot en akseptgrense: man følger det eller ikke (H2023 2).</p></details>
+        <ul>
+          <li>«Usikkerhet» betyr i hverdagen ofte «uvisshet». I kursets begrepspar betyr «usikker» at noe er sårbart for angrep.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Én oppgave på 2–3 poeng om begrepsparet hvert år fra 2023, alltid i Del 1:
+        <a href="#fane=eksamen&amp;oppg=o-H2023-1">H2023 1</a> (tre gjerder i figur: grensemerke = visshet, stillas = trygghet, piggtrådgjerde = sikkerhet),
+        <a href="#fane=eksamen&amp;oppg=o-H2024-2">H2024 2</a> (oversett safety, assurance, security og certainty) og
+        <a href="#fane=eksamen&amp;oppg=o-H2025-1">H2025 1</a> (situasjon til usikkerhet, unøyaktighet, utrygghet eller uvisshet, hvert begrep én gang).
+        Forsvarlig nivå og samsvar kom i H2023 2, som ligger under blokk 6 (Risiko og styring).
+        Neste variant kan godt bruke figurer igjen, eller ha «garanti» som eget alternativ.</div>
+
+      <h4>Øv i Inspera-format: hvilket begrep?</h4>
+      <div id="ov-grunn-1"></div>
+      <h4>Øv i Inspera-format: dra ordet til figuren</h4>
+      <p class="small muted gr-oppg-intro">Fire figurer: kodelås og alarm på sykkelboden, rekkverk rundt hemsen, oppmålingsbolt i hjørnet av tomta, og et sertifikat fra et testlaboratorium for låsen.</p>
+      <div id="ov-grunn-2"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-trygghet"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-trygghet"></div>
+    </section>
+
+    <!-- ===================== 2 · KIT ===================== -->
+    <section data-panel="kit">
+      <h3>KIT og sikkerhetstjenestene</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Konfidensialitet (K):</b> bare de som har lov, får lese dataene.
+        <b>Integritet (I):</b> dataene er korrekte og ikke endret uten lov. H2021 skilte <b>dataintegritet</b> (innholdet er urørt) fra <b>systemintegritet</b> (systemet er slik eieren satte det opp).
+        <b>Tilgjengelighet (T):</b> data og tjenester kan brukes når de trengs. På engelsk heter det CIA.
+        <b>Autentisitet</b> er visshet om hvem motparten eller avsenderen er: <i>entitetsautentisering</i> gjelder hvem du er i kontakt med nå, <i>dataautentisering</i> hvem som laget en melding, og at den ikke er endret.
+        <b>Ubenektelighet</b> (også uavviselighet) betyr at avsenderen ikke senere kan nekte for å ha sendt. Den gis av <b>digital signatur</b>, ikke av MAC.
+        Det som skal beskyttes, er en <b>verdi</b>: noe som har krav til K, I eller T.</div>
+      <div id="ex-kit"></div>
+
+      <h4>Hvilke mål bryter angrepet?</h4>
+      <p class="small muted">Samme format som på eksamen: ett mål per rad, med eksamensregelen (0,5 for riktig, −0,5 for feil eller blankt). Første rad er en avlytting. Slå på bryterne for å se hvordan svaret endrer seg når trafikken er kryptert, og når nøkkelen blir kjent senere.</p>
+      <div id="viz-kit"></div>
+
+      <h4>Eksempel: foreldreappen</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        <div class="table-wrap"><table class="gr-tab">
+          <thead><tr><th>Hendelse</th><th>Mål</th><th>Begrunnelse</th></tr></thead>
+          <tbody>
+            <tr><td>En tidligere ansatt logger fortsatt inn og ser bilder av barna</td><td>K</td><td>uvedkommende leser</td></tr>
+            <tr><td>Noen endrer hentetidspunktet for et barn i appen</td><td>I</td><td>data endret uten lov</td></tr>
+            <tr><td>Appen er nede hele morgenen på grunn av et overbelastningsangrep</td><td>T</td><td>kan ikke brukes</td></tr>
+            <tr><td>Løsepengevirus krypterer lønnsfilene på serveren i kjelleren</td><td>T</td><td>eieren får ikke brukt dem</td></tr>
+            <tr><td>Angriper fanger opp TLS-kryptert trafikk fra appen, men kan ikke dekryptere</td><td>Ingen</td><td>ingenting er lest, endret eller stengt</td></tr>
+            <tr><td>Ingrid får en falsk melding «fra kommunen»</td><td>I (autentisitet)</td><td>avsenderen er ikke den den utgir seg for</td></tr>
+            <tr><td>En forelder nekter for å ha gitt samtykke til bildedeling, men samtykket er signert digitalt</td><td>–</td><td>ubenektelighet gjør at nektingen ikke holder</td></tr>
+          </tbody></table></div></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er løsepengevirus T og ikke K?</summary>
+          <p>Viruset krypterer eierens egne data. Ingen andre får lese dem av den grunn. Det som går tapt, er bruken. Lekker angriperen dataene i tillegg (dobbel utpressing), kommer K inn, men eksamensradene har aldri sagt det.</p></details>
+        <details class="grense"><summary>Hvorfor er avlytting av kryptert trafikk «Ingen»?</summary>
+          <p>Angriperen ser bare chiffertekst. K brytes først når hen dekrypterer (H2021 1.1).</p></details>
+        <details class="grense"><summary>Hvorfor er kontosperre T og ikke K?</summary>
+          <p>Ingen har lest noe. Den rettmessige brukeren kommer ikke inn (H2024 3).</p></details>
+        <details class="grense"><summary>Hvorfor er hashkollisjon i en signatur I og ikke K?</summary>
+          <p>Kollisjonen lar noen bytte innhold under en gyldig signatur. Ingenting blir lest (H2024 3, H2025 2).</p></details>
+        <details class="grense"><summary>Hvorfor gir MAC ikke ubenektelighet?</summary>
+          <p>Begge parter har nøkkelen, så mottakeren kunne laget MAC-en selv. En tredjepart kan ikke avgjøre hvem som laget den.</p></details>
+        <details class="grense"><summary>Hvorfor er endret konfigurasjon systemintegritet og ikke dataintegritet?</summary>
+          <p>Det er systemet som er endret, ikke dataene det behandler (H2021 1.1).</p></details>
+        <details class="grense"><summary>Hvorfor er de-anonymisering personvern og ikke K?</summary>
+          <p>Dataene var ment å kunne leses i anonymisert form. Bruddet er at de kobles tilbake til personer (H2021 1.1). Finnes ikke Personvern som kolonne, er K nærmest.</p></details>
+        <ul>
+          <li><b>Kryptering gir ikke integritet alene.</b> I et strømchiffer kan en angriper snu bit i chifferteksten og endre klarteksten uten å kunne lese den.</li>
+          <li>Ordene lurer: «kryptovirus» høres ut som K, men det er T.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        KIT-matrisen hvert år, alltid i Del 1:
+        <a href="#fane=eksamen&amp;oppg=o-H2021-1_1">H2021 1.1</a> (seks kolonner med systemintegritet, dataintegritet og personvern),
+        <a href="#fane=eksamen&amp;oppg=o-H2022-1_1">H2022 1.1</a>, <a href="#fane=eksamen&amp;oppg=o-H2023-3">H2023 3</a>,
+        <a href="#fane=eksamen&amp;oppg=o-H2024-3">H2024 3</a> og <a href="#fane=eksamen&amp;oppg=o-H2025-2">H2025 2</a>.
+        Viktigste mål før, under og etter eksamen: <a href="#fane=eksamen&amp;oppg=o-H2024-1">H2024 1</a> (før K, under T, etter I).
+        <b>Lær gjengangerradene utenat:</b> DDoS (T), løsepengevirus (T), avlytting (K hvis trafikken kan leses), hashkollisjon i signaturer (I) og keylogger (K).
+        Ubenektelighet og MAC mot signatur spørres i blokk 2 (Kryptografi).</div>
+
+      <div class="gr-forbehold">
+        <p><b>Fasiter med forbehold</b></p>
+        <ul>
+          <li><b>Avlytting → K</b> (H2023 3, H2024 3, og «lese av pakkestrøm i Wireshark» i H2025 2): fasiten forutsetter at trafikken kan leses. Er den kryptert og ikke dekryptert, er riktig svar Ingen (H2021 1.1). Svar K når Ingen ikke er et alternativ, men vit hvorfor.</li>
+          <li><b>«Overdreven passordspraying mot en enkelt brukerkonto»</b> (H2024 3): passordspraying betyr vanligvis <i>ett</i> passord mot <i>mange</i> kontoer. Arket beskriver gjetting mot én konto. Fasiten T er riktig uansett, fordi det er kontosperren som rammer.</li>
+          <li><b>Ubesvart gir −0,5</b> i H2024 3, mot hovedregelen i settet. Øvingen i eksamensfanen bruker poenglinja slik den står.</li>
+          <li><b>Forfalsket IP mot IPS → T</b> (H2024 3): riktig for den uskyldige som blir blokkert. Forfalskningen er også et autentisitetsbrudd, men det finnes ikke som kolonne.</li>
+          <li><b>Kryptoanalyse → K</b> (H2022 1.1): det typiske svaret. Kryptoanalyse kan også rettes mot integritet, for eksempel for å forfalske en MAC, men da ville raden sagt det.</li>
+          <li><b>«Etter eksamen» → I</b> (H2024 1): forsvarlig, men et skjønnsspørsmål. Anonymitet under sensuren (K) er også viktig. Oppgaven ber om det viktigste. Argumentet er at besvarelsen ikke skal kunne endres etter innlevering.</li>
+          <li><b>Cyberforsikring som tiltak mot personvernbrudd</b> (H2021 2.4, i blokk 4): tvilsomt. Stjålne data blir ikke hemmelige igjen av at noe betales.</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format: hvilket mål brytes?</h4>
+      <div id="ov-grunn-3"></div>
+      <h4>Øv i Inspera-format: viktigste mål i hver fase</h4>
+      <div id="ov-grunn-4"></div>
+      <h4>Øv i Inspera-format: hvilken sikkerhetstjeneste kreves?</h4>
+      <div id="ov-grunn-5"></div>
+      <p class="small muted">Siste rad: kravet er ubenektelighet selv om MAC ikke kan oppfylle det. Øvingen spør etter kravet, ikke etter om mekanismen holder.</p>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-kit"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-kit"></div>
+    </section>
+
+    <!-- ===================== 3 · TYPER TILTAK ===================== -->
+    <section data-panel="tiltak">
+      <h3>Sikkerhetstiltak: type og domene</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        Et <b>sikkerhetstiltak</b> (kontroll) er noe som reduserer risiko. ISO/IEC 27002:2022 er en tiltaksbank med 93 tiltak.
+        Etter <b>type</b> er et tiltak <b>forebyggende</b> (hindrer at hendelsen skjer), <b>oppdagende</b> (oppdager at noe skjer eller har skjedd) eller <b>korrigerende</b> (begrenser skaden og gjenoppretter etterpå).
+        Etter <b>domene</b> deler standarden tiltakene i fire: <b>organisatoriske</b> (37), <b>personell</b> (8), <b>fysiske</b> (14) og <b>teknologiske</b> (34).
+        Det engelske skillet «administrativ, fysisk, teknisk» står ikke i kursets kilder. Grovt oversatt er administrativ ≈ organisatorisk + personell.</div>
+      <div id="ex-tiltak"></div>
+
+      <h4>Rutenettet: type × domene</h4>
+      <div id="viz-tiltak"></div>
+
+      <h4>Eksempel: løsepengevirus på kjellerserveren</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        <div class="table-wrap"><table class="gr-tab">
+          <thead><tr><th>Tiltak</th><th>Type</th><th>Domene</th></tr></thead>
+          <tbody>
+            <tr><td>Automatisk oppdatering av serveren</td><td>forebyggende</td><td>teknologisk</td></tr>
+            <tr><td>Phishing-kurs for alle ansatte</td><td>forebyggende</td><td>personell</td></tr>
+            <tr><td>Antivirus som varsler Tarjei ved mistenkelig kryptering</td><td>oppdagende</td><td>teknologisk</td></tr>
+            <tr><td>Nattlig kopi til en frakoblet disk i et annet bygg</td><td>korrigerende</td><td>teknologisk</td></tr>
+            <tr><td>Skriftlig rutine for hvem som ringes ved angrep</td><td>korrigerende</td><td>organisatorisk</td></tr>
+            <tr><td>Låst serverskap i kjelleren</td><td>forebyggende</td><td>fysisk</td></tr>
+            <tr><td>Røykvarsler i kjelleren</td><td>oppdagende</td><td>fysisk</td></tr>
+          </tbody></table></div>
+        <p>Et godt svar på «foreslå tiltak» har minst ett tiltak av hver type.</p></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er sikkerhetskopi korrigerende og ikke forebyggende?</summary>
+          <p>Den hindrer ikke angrepet. Den lar deg rette opp skaden etterpå.</p></details>
+        <details class="grense"><summary>Hvorfor er kamera oppdagende og ikke forebyggende?</summary>
+          <p>Det registrerer, men stopper ingen fysisk. Elektronisk overvåking er reaktiv. Det kan avskrekke, så «også forebyggende» er et greit tilleggsargument, men hovedtypen er oppdagende.</p></details>
+        <details class="grense"><summary>Hvorfor er bakgrunnssjekk et personelltiltak og ikke organisatorisk?</summary>
+          <p>ISO 27002 har et eget domene for tiltak før, under og etter ansettelse.</p></details>
+        <details class="grense"><summary>Hvorfor brukes ikke «administrativ» i kurset?</summary>
+          <p>Kurset bruker domenene fra ISO 27002:2022. Bruk de fire på eksamen, men vis at du kjenner det engelske skillet hvis oppgaven bruker det.</p></details>
+        <details class="grense"><summary>Hvordan kan en kontosperre være forebyggende og likevel gi et T-brudd?</summary>
+          <p>Den hindrer passordgjetting, men en angriper kan misbruke den til å stenge ute de som har lov (se fanen om KIT).</p></details>
+        <ul>
+          <li>Mange tiltak har mer enn én type. Oppgi hovedtypen, og begrunn en eventuell sekundær.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Ingen oppgave fra 2021 til 2025 har spurt direkte om forebyggende, oppdagende og korrigerende, eller om domenene i ISO 27002. Nærmest er H2021 2.4 om tiltak mot løsepengevirus (blokk 4), der sikkerhetskopi er det korrigerende tiltaket.
+        Typene og domenene er nytt pensum i 2026 og kan komme i Del 1 eller i ISMS-delen. De er også grunnlaget for «foreslå tiltak» i scenariooppgavene.</div>
+
+      <h4>Øv i Inspera-format: type tiltak</h4>
+      <div id="ov-grunn-6"></div>
+      <h4>Øv i Inspera-format: domene i ISO 27002:2022</h4>
+      <div id="ov-grunn-7"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-tiltak"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-tiltak"></div>
+    </section>
+
+    <!-- ===================== 4 · PERSONELL OG HMS ===================== -->
+    <section data-panel="personell">
+      <h3>Personellsikkerhet og HMS</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        En <b>innsider</b> har legitim tilgang. Perimeterforsvar er laget for å stoppe folk utenfra, og aktiviteten til en innsider ligner vanlig bruk, så den er vanskelig å oppdage.
+        Tiltak mot innsidere: ID-sjekk av nyansatte, sjekk av CV og bakgrunn, jevnlige sikkerhetssamtaler, politiattest og sikkerhetsklarering. De to siste krever <b>lovhjemmel og behov</b>.
+        <b>HMS</b> (helse, miljø og sikkerhet) skal hindre skade på mennesker, dyr og miljø. <b>Arbeidsgiveren er alltid ansvarlig</b>. Arbeidstakeren skal medvirke. Liv og helse går alltid foran utstyr.
+        <b>SJA</b> (sikker jobbanalyse): man deler en arbeidsoppgave opp, vurderer risikoen i hver del og finner tiltak, for å forhindre arbeidsulykker.
+        <b>Arbeid i høyden:</b> alltid opplæring, personløfter eller stillas framfor stige der det går, og <b>minst to personer</b>, begge med opplæring og én på bakken.</div>
+      <div id="ex-personell"></div>
+
+      <h4>Lag en SJA selv</h4>
+      <div id="sp-sja"></div>
+
+      <h4>Hvem står hvor?</h4>
+      <div id="viz-bemanning"></div>
+
+      <h4>Graderingsnivåene</h4>
+      <p class="small muted">Sikkerhetsklarering kreves for tilgang til sikkerhetsgradert informasjon. Nivået settes etter hvor stor skade en lekkasje kan gjøre for nasjonale eller allierte sikkerhetsinteresser. Lysarket nevner ikke hvilken lov nivåene kommer fra.</p>
+      <ol class="gr-trapp">
+        <li><b>BEGRENSET</b> lekkasje kan i noen grad skade</li>
+        <li><b>KONFIDENSIELT</b> lekkasje kan skade</li>
+        <li><b>HEMMELIG</b> lekkasje kan skade alvorlig</li>
+        <li><b>STRENGT HEMMELIG</b> lekkasje kan gi helt avgjørende skade</li>
+      </ol>
+
+      <h4>Eksempel: SJA for å skifte lysrør i gymsalen</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        Lysrøret sitter 4,5 meter oppe, og barnehagen leier en personløfter. Tarjei står i kurven og Ingrid på bakken. Begge har kurs i personløfter.
+        Én person alene er ikke lov, selv om jobben tar fem minutter. Forslaget i skjemaet over er selve SJA-en: fire delsteg, hver med fare, risiko og tiltak.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor holder ikke «for å forhindre ulykker» som svar på hva SJA er?</summary>
+          <p>Det er formålet. Metoden er å dele opp oppgaven og <i>vurdere risiko</i> for hver del. Uten ordet risiko gir sensor høyst 2 av 3 (H2025 34).</p></details>
+        <details class="grense"><summary>Hvorfor to personer og ikke én, når lift er tryggere enn stige?</summary>
+          <p>Regelen gjelder alt arbeid i høyden. Den på bakken kan varsle og hente hjelp (H2025 36).</p></details>
+        <details class="grense"><summary>Hvorfor er ikke arbeidstakeren ansvarlig for HMS?</summary>
+          <p>Arbeidsgiveren har alltid ansvaret. Arbeidstakeren har plikt til å medvirke: bruke verneutstyret, si fra om risiko og stanse arbeidet ved fare.</p></details>
+        <details class="grense"><summary>Hvorfor stopper ikke perimeterforsvar innsidere?</summary>
+          <p>De har gyldig tilgang og er allerede innenfor.</p></details>
+        <details class="grense"><summary>Hvorfor kan ikke en arbeidsgiver kreve politiattest av alle?</summary>
+          <p>Det krever lovhjemmel og behov.</p></details>
+        <details class="grense"><summary>Hvorfor er KONFIDENSIELT ikke det laveste nivået?</summary>
+          <p>BEGRENSET er lavest. Ikke bland graderingsnivået med hverdagsordet «konfidensielt».</p></details>
+        <ul>
+          <li>Rekkverk og stillas er <b>kollektivt</b> verneutstyr. Hjelm og sele er <b>personlig</b>.</li>
+          <li>I H2025 36 skulle SJA ikke brukes i svaret. Les hva oppgaven spør om.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Fysisk sikkerhet ble egen del først i H2025, og 8 av 9 poeng gikk til SJA og arbeid i høyden:
+        <a href="#fane=eksamen&amp;oppg=o-H2025-33">H2025 33</a> (hva SJA står for),
+        <a href="#fane=eksamen&amp;oppg=o-H2025-34">H2025 34</a> (formål og metode, ordet risiko må med) og
+        <a href="#fane=eksamen&amp;oppg=o-H2025-36">H2025 36</a> (lyspære med lift: minst to, én på bakken, begge med opplæring).
+        Innsidere, klarering og graderinger er ikke spurt om før. Graderingene kobles også til Bell-LaPadula i blokk 8 (IAM).</div>
+
+      <h4>Øv i Inspera-format: arbeid i høyden</h4>
+      <div id="ov-grunn-8"></div>
+      <h4>Øv i Inspera-format: arbeidsgiver eller arbeidstaker?</h4>
+      <p class="small muted gr-oppg-intro">Hvem har plikten?</p>
+      <div id="ov-grunn-9"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-personell"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-personell"></div>
+    </section>
+
+    <!-- ===================== 5 · FYSISK SKJERMING ===================== -->
+    <section data-panel="fysisk">
+      <h3>Fysisk skjerming, overvåking og kontinuitet</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        Fysisk sikkerhet har fire mål: a) person- og miljøsikkerhet (trygghet), b) kontrollert, autorisert adgang til områder, c) fysisk og teknologisk skjerming av utstyr og d) kontinuitet i tekniske støttesystemer.
+        <b>Adgangskontroll:</b> færrest mulig innganger, gjester gjennom én bemannet resepsjon, eskorte i sensitive soner, adgangskort med PIN, biometri og <b>sluse</b> (to dører).
+        <b>Tailgating:</b> angriperen går rett bak en autorisert person gjennom sperren.
+        <b>Forsvar i dybden:</b> flere lag gjør angrepet tregere, og tiden gir forsvareren større sjanse til å oppdage det.
+        <b>TEMPEST:</b> elektronisk utstyr stråler, og strålingen kan fanges opp på lang avstand. Mottiltak er fiber i stedet for kobber, solide vegger og faradaybur.
+        <b>Backuplokasjoner:</b> kald (strøm, lite annet), varm/inaktiv (strøm og utstyr) og varm/aktiv (full drift i reserve).</div>
+      <div id="ex-fysisk"></div>
+
+      <h4>Forsvar i dybden som tidslinje</h4>
+      <p class="small muted">Fire lag rundt serveren i kjelleren. Alarmen går når tyven begynner på ytterdøra, og vaktselskapet er 8 minutter unna. Hvert fysiske lag tar 3 minutter å forsere. Velg hvilke lag som finnes, og gjett ved hvert lag om tyven kommer gjennom eller blir tatt.</p>
+      <div id="sp-dybde"></div>
+
+      <h4>Hvilken backuplokasjon trengs?</h4>
+      <div id="viz-backup"></div>
+
+      <h4>Klima i serverrommet</h4>
+      <p class="small muted">Anbefalt: 20–24 °C og 40–55 % luftfuktighet. Støv hindrer kjøling.</p>
+      <div id="quiz-hvac"></div>
+
+      <h4>Eksempel: serverskapet i kjelleren</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        <p>Tarjei måler 27 °C og 30 % luftfuktighet en vinterdag. Begge er utenfor anbefalt område (20–24 °C og 40–55 %). Den lave fuktigheten øker faren for statisk utladning.</p>
+        <p>Lagene: ytterdør med kodelås → låst kjellerdør → låst serverskap → kryptert disk. Med alarm på ytterdøra og 3 minutter per fysisk lag trenger tyven 3 + 3 + 3 = 9 minutter. Vakta er der etter 8, så tyven blir tatt. Fjernes ett lag, kommer vakta for sent. Da er det krypteringen som redder konfidensialiteten.</p>
+        <p>Barnehagen kan drive med papirlister i en måned eller mer, så en kald reserve (et rom med strøm på rådhuset) er nok. Lønnssystemet ligger i sky og har leverandørens reserve.</p></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er TEMPEST et K-problem og ikke T?</summary>
+          <p>Strålingen avslører innholdet. Systemet virker som før.</p></details>
+        <details class="grense"><summary>Hvorfor hjelper ikke adgangskort mot tailgating?</summary>
+          <p>Angriperen bruker ikke eget kort, men går gjennom på en annens. En sluse og årvåkne ansatte hjelper.</p></details>
+        <details class="grense"><summary>Hvorfor er kryptering et tiltak mot tyveri av bærbare når den ikke stopper tyven?</summary>
+          <p>Den gjør det stjålne verdiløst for tyven. Den reduserer altså konsekvensen.</p></details>
+        <details class="grense"><summary>Hvorfor er kald backup billigst, men tregest?</summary>
+          <p>Den har bare strøm. Utstyret må skaffes og settes opp før man er i drift igjen.</p></details>
+        <details class="grense"><summary>Hvorfor er lav luftfuktighet farlig?</summary>
+          <p>Den gir mer statisk elektrisitet, og elektrostatisk utladning er en av hovedårsakene til skade på kretser.</p></details>
+        <details class="grense"><summary>Hvorfor er kameraer ikke nok alene?</summary>
+          <p>De er reaktive, opptakene blir ofte ikke sett i sanntid, og de som følger med, blir fort slitne.</p></details>
+        <details class="grense"><summary>Hvorfor er sikker sletting mer enn å trykke «slett»?</summary>
+          <p>Vanlig sletting fjerner bare henvisningen til dataene. De må overskrives, krypteres med en nøkkel som så slettes, eller mediet må ødelegges.</p></details>
+        <ul>
+          <li>Bærbare PC-er skal ikke sjekkes inn som bagasje.</li>
+          <li>Forsvar i dybden handler ikke om at hvert lag er umulig å komme forbi. Poenget er tid og deteksjon.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <a href="#fane=eksamen&amp;oppg=o-H2025-35">H2025 35</a>: navnet på NATO-spesifikasjonen om avlytting av elektromagnetisk stråling (TEMPEST).
+        Resten av stoffet er ikke spurt om før. Sannsynlige nye spørsmål i samme stil: tailgating og sluse, kald, varm og aktiv backup, HVAC-tallene, lasermikrofon og de fire målene.</div>
+
+      <div class="gr-forbehold">
+        <p><b>Fasit med forbehold</b></p>
+        <ul>
+          <li><b>H2025 35</b> kaller TEMPEST en spesifikasjon «for å avlytte» stråling. Lysarket bruker TEMPEST om selve fenomenet og vernet mot det, og spesifikasjonene handler i praksis om <i>vern</i> mot slik avlytting. Svaret TEMPEST er riktig uansett, men TEMPEST er ikke en avlyttingsmetode.</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format: hvilket mål støtter tiltaket?</h4>
+      <div id="ov-grunn-10"></div>
+      <h4>Øv i Inspera-format: korte svar</h4>
+      <div id="ov-grunn-11"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-fysisk"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-fysisk"></div>
+    </section>
+
+    <!-- ===================== 6 · LOV OG MYNDIGHETER ===================== -->
+    <section data-panel="lov">
+      <h3>Lov, regulering og myndigheter</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Straffeloven § 204</b> (innbrudd i datasystem): den som skaffer seg tilgang til et datasystem ved å bryte en beskyttelse eller på annen uberettiget måte, kan straffes med <b>bot eller fengsel inntil 2 år</b>.
+        En lovlig pentest krever tillatelse som er <b>skriftlig</b>, gitt <b>på forhånd</b> og gitt av noen med <b>myndighet</b> over systemet.
+        <b>Legalitetsprinsippet</b> (forenklet): en privatperson kan gjøre alt som ikke er forbudt, mens forvaltningen bare kan gjøre det loven gir hjemmel til.
+        <b>NSM</b> (Nasjonal sikkerhetsmyndighet) med <b>NCSC</b> (Nasjonalt cybersikkerhetssenter) er for statlig og kritisk sektor, <b>NorSIS</b> for privatpersoner og vanlige virksomheter, og sektor-CERT-ene (for eksempel KraftCERT og HelseCERT) for sine sektorer.
+        Ved behandling av personopplysninger er innebygd informasjonssikkerhet et lovkrav.</div>
+      <div id="ex-lov"></div>
+
+      <h4>§ 204-sjekk for pentest</h4>
+      <div id="viz-lov"></div>
+
+      <h4>Legalitetsprinsippet</h4>
+      <div class="gr-dorer">
+        <div><p><b>Privatperson</b></p><p>Alt som ikke er forbudt.</p></div>
+        <div><p><b>Forvaltningen</b></p><p>Bare det loven gir hjemmel til. Derfor krever politiattest og sikkerhetsklarering lovhjemmel og behov.</p></div>
+      </div>
+
+      <h4>Eksempel</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        <p>Tarjei mistenker en svakhet i foreldreappen og prøver å logge inn som en annen forelder for å «bevise det». Det er uberettiget tilgang etter § 204, selv med god hensikt.</p>
+        <p>Riktig vei: Ingrid ber leverandøren om en skriftlig avtale. Leverandøren eier systemet, så det er leverandøren som må gi tillatelsen, ikke barnehagen alene. Avtalen sier hva som testes og når, og den er signert før testen.</p>
+        <p>Kommunen vil sikkerhetsklarere de ansatte. Det kan den ikke uten lovhjemmel og behov, og barnehagen håndterer ikke sikkerhetsgradert informasjon.</p></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er «bøter» feil når fasiten er «bøter eller fengsel i inntil to år»?</summary>
+          <p>Arket krever eksplisitt at svaret er helt korrekt (H2022 3.3, H2025 13).</p></details>
+        <details class="grense"><summary>Hvorfor holder ikke en muntlig tillatelse?</summary>
+          <p>Kurset sier at tillatelsen alltid skal være skriftlig og gitt på forhånd.</p></details>
+        <details class="grense"><summary>Hvorfor kan ikke kunden gi tillatelse til å teste et system som en skyleverandør eier?</summary>
+          <p>Den som gir tillatelsen, må ha myndighet over systemet.</p></details>
+        <details class="grense"><summary>Hvorfor kan ikke offentlige virksomheter bare kreve politiattest?</summary>
+          <p>Legalitetsprinsippet: forvaltningen trenger hjemmel i lov.</p></details>
+        <details class="grense"><summary>Hvorfor er NCSC ikke det samme som NorSIS?</summary>
+          <p>NCSC (i NSM) er for statlig og kritisk sektor. NorSIS er for privatpersoner og vanlige virksomheter.</p></details>
+        <details class="grense"><summary>Hvorfor lærer guiden ikke bort GDPR-detaljer her?</summary>
+          <p>De står ikke i kursets kilder for 2026. Det samme gjelder sikkerhetsloven ved navn og NIS-direktivet. Si «lovkrav om innebygd sikkerhet for personopplysninger», og ikke mer.</p></details>
+        <ul>
+          <li>§ 204 gjelder også «annen uberettiget» tilgang, for eksempel et lånt eller stjålet passord. Det trengs ingen teknisk beskyttelse som brytes.</li>
+          <li>I et styringssystem står lover og forskrifter øverst i dokumenthierarkiet, og krav fra dem oppfylles ved samsvar.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Strafferammen i § 204 kom to ganger med samme ordlyd: H2022 3.3 og H2025 13 (1 p hver, fasit «bøter eller fengsel i inntil to år»). De ligger under pentesting i blokk 4 (Angrep og pentest), ikke i eksamensfanen her.
+        <a href="#fane=eksamen&amp;oppg=o-H2025-7">H2025 7</a>: hva NSM står for (Nasjonal sikkerhetsmyndighet) og navnet på NCSC.
+        Personvern har bare kommet som kolonne eller rad (de-anonymisering i H2021 1.1).</div>
+
+      <h4>Øv i Inspera-format: lovlig eller ulovlig?</h4>
+      <p class="small muted gr-oppg-intro">Etter kursets regler.</p>
+      <div id="ov-grunn-12"></div>
+      <p class="small muted">Raden om muntlig tillatelse følger kursets regel om at tillatelsen alltid skal være skriftlig. Juridisk er det mer et bevisspørsmål, men eksamen bruker lysarkets regel.</p>
+      <h4>Øv i Inspera-format: myndigheter og regler</h4>
+      <div id="ov-grunn-13"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-lov"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-lov"></div>
+    </section>
+
+    <!-- ===================== EKSAMEN ===================== -->
+    <section data-panel="eksamen">
+      <h3>Eksamensoppgaver</h3>
+      <p class="muted small">Oppgavene om grunnbegreper, KIT og fysisk sikkerhet i banken, med øving i Inspera-format og perfekt svar. § 204-oppgavene (H2022 3.3 og H2025 13) ligger under pentesting i blokk 4, og forsvarlig nivå og samsvar (H2023 2) under blokk 6.</p>
+      <div id="bank-grunn"></div>
+    </section>
+  </main>
+
+  <footer class="footer">IN2120-guide · Blokk 1 · Grunnbegreper og fysisk · <a href="02-krypto.html">Neste: blokk 2, kryptografi</a></footer>
+
+  <script src="assets/js/core.js?v=20261125f"></script>
+  <script src="assets/js/symboler.js?v=20261125f"></script>
+  <script src="assets/js/pseudocode.js?v=20261125f"></script>
+  <script src="assets/js/stepplayer.js?v=20261125f"></script>
+  <script src="assets/js/varline.js?v=20261125f"></script>
+  <script src="assets/js/inspera.js?v=20261125f"></script>
+  <script src="assets/js/dra.js?v=20261125f"></script>
+  <script src="assets/js/ovelse.js?v=20261125f"></script>
+  <script src="assets/js/bank.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
+  <script src="assets/js/viz-grunn.js?v=20261125f"></script>
+  <script>
+  (function () {
+    "use strict";
+    var IN = window.IN, V = IN.vizGrunn;
+    function safe(navn, fn) { try { fn(); } catch (e) { if (window.console) console.error("[01-grunnbegreper] " + navn, e); } }
+
+    /* ---------- Forklaringer på tre nivåer ---------- */
+    var EX = {
+      "ex-trygghet": {
+        eli5: "<p>Et gjerde med piggtråd er der fordi noen kan prøve å klatre over med vilje. Det er <b>sikkerhet</b>. Rekkverket på en balkong er der fordi noen kan snuble. Ingen prøver å falle, så det er <b>trygghet</b>. En merkestein i hagen sier nøyaktig hvor tomta slutter. Den stopper ingen, men nå <i>vet</i> du hvor grensen går. Det er <b>visshet</b>.</p>",
+        normal: "<p>På engelsk er «safety» og «security» to ord, men på norsk sier vi ofte «sikkerhet» om begge. Kurset og eksamen skiller dem: spør deg selv om det finnes en <b>motstander</b>. Er det noen som prøver å skade, er det sikkerhet. Er det en ulykke eller et uhell, er det trygghet. Visshet handler verken om angrep eller ulykker, men om kunnskap: vet vi svaret, eller er det tilfeldig?</p><p>Garanti er tillit til selve tiltakene. En testet og revidert lås gir mer garanti enn en lås ingen har sjekket. Ordet «usikkerhet» er en felle: i hverdagen betyr det ofte «uvisshet», men i kursets begrepspar betyr «usikker» at noe er sårbart for angrep.</p>",
+        teknisk: "<p>Skillet styrer hvilke tiltak og hvilket fagfelt som gjelder. Trygghet er HMS-feltet: fallsikring, SJA og brannvern. Sikkerhet er informasjonssikkerhet: KIT mot tilsiktede trusler. Fysisk sikkerhet har begge deler. Målet om person- og miljøsikkerhet er trygghet, mens målene om adgang og skjerming handler om å holde uvedkommende ute.</p><p>Visshet dukker opp i kryptografien som det autentisering skal gi: visshet om hvem motparten er. Garanti (assurance) er grunnlaget for sertifisering og revisjon. Et ISO 27001-sertifikat er en tredjeparts bekreftelse på at styringssystemet virker.</p><p>Forsvarlig nivå og samsvar er to måter å si «nok sikkerhet» på. Risikobaserte krav krever skjønn: er risikoen akseptabel? Regelbaserte krav fra lov, forskrift og kontrakt kan sjekkes som en liste.</p>"
+      },
+      "ex-kit": {
+        eli5: "<p>Tenk på dagboka di. <b>K</b>: bare du får lese den. <b>I</b>: ingen har revet ut sider eller skrevet inn tull. <b>T</b>: dagboka ligger der når du trenger den, ikke låst inne hos noen andre. Et angrep «bryter» det av de tre som går galt.</p>",
+        normal: "<p>Når eksamen spør «hvilket mål brytes?», spør deg selv hva angriperen <i>oppnår</i>:</p><ul><li>Får noen <b>lese</b> noe de ikke skal? → K (avlytting av klartekst, keylogger, knekt kryptering, stjålne passord).</li><li>Blir noe <b>endret</b> eller <b>falskt</b> uten lov? → I (vandalisert nettside, endret fil, falsk melding, hashkollisjon som lar noen bytte dokument under en signatur).</li><li>Blir noe <b>utilgjengelig</b> for den som har lov? → T (DoS og DDoS, løsepengevirus, sletting av filer og backup, kontosperre etter mange feil forsøk).</li><li>Ingen av delene? → Ingen (avlytting av kryptert trafikk som ikke dekrypteres).</li></ul><p>Ordene i angrepet lurer deg ofte. «Kryptovirus» høres ut som K, men viruset krypterer <i>dine</i> data slik at du ikke får brukt dem. Det er T.</p>",
+        teknisk: "<p>KIT er målene. Sikkerhetstjenestene er mekanismene som støtter dem: kryptering gir K, MAC gir I og enkel dataautentisering, digital signatur gir I, dataautentisering og ubenektelighet, og redundans og sikkerhetskopi gir T.</p><p>Kryptering alene gir ikke I. I et strømchiffer kan en angriper snu bit i chifferteksten og endre klarteksten uten å kunne lese den. Tiltak kan også selv bryte et mål: en IPS som lures til å blokkere en forfalsket avsenderadresse, eller en kontosperre etter for mange feil forsøk, stenger ute en legitim bruker. Det er et T-brudd selv om tiltaket virket som designet.</p><p>Hvilket mål som er <i>viktigst</i>, avhenger av fase og verdi. Før en hemmelig utlysning er K viktigst, under innleveringen T og etter innleveringen I.</p>"
+      },
+      "ex-tiltak": {
+        eli5: "<p>En sykkel kan sikres på tre måter. En <b>lås</b> gjør at den ikke blir stjålet (forebygge). En <b>alarm</b> piper hvis noen prøver (oppdage). En <b>forsikring</b> gir deg ny sykkel hvis den forsvinner likevel (rette opp). Låsen er en ting, en regel om å alltid låse er en «organisasjonsting», og en GPS-brikke er teknologi.</p>",
+        normal: "<p>Tidsaksen er nøkkelen: forebyggende virker <i>før</i> hendelsen, oppdagende <i>under eller like etter</i> og korrigerende <i>etter</i>. Domenet sier <i>hva slags</i> tiltak det er: en regel eller prosess (organisatorisk), noe rettet mot folk (personell: bakgrunnssjekk, opplæring, taushetserklæring), noe i den fysiske verden (lås, gjerde, kamera, sluse) eller noe i IT-systemene (brannmur, kryptering, logging).</p><p>De to aksene kan settes i et rutenett. Mange tiltak har mer enn én type. Et kamera er oppdagende, men kan også virke forebyggende fordi det skremmer.</p>",
+        teknisk: "<p>Attributtene i ISO 27002:2022 finnes for å kunne sortere de 93 tiltakene på flere måter. Typen svarer omtrent til NIST CSF: forebyggende ≈ Beskytte, oppdagende ≈ Oppdage, korrigerende ≈ Respondere og Gjenopprette. Hvert tiltak har også attributter for KIT-egenskap og cybersikkerhetskonsept.</p><p><b>Forsvar i dybden</b> kombinerer typene i lag: forebyggende lag kjøper tid, tiden gjør at oppdagende tiltak rekker å slå til, og da kan korrigerende tiltak (vakter, hendelseshåndtering) settes inn. Elektronisk overvåking er reaktiv: den hindrer ingenting alene og har bare verdi hvis noen ser på opptakene. Personvern er en kostnad ved oppdagende tiltak.</p>"
+      },
+      "ex-personell": {
+        eli5: "<p>De farligste er ikke alltid de som bryter seg inn, men de som allerede har nøkkel. Derfor sjekker man hvem man ansetter. Og når noen skal klatre høyt, skal alltid en annen stå nede og passe på, fordi det er viktigere at ingen skader seg enn at jobben blir fort ferdig.</p>",
+        normal: "<p>Personellsikkerhet og HMS er to sider av samme lysarksett. Den første handler om <i>sikkerhet</i>: innsidere som kan misbruke tilgangen med vilje. Den andre handler om <i>trygghet</i>: ulykker på jobb. Mot innsidere hjelper ikke gjerder. Man må velge rett folk (bakgrunnssjekk), følge med (samtaler) og bare gi gradert informasjon til dem som er klarert og trenger den.</p><p>HMS-delen er praktisk: arbeidsgiveren har ansvaret, og SJA er verktøyet for å planlegge farlig arbeid. H2025 ga 8 av 9 poeng i fysisk-delen til SJA og arbeid i høyden, så reglene må kunnes nøyaktig.</p>",
+        teknisk: "<p>SJA er risikovurdering i liten skala. Oppgaven brytes ned i steg, hvert steg får en vurdering av hva som kan gå galt og hvor alvorlig det er, og hvert steg får tiltak som senker risikoen før man starter. Sensor i H2025 34 krevde at ordet <b>risiko</b> var med.</p><p>Sikkerhetsklarering og politiattest er inngripende overfor den enkelte og krever derfor hjemmel i lov (legalitetsprinsippet, se fanen om lov). Graderingsnivåene er de norske nasjonale nivåene. Klarering på subjektet og gradering på objektet er samme par som i Bell-LaPadula-modellen.</p>"
+      },
+      "ex-fysisk": {
+        eli5: "<p>Et slott har vollgrav, mur, port og vakter. Hver hindring alene kan overvinnes, men alle sammen tar tid, og mens tyven holder på, blir hen oppdaget. Og selv om ingen tyv kommer, må slottet tåle brann og flom, og ha et reserveslott hvis det verste skjer.</p>",
+        normal: "<p>Målene om adgang og skjerming handler om å holde folk og signaler <i>ute</i>: adgang, perimeter, kameraer, og at selv stråling og lyd kan lekke informasjon (TEMPEST, lasermikrofon). Målet om kontinuitet handler om at systemene skal <i>fortsette å virke</i>: strøm, klima, brannvern og reserveanlegg.</p><p>Valget av backuplokasjon er en avveining mellom kostnad og hvor fort man er i drift igjen. Et sykehus trenger kanskje en aktiv reserve, en barnehage klarer seg med en kald.</p>",
+        teknisk: "<p>Fysisk sikkerhet gjelder alle KIT-målene. TEMPEST og lasermikrofon er angrep på <b>K</b> gjennom sidekanaler i den fysiske verden. Stjålne bærbare truer K, og derfor er kryptering det viktigste tiltaket: tyveriet kan ikke alltid hindres, men konsekvensen kan. Feil luftfuktighet, støv og elektrostatisk utladning truer <b>T</b> og <b>I</b> (ødelagt maskinvare, korrupte data).</p><p>Backuplokasjonene er korrigerende tiltak for T. Overvåking er oppdagende og har en personvernkostnad, så den må vurderes mot formålet. Tailgating er sosial manipulering som omgår et ellers godt forebyggende tiltak, og slusen er mottiltaket fordi den bare slipper én person gjennom av gangen.</p>"
+      },
+      "ex-lov": {
+        eli5: "<p>Å gå inn i et datasystem uten lov er som å låse seg inn i naboens hus: det er ulovlig selv om du bare ville sjekke om låsen var god. Vil du teste låsen, må naboen skrive under på at du får lov, før du begynner.</p>",
+        normal: "<p>§ 204 er lovregelen kurset faktisk lærer bort, og eksamen har spurt om strafferammen to ganger med samme ordlyd. Svaret må være helt presist: <b>bot eller fengsel inntil 2 år</b>. For en pentester betyr regelen at testen er lovlig bare med en skriftlig avtale fra noen som har myndighet over systemet, og at avtalen er på plass før testen starter. God hensikt er ikke nok.</p><p>Legalitetsprinsippet forklarer hvorfor det offentlige trenger hjemmel for inngrep i folks liv, som sikkerhetsklarering og politiattest. NSM og NCSC er ikke politi, og virksomheter må i stor grad håndtere hendelser selv.</p>",
+        teknisk: "<p>I et styringssystem for informasjonssikkerhet står lover og forskrifter øverst i dokumenthierarkiet, over rammeverk, standarder og policyer, rutiner og til slutt logger og rapporter. Krav fra lov oppfylles ved <b>samsvar</b>, ikke ved forsvarlig nivå.</p><p>§ 204 rammer både den som bryter en teknisk beskyttelse (knekker passord, utnytter en sårbarhet) og den som bruker en annen uberettiget måte (et lånt eller stjålet passord). Lovstoff utover dette dekkes ikke av kursets kilder for 2026: sikkerhetsloven ved navn, GDPR i detalj og NIS-direktivet. Spørsmål kan i prinsippet komme fra læreboka, men guiden kan ikke si hva den sier.</p>"
+      }
+    };
+    Object.keys(EX).forEach(function (id) {
+      safe(id, function () { IN.explain("#" + id, EX[id], { label: "Forklaring:" }); });
+    });
+
+    /* ---------- Visualiseringer ---------- */
+    safe("viz-gjerder", function () { V.gjerder("#viz-gjerder"); });
+    safe("viz-kit", function () { V.kit("#viz-kit"); });
+    safe("viz-tiltak", function () { V.tiltak("#viz-tiltak"); });
+    safe("sp-sja", function () { V.sja("#sp-sja"); });
+    safe("viz-bemanning", function () { V.bemanning("#viz-bemanning"); });
+    safe("sp-dybde", function () { V.dybde("#sp-dybde"); });
+    safe("viz-backup", function () { V.backup("#viz-backup"); });
+    safe("quiz-hvac", function () {
+      IN.quiz("#quiz-hvac", [{
+        q: "Tarjei måler 27 °C og 30 % luftfuktighet i serverrommet en vinterdag. Hva er den viktigste faren ved den lave luftfuktigheten?",
+        options: ["Kondens på kretskortene", "Statisk elektrisitet som kan skade kretser (ESD)", "Støv som hindrer kjøling", "Ingen fare: 30 % er innenfor anbefalt område"],
+        answer: 1,
+        explain: "<p>Anbefalt er 40–55 %. Tørr luft gir mer statisk elektrisitet, og elektrostatisk utladning er en hovedårsak til skade på kretser. Kondens er faren ved for <i>høy</i> fuktighet. 27 °C er også for varmt (anbefalt 20–24 °C).</p>"
+      }], { id: "grunn-hvac" });
+    });
+    safe("viz-lov", function () { V.lov("#viz-lov"); });
+
+    /* ---------- Flervalg per fane ---------- */
+    var QUIZ = {
+      trygghet: [
+        { q: "En brannalarm i serverrommet er først og fremst et tiltak for …", options: ["sikkerhet", "trygghet", "visshet", "garanti"], answer: 1,
+          explain: "<p>Brann er som regel et uhell. Påsatt brann er sikkerhet, men alarmen virker uansett.</p>" },
+        { q: "«Security» oversettes i kurset med …", options: ["trygghet", "visshet", "sikkerhet", "garanti"], answer: 2,
+          explain: "<p>Security = sikkerhet, safety = trygghet, certainty = visshet, assurance = garanti (H2024 2).</p>" },
+        { q: "En leverandør viser en revisjonsrapport om at krypteringen er riktig implementert. Hva gir dette?", options: ["visshet", "garanti", "trygghet", "samsvar"], answer: 1,
+          explain: "<p>Rapporten gir tillit til at tiltaket virker.</p>" },
+        { q: "Et krav i en avtale med en kunde er oppfylt ved …", options: ["forsvarlig nivå", "samsvar", "restrisiko", "visshet"], answer: 1,
+          explain: "<p>Krav fra lov, forskrift og kontrakt oppfylles ved samsvar (H2023 2).</p>" },
+        { q: "Hva betyr «uvisshet» i kursets begrepspar?", options: ["mangel på vern mot angrep", "mangel på kunnskap om utfallet", "unøyaktig måling", "fare for ulykke"], answer: 1,
+          explain: "<p>Mangel på vern mot angrep er usikkerhet, og fare for ulykke er utrygghet.</p>" }
+      ],
+      kit: [
+        { q: "Et virus krypterer alle bildene på en PC og krever betaling. Hvilket mål brytes?", options: ["K", "I", "T", "ingen"], answer: 2,
+          explain: "<p>Eieren får ikke brukt bildene. Ingen andre får lese dem av den grunn.</p>" },
+        { q: "Hva gir ubenektelighet?", options: ["MAC", "digital signatur", "AES-kryptering", "hash uten nøkkel"], answer: 1,
+          explain: "<p>Bare avsenderen har den private nøkkelen, og en tredjepart kan verifisere. Med MAC har begge parter nøkkelen.</p>" },
+        { q: "Angriperen fanger opp krypterte pakker, men har ikke nøkkelen. Hvilket mål er brutt?", options: ["K", "I", "T", "ingen"], answer: 3,
+          explain: "<p>Ingenting er lest, endret eller stengt (H2021 1.1).</p>" },
+        { q: "Hvilket mål er viktigst <i>mens</i> et nettbasert innleveringssystem er åpent for innlevering?", options: ["K", "I", "T"], answer: 2,
+          explain: "<p>Kandidatene må få levert (jf. H2024 1).</p>" },
+        { q: "En angriper endrer et beløp i en kryptert bankmelding ved å snu bit i chifferteksten (strømchiffer). Hva er brutt?", options: ["K", "I", "T"], answer: 1,
+          explain: "<p>Innholdet er endret uten at noen har lest det. Kryptering alene gir ikke integritet.</p>" }
+      ],
+      tiltak: [
+        { q: "Hvilken type tiltak er en IDS?", options: ["forebyggende", "oppdagende", "korrigerende", "avskrekkende"], answer: 1,
+          explain: "<p>En IDS oppdager og varsler. Den stopper ikke trafikken (det gjør en IPS).</p>" },
+        { q: "Hvor mange domener deler ISO 27002:2022 tiltakene inn i?", options: ["3", "4", "5", "14"], answer: 1,
+          explain: "<p>Organisatoriske, personell, fysiske og teknologiske.</p>" },
+        { q: "Hvilken type passer best for gjenoppretting fra en frakoblet sikkerhetskopi?", options: ["forebyggende", "oppdagende", "korrigerende"], answer: 2,
+          explain: "<p>Skaden har skjedd, og tiltaket retter den opp.</p>" },
+        { q: "Et adgangskort med PIN til serverrommet er …", options: ["teknologisk og oppdagende", "fysisk og forebyggende", "personell og korrigerende", "organisatorisk og forebyggende"], answer: 1,
+          explain: "<p>Det hindrer at uvedkommende kommer inn i et fysisk rom.</p>" },
+        { q: "Hvilken NIST CSF-funksjon svarer best til «oppdagende»?", options: ["Identifisere", "Beskytte", "Oppdage", "Gjenopprette"], answer: 2,
+          explain: "<p>Forebyggende ≈ Beskytte, oppdagende ≈ Oppdage, korrigerende ≈ Respondere og Gjenopprette.</p>" }
+      ],
+      personell: [
+        { q: "Hva står SJA for?", options: ["sikkerhetsjuridisk analyse", "sikker jobbanalyse", "systematisk jobbaudit", "sikker jobbadgang"], answer: 1,
+          explain: "<p>Sikker jobbanalyse (H2025 33).</p>" },
+        { q: "Hvem er alltid ansvarlig for HMS på arbeidsplassen?", options: ["arbeidstakeren", "verneombudet", "arbeidsgiveren", "Arbeidstilsynet"], answer: 2,
+          explain: "<p>Arbeidsgiveren har ansvaret. Arbeidstakeren skal medvirke.</p>" },
+        { q: "Hva er det laveste graderingsnivået?", options: ["KONFIDENSIELT", "BEGRENSET", "HEMMELIG", "INTERN"], answer: 1,
+          explain: "<p>BEGRENSET < KONFIDENSIELT < HEMMELIG < STRENGT HEMMELIG. INTERN er ikke et graderingsnivå.</p>" },
+        { q: "Hvor mange personer skal minst være til stede ved arbeid i høyden?", options: ["1", "2", "3", "avhenger av høyden"], answer: 1,
+          explain: "<p>Minst to, og én av dem på bakken.</p>" },
+        { q: "Hvorfor er innsidere vanskelige å oppdage?", options: ["de bruker alltid kryptering", "aktiviteten ligner vanlig bruk", "de har ingen tilgang", "de angriper bare om natta"], answer: 1,
+          explain: "<p>De har legitim tilgang, så det de gjør, ser normalt ut.</p>" }
+      ],
+      fysisk: [
+        { q: "Hva heter avlytting av elektromagnetisk stråling fra utstyr i kurset?", options: ["Tailgating", "TEMPEST", "ESD", "HVAC"], answer: 1,
+          explain: "<p>TEMPEST (H2025 35). ESD er elektrostatisk utladning, og HVAC er varme, ventilasjon og klima.</p>" },
+        { q: "Hvilken backuplokasjon har strøm og utstyr, men tar timer eller dager å få i drift?", options: ["kald", "varm/inaktiv", "varm/aktiv"], answer: 1,
+          explain: "<p>Den kalde har bare strøm. Den aktive er en full operasjonell reserve.</p>" },
+        { q: "Hva er anbefalt luftfuktighet for IT-utstyr?", options: ["10–20 %", "20–30 %", "40–55 %", "70–80 %"], answer: 2,
+          explain: "<p>40–55 %. Lavere fuktighet gir mer statisk elektrisitet.</p>" },
+        { q: "Hvilket tiltak hindrer best tailgating?", options: ["domekamera", "sluse", "graverte PC-er", "faradaybur"], answer: 1,
+          explain: "<p>Slusen slipper bare én person gjennom av gangen.</p>" },
+        { q: "Hvilket av disse er <i>ikke</i> et av de fire målene for fysisk sikkerhet?", options: ["kontrollert adgang", "skjerming av utstyr", "kontinuitet i støttesystemer", "kryptering av all trafikk"], answer: 3,
+          explain: "<p>De fire er person- og miljøsikkerhet, kontrollert adgang, skjerming av utstyr og kontinuitet i støttesystemer.</p>" }
+      ],
+      lov: [
+        { q: "Strafferammen i straffeloven § 204 er …", options: ["bot", "bot eller fengsel inntil 2 år", "fengsel inntil 5 år", "bot eller fengsel inntil 10 år"], answer: 1,
+          explain: "<p>Bot eller fengsel inntil 2 år. Eksamen krever helt korrekt svar.</p>" },
+        { q: "Hva kreves for en lovlig pentest?", options: ["muntlig ja fra IT-ansvarlig", "skriftlig tillatelse på forhånd fra noen med myndighet", "at testeren har god hensikt", "at funnene rapporteres etterpå"], answer: 1,
+          explain: "<p>Skriftlig, på forhånd og fra noen med myndighet over systemet.</p>" },
+        { q: "Hva står NSM for?", options: ["Norsk sikkerhetsmyndighet", "Nasjonal sikkerhetsmyndighet", "Nasjonalt sikkerhetsmiljø", "Nordisk sikkerhetsmyndighet"], answer: 1,
+          explain: "<p>Nasjonal sikkerhetsmyndighet (H2025 7).</p>" },
+        { q: "Hvilket prinsipp sier at offentlig forvaltning bare kan gjøre det loven gir hjemmel til?", options: ["Kerckhoffs' prinsipp", "legalitetsprinsippet", "minste privilegium", "forsvar i dybden"], answer: 1,
+          explain: "<p>Legalitetsprinsippet. Derfor krever politiattest og sikkerhetsklarering lovhjemmel.</p>" },
+        { q: "Hvor står lover i dokumenthierarkiet?", options: ["nederst", "øverst, over forskrifter", "mellom policy og rutiner", "de er ikke med"], answer: 1,
+          explain: "<p>Lover, så forskrifter, så rammeverk, standarder og policyer, så rutiner, og nederst logger og rapporter.</p>" }
+      ]
+    };
+    Object.keys(QUIZ).forEach(function (fane) {
+      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "grunn-" + fane }); });
+    });
+
+    /* ---------- Sant/usant per fane ---------- */
+    var TF = {
+      trygghet: [
+        { s: "Trygghet handler om vern mot ulykker og utilsiktede hendelser.", answer: true, explain: "<p>Ingen motstander, bare uhell, feil og naturkrefter.</p>" },
+        { s: "Et piggtrådgjerde er et trygghetstiltak.", answer: false, explain: "<p>Det er rettet mot noen som vil inn, altså sikkerhet.</p>" },
+        { s: "«Usikkerhet» i H2025 1 betyr det samme som «uvisshet».", answer: false, explain: "<p>Usikker = sårbar for angrep. Uvisst = ukjent utfall.</p>" },
+        { s: "Garanti (assurance) er tillit til at sikkerhetstiltakene virker.", answer: true, explain: "<p>For eksempel gjennom testing, revisjon og sertifisering.</p>" },
+        { s: "Lysarkene i 2026 har en egen side som definerer sikkerhet, trygghet og visshet.", answer: false, explain: "<p>Det er bare eksamenssettene som gjør det.</p>" },
+        { s: "Krav fra en risikovurdering er oppfylt når risikoen er forsvarlig.", answer: true, explain: "<p>Forsvarlig nivå (H2023 2).</p>" },
+        { s: "Lysarket om fysisk sikkerhet kaller person- og miljøsikkerhet for «trygghet».", answer: true, explain: "<p>Det er det første av de fire målene for fysisk sikkerhet.</p>" },
+        { s: "Et unøyaktig termometer i serverrommet er et eksempel på usikkerhet.", answer: false, explain: "<p>Det er unøyaktighet, og kanskje utrygghet hvis det fører til overoppheting.</p>" }
+      ],
+      kit: [
+        { s: "KIT står for konfidensialitet, integritet og tilgjengelighet.", answer: true, explain: "<p>På engelsk CIA.</p>" },
+        { s: "DDoS bryter først og fremst integritet.", answer: false, explain: "<p>Det bryter T: legitime brukere slipper ikke til.</p>" },
+        { s: "En tastaturlogger bryter konfidensialitet.", answer: true, explain: "<p>Passord og tekst lekker til angriperen.</p>" },
+        { s: "Kryptering gir automatisk integritet.", answer: false, explain: "<p>I et strømchiffer kan bit snus uten at det merkes.</p>" },
+        { s: "En IPS som blokkerer en uskyldig avsender, er ingen sikkerhetshendelse fordi tiltaket virket.", answer: false, explain: "<p>Det er brudd på T.</p>" },
+        { s: "Dataautentisering forutsetter at dataene ikke er endret.", answer: true, explain: "<p>Å vite hvem som laget meldingen, hjelper ikke hvis innholdet er byttet.</p>" },
+        { s: "En MAC kan verifiseres av en tredjepart uten å kjenne nøkkelen.", answer: false, explain: "<p>Verifisering krever den hemmelige nøkkelen, som begge parter har.</p>" },
+        { s: "Hashkollisjoner i signaturer bryter integritet.", answer: true, explain: "<p>H2024 3 og H2025 2.</p>" },
+        { s: "Vandalisering av en nettside bryter integritet.", answer: true, explain: "<p>Innholdet er endret uten lov (H2022 1.1).</p>" },
+        { s: "Å slette filer <i>og</i> sikkerhetskopien rammer tilgjengelighet.", answer: true, explain: "<p>Dataene kan ikke brukes lenger (H2024 3).</p>" }
+      ],
+      tiltak: [
+        { s: "ISO 27002:2022 har 93 tiltak.", answer: true, explain: "<p>Fordelt på fire domener.</p>" },
+        { s: "Forebyggende tiltak virker etter at hendelsen har skjedd.", answer: false, explain: "<p>De virker før. Det er korrigerende som virker etter.</p>" },
+        { s: "Elektronisk overvåking er reaktiv og hindrer ikke i seg selv tilgang.", answer: true, explain: "<p>Den har bare verdi hvis noen følger med på opptakene.</p>" },
+        { s: "En beredskapsplan er et korrigerende organisatorisk tiltak.", answer: true, explain: "<p>Den brukes etter en hendelse, og den er en plan, ikke teknologi.</p>" },
+        { s: "Det teknologiske domenet er det største i ISO 27002:2022.", answer: false, explain: "<p>Organisatorisk har 37 tiltak, teknologisk 34.</p>" },
+        { s: "Forsvar i dybden gjør angrep tregere, og det øker sjansen for å oppdage dem.", answer: true, explain: "<p>Tiden lagene kjøper, gjør at oppdagende tiltak rekker å slå til.</p>" },
+        { s: "Kryptering av data på en bærbar PC er et tiltak mot konsekvensen av tyveri.", answer: true, explain: "<p>Tyveriet hindres ikke, men dataene blir verdiløse for tyven.</p>" },
+        { s: "Kurset deler tiltak inn i fysiske, tekniske og administrative.", answer: false, explain: "<p>Kurset bruker organisatoriske, personell, fysiske og teknologiske.</p>" }
+      ],
+      personell: [
+        { s: "Sikkerhetsklarering krever lovhjemmel og behov.", answer: true, explain: "<p>Det er et inngrep overfor den enkelte.</p>" },
+        { s: "Utstyr går foran liv og helse hvis utstyret er svært dyrt.", answer: false, explain: "<p>Liv og helse går alltid først. Utstyr kan erstattes.</p>" },
+        { s: "Arbeidstakeren plikter å si fra om risiko.", answer: true, explain: "<p>Det er en del av medvirkningsplikten.</p>" },
+        { s: "Med personløfter kan én person jobbe alene i høyden.", answer: false, explain: "<p>Minst to, én på bakken (H2025 36).</p>" },
+        { s: "Rekkverk og stillas er personlig verneutstyr.", answer: false, explain: "<p>Det er kollektivt verneutstyr. Hjelm og sele er personlig.</p>" },
+        { s: "STRENGT HEMMELIG er det høyeste graderingsnivået.", answer: true, explain: "<p>Over HEMMELIG, KONFIDENSIELT og BEGRENSET.</p>" },
+        { s: "SJA betyr at en farlig oppgave deles opp og risikoen vurderes for hver del.", answer: true, explain: "<p>Med tiltak for hver del (H2025 34).</p>" },
+        { s: "Innsidere stoppes best av et sterkt perimeterforsvar.", answer: false, explain: "<p>De er allerede innenfor, med gyldig tilgang.</p>" }
+      ],
+      fysisk: [
+        { s: "Et faradaybur blokkerer elektromagnetisk stråling fullstendig.", answer: true, explain: "<p>Det er det sterkeste av TEMPEST-mottiltakene.</p>" },
+        { s: "Fiberkabel stråler mer enn kobberkabel.", answer: false, explain: "<p>Kurset anbefaler fiber framfor kobber.</p>" },
+        { s: "Forsvar i dybden betyr at hvert lag alene skal være umulig å komme forbi.", answer: false, explain: "<p>Poenget er tid og deteksjon.</p>" },
+        { s: "Et domekamera kan snus og fjernstyres.", answer: true, explain: "<p>Og det er vanskelig å se hvor det peker.</p>" },
+        { s: "Bærbare PC-er bør sjekkes inn som bagasje på fly.", answer: false, explain: "<p>De skal være med i håndbagasjen.</p>" },
+        { s: "Optimal temperatur for IT-utstyr er 20–24 °C.", answer: true, explain: "<p>Og luftfuktigheten 40–55 %.</p>" },
+        { s: "En lasermikrofon kan gjenskape samtaler fra vibrasjoner i et vindu.", answer: true, explain: "<p>Derfor holdes sensitive samtaler i rom uten yttervinduer eller med tunge gardiner.</p>" },
+        { s: "Gjester bør komme inn gjennom flest mulig innganger, så det ikke blir kø.", answer: false, explain: "<p>Én bemannet inngang.</p>" }
+      ],
+      lov: [
+        { s: "Det er lovlig å teste et system for svakheter uten tillatelse, så lenge man ikke stjeler noe.", answer: false, explain: "<p>Uberettiget tilgang er straffbart etter § 204, uansett hensikt.</p>" },
+        { s: "Tillatelsen til en pentest må være skriftlig.", answer: true, explain: "<p>Og gitt på forhånd av noen med myndighet.</p>" },
+        { s: "Sikkerhetsklarering kan kreves av hvem som helst uten lovhjemmel.", answer: false, explain: "<p>Det krever lovhjemmel og behov.</p>" },
+        { s: "NCSC er en del av NSM.", answer: true, explain: "<p>Nasjonalt cybersikkerhetssenter i Nasjonal sikkerhetsmyndighet (H2025 7).</p>" },
+        { s: "§ 204 gjelder bare når man bryter en teknisk beskyttelse.", answer: false, explain: "<p>Den gjelder også annen uberettiget fremgangsmåte, for eksempel et stjålet passord.</p>" },
+        { s: "Innebygd informasjonssikkerhet er et lovkrav ved behandling av personopplysninger.", answer: true, explain: "<p>Mer detalj om personvernlovgivningen står ikke i kursets kilder for 2026.</p>" },
+        { s: "NIS-direktivet gjennomgås på lysarkene i 2026.", answer: false, explain: "<p>Det står ikke i noen av kursets kilder.</p>" },
+        { s: "Krav fra lov oppfylles ved samsvar.", answer: true, explain: "<p>Ikke ved forsvarlig nivå (H2023 2).</p>" }
+      ]
+    };
+    Object.keys(TF).forEach(function (fane) {
+      safe("tf-" + fane, function () { IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { it.kilde = false; return it; }), { id: "grunn-tf-" + fane }); });
+    });
+
+    /* ---------- Inspera-øvinger (egne oppgaver i eksamensformat) ---------- */
+    var OV = [
+      { key: "ov-grunn-1", title: "Usikkerhet, unøyaktighet, utrygghet eller uvisshet", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Usikkerhet", "Unøyaktighet", "Utrygghet", "Uvisshet"],
+        regelTekst: "Poeng: 0,5 for riktig, -0,5 for feil, 0 for ubesvart, maks 3, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "Barnehagens trådløse nett har ingen passordbeskyttelse", svar: [0], explain: "<p>Hvem som helst kan koble seg på og misbruke nettet med vilje. En mulig angriper betyr at situasjonen er usikker.</p>" },
+          { s: "Ingen vet om terningen viser seks på neste kast", svar: [3], explain: "<p>Utfallet er tilfeldig og kan ikke vites. Det er uvisshet. Ingen angriper og ingen ulykke.</p>" },
+          { s: "En ansatt står på en vaklende stol for å henge opp julepynt", svar: [2], explain: "<p>Faren er et fall, altså en ulykke. Det er utrygghet.</p>" },
+          { s: "Høyden på et rom anslås ved å skritte opp veggen", svar: [1], explain: "<p>Målet blir omtrentlig. Det er unøyaktighet, ikke et sikkerhetsproblem.</p>" },
+          { s: "Admin-kontoen på lønnssystemet har standardpassordet fra leverandøren", svar: [0], explain: "<p>Standardpassord står i manualer og gjettelister. En angriper kan logge inn med vilje, så det er usikkerhet.</p>" },
+          { s: "Glatt is på trappen ved inngangen", svar: [2], explain: "<p>Noen kan skli og skade seg uten at noen har villet det. Utrygghet.</p>" } ] } },
+      { key: "ov-grunn-2", title: "Fire figurer", points: 4, inspera: { type: "D",
+        regelTekst: "Poeng: 1 for hver riktig; 0 for feil/ubesvart; maks 4; minimum 0.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
+        tekst: null, bank: ["Sikkerhet", "Trygghet", "Visshet", "Garanti"],
+        felt: [
+          { etikett: "Figur 1: kodelås og alarm på sykkelboden", svar: 0, explain: "<p>Låsen og alarmen er rettet mot tyver, altså noen som vil inn med vilje. Sikkerhet.</p>" },
+          { etikett: "Figur 2: rekkverk rundt hemsen i lekerommet", svar: 1, explain: "<p>Rekkverket skal hindre at barn faller. Ingen faller med vilje, så det er trygghet.</p>" },
+          { etikett: "Figur 3: oppmålingsbolt med koordinater i hjørnet av tomta", svar: 2, explain: "<p>Bolten stopper ingen, men gjør at man vet nøyaktig hvor grensen går. Visshet.</p>" },
+          { etikett: "Figur 4: sertifikat fra et testlaboratorium om at låsen tåler 10 minutters innbruddsforsøk", svar: 3, explain: "<p>Sertifikatet gir begrunnet tillit til at sikkerhetstiltaket virker. Garanti (assurance).</p>" } ] } },
+      { key: "ov-grunn-3", title: "Hvilket mål brytes?", points: 4, inspera: { type: "M", multi: false,
+        kolonner: ["Konfidensialitet", "Integritet", "Tilgjengelighet", "Ingen"],
+        regelTekst: "Poeng: 0,5p for hver riktig; -0,5p for feil, 0p for ubesvart; maks 4p; minimum 0p.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 4 },
+        rader: [
+          { s: "Skimming-utstyr på en minibank kopierer kortdata", svar: [0], explain: "<p>Kortdata som skal være hemmelige, havner hos angriperen. Konfidensialitet.</p>" },
+          { s: "Angriper legger til en falsk vakt i barnehagens vaktliste", svar: [1], explain: "<p>Data er endret uten lov. Integritet.</p>" },
+          { s: "Løsepengevirus (ChaCha20) låser alle journalene på et legekontor", svar: [2], explain: "<p>Legekontoret får ikke brukt sine egne journaler. Tilgjengelighet. Felle: krypteringen gir ingen andre lesetilgang.</p>" },
+          { s: "Opptak av VPN-trafikk som angriperen ikke kan dekryptere", svar: [3], explain: "<p>Ingenting er lest, endret eller stengt. Ingen mål er brutt.</p>" },
+          { s: "Angriper sender tusenvis av falske innloggingsforsøk slik at alle ansattes kontoer sperres", svar: [2], explain: "<p>Kontosperren stenger ute dem som har lov. Tilgjengelighet, selv om sperren er et sikkerhetstiltak.</p>" },
+          { s: "Angriper finner en kollisjon i en svak hashfunksjon og bytter ut et signert vedlegg", svar: [1], explain: "<p>Signaturen ser fortsatt gyldig ut, men innholdet er falskt. Integritet.</p>" },
+          { s: "Angriper leser ukryptert Telnet-trafikk med Wireshark", svar: [0], explain: "<p>Telnet er ukryptert, så angriperen leser passord og kommandoer. Konfidensialitet.</p>" },
+          { s: "Angriper klipper fiberkabelen til et datasenter", svar: [2], explain: "<p>Tjenestene kan ikke nås. Tilgjengelighet.</p>" } ] } },
+      { key: "ov-grunn-4", title: "Viktigste mål i hver fase", points: 3, inspera: { type: "N",
+        regelTekst: "Poeng: 1 for hver riktig, -1 for hver feil, 0 for ubesvart, maks 3, minimum 0.", regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
+        tekst: "<p>En kommune lyser ut en anbudskonkurranse om et nytt foreldreapp-system. Tilbudene leveres i en nettportal, og verdien er selve tilbudene. Før fristen er {0} viktigst. I timene rett før fristen, når de fleste leverer, er {1} viktigst. Etter fristen, mens kommunen evaluerer tilbudene, er {2} viktigst.</p>",
+        felt: [
+          { etikett: "Før fristen", valg: ["konfidensialitet", "integritet", "tilgjengelighet"], svar: 0, explain: "<p>Konkurrentene skal ikke se hverandres priser før fristen. Lekker et tilbud, er konkurransen ødelagt.</p>" },
+          { etikett: "Rett før fristen", valg: ["integritet", "tilgjengelighet", "konfidensialitet"], svar: 1, explain: "<p>Er portalen nede, får tilbyderne ikke levert. Tilgjengelighet.</p>" },
+          { etikett: "Etter fristen", valg: ["tilgjengelighet", "konfidensialitet", "integritet"], svar: 2, explain: "<p>Ingen skal kunne endre et tilbud etter fristen. Integritet. K er fortsatt viktig, men oppgaven ber om det viktigste, og det er et skjønnsspørsmål, som i H2024 1.</p>" } ] } },
+      { key: "ov-grunn-5", title: "Hvilken sikkerhetstjeneste kreves?", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Konfidensialitet", "Integritet", "Tilgjengelighet", "Autentisitet", "Ubenektelighet"],
+        regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "Mottakeren av en kontrakt skal kunne bevise for en domstol hvem som signerte den", svar: [4], explain: "<p>Bevis overfor en tredjepart er ubenektelighet. Det krever digital signatur.</p>" },
+          { s: "Ingrid vil være sikker på at nettsiden hun logger inn på, faktisk er lønnsleverandørens", svar: [3], explain: "<p>Hun trenger visshet om motpartens identitet: entitetsautentisering.</p>" },
+          { s: "Lønnsfilen skal ikke kunne leses av andre ansatte", svar: [0], explain: "<p>Bare autoriserte skal lese. Konfidensialitet.</p>" },
+          { s: "Fraværslisten skal ikke kunne endres i ettertid uten at det merkes", svar: [1], explain: "<p>Data skal være korrekte og uendret. Integritet.</p>" },
+          { s: "Appen skal fungere klokka 07.30 når foreldrene melder fravær", svar: [2], explain: "<p>Tjenesten må kunne brukes når den trengs. Tilgjengelighet.</p>" },
+          { s: "En melding sikret med MAC skal kunne bevises å komme fra avsenderen overfor en dommer", svar: [4], explain: "<p>Dette er et krav om ubenektelighet, og det kan en MAC <em>ikke</em> oppfylle, fordi mottakeren har samme nøkkel. Kravet er likevel ubenektelighet.</p>" } ] } },
+      { key: "ov-grunn-6", title: "Type tiltak", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Forebyggende", "Oppdagende", "Korrigerende"],
+        regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "Sluse (to dører) inn til datarommet", svar: [0], explain: "<p>Slusen hindrer at flere går inn på ett kort. Den virker før noe skjer. Forebyggende.</p>" },
+          { s: "Snort-regel som varsler ved mange SSH-forsøk", svar: [1], explain: "<p>Regelen oppdager mistenkelig trafikk og varsler. Oppdagende.</p>" },
+          { s: "Gjenopprette nettsiden fra gårsdagens sikkerhetskopi etter vandalisering", svar: [2], explain: "<p>Skaden har skjedd. Tiltaket retter den opp. Korrigerende.</p>" },
+          { s: "Bevegelsessensor i lageret om natta", svar: [1], explain: "<p>Sensoren oppdager at noen er der. Den stopper ingen. Oppdagende.</p>" },
+          { s: "Kurs i å kjenne igjen phishing", svar: [0], explain: "<p>Målet er at de ansatte ikke klikker. Det virker før angrepet lykkes. Forebyggende.</p>" },
+          { s: "Bytte alle passord og stenge kontoer etter et oppdaget innbrudd", svar: [2], explain: "<p>Dette begrenser skaden etter hendelsen. Korrigerende.</p>" } ] } },
+      { key: "ov-grunn-7", title: "Domene i ISO 27002:2022", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Organisatorisk", "Personell", "Fysisk", "Teknologisk"],
+        regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "Verifisere CV og tidligere arbeidsgivere før ansettelse", svar: [1], explain: "<p>Et tiltak rettet mot personen før ansettelse. Personell.</p>" },
+          { s: "Kabellås som fester den bærbare PC-en til pulten", svar: [2], explain: "<p>En fysisk innretning mot tyveri. Fysisk.</p>" },
+          { s: "Full diskkryptering på alle bærbare", svar: [3], explain: "<p>Gjøres i IT-systemet. Teknologisk.</p>" },
+          { s: "Ledelsen vedtar en policy for klassifisering av informasjon", svar: [0], explain: "<p>En regel og et ansvar i virksomheten. Organisatorisk.</p>" },
+          { s: "Taushetserklæring som signeres ved ansettelse", svar: [1], explain: "<p>Et krav til den enkelte ansatte. Personell.</p>" },
+          { s: "Overvåkingskamera ved varemottaket", svar: [2], explain: "<p>Fysisk overvåking av et område. Fysisk.</p>" } ] } },
+      { key: "ov-grunn-8", title: "Arbeid i høyden", points: 4, inspera: { type: "N",
+        regelTekst: "Poeng: 1 for hver riktig, 0 for feil eller ubesvart, maks 4, minimum 0.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
+        tekst: "<p>Barnehagen skal montere et kamera på en mast, 5 meter over bakken. Det skal være minst {0} til stede. Av dem skal {1}. Den eller de som deltar, skal ha {2}. Hvis det finnes et alternativ til stige, bør man heller bruke {3}.</p>",
+        felt: [
+          { etikett: "Antall personer", valg: ["én person", "to personer", "tre personer"], svar: 1, explain: "<p>Ved arbeid i høyden skal det alltid være minst to.</p>" },
+          { etikett: "Plassering", valg: ["begge være i liften", "én være på bakken", "én være verneombud"], svar: 1, explain: "<p>Én skal være på bakken, så hen kan varsle og hente hjelp.</p>" },
+          { etikett: "Krav", valg: ["nødvendig opplæring", "sikkerhetsklarering", "politiattest"], svar: 0, explain: "<p>Alle skal ha opplæring. Klarering og politiattest handler om gradert informasjon og arbeid med barn, ikke om høyde.</p>" },
+          { etikett: "Alternativ til stige", valg: ["en kontorstol", "personløfter eller stillas", "en lengre stige"], svar: 1, explain: "<p>Stige bør erstattes med personløfter eller stillas der det går.</p>" } ] } },
+      { key: "ov-grunn-9", title: "Arbeidsgiver eller arbeidstaker?", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Arbeidsgiver", "Arbeidstaker"],
+        regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "Sørge for at nødvendig verneutstyr finnes", svar: [0], explain: "<p>Arbeidsgiveren skal skaffe utstyret.</p>" },
+          { s: "Bruke hjelm og sele når det kreves", svar: [1], explain: "<p>Arbeidstakeren plikter å bruke verneutstyret.</p>" },
+          { s: "Gi opplæring i bruk av personløfter", svar: [0], explain: "<p>Opplæring er arbeidsgiverens ansvar.</p>" },
+          { s: "Si fra når en stige ser ødelagt ut", svar: [1], explain: "<p>Arbeidstakeren skal melde fra om risiko.</p>" },
+          { s: "Stanse arbeidet når det oppstår fare", svar: [1], explain: "<p>Arbeidstakeren har plikt til å stoppe jobben ved fare.</p>" },
+          { s: "Ha det overordnede ansvaret for HMS", svar: [0], explain: "<p>Arbeidsgiveren er alltid ansvarlig.</p>" } ] } },
+      { key: "ov-grunn-10", title: "Tiltak og mål for fysisk sikkerhet", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Person- og miljøsikkerhet", "Kontrollert adgang", "Skjerming av utstyr", "Kontinuitet i støttesystemer"],
+        regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "Reservestrømaggregat for serverrommet", svar: [3], explain: "<p>Holder strømmen, et teknisk støttesystem, i gang ved brudd. Kontinuitet.</p>" },
+          { s: "Bemannet resepsjon der alle gjester registreres", svar: [1], explain: "<p>Bestemmer hvem som slipper inn. Kontrollert adgang.</p>" },
+          { s: "Faradaybur rundt et møterom", svar: [2], explain: "<p>Hindrer at stråling fra utstyret lekker ut. Skjerming av utstyr.</p>" },
+          { s: "Rømningsveier og nødlys", svar: [0], explain: "<p>Skal få folk trygt ut. Person- og miljøsikkerhet (trygghet).</p>" },
+          { s: "Luftfukter som holder fuktigheten over 40 %", svar: [3], explain: "<p>Klimaanlegget er et støttesystem, og riktig fuktighet hindrer elektrostatisk utladning. Kontinuitet.</p>" },
+          { s: "Sluse inn til datarommet", svar: [1], explain: "<p>Slipper bare én autorisert person inn av gangen. Kontrollert adgang.</p>" } ] } },
+      { key: "ov-grunn-11", title: "Korte svar", points: 3, inspera: { type: "T",
+        regelTekst: "Hver deloppgave gir 1p for riktig svar, 0p for galt eller ubesvart, maks 3p, minimum 0p.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
+        tekst: "<p>A) Hva kalles angrepet der en person følger tett etter en ansatt gjennom en adgangssperre? {0}</p><p>B) Hva kalles en backuplokasjon som er en full operasjonell reserve? Bruk lysarkets navn, norsk eller engelsk. {1}</p><p>C) Hva kalles et rom som er helt skjermet mot elektromagnetisk stråling? {2}</p>",
+        felt: [
+          { etikett: "A) Angrepet", godta: ["tailgating", "piggybacking", "halehenging"], explain: "<p>Tailgating: angriperen låner en annens tilgang.</p>" },
+          { etikett: "B) Backuplokasjon", godta: ["varm/aktiv", "varm aktiv", "varm/aktiv (hot)", "aktiv", "hot", "hot site", "het", "het/aktiv"], explain: "<p>Lysarket kaller den varm/aktiv (hot): full operasjonell backup, dyr. Den varme/inaktive har bare strøm og utstyr.</p>" },
+          { etikett: "C) Rommet", godta: ["faradaybur", "faraday-bur", "faraday bur", "faraday cage"], explain: "<p>Et faradaybur blokkerer strålingen fullstendig.</p>" } ] } },
+      { key: "ov-grunn-12", title: "Lovlig eller ulovlig?", points: 3, inspera: { type: "M", multi: false,
+        kolonner: ["Lovlig", "Ulovlig"],
+        regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        rader: [
+          { s: "En student logger inn på en medstudents konto med et passord hen så over skulderen", svar: [1], explain: "<p>Uberettiget tilgang til et datasystem, selv uten å bryte en teknisk beskyttelse. § 204.</p>" },
+          { s: "Et konsulentselskap tester en nettbutikk etter skriftlig avtale signert av eieren to uker før", svar: [0], explain: "<p>Skriftlig, på forhånd og fra noen med myndighet.</p>" },
+          { s: "En sikkerhetsforsker skanner og utnytter en sårbarhet i et kommunalt system for å «hjelpe»", svar: [1], explain: "<p>God hensikt gjør det ikke lovlig. Det kreves tillatelse.</p>" },
+          { s: "Pentesteren fortsetter inn i et system som ikke står i avtalen, fordi det var «like ved»", svar: [1], explain: "<p>Tillatelsen dekker bare det avtalen sier. Utenfor avtalen er tilgangen uberettiget.</p>" },
+          { s: "Leverandøren gir muntlig ja på telefon, og testen starter samme dag", svar: [1], explain: "<p>Tillatelsen skal alltid være skriftlig. Etter kursets regel er dette ikke en lovlig pentest.</p>" },
+          { s: "En systemeier tester sitt eget, frittstående system", svar: [0], explain: "<p>Eieren har rett til tilgang. Det er ikke uberettiget.</p>" } ] } },
+      { key: "ov-grunn-13", title: "Myndigheter og regler", points: 2, inspera: { type: "N",
+        regelTekst: "Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
+        tekst: "<p>Et kraftselskap blir rammet av et dataangrep og kan få hjelp fra sektorens egen {0}. På nasjonalt nivå er {1} for statlig og kritisk sektor. Kraftselskapet vil senere bestille en pentest, og den må avtales {2}. Den som tar seg inn i systemet uten slik avtale, kan straffes etter {3}.</p>",
+        felt: [
+          { etikett: "Sektor-CERT", valg: ["KraftCERT", "HelseCERT", "NorSIS"], svar: 0, explain: "<p>KraftCERT er CERT-en for kraftsektoren.</p>" },
+          { etikett: "Nasjonal enhet", valg: ["NorSIS", "NCSC i NSM", "Datatilsynet"], svar: 1, explain: "<p>NCSC i NSM er for statlig og kritisk sektor. NorSIS er for privatpersoner og vanlige virksomheter.</p>" },
+          { etikett: "Form", valg: ["muntlig når testen starter", "skriftlig på forhånd", "skriftlig etter testen"], svar: 1, explain: "<p>Skriftlig og på forhånd, fra noen med myndighet.</p>" },
+          { etikett: "Lovbestemmelse", valg: ["straffeloven § 204", "eForvaltningsforskriften", "ISO/IEC 27001"], svar: 0, explain: "<p>§ 204 gjelder innbrudd i datasystem. ISO 27001 er en standard, ikke en lov.</p>" } ] } }
+    ];
+    OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
+
+    /* ---------- Eksamensbanken ---------- */
+    safe("bank-grunn", function () { IN.examBank("#bank-grunn", { block: ["generelt", "fysisk", "lov"] }); });
+  })();
+  </script>
+</body>
+</html>

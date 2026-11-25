@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------
+# HVITELISTE: repoet sporer bare det nettstedet trenger for å kjøre.
+# Alt annet er lokalt: UiO-kilder (Slides/, eksamen/, ukesoppgaver/,
+# obligatoriske/ (eierens egne innleveringer) og alle PDF-er),
+# plan/ (arbeidsmateriale, kildebank med ordrette sitater), .claude/ og rot-*.md.
+# Ny fil eller mappe som skal publiseres? Legg den til her eksplisitt.
+# ---------------------------------------------------------------
+/*
+!/.gitignore
+!/*.html
+!/assets/
+
+# Sikkerhetsnett inne i assets/
+/assets/**/*.pdf
+/assets/**/*_files/
+
+# ---------------------------------------------------------------
+# GRUNNREGEL (eier): alle kildemapper og kildefiler ignoreres eksplisitt,
+# i tillegg til hvitelisten over (samme mønster som 2010/.gitignore).
+# Tilhører UiO / eieren – deles IKKE.
+# ---------------------------------------------------------------
+Slides/
+eksamen/
+ukesoppgaver/
+obligatoriske/
+kilder/
+*.pdf
+*_files/
+
+# Claude Code-verktøy og lokale sesjonsnotater
+.claude/
+
+# Internt arbeidsmateriale (kildekart, uttrekk, kildebank med ordrette sitater)
+plan/
+
+# Dokumentasjon/planer i rota (CLAUDE.md, PLAN.md, BYGGEGUIDE.md …)
+/*.md
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*~

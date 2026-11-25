@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blokk 7 · Autentisering · IN2120</title>
+  <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261125f">
+</head>
+<body data-page="autentisering">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Blokk 7 · Autentisering</h1>
+      <p class="lead">Hvordan beviser en bruker at en bruker-ID er hans? Her går vi gjennom faktorene, hvordan passord lagres trygt (hash, salt og lengde), engangskoder og kort, passnøkler som tåler phishing, biometri med FMR og FNMR, og hvordan garantinivået velges. Passnøkler har vært på eksamen tre år på rad, og regneoppgavene om passordlengde og biometri gir rask uttelling.</p>
+      <div class="badges">
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-8_3"><b>H2022</b> · FIDO-figuren · <span class="pts">5p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-25"><b>H2025</b> · Passnøkkel-arkitektur · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-27"><b>H2025</b> · Synkroniserte passnøkler og AL3 · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-33"><b>H2023</b> · Sant/usant om passnøkler · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-6_2"><b>H2021</b> · Biometri: terskel, EER, PAD · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-6_3"><b>H2021</b> · Typer autentiseringsenheter · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-26"><b>H2025</b> · Phishing og phishingresistens · <span class="pts">2p</span></a>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Autentisering">
+      <button data-tab="faktorer">Faktorer</button>
+      <button data-tab="passord">Passord, hash og salt</button>
+      <button data-tab="eierskap">OTP, kort og SMS</button>
+      <button data-tab="fido">FIDO og passnøkler</button>
+      <button data-tab="biometri">Biometri</button>
+      <button data-tab="mfa">MFA og garantinivå</button>
+      <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <!-- ===================== 1 · FAKTORER ===================== -->
+    <section data-panel="faktorer">
+      <h3>Autentiseringsfaktorer og autentikatorer</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Brukerautentisering</b> betyr at brukeren beviser at en bruker-ID tilhører ham. Beviset er en <b>autentikator</b>: et privat eller hemmelig element bare den rette brukeren skal ha.
+        <ul>
+          <li><b>Noe du vet:</b> passord, PIN.</li>
+          <li><b>Noe du har:</b> kodebrikker, apper som BankID, kort, og sekundærkanaler som SMS og e-post.</li>
+          <li><b>Noe du er eller gjør:</b> biometri, enten fysiologisk (fingeravtrykk, ansikt) eller atferd (stemme, tastetrykk).</li>
+        </ul>
+        Autentisering forutsetter registrering: uten en registrert identitet finnes det ingenting å sammenligne med.</div>
+      <div id="ex-faktorer"></div>
+
+      <h4>Eksempel: hvilke faktorer brukes?</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Situasjon</th><th>Faktor(er)</th></tr></thead>
+        <tbody>
+          <tr><td>Minibank: kort og PIN</td><td>har + vet</td></tr>
+          <tr><td>Mobilen låses opp med fingeravtrykk</td><td>er</td></tr>
+          <tr><td>Nettbank: passord og kode på SMS</td><td>vet + har (sekundærkanal)</td></tr>
+          <tr><td>Wi-Fi-passordet står på en lapp på kjøleskapet</td><td>vet eller har (begge godtas)</td></tr>
+          <tr><td>Skriverytmen din ved innlogging</td><td>gjør (atferdsbiometri)</td></tr>
+        </tbody></table></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Er et passord på en lapp «noe du har»?</summary>
+          <p>Det kan ses begge veier: du vet hvor lappen er (vet), eller du har lappen (har). Fasiten godtar begge. Svar aldri kategorisk uten å begrunne valget.</p></details>
+        <details class="grense"><summary>Hvorfor er to passord ikke tofaktor?</summary>
+          <p>Begge er «noe du vet». Den som kan lure deg for det ene, kan lure deg for det andre på samme måte. Tofaktor krever to <i>ulike</i> faktorer.</p></details>
+        <details class="grense"><summary>Er stemme og tastetrykk «noe du er»?</summary>
+          <p>Kurset skiller: kroppen (fingeravtrykk, ansikt, iris) er «noe du er», mens atferd (stemme, tastetrykk, signatur) er «noe du gjør».</p></details>
+      </div>
+
+      <h4>Inspera-øving</h4>
+      <p class="aut-q">Hvilken faktor hører hver autentikator til?</p>
+      <div id="ov-aut-1"></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Faktorene spørres sjelden alene, men de ligger under spørsmålene om enhetstyper (<a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a>) og om MFA. Eldre sett hadde et tofaktoreksempel med minibank.</div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-faktorer"></div>
+      <div id="tf-faktorer"></div>
+    </section>
+
+    <!-- ===================== 2 · PASSORD ===================== -->
+    <section data-panel="passord">
+      <h3>Passord: lagring, hash, salt og kompleksitet</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Tre lagringsnivåer:</b> <b>klartekst</b> (svakt: alt ligger åpent ved en lekkasje), <b>hashet</b> (moderat: innloggingen hashes og sammenlignes, men svake passord kan knekkes) og <b>saltet hash</b> (godt, standard praksis: passord og et tilfeldig salt hashes sammen, og saltet lagres ved siden av).</li>
+          <li><b>Salt:</b> en tilfeldig verdi per bruker (i Linux et heltall fra 0 til 4095). Like passord gir da ulike hasher, og ferdige hashtabeller og <b>regnbuetabeller</b> blir ubrukelige. Salt hindrer <i>ikke</i> at ett svakt passord gjettes.</li>
+          <li><b>Kompleksitet:</b> antall mulige passord er N<sup>L</sup>, der N er størrelsen på tegnsettet og L er lengden. Uttømmende søk finner passordet i snitt etter halve rommet.</li>
+          <li><b>Kursets råd:</b> minst 13 tegn, flere tegnkategorier, ingen ordboksord, navn eller datoer, bytt sjelden eller aldri, men straks ved mistanke om lekkasje, ikke gjenbruk, og lagre trygt (i hodet, på papir du passer på, eller i en passordbank). <b>NIST 800-63-4:</b> minst 15 tegn når passordet er eneste faktor, minst 8 som del av MFA, ingen sammensetningsregler og ingen krav om periodisk bytte.</li>
+          <li><b>Hvor hashene ligger:</b> Linux <span class="mono">/etc/shadow</span> (krever root), Windows SAM (krever admin), i nettverk AD, Entra ID eller LDAP.</li>
+          <li><b>Pass-the-hash:</b> i noen systemer kan selve hashen brukes til å logge på andre maskiner. Derfor skal selv gode passord ikke gjenbrukes, og tilgangen til hashene må beskyttes.</li>
+        </ul></div>
+      <div id="ex-passord"></div>
+
+      <h4>Klartekst, hash og saltet hash</h4>
+      <p class="small muted">Velg lagringsmåte og trykk «Lekk databasen» for å se hva en angriper får. Endre passord og salt, og prøv innloggingen. Nederst regner vi ut hvor mye lenger gjettingen tar med salt og med en treg hashfunksjon.</p>
+      <div id="viz-salt"></div>
+
+      <h4>Nøkkelrom og gjettetid</h4>
+      <p class="small muted">Regn selv først: antall passord A<sup>L</sup>, og hvor lang tid det tar å prøve alle. Gliderne gir nye tall. Etterpå kan du åpne kalkulatoren og sammenligne før og etter en policyendring med de samme eksemplene som i regneoppgavene på eksamen.</p>
+      <div id="viz-noekkelrom"></div>
+
+      <h4>Eksempel: 8 til 12 tegn</h4>
+      <p>Tegnsett 62 (a–z, A–Z, 0–9), og angriperen prøver 10¹⁰ hasher per sekund.</p>
+      <ul>
+        <li>Før: 62⁸ = 218 340 105 584 896 ≈ 2,18·10¹⁴ passord. Det tar ca. 21 834 sekunder, altså <b>6,1 timer</b> å prøve alle (i snitt ca. 3 timer).</li>
+        <li>Etter: 62¹² ≈ 3,23·10²¹ passord, som tar ca. <b>10 200 år</b>.</li>
+        <li>Forholdet: 62¹² / 62⁸ = <b>62⁴ = 14 776 336</b> ganger mer komplekst.</li>
+        <li>Bytter du i stedet tegnsett ved 8 tegn (26 små → 95 tegn): (95/26)⁸ ≈ <b>31 769</b> ganger. Lengde slår tegnsett.</li>
+      </ul>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hindrer salt gjetting av svake passord?</summary>
+          <p>Nei. Salt gjør ferdige tabeller ubrukelige og skjuler at to brukere har samme passord. En angriper som kjenner saltet (det lagres jo åpent), kan fortsatt gjette «sommer2026» mot én bruker.</p></details>
+        <details class="grense"><summary>Hvorfor 105⁴ og ikke 105 · 4 (H2024 11)?</summary>
+          <p>Hvert ekstra tegn kan være ett av 105, så antallet ganges med 105 for hvert tegn: 105 · 105 · 105 · 105. Å gange med 4 ville betydd at lengden vokser lineært.</p></details>
+        <details class="grense"><summary>Hvorfor «hundre ganger» og ikke «95 ganger» (H2023 27)?</summary>
+          <p>En PIN har bare sifre, altså 10 tegn. To ekstra sifre gir 10² = 100. Tallet 95 gjelder bare når alle skrivbare tegn er lov.</p></details>
+        <details class="grense"><summary>Er en rask hashfunksjon bra for passord?</summary>
+          <p>Nei. Tjeneren hasher bare én gang per innlogging, men angriperen hasher milliarder av gjetninger. Jo raskere hashen er, jo flere gjetninger per sekund får angriperen.</p></details>
+        <ul>
+          <li><b>«Bytt passord ofte og bruk spesialtegn»</b> er ikke kursets råd: lengde, sjelden eller aldri bytte, ingen gjenbruk. NIST har ingen sammensetningsregler (lysarket sier likevel «flere kategorier tegn»).</li>
+          <li><b>«Lagret som salt» (H2021 6.1)</b> gir ingen mening alene, så svaret der er «ingen».</li>
+          <li><b>Riktig tiltak til riktig krav (H2022 8.1):</b> tilgangskontroll hindrer at fila leses, hashing hindrer klartekst, salting hindrer tabeller, og komplekse passord gjør knekking av saltet hash svært vanskelig.</li>
+          <li><b>«For likt det gamle passordet» (H2023 9):</b> fasiten sier klartekst, fordi hasher av like passord ikke ligner hverandre.</li>
+        </ul></div>
+
+      <h4>Inspera-øving</h4>
+      <p class="aut-q">Hvilket tiltak oppfyller kravet?</p>
+      <div id="ov-aut-2"></div>
+      <p class="aut-q">Policyen endres fra 8 til 12 tegn med 62 mulige tegn. Hvor mye mer komplekst blir passordet?</p>
+      <div id="ov-aut-3"></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_1">H2021 6.1</a> (2p): lagringsmåte koblet til hvordan passordet kan knekkes.</li>
+          <li>H2022 8.1 (2p): krav koblet til tiltak (tilgangskontroll, salting, komplekse passord, hashing).</li>
+          <li>H2023 9 (1p): «for likt» betyr klartekst. H2023 27 (1p): PIN fra 4 til 6 sifre gir hundre ganger.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-11">H2024 11</a> (1p): 10 til 14 tegn med 105 tegn gir 105⁴.</li>
+        </ul></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-passord"></div>
+      <div id="tf-passord"></div>
+    </section>
+
+    <!-- ===================== 3 · EIERSKAP ===================== -->
+    <section data-panel="eierskap">
+      <h3>Eierskapsfaktorer: OTP-brikker, kort, pass og sekundærkanaler</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Typer enheter:</b> OTP-brikker, online-enheter (for eksempel FIDO og passnøkler), adgangs- og ID-kort og pass, og sekundærkanaler (SMS, app, SIM, e-post).</li>
+          <li><b>Tidsbasert OTP-brikke:</b> brikken har en klokke og en hemmelig nøkkel og viser en engangskode for et kort tidsvindu. Tjeneren har samme nøkkel og algoritme, regner ut forventet kode og sammenligner. Koder fra nabovinduene godtas, klokkene må være synkrone, og brikken trenger batteri. Eksempler: BankID-brikke, RSA SecurID.</li>
+          <li><b>Kort:</b> kontaktløse RFID-kort får strøm fra leserens felt. Et adgangskort med <b>symmetrisk</b> nøkkel svarer på en tilfeldig utfordring fra leseren, og leseren sammenligner med forventet svar. Nasjonale ID-kort og pass bruker <b>asymmetrisk</b> nøkkel.</li>
+          <li><b>Pass:</b> landets rotsertifikat (CS) signerer et DS-sertifikat, og DS signerer foto og passets offentlige nøkkel i chipen. Kontrollen sjekker signaturene og sender en utfordring som chipen signerer med den private nøkkelen, som aldri forlater chipen.</li>
+          <li><b>Sekundærkanal:</b> nettsiden er primærkanalen, og koden kommer via mobilnettet (SMS) eller en app. SMS regnes som relativt svak.</li>
+          <li><b>Leveransekjedeangrep:</b> angripere stjal hemmeligheter hos RSA, produsenten av SecurID, og brukte dem mot kunder.</li>
+        </ul></div>
+      <div id="ex-eierskap"></div>
+
+      <h4>Leke-OTP: brikke og tjener</h4>
+      <p class="small muted">Flytt klokka og se koden skifte hvert 30. sekund. La brikkens klokke drive for å se hvorfor tjeneren godtar nabovinduene, og skriv ned en kode for å se at den blir verdiløs etter kort tid.</p>
+      <div id="viz-otp"></div>
+
+      <h4>Eksempel: regnet for hånd</h4>
+      <p>Nøkkel K = 123, klokka er 10:00:15. Det er 36 015 sekunder etter midnatt, og 36 015 / 30 = 1200,5, så t = 1200.</p>
+      <ul>
+        <li>(123 · 1200 + 7) mod 1000 = 147 607 mod 1000 = <b>607</b>.</li>
+        <li>Tjeneren godtar også t = 1199, som gir <b>484</b>, og t = 1201, som gir <b>730</b>.</li>
+        <li>Kristin taster 607, og tjeneren finner treff i vindu 1200. En angriper som ser 607 klokka 10:05, er for sent ute.</li>
+      </ul>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Er OTP phishingresistent?</summary>
+          <p>Nei. Koden kan ikke gjenbrukes senere, men en falsk nettside kan be deg taste den inn og sende den videre til den ekte siden mens den fortsatt gjelder.</p></details>
+        <details class="grense"><summary>BankID: OTP-brikke eller sekundærkanal?</summary>
+          <p>BankID-brikken er en OTP-brikke. BankID på mobil er en sekundærkanal (H2021 6.3).</p></details>
+        <ul>
+          <li><b>Tidsbaserte brikker har klokke</b> (H2021 6.3: «har som regel klokke» peker på OTP-brikke).</li>
+          <li><b>Pass bruker asymmetrisk nøkkel</b>, adgangskortet i eksempelet symmetrisk.</li>
+          <li><b>SMS er svakest</b> av sekundærkanalene på lysarket.</li>
+        </ul></div>
+
+      <h4>Inspera-øving</h4>
+      <p class="aut-q">Hvilken type autentiseringsenhet passer best med beskrivelsen?</p>
+      <div id="ov-aut-4"></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a> (3p): koble beskrivelser (FIDO, klokke, BankID på mobil, BankID-brikke, leser eller terminal, overføring av kode) til OTP-brikke, pass og ID-kort, online-enheter eller sekundærkanal.</div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-eierskap"></div>
+      <div id="tf-eierskap"></div>
+    </section>
+
+    <!-- ===================== 4 · FIDO ===================== -->
+    <section data-panel="fido">
+      <h3>Phishingresistent autentisering: FIDO og passnøkler</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Phishing</b> mot autentisering: en melding lurer brukeren til en falsk nettside som stjeler autentikatorene, og angriperen bruker dem på den ekte siden. Vanlige brikker og apper, også BankID, er ikke phishingresistente fordi de stoler på at brukeren forstår domenenavn.</li>
+          <li><b>Phishingresistent:</b> autentikatoren kan ikke brukes mot andre enn den ekte siden, fordi <b>klienten</b>, ikke brukeren, sjekker domenenavnet.</li>
+          <li><b>Passnøkkel:</b> en kryptografisk <b>privat nøkkel</b>, én per autentiseringstjener, knyttet til tjenerens <b>domenenavn</b>. Tjeneren har bare den tilsvarende <b>offentlige nøkkelen</b>.</li>
+          <li><b>To etapper:</b> 1. etappe (lokal): brukeren autentiserer seg til klienten med PIN eller biometri. 2. etappe (online): klienten autentiserer seg til tjeneren med challenge–respons: <b>1</b> utfordring C fra tjeneren, <b>2</b> lokal autentikator, <b>3</b> signert respons R.</li>
+          <li><b>Lagring:</b> innebygd i klienten (operativsystem, nettleser, maskinvare), i en brikke (USB, smartkort, NFC eller blåtann) eller i en passordbank.</li>
+          <li><b>Utfordringer:</b> det er komplisert å flytte nøklene til en ny enhet, synkronisering via sky krever til syvende og sist vanlig, ikke phishingresistent innlogging, og ordningen er vanskelig å forstå for vanlige brukere.</li>
+        </ul></div>
+      <div id="ex-fido"></div>
+
+      <h4>Sekvensdiagram: registrering og innlogging</h4>
+      <p class="small muted">Velg scenario og gå steg for steg. Før noen av stegene får du et spørsmål om hva som skjer videre. Svar før du går videre, eller slå av «Gjett før hvert steg». Tallene 1, 2 og 3 på pilene er de samme som i figuren fra lysarket og eksamen.</p>
+      <div id="sp-fido"></div>
+
+      <h4>Protokollen i tabell</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>Fra → til</th><th>Melding</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Tjener → klient</td><td>utfordring C</td></tr>
+          <tr><td>2</td><td>Bruker → klient</td><td>lokal autentikator (PIN eller biometri), 1. etappe</td></tr>
+          <tr><td>(klient)</td><td></td><td>sjekker at domenet stemmer, velger riktig passnøkkel og signerer C</td></tr>
+          <tr><td>3</td><td>Klient → tjener</td><td>signert respons R, som tjeneren verifiserer med den offentlige nøkkelen</td></tr>
+        </tbody></table></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvem sjekker domenet?</summary>
+          <p><b>Klienten</b>, ikke tjeneren og ikke brukeren (H2025 26). «Tjeneren sjekker at nøkkelen passer» er riktig om innloggingen, men forklarer ikke hvorfor den tåler phishing.</p></details>
+        <details class="grense"><summary>Kan brukeren trykke seg forbi advarselen?</summary>
+          <p>Nei. Klienten bruker bare passnøkkelen mot domenet den er laget for, og brukeren kan ikke overstyre det (H2023 33).</p></details>
+        <details class="grense"><summary>Mister du enheten, må du lage nye passnøkler?</summary>
+          <p>Fasiten i H2023 33 sier usant, fordi nøklene kan synkroniseres. For nøkler som er bundet til én enhet (som på NIST AAL3), må nye faktisk lages.</p></details>
+        <ul>
+          <li><b>Én passnøkkel for alle steder?</b> Nei, én per tjener og domene.</li>
+          <li><b>Lagrer tjeneren passnøkkelen?</b> Nei, bare den offentlige nøkkelen.</li>
+          <li><b>Phishingresistensen gjelder ikke skykontoen</b> som synkroniserer passnøklene (H2025 27).</li>
+        </ul></div>
+
+      <h4>Inspera-øving</h4>
+      <p class="aut-q">Plasser boksene i FIDO-figuren. Hvert felt beskriver hvor i figuren boksen skal stå.</p>
+      <div id="ov-aut-5"></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Gjenganger tre år på rad i ulike former, så forvent det igjen.
+        <ul>
+          <li>H2022 8.3 (5p): plassere etappene, utfordring, respons, autentikator, privat og offentlig nøkkel og tallene 1–3 i figuren.</li>
+          <li>H2023 33 (3p): seks sant/usant-påstander om passnøkler.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-25">H2025 25</a> (3p): arkitekturfiguren. <a href="#fane=eksamen&amp;oppg=o-H2025-26">H2025 26</a> (2p): hva phishing er og hva som gjør passnøkler phishingresistente.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-27">H2025 27</a> (3p): phishing mot en passordbank som synkroniserer passnøkler, og NIST AL3.</li>
+        </ul></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-fido"></div>
+      <div id="tf-fido"></div>
+    </section>
+
+    <!-- ===================== 5 · BIOMETRI ===================== -->
+    <section data-panel="biometri">
+      <h3>Biometri: moduser, FMR/FNMR, EER og PAD</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Biometri:</b> automatiske metoder for å autentisere eller gjenkjenne en person ut fra kroppen eller atferden. Eksempler: fingeravtrykk, ansikt, iris, håndgeometri, signatur, stemme, tastetrykk.</li>
+          <li><b>Krav til en modalitet:</b> universalitet, særpreg, permanens, målbarhet, nøyaktighet (EER), ytelse, aksept og beskyttelse mot forfalskning.</li>
+          <li><b>Komponenter:</b> sensor → uttrekk av kjennetegn (for eksempel linjesplitt og linjeender i et fingeravtrykk) → komparator → database med maler.</li>
+          <li><b>Moduser:</b> <b>registrering</b> (lage og lagre malen), <b>identifikasjon 1:N</b> (søke i hele databasen) og <b>autentisering 1:1</b> (sammenligne med malen til den oppgitte bruker-ID-en).</li>
+          <li><b>Skåring og terskel:</b> match når <span class="mono">S ≥ T</span>, ikke-match når <span class="mono">S &lt; T</span>.</li>
+          <li><b>FMR</b> = antall match blant ikke-genuine / antall ikke-genuine. <b>FNMR</b> = antall ikke-match blant genuine / antall genuine. TMR = 1 − FNMR og TNMR = 1 − FMR.</li>
+          <li><b>EER:</b> raten når T er satt slik at FMR = FNMR. Liten EER betyr høy nøyaktighet og lite overlapp mellom kurvene.</li>
+          <li><b>PAD</b> (presentation attack detection): å oppdage presentasjonsangrep som falsk finger, falskt ansikt eller deepfake.</li>
+          <li><b>Tvang:</b> kroppsbasert biometri kan tvinges fram, mens atferd krever at brukeren er bevisst.</li>
+        </ul></div>
+      <div id="ex-biometri"></div>
+
+      <h4>Terskel, FMR, FNMR og EER</h4>
+      <p class="small muted">Regn ut FMR for terskelen først. Når svaret vises, åpnes figuren: ti genuine forsøk (sirkler) og ti ikke-genuine (firkanter) med skåring fra 0 til 100. Dra i terskelen. Merker på feil side blir røde, og kurvene under viser FMR og FNMR for alle terskler. Det grønne feltet er der FMR = FNMR.</p>
+      <div id="viz-biometri"></div>
+
+      <h4>Eksempel: testen i tabell</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>T</th><th>Genuine godtatt</th><th>FNMR</th><th>TMR</th><th>Ikke-genuine godtatt</th><th>FMR</th><th>TNMR</th></tr></thead>
+        <tbody>
+          <tr><td>50</td><td>9</td><td>1/10 = 0.1</td><td>0.9</td><td>4 (50, 57, 63, 71)</td><td>0.4</td><td>0.6</td></tr>
+          <tr><td>60</td><td>8</td><td>2/10 = 0.2</td><td>0.8</td><td>2 (63, 71)</td><td>0.2</td><td>0.8</td></tr>
+          <tr><td>70</td><td>7</td><td>3/10 = 0.3</td><td>0.7</td><td>1 (71)</td><td>0.1</td><td>0.9</td></tr>
+          <tr><td>75</td><td>5</td><td>5/10 = 0.5</td><td>0.5</td><td>0</td><td>0.0</td><td>1.0</td></tr>
+        </tbody></table></div>
+      <ul>
+        <li>Ved T = 60 er FMR = FNMR = 0.2, altså <b>EER = 0.2</b> i denne testen.</li>
+        <li>Ved T = 50 godtas skåringen 50, fordi match er S ≥ T.</li>
+        <li>Baklengs: FMR 0.03 og FNMR 0.08 med 200 av hver gir 6 ikke-genuine godtatt og 16 genuine avvist.</li>
+      </ul>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Gjør lav FMR systemet trygt mot falske fingre?</summary>
+          <p>Nei. FMR måler tilfeldige ikke-genuine forsøk. En god forfalskning av en ekte finger ser genuin ut og slipper inn uansett FMR. Det er PAD som skal stoppe den (H2021 6.2).</p></details>
+        <details class="grense"><summary>Hva skjer med FMR når terskelen heves?</summary>
+          <p>FMR <b>synker</b> (færre ikke-genuine kommer over streken), mens FNMR <b>stiger</b>. Et ideelt system har FMR = FNMR = EER = 0.</p></details>
+        <details class="grense"><summary>Hva deler du på?</summary>
+          <p>FMR deles på antall <i>ikke-genuine</i>, FNMR på antall <i>genuine</i>, ikke på totalen.</p></details>
+        <ul>
+          <li><b>FAR/FRR?</b> Kurset sier <b>FMR/FNMR</b>. Eldre sett og lærebøker kan bruke de andre forkortelsene.</li>
+          <li><b>«Biometrisk verifisering»?</b> Kurset kaller 1:1 for <b>autentisering</b>.</li>
+          <li><b>Desimaltall med punktum</b> i Inspera: 0.06, ikke 0,06 eller 6 %.</li>
+        </ul></div>
+
+      <h4>Inspera-øving</h4>
+      <p class="aut-q">Regn ut ratene.</p>
+      <div id="ov-aut-6"></div>
+      <p class="aut-q">Velg riktig ord.</p>
+      <div id="ov-aut-7"></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_2">H2021 6.2</a> (3p): FMR når T heves, ideelt system, hva PAD er, at forfalskning er vanskelig å oppdage tross lav EER, og baklengsregning.</li>
+          <li>H2022 8.2 (2p): 100 + 100 testbrukere, regn ut TMR, TNMR, FMR og FNMR.</li>
+          <li>Temaet falt ut etter 2022, men er pensum i 2026. Regneoppgaven gir rask uttelling.</li>
+        </ul></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-biometri"></div>
+      <div id="tf-biometri"></div>
+    </section>
+
+    <!-- ===================== 6 · MFA OG GARANTINIVÅ ===================== -->
+    <section data-panel="mfa">
+      <h3>MFA, garantinivå og e-autentisering</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Flerfaktorautentisering:</b> to eller flere teknikker kombineres, ofte vet + har (passord og BankID-brikke, passord og SMS).</li>
+          <li><b>Kontinuerlig autentisering:</b> etter innloggingen sammenlignes atferden med det som er forventet. Faller likheten under en terskel, logges brukeren ut eller får færre rettigheter.</li>
+          <li><b>Garantinivå</b> (også autentiseringsnivå eller sikkerhetsnivå): hvor robust autentiseringen er. Alvorlige konsekvenser krever høyt nivå, men sterk autentisering koster, så nivået balanseres mot risikoen.</li>
+          <li><b>Tre kategorier krav:</b> a) ID-registrering og håndtering av autentikatoren (identitetsbevis, overlevering, gjenoppretting), b) autentiseringsmetoden (passordkvalitet, kryptostyrke, MFA, phishingresistens, der det siste bare står i NIST 800-63-4), c) sikkerheten i føderasjonen (sertifisering av IdP, avtaler mellom aktørene).</li>
+          <li><b>eIDAS</b> er EUs forordning om elektronisk identifikasjon og tillitstjenester («trust services» = PKI-tjenester). Nivået følger av konsekvensen: liten → Low, betydelig → Substantial, alvorlig → High.</li>
+          <li><b>Norske eID-er:</b> BankID, Buypass og Commfides (HØYT), MinID (BETYDELIG), og for virksomheter Foretaks-ID (HØYT) og SMS-PIN og Altinn-PIN (LAVT). Bare MinID er statlig.</li>
+          <li><b>Fjernverifisering:</b> en app leser passet, sjekker at personen er levende og sammenligner biometri. Passets ekthet sjekkes mot ICAOs nøkkelkatalog.</li>
+        </ul></div>
+      <div id="ex-mfa"></div>
+
+      <h4>Rammeverkene</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Rammeverk</th><th>Nivåer</th></tr></thead>
+        <tbody>
+          <tr><td>NIST SP 800-63-4 (USA 2025)</td><td>AAL1, AAL2, AAL3</td></tr>
+          <tr><td>eIDAS 2.0 (EU 2024)</td><td>Low, Substantial, High</td></tr>
+          <tr><td>Digdir: veileder for identifikasjon og sporbarhet (2022)</td><td>LAVT, BETYDELIG, HØYT</td></tr>
+          <tr><td>ISO/IEC 29115 (2013)</td><td>1 Low, 2 Medium, 3 High, 4 Very High</td></tr>
+        </tbody></table></div>
+      <p class="small muted">Det eldre norske rammeverket RAU (2008) hadde fire nivåer. Det er ikke pensum i 2026, men har vært på eksamen.</p>
+
+      <h4>Fra konsekvens til nivå</h4>
+      <p class="small muted">Plasser tjenestene og eID-ene på riktig nivå, og trykk «Sjekk svar». Tjenestene er fra en tenkt kommune, Fjellvik. Oppslaget under viser hvilke eID-er som holder hvert nivå.</p>
+      <div id="viz-nivaa"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Er sterkest mulig autentisering alltid best?</summary>
+          <p>Nei. Unødvendig sterk autentisering er sløsing og gjør tjenesten tungvint. Nivået skal stå i forhold til konsekvensen.</p></details>
+        <details class="grense"><summary>Holder en sterk innloggingsmetode alene for høyt nivå?</summary>
+          <p>Nei. Kan hvem som helst bestille en ny autentikator på nett (svak kategori a), hjelper en sterk metode (kategori b) lite. Det svakeste leddet bestemmer.</p></details>
+        <ul>
+          <li><b>Er alle eID-leverandørene statlige?</b> Nei, bare MinID (H2024 30).</li>
+          <li><b>Krever alle offentlige tjenester HØYT?</b> Nei, nivået velges etter konsekvens (H2024 30).</li>
+          <li><b>Kan alle fire brukes i nettbanken?</b> Nei (H2024 30). Alle kan brukes i e-forvaltningen via ID-porten.</li>
+          <li><b>MinID gir bare BETYDELIG</b> (H2022 8.4 kaller nivået «MODERAT», som er RAU-ordet).</li>
+          <li><b>Antall nivåer:</b> eIDAS, Digdir og NIST har tre. ISO 29115 og RAU har fire.</li>
+          <li><b>Phishingresistens</b> er bare et uttrykt krav i NIST 800-63-4, ikke i eIDAS.</li>
+        </ul></div>
+
+      <h4>Inspera-øving</h4>
+      <p class="aut-q">Er påstandene sanne eller usanne?</p>
+      <div id="ov-aut-8"></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_4">H2021 6.4</a> (2p): NIST, eIDAS og RAU (krav til føderering, tre kravkategorier, fire nivåer). 2026 viser 800-63-4 og eIDAS 2.0.</li>
+          <li>H2022 8.4 (1p): løsning på HØYT (BankID) og på lavere nivå (MinID).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-30">H2024 30</a> (2p): fire påstander om eID-leverandørene.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-27">H2025 27</a>, del 2: NIST AL3 og synkronisering av passnøkler.</li>
+        </ul></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-mfa"></div>
+      <div id="tf-mfa"></div>
+    </section>
+
+    <!-- ===================== EKSAMEN ===================== -->
+    <section data-panel="eksamen">
+      <h3>Eksamensoppgaver</h3>
+      <p class="muted small">Alle oppgaver om brukerautentisering i banken. IAM, føderering og tilgangskontroll ligger i <a href="08-iam.html#fane=eksamen">blokk 8</a>.</p>
+      <div id="bank-aut"></div>
+    </section>
+  </main>
+
+  <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
+
+  <script src="assets/js/core.js?v=20261125f"></script>
+  <script src="assets/js/symboler.js?v=20261125f"></script>
+  <script src="assets/js/pseudocode.js?v=20261125f"></script>
+  <script src="assets/js/stepplayer.js?v=20261125f"></script>
+  <script src="assets/js/varline.js?v=20261125f"></script>
+  <script src="assets/js/inspera.js?v=20261125f"></script>
+  <script src="assets/js/dra.js?v=20261125f"></script>
+  <script src="assets/js/ovelse.js?v=20261125f"></script>
+  <script src="assets/js/bank.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
+  <script src="assets/js/viz-aut.js?v=20261125f"></script>
+  <script>
+  (function () {
+    "use strict";
+    var IN = window.IN, V = IN.vizAut;
+    function safe(navn, fn) { try { fn(); } catch (e) { if (window.console) console.error("[07-autentisering] " + navn, e); } }
+
+    /* ---------- Forklaringer på tre nivåer ---------- */
+    var EX = {
+      "ex-faktorer": {
+        eli5: "<p>For å hente en pakke på posten kan du si et hemmelig ord (vet), vise en hentelapp (har) eller la dem kjenne igjen ansiktet ditt (er). Jo flere av disse du må vise, jo vanskeligere er det for en annen å late som han er deg.</p>",
+        normal: "<p>Hver faktor har sine svakheter. Det du vet, kan deles, glemmes og gjettes. Det du har, kan mistes eller stjeles. Det du er, kan forfalskes og kan ikke byttes ut hvis det lekker. Derfor kombineres faktorer (MFA, siste fane).</p>",
+        teknisk: "<p>Faktoren sier noe om <i>hvordan</i> angriperen må gå fram: gjetting og phishing (vet), tyveri og kloning (har), presentasjonsangrep (er). Det er derfor to ulike faktorer er sterkere enn to av samme slag: angriperen trenger to ulike typer angrep.</p><p>Grensene er ikke alltid skarpe. Et nedskrevet passord kan ses som «vet» eller «har». En passnøkkel er en privat nøkkel i en enhet (har), men låses ofte opp lokalt med PIN eller biometri.</p>"
+      },
+      "ex-passord": {
+        eli5: "<p>En hash er som en juicepresse: samme appelsin gir alltid samme juice, men du får ikke appelsinen tilbake. En tyv kan ha en bok med «juice → appelsin» for alle vanlige appelsiner. Salt er at hver kunde får sitt eget hemmelige krydder i pressa, så tyvens bok ikke stemmer lenger. Men tyven kan fortsatt prøve appelsiner én og én, så det hjelper å ha en sjelden appelsin.</p>",
+        normal: "<p>Tjeneren må kunne sjekke passordet uten å lagre det i klartekst. Den lagrer en hash, og ved innlogging hasher den det du skriver og sammenligner. Uten salt gir like passord like hasher, og en angriper kan slå opp i ferdige tabeller. Med salt må hvert passord gjettes for seg.</p><p>Lange passord øker antall muligheter eksponentielt. Mennesker lager forutsigbare mønstre («Sommer2026!»), og angripere bruker ordlister og regler som prøver slike mønstre først. Derfor er lengde og uforutsigbarhet viktigere enn spesialtegn.</p>",
+        teknisk: "<p>Økningen i kompleksitet er N<sup>ny lengde</sup> / N<sup>gammel lengde</sup> = N<sup>økning</sup>. Fra 4 til 6 sifre gir 10² = 100 ganger, og fra 10 til 14 tegn med 105 tegn gir 105⁴. Bytter du tegnsett ved fast lengde L, blir faktoren (N₂/N₁)<sup>L</sup>.</p><p>Tiden er antall gjetninger delt på farten. 95¹⁰ gjetninger med 28·10⁹ hasher per sekund tar ca. 68 år. Et menneskelig mønster med stor forbokstav, seks små, to sifre og «!» gir bare 26⁷ · 10² ≈ 8·10¹¹ muligheter, ca. 29 sekunder. Salt ganger arbeidet med antall brukere, og en bevisst treg hashfunksjon deler farten. Ingen av dem redder et passord som står øverst i ordlista.</p>"
+      },
+      "ex-eierskap": {
+        eli5: "<p>En kodebrikke og banken har hver sin like klokke og det samme hemmelige regnestykket. Hvert halve minutt regner begge ut et nytt tall. Viser du riktig tall akkurat nå, vet banken at du har brikken.</p>",
+        normal: "<p>En engangskode stopper at et stjålet passord kan gjenbrukes senere, men koden kan fortsatt lures fra deg i sanntid av en falsk nettside. Den er altså ikke phishingresistent. Challenge–respons med kort hindrer avspilling, fordi utfordringen er ny hver gang.</p>",
+        teknisk: "<p>OTP = f(K, t), der t er vindusnummeret. Tjeneren godtar t − 1, t og t + 1 for å tåle litt klokkedrift. Sikkerheten hviler på at K er hemmelig. Lekker produsenten nøklene, slik det skjedde hos RSA, kan angriperen lage kopier av brikkene.</p><p>Ved symmetriske kort må leseren ha den samme hemmelige nøkkelen som kortet. Pass bruker PKI, så ethvert land kan sjekke et pass med offentlige sertifikater, uten å dele noen hemmelighet.</p>"
+      },
+      "ex-fido": {
+        eli5: "<p>Du har en nøkkelring der hver nøkkel har navnet på én dør gravert inn. Ser nøkkelringen at døra har feil navn, nekter den å gi deg nøkkelen, selv om døra ser helt lik ut. Du kan ikke overtale den.</p>",
+        normal: "<p>Tjeneren sender en tilfeldig utfordring. Enheten ber om PIN eller fingeravtrykk, finner passnøkkelen som hører til <i>akkurat dette</i> domenet, og signerer utfordringen. Tjeneren sjekker signaturen med den offentlige nøkkelen.</p><p>På en falsk side finnes ingen passnøkkel med det domenet, så ingenting blir signert. Ingen hemmelighet sendes over nettet, og en lekkasje fra tjenerens database gir bare offentlige nøkler.</p>",
+        teknisk: "<p>Responsen er R = Sig(C, K<sup>A</sup><sub>priv</sub>) med brukerens nøkkel for akkurat den tjeneren, og tjeneren verifiserer med K<sup>A</sup><sub>pub</sub>. Phishingresistensen kommer av at domenet er bundet til nøkkelen og at klienten håndhever bindingen. Brukeren kan ikke overstyre den.</p><p>Restangrepene går rundt passnøkkelen: skadevare som får plattformen til å bryte regelen, DNS-angrep, nedgradering til passord, tyveri av enheten sammen med falsk biometri, phishing mot skykontoen eller passordbanken som synkroniserer nøklene, og sosial manipulering. For NIST AAL3 kan passnøkler ikke synkroniseres. De må være bundet til enheten, typisk en brikke.</p>"
+      },
+      "ex-biometri": {
+        eli5: "<p>Maskinen gir hvert fingeravtrykk en likhetspoengsum. Er summen over streken, slipper du inn. Legger du streken lavt, kommer nesten alle ekte inn, men også noen falske. Legger du den høyt, holdes de falske ute, men noen ekte må prøve igjen.</p>",
+        normal: "<p>Ingen prøve er helt lik malen, så systemet regner ut en skåring og bruker en terskel. To feil kan skje: feil person godtas (FMR, et sikkerhetsproblem), eller riktig person avvises (FNMR, et brukervennlighetsproblem). Terskelen flytter balansen. Velg høy T når feil aksept er dyrt (bank), og lav T når feil avvisning er dyrt.</p>",
+        teknisk: "<p>Tegn to fordelinger av skåringer: ikke-genuine til venstre, genuine til høyre. Arealet av den ikke-genuine kurven til høyre for T er FMR, og arealet av den genuine kurven til venstre for T er FNMR. Mer overlapp gir høyere EER.</p><p>FMR måler bare tilfeldige ikke-genuine forsøk, ikke bevisst forfalskning. En god kopi av en ekte finger lykkes uansett FMR, og derfor trengs PAD. Identifikasjon (1:N) krever flest sammenligninger og er minst effektiv. Pass ved grensa bruker 1:1, etterforskning bruker 1:N.</p>"
+      },
+      "ex-mfa": {
+        eli5: "<p>Å låne en bok på biblioteket krever bare lånekort. Å hente en pakke krever legitimasjon. Å kjøpe hus krever legitimasjon, bank og advokat. Jo verre det er om noen later som de er deg, jo strengere er sjekken.</p>",
+        normal: "<p>En tjeneste vurderer hva som skjer hvis feil person kommer inn. Er skaden liten, holder LAVT. Er den alvorlig (helsedata, skatt), kreves HØYT, for eksempel BankID. Nivået avhenger ikke bare av innloggingsmetoden, men også av hvor godt brukeren ble identifisert da kontoen ble laget, og av hvor sikker føderasjonen er.</p>",
+        teknisk: "<p>Garantinivået er en funksjon av alle tre kravkategoriene (a, b og c), og det svakeste leddet bestemmer. En sterk metode (b) hjelper lite om registreringen (a) var svak. NIST 800-63-4 krever maskinvarebundne nøkler på AAL3, så synkroniserte passnøkler holder ikke der.</p><p>Felles rammeverk gjør at offentlige tjenester stiller like krav, og at én eID kan brukes på tvers av tjenester og land.</p>"
+      }
+    };
+    Object.keys(EX).forEach(function (id) {
+      safe(id, function () { IN.explain("#" + id, EX[id], { label: "Forklaring:" }); });
+    });
+
+    /* ---------- Visualiseringer ---------- */
+    safe("viz-salt", function () { V.salt("#viz-salt"); });
+    safe("viz-noekkelrom", function () { V.noekkelrom("#viz-noekkelrom"); });
+    safe("viz-otp", function () { V.otp("#viz-otp"); });
+    safe("sp-fido", function () { V.fido("#sp-fido"); });
+    safe("viz-biometri", function () { V.biometri("#viz-biometri"); });
+    safe("viz-nivaa", function () { V.nivaa("#viz-nivaa"); });
+
+    /* ---------- Flervalg per fane ---------- */
+    var QUIZ = {
+      faktorer: [
+        { q: "En BankID-kodebrikke er:", options: ["noe du vet", "noe du har", "noe du er", "noe du gjør"], answer: 1,
+          explain: "<p>Brikken er en fysisk gjenstand du må ha med deg.</p>" },
+        { q: "Tastetrykkdynamikk (rytmen når du skriver) er:", options: ["noe du vet", "noe du har", "noe du er", "noe du gjør (atferdsbiometri)"], answer: 3,
+          explain: "<p>Det er atferd, ikke kroppen. Kurset kaller det «noe du gjør».</p>" },
+        { q: "Hva er en autentikator?", options: ["brukernavnet", "det hemmelige eller private elementet som beviser eierskap til bruker-ID-en", "identitetstilbyderen (IdP)", "loggen over innlogginger"], answer: 1,
+          explain: "<p>Brukernavnet er det som påstås. Autentikatoren er beviset for påstanden.</p>" }
+      ],
+      passord: [
+        { q: "En PIN går fra 5 til 7 sifre. Hvor mye mer komplekst blir den?", options: ["2 ganger", "20 ganger", "100 ganger", "10⁷ ganger"], answer: 2,
+          explain: "<p>10⁷ / 10⁵ = 10² = 100. Hvert siffer ganger med 10.</p>" },
+        { q: "Hva gjør salt ubrukelig?", options: ["uttømmende søk", "forhåndsberegnede hashtabeller og regnbuetabeller", "phishing", "keyloggere"], answer: 1,
+          explain: "<p>En tabell er laget for usaltede hasher (eller for ett bestemt salt). Med unikt salt per bruker måtte angriperen laget én tabell per salt. Uttømmende søk mot én bruker virker fortsatt.</p>" },
+        { q: "En hash lekket fra SAM brukes til å logge på en annen maskin uten at den knekkes. Hva heter det?", options: ["passordspraying", "pass-the-hash", "ordbokangrep", "salting"], answer: 1,
+          explain: "<p>Systemet godtar hashen direkte. Det er derfor gjenbruk av passord og tilgang til hashene er farlig, selv når passordet er sterkt.</p>" },
+        { q: "Hvor langt må et passord minst være når det er eneste faktor, etter NIST 800-63-4?", options: ["8 tegn", "12 tegn", "13 tegn", "15 tegn"], answer: 3,
+          explain: "<p>15 tegn ved én faktor, 8 som del av MFA. Kursets eget råd er minst 13.</p>" },
+        { q: "Hvor lagres passordhasher i Linux?", options: ["SAM", "/etc/shadow", "/etc/hosts", "alltid i LDAP"], answer: 1,
+          explain: "<p>Før lå de i /etc/passwd, som alle kan lese. /etc/shadow krever root.</p>" }
+      ],
+      eierskap: [
+        { q: "Hvorfor godtar tjeneren koder fra nabovinduene?", options: ["for å spare strøm", "fordi klokkene kan drive litt", "for å stoppe phishing", "fordi brikken har PIN"], answer: 1,
+          explain: "<p>Brikkens klokke går aldri helt likt med tjenerens. Ett vindu på hver side gir litt slingringsmonn.</p>" },
+        { q: "Hva autentiseres av en leser eller terminal?", options: ["SMS-koder", "pass og ID-kort", "passordbanker", "OTP i en app"], answer: 1,
+          explain: "<p>Pass og ID-kort leses av en terminal som sender en utfordring til chipen.</p>" },
+        { q: "Hva kjennetegner leveransekjedeangrepet mot SecurID?", options: ["tjenestenekt", "hemmeligheter stjålet hos produsenten ble brukt mot kundene", "salting", "SIM-bytte"], answer: 1,
+          explain: "<p>Brikkenes sikkerhet hviler på at nøklene er hemmelige. Lekker de hos produsenten, rammes alle kundene.</p>" }
+      ],
+      fido: [
+        { q: "Hva inneholder en passnøkkel?", options: ["brukerens passord", "en privat nøkkel og tjenerens domenenavn", "tjenerens private nøkkel", "en engangskode"], answer: 1,
+          explain: "<p>Den private nøkkelen er brukerens, og domenet bestemmer hvor den kan brukes.</p>" },
+        { q: "Hva sendes i steg 1?", options: ["den signerte responsen", "PIN-koden", "utfordringen fra tjeneren", "den offentlige nøkkelen"], answer: 2,
+          explain: "<p>Steg 1 er utfordringen C, steg 2 den lokale autentikatoren, steg 3 den signerte responsen.</p>" },
+        { q: "Hvorfor er BankID-appen ikke phishingresistent etter lysarket?", options: ["den bruker SMS", "den avhenger av at brukeren kjenner igjen domenenavn", "den har ingen PIN", "den er statlig"], answer: 1,
+          explain: "<p>Det er brukeren som må avsløre den falske siden. Med passnøkler gjør klienten det.</p>" },
+        { q: "Hva er et realistisk angrep mot synkroniserte passnøkler?", options: ["regnbuetabell", "phishing mot innloggingen til passordbanken", "uttømmende søk etter den offentlige nøkkelen", "pass-the-hash"], answer: 1,
+          explain: "<p>Skykontoen som synkroniserer nøklene, har vanlig innlogging. Den er ikke phishingresistent.</p>" }
+      ],
+      biometri: [
+        { q: "200 genuine forsøk, 190 godtatt. Hva er FNMR?", options: ["0.95", "0.05", "10", "0.10"], answer: 1,
+          explain: "<p>10 av 200 genuine ble avvist: 10/200 = 0.05. 0.95 er TMR.</p>" },
+        { q: "Høy terskel T gir:", options: ["høy FMR, lav FNMR", "lav FMR, høy FNMR", "begge lave", "EER = 0"], answer: 1,
+          explain: "<p>Færre kommer over streken, både falske og ekte.</p>" },
+        { q: "Et søk etter en ukjent person i et fingeravtrykkregister er:", options: ["autentisering 1:1", "identifikasjon 1:N", "registrering", "PAD"], answer: 1,
+          explain: "<p>Det finnes ingen oppgitt bruker-ID å sammenligne med, så hele registeret må søkes.</p>" },
+        { q: "Hva betyr liten EER?", options: ["dårlig PAD", "høy nøyaktighet og lite overlapp", "høy terskel", "mange modaliteter"], answer: 1,
+          explain: "<p>Lite overlapp mellom kurvene gjør at én terskel skiller godt mellom ekte og falske.</p>" },
+        { q: "Hvilket krav handler om at folk er villige til å bruke modaliteten?", options: ["permanens", "særpreg", "aksept", "målbarhet"], answer: 2,
+          explain: "<p>Aksept. Permanens er at egenskapen ikke endrer seg over tid, særpreg at den skiller personer.</p>" }
+      ],
+      mfa: [
+        { q: "Konsekvensen «betydelig» gir i eIDAS:", options: ["Low", "Substantial", "High", "Very High"], answer: 1,
+          explain: "<p>Liten → Low, betydelig → Substantial, alvorlig → High. Very High finnes bare i ISO 29115.</p>" },
+        { q: "Hvilken eID gir HØYT og er privat?", options: ["MinID", "BankID", "SMS-PIN", "Altinn-PIN"], answer: 1,
+          explain: "<p>MinID er statlig og gir BETYDELIG. SMS-PIN og Altinn-PIN gir LAVT.</p>" },
+        { q: "Hvilket rammeverk har fire nivåer?", options: ["eIDAS 2.0", "NIST 800-63-4", "ISO/IEC 29115", "Digdirs veileder (2022)"], answer: 2,
+          explain: "<p>ISO 29115 (og det eldre RAU) har fire. De andre har tre.</p>" },
+        { q: "Hva er kontinuerlig autentisering?", options: ["innlogging hvert minutt", "atferden sammenlignes med forventet atferd etter innloggingen", "to passord", "SSO"], answer: 1,
+          explain: "<p>Systemet følger med etter innloggingen og reagerer når atferden avviker for mye.</p>" }
+      ]
+    };
+    Object.keys(QUIZ).forEach(function (fane) {
+      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "aut-" + fane }); });
+    });
+
+    /* ---------- Sant/usant per fane ---------- */
+    var TF = {
+      faktorer: [
+        { s: "Passord er den enkleste og vanligste autentikatoren.", answer: true, explain: "<p>Billig og lett å forstå, og derfor overalt, men med mange svakheter.</p>" },
+        { s: "To passord gir tofaktorautentisering.", answer: false, explain: "<p>Begge er «noe du vet».</p>" },
+        { s: "Passord kan bli liggende i minne og hurtigbuffer og stjeles av skadevare.", answer: true, explain: "<p>Passordet må finnes i klartekst et øyeblikk når du skriver det.</p>" },
+        { s: "Biometri kan byttes ut hvis den lekker.", answer: false, explain: "<p>Du har bare ti fingre og ett ansikt.</p>" },
+        { s: "En SMS-kode er en eierskapsfaktor via en sekundærkanal.", answer: true, explain: "<p>Du beviser at du har telefonen (SIM-kortet) som koden sendes til.</p>" },
+        { s: "Et nedskrevet passord kan bare regnes som «noe du har».", answer: false, explain: "<p>Det kan også ses som «noe du vet». Begge godtas med begrunnelse.</p>" }
+      ],
+      passord: [
+        { s: "Med saltet hash kan to brukere med samme passord ha ulike lagrede verdier.", answer: true, explain: "<p>Saltene er ulike, så det som hashes, er ulikt.</p>" },
+        { s: "Saltet må holdes hemmelig, ellers er det verdiløst.", answer: false, explain: "<p>Saltet lagres åpent ved siden av hashen. Det virker fordi det er unikt, ikke fordi det er hemmelig.</p>" },
+        { s: "Hashet lagring gir god beskyttelse mot knekking av svake passord.", answer: false, explain: "<p>Lysarket kaller det moderat: svake passord knekkes med kraftige verktøy.</p>" },
+        { s: "Fra 10 til 14 tegn med 105 mulige tegn gir 105⁴ ganger flere passord.", answer: true, explain: "<p>105¹⁴ / 105¹⁰ = 105⁴.</p>" },
+        { s: "Kurset anbefaler å bytte passord hver tredje måned.", answer: false, explain: "<p>Bytt sjelden eller aldri, men straks ved mistanke om lekkasje.</p>" },
+        { s: "Uttrekk av passordhasher fra minnet krever admin- eller debugrettigheter.", answer: true, explain: "<p>Derfor er minste privilegium et viktig forsvar for passordene.</p>" },
+        { s: "Uttømmende søk finner i snitt passordet etter halve nøkkelrommet.", answer: true, explain: "<p>Passordet er like sannsynlig hvor som helst i rommet, så i snitt halvveis.</p>" },
+        { s: "Gjenbruk av passord er farlig fordi én lekkasje åpner flere kontoer.", answer: true, explain: "<p>Angripere prøver lekkede passord på andre tjenester.</p>" }
+      ],
+      eierskap: [
+        { s: "En tidsbasert OTP-brikke trenger strøm.", answer: true, explain: "<p>Klokka må gå hele tiden.</p>" },
+        { s: "OTP-koder kan ikke stjeles av en falsk nettside.", answer: false, explain: "<p>Brukeren kan taste koden inn på den falske siden, som sender den videre.</p>" },
+        { s: "Passchippen sender sin private nøkkel til grensekontrollen.", answer: false, explain: "<p>Den signerer en utfordring. Den private nøkkelen forlater aldri chipen.</p>" },
+        { s: "SMS regnes som en relativt svak sekundærkanal.", answer: true, explain: "<p>Meldinger kan avlyttes eller omdirigeres, for eksempel ved SIM-bytte.</p>" },
+        { s: "Kontaktløse RFID-kort må alltid ha batteri.", answer: false, explain: "<p>De får vanligvis strøm fra leserens felt.</p>" },
+        { s: "Challenge–respons hindrer at et gammelt svar kan spilles av på nytt.", answer: true, explain: "<p>Utfordringen er ny hver gang, så et gammelt svar passer ikke.</p>" }
+      ],
+      fido: [
+        { s: "Innlogging med passnøkkel har en lokal og en online etappe.", answer: true, explain: "<p>Bruker mot klient (lokal), klient mot tjener (online).</p>" },
+        { s: "Hver bruker har én passnøkkel for alle nettsteder.", answer: false, explain: "<p>Én per tjener og domene.</p>" },
+        { s: "En passnøkkel er en privat asymmetrisk nøkkel.", answer: true, explain: "<p>Tjeneren har den tilhørende offentlige nøkkelen.</p>" },
+        { s: "Brukeren kan velge å overse advarselen og bruke passnøkkelen på en falsk side.", answer: false, explain: "<p>Klienten bruker bare nøkkelen mot riktig domene og kan ikke overstyres.</p>" },
+        { s: "Et innbrudd i tjenerens database lekker brukernes passnøkler.", answer: false, explain: "<p>Tjeneren har bare offentlige nøkler.</p>" },
+        { s: "Tilgang til passnøkler i skyen krever til slutt tradisjonell autentisering.", answer: true, explain: "<p>Skykontoen må logges på med noe annet, og det er et svakt punkt.</p>" },
+        { s: "For NIST AAL3 kan passnøkler synkroniseres fritt.", answer: false, explain: "<p>AAL3 krever nøkler bundet til enheten (H2025 27).</p>" }
+      ],
+      biometri: [
+        { s: "Match betyr S ≥ T.", answer: true, explain: "<p>En skåring lik terskelen er en match.</p>" },
+        { s: "FMR = feilaktig godtatte ikke-genuine / alle ikke-genuine.", answer: true, explain: "<p>Nevneren er antall ikke-genuine forsøk.</p>" },
+        { s: "TMR + FNMR = 1.", answer: true, explain: "<p>Hvert genuint forsøk er enten godtatt eller avvist.</p>" },
+        { s: "Lav FMR betyr at falske fingre stoppes.", answer: false, explain: "<p>Det er PAD sin oppgave.</p>" },
+        { s: "Identifikasjon krever færre sammenligninger enn autentisering.", answer: false, explain: "<p>1:N krever opptil N sammenligninger, 1:1 bare én.</p>" },
+        { s: "EER er raten der FMR = FNMR.", answer: true, explain: "<p>Terskelen der kurvene krysser.</p>" },
+        { s: "Atferdsbiometri er lettere å tvinge fram fra et bevisstløst offer enn ansiktsgjenkjenning.", answer: false, explain: "<p>Atferd krever at personen er bevisst og samarbeider.</p>" },
+        { s: "Pass ved grensekontroll bruker 1:1.", answer: true, explain: "<p>Ansiktet sammenlignes med bildet i akkurat dette passet.</p>" }
+      ],
+      mfa: [
+        { s: "Garantinivå kalles også autentiseringsnivå og sikkerhetsnivå.", answer: true, explain: "<p>Lysarket bruker alle tre ordene.</p>" },
+        { s: "eIDAS definerer tre garantinivåer.", answer: true, explain: "<p>Low, Substantial og High.</p>" },
+        { s: "Hvordan identiteten ble registrert, påvirker ikke garantinivået.", answer: false, explain: "<p>Det er kravkategori a.</p>" },
+        { s: "Passord og SMS-kode er tofaktorautentisering.", answer: true, explain: "<p>Vet + har.</p>" },
+        { s: "EU godtar private eID-er som BankID for europeisk e-forvaltning.", answer: false, explain: "<p>Etter IAM-lysarket er det bare den statlige MinID som godtas der, ikke de private.</p>" },
+        { s: "Sterkere autentisering er alltid riktig valg.", answer: false, explain: "<p>Nivået skal stå i forhold til konsekvensen.</p>" },
+        { s: "«Trust services» i eIDAS betyr PKI-tjenester.", answer: true, explain: "<p>For eksempel utstedelse av sertifikater og elektroniske signaturer.</p>" }
+      ]
+    };
+    Object.keys(TF).forEach(function (fane) {
+      safe("tf-" + fane, function () { IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { it.kilde = false; return it; }), { id: "aut-tf-" + fane }); });
+    });
+
+    /* ---------- Inspera-øvinger (egne oppgaver i eksamensformat) ---------- */
+    var OV = [
+      { key: "ov-aut-1", title: "Faktorer", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["Noe du vet", "Noe du har", "Noe du er/gjør"],
+        regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
+        rader: [
+          { s: "Sikkerhetsspørsmål «navnet på første kjæledyr»", svar: [0] },
+          { s: "USB-brikke med passnøkkel", svar: [1] },
+          { s: "Ansiktsgjenkjenning", svar: [2] },
+          { s: "Engangskode sendt på e-post", svar: [1], explain: "<p>Sekundærkanal: du må ha tilgang til e-postkontoen.</p>" },
+          { s: "Signaturdynamikk på et nettbrett", svar: [2] } ] } },
+      { key: "ov-aut-2", title: "Krav og tiltak", points: 2, inspera: { type: "M", multi: false, kolonner: ["Tilgangskontroll", "Salting", "Komplekse passord", "Hashing"],
+        regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
+        rader: [
+          { s: "En regnbuetabell for vanlige passord skal ikke gi treff", svar: [1] },
+          { s: "Bare root skal kunne lese passordfila", svar: [0] },
+          { s: "En databasedump skal ikke vise passordene direkte", svar: [3] },
+          { s: "Uttømmende søk mot én bruker med kjent salt skal ta urimelig lang tid", svar: [2] } ] } },
+      { key: "ov-aut-3", title: "Fra 8 til 12 tegn", points: 1, inspera: { type: "F1", regelTekst: "1 for riktig; 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
+        alternativer: ["62*4", "62^4", "4 ganger", "Umulig å si"], svar: 1,
+        explain: ["<p>Ganging med 4 gjelder ikke eksponentiell vekst.</p>", "<p>62¹² / 62⁸ = 62⁴.</p>", "<p>Lengde gir ikke lineær vekst.</p>", "<p>Det kan regnes ut som forholdet mellom nøkkelrommene.</p>"] } },
+      { key: "ov-aut-4", title: "Typer enheter", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["OTP-brikke", "Pass og ID-kort", "Online-enheter", "Sekundærkanal"],
+        regelTekst: "0,5 for hver korrekt, -0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
+        rader: [
+          { s: "Engangskode i en tekstmelding", svar: [3] },
+          { s: "Viser ny sekssifret kode hvert 30. sekund", svar: [0] },
+          { s: "Signerer en utfordring med privat nøkkel i en sikker chip ved grensa", svar: [1] },
+          { s: "Lagrer passnøkler for mange nettsteder", svar: [2] },
+          { s: "Godkjenning i en bankapp på mobilen", svar: [3] } ] } },
+      { key: "ov-aut-5", title: "FIDO-figuren", points: 3, inspera: { type: "D", regelTekst: "0,5 for hver riktig, -0,5 for feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+        tekst: null, bank: ["Challenge", "Respons", "Autentikator", "Passnøkler", "Offentlige nøkler", "Lokal etappe"],
+        felt: [
+          { etikett: "Pil fra bruker til enhet", svar: 2 }, { etikett: "Lagret i enheten", svar: 3 },
+          { etikett: "Lagret hos tjeneren", svar: 4 }, { etikett: "Pil fra tjener til enhet", svar: 0 },
+          { etikett: "Pil fra enhet til tjener", svar: 1 }, { etikett: "Klamme over bruker og enhet", svar: 5 } ] } },
+      { key: "ov-aut-6", title: "Regn ut ratene", points: 2, inspera: { type: "T", regelTekst: "0.5 for riktig, 0 for feil eller ubesvart, minimum 0.", regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 2 },
+        tekst: "<p>Et system testes med 50 genuine og 50 ikke-genuine brukere. 47 genuine og 2 ikke-genuine blir godtatt. Oppgi som desimaltall med punktum: TMR {0}, TNMR {1}, FMR {2}, FNMR {3}.</p>",
+        felt: [ { godta: ["0.94"], explain: "<p>47/50 = 0.94.</p>" }, { godta: ["0.96"], explain: "<p>48/50 = 0.96.</p>" },
+                { godta: ["0.04"], explain: "<p>2/50 = 0.04.</p>" }, { godta: ["0.06"], explain: "<p>3/50 = 0.06.</p>" } ] } },
+      { key: "ov-aut-7", title: "Terskel, PAD og modus", points: 1.5, inspera: { type: "N", regelTekst: "0,5 for riktig, -0,5 for feil, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 1.5 },
+        tekst: "<p>Senkes terskelen, vil FNMR {0}. Et silikonavtrykk av en ekte finger stoppes best av {1}. Søk i et register med 10 000 maler er {2}.</p>",
+        felt: [ { valg: ["øke", "minske", "forbli uendret"], svar: 1 }, { valg: ["lav FMR", "PAD", "lav EER"], svar: 1 },
+                { valg: ["autentisering (1:1)", "identifikasjon (1:N)", "registrering"], svar: 1 } ] } },
+      { key: "ov-aut-8", title: "Garantinivå og eID", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["Sant", "Usant"],
+        regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
+        rader: [
+          { s: "MinID gir sikkerhetsnivå HØYT", svar: [1] },
+          { s: "Garantinivået skal stå i forhold til konsekvensen av en autentiseringsfeil", svar: [0] },
+          { s: "Commfides og Buypass er statlige eID-leverandører", svar: [1] },
+          { s: "Krav til hvordan autentikatoren overleveres, påvirker garantinivået", svar: [0] },
+          { s: "eIDAS 2.0 har fire garantinivåer", svar: [1] } ] } }
+    ];
+    OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
+
+    /* ---------- Eksamensbanken ---------- */
+    safe("bank-aut", function () { IN.examBank("#bank-aut", { block: "autentisering" }); });
+  })();
+  </script>
+</body>
+</html>

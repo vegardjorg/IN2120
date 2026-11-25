@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blokk 6 · Risiko og styring · IN2120</title>
+  <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261125f">
+</head>
+<body data-page="risiko">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Blokk 6 · Risiko og styring</h1>
+      <p class="lead">Risiko og styring har vært med på hver eksamen fra H2021 til H2025, og sikker utvikling kom i H2021, H2022 og H2025. Til sammen er det rundt 83 av 503 poeng. Mest poeng gir risikobegrepene, risikovurderingen og prosessen. Fanene 4–6 bruker samme eksempel hele veien: Smuldre Bakeri AS, med akseptgrense R ≤ 5.</p>
+      <div class="badges">
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-31"><b>H2025</b> · STRIDE: seks trusler og brutt mål · <span class="pts">6p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-8_2"><b>H2021</b> · NIST CSF og NSM · <span class="pts">5p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-28"><b>H2025</b> · ISO 27001 og PDCA · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-38"><b>H2023</b> · Prosessfiguren · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-10_1"><b>H2022</b> · Prosessfiguren · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-10_3"><b>H2022</b> · Kvantitativ risiko og ROI · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-9_1"><b>H2021</b> · De 7 fasene · <span class="pts">4p</span></a>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Risiko og styring">
+      <button data-tab="styring">Styring og ISMS</button>
+      <button data-tab="iso">ISO 27000</button>
+      <button data-tab="rammeverk">NIST CSF og NSM</button>
+      <button data-tab="begreper">Risikobegreper</button>
+      <button data-tab="vurdering">Risikovurdering</button>
+      <button data-tab="prosess">Prosessen</button>
+      <button data-tab="utvikling">Sikker utvikling</button>
+      <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <!-- ===================== 1 · STYRING OG ISMS ===================== -->
+    <section data-panel="styring">
+      <h3>Styring og ISMS</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Styring av informasjonssikkerhet</b>: å sette strategiske sikkerhetsmål og sørge for at de nås. Det betyr å styre sikkerhetsrisikoen med fornuftig ressursbruk og å følge med på at styringen virker (ism s. 4).</li>
+          <li><b>ISMS</b> (styringssystem for informasjonssikkerhet): policyer, prosedyrer, retningslinjer, ressurser og aktiviteter som beskytter informasjonsverdiene systematisk. Det bygger på risikovurdering (ism s. 9).</li>
+          <li>Samme ting har flere navn: <b>LSIS</b> (Standard Norge og UiO), «styringssystem for informasjonssikkerhet» (NSM og lovverket) og omtrent «internkontroll» hos Digdir (ism s. 12). H2024 brukte «ledelsessystem».</li>
+        </ul></div>
+      <div id="ex-styring"></div>
+
+      <h4>Eksempel: Smuldre Bakeri får et ISMS</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        Smuldre har 12 ansatte, tre utsalg, en nettbutikk, kasse- og ordresystem i sky, et kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken.
+        <ul>
+          <li>Daglig leder eier sikkerheten. Butikksjefen har ansvar for kassene, og regnskapsmedarbeideren for betalingsrutinene.</li>
+          <li>Policyen sier: programvare oppdateres innen 14 dager, alle har egen innlogging, og sikkerhetskopi tas hver natt og lagres frakoblet.</li>
+          <li>Ledelsen går gjennom hendelsesloggen og risikovurderingen hvert halvår.</li>
+        </ul>
+        I dag er bakeriet på CMMI-nivå 1 fordi tiltakene er tilfeldige. Med policy og ledelsesforankring kommer det til nivå 3, og med helhetlig, målt risikostyring til nivå 4.</div>
+
+      <h4>CMMI-trappen</h4>
+      <p class="small muted">Sett nivåene i rekkefølge, og trykk «Sjekk svar». Forklaringen per brikke viser hvor Smuldre står.</p>
+      <div id="viz-cmmi"></div>
+
+      <h4>Dokumenthierarkiet</h4>
+      <p class="small">Fra det mest overordnede til det mest konkrete (ism s. 35), med eksempler fra Smuldre:</p>
+      <ol class="small">
+        <li><b>Lover</b>: personopplysningsloven.</li>
+        <li><b>Forskrifter</b>: for eksempel eForvaltningsforskriften (for offentlige virksomheter).</li>
+        <li><b>Rammeverk, standarder og policyer</b>: ISO 27001, NSMs grunnprinsipper, bakeriets sikkerhetspolicy.</li>
+        <li><b>Instrukser og rutiner</b>: «oppdateringsrutine for kassene».</li>
+        <li><b>Referater, logger, risikovurderinger og revisjonsrapporter</b>: «logg 12.03: kasse 2 oppdatert».</li>
+      </ol>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er et ISMS ikke en applikasjon?</summary>
+          <p>Et ISMS er policyer, prosesser og ansvar. Et verktøy kan støtte arbeidet, men verktøyet er ikke ISMS-et (H2024 35).</p></details>
+        <details class="grense"><summary>Hvorfor er NSMs grunnprinsipper ikke et ISMS?</summary>
+          <p>De er en tiltaksbank. De sier hvilke tiltak man kan innføre, ikke hvordan styringssystemet bygges (H2024 35).</p></details>
+        <details class="grense"><summary>Forsvarlig nivå eller samsvar?</summary>
+          <p>Krav som kommer fra risikovurderingen, er oppfylt når risikoen er på et <b>forsvarlig nivå</b>. Krav fra lov, forskrift og kontrakt er oppfylt ved <b>samsvar</b> (H2023 2).</p></details>
+        <details class="grense"><summary>Hvorfor er CMMI-nivå 0 ikke «tilfeldige tiltak»?</summary>
+          <p>Tilfeldige tiltak er nivå 1. Nivå 0 er brannslukking og kaos, uten tiltak i det hele tatt.</p></details>
+        <ul><li><b>«Styring» og «ledelse»</b> av informasjonssikkerhet brukes ofte om hverandre (ism s. 4). Ikke bruk tid på å skille dem.</li></ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2023 2: forsvarlig nivå eller samsvar (matrise, 2 p).</li>
+          <li>H2024 35: hva et ISMS er (flere riktige, 1 p). Riktig er policyer og prosedyrer, og at det er det samme som et ledelsessystem.</li>
+          <li>H2021 8.3: CMMI-nivå (nedtrekk, 2 p). Ledelsesforankring er nivå 3, helhetlig risikostyring nivå 4.</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-styring"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-styring"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-styring"></div>
+    </section>
+
+    <!-- ===================== 2 · ISO 27000 ===================== -->
+    <section data-panel="iso">
+      <h3>ISO 27000-serien</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>27000</b>: oversikt over ISMS og definisjoner av begrepene.</li>
+          <li><b>27001</b>: <i>kravstandarden</i> for ISMS. Det er den en virksomhet kan <b>sertifiseres</b> etter.</li>
+          <li><b>27002</b>: en <i>tiltaksbank</i> med 93 tiltak i 4 domener (2022-utgaven).</li>
+          <li><b>27005</b>: <i>risikostyring</i> for informasjonssikkerhet.</li>
+        </ul>
+        De fleste ISO-standardene må kjøpes (ism s. 8–10, 14, 18).</div>
+      <div id="ex-iso"></div>
+
+      <h4>Eksempel: Smuldre vil sertifiseres</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        En hotellkjede krever sertifisering i kontrakten.
+        <ul>
+          <li>Bakeriet sertifiseres etter <b>27001</b>, og risikovurderingen legges opp etter <b>27005</b>.</li>
+          <li>Tiltakene hentes fra <b>27002</b>: trusseletterretning (organisatorisk, 5.x), adgangskontroll til bakerommet (fysisk, 7.x) og sikkerhetskopiering (teknologisk, 8.x).</li>
+          <li>SoA-en lister alle 93 tiltakene med «relevant ja/nei» og «innført ja/nei».</li>
+          <li>Den årlige internrevisjonen er <b>Check</b>, og rettingen etterpå er <b>Act</b>.</li>
+        </ul></div>
+
+      <h4>27001 som PDCA-sirkel</h4>
+      <ul class="small">
+        <li><b>Plan</b> = kapittel 4–7 (kontekst, ledelse, planlegging, støtte): etablere ISMS-et.</li>
+        <li><b>Do</b> = kapittel 8 (drift): tiltakene innføres og driftes, for eksempel fra NSMs grunnprinsipper eller NIST CSF.</li>
+        <li><b>Check</b> = kapittel 9 (evaluering av prestasjon).</li>
+        <li><b>Act</b> = kapittel 10 (forbedring).</li>
+      </ul>
+      <p class="small muted">Kapittel 1–3 er innledning. Kravene står i kapittel 4–10 (ism s. 10–11).</p>
+
+      <h4>27002:2022, fire domener</h4>
+      <div id="viz-domener"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor kan man ikke sertifiseres etter 27002?</summary>
+          <p>27002 gir veiledning om tiltak, ikke krav. Bare 27001 har krav som en revisor kan sjekke.</p></details>
+        <details class="grense"><summary>Hvorfor hører NSMs grunnprinsipper til Do og ikke Plan?</summary>
+          <p>De beskriver tiltak som skal innføres og driftes. Det skjer i kapittel 8, som er drift (ism s. 11, H2025 28).</p></details>
+        <details class="grense"><summary>27000 eller 27001 som «beskrivelse av ISMS»?</summary>
+          <p>Generell beskrivelse og begreper er 27000. Krav til ISMS er 27001 (H2023 36).</p></details>
+        <details class="grense"><summary>Hvorfor 93 og ikke 114 tiltak?</summary>
+          <p>114 var 2013-utgaven. 2022-utgaven har 93. Ikke bland med NSM (118 tiltak) eller NIST (106 underkategorier).</p></details>
+        <ul><li><b>Ingen ISO-standard er obligatorisk</b> for alle norske virksomheter (H2020, H2021 8.1).</li></ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 8.1: 27001 eller 27002 (matrise, 3 p).</li>
+          <li>H2023 36: 27000, 27001, 27002 eller 27005 (matrise, 2 p).</li>
+          <li>H2025 28: kapitlene i 27001 til PDCA, pluss hvor NSM hører hjemme (matrise, 4 p).</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-iso"></div>
+      <div id="ov-pdca"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-iso"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-iso"></div>
+    </section>
+
+    <!-- ===================== 3 · NIST CSF OG NSM ===================== -->
+    <section data-panel="rammeverk">
+      <h3>NIST CSF 2.0, NSMs grunnprinsipper og andre rammeverk</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>NIST CSF 2.0</b>: gratis amerikansk rammeverk med <b>6 funksjoner</b>: GOVERN (Styre, ny i 2.0 fra 2024), IDENTIFY, PROTECT, DETECT, RESPOND og RECOVER. Det har 22 kategorier og 106 underkategorier (ism s. 19–21).</li>
+          <li><b>NSMs grunnprinsipper for IKT-sikkerhet</b>: gratis og på norsk, med <b>4 kategorier</b> (identifisere og kartlegge · beskytte og opprettholde · oppdage · håndtere og gjenopprette), <b>21 prinsipper</b> og <b>118 tiltak</b> (ism s. 22–24).</li>
+        </ul></div>
+      <div id="ex-rammeverk"></div>
+
+      <h4>Funksjonene og risiko</h4>
+      <ul class="small">
+        <li><b>IDENTIFY og PROTECT</b>: forebyggende, reduserer sannsynligheten.</li>
+        <li><b>DETECT</b>: oppdagende.</li>
+        <li><b>RESPOND og RECOVER</b>: korrigerende, reduserer konsekvensen. Hos NSM er de slått sammen til kategori 4 «håndtere og gjenopprette».</li>
+        <li><b>GOVERN</b> ligger i midten og styrer de andre. NSM dekker styring i en egen veileder, ikke som kategori.</li>
+      </ul>
+
+      <h4>Sammenligning</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Egenskap</th><th scope="col">ISO 27001</th><th scope="col">ISO 27002</th><th scope="col">NIST CSF 2.0</th><th scope="col">NSM grunnprinsipper</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Hva</th><td>Krav til ISMS</td><td>Tiltaksbank</td><td>Rammeverk, funksjoner</td><td>Tiltaksbank, funksjoner</td></tr>
+          <tr><th scope="row">Sortering</th><td>Kap. 4–10 / PDCA</td><td>4 domener + attributter</td><td>6 funksjoner, 22 kategorier</td><td>4 kategorier, 21 prinsipper</td></tr>
+          <tr><th scope="row">Antall tiltak</th><td>–</td><td>93</td><td>106 underkategorier</td><td>118</td></tr>
+          <tr><th scope="row">Pris</th><td>Må kjøpes</td><td>Må kjøpes</td><td>Gratis</td><td>Gratis</td></tr>
+          <tr><th scope="row">Språk</th><td>Engelsk (norsk utgave må kjøpes)</td><td>Som 27001</td><td>Engelsk</td><td>Norsk</td></tr>
+          <tr><th scope="row">Sertifiserbar</th><td>Ja</td><td>Nei</td><td>Nei</td><td>Nei</td></tr>
+          <tr><th scope="row">Obligatorisk for alle</th><td>Nei</td><td>Nei</td><td>Nei</td><td>Nei</td></tr>
+          <tr><th scope="row">Bare for offentlige</th><td>Nei</td><td>Nei</td><td>Nei</td><td>Nei</td></tr>
+        </tbody></table></div>
+
+      <h4>Eksempel: Smuldre fordeler tiltakene</h4>
+      <div class="callout eksempel"><span class="lbl">Eksempel</span>
+        <ol>
+          <li><b>Identifisere og kartlegge</b>: oversikt over 3 kasser, 14 PC-er og nettbutikken.</li>
+          <li><b>Beskytte og opprettholde</b>: MFA i nettbanken og jevnlige oppdateringer.</li>
+          <li><b>Oppdage</b>: varsel ved innlogging fra utlandet.</li>
+          <li><b>Håndtere og gjenopprette</b>: øvd gjenoppretting fra backup.</li>
+        </ol>
+        Med NIST CSF 2.0 kommer GOVERN i tillegg: daglig leder vedtar policy og risikotoleranse.
+        I cyberforsvarsmatrisen (fem opprinnelige funksjoner × enheter, apper, nettverk, data, brukere) er cellen «data × gjenopprette» tom i dag. Målprofilen fyller den med frakoblet backup.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor 6 funksjoner og ikke 5?</summary>
+          <p>CSF 2.0 (2024) la til GOVERN. Eldre eksamenssett har 5. Svar 6 og nevn at GOVERN er ny.</p></details>
+        <details class="grense"><summary>Hvorfor 4 kategorier hos NSM og ikke 5?</summary>
+          <p>«Håndtere og gjenopprette» er én kategori. Den dekker både RESPOND og RECOVER.</p></details>
+        <details class="grense"><summary>Hvorfor bruker cyberforsvarsmatrisen bare 5 funksjoner?</summary>
+          <p>Den bygger på de opprinnelige funksjonene uten GOVERN (ism s. 29). Det er ingen motsigelse.</p></details>
+        <ul>
+          <li><b>«Må kjøpes»</b>: verken NSM eller NIST (H2023 37 = H2024 32). Mellom ISO 27001 og NSM: bare ISO 27001 (H2025 29).</li>
+          <li><b>«Sortert etter funksjoner»</b>: mellom ISO 27001 og NSM er det bare NSM. 27001 er sortert etter kravkapitler (H2025 29).</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 8.2: kategoriene i NIST og NSM (dra og slipp, 5 p).</li>
+          <li>H2023 37 = H2024 32: NSM, NIST, begge eller ingen (matrise, 2 p).</li>
+          <li>H2025 29: NSM eller ISO 27001 (matrise, 2 p).</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-rammeverk"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-rammeverk"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-rammeverk"></div>
+    </section>
+
+    <!-- ===================== 4 · RISIKOBEGREPER ===================== -->
+    <section data-panel="begreper">
+      <h3>Risikobegreper</h3>
+      <p class="rk-hull">Det finnes ikke noe 2026-lysark for risikostyring. Fanen bygger på ukesoppgave t06 og eksamenssettene.</p>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Verdi</b>: noe som har krav til K, I eller T.</li>
+          <li><b>Trussel</b>: skadelig aktivitet som kan utnytte en sårbarhet.</li>
+          <li><b>Sårbarhet</b>: svakhet som gjør at et angrep ikke lar seg stoppe.</li>
+          <li><b>Hendelse</b> (sikkerhetsbrudd): brudd på ett eller flere KIT-mål.</li>
+          <li><b>Konsekvens</b>: skaden hendelsen gir, for eksempel tapt omsetning.</li>
+          <li><b>Risiko</b>: en relevant kombinasjon av trussel, sårbarhet(er) og verdier.</li>
+          <li><b>Risikonivå</b>: hvor stor risikoen er, en funksjon av sannsynlighet og konsekvens.</li>
+          <li><b>Restrisiko</b>: det som er igjen etter tiltak.</li>
+        </ul></div>
+      <div id="ex-begreper"></div>
+
+      <h4>Risikotrekanten</h4>
+      <div id="viz-trekant"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er «sannsynlighet × konsekvens» feil som definisjon av risiko?</summary>
+          <p>Det er en måte å regne ut <b>risikonivået</b> på. Risiko er selve kombinasjonen av trussel, sårbarhet og verdi.</p></details>
+        <details class="grense"><summary>Trussel eller sårbarhet?</summary>
+          <p>«At en type angrep ikke kan hindres» er en sårbarhet. «Skadelig aktivitet» er en trussel (H2022 1.2).</p></details>
+        <details class="grense"><summary>Hendelse eller konsekvens?</summary>
+          <p>«Brudd på KIT» er hendelsen. «Tapt omsetning» er konsekvensen (H2022 1.2).</p></details>
+        <details class="grense"><summary>Hvorfor øker dårlig beredskap konsekvensen og ikke sannsynligheten?</summary>
+          <p>Backup og hendelseshåndtering endrer ikke hvor ofte angrepet skjer, bare hvor vondt det gjør når det skjer.</p></details>
+        <ul><li><b>Risikotrekanten i H2023 og H2024</b> rettes automatisk. Skriv flertall: verdier, trusler, sårbarheter, og stav riktig.</li></ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 1.2 og H2022 1.2: begrepsmatrise (3 p hver). H2022 la til «konsekvens».</li>
+          <li>H2023 16 = H2024 13: risikotrekanten (tekstfelt, 3 p).</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-begreper"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-begreper"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-begreper"></div>
+    </section>
+
+    <!-- ===================== 5 · RISIKOVURDERING ===================== -->
+    <section data-panel="vurdering">
+      <h3>Risikovurdering, kvalitativt og kvantitativt</h3>
+      <p class="rk-hull">Bygger på oblig 3 (oppgaveteksten), ukesoppgave t06 og eksamen H2022 10.3 og H2025 30. Kalibreringen og tallene for Smuldre er våre egne.</p>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Kvalitativ</b> vurdering bruker nivåer: sannsynlighet s og konsekvens k på [0, 5], og risikonivå R på [0, 10].</li>
+          <li>Når nivåene er <b>logaritmiske</b> (hvert steg er en fast faktor, for eksempel × 10), er <b>R = s + k</b> (sum).</li>
+          <li><b>Kvantitativ</b> vurdering bruker tall: hendelser per år og kroner. Da er <b>R = S × K</b> (produkt), i kroner per år.</li>
+          <li>Flere konsekvensaspekter: kvalitativt tar man det <b>største</b>, kvantitativt <b>summerer</b> man.</li>
+        </ul></div>
+      <div id="ex-vurdering"></div>
+
+      <h4>Risikomatrisen for Smuldre</h4>
+      <p class="small muted">Konsekvens vannrett, sannsynlighet loddrett, og tallet i ruta er s + k. Fargene er våre egne: grønt er innenfor grensen, gult er ett over, rødt er mer. Den stiplede trappen er akseptgrensen. Dra glideren (oblig 3 lar grensen ligge mellom 4 og 7).</p>
+      <div id="viz-matrise"></div>
+
+      <h4>Eksempel A: kvalitativt (R = s + k)</h4>
+      <p class="small">Kalibrering: sannsynlighetsnivå 1 = 0,01, 2 = 0,1, 3 = 1, 4 = 10 og 5 = 100 hendelser per år. Konsekvensnivå 1 = 1 000, 2 = 10 000, 3 = 100 000, 4 = 1 000 000 og 5 = 10 000 000 kr.</p>
+      <div id="viz-kvalitativ"></div>
+
+      <h4>Eksempel B: kvantitativt (R = S × K)</h4>
+      <div id="viz-kvantitativ"></div>
+
+      <h4>Regn først: risiko og ROI</h4>
+      <p class="small muted">Regn selv før du trykker «Sjekk». Gliderne gir nye tall. Standardtallene er eksempel C (H2022 10.3-stil).</p>
+      <div id="viz-kalk"></div>
+      <div id="viz-kalk-roi"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor summere kvalitativt og ikke gange?</summary>
+          <p>Nivåene er logaritmer. Nivå n betyr omtrent 10ⁿ, og 10ˢ · 10ᵏ = 10ˢ⁺ᵏ. Å gange de underliggende tallene er altså å legge sammen nivåene. Å gange nivåene gir en skala uten mening (H2025 30).</p></details>
+        <details class="grense"><summary>Hvorfor største aspekt kvalitativt, men sum kvantitativt?</summary>
+          <p>Summerer du nivåer, kan konsekvensen bli over 5, og skalaen sprekker. Kroner kan legges sammen uten problem.</p></details>
+        <details class="grense"><summary>Hvorfor er «én gang hvert andre år» 0.5 og ikke 2?</summary>
+          <p>Sannsynlighet er hendelser per år: 1 / 2 = 0,5. H2022 ba om punktum som desimaltegn, altså <span class="mono">0.5</span>.</p></details>
+        <details class="grense"><summary>Hvorfor er ROI 4 og ikke 5 når reduksjonen er 500 000 og kostnaden 100 000?</summary>
+          <p>Trekk kostnaden fra først, og del så på kostnaden: (500 000 − 100 000) / 100 000 = 4.</p></details>
+        <ul>
+          <li><b>H2025 30</b>: «produkt» kvantitativt og «sum» kvalitativt. Formelen eller navnet gir poenget.</li>
+          <li><b>ALE = ARO × EF × AV</b> hører til gamle sett (H2018–H2019) og er ikke 2026-pensum.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2022 10.3: kvantitativ risiko og ROI (tekstfelt, 4 p). Svarene er 0.5, 1500000, 750000 og 4.</li>
+          <li>H2025 30: formel og operatornavn, kvantitativt og kvalitativt (fritekst, 2 p).</li>
+          <li>Akseptgrense og matrise med piler er øvd i oblig 3, men ikke spurt på eksamen H2021–H2025. Det kan komme som fritekst.</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-vurdering"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-vurdering"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-vurdering"></div>
+    </section>
+
+    <!-- ===================== 6 · PROSESSEN ===================== -->
+    <section data-panel="prosess">
+      <h3>Risikostyringsprosessen og behandling av risiko</h3>
+      <p class="rk-hull">Bygger på ukesoppgave t06 og eksamensfigurene, ikke på et 2026-lysark.</p>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        Prosessen etter ISO 27005, slik eksamensfiguren viser den:
+        <ol>
+          <li><b>Kontekstetablering</b>: planlegging, risikokriterier (akseptgrense) og valg av risikoeier.</li>
+          <li><b>Risikovurdering (ROS)</b>: identifisering → analyse → evaluering.</li>
+          <li><b>Beslutningspunkt 1</b>: er vurderingen god nok?</li>
+          <li><b>Risikohåndteringsplan</b>: redusere, dele/overføre, unngå eller akseptere.</li>
+          <li><b>Beslutningspunkt 2</b>: er planen akseptabel?</li>
+          <li><b>Implementer sikkerhetstiltak</b>.</li>
+        </ol>
+        «Nei» i et beslutningspunkt sender prosessen tilbake.</div>
+      <div id="ex-prosess"></div>
+
+      <h4>Sett sammen prosessen</h4>
+      <div id="viz-prosess"></div>
+      <details class="rk-fig"><summary>Fasitfiguren: klikk en boks eller en rombe</summary>
+        <div id="viz-prosess-fig"></div>
+      </details>
+
+      <h4>Inne i risikovurderingen</h4>
+      <div id="viz-ros"></div>
+
+      <h4>Fire måter å håndtere R1 på</h4>
+      <p class="small muted">Samme matrise som i forrige fane. Prøv knappene og se hva som skjer med R1.</p>
+      <div id="viz-handling"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er «dårlig spredning» punkt 1 og ikke punkt 2?</summary>
+          <p>Den sier at selve <i>vurderingen</i> ikke kan brukes til å rangere. Planen er ikke laget ennå (H2022 10.2, H2024 33).</p></details>
+        <details class="grense"><summary>Hvorfor er «for lite budsjett» punkt 2?</summary>
+          <p>Budsjettet gjelder tiltakene i planen. De finnes først etter punkt 1.</p></details>
+        <details class="grense"><summary>Hvorfor er «endre risikotabellen» ikke gyldig håndtering?</summary>
+          <p>Det flytter målestokken, ikke risikoen (H2023 39).</p></details>
+        <details class="grense"><summary>Risikoanalyse eller risikovurdering?</summary>
+          <p>Analysen er én del av vurderingen. Vurdering = identifisering + analyse + evaluering.</p></details>
+        <ul>
+          <li><b>«Må først gjennomføre OSINT»</b> er en distraktor i begge punktene (H2024 33).</li>
+          <li><b>Akseptere er gyldig</b> når nivået er under grensen, eller når ledelsen bevisst beholder risikoen.</li>
+          <li><b>Overføre fjerner ikke ansvaret.</b> Ved utsetting eller forsikring er bakeriet fortsatt ansvarlig overfor kundene.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2022 10.1 og H2023 38: prosessfiguren (dra og slipp, 4 p hver).</li>
+          <li>H2022 10.2 og H2024 33: grunner til «Nei» i punkt 1 og 2 (2 p).</li>
+          <li>H2024 34: trinnene i ROS (dra og slipp, 3 p).</li>
+          <li>H2023 39: gyldig håndtering (matrise, 2 p).</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-prosess"></div>
+      <div id="ov-prosess-d"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-prosess"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-prosess"></div>
+    </section>
+
+    <!-- ===================== 7 · SIKKER UTVIKLING ===================== -->
+    <section data-panel="utvikling">
+      <h3>Sikker utvikling: innebygd sikkerhet, STRIDE og OWASP Top 10</h3>
+      <p class="rk-hull">Det finnes ikke noe 2026-lysark for sikker utvikling. Fanen bygger på eksamenssettene H2021, H2022 og H2025. Eksamensforelesningen sier at det kan komme spørsmål fra bokstoff som ikke er forelest.</p>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Innebygd informasjonssikkerhet</b>: sikkerhet i hele livssyklusen til programvaren, i <b>7 faser</b>: opplæring → krav → design → koding → test → produksjonssetting → forvaltning (H2021 9.1, H2022 4.1).</li>
+          <li><b>STRIDE</b>: sjekkliste for trusselmodellering. Spoofing, Tampering, Repudiation, Information disclosure, Denial of service og Elevation of privilege.</li>
+          <li><b>OWASP Top 10</b>: rangerer de ti mest kritiske sikkerhetsrisikoene for nettapplikasjoner og gir råd om tiltak. Siste utgave kom i november 2025 (H2025 32).</li>
+        </ul></div>
+      <div id="ex-utvikling"></div>
+
+      <h4>Livssyklusen</h4>
+      <div id="viz-livssyklus"></div>
+      <h4>Aktivitet til fase</h4>
+      <div id="viz-livssyklus-akt"></div>
+
+      <h4>STRIDE: trussel og brutt mål</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Bokstav</th><th scope="col">Trussel</th><th scope="col">Norsk</th><th scope="col">Bryter</th><th scope="col">Typisk tiltak</th></tr></thead>
+        <tbody>
+          <tr><td><b>S</b></td><td>Spoofing</td><td>identitetstyveri / forfalskning</td><td>autentisitet</td><td>sterk autentisering (MFA)</td></tr>
+          <tr><td><b>T</b></td><td>Tampering</td><td>tukling</td><td>integritet</td><td>MAC eller signatur, tilgangskontroll</td></tr>
+          <tr><td><b>R</b></td><td>Repudiation</td><td>benekting</td><td>sporbarhet / ubenektelighet</td><td>sikker logging, signatur</td></tr>
+          <tr><td><b>I</b></td><td>Information disclosure</td><td>datalekkasje</td><td>konfidensialitet</td><td>kryptering, minste privilegium</td></tr>
+          <tr><td><b>D</b></td><td>Denial of service</td><td>tjenestenekt</td><td>tilgjengelighet</td><td>rate-begrensning, redundans</td></tr>
+          <tr><td><b>E</b></td><td>Elevation of privilege</td><td>utvidede tilganger</td><td>autorisasjon / tilgangskontroll</td><td>minste privilegium, inputvalidering</td></tr>
+        </tbody></table></div>
+
+      <h4>Eksempel: STRIDE på «Kantinekortet»</h4>
+      <p class="small">En mobilapp der studenter fyller på kantinekortet, et REST-API, en database med saldo og kortnumre, et adminpanel for kantinesjefen og en betalingsleverandør. Klikk en boks, en pil eller en bokstav.</p>
+      <div id="viz-stride"></div>
+      <p class="small">Koblet til OWASP 2021: rad I og E er <b>1 brudd på tilgangskontroll</b>. Et beløp som tjeneren ikke sjekker, er <b>4 usikkert design</b>. Et lekket adminpassord uten MFA er <b>7 feil i identifisering og autentisering</b>.</p>
+
+      <h4>Klassifiser truslene</h4>
+      <div id="viz-stride-sort"></div>
+
+      <h4>OWASP Top 10</h4>
+      <p class="small"><span class="rk-sjekk">Kontroller mot owasp.org.</span> 2025-lista står ikke i kursets kilder. Plasseringene i 2025-kolonnen er slik vi kjenner dem og må sjekkes mot owasp.org før du stoler på dem.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">#</th><th scope="col">2021 (lista i H2022)</th><th scope="col">2025 (november 2025, kontroller mot owasp.org)</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Brudd på tilgangskontroll</td><td>Brudd på tilgangskontroll (SSRF slått inn her)</td></tr>
+          <tr><td>2</td><td>Kryptografiske feil</td><td>Feilkonfigurert sikkerhet</td></tr>
+          <tr><td>3</td><td>Injeksjon</td><td>Feil i programvareleverandørkjeden (ny)</td></tr>
+          <tr><td>4</td><td>Usikkert design</td><td>Kryptografiske feil</td></tr>
+          <tr><td>5</td><td>Feilkonfigurert sikkerhet</td><td>Injeksjon</td></tr>
+          <tr><td>6</td><td>Sårbare og utdaterte komponenter</td><td>Usikkert design</td></tr>
+          <tr><td>7</td><td>Feil i identifisering og autentisering</td><td>Autentiseringsfeil</td></tr>
+          <tr><td>8</td><td>Feil i data- og programvareintegritet</td><td>Feil i programvare- eller dataintegritet</td></tr>
+          <tr><td>9</td><td>Utilstrekkelig logging og overvåking</td><td>Feil i logging og varsling</td></tr>
+          <tr><td>10</td><td>SSRF</td><td>Feilhåndtering av unntakstilstander (ny)</td></tr>
+        </tbody></table></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor bryter Repudiation ikke integritet?</summary>
+          <p>Problemet er at man ikke kan <i>bevise hvem</i> som gjorde noe. Det gjelder sporbarhet og ubenektelighet (H2025 31).</p></details>
+        <details class="grense"><summary>Hvorfor er endring i minnet til en prosess Tampering og ikke Elevation?</summary>
+          <p>Det er uautorisert endring av data, og det bryter integritet. At det senere kan føre til mer makt, endrer ikke hva selve handlingen er (H2022 4.2).</p></details>
+        <details class="grense"><summary>Hvorfor bryter Spoofing autentisitet og ikke konfidensialitet?</summary>
+          <p>Angriperen later som han er en annen. Det er identiteten som er falsk, ikke data som lekker (H2025 31).</p></details>
+        <details class="grense"><summary>Hvorfor hører statisk analyse til koding og ikke test?</summary>
+          <p>Statisk analyse leser kildekoden mens den skrives og gjennomgås. Test kjører programmet for å finne det som slapp gjennom (H2022 4.1).</p></details>
+        <ul>
+          <li><b>Fasen som mangler i DevSecOps</b> er opplæring (H2022 4.1).</li>
+          <li><b>OWASP-året</b>: H2022 brukte 2021, H2025 sier november 2025. Svar 2025 i 2026.</li>
+          <li><b>OWASP rangerer risikoer</b>, ikke sårbarheter i enkeltprodukter. Det er CVE og CVSS.</li>
+          <li><b>H2021 9.3</b> merket «må være skybasert» for DevOps. Den fasiten er tvilsom. Ikke lær den som et prinsipp.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 9.1: rekkefølgen på de 7 fasene (dra og slipp, 4 p).</li>
+          <li>H2021 9.2: STRIDE og brutt mål (nedtrekk, 3 p). H2021 9.3: sikker smidig og DevOps (matrise, 3 p).</li>
+          <li>H2022 4.1: aktivitet til fase. H2022 4.2: STRIDE og OWASP (nedtrekk, 2 p hver).</li>
+          <li>H2025 31: hele STRIDE (fritekst, 6 p). H2025 32: OWASP Top 10 og årstall (fritekst, 3 p).</li>
+        </ul></div>
+
+      <h4>Øv i Inspera-format</h4>
+      <div id="ov-utvikling"></div>
+      <div id="ov-utvikling-fri"></div>
+      <h4>Test deg selv</h4>
+      <div id="quiz-utvikling"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-utvikling"></div>
+    </section>
+
+    <!-- ===================== EKSAMEN ===================== -->
+    <section data-panel="eksamen">
+      <h3>Eksamensoppgaver</h3>
+      <p class="muted small">Alle oppgavene om risiko, styring og sikker utvikling fra eksamenene i banken, nyeste først. OWASP inne i nettverksoppgavene (H2023 30 = H2024 25) ligger i blokken om nettverk.</p>
+      <div id="bank-risiko"></div>
+    </section>
+  </main>
+
+  <footer class="footer">IN2120-guide · Blokk 6 · Risiko og styring · <a href="07-autentisering.html">Neste: blokk 7, autentisering</a></footer>
+
+  <script src="assets/js/core.js?v=20261125f"></script>
+  <script src="assets/js/symboler.js?v=20261125f"></script>
+  <script src="assets/js/pseudocode.js?v=20261125f"></script>
+  <script src="assets/js/stepplayer.js?v=20261125f"></script>
+  <script src="assets/js/varline.js?v=20261125f"></script>
+  <script src="assets/js/inspera.js?v=20261125f"></script>
+  <script src="assets/js/dra.js?v=20261125f"></script>
+  <script src="assets/js/ovelse.js?v=20261125f"></script>
+  <script src="assets/js/bank.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
+  <script src="assets/js/viz-risiko.js?v=20261125f"></script>
+  <script>
+  (function () {
+    "use strict";
+    var IN = window.IN, V = IN.risiko;
+    function safe(navn, fn) { try { fn(); } catch (e) { if (window.console) console.error("[06-risiko] " + navn, e); } }
+
+    /* ---------- Forklaringer på tre nivåer ---------- */
+    var EX = {
+      "ex-styring": {
+        eli5: "<p>Et ISMS er bedriftens husregler for sikkerhet, pluss en vane med å sjekke at reglene virker og gjøre dem bedre. Det er ikke et dataprogram. Det er en måte å drive bedriften på.</p>",
+        normal: "<p>Styring betyr at ledelsen eier sikkerheten. Ledelsen setter mål, bestemmer hvor mye risiko bedriften tåler, gir budsjett og får jevnlige rapporter.</p><p>Forelesningen gir seks mål for styringen: strategisk tilpasning, risikohåndtering, verdiskapning (balansen mellom kostnad og risikoreduksjon), ressursbruk, målbarhet og integrering av fysisk, finansiell og IT-sikkerhet (ism s. 5). ISMS-et er verktøyet som gjør dette systematisk. Det etableres, drives, overvåkes og forbedres, og det er risikobasert.</p>",
+        teknisk: "<p>Styring av cybersikkerhet ligger under foretaksstyring og GRC (styring, risiko og etterlevelse), ved siden av IKT-styring, risikostyring, drift av sikkerhet og sikkerhetsrevisjon (ism s. 3). God styring gjelder hele virksomheten: ledelsen er informert og tar ansvar, prioriteringen er risikobasert med kjent risikotoleranse, og rollene er tydelige (ism s. 6).</p><p>Ingen standard dekker alt. ISMS-et bygges av utvalgte rammeverk og egne policyer (ism s. 34), ordnet i et dokumenthierarki fra lover ned til logger og rapporter. CMMI-skalaen 0–5 måler modenheten: fra brannslukking (0) via tilfeldige tiltak (1), noen risikovurderinger (2), ledelsesforankring og policyer (3) og helhetlig risikostyring (4) til målbar forbedring (5).</p>"
+      },
+      "ex-iso": {
+        eli5: "<p>27001 er oppskriften på hvordan kjøkkenet skal organiseres, og det er den kontrolløren sjekker. 27002 er en stor verktøykasse man velger redskaper fra. 27005 er en guide til å finne ut hva som er farligst.</p>",
+        normal: "<p>27001 har tre innledende kapitler, og kravene står i kapittel 4–10: kontekst, ledelse, planlegging, støtte, drift, evaluering og forbedring. Kravene leses som en PDCA-sirkel: Plan er kapittel 4–7, Do er kapittel 8, Check er kapittel 9 og Act er kapittel 10. I Do innføres de konkrete tiltakene, for eksempel fra NSMs grunnprinsipper eller NIST CSF.</p>",
+        teknisk: "<p>27002:2022 har 93 tiltak i fire domener: organisatoriske (37), personell (8), fysiske (14) og teknologiske (34). Hvert tiltak har attributter i fem kategorier: type (#Forebyggende, #Oppdagende, #Korrigerende), KIT-egenskap, cybersikkerhetskonsept (#Identifisere … #Gjenopprette, som hos NIST og NSM), operasjonell kapasitet og sikkerhetsdomene (ism s. 15–16).</p><p>Ved revisjon etter 27001 kreves en <b>SoA</b> (Statement of Applicability) som sier hvilke 27002-tiltak som er relevante og om de er innført. Begge standardene startet som britisk BS 7799. Andre i familien er 27003 (veiledning), 27004 (måling), 27014 (styring), 27017 (sky) og 27701 (personvern). ISO 31000 er generell risikostyring.</p>"
+      },
+      "ex-rammeverk": {
+        eli5: "<p>Begge er huskelister sortert etter når man gjør tingene: finne ut hva man har, beskytte det, merke at noe skjer, og rydde opp etterpå. NIST har i tillegg en sjef-funksjon i midten som styrer resten.</p>",
+        normal: "<p>Begge sorterer tiltak etter sikkerhetsfunksjoner og kan brukes sammen med ISO 27001 som Do-delen av PDCA. NSMs fjerde kategori «håndtere og gjenopprette» dekker både RESPOND og RECOVER hos NIST. GOVERN hos NIST tilsvarer omtrent NSMs egen veileder i sikkerhetsstyring.</p><p>Hvert NSM-tiltak har prioritet 1, 2 eller 3. NSM regner med at om lag 90 % av hendelsene kan unngås ved å innføre alle tiltakene i gruppe 1 (ism s. 22).</p>",
+        teknisk: "<p>Funksjonene kan kobles til risiko: IDENTIFY og PROTECT er forebyggende og senker sannsynligheten, DETECT er oppdagende, og RESPOND og RECOVER er korrigerende og senker konsekvensen (ism s. 19). De 22 kategoriene fordeler seg slik: GV 6, ID 3, PR 5, DE 2, RS 4, RC 2. NSM er bygd som kategori → prinsipp (for eksempel 1.2 «kartlegg enheter og programvare») → tiltak (1.2.1 osv.).</p><p>Andre rammeverk (ism s. 26–33): COBIT, ISF Standard of Good Practice, ITIL, Digdirs internkontroll-veileder, Datatilsynet (innebygd personvern), CIS Controls (18 kategorier) og NIST SP 800-53 (20 tiltaksfamilier). Cyberforsvarsmatrisen krysser de fem opprinnelige CSF-funksjonene med fem klasser digitale verdier og brukes til gap-analyse (nåprofil mot målprofil) og ansvarsfordeling.</p>"
+      },
+      "ex-begreper": {
+        eli5: "<p>Du har en kakeboks (verdi). Lillebror elsker kaker (trussel). Lokket går ikke i lås (sårbarhet). Risikoen er hele denne situasjonen. Hvor stor risikoen er (risikonivået), avhenger av hvor ofte lillebror prøver og hvor mange kaker som forsvinner.</p>",
+        normal: "<p>Risikotrekanten har verdier, trusler og sårbarheter i hvert sitt hjørne. Risiko oppstår bare der alle tre finnes samtidig. Mangler ett hjørne, er det ingen risiko.</p><p>Sannsynligheten øker med trusselaktørens motivasjon og kapasitet og med hvor sårbare verdiene er. Konsekvensen øker med hvor store og sensitive verdiene er, og med hvor dårlig beredskapen er (backup, hendelseshåndtering).</p>",
+        teknisk: "<p>Sårbarheter er lettest å gjøre noe med. Trusselaktører er vanskelige å svekke, men det går delvis: rettferdige prosesser mot ansatte, avskrekking og mindre tilgang til exploits. Konsekvensen senkes med sikkerhetskopi, hendelseshåndtering og eventuelt cyberforsikring. Utsetting reduserer verdiene man forvalter selv, men ansvaret overfor brukerne består.</p><p>Informasjonssikkerhetsrisiko er <b>operasjonell risiko</b> (tap fra svakheter i egen drift) og kan derfor styres bedre enn markedsrisiko. Konsekvensaspekter er blant annet økonomisk tap, svekket tjeneste, lovbrudd, bøter og erstatning, omdømme, gjenoppretting og belastning for folk. I dagligtale betyr «risiko» også sannsynlighet («risiko for regn»). I faget betyr det sikkerhetsrisiko.</p>"
+      },
+      "ex-vurdering": {
+        eli5: "<p>Kvalitativt er som å gi terningkast for hvor ofte noe skjer og hvor vondt det gjør, og legge dem sammen. Kvantitativt regner du i kroner: det skjer annethvert år og koster 1,5 millioner, så i snitt koster det 750 000 i året.</p>",
+        normal: "<p>Kvalitative nivåer er lette å anslå, men grove. Kvantitative tall gir kronebeløp og kan brukes til å regne lønnsomhet (ROI), men de er vanskelige å anslå. Har en hendelse flere konsekvensaspekter, tar man kvalitativt det største, og kvantitativt summerer man dem. Akseptgrensen settes ut fra risikoappetitten. I oblig 3 skal den ligge mellom 4 og 7.</p>",
+        teknisk: "<p>Hvorfor sum? Når nivå n betyr omtrent 10ⁿ, blir produktet 10ˢ · 10ᵏ = 10ˢ⁺ᵏ. Å gange tallene er det samme som å legge sammen eksponentene. Summen av nivåene er derfor et logaritmisk mål for den kvantitative risikoen. Oblig 3 kalibrerer skalaen med to ankre: antall hendelser per år på sannsynlighetsnivå 5 og tapet i kroner på konsekvensnivå 5.</p><p><b>ROI</b> for et tiltak = (risikoreduksjon − kostnad) / kostnad. Formelen står ikke i H2022-arket, men fasiten 4 stemmer med den.</p>"
+      },
+      "ex-prosess": {
+        eli5: "<p>Først bestemmer man reglene for leken: hva er for farlig? Så leter man etter farer og måler dem. Er målingen rar, måler man på nytt (punkt 1). Så lager man en plan for hver fare. Synes sjefen planen er for dyr eller for slapp, lager man en ny (punkt 2). Til slutt gjør man det.</p>",
+        normal: "<p>Risikovurderingen har tre deler: <i>identifisering</i> (verdier, trusler, eksisterende tiltak, sårbarheter, konsekvenser), <i>analyse</i> (anslå sannsynlighet og konsekvens, beregn risikonivået) og <i>evaluering</i> (ranger og sammenlign med akseptgrensen).</p><p>Det er fire gyldige måter å håndtere en risiko på: <b>redusere</b> (tiltak), <b>dele/overføre</b> (utsetting, cyberforsikring), <b>unngå</b> (slutte med aktiviteten) og <b>akseptere</b> (beholde den som restrisiko). Å endre risikotabellen for å få lavere tall er ikke gyldig.</p>",
+        teknisk: "<p>Beslutningspunkt 1 spør om vurderingen gir mening. Typisk «Nei»: dårlig spredning (nesten alle risikoer har samme nivå, så kalibrer skalaene på nytt) eller stor uvisshet rundt høye risikoer (skaff mer informasjon). Beslutningspunkt 2 spør om ledelsen godtar planen. Typisk «Nei»: for dyr plan eller for lite budsjett, for høy restrisiko, eller feil kostnadsanslag.</p><p>Risiko må også kommuniseres: til ledelse og styre som bestemmer strategi og budsjett, til drift som innfører tiltakene, og til responsmiljøer. Det krever felles begreper, tillit til kvaliteten og god visualisering. ISO 27005 har kommunikasjon og overvåking som løpende aktiviteter ved siden av prosessen, men de er ikke felt i eksamensfigurene.</p>"
+      },
+      "ex-utvikling": {
+        eli5: "<p>Det er billigere å bygge huset med lås i døra enn å sette inn låsen etter innbruddet. STRIDE er seks spørsmål om hva en slem person kan gjøre: late som han er en annen, endre ting, nekte for det, snoke, ødelegge, eller ta seg mer makt.</p>",
+        normal: "<p>Hver fase har sine aktiviteter: <i>opplæring</i> (sikker koding), <i>krav</i> (sikkerhetskrav, risikovurdering), <i>design</i> (trusselmodellering med STRIDE, angrepsflate), <i>koding</i> (statisk analyse, kodegjennomgang), <i>test</i> (fuzzing, pentest), <i>produksjonssetting</i> (rutiner for patching og hendelseshåndtering) og <i>forvaltning</i> (drift, oppdateringer, respons). Hver STRIDE-bokstav bryter et eget sikkerhetsmål, se tabellen.</p>",
+        teknisk: "<p>Sikker smidig utvikling legger sikkerhetskrav inn i hver sprint, og sprintsyklusen er det sentrale. DevOps og DevSecOps dekker også forvaltning og flytter sikkerheten tidlig («shift left»). Ingen av dem dekker opplæring, og begge har sikkerhet som mål.</p><p>STRIDE brukes i designfasen på et dataflytdiagram: for hver boks og hver pil spør du hvilke av de seks truslene som passer, særlig der dataflyten krysser en tillitsgrense. OWASP Top 10 er en rangering av risikotyper for nettapplikasjoner, ikke en liste over sårbarheter i enkeltprodukter.</p>"
+      }
+    };
+    Object.keys(EX).forEach(function (id) {
+      safe(id, function () { IN.explain("#" + id, EX[id], { label: "Forklaring:" }); });
+    });
+
+    /* ---------- Visualiseringer ---------- */
+    safe("viz-cmmi", function () { V.cmmi("#viz-cmmi"); });
+    safe("viz-domener", function () { V.domener("#viz-domener"); });
+    safe("viz-trekant", function () { V.trekant("#viz-trekant"); });
+    safe("viz-matrise", function () { V.matrise("#viz-matrise"); });
+    safe("viz-kvalitativ", function () { V.kvalitativ("#viz-kvalitativ"); });
+    safe("viz-kvantitativ", function () { V.kvantitativ("#viz-kvantitativ"); });
+    safe("viz-kalk", function () { V.regnRisiko("#viz-kalk"); });
+    safe("viz-kalk-roi", function () { V.regnRoi("#viz-kalk-roi"); });
+    safe("viz-prosess", function () { V.prosessSort("#viz-prosess"); });
+    safe("viz-prosess-fig", function () { V.prosess("#viz-prosess-fig"); });
+    safe("viz-ros", function () { V.ros("#viz-ros"); });
+    safe("viz-handling", function () { V.matrise("#viz-handling", { handling: true }); });
+    safe("viz-livssyklus", function () { V.livssyklus("#viz-livssyklus"); });
+    safe("viz-livssyklus-akt", function () { V.livssyklusAkt("#viz-livssyklus-akt"); });
+    safe("viz-stride", function () { V.stride("#viz-stride"); });
+    safe("viz-stride-sort", function () { V.strideSort("#viz-stride-sort"); });
+
+    /* ---------- Inspera-øvinger (egne rader, eksamens format) ---------- */
+    var R05 = function (maks) { return { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: maks }; };
+    var T05 = function (maks) { return "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks " + maks + "; minimum 0."; };
+    var OV = {
+      "ov-styring": { key: "ov-risiko-1", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+        kolonner: ["Forsvarlig nivå", "Samsvar"], multi: false, rader: [
+          { s: "Bakeriets risikovurdering sier at løsepengevirus må ned til akseptabelt nivå", svar: [0], explain: "<p>Et krav fra risikovurderingen er oppfylt når risikoen er forsvarlig.</p>" },
+          { s: "Personopplysningsloven krever varsling av brudd innen 72 timer", svar: [1], explain: "<p>Et lovkrav er oppfylt ved samsvar.</p>" },
+          { s: "Leverandøren av betalingsterminaler krever et bestemt oppsett i kontrakten", svar: [1], explain: "<p>Et kontraktskrav måles også i samsvar.</p>" },
+          { s: "Ledelsen vil at risikoen for nedetid i julen skal være akseptabel", svar: [0], explain: "<p>Et risikobasert mål vurderes som forsvarlig nivå.</p>" } ] } },
+      "ov-iso": { key: "ov-risiko-2", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+        kolonner: ["27000", "27001", "27002", "27005"], multi: false, rader: [
+          { s: "Bakeriet skal sertifiseres og trenger kravene", svar: [1], explain: "<p>Krav og sertifisering hører til 27001.</p>" },
+          { s: "Bakeriet leter etter et tiltak for sikkerhetskopiering", svar: [2], explain: "<p>Tiltak finner man i tiltaksbanken 27002.</p>" },
+          { s: "Bakeriet vil vite hvordan risikovurderingen bør legges opp", svar: [3], explain: "<p>Risikostyring hører til 27005.</p>" },
+          { s: "Bakeriet trenger definisjonen av «informasjonssikkerhetshendelse»", svar: [0], explain: "<p>Begreper og oversikt står i 27000.</p>" } ] } },
+      "ov-pdca": { key: "ov-risiko-3", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
+        kolonner: ["Plan", "Do", "Check", "Act"], multi: false, rader: [
+          { s: "Smuldre bestemmer hvem som har ansvar for sikkerheten (kap. 5 Ledelse)", svar: [0], explain: "<p>Kapittel 4–7 er Plan: å etablere ISMS-et.</p>" },
+          { s: "Smuldre sørger for opplæring og ressurser (kap. 7 Støtte)", svar: [0], explain: "<p>Støtte er siste kapittel i Plan.</p>" },
+          { s: "Smuldre innfører tiltakene fra NSMs grunnprinsipper", svar: [1], explain: "<p>Tiltak innføres og driftes i kapittel 8, som er Do.</p>" },
+          { s: "Smuldre driver kassene og backupen etter rutinene (kap. 8 Drift)", svar: [1], explain: "<p>Drift er Do.</p>" },
+          { s: "Den årlige internrevisjonen (kap. 9)", svar: [2], explain: "<p>Evaluering er Check.</p>" },
+          { s: "Avvikene fra revisjonen rettes (kap. 10)", svar: [3], explain: "<p>Forbedring er Act.</p>" } ] } },
+      "ov-rammeverk": { key: "ov-risiko-4", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+        kolonner: ["NSM", "NIST CSF 2.0", "begge", "ingen"], multi: false, rader: [
+          { s: "Har en egen funksjon for styring (GOVERN)", svar: [1], explain: "<p>GOVERN er ny i CSF 2.0. NSM dekker styring i en egen veileder, ikke som kategori.</p>" },
+          { s: "Er gratis tilgjengelig", svar: [2], explain: "<p>Begge publiseres gratis.</p>" },
+          { s: "Har fire kategorier", svar: [0], explain: "<p>NSM har 4 kategorier. NIST har 6 funksjoner.</p>" },
+          { s: "Kan man sertifiseres mot", svar: [3], explain: "<p>Ingen av dem er sertifiseringsstandarder. Det er ISO 27001.</p>" } ] } },
+      "ov-begreper": { key: "ov-risiko-5", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
+        kolonner: ["Verdi", "Trussel", "Sårbarhet", "Hendelse", "Konsekvens", "Risiko"], multi: false, rader: [
+          { s: "Kunderegisteret med 4 000 e-postadresser", svar: [0], explain: "<p>Har krav til konfidensialitet, altså en verdi.</p>" },
+          { s: "En svindler som sender falske fakturaer", svar: [1], explain: "<p>Skadelig aktivitet som kan utnytte en svakhet.</p>" },
+          { s: "Ingen rutine for å bekrefte nytt kontonummer", svar: [2], explain: "<p>En svakhet som gjør at angrepet ikke stoppes.</p>" },
+          { s: "Kassasystemet er kryptert og utilgjengelig", svar: [3], explain: "<p>Brudd på tilgjengelighet er en hendelse.</p>" },
+          { s: "Bakeriet taper julesalget fordi nettbutikken er nede", svar: [4], explain: "<p>Skaden som følger av hendelsen, er en konsekvens.</p>" },
+          { s: "Løsepengevirus kan utnytte en upatchet kasse-PC og stanse salget", svar: [5], explain: "<p>Kombinasjonen av trussel, sårbarhet og verdi er en risiko.</p>" } ] } },
+      "ov-vurdering": { key: "ov-risiko-6", points: 4, inspera: { type: "N", regelTekst: "Poeng: 1 for riktig. 0 for feil eller ubesvart, maks 4, minimum 0.",
+        regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
+        tekst: "<p>Nettbutikken går ned i gjennomsnitt hvert femte år. Hver gang taper bakeriet 300 000 i salg og bruker 100 000 på gjenoppretting. Sannsynlighet: {0}. Konsekvens: {1}. Risiko per år: {2}. Et tiltak til 20 000 reduserer risikoen med 60 000. ROI: {3}.</p>",
+        felt: [
+          { etikett: "Sannsynlighet", valg: ["5", "0.2", "0.5", "0.02"], svar: 1, explain: "<p>Én gang hvert femte år = 1/5 = 0.2 per år.</p>" },
+          { etikett: "Konsekvens", valg: ["300000", "100000", "400000", "200000"], svar: 2, explain: "<p>Kvantitativt summeres aspektene: 300 000 + 100 000.</p>" },
+          { etikett: "Risiko", valg: ["80000", "2000000", "400000", "60000"], svar: 0, explain: "<p>0,2 × 400 000 = 80 000 kr per år.</p>" },
+          { etikett: "ROI", valg: ["3", "2", "0.33", "40000"], svar: 1, explain: "<p>(60 000 − 20 000) / 20 000 = 2.</p>" } ] } },
+      "ov-prosess": { key: "ov-risiko-7", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
+        kolonner: ["Punkt 1", "Punkt 2"], multi: false, rader: [
+          { s: "Alle fem risikoene fikk nivå 6", svar: [0], explain: "<p>Dårlig spredning gjør vurderingen meningsløs. Kalibrer på nytt.</p>" },
+          { s: "Ledelsen synes tiltakene koster mer enn de sparer", svar: [1], explain: "<p>Det gjelder planen og budsjettet.</p>" },
+          { s: "Ingen vet hvor ofte løsepengevirus rammer bakerier", svar: [0], explain: "<p>Uvisshet i anslagene. Skaff mer informasjon.</p>" },
+          { s: "Planen lar tre høye risikoer stå uten tiltak", svar: [1], explain: "<p>For høy restrisiko i planen.</p>" } ] } },
+      "ov-prosess-d": { key: "ov-risiko-8", points: 3.5, inspera: { type: "D", regelTekst: "Poeng: 0,5 for hver riktig boks. 0 for feil eller ubesvart, maks 3,5, minimum 0.",
+        regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 3.5 },
+        bank: ["Kontekstetablering", "Bestem risikoeier", "Risikovurdering (ROS)", "Risikoanalyse", "Risikohåndteringsplan", "Aksepter risiko", "Implementer sikkerhetstiltak"],
+        tekst: null,
+        felt: [
+          { etikett: "Venstre kolonne, øverst", svar: 0, explain: "<p>Prosessen starter med kontekstetableringen.</p>" },
+          { etikett: "Underboks til høyre for den øverste", svar: 1, explain: "<p>Risikoeieren bestemmes i konteksten.</p>" },
+          { etikett: "Venstre kolonne, nr. 2", svar: 2, explain: "<p>Så kommer risikovurderingen.</p>" },
+          { etikett: "Underboks til høyre for nr. 2", svar: 3, explain: "<p>Analysen er en del av vurderingen.</p>" },
+          { etikett: "Venstre kolonne, etter beslutningspunkt 1", svar: 4, explain: "<p>Etter et «Ja» i punkt 1 lages planen.</p>" },
+          { etikett: "Underboks til høyre for planen", svar: 5, explain: "<p>Å akseptere risiko er en del av planen.</p>" },
+          { etikett: "Venstre kolonne, nederst (etter punkt 2)", svar: 6, explain: "<p>Til slutt innføres tiltakene.</p>" } ] } },
+      "ov-utvikling": { key: "ov-risiko-9", points: 2, inspera: { type: "N", regelTekst: "Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.",
+        regel: R05(2),
+        tekst: "<p>En student endrer beløpet i påfyllingskallet til Kantinekortet. I STRIDE er dette {0}, og det bryter {1}. En vanlig bruker åpner adminsiden ved å skrive adressen direkte. I OWASP Top 10:2021 er dette {2}. Statisk analyse av API-koden hører til fasen {3}.</p>",
+        felt: [
+          { etikett: "STRIDE", valg: ["Spoofing", "Tampering", "Repudiation", "Information disclosure", "Denial of service", "Elevation of privilege"], svar: 1, explain: "<p>Uautorisert endring av data er tukling.</p>" },
+          { etikett: "Mål", valg: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], svar: 1, explain: "<p>Tukling bryter integritet.</p>" },
+          { etikett: "OWASP", valg: ["1. Brudd på tilgangskontroll", "3. Injeksjon", "5. Feilkonfigurert sikkerhet", "10. SSRF"], svar: 0, explain: "<p>Tjeneren sjekker ikke rollen. Det er brudd på tilgangskontroll.</p>" },
+          { etikett: "Fase", valg: ["Krav", "Design", "Koding", "Test"], svar: 2, explain: "<p>Statisk analyse og kodegjennomgang hører til koding.</p>" } ] } },
+      "ov-utvikling-fri": { key: "ov-risiko-10", points: 6, inspera: { type: "E", regelTekst: "Rettes etter skjønn. 0,5 p for en trussel som passer bokstaven og 0,5 p for riktig brutt mål, maks 6.",
+        regel: { riktig: 0, feil: 0, blankt: 0, min: 0, maks: 6 },
+        deler: [{ del: "", poeng: 6, grense: "seks linjer",
+          sporsmal: "<p>Smuldre Bakeri lager en ny nettbutikk: kundene logger inn og bestiller, butikksjefen har en adminside, og betalingen går via en leverandør. Gå gjennom STRIDE. For hver bokstav: beskriv én konkret trussel mot nettbutikken og hvilket sikkerhetsmål den bryter.</p>" }],
+        sjekkliste: [
+          { punkt: "<b>S</b>: noen utgir seg for en annen (for eksempel logger inn som butikksjefen med et lekket passord), og det bryter <b>autentisitet</b>", poeng: 1, nokkelord: ["autentis"] },
+          { punkt: "<b>T</b>: data endres uten lov (for eksempel pris eller antall i en ordre), og det bryter <b>integritet</b>", poeng: 1, nokkelord: ["integritet"] },
+          { punkt: "<b>R</b>: noen kan nekte for en handling fordi ingenting beviser hvem som gjorde den, og det bryter <b>sporbarhet / ubenektelighet</b>", poeng: 1, nokkelord: ["sporbar", "ubenekt"] },
+          { punkt: "<b>I</b>: kundedata havner hos uvedkommende, og det bryter <b>konfidensialitet</b>", poeng: 1, nokkelord: ["konfidensial"] },
+          { punkt: "<b>D</b>: nettbutikken stanses (for eksempel av en flom av forespørsler), og det bryter <b>tilgjengelighet</b>", poeng: 1, nokkelord: ["tilgjengelig"] },
+          { punkt: "<b>E</b>: en kunde får rettigheter hun ikke skal ha (for eksempel åpner adminsiden), og det bryter <b>tilgangskontroll / autorisasjon</b>", poeng: 1, nokkelord: ["tilgangskontroll", "autoris"] } ] },
+        perfekt: { type: "skjonn", svar: [{ del: "", tekst: "<p>S: noen logger inn som butikksjefen med et passord som har lekket. Bryter autentisitet.<br>T: en kunde endrer prisen i bestillingen før den når tjeneren. Bryter integritet.<br>R: en kunde nekter for en stor bestilling, og det finnes ingen logg som viser hvem som bestilte. Bryter sporbarhet.<br>I: en feilmelding viser andre kunders adresser. Bryter konfidensialitet.<br>D: tusenvis av falske bestillinger stanser butikken før jul. Bryter tilgjengelighet.<br>E: en kunde skriver adressen til adminsiden direkte og kommer inn fordi tjeneren ikke sjekker rollen. Bryter tilgangskontroll.</p>" }] } }
+    };
+    Object.keys(OV).forEach(function (id) {
+      safe(id, function () { IN.inspera("#" + id, OV[id]); });
+    });
+
+    /* ---------- Flervalg per fane ---------- */
+    var QUIZ = {
+      styring: [
+        { q: "Hva er et ISMS?", options: ["Et brannmurprogram", "Et sett av policyer, prosesser og ressurser for systematisk sikkerhetsarbeid", "NSMs tiltaksliste", "En revisjonsrapport"], answer: 1, explain: "<p>Et ISMS er et styringssystem, ikke et verktøy og ikke en tiltaksbank.</p>" },
+        { q: "Hvilket CMMI-nivå er det første med ledelsesforankring og policyer?", options: ["1", "2", "3", "5"], answer: 2, explain: "<p>Nivå 3 «definert» (ism s. 36). Nivå 4 er helhetlig risikostyring.</p>" },
+        { q: "Et krav i en kundekontrakt er oppfylt ved …", options: ["forsvarlig nivå", "samsvar", "restrisiko", "ROI"], answer: 1, explain: "<p>Krav fra lov, forskrift og kontrakt måles i samsvar.</p>" },
+        { q: "Hvem eier ansvaret for sikkerheten i virksomheten?", options: ["IT-driften", "Ledelsen", "Revisor", "Leverandøren"], answer: 1, explain: "<p>God styring betyr at ledelsen er informert og tar ansvar (ism s. 6).</p>" }
+      ],
+      iso: [
+        { q: "Hvilken standard sertifiseres en virksomhet etter?", options: ["27000", "27001", "27002", "27005"], answer: 1, explain: "<p>27001 er kravstandarden.</p>" },
+        { q: "Hvor mange tiltak har 27002:2022?", options: ["114", "93", "118", "106"], answer: 1, explain: "<p>93. 114 var 2013-utgaven, 118 er NSM og 106 er NIST-underkategoriene.</p>" },
+        { q: "Kapittel 9 i 27001 hører til …", options: ["Plan", "Do", "Check", "Act"], answer: 2, explain: "<p>Kapittel 9 er evaluering, altså Check.</p>" },
+        { q: "Hva kreves ved revisjon etter 27001?", options: ["SoA", "CVSS", "SJA", "OSINT"], answer: 0, explain: "<p>Statement of Applicability: hvilke 27002-tiltak som er relevante og innført.</p>" }
+      ],
+      rammeverk: [
+        { q: "Hvilken funksjon er ny i NIST CSF 2.0?", options: ["RECOVER", "GOVERN", "DETECT", "IDENTIFY"], answer: 1, explain: "<p>GOVERN kom i 2.0 (2024).</p>" },
+        { q: "Hvor mange tiltak har NSMs grunnprinsipper?", options: ["93", "106", "118", "21"], answer: 2, explain: "<p>118 tiltak fordelt på 21 prinsipper i 4 kategorier.</p>" },
+        { q: "Hvilke CSF-funksjoner reduserer konsekvensen?", options: ["ID og PR", "DE", "RS og RC", "GV"], answer: 2, explain: "<p>RESPOND og RECOVER er korrigerende (ism s. 19).</p>" },
+        { q: "Hvilken dimensjon har cyberforsvarsmatrisen i tillegg til funksjonene?", options: ["KIT", "Klasser av digitale verdier", "CMMI-nivå", "Trusselaktører"], answer: 1, explain: "<p>Enheter, apper, nettverk, data og brukere.</p>" }
+      ],
+      begreper: [
+        { q: "«Har krav om K, I og/eller T» er …", options: ["hendelse", "verdi", "risiko", "trussel"], answer: 1, explain: "<p>Det er definisjonen av en verdi.</p>" },
+        { q: "Hva øker <i>sannsynligheten</i>?", options: ["Dårlig backup", "En motivert trusselaktør med kapasitet", "En stor kundedatabase", "Cyberforsikring"], answer: 1, explain: "<p>Backup og størrelse påvirker konsekvensen. Motivasjon og kapasitet påvirker sannsynligheten.</p>" },
+        { q: "Hva er lettest for virksomheten å påvirke?", options: ["Trusselaktørens motivasjon", "Egne sårbarheter", "Markedsrisiko", "Hvor sensitive verdiene er"], answer: 1, explain: "<p>Sårbarheter kan fjernes med tiltak.</p>" },
+        { q: "Informasjonssikkerhetsrisiko er en form for …", options: ["markedsrisiko", "operasjonell risiko", "kredittrisiko"], answer: 1, explain: "<p>Tap fra svakheter i egen drift.</p>" }
+      ],
+      vurdering: [
+        { q: "s = 2 og k = 4 på en logaritmisk skala gir R = …", options: ["8", "6", "2", "16"], answer: 1, explain: "<p>Kvalitativt med logaritmiske nivåer: R = s + k = 6.</p>" },
+        { q: "En hendelse skjer 3 ganger i året og koster 20 000 hver gang. Risiko per år = …", options: ["6 667", "20 000", "60 000", "23"], answer: 2, explain: "<p>3 × 20 000 = 60 000 kr per år.</p>" },
+        { q: "Et tiltak koster 80 000 og fjerner en risiko på 60 000 per år. ROI = …", options: ["0,75", "−0,25", "0,25", "−20 000"], answer: 1, explain: "<p>(60 000 − 80 000) / 80 000 = −0,25. Tiltaket lønner seg ikke.</p>" },
+        { q: "Kvalitativ samlet konsekvens med aspektene økonomi 2, omdømme 4, juridisk 3 = …", options: ["9", "3", "4", "24"], answer: 2, explain: "<p>Kvalitativt tar man det største aspektet.</p>" }
+      ],
+      prosess: [
+        { q: "Hva skjer i kontekstetableringen?", options: ["Tiltak innføres", "Risikokriterier og risikoeier bestemmes", "Risikoene rangeres", "Restrisiko aksepteres"], answer: 1, explain: "<p>Planlegging, akseptgrense og risikoeier.</p>" },
+        { q: "«Det er stor uvisshet rundt en høy risiko» gir «Nei» i …", options: ["punkt 1", "punkt 2", "begge", "ingen"], answer: 0, explain: "<p>Det gjelder kvaliteten på vurderingen.</p>" },
+        { q: "Hvilken er <i>ikke</i> gyldig risikohåndtering?", options: ["Cyberforsikring", "Slutte med aktiviteten", "Endre risikotabellen", "Akseptere"], answer: 2, explain: "<p>Det flytter målestokken, ikke risikoen.</p>" },
+        { q: "Hvilket trinn rangerer risikoene mot akseptgrensen?", options: ["Identifisering", "Analyse", "Evaluering", "Implementering"], answer: 2, explain: "<p>Evalueringen sammenligner med grensen.</p>" }
+      ],
+      utvikling: [
+        { q: "Hvilken fase kommer rett etter design?", options: ["Test", "Krav", "Koding", "Forvaltning"], answer: 2, explain: "<p>Opplæring → krav → design → koding → test → produksjonssetting → forvaltning.</p>" },
+        { q: "En angriper sletter loggene for å skjule hva han gjorde. Hvilken STRIDE-bokstav?", options: ["T", "R", "I", "D"], answer: 1, explain: "<p>Formålet er å skjule hvem som gjorde hva, altså benekting. Selve slettingen er også tukling.</p>" },
+        { q: "Tjeneren henter en URL som angriperen har oppgitt. OWASP 2021?", options: ["Injeksjon", "SSRF", "Usikkert design"], answer: 1, explain: "<p>Server-side request forgery, nr. 10 i 2021.</p>" },
+        { q: "Hvilket mål bryter Elevation of privilege?", options: ["Tilgjengelighet", "Autorisasjon / tilgangskontroll", "Autentisitet"], answer: 1, explain: "<p>Angriperen får mer makt enn han skal ha.</p>" },
+        { q: "Hva er «shift left»?", options: ["Flytte drift til skyen", "Flytte sikkerheten tidlig inn i utviklingen", "Patche oftere"], answer: 1, explain: "<p>Venstre er tidlig på tidslinjen.</p>" }
+      ]
+    };
+    Object.keys(QUIZ).forEach(function (fane) {
+      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "risiko-" + fane }); });
+    });
+
+    /* ---------- Sant/usant per fane ---------- */
+    var TF = {
+      styring: [
+        { s: "LSIS og ISMS betyr det samme.", answer: true, explain: "<p>LSIS er Standard Norges navn (ism s. 12).</p>" },
+        { s: "Digdirs «internkontroll» betyr omtrent det samme som ISMS.", answer: true, explain: "<p>Ja, men ordet kan også bety intern revisjon.</p>" },
+        { s: "Et ISMS skal bygge på risikovurdering.", answer: true, explain: "<p>ISMS er risikobasert (ism s. 9).</p>" },
+        { s: "Ett godt rammeverk dekker alle behov, så man trenger ikke egne policyer.", answer: false, explain: "<p>Ingen standard dekker alt (ism s. 34).</p>" },
+        { s: "Risikovurderinger ligger nederst i dokumenthierarkiet, sammen med logger og revisjonsrapporter.", answer: true, explain: "<p>ism s. 35.</p>" },
+        { s: "CMMI-nivå 0 betyr «tilfeldige sikkerhetstiltak».", answer: false, explain: "<p>Det er nivå 1. Nivå 0 er brannslukking og kaos.</p>" },
+        { s: "«Verdiskapning» som mål for styring handler om balansen mellom ressursbruk og risikoreduksjon.", answer: true, explain: "<p>ism s. 5.</p>" }
+      ],
+      iso: [
+        { s: "27002 har fire domener: organisatorisk, personell, fysisk og teknologisk.", answer: true, explain: "<p>37 + 8 + 14 + 34 = 93 tiltak.</p>" },
+        { s: "27005 er tiltaksbanken.", answer: false, explain: "<p>27005 handler om risikostyring. Tiltaksbanken er 27002.</p>" },
+        { s: "ISO-standardene er gratis.", answer: false, explain: "<p>De fleste må kjøpes (ism s. 8).</p>" },
+        { s: "Kapittel 6 Planlegging hører til Plan i PDCA.", answer: true, explain: "<p>Plan er kapittel 4–7.</p>" },
+        { s: "27001 og 27002 kommer begge fra britisk standard (BS 7799).", answer: true, explain: "<p>ism s. 17.</p>" },
+        { s: "Attributtet #Oppdagende er en type sikkerhetstiltak.", answer: true, explain: "<p>Typene er forebyggende, oppdagende og korrigerende (ism s. 16).</p>" },
+        { s: "27001 har krav i kapittel 1–10.", answer: false, explain: "<p>Kravene står i kapittel 4–10.</p>" }
+      ],
+      rammeverk: [
+        { s: "NSMs grunnprinsipper er publisert på norsk.", answer: true, explain: "<p>Det er ett av skillene mot NIST.</p>" },
+        { s: "NIST CSF må kjøpes.", answer: false, explain: "<p>Den er gratis.</p>" },
+        { s: "NSMs grunnprinsipper er bare tilgjengelige for offentlige myndigheter.", answer: false, explain: "<p>Alle kan bruke dem (H2025 29).</p>" },
+        { s: "Både NSM og NIST CSF kan brukes sammen med ISO 27001.", answer: true, explain: "<p>Som Do-delen av PDCA.</p>" },
+        { s: "NSMs kategori 3 heter «Oppdage».", answer: true, explain: "<p>Kategoriene er identifisere og kartlegge, beskytte og opprettholde, oppdage, håndtere og gjenopprette.</p>" },
+        { s: "NIST CSF 2.0 har 22 kategorier.", answer: true, explain: "<p>GV 6, ID 3, PR 5, DE 2, RS 4, RC 2.</p>" },
+        { s: "NSM-tiltakene er merket med prioritetsgruppe 1–3.", answer: true, explain: "<p>Gruppe 1 skal hindre om lag 90 % av hendelsene.</p>" },
+        { s: "Cyberforsvarsmatrisen har verdiklassene enheter, apper, nettverk, data og brukere.", answer: true, explain: "<p>Krysset med de fem opprinnelige funksjonene.</p>" }
+      ],
+      begreper: [
+        { s: "Uten sårbarhet er det ingen risiko, selv om trusselen finnes.", answer: true, explain: "<p>Alle tre hjørnene i trekanten må være der.</p>" },
+        { s: "Risikonivå er en funksjon av sannsynlighet og konsekvens.", answer: true, explain: "<p>Det er størrelsen på risikoen.</p>" },
+        { s: "Et sikkerhetsbrudd betyr brudd på minst ett KIT-mål.", answer: true, explain: "<p>Det er definisjonen av en hendelse.</p>" },
+        { s: "Ved utsetting slipper virksomheten ansvaret overfor brukerne.", answer: false, explain: "<p>Ansvaret består.</p>" },
+        { s: "Dårlig beredskap øker sannsynligheten for hendelsen.", answer: false, explain: "<p>Den øker konsekvensen.</p>" },
+        { s: "Skadet omdømme er et konsekvensaspekt.", answer: true, explain: "<p>Sammen med blant annet økonomisk tap, lovbrudd og gjenoppretting.</p>" },
+        { s: "Restrisiko er risikoen før tiltak.", answer: false, explain: "<p>Det er det som er igjen etter tiltak.</p>" }
+      ],
+      vurdering: [
+        { s: "Kvantitativ risiko kan oppgis i kroner per år.", answer: true, explain: "<p>Hendelser per år × kroner per hendelse.</p>" },
+        { s: "Kvalitative inndata er vanligvis lettere å anslå enn kvantitative.", answer: true, explain: "<p>Nivåer er grove, men lette å sette.</p>" },
+        { s: "Med logaritmiske nivåer er risikonivå = sannsynlighet × konsekvens.", answer: false, explain: "<p>Da summeres nivåene.</p>" },
+        { s: "Kvantitativt summeres konsekvensaspektene.", answer: true, explain: "<p>Kroner kan legges sammen. Kvalitativt tar man det største.</p>" },
+        { s: "ROI = risikoreduksjon / kostnad.", answer: false, explain: "<p>Kostnaden skal trekkes fra først: (reduksjon − kostnad) / kostnad.</p>" },
+        { s: "Akseptgrensen bør begrunnes ut fra virksomhetens risikoappetitt.", answer: true, explain: "<p>Som i oblig 3.</p>" },
+        { s: "Kvalitativ vurdering kan gi flere risikoer samme nivå selv om kronebeløpene er ulike.", answer: true, explain: "<p>R1 og R2 hos Smuldre får begge 6, men 35 000 og 70 000 kr per år.</p>" },
+        { s: "ALE = ARO × EF × AV er formelen som brukes i 2026.", answer: false, explain: "<p>Den hører til gamle sett.</p>" }
+      ],
+      prosess: [
+        { s: "Risikovurderingen (ROS) kommer før beslutningspunkt 1.", answer: true, explain: "<p>Punkt 1 vurderer resultatet av den.</p>" },
+        { s: "«For mange aksepterte risikoer» gir «Nei» i punkt 2.", answer: true, explain: "<p>For høy restrisiko i planen.</p>" },
+        { s: "Å overføre risiko til en skyleverandør fjerner virksomhetens ansvar.", answer: false, explain: "<p>Ansvaret overfor brukerne består.</p>" },
+        { s: "Risikoanalysen beregner risikonivået.", answer: true, explain: "<p>H2024 34.</p>" },
+        { s: "Tiltakene implementeres før beslutningspunkt 2.", answer: false, explain: "<p>Implementering kommer til slutt, etter et «Ja» i punkt 2.</p>" },
+        { s: "Restrisiko er risiko man har valgt å akseptere.", answer: true, explain: "<p>H2023 39.</p>" },
+        { s: "Risikovurderinger bør kommuniseres til ledelsen, fordi den gir budsjett.", answer: true, explain: "<p>Ledelse og styre bestemmer strategi og budsjett.</p>" }
+      ],
+      utvikling: [
+        { s: "Innebygd sikkerhet har 7 faser og starter med opplæring.", answer: true, explain: "<p>Opplæring → krav → design → koding → test → produksjonssetting → forvaltning.</p>" },
+        { s: "DevSecOps dekker opplæringsfasen.", answer: false, explain: "<p>Opplæring er fasen som mangler.</p>" },
+        { s: "Prosedyrer for patching og hendelseshåndtering lages i produksjonssettingen.", answer: true, explain: "<p>H2022 4.1.</p>" },
+        { s: "STRIDE brukes til trusselmodellering i designfasen.", answer: true, explain: "<p>På et dataflytdiagram.</p>" },
+        { s: "Information disclosure bryter integritet.", answer: false, explain: "<p>Den bryter konfidensialitet.</p>" },
+        { s: "SYN-flom er D i STRIDE.", answer: true, explain: "<p>Tjenestenekt bryter tilgjengelighet.</p>" },
+        { s: "OWASP Top 10 gir også råd om tiltak.", answer: true, explain: "<p>H2025 32.</p>" },
+        { s: "Injeksjon er manipulert input som får applikasjonen til å utføre utilsiktede kommandoer.", answer: true, explain: "<p>H2022 4.2.</p>" },
+        { s: "Siste utgave av OWASP Top 10 er fra 2021.", answer: false, explain: "<p>Den kom i november 2025.</p>" }
+      ]
+    };
+    Object.keys(TF).forEach(function (fane) {
+      safe("tf-" + fane, function () {
+        IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { return { s: it.s, answer: it.answer, explain: it.explain, kilde: false }; }), { id: "risiko-tf-" + fane });
+      });
+    });
+
+    /* ---------- Eksamensbanken ---------- */
+    safe("bank-risiko", function () { IN.examBank("#bank-risiko", { block: ["risiko", "utvikling"] }); });
+  })();
+  </script>
+</body>
+</html>

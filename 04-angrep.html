@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blokk 4 · Angrep og pentest · IN2120</title>
+  <meta name="description" content="Angrepsvektorer, skadevare og pentesting i IN2120, sett fra forsvareren: trusselaktører, phishingtypene, skadevaretypene, leveransekjede og andre vektorer, pentestens stadier og boksfarger, straffeloven § 204, SQL-injeksjon som kode mot data, OSINT, sudo og logganalyse – med øving og eksamensoppgavene.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261125f">
+</head>
+<body data-page="angrep">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Blokk 4 · Angrep, skadevare og pentest</h1>
+      <p class="lead">Angrepsvektorer, skadevare og pentesting ga 77 av 503 poeng på eksamenene H2021–H2025 (15 %). Gjengangerne er å skille phishingtypene og skadevaretypene fra hverandre, boksfargene og strafferammen i § 204, og de lange fritekstoppgavene om rootkit, SQL-injeksjon og sudo. Alt her er sett fra forsvareren: hvordan angrepet virker på konseptnivå, og hva som stopper det.</p>
+      <div class="badges">
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-19"><b>H2025</b> · Rootkit-scenario · <span class="pts">7p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-23"><b>H2024</b> · SQL-injeksjon og klientfilter · <span class="pts">6p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-4_4"><b>H2022</b> · Sudo som privilegieeskalering · <span class="pts">5p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-29"><b>H2023</b> · Feilkonfigurert sudo · <span class="pts">5p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-3_4"><b>H2022</b> · Skadevaretyper · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-24"><b>H2023</b> · Skadevaretyper · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-28"><b>H2023</b> · Kartlegging og injeksjoner · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-18"><b>H2025</b> · Hva er OSINT? · <span class="pts">3p</span></a>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Angrep og pentest">
+      <button data-tab="aktorer">Trusselaktører</button>
+      <button data-tab="phishing">Phishing</button>
+      <button data-tab="skadevare">Skadevare</button>
+      <button data-tab="vektorer">Andre vektorer</button>
+      <button data-tab="pentest">Pentest som metode</button>
+      <button data-tab="sqli">SQL-injeksjon og filtre</button>
+      <button data-tab="osint">OSINT</button>
+      <button data-tab="sudo">Sudo og logger</button>
+      <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <!-- ===================== 1 · TRUSSELAKTØRER ===================== -->
+    <section data-panel="aktorer">
+      <h3>Trusselaktører og motiv</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        En <b>trusselaktør</b> er den som står bak et angrep. Kurset deler aktørene i tre nivåer etter motivasjon, ressurser og teknisk evne: <b>amatøren</b>, <b>den cyberkriminelle</b> og <b>APT</b> (avansert, vedvarende trussel), som oftest er styrt eller sponset av en stat.
+        I tillegg skiller kurset på hensikt: <b>hvite hatter</b> jobber etisk og med tillatelse, <b>svarte hatter</b> uten. <b>Innsidere</b> har allerede lovlig tilgang.</div>
+      <div id="ex-aktorer"></div>
+
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Nivå</th><th scope="col">Motivasjon</th><th scope="col">Ressurser</th><th scope="col">Teknisk evne</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1 · Amatør</th><td>Nysgjerrighet, ideologi, selvhevdelse</td><td>Få: gratistjenester, forum, videoer, åpen kode</td><td>Varierer, jobber ofte alene</td></tr>
+          <tr><th scope="row">2 · Cyberkriminell</th><td>Penger, bestillingsoppdrag</td><td>Dyrere utstyr, flere sammen</td><td>Varierer, utfyller hverandre, kan hente kompetanse fra statlige aktører</td></tr>
+          <tr><th scope="row">3 · APT</th><td>Politikk, langsiktige mål, spionasje, påvirkning</td><td>Statlige midler, fra noen få til tusenvis av ansatte</td><td>Høy, spesialiserte roller</td></tr>
+        </tbody></table></div>
+
+      <div class="callout eksempel"><span class="lbl">Eksempel: Brødkassa AS</span>
+        Bakeriet får tre hendelser samme høst.
+        <ol>
+          <li>En 15-åring bytter forsiden på nettbutikken til et meme, fordi publiseringsverktøyet hadde standardpassord. Amatør, motiv selvhevdelse, brudd på <b>I</b>.</li>
+          <li>Alle kassasystemene krypteres, og det kreves betaling. Kriminell, motiv penger, brudd på <b>T</b>.</li>
+          <li>En konkurrent i et annet land har i et år hentet ut oppskrifter fra utviklingsavdelingen uten at noen merket det. Målrettet og stille, brudd på <b>K</b>.</li>
+        </ol></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er ikke alle hackere kriminelle?</summary>
+          <p>«Hacker» sier noe om ferdighet, ikke om hensikt. En pentester bruker de samme metodene, men med skriftlig tillatelse og for å fjerne sårbarheter.</p></details>
+        <details class="grense"><summary>Hvorfor er APT ikke det samme som avansert skadevare?</summary>
+          <p>APT er <i>aktøren</i>: ressurssterk, tålmodig og ofte statlig. Den er ikke et verktøy, og den kan godt bruke enkel phishing.</p></details>
+        <details class="grense"><summary>Hvorfor hjelper ikke brannmuren mot innsideren?</summary>
+          <p>Innsideren har lovlig tilgang innenfor perimeteren. Perimetertiltak stopper dem som er utenfor. Mot innsidere trengs personellsikkerhet, minste privilegium og logging.</p></details>
+        <ul>
+          <li>Løsepengevirus bryter <b>T</b>, ikke K. Lekker data i tillegg, kommer K inn.</li>
+          <li>Kryptoutvinning er et motiv i seg selv: angriperen vil ha maskinkraften, ikke dataene.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        Ingen egen oppgave om aktørnivåene i H2021–H2025. Temaet ligger under andre oppgaver: motivet kryptoutvinning (<a href="#fane=eksamen&amp;oppg=o-H2024-22">H2024 22</a>), Stuxnet som statlig skadevare (H2025 15, cyberoperasjoner) og hvilket KIT-mål et angrep bryter (generelt). Kan komme som fritekst «forklar forskjellen mellom …».</div>
+
+      <h4>Øving: aktør og motiv</h4>
+      <div id="ov-angrep-1"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-aktorer"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-aktorer"></div>
+    </section>
+
+    <!-- ===================== 2 · PHISHING ===================== -->
+    <section data-panel="phishing">
+      <h3>Sosial manipulering og phishing</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Sosial manipulering</b> er å lure mennesker til å gjøre noe som hjelper angriperen: klikke, gi fra seg passord eller betale.
+        <b>Phishing</b> (nettfisking) er sosial manipulering via e-post, SMS eller nettsider, og er den vanligste angrepsvektoren. Den kombineres gjerne med skadelige vedlegg eller lenker.
+        Kurset skiller fire typer: <b>masse-phishing</b>, <b>spyd-phishing</b>, <b>klone-phishing</b> og <b>direktørsvindel/whaling</b>.</div>
+      <div id="ex-phishing"></div>
+
+      <h4>Hvordan skille typene</h4>
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Type</th><th scope="col">Hvem får den?</th><th scope="col">Kjennes igjen på</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Masse-phishing</th><td>Mange, tilfeldig</td><td>Generell tekst, kjent merkevare, ofte en tjeneste du ikke engang har</td></tr>
+          <tr><th scope="row">Spyd-phishing</th><td>Én person eller en liten gruppe</td><td>Navnet ditt og detaljer om jobb eller studier, ser ut som fra noen du kunne kjent</td></tr>
+          <tr><th scope="row">Klone-phishing</th><td>Noen som har fått en <i>ekte</i> melding</td><td>Nesten identisk kopi av en melding du faktisk har fått, med ny lenke eller nytt vedlegg</td></tr>
+          <tr><th scope="row">Direktørsvindel (whaling)</th><td>Ledere, eller ansatte som får «ordre fra sjefen»</td><td>Høy autoritet, betaling eller sensitive data, hastverk</td></tr>
+        </tbody></table></div>
+
+      <div class="callout eksempel"><span class="lbl">Eksempel: tre e-poster til Jonas i regnskap</span>
+        <ol>
+          <li>«Kontoen din i StrømmeFlix er sperret, bekreft her.» Jonas har aldri hatt StrømmeFlix: <b>masse</b>.</li>
+          <li>«Hei Jonas, takk for praten på bakerimessa i Lillestrøm, her er prislista vi snakket om», med vedlegg: <b>spyd</b>, fordi den bruker ekte detaljer om ham.</li>
+          <li>En kopi av fakturaen fra melleverandøren som Jonas fikk i går, men med nytt kontonummer: <b>klone</b>.</li>
+        </ol>
+        Hadde den tredje kommet «fra daglig leder» med beskjed om å betale straks, ville det vært direktørsvindel.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor masse og ikke klone når meldingen ser ut som fra et kjent firma?</summary>
+          <p>Klone krever at offeret faktisk har fått originalen. Hintet «jeg har aldri hatt tjenesten» (H2022 3.2, H2024 20) sier nettopp at meldingen ikke er en kopi av noe han har fått, og ikke er tilpasset ham.</p></details>
+        <details class="grense"><summary>Hvorfor spyd og ikke masse når hilsenen bruker navnet mitt?</summary>
+          <p>Et flettet navn alene kan være masseutsending. Spyd er det når <i>innholdet</i> er tilpasset deg eller gruppen din, som kurs, eksamen og gruppetimer i H2023 23.</p></details>
+        <details class="grense"><summary>Direktørsvindel eller whaling?</summary>
+          <p>Eksamen bruker dem som ett alternativ. Strengt tatt er whaling phishing <i>mot</i> ledere, mens direktørsvindel er at angriperen <i>utgir seg for</i> en leder. Velg alternativet når toppledelsen er sentral, ellers ikke.</p></details>
+        <ul>
+          <li>«Phishing er et teknisk problem»: kursets hovedtiltak er kultur og opplæring. Tekniske tiltak kommer i tillegg.</li>
+          <li>SMS-kode stopper ikke en god phish, fordi offeret kan gi koden videre. Passnøkler gjør det.</li>
+          <li>Se etter bokstaver som ligner: Apple-eposten i H2024 20 ser ut til å bruke kyrilliske tegn i avsendernavnet, trolig for å slippe gjennom filtre.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-2_1">H2021 2.1</a>: phishingtypene i en matrise.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-3_2">H2022 3.2</a> og <a href="#fane=eksamen&amp;oppg=o-H2024-20">H2024 20</a>: en e-post om en tjeneste mottakeren aldri har hatt. Hintet peker mot masse-phishing.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-23">H2023 23</a>: personlig e-post etter IN2120-eksamen fra ukjent avsender. Trolig spyd-phishing.</li>
+        </ul>
+        De tester om du kan skille typene ut fra hvem meldingen er laget for, og om du leser hintet i oppgaveteksten.</div>
+
+      <h4>Sorter meldingene</h4>
+      <p class="small muted">Trykk på en melding og så på typen (eller dra). Kanalen, e-post, SMS eller telefon, avgjør ikke typen.</p>
+      <div id="angrep-dra-phish"></div>
+
+      <h4>Øving: hvilken type?</h4>
+      <div class="callout eksempel"><span class="lbl">E-posten</span>
+        Fra en ukjent avsender: «Hei Mari! Fint innlegg på seminaret i IN1234 på torsdag. Jeg setter opp en kollokviegruppe før eksamen – meld deg på her:» etterfulgt av en lang, ukjent adresse.</div>
+      <div id="ov-angrep-2"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-phishing"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-phishing"></div>
+    </section>
+
+    <!-- ===================== 3 · SKADEVARE ===================== -->
+    <section data-panel="skadevare">
+      <h3>Skadevare</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Skadevare</b> er programvare laget for å skade, stjele eller ta kontroll. Kurset bruker disse typene:
+        <ul>
+          <li><b>Virus:</b> infiserer andre programmer ved å flette sin egen kode inn i dem, og trenger en vert.</li>
+          <li><b>Dataorm:</b> sprer seg selv over nettet, uten vert og uten at noen klikker (Morris-ormen, SQL Slammer, Mirai).</li>
+          <li><b>Trojaner:</b> utgir seg for å være, eller er faktisk, et nyttig program, men har skjult skadelig innhold.</li>
+          <li><b>Bakdør:</b> en skjult vei forbi vanlig autentisering og tilgangskontroll.</li>
+          <li><b>Logisk bombe:</b> kode som slår til når en betingelse er oppfylt, for eksempel en dato.</li>
+          <li><b>Rootkit:</b> skjuler prosesser, filer og spor, slik at annen skadevare ikke blir oppdaget.</li>
+          <li><b>Løsepengevirus:</b> krypterer offerets data og krever betaling.</li>
+          <li><b>Bott og kryptoutvinningsbott:</b> maskinen fjernstyres som del av et botnett, eller brukes til å utvinne kryptovaluta.</li>
+        </ul></div>
+      <div id="ex-skadevare"></div>
+
+      <h4>Tre spørsmål som skiller typene</h4>
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Spørsmål</th><th scope="col">Typer som svarer på det</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Hvordan sprer den seg?</th><td>Virus (via en vert), dataorm (av seg selv), trojaner (du installerer den selv)</td></tr>
+          <tr><th scope="row">Når slår den til?</th><td>Logisk bombe (når betingelsen er oppfylt)</td></tr>
+          <tr><th scope="row">Hva gjør den?</th><td>Bakdør (vei forbi autentisering), rootkit (skjuler), løsepengevirus (krypterer og krever betaling), bott (fjernstyring, kryptoutvinning)</td></tr>
+        </tbody></table></div>
+
+      <h4>Øving: hva definerer hver type?</h4>
+      <div id="angrep-mat-skadevare"></div>
+
+      <div class="callout eksempel"><span class="lbl">Eksempel: én fil, fem roller</span>
+        Brødkassa AS laster ned et «gratis kassasystemtillegg» som virker fint (<b>trojaner</b>). Det installerer en tjeneste som slipper inn uten passord (<b>bakdør</b>), skjuler tjenesten fra oppgavelista (<b>rootkit</b>) og har en innebygd regel om å kryptere alle filer på nyttårsaften (<b>logisk bombe</b> som utløser <b>løsepengevirus</b>). Samtidig kopierer det seg selv til de andre kassene på lokalnettet (<b>dataorm</b>).</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor dataorm og ikke virus om Morris og SQL Slammer?</summary>
+          <p>De spredte seg selv over nettet, uten vert og uten brukerhandling. Et virus trenger et program å henge seg på.</p></details>
+        <details class="grense"><summary>Hvorfor trojaner og ikke virus om et fungerende antivirus med skadevare inni?</summary>
+          <p>Det som avgjør, er forkledningen som nyttig program, ikke hvordan det smitter.</p></details>
+        <details class="grense"><summary>Hvorfor logisk bombe og ikke virus om skadevare som sletter disken fredag den 13.?</summary>
+          <p>Det avgjørende er utløseren, en betingelse. Tidspunktet er stikkordet.</p></details>
+        <details class="grense"><summary>Hvorfor bakdør og ikke trojaner om et skjult passord programmereren la inn?</summary>
+          <p>Ingenting utgir seg for å være noe annet. Det er en skjult vei forbi autentiseringen.</p></details>
+        <details class="grense"><summary>«Antivirus fant og fjernet den, så maskinen er ren»?</summary>
+          <p>Ikke etter et rootkit: formålet er å skjule, og det kan ligge igjen bakdører. Én oppdaget fil kan fjernes, men et system som har hatt rootkit, må reinstalleres (H2025 19 C).</p></details>
+        <ul>
+          <li>«Løsepengevirus krypterer med SHA-256» er usant. En hash er enveis og har ingen nøkkel (H2022 3.5).</li>
+          <li>Løsepengevirus bryter <b>T</b>.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-19">H2025 19</a> (7p): rootkit-scenario. A) hva det er, B) sjekk spredning og finn inngangsveien, C) nei, reinstaller.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-24">H2023 24</a> = <a href="#fane=eksamen&amp;oppg=o-H2024-21">H2024 21</a>: Morris, antivirus med skadevare, skjult passord, fredag den 13. Bare poengene er endret.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-3_4">H2022 3.4</a>: dataorm, trojaner, bakdør, virus. <a href="#fane=eksamen&amp;oppg=o-H2021-2_5">H2021 2.5</a>: virus, orm, trojaner, drive-by.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-3_5">H2022 3.5</a>: løsepengevirus og SHA-256. <a href="#fane=eksamen&amp;oppg=o-H2021-2_4">H2021 2.4</a>: tiltak mot løsepengevirus.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-25">H2023 25</a> og <a href="#fane=eksamen&amp;oppg=o-H2024-22">H2024 22</a>: dra-og-slipp med trojaner, kryptoutvinningsbott, injeksjon og rootkit.</li>
+        </ul></div>
+
+      <h4>Scenario: rootkit (H2025 19)</h4>
+      <p class="small muted">Velg tiltak steg for steg. Poengene følger sensorveiledningen: A 1p, B 3p, C 3p.</p>
+      <div id="angrep-scen-rootkit"></div>
+
+      <h4>Øving: skadevaretyper</h4>
+      <div id="ov-angrep-3"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-skadevare"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-skadevare"></div>
+    </section>
+
+    <!-- ===================== 4 · ANDRE VEKTORER ===================== -->
+    <section data-panel="vektorer">
+      <h3>Andre angrepsvektorer</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        En <b>angrepsvektor</b> er veien angrepet tar inn i systemet. Ved siden av phishing tar kurset opp:
+        <ul>
+          <li><b>Leveransekjedeangrep:</b> angriperen kompromitterer først en leverandør og bruker så leverandørens produkt eller tjeneste til å nå kundene. Å bare utnytte en <i>utilsiktet</i> svakhet hos en leverandør er ikke et leveransekjedeangrep.</li>
+          <li><b>Ondsinnet USB-enhet</b> som utgir seg for å være et tastatur (HID).</li>
+          <li><b>Deepfake</b> av stemme eller video for å utgi seg for en annen.</li>
+          <li><b>Tjenestenekt (DoS/DDoS) og botnett:</b> hindre legitime brukere i å nå tjenesten, distribuert fra mange kompromitterte maskiner.</li>
+          <li><b>XSS</b> (skripting på tvers av noder): nettsiden lures til å sende angriperens skript videre til andres nettlesere, der det kjøres som om det kom fra siden.</li>
+          <li><b>Drive-by-nedlasting:</b> en nettside sender skadevare til klienten uten at brukeren gjør noe.</li>
+          <li><b>Fysisk tilgang og boot-angrep</b>, <b>mann-i-midten</b>, <b>usikrede IoT-enheter</b> og <b>standardpassord</b>.</li>
+          <li><b>Sidekanal</b> (utilsiktet lekkasje fra den fysiske implementasjonen, som strøm eller tid) og <b>skjult kanal</b> (en mekanisme misbrukes bevisst til å sende informasjon).</li>
+        </ul></div>
+      <div id="ex-vektorer"></div>
+
+      <h4>Vektor og mottiltak</h4>
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Vektor</th><th scope="col">Mottiltak</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Leveransekjede</th><td>Leverandørrisiko i ISMS-et, krav om revisjonsrapporter, varslingsplikt og exit-klausuler, følg med på sårbarheter i tredjepartsprogramvare</td></tr>
+          <tr><th scope="row">USB-enhet</th><td>Blokker ukjente enheter, opplæring</td></tr>
+          <tr><th scope="row">Deepfake</th><td>Ring tilbake på kjent nummer, to personer godkjenner betalinger</td></tr>
+          <tr><th scope="row">DDoS og botnett</th><td>Kapasitet og filtrering hos tilbyder; la ikke egne IoT-enheter bli botter (ingen standardpassord, oppdater)</td></tr>
+          <tr><th scope="row">XSS</th><td>Serveren sender aldri brukerinndata videre som kjørbar kode; filtrer og koder data før de vises</td></tr>
+          <tr><th scope="row">Boot-angrep</th><td>Sikker oppstart (UEFI) og full diskkryptering</td></tr>
+          <tr><th scope="row">Mann-i-midten</th><td>Kryptering med autentisering, som TLS med sertifikatsjekk</td></tr>
+        </tbody></table></div>
+
+      <div class="callout eksempel"><span class="lbl">Eksempel: leveransekjede eller ikke?</span>
+        Brødkassa AS bruker et skybasert regnskapsprogram fra Tallknuser AS. Angripere bryter inn hos Tallknuser og legger en bakdør i neste oppdatering, som Brødkassa installerer automatisk. Det er et <b>leveransekjedeangrep</b>, i to trinn.
+        Hadde Tallknuser bare hatt en vanlig programmeringsfeil som angriperen utnyttet direkte hos Brødkassa, er det <i>ikke</i> et leveransekjedeangrep etter kursets definisjon.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor er ikke en vanlig sårbarhet i leverandørens kode et leveransekjedeangrep?</summary>
+          <p>Kurset krever to trinn: først kompromitteres leverandøren, så brukes den mot kundene.</p></details>
+        <details class="grense"><summary>Hvorfor drive-by og ikke phishing om en nettside som sender skadevare uten klikk?</summary>
+          <p>Phishing krever at noen lures til å handle. Drive-by skjer uten brukerinteraksjon.</p></details>
+        <details class="grense"><summary>Hvorfor phishing om å overtale noen til å installere en keylogger?</summary>
+          <p>Det er å overtale et menneske, altså sosial manipulering (H2022 3.6).</p></details>
+        <ul>
+          <li>Sidekanal er <i>utilsiktet</i> lekkasje, skjult kanal er <i>bevisst</i> misbruk.</li>
+          <li>DDoS bryter <b>T</b>, ikke K eller I.</li>
+          <li>XSS angriper <i>brukerne</i> via serveren, ikke serveren selv.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-3_6">H2022 3.6</a>: angrepsvektor for hvert angrep (drive-by, automatisk spredning, phishing, XSS).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-2_3">H2021 2.3</a>: leveransekjedeangrep, sant eller usant. Nøkkelen er trolig to-trinnsdefinisjonen.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-2_2">H2021 2.2</a>: sidekanal, skjult kanal eller mann-i-midten.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-2_4">H2021 2.4</a>: tiltak mot løsepengevirus for tap av data og personvern.</li>
+        </ul></div>
+
+      <h4>Øving: hvilken vektor?</h4>
+      <div id="ov-angrep-4"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-vektorer"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-vektorer"></div>
+    </section>
+
+    <!-- ===================== 5 · PENTEST SOM METODE ===================== -->
+    <section data-panel="pentest">
+      <h3>Pentest som metode</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        En <b>penetrasjonstest</b> (pentest) er et autorisert, forebyggende sikkerhetstiltak der man etterligner ekte angripere med de samme verktøyene og metodene, for å prøve motstandskraften og finne svakheter før andre gjør det.
+        Den krever <b>skriftlig tillatelse på forhånd</b> fra noen med myndighet til å gi den. Uten tillatelse er det datainnbrudd.
+        <p><b>Straffeloven § 204 med egne ord:</b> den som skaffer seg tilgang til et datasystem, eller en del av det, ved å bryte en beskyttelse eller på en annen uberettiget måte, kan straffes med <b>bot eller fengsel i inntil 2 år</b>. Det er tilgangen i seg selv som er straffbar; man trenger ikke ha ødelagt eller stjålet noe. «Jeg ville bare vise at det gikk» er ingen unnskyldning.</p></div>
+      <div id="ex-pentest"></div>
+
+      <h4>Stadiene i en pentest</h4>
+      <p class="small muted">Sett stadiene i rekkefølge først. Klikk deretter på et stadium i tidslinja (eller bruk piltastene) for hva som skjer, hva forsvareren kan gjøre der, og eksamensoppgavene som hører til.</p>
+      <div id="angrep-sort-faser"></div>
+      <div id="viz-faser"></div>
+
+      <h4>Boksfargene: hvor mye får testeren vite?</h4>
+      <p class="small muted">Fyll ut tabellen og trykk «Sjekk». Kolonnene etter den første er grove sammenligninger fra forelesningen og LF, ikke målte tall. «Gulboks» finnes ikke; den er distraktor på eksamen.</p>
+      <div id="viz-bokser"></div>
+
+      <div class="callout begrep"><span class="lbl">Legalitetsprinsippet (forenklet)</span>
+        En privatperson kan gjøre alt som ikke er forbudt. En ansatt i forvaltningen kan bare gjøre det som er eksplisitt tillatt. Skal en offentlig virksomhet pentestes, må tillatelsen derfor ha tydelig hjemmel hos noen med reell myndighet.</div>
+
+      <div class="callout eksempel"><span class="lbl">Eksempel: avtalen med Brødkassa AS</span>
+        Daglig leder signerer en avtale: mål = finne ut om noen utenfra kan nå kundedatabasen; omfang = nettbutikken og kontornettet, ikke ovnsstyringen; tidsrom = to uker i mars; kontaktperson ved driftsstans.
+        Testeren får en nettverksskisse, men ikke passord eller konfigurasjoner: <b>gråboks</b>. Med full dokumentasjon og tegninger: hvitboks. Med bare firmanavnet: svartboks.
+        Hadde IT-ansvarlig, uten fullmakt fra ledelsen, sagt «test gjerne» muntlig, ville testeren ikke hatt gyldig tillatelse.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor gråboks og ikke hvitboks når testeren får en nettverksskisse?</summary>
+          <p>Hvitboks er <i>all</i> relevant informasjon. «Noe, men ikke alt» er gråboks (H2024 4).</p></details>
+        <details class="grense"><summary>«Pentest uten skriftlig avtale er greit når hensikten er god»?</summary>
+          <p>Nei, det er straffbart etter § 204. Et muntlig ja, eller et ja fra noen uten myndighet, er ikke nok. Tillatelsen må være skriftlig, på forhånd og fra rett person.</p></details>
+        <details class="grense"><summary>«Svartboks er alltid best fordi den er mest realistisk»?</summary>
+          <p>Den ligner mest på en utenforstående, men tar lengre tid og finner ofte færre feil. En ekte angriper har dessuten måneder, mens pentesteren har dager. Med lite budsjett og tid er hvit- eller gråboks ofte bedre.</p></details>
+        <ul>
+          <li>«Gulboks-testing» finnes ikke. Den er distraktor i H2022–H2025.</li>
+          <li>§ 204-svaret må være helt riktig: <b>bøter eller fengsel i inntil to år</b>. «Bøter» alene er feil, og «fem år» eller «ti år» er feil.</li>
+          <li>Rekognosering kommer <i>før</i> innledende tilgang, og rapporten er et eget stadium til slutt. Ikke bland med Cyber Kill Chain (sju trinn, cyberoperasjoner).</li>
+          <li>Pentesteren må bare være stille når deteksjon og respons skal testes.</li>
+          <li>I gevinstfasen vises poenget med usensitive data, ikke ekte kundedata.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>Boksfarger (1p hver): <a href="#fane=eksamen&amp;oppg=o-H2022-4_3">H2022 4.3</a> (all dokumentasjon: hvitboks), <a href="#fane=eksamen&amp;oppg=o-H2023-4">H2023 4</a> (ingen kunnskap: svartboks), <a href="#fane=eksamen&amp;oppg=o-H2024-4">H2024 4</a> (skisse og noe: gråboks), <a href="#fane=eksamen&amp;oppg=o-H2025-4">H2025 4</a> (ingen informasjon: svartboks).</li>
+          <li>§ 204 (1p): <a href="#fane=eksamen&amp;oppg=o-H2022-3_3">H2022 3.3</a> = <a href="#fane=eksamen&amp;oppg=o-H2025-13">H2025 13</a>.</li>
+          <li>Verktøyene i angrepskjeden: <a href="#fane=eksamen&amp;oppg=o-H2023-8">H2023 8</a>, <a href="#fane=eksamen&amp;oppg=o-H2024-8">H2024 8</a>, <a href="#fane=eksamen&amp;oppg=o-H2024-24">H2024 24</a>, <a href="#fane=eksamen&amp;oppg=o-H2025-14">H2025 14</a>. Selve verktøyene tas ikke opp her.</li>
+        </ul></div>
+
+      <h4>Øving: boksfarge</h4>
+      <div id="ov-angrep-5"></div>
+      <h4>Skriveøving: pentestavtalen</h4>
+      <div id="ov-angrep-6"></div>
+      <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
+        <div class="examtask-body">
+          <p><b>A)</b> Tre av disse: målet (hvilke kjerneverdier testen skal prøve å ramme), omfanget (hva som er med og ikke), tidsrommet, kontaktperson ved driftsstans, boksfargen, og hvordan funn skal rapporteres.</p>
+          <p><b>B)</b> Den som gir tillatelsen, må ha myndighet over systemet. Ellers er tilgangen fortsatt uberettiget etter § 204. I forvaltningen må tillatelsen i tillegg ha hjemmel (legalitetsprinsippet).</p>
+        </div></details>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-pentest"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-pentest"></div>
+    </section>
+
+    <!-- ===================== 6 · SQL-INJEKSJON ===================== -->
+    <section data-panel="sqli">
+      <h3>SQL-injeksjon og filtre</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>Injeksjon</b> betyr at data fra brukeren havner i en kommando eller spørring og blir tolket som <i>kode</i> i stedet for som <i>tekst</i>.
+        Ved <b>SQL-injeksjon</b> lures databasespørringen bak et skjema; ved <b>kommandoinjeksjon</b> lures et skall på serveren til å kjøre en ekstra kommando.
+        Mottiltaket er å holde kode og data adskilt: <b>parametriserte spørringer</b>, og i tillegg <b>inputvalidering på serveren</b>.</div>
+      <div id="ex-sqli"></div>
+
+      <h4>Kode mot data</h4>
+      <p class="small muted">Samme tekst i passordfeltet, to måter å lage spørringen på. Velg et eksempel eller skriv selv, og trykk «Spill av». Grønt er data, rødt er brukerens tekst som databasen leser som kode. Eksempelet med anførselstegn i midten er et helt vanlig etternavn.</p>
+      <div id="viz-sql"></div>
+
+      <h4>Hvorfor tegnfiltre ikke holder</h4>
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Filter</th><th scope="col">Hvorfor det ikke holder</th><th scope="col">Eksamen</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Svarteliste på én streng</th><td>Å blokkere akkurat «1==1» stopper ett av uendelig mange uttrykk som alltid er sanne. Et filter som leter etter kjente dårlige strenger, kan alltid omgås med en likeverdig streng.</td><td><a href="#fane=eksamen&amp;oppg=o-H2024-23">H2024 23 B</a></td></tr>
+          <tr><th scope="row">Filter på klienten</th><td>Et skript som kjører hos brukeren, kontrollerer brukeren selv. Hen kan skru det av eller endre forespørselen i en mellomtjener (proxy) etter at filteret har kjørt. Sikkerhetskontroll må skje på serveren.</td><td><a href="#fane=eksamen&amp;oppg=o-H2024-23">H2024 23 C</a></td></tr>
+          <tr><th scope="row">Filter som teller ord</th><td>Filteret og den som leser teksten, tolker den ulikt. Filteret ser etter mellomrom; et menneske leser setningen uansett skilletegn. Angriperen utnytter avstanden.</td><td><a href="#fane=eksamen&amp;oppg=o-H2025-16">H2025 16</a></td></tr>
+        </tbody></table></div>
+
+      <div class="callout eksempel"><span class="lbl">Gjenkjenn typen (H2023 25, H2023 28)</span>
+        <ul>
+          <li>Anførselstegn + «or» + en sammenligning som alltid er sann → <b>SQL-injeksjon</b>.</li>
+          <li><code>&amp;&amp;</code> («og kjør så dette») + en skallkommando → <b>kommandoinjeksjon</b>.</li>
+          <li>Et verktøy som finner åpne porter → <b>kartlegging</b>.</li>
+        </ul></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor parametrisert spørring og ikke bare et filter?</summary>
+          <p>Filteret må gjette alle farlige strenger, og det klarer det aldri. Parametrisering fjerner selve muligheten ved å skille kode og data.</p></details>
+        <details class="grense"><summary>Hvorfor er JavaScript-validering i nettleseren ingen sikkerhetskontroll?</summary>
+          <p>Brukeren styrer klienten. Full uttelling i H2024 23 C krever både «nei», begrunnelsen og at det kan omgås via proxy. Klientvalidering er greit for brukervennlighet, men aldri som eneste kontroll.</p></details>
+        <ul>
+          <li>Inputvalidering er et nyttig ekstra lag, men parametrisering er hovedtiltaket.</li>
+          <li>Kommandoinjeksjon og SQL-injeksjon kommer begge via et tekstfelt. Se på kjennetegnet, ikke på feltet.</li>
+          <li>XSS er også injeksjon, men koden kjører i <i>andres nettleser</i>, ikke i databasen eller skallet.</li>
+          <li>H2025 16 krever <i>to</i> ulike løsninger for å få poenget. Én gir 0.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-23">H2024 23</a> (6p): navngi angrepet, omgå et svartelistefilter med et annet sant uttrykk, og forklar hvorfor klientfilteret ikke holder.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-25">H2023 25</a> (3p): SQL-injeksjon, kommandoinjeksjon og rootkit ut fra strenger og beskrivelser.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-28">H2023 28</a> (4p): kartlegging, kommandoinjeksjon og SQL-injeksjon i en matrise.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-16">H2025 16</a> (1p): lur et ordfilter, to løsninger.</li>
+        </ul></div>
+
+      <h4>Øving: gjenkjenn typen</h4>
+      <div id="ov-angrep-7"></div>
+      <h4>Skriveøving: anførselstegn fjernet i nettleseren</h4>
+      <div id="ov-angrep-8"></div>
+      <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
+        <div class="examtask-body">
+          <p>Nei. Kontrollen kjører hos brukeren og kan omgås: brukeren kan skru av skriptet eller endre forespørselen i en proxy etter at skriptet har kjørt. Bruk parametriserte spørringer på serveren, slik at inndataene alltid behandles som data, med inputvalidering på serveren som et ekstra lag.</p>
+        </div></details>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-sqli"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-sqli"></div>
+    </section>
+
+    <!-- ===================== 7 · OSINT ===================== -->
+    <section data-panel="osint">
+      <h3>OSINT og rekognosering</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>OSINT</b> (Open Source Intelligence) er innsamling og analyse av informasjon fra åpne, offentlig tilgjengelige kilder, for eksempel internett.
+        Det er første steg i rekognoseringen: finn ut mest mulig om virksomheten før du rører systemene dens.</div>
+      <div id="ex-osint"></div>
+
+      <h4>Kilde, hva den kan avsløre, og tiltaket</h4>
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Kilde</th><th scope="col">Kan avsløre</th><th scope="col">Tiltak for forsvareren</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Stillingsannonser</th><td>Produktnavn og versjoner</td><td>Skriv «erfaring med kassasystemer», ikke navn og versjon</td></tr>
+          <tr><th scope="row">Doffin (anskaffelser)</th><td>Systemer som skal kjøpes eller byttes</td><td>Ta med det som må med, ikke mer</td></tr>
+          <tr><th scope="row">LinkedIn og sosiale medier</th><td>Navn, roller, nyansatte, tone</td><td>Retningslinjer og opplæring for hva som deles om jobben</td></tr>
+          <tr><th scope="row">Bilder fra jobb</th><td>Adgangskort, skjermer, tavler</td><td>Vær varsom med hva som er i bakgrunnen</td></tr>
+          <tr><th scope="row">Publiserte dokumenter</th><td>Forfatter, programvare, interne stier (metadata)</td><td>Fjern metadata før publisering</td></tr>
+          <tr><th scope="row">Domene- og IP-registre</th><td>Hvilket adresseområde virksomheten eier</td><td>Hold registerdata og offentlige DNS-oppføringer til det nødvendige</td></tr>
+        </tbody></table></div>
+
+      <div class="callout eksempel"><span class="lbl">Eksempel: én time med åpne kilder</span>
+        En stillingsannonse hos Brødkassa AS søker «driftstekniker med erfaring fra Kassamaster 4.2 og VPN-løsningen TunnelPro». LinkedIn viser at Jonas er ny i regnskap. Et Instagram-bilde fra julebordet viser et adgangskort med logo.
+        På en time vet angriperen hvilket kassasystem og hvilken VPN som brukes (kan slås opp mot kjente sårbarheter), og hvem som er en god mottaker av en falsk faktura.
+        Tiltak: annonsen kunne sagt «erfaring med kassasystemer og VPN», og en enkel retningslinje kunne dekket bildedeling fra jobb.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor kan ikke IDS oppdage OSINT?</summary>
+          <p>Det sendes ingen trafikk til målets systemer. Alt hentes fra tredjeparter og offentlige kilder. Forsvareren kan bare begrense hva som ligger ute.</p></details>
+        <details class="grense"><summary>Er OSINT ulovlig hacking?</summary>
+          <p>Innsamling fra åpne kilder er ikke datainnbrudd etter § 204, fordi ingen beskyttelse brytes. Personvernregler kan likevel gjelde for hvordan opplysningene brukes, men det er ikke pensum her.</p></details>
+        <ul>
+          <li>Forkortelsen er <b>Open Source Intelligence</b>, ikke «Information» eller «Online Search».</li>
+          <li>«Open source» betyr her <i>åpne kilder</i>, ikke åpen kildekode.</li>
+          <li>H2025 18 B vil ha <i>to</i> nyttige formål. Phishingmateriale og å kartlegge teknologien er sikre svar.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-17">H2025 17</a> (1p): skriv ut forkortelsen. Noen skrivefeil godtas.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-18">H2025 18</a> (3p): A) hva OSINT er, B) to formål.</li>
+        </ul></div>
+
+      <h4>Øving: hva er OSINT?</h4>
+      <p>Hvilke av disse er OSINT? Kryss av alle som passer.</p>
+      <div id="ov-angrep-9"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-osint"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-osint"></div>
+    </section>
+
+    <!-- ===================== 8 · SUDO OG LOGGER ===================== -->
+    <section data-panel="sudo">
+      <h3>Rettigheter, sudo og logganalyse</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        Et program, også skadevare, kjører med rettighetene til brukeren eller prosessen som starter det. <b>Privilegieeskalering</b> er å gå fra lav til høyere tilgang, for eksempel fra vanlig bruker til root.
+        <b>sudo</b> lar en bruker kjøre bestemte programmer som root. Tillater sudo-oppsettet et program som kan starte andre programmer eller lese og skrive vilkårlige filer, har brukeren i praksis root.
+        <b>Logganalyse</b> er å lese hendelseslogger for å skille angrep fra vanlig støy.</div>
+      <div id="ex-sudo"></div>
+
+      <h4>Sudo-regelen fra forsvarerens side</h4>
+      <div class="table-wrap"><table class="an-tab">
+        <thead><tr><th scope="col">Hva programmet med sudo kan gjøre</th><th scope="col">Konsekvens</th><th scope="col">Tiltak</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Starte andre programmer (en tolk som python3, mange redigeringsprogram)</th><td>Et skall som arver root</td><td rowspan="3">Fjern regelen. Gi i stedet tilgang til et eget skript med faste argumenter for den ene oppgaven. Gå jevnlig gjennom sudo-oppsettet, og logg sudo-bruk.</td></tr>
+          <tr><th scope="row">Lese vilkårlige filer (et filleseprogram som cat)</th><td>Passordhashene i <code>/etc/shadow</code> kan hentes ut og knekkes offline; andres filer og SSH-nøkler kan leses</td></tr>
+          <tr><th scope="row">Skrive vilkårlige filer</th><td>Endre sudo-oppsettet, lage en ny root-bruker, endre root-passordet</td></tr>
+        </tbody></table></div>
+
+      <h4>Finn feilen i sudo-oppsettet</h4>
+      <div id="angrep-feil-sudo"></div>
+
+      <h4>Logganalyse: fire mønstre</h4>
+      <p class="small muted">Gjenskapte logger med egne data. Velg en logg, se på tellerne og bestem hva den viser.</p>
+      <div id="viz-logg"></div>
+
+      <div class="callout eksempel"><span class="lbl">H2023 26 vurdert med egne ord</span>
+        Loggen i <a href="#fane=eksamen&amp;oppg=o-H2023-26">H2023 26</a> viser mange ulike passord mot én konto (admin) fra én adresse, og fasiten er «Passordspraying».
+        Etter kursets egen definisjon er spraying <i>ett</i> passord mot <i>mange</i> brukere, nettopp for å unngå sperring. Mange passord mot én konto kalles vanligvis uttømmende søk eller ordlisteangrep, så fasiten er omdiskutert.
+        Den er likevel det eneste passordangrepet blant valgene (kommandoinjeksjon, falsk alarm, SQL-injeksjon), så på eksamen er «Passordspraying» det forventede svaret der. I fritekst: bruk riktig ord, og forklar gjerne forskjellen. H2024 3 bruker den samme løse ordbruken.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor gir sudo-tilgang til <i>cat</i> root-tilgang når cat bare viser filer?</summary>
+          <p>Den kan lese <code>/etc/shadow</code>. Hashene kan knekkes og gi root-passordet eller andres passord. Tilgangen er indirekte, men reell (H2023 29).</p></details>
+        <details class="grense"><summary>Hvorfor er sudo-tilgang til et «ufarlig» verktøy som python3 farlig?</summary>
+          <p>En tolk kan kjøre hva som helst, også et skall, og det skallet arver root (H2022 4.4).</p></details>
+        <details class="grense"><summary>«Skadevare jeg kjører, får alltid root fordi kontoen min har sudo»?</summary>
+          <p>Bare hvis den startes via sudo. Ellers får den brukerens rettigheter (H2023 22). I Windows med administratorkonto og UAC av får den administratorrettigheter (H2022 3.1).</p></details>
+        <ul>
+          <li>Passordspraying er <i>ikke</i> mange passord mot én bruker. Det er motsatt.</li>
+          <li><code>/etc/passwd</code> er lesbar for alle, men inneholder ikke hashene på moderne Linux. De ligger i <code>/etc/shadow</code>, som krever root.</li>
+          <li>Svar <i>to</i> måter i sudo-oppgavene, med én til to setninger per måte.</li>
+          <li>Angriperen trenger ingen egen skadevare, bare systemets egne programmer («live off the land»).</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-4_4">H2022 4.4</a> (5p): sudo med python3. <a href="#fane=eksamen&amp;oppg=o-H2023-29">H2023 29</a> (5p): sudo med cat. Sensors fasit med (pseudo)kode står i bankkortet.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-3_1">H2022 3.1</a> og <a href="#fane=eksamen&amp;oppg=o-H2023-22">H2023 22</a>: hvilke rettigheter skadevaren får.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-26">H2023 26</a>: logganalyse, se vurderingen over.</li>
+        </ul></div>
+
+      <h4>Øving: hva viser loggen?</h4>
+      <div class="callout eksempel"><span class="lbl">Loggen</span>
+        400 linjer «drift – feil passord» fra adressen 203.0.113.9 mellom 03:10 og 03:12.</div>
+      <div id="ov-angrep-10"></div>
+      <h4>Skriveøving: sudo og et redigeringsprogram</h4>
+      <div id="ov-angrep-11"></div>
+      <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
+        <div class="examtask-body">
+          <p><b>A)</b> To av disse: redigere sudo-oppsettet slik at kontoen får full tilgang; lese eller endre <code>/etc/shadow</code> (hente ut hashene, eller endre root-passordet); mange redigeringsprogram kan også starte et skall, som da arver root.</p>
+          <p><b>B)</b> Fjern regelen. Gi i stedet tilgang til et eget skript som gjør den ene oppgaven med faste argumenter. Gå gjennom og logg sudo-bruken.</p>
+        </div></details>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-sudo"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-sudo"></div>
+    </section>
+
+    <!-- ===================== EKSAMEN ===================== -->
+    <section data-panel="eksamen">
+      <h3>Eksamensoppgaver</h3>
+      <p class="muted small">Oppgavene om angrep, skadevare og pentest fra eksamenene i banken, nyeste først. H2021: oppgaveteksten er bare delvis tilgjengelig, så fasiten er usikker der.</p>
+      <div id="bank-angrep"></div>
+    </section>
+  </main>
+
+  <footer class="footer">IN2120-guide · Blokk 4 · Angrep, skadevare og pentest · <a href="index.html">Til forsiden</a></footer>
+
+  <script src="assets/js/core.js?v=20261125f"></script>
+  <script src="assets/js/symboler.js?v=20261125f"></script>
+  <script src="assets/js/pseudocode.js?v=20261125f"></script>
+  <script src="assets/js/stepplayer.js?v=20261125f"></script>
+  <script src="assets/js/varline.js?v=20261125f"></script>
+  <script src="assets/js/inspera.js?v=20261125f"></script>
+  <script src="assets/js/dra.js?v=20261125f"></script>
+  <script src="assets/js/ovelse.js?v=20261125f"></script>
+  <script src="assets/js/bank.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
+  <script src="assets/js/viz-angrep.js?v=20261125f"></script>
+  <script>
+  (function () {
+    "use strict";
+    var IN = window.IN;
+    function safe(navn, fn) { try { fn(); } catch (e) { if (window.console) console.error("[04-angrep] " + navn, e); } }
+
+    /* ---------- Forklaringer på tre nivåer ---------- */
+    var EX = {
+      "ex-aktorer": {
+        eli5: "<p>Tenk på dem som vil inn i et hus. Noen er nysgjerrige unger som prøver alle dører. Noen er tyver som vil ha penger og jobber i gjeng. Og noen er spioner sendt av et annet land, med god tid, mye utstyr og ett bestemt hus de vil inn i.</p><p>Så finnes det folk som allerede har nøkkel, fordi de bor der.</p>",
+        normal: "<p>Amatøren drives av nysgjerrighet, ideologi eller ønsket om å vise seg fram. Hen har få ressurser, bruker gratis verktøy og forum, og kompetansen varierer mye. Den cyberkriminelle vil tjene penger, selv eller på bestilling, jobber ofte i grupper og har råd til dyrere utstyr. APT-en har politiske og langsiktige mål som spionasje og påvirkning, statlige midler og spesialiserte roller.</p><p>Uansett nivå vil en ondsinnet aktør lese (K), endre eller så tvil om (I) eller fjerne og kryptere (T) informasjon, eller bruke maskinene dine, for eksempel til å utvinne kryptovaluta.</p>",
+        teknisk: "<p>Nivået sier noe om hvor mye angriperen tåler å bruke på akkurat deg. Opportunistiske angrep prøver alle og tar dem som er lettest; mot dem hjelper grunnleggende hygiene: oppdatering, sterke passord, ingen standardpassord. Målrettede angrep fra en APT kan bruke måneder og nulldagssårbarheter, og er stille fordi de vil ha vedvarende tilgang. Mot dem trengs i tillegg deteksjon og respons: logger, IDS og evnen til å oppdage avvik.</p><p>Innsideren omgår perimeterforsvaret fordi hen allerede er innenfor. Tiltakene er bakgrunnssjekk, sikkerhetsklarering, minst mulig tilgang og logging. Aktørens samlede arbeidsmåte (TTP) er vanskelig å endre og brukes til å spore dem (cyberoperasjoner).</p>"
+      },
+      "ex-phishing": {
+        eli5: "<p>Noen later som de er noen du stoler på, og prøver å få deg til å gjøre noe fort, uten å tenke.</p><p>Det kan være en lapp til alle i gata («du har vunnet!»), et brev skrevet bare til deg med navnet ditt og ting du bryr deg om, eller en kopi av et ekte brev du fikk i går, der bare kontonummeret er byttet.</p>",
+        normal: "<p>En god phish spiller på noe du vil vite, noe du vil ha, noe du <i>ikke</i> vil ha (en sperret konto, en regning), og på stress, fordi stressede folk gjør flere feil. I en pentest gir phishing ofte den første brukertilgangen.</p><p>Kjennetegn: hastverk, trussel om sperring, lenker der teksten og adressen ikke stemmer, en avsender som nesten ligner, en generell hilsen ved masseutsending, eller påfallende personlige detaljer ved spyd-phishing.</p>",
+        teknisk: "<p>Phishing angriper mennesket, ikke koden, så tekniske filtre tar bare en del. Kursets forsvar er sikkerhetskultur og opplæring, og en kultur der folk <i>ikke</i> er redde for å si fra når de har klikket: tidlig varsling begrenser skaden.</p><p>Tekniske lag kommer i tillegg: e-postfiltrering, merking av ekstern avsender, flerfaktor og særlig passnøkler. Passnøkler er phishing-resistente fordi nøkkelen er bundet til domenet og ikke virker på en falsk side. Nye varianter bruker deepfake-stemme og -video for å utgi seg for en kjent person.</p>"
+      },
+      "ex-skadevare": {
+        eli5: "<p>Et virus er som en lus som må sitte på noen for å flytte seg. En orm kryper selv fra hus til hus. En trojaner er en gave med noe ekkelt inni. En bakdør er en hemmelig dør byggmesteren lagde for seg selv.</p><p>En logisk bombe er en vekkerklokke som starter ødeleggelsen på en bestemt dag. Et rootkit er en kappe som gjør tyven usynlig. Løsepengevirus låser skuffene dine og selger deg nøkkelen.</p>",
+        normal: "<p>Typene beskriver <i>hvordan</i> skadevaren sprer seg (virus via vert, orm av seg selv, trojaner ved at du installerer den), <i>når</i> den slår til (logisk bombe) eller <i>hva</i> den gjør (bakdør, rootkit, løsepenger, kryptoutvinning). Én og samme skadevare kan derfor være flere ting.</p><p>Skadevaren får rettighetene til brukeren eller prosessen som kjører den. Derfor er det et viktig tiltak at vanlige brukere ikke har administratorrettigheter, også mot løsepengevirus.</p>",
+        teknisk: "<p>Fra forsvarerens side er spørsmålet hva man kan stole på etter en infeksjon. Et rootkit ligger ofte med høye rettigheter og kan få systemet til å lyve om hvilke filer og prosesser som finnes. Logger og verktøy på samme maskin kan derfor vise «ingenting». Riktig respons er å sjekke om andre maskiner er rammet, finne ut hvordan skadevaren kom inn, og reinstallere maskinen fra en kjent god kilde.</p><p>Mot løsepengevirus er sikkerhetskopi som angriperen ikke kan nå (frakoblet eller uforanderlig), det som redder tilgjengeligheten. Løsepengevirus krypterer med vanlig kryptografi (symmetrisk, gjerne med en asymmetrisk nøkkel som beskytter nøkkelen). SHA-256 er en hashfunksjon og kan ikke brukes til å kryptere noe som skal kunne leses igjen.</p>"
+      },
+      "ex-vektorer": {
+        eli5: "<p>Det finnes mange dører inn. Du kan lure vaktmesteren (phishing), gjemme deg i en vareleveranse (leveransekjede), late som du er sjefen på telefonen (deepfake), gi noen en «minnepinne» som egentlig er et tastatur (USB), eller stille så mange utenfor døra at kundene ikke kommer inn (DDoS).</p>",
+        normal: "<p>Leveransekjedeangrep er farlige fordi kundene selv installerer det skadelige, og fordi én leverandør kan ha tusenvis av kunder. SolarWinds Orion og Kaseya VSA er kursets eksempler.</p><p>Et botnett er maskiner med bott-skadevare under felles kommando og kontroll. Mirai brukte usikrede IoT-enheter til å slå ut en stor DNS-tilbyder i 2016. XSS bruker en sårbar nettside som springbrett mot brukerne; skriptet kjører med brukerens rettigheter på siden.</p>",
+        teknisk: "<p>Mottiltakene følger veien inn. Leveransekjede: ta leverandørrisiko inn i ISMS-et, krev revisjonsrapporter, varslingsplikt og exit-klausuler, og følg med på sårbarheter i tredjepartsprogramvare. USB: blokker ukjente enheter. Deepfake: ring tilbake på kjent nummer og krev to personer for betalinger.</p><p>DDoS: kapasitet og filtrering hos tilbyder, og ikke la egne IoT-enheter bli botter. XSS: serveren må aldri sende brukerinndata videre som kjørbar kode. Boot-angrep: sikker oppstart og full diskkryptering. Mann-i-midten: kryptering med autentisering (TLS med sertifikatsjekk), som også hindrer nedgraderingsangrep.</p>"
+      },
+      "ex-pentest": {
+        eli5: "<p>En pentester er en innbruddstyv du har <i>ansatt</i> for å finne ut hvor huset ditt er lett å bryte seg inn i.</p><p>Forskjellen på en pentester og en tyv er avtalen: uten et skriftlig ja fra huseieren på forhånd er det bare innbrudd.</p>",
+        normal: "<p>Testen går gjennom stadier: planlegging med virksomheten, rekognosering, innledende tilgang, utvide tilgangen, sikre fotfeste, gevinst og rapport. I planleggingen avtaler man mål (hvilke kjerneverdier testen skal prøve å ramme), omfang og hvor mye informasjon testeren får.</p><p>Det siste gir boksfargen: <b>svartboks</b> = ingen informasjon på forhånd, <b>hvitboks</b> = all relevant informasjon, <b>gråboks</b> = noe, men ikke alt. «Gulboks» finnes ikke.</p>",
+        teknisk: "<p>Pentesteren skiller seg fra den ondsinnede ved motiv, stillhet og tid. Den ondsinnede vil ha vedvarende tilgang og ikke bli sett, nøyer seg med én eller to veier inn, men kan bruke måneder og år. Pentesteren har dager til uker, trenger ikke være stille (med mindre deteksjon og respons skal testes) og vil finne <i>alle</i> feilene.</p><p>Fordi innledende tilgang er det vanskeligste og mest tidkrevende, bør oppdragsgiveren gi en vanlig brukerkonto hvis testeren ikke kommer inn raskt. Kartlegging kan gjøres fra utsiden, fra en kompromittert server (for eksempel i DMZ) og fra innsiden, og svaret blir ulikt. Underveis tenker testeren «hva om …?» der utvikleren tenker «hva vil kunden?»; systematisk utprøving av rare inndata kalles fuzzing. I gevinstfasen vises at kjerneverdiene kan rammes, uten å gjøre skade. Rapporten er produktet kunden betaler for.</p>"
+      },
+      "ex-sqli": {
+        eli5: "<p>Tenk deg en lapp til bibliotekaren: «Hent boka som heter ___». Noen skriver ikke en tittel i ruta, men en ekstra beskjed. Bibliotekaren leser hele lappen som én beskjed og gjør begge deler.</p><p>Løsningen er et skjema der tittelen står i en egen rute som bibliotekaren <i>bare</i> leser som en tittel, uansett hva som står der.</p>",
+        normal: "<p>Et sårbart innloggingsskjema setter brukerens tekst rett inn i en SQL-spørring. Et anførselstegn i inndataene avslutter tekstfeltet i spørringen, og resten tolkes som SQL. Legges det til «or» og et uttrykk som alltid er sant, blir hele betingelsen sann, og databasen svarer «ja» uten at passordet stemmer. Eksamensstrengen <code>a' or 1==1</code> (H2024 23) viser nettopp dette mønsteret.</p><p>Kommandoinjeksjon er samme idé mot skallet: <code>&amp;&amp;</code> betyr «og kjør så dette», så en streng med <code>&amp;&amp;</code> og en ekstra kommando avslører den typen.</p>",
+        teknisk: "<p>Roten er at programmet <i>bygger</i> spørringen ved å lime sammen tekst. Med en parametrisert spørring sendes strukturen (med plassholdere) og verdiene hver for seg, og databasen behandler verdien alltid som data. Da er et anførselstegn bare et tegn i et passord, og injeksjonen forsvinner uansett hvor lur strengen er.</p><p>Inputvalidering på serveren (tillat bare forventet type, lengde og tegnsett) er et ekstra lag, ikke en erstatning. Andre lag: databasekontoen appen bruker, skal ha minst mulig rettigheter, og feilmeldinger skal ikke vise databasedetaljer. Samme prinsipp gjelder kommandoinjeksjon: ikke send brukerdata til et skall, men bruk programmets egne funksjoner med argumentene adskilt. Passord skal dessuten lagres som saltet hash (autentisering).</p>"
+      },
+      "ex-osint": {
+        eli5: "<p>Før en tyv bryter seg inn, går hen forbi huset, ser hvem som bor der, når de drar på jobb og om det står en stige i hagen. Alt dette kan sees fra gata, uten å gjøre noe ulovlig.</p><p>OSINT er den samme speidingen, bare på nettet.</p>",
+        normal: "<p>Kildene i kurset er søkemotorer, virksomhetens egne nettsider, Doffin (offentlige anskaffelser), stillingsannonser, LinkedIn, Facebook, Instagram, nettaviser og kart, pluss å speide i området rundt. Offentlige registre over domener og IP-adresser viser hvilket adresseområde virksomheten eier.</p><p>Nytten er særlig to ting: materiale til troverdig phishing (navn, roller, tone, aktuelle prosjekter) og kartlegging av hvilken teknologi virksomheten bruker.</p>",
+        teknisk: "<p>OSINT er <i>passiv</i>: angriperen sender ingenting til målets systemer, så det blir ingen spor i målets logger. Forsvareren kan derfor ikke oppdage det, bare begrense hva som ligger ute: gjør OSINT på deg selv jevnlig, skriv annonser og anbudsdokumenter uten unødvendige produktnavn og versjoner, fjern metadata fra publiserte dokumenter, og ha retningslinjer og opplæring for hva ansatte deler.</p><p>Noe <i>må</i> være offentlig (Doffin, organisasjonskart i forvaltningen), så målet er å begrense eksponeringen, ikke å forsvinne. Fordi OSINT særlig mater spyd-phishing, er opplæring også et OSINT-tiltak.</p>"
+      },
+      "ex-sudo": {
+        eli5: "<p>Sudo er som å gi vaktmesteren en hovednøkkel, men bare «til vaskerommet». Har vaskerommet en dør videre til alle de andre rommene, har du egentlig gitt ham nøkkel til hele huset.</p><p>Loggen er vaktboka: står det at én person har prøvd hundre nøkler på samme dør på fem minutter, er det ikke en som har glemt nøkkelen sin.</p>",
+        normal: "<p>Skadevare du kjører som administrator med UAC skrudd av, får administratorrettigheter. Kjører du den som vanlig bruker, får den brukerens rettigheter, og den blir root bare hvis den startes via sudo. Derfor er minste privilegium et kjernetiltak.</p><p>To typiske feilkonfigurasjoner fra eksamen: en programmeringsspråktolk med sudo kan starte et root-skall direkte, og et filleseprogram med sudo kan lese passordhashene, som så kan knekkes offline. Angriperen trenger ingen egen skadevare, bare systemets egne programmer.</p>",
+        teknisk: "<p>Forsvaret er å behandle hver sudo-regel som en root-tilgang. Tillat bare de konkrete oppgavene som trengs, helst egne skript med faste argumenter, aldri tolker, redigeringsprogram, skall eller generelle filverktøy. Gå jevnlig gjennom oppsettet, og logg og overvåk sudo-bruk.</p><p>Hold <code>/etc/shadow</code> utilgjengelig for andre enn root. Sterke, unike passord gjør at stjålne hasher er lite verdt, og at gjenbruk ikke gir tilgang til nye maskiner. I loggene skiller to tall mønstrene: <b>forsøk per bruker</b> og <b>antall brukere</b>. Mange mot én er gjetting mot én konto, én mot mange er spraying, og feil fulgt av ok på samme konto er mulig kompromittering.</p>"
+      }
+    };
+    Object.keys(EX).forEach(function (id) {
+      safe(id, function () { IN.explain("#" + id, EX[id], { label: "Forklaring:" }); });
+    });
+
+    /* ---------- Visualiseringer ---------- */
+    safe("angrep-sort-faser", function () { IN.angrep.faserSort("#angrep-sort-faser"); });
+    safe("viz-faser", function () { IN.angrep.faser("#viz-faser"); });
+    safe("viz-bokser", function () { IN.angrep.bokser("#viz-bokser"); });
+    safe("angrep-dra-phish", function () { IN.angrep.phishing("#angrep-dra-phish"); });
+    safe("angrep-mat-skadevare", function () { IN.angrep.skadevare("#angrep-mat-skadevare"); });
+    safe("angrep-scen-rootkit", function () { IN.angrep.rootkit("#angrep-scen-rootkit"); });
+    safe("angrep-feil-sudo", function () { IN.angrep.sudo("#angrep-feil-sudo"); });
+    safe("viz-sql", function () { IN.angrep.sql("#viz-sql"); });
+    safe("viz-logg", function () { IN.angrep.logg("#viz-logg"); });
+
+    /* ---------- Flervalg ---------- */
+    var QUIZ = {
+      aktorer: [
+        { q: "Hva kjennetegner særlig en APT?", options: ["Tilfeldige ofre", "Langsiktige, ofte politiske mål og statlige ressurser", "Bare gratisverktøy", "Alltid løsepenger"], answer: 1,
+          explain: "APT er nivå 3: tålmodig, ressurssterk og ofte statlig." },
+        { q: "En aktør tar oppdrag mot betaling og jobber i en gruppe. Hvilket nivå?", options: ["Amatør", "Cyberkriminell", "APT", "Innsider"], answer: 1,
+          explain: "Bestillingsoppdrag og samarbeid er nivå 2." },
+        { q: "Hvilket angrep er typisk opportunistisk?", options: ["Spionasje mot én utviklingsavdeling", "Automatisk prøving av standardpassord mot alle IP-kameraer på nettet", "En påvirkningsoperasjon mot et valg", "En langvarig bakdør hos én leverandør"], answer: 1,
+          explain: "Opportunistisk betyr at angriperen prøver seg på alle og tar de letteste." },
+        { q: "Hva er viktigst spesielt mot innsidere?", options: ["Sterkere brannmur", "TLS", "Minste privilegium, bakgrunnssjekk og logging", "NAT"], answer: 2,
+          explain: "Perimeteren hjelper ikke mot dem som allerede er inne." }
+      ],
+      phishing: [
+        { q: "En melding kopierer en ekte pakkevarsling du fikk i går, men lenken er byttet. Hvilken type?", options: ["Masse", "Spyd", "Klone", "Whaling"], answer: 2,
+          explain: "Klone krever en ekte original som offeret faktisk har fått." },
+        { q: "Hva er kursets viktigste forsvar mot phishing?", options: ["Antivirus", "Brannmur", "Sikkerhetskultur og opplæring", "NAT"], answer: 2,
+          explain: "Phishing angriper mennesket. Tekniske tiltak kommer i tillegg." },
+        { q: "Hvorfor virker stress i en phish?", options: ["Det omgår filteret", "Stressede folk gjør flere feil", "Det krypterer meldingen", "Det skjuler avsenderen"], answer: 1,
+          explain: "Hastverk og trusler skal få deg til å handle før du tenker." },
+        { q: "Hvilken autentisering er phishing-resistent?", options: ["SMS-kode", "Passord og sikkerhetsspørsmål", "Passnøkkel (FIDO)", "Engangskode på e-post"], answer: 2,
+          explain: "Passnøkkelen er bundet til domenet og virker ikke på en falsk side." },
+        { q: "Hva er den vanligste angrepsvektoren?", options: ["USB", "Phishing", "Leveransekjede", "DDoS"], answer: 1,
+          explain: "Phishing, ofte med skadelige vedlegg eller lenker." }
+      ],
+      skadevare: [
+        { q: "Hva skiller en dataorm fra et virus?", options: ["Ormen krypterer", "Ormen sprer seg selv uten vert", "Viruset sprer seg over nett", "Ingen forskjell"], answer: 1,
+          explain: "Viruset trenger et program å flette seg inn i." },
+        { q: "Hva er hovedformålet med et rootkit?", options: ["Kreve løsepenger", "Skjule prosesser og spor", "Sende spam", "Knekke passord"], answer: 1,
+          explain: "Rootkitet skjuler annen skadevare og seg selv." },
+        { q: "Hva bør gjøres med en maskin som har hatt et rootkit?", options: ["Kjøre antivirus igjen", "Restarte den", "Reinstallere fra kjent god kilde", "Bytte passord og fortsette"], answer: 2,
+          explain: "Man kan ikke stole på det systemet sier om seg selv, og det kan ligge igjen bakdører." },
+        { q: "Hvilket tiltak beskytter best tilgjengeligheten mot løsepengevirus?", options: ["TLS", "Sikkerhetskopi angriperen ikke når", "Sterkere passord", "SHA-256 på alle filer"], answer: 1,
+          explain: "Frakoblet eller uforanderlig sikkerhetskopi lar deg gjenopprette uten å betale." },
+        { q: "Skadevare bruker mye CPU hele tiden for å tjene penger til angriperen. Hva kalles den i H2024 22?", options: ["Rootkit", "Logisk bombe", "Kryptoutvinningsbott", "Exploit"], answer: 2,
+          explain: "Angriperen vil ha maskinkraften din, ikke dataene." }
+      ],
+      vektorer: [
+        { q: "Hva kreves for at noe skal være et leveransekjedeangrep i kurset?", options: ["At leverandøren er utenlandsk", "At leverandøren først kompromitteres og så brukes mot kundene", "At det brukes løsepengevirus", "At det skjer i skyen"], answer: 1,
+          explain: "To trinn: leverandøren først, så kundene." },
+        { q: "Hva er en ondsinnet USB-enhet som ser ut som en minnepinne, ofte satt opp som?", options: ["Nettverkskort", "Tastatur (HID)", "Skjerm", "Harddisk med virus"], answer: 1,
+          explain: "Maskinen stoler på tastaturer, og enheten «skriver» det angriperen vil." },
+        { q: "Hva hindrer boot-angrep ved fysisk tilgang?", options: ["Antivirus", "Brannmur", "Sikker oppstart og full diskkryptering", "Sterkere passord"], answer: 2,
+          explain: "Uten nøkkelen er disken uleselig, og sikker oppstart nekter ukjent oppstartskode." },
+        { q: "Hva er XSS?", options: ["Et angrep på databasen", "Nettsiden lures til å sende angriperens skript til andre brukeres nettlesere", "Overbelastning", "Avlytting av Wi-Fi"], answer: 1,
+          explain: "XSS angriper brukerne via serveren." }
+      ],
+      pentest: [
+        { q: "Du får full systemdokumentasjon og nettverkstegninger. Testtype?", options: ["Gråboks", "Hvitboks", "Svartboks", "Gulboks"], answer: 1,
+          explain: "All relevant informasjon er hvitboks." },
+        { q: "Strafferammen i straffeloven § 204?", options: ["Bøter", "Bøter eller fengsel i inntil to år", "Fengsel i inntil fem år", "Bøter eller fengsel i inntil ti år"], answer: 1,
+          explain: "Bot eller fengsel i inntil 2 år. Tilgangen i seg selv er straffbar." },
+        { q: "Hvilket stadium kommer rett etter rekognosering?", options: ["Rapport", "Innledende tilgang", "Gevinst", "Sikre fotfeste"], answer: 1,
+          explain: "Først finn ut mest mulig, så den første foten innenfor." },
+        { q: "Hvorfor får testeren ofte en vanlig brukerkonto?", options: ["For å gjøre testen lovlig", "Innledende tilgang er vanskeligst og tar tid, og testen er kort", "Fordi administratorkontoer er forbudt", "For å slippe rapporten"], answer: 1,
+          explain: "Det sparer tid og gir flere funn." },
+        { q: "Hva skiller mest en pentester fra en ondsinnet hacker?", options: ["Verktøyene", "Tillatelsen og motivet", "Ferdighetene", "Operativsystemet"], answer: 1,
+          explain: "Verktøy og ferdigheter er ofte de samme." }
+      ],
+      sqli: [
+        { q: "Hva er hovedtiltaket mot SQL-injeksjon?", options: ["Blokkere ordet «or»", "Et klientskript", "Parametriserte spørringer", "HTTPS"], answer: 2,
+          explain: "Parametrisering holder kode og data adskilt." },
+        { q: "En utvikler blokkerer strengen «1==1». Hvorfor hjelper det lite?", options: ["Det gjør databasen treg", "Det finnes uendelig mange andre sanne uttrykk", "Filteret krypterer ikke", "SQL har ikke =="], answer: 1,
+          explain: "En svarteliste kan alltid omgås med en likeverdig streng." },
+        { q: "Hvorfor er et filter i nettleseren ingen god løsning?", options: ["Det er tregt", "Brukeren kontrollerer det og kan omgå det, for eksempel via en proxy", "Nettlesere kan ikke kjøre skript", "Det bryter § 204"], answer: 1,
+          explain: "Sikkerhetskontroll må skje på serveren." },
+        { q: "Hvilken type er en streng med <code>&amp;&amp;</code> og en ekstra kommando, sendt i et filnavnfelt?", options: ["SQL-injeksjon", "Kommandoinjeksjon", "XSS", "Fuzzing"], answer: 1,
+          explain: "<code>&amp;&amp;</code> lenker en ekstra kommando i skallet." }
+      ],
+      osint: [
+        { q: "Hva står OSINT for?", options: ["Open Source Internet", "Open Source Intelligence", "Online Security Intelligence", "Open System Integration"], answer: 1,
+          explain: "Etterretning fra åpne kilder." },
+        { q: "Hvilken kilde nevnes i kurset for offentlige anskaffelser?", options: ["Brønnøysund", "Doffin", "RIPE", "Altinn"], answer: 1,
+          explain: "Doffin viser hva offentlige virksomheter skal kjøpe." },
+        { q: "Hvorfor er OSINT vanskelig å oppdage for målet?", options: ["Den er kryptert", "Den sender ingenting til målets systemer", "Den bruker VPN", "Den skjer om natta"], answer: 1,
+          explain: "Alt hentes fra tredjeparter og offentlige kilder." },
+        { q: "Hvilket tiltak begrenser OSINT-eksponering?", options: ["Sterkere brannmur", "Stillingsannonser uten produktnavn og versjoner", "TLS 1.3", "Lengre passord"], answer: 1,
+          explain: "Mindre teknologidetaljer ute gir angriperen mindre å slå opp." }
+      ],
+      sudo: [
+        { q: "Du kjører skadevare med administratorkontoen din, og UAC er av. Hvilke rettigheter får den?", options: ["Gjest", "Bruker", "Administrator", "Power user"], answer: 2,
+          explain: "Skadevaren arver rettighetene til prosessen som starter den." },
+        { q: "Hvorfor er sudo-tilgang til en programmeringsspråktolk farlig?", options: ["Den er treg", "Den kan starte et skall som arver root", "Den krypterer filer", "Den sletter loggen automatisk"], answer: 1,
+          explain: "En tolk kan kjøre hva som helst." },
+        { q: "Loggen viser ett forsøk per bruker mot 300 brukere fra samme adresse. Hva er det?", options: ["Uttømmende søk mot én bruker", "Passordspraying", "SQL-injeksjon", "Falsk alarm"], answer: 1,
+          explain: "Ett passord mot mange brukere." },
+        { q: "Hvilket tiltak er viktigst mot misbruk av sudo?", options: ["Lengre passord på root", "Tillat bare konkrete, avgrensede oppgaver, aldri tolker eller generelle filverktøy", "Slå av logging", "Gi alle sudo"], answer: 1,
+          explain: "Hver sudo-regel er i praksis en root-tilgang." },
+        { q: "Hvorfor er spraying «tryggere» for angriperen enn mange forsøk mot én konto?", options: ["Det er raskere", "Få forsøk per konto utløser ikke kontosperring", "Det er lovlig", "Det er kryptert"], answer: 1,
+          explain: "Angriperen holder seg under sperregrensen." }
+      ]
+    };
+    Object.keys(QUIZ).forEach(function (f) {
+      safe("quiz-" + f, function () { IN.quiz("#quiz-" + f, QUIZ[f], { id: "angrep-" + f }); });
+    });
+
+    /* ---------- Sant/usant per fane ---------- */
+    var TF = {
+      aktorer: [
+        [true, "En ondsinnet hacker og en pentester bruker ofte de samme verktøyene.", "Forskjellen er tillatelsen og motivet."],
+        [false, "Amatører kan ikke være teknisk dyktige.", "Evnen varierer, og noen er dyktige."],
+        [true, "Kryptoutvinning på offerets maskin er et kjent motiv.", "Angriperen vil ha maskinkraften."],
+        [false, "En APT er alltid en enkeltperson.", "Fra noen få til tusenvis av ansatte."],
+        [true, "Ondsinnede aktører ønsker gjerne vedvarende tilgang og å ikke bli oppdaget.", "Derfor er de stille."],
+        [false, "Løsepengevirus er først og fremst et angrep på konfidensialitet.", "Det rammer tilgjengeligheten."],
+        [true, "Cyberkriminelle kan hente kompetanse fra statlige aktører.", "Grensen mellom nivå 2 og 3 er ikke tett."]
+      ],
+      phishing: [
+        [true, "Phishing gir i en pentest ofte den innledende brukertilgangen.", "Offeret kjører noe eller logger inn på en falsk side."],
+        [false, "Klone-phishing er det samme som masse-phishing med logo.", "Klonen kopierer en ekte melding offeret har fått."],
+        [true, "En god kultur er en der folk ikke er redde for å si fra om at de klikket.", "Tidlig varsling begrenser skaden."],
+        [false, "Spyd-phishing sendes typisk til tusenvis av tilfeldige mottakere.", "Spyd er tilpasset én person eller en liten gruppe."],
+        [true, "En melding om noe du ikke vil ha, som en sperret konto, er et typisk lokkemiddel.", "Frykt for tap får folk til å handle raskt."],
+        [true, "Deepfake-stemme kan brukes til å utgi seg for en annen person på telefon.", "Mottiltak: ring tilbake på kjent nummer."]
+      ],
+      skadevare: [
+        [true, "En trojaner kan faktisk ha nyttige funksjoner.", "Det er nettopp forkledningen."],
+        [true, "En logisk bombe utløses av en betingelse, for eksempel en dato.", "Utløseren er det avgjørende."],
+        [false, "Mange løsepengevirus krypterer offerets systemer med SHA-256.", "SHA-256 er en hash: enveis og uten nøkkel."],
+        [true, "Å ikke gi brukere administratorrettigheter er et viktig tiltak mot løsepengevirus.", "Skadevaren får brukerens rettigheter."],
+        [true, "Et botnett er maskiner med bott-skadevare under felles kommando og kontroll.", "Brukes blant annet til DDoS."],
+        [false, "En bakdør krever alltid at brukeren klikker på noe.", "Den er en skjult vei forbi autentiseringen."],
+        [true, "Mirai var en dataorm som laget et botnett av IoT-enheter.", "Den spredte seg via standardpassord."],
+        [false, "Hvis loggene på den infiserte maskinen ikke viser at filen har kjørt, har den aldri kjørt.", "Et rootkit kan skjule nettopp dette (H2025 19)."]
+      ],
+      vektorer: [
+        [true, "Mirai laget et botnett av IoT-enheter og brukte det til DDoS.", "Mot en stor DNS-tilbyder i 2016."],
+        [false, "Et DDoS-angrep bryter først og fremst konfidensialitet.", "Det bryter tilgjengelighet."],
+        [true, "Deepfake-video kan brukes til å utgi seg for en kollega i et videomøte.", "Derfor trengs rutiner, ikke bare tillit til ansikt og stemme."],
+        [true, "XSS forebygges ved at serveren filtrerer og koder data den viser.", "Brukerinndata skal aldri sendes videre som kjørbar kode."],
+        [false, "En sidekanal er en kanal angriperen bygger bevisst for å sende data.", "Det er en skjult kanal. En sidekanal er utilsiktet lekkasje."],
+        [true, "Utstyr med standardpassord er en kjent og vanlig svakhet.", "Mirai levde av det."],
+        [true, "Risiko i leveransekjeden bør inngå i virksomhetens ISMS.", "Leverandører er en del av risikobildet."]
+      ],
+      pentest: [
+        [true, "Tillatelsen til en pentest må være skriftlig og gis på forhånd.", "Ellers er det datainnbrudd."],
+        [false, "Svartboks betyr at testeren får noe informasjon.", "Svartboks er ingen informasjon. Noe er gråboks."],
+        [false, "En ondsinnet hacker vil typisk finne alle sårbarhetene.", "Én eller to veier inn holder for den ondsinnede."],
+        [true, "Et mål med planleggingen er å velge hvilke kjerneverdier testen skal prøve å ramme.", "Det styrer hva gevinstfasen skal vise."],
+        [false, "I gevinstfasen bør testeren hente ut ekte sensitive kundedata for å bevise poenget.", "Vis poenget med usensitive data."],
+        [false, "En ansatt i forvaltningen kan gjøre alt som ikke er forbudt.", "Bare det som er eksplisitt tillatt."],
+        [true, "Fuzzing er å sende uventede eller ekstreme inndata for å framprovosere feil.", "Testeren spør «hva om …?»."],
+        [false, "§ 204 krever at noe er ødelagt eller stjålet før det er straffbart.", "Uberettiget tilgang holder."]
+      ],
+      sqli: [
+        [true, "Ved en parametrisert spørring tolkes brukerens inndata alltid som data, ikke som kode.", "Strukturen er sendt før verdiene."],
+        [true, "Inputvalidering bør skje på serveren.", "Klienten styres av brukeren."],
+        [false, "SQL-injeksjon angriper først og fremst brukerens nettleser.", "Den angriper databasen bak appen. XSS angriper nettleseren."],
+        [true, "Et filter som teller ord ved å se etter mellomrom, kan omgås ved å endre skilletegnet.", "Filteret og leseren tolker teksten ulikt (H2025 16)."],
+        [true, "Databasekontoen appen bruker, bør ha minst mulig rettigheter.", "Det begrenser skaden hvis noe slipper gjennom."],
+        [false, "Detaljerte databasefeilmeldinger til brukeren er nyttig for sikkerheten.", "De hjelper angriperen."],
+        [false, "Klientsidevalidering er nok så lenge den er godt skrevet.", "Den kan omgås (H2024 23 C)."]
+      ],
+      osint: [
+        [true, "OSINT er en del av rekognoseringen i en pentest.", "Det første steget."],
+        [true, "Stillingsannonser kan avsløre hvilken teknologi en virksomhet bruker.", "Produktnavn og versjoner kan slås opp mot kjente sårbarheter."],
+        [false, "OSINT krever at man skanner målets maskiner.", "OSINT bruker åpne kilder. Skanning er kartlegging."],
+        [true, "Informasjon fra OSINT brukes ofte til å lage troverdig phishing.", "Navn, roller og aktuelle prosjekter."],
+        [false, "«Open source» i OSINT betyr åpen kildekode.", "Det betyr åpne kilder."],
+        [true, "Å fjerne metadata fra publiserte dokumenter reduserer eksponeringen.", "Forfatter, programvare og interne stier forsvinner."]
+      ],
+      sudo: [
+        [true, "Skadevare kjører med rettighetene til prosessen som starter den.", "Derfor er minste privilegium viktig."],
+        [false, "<code>/etc/shadow</code> er lesbar for alle brukere.", "Bare root kan lese den."],
+        [true, "Med sudo-tilgang til et filleseprogram kan man hente ut passordhashene.", "De kan så knekkes offline (H2023 29)."],
+        [false, "Passordspraying er mange passord mot én bruker.", "Det er ett passord mot mange brukere."],
+        [true, "Mange feil fulgt av en vellykket innlogging på samme konto bør behandles som mulig kompromittering.", "Gjetningen lyktes. Reager straks."],
+        [true, "Å ikke gi brukere administratorrettigheter begrenser hva skadevare kan gjøre.", "Skadevaren får brukerens rettigheter."],
+        [true, "«Live off the land» betyr at angriperen bruker programmer som allerede finnes på systemet.", "Det trengs ingen egen skadevare."]
+      ]
+    };
+    Object.keys(TF).forEach(function (f) {
+      safe("tf-" + f, function () {
+        IN.tfTest("#tf-" + f, TF[f].map(function (r) { return { s: r[1], answer: r[0], explain: r[2], kilde: false }; }), { id: "angrep-" + f + "-tf" });
+      });
+    });
+
+    /* ---------- Inspera-øvinger (egne oppgaver) ---------- */
+    var OV = [
+      { key: "ov-angrep-1", inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,5 poeng, hvert gale −0,5, ubesvart 0. Minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
+          kolonner: ["Amatør", "Cyberkriminell", "APT"], multi: false,
+          rader: [
+            { s: "Stjeler forskningsdata over flere år for et annet lands myndigheter", svar: [2], explain: "<p>Langsiktig spionasje med statlig oppdragsgiver er typisk nivå 3.</p>" },
+            { s: "Selger tilgang til kompromitterte nettbutikker på et forum", svar: [1], explain: "<p>Økonomisk gevinst og en markedsplass for tilgang er nivå 2.</p>" },
+            { s: "Prøver ut et gratis verktøy fra en video mot skolens nettside for å vise seg fram", svar: [0], explain: "<p>Selvhevdelse og gratistjenester er nivå 1.</p>" },
+            { s: "Krypterer et sykehus' systemer og krever betaling i kryptovaluta", svar: [1], explain: "<p>Løsepenger er økonomisk motivert, altså nivå 2.</p>" } ] } },
+      { key: "ov-angrep-2", inspera: { type: "F1", regelTekst: "Poeng: 1 for riktig, 0 for feil eller ubesvart.",
+          regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
+          alternativer: ["Masse-phishing", "Klone-phishing", "Direktørsvindel (whaling)", "Spyd-phishing"],
+          svar: 3,
+          explain: [
+            "Nei: meldingen bruker detaljer som bare passer for deg og faget ditt, den er ikke generell.",
+            "Nei: det finnes ingen ekte original du har fått som er kopiert.",
+            "Nei: verken avsender eller mottaker er toppleder, og det bes ikke om betaling.",
+            "Ja: tilpasset én student med navn, kurs og et konkret seminar, og en lenke til «påmelding»." ] } },
+      { key: "ov-angrep-3", inspera: { type: "M", regelTekst: "Poeng: 1 for hver riktig, −1 for hver feil, 0 for ubesvart, minimum 0.",
+          regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 4 },
+          kolonner: ["Virus", "Dataorm", "Trojaner", "Bakdør", "Logisk bombe"], multi: false,
+          rader: [
+            { s: "Et gratis bildeprogram som fungerer, men sender bildene dine til en fremmed server", svar: [2], explain: "<p>Nyttig program med skjult innhold: trojaner.</p>" },
+            { s: "Kode som sletter lønnsdatabasen hvis en bestemt ansatt fjernes fra personallista", svar: [4], explain: "<p>Utløses av en betingelse: logisk bombe.</p>" },
+            { s: "Skadevare som skanner nettet og kopierer seg til nye maskiner med en ulappet tjeneste", svar: [1], explain: "<p>Sprer seg selv uten vert: dataorm.</p>" },
+            { s: "Skadelig kode som legges inn i andre programfiler og kjører når de startes", svar: [0], explain: "<p>Trenger en vert den fletter seg inn i: virus.</p>" } ] } },
+      { key: "ov-angrep-4", inspera: { type: "M", regelTekst: "Poeng: 0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
+          kolonner: ["Phishing", "Leveransekjedeangrep", "Drive-by-angrep", "Automatisk spredning av skadevare"], multi: false,
+          rader: [
+            { s: "En leverandør av skriverprogramvare blir hacket, og neste oppdatering inneholder en bakdør til alle kundene", svar: [1], explain: "<p>To trinn: leverandøren først, så kundene.</p>" },
+            { s: "En annonse på en nyhetsside laster ned skadevare idet siden åpnes", svar: [2], explain: "<p>Ingen brukerhandling: drive-by.</p>" },
+            { s: "En telefon fra «IT-avdelingen» som ber deg installere et fjernstyringsprogram", svar: [0], explain: "<p>Et menneske lures: sosial manipulering.</p>" },
+            { s: "Skadevare som hopper fra maskin til maskin via en ulappet nettverkstjeneste", svar: [3], explain: "<p>Sprer seg selv, som en orm.</p>" } ] } },
+      { key: "ov-angrep-5", inspera: { type: "M", regelTekst: "Poeng: 0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
+          kolonner: ["Hvitboks", "Gråboks", "Svartboks", "Gulboks"], multi: false,
+          rader: [
+            { s: "Du får bare navnet på virksomheten og avtalt tidsrom", svar: [2], explain: "<p>Ingen informasjon om systemet: svartboks.</p>" },
+            { s: "Du får kildekode, nettverkstegninger og en administratorkonto", svar: [0], explain: "<p>All relevant informasjon: hvitboks.</p>" },
+            { s: "Du får en liste over IP-områdene som er med i testen, men ingenting om tjenestene", svar: [1], explain: "<p>Noe, men ikke alt: gråboks.</p>" },
+            { s: "Du får en vanlig brukerkonto og en oversikt over hvilke avdelinger som finnes", svar: [1], explain: "<p>Fortsatt bare noe av informasjonen: gråboks. Gulboks finnes ikke.</p>" } ] } },
+      { key: "ov-angrep-6", inspera: { type: "E", regelTekst: "Rettes etter skjønn. Maks 3 poeng.",
+          regel: { riktig: 0, feil: 0, blankt: 0, min: 0, maks: 3 },
+          deler: [
+            { del: "A)", poeng: 1.5, sporsmal: "<p>Nevn tre ting en pentestavtale bør inneholde.</p>", grense: "én linje per punkt" },
+            { del: "B)", poeng: 1.5, sporsmal: "<p>Forklar hvorfor tillatelse fra IT-ansvarlig alene kan være utilstrekkelig.</p>", grense: "maks tre setninger" } ] } },
+      { key: "ov-angrep-7", inspera: { type: "D", regelTekst: "Poeng: 1 for hvert riktig, −1 for hver feil; maks 3; minimum 0.",
+          regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
+          tekst: "<p>Strengen «kari' or 7 &gt; 2» i et innloggingsfelt: {0}<br>Strengen «rapport.pdf &amp;&amp; whoami» i et filnavnfelt: {1}<br>Program som skjuler bestemte prosesser og filer: {2}</p>",
+          bank: ["SQL-injection", "Command injection", "Rootkit", "MiTM"],
+          felt: [
+            { etikett: "Streng 1", svar: 0, explain: "<p>Anførselstegn avslutter teksten, og «or» + en sann sammenligning følger: SQL-injeksjon.</p>" },
+            { etikett: "Streng 2", svar: 1, explain: "<p><code>&amp;&amp;</code> lenker en ekstra skallkommando: kommandoinjeksjon.</p>" },
+            { etikett: "Beskrivelse", svar: 2, explain: "<p>Å skjule prosesser er rootkitets formål.</p>" } ] } },
+      { key: "ov-angrep-8", inspera: { type: "E", regelTekst: "Rettes etter skjønn. Maks 2 poeng.",
+          regel: { riktig: 0, feil: 0, blankt: 0, min: 0, maks: 2 },
+          deler: [
+            { del: "", poeng: 2, sporsmal: "<p>Utvikleren vil stoppe SQL-injeksjon ved å fjerne alle anførselstegn med JavaScript før skjemaet sendes. Vurder løsningen og foreslå et bedre tiltak.</p>", grense: "maks fire setninger" } ] } },
+      { key: "ov-angrep-9", inspera: { type: "FF", regelTekst: "Poeng: 0,5 for hvert riktig valgt alternativ, −0,5 for hvert feil, minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 1.5 },
+          alternativer: ["Lese virksomhetens stillingsannonser", "Portskanne virksomhetens IP-område",
+            "Søke opp ansatte på LinkedIn", "Prøve standardpassord på virksomhetens ruter",
+            "Studere virksomhetens bygg på kart", "Sende en testlenke til resepsjonen"],
+          svar: [0, 2, 4],
+          explain: ["OSINT: åpen kilde.", "Nei: aktiv kartlegging mot målets systemer.", "OSINT: åpen kilde.",
+            "Nei: innloggingsforsøk er et angrep og krever tillatelse.", "OSINT: åpen kilde.",
+            "Nei: det er phishing, ikke innsamling fra åpne kilder."] } },
+      { key: "ov-angrep-10", inspera: { type: "F1", regelTekst: "Ett poeng for riktig svar, ellers null.",
+          regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
+          alternativer: ["Passordspraying", "Uttømmende søk / ordlisteangrep mot én konto", "Kommandoinjeksjon", "Falsk alarm"],
+          svar: 1,
+          explain: [
+            "Nei: spraying er ett passord mot mange brukere. Her er det mange passord mot én bruker.",
+            "Ja: 400 ulike passord mot kontoen «drift» fra én adresse på to minutter er gjetting mot én konto.",
+            "Nei: loggen viser innloggingsforsøk, ikke kommandoer sendt via et inndatafelt.",
+            "Nei: hundrevis av forsøk på to minutter fra samme adresse er ikke vanlige skrivefeil." ] } },
+      { key: "ov-angrep-11", inspera: { type: "E", regelTekst: "Rettes etter skjønn. Maks 4 poeng.",
+          regel: { riktig: 0, feil: 0, blankt: 0, min: 0, maks: 4 },
+          deler: [
+            { del: "", poeng: null, sporsmal: "<p>En konto kan kjøre et redigeringsprogram for tekstfiler med sudo.</p>" },
+            { del: "A)", poeng: 2, sporsmal: "<p>Forklar to måter dette kan misbrukes til å få root-tilgang.</p>", grense: "én til to setninger per måte" },
+            { del: "B)", poeng: 2, sporsmal: "<p>Foreslå hvordan sudo-oppsettet bør endres.</p>", grense: "maks tre setninger" } ] } }
+    ];
+    OV.forEach(function (o) {
+      o.points = o.inspera.regel.maks;
+      o.title = "Øving";
+      safe(o.key, function () { IN.inspera("#" + o.key, o); });
+    });
+
+    /* ---------- Eksamensbanken ---------- */
+    safe("bank-angrep", function () { IN.examBank("#bank-angrep", { block: ["angrep", "pentest", "lov"] }); });
+  })();
+  </script>
+</body>
+</html>

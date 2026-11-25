@@ -1,0 +1,133 @@
+/* IN2120 · blokk 2 · kryptografi. Stiler for viz-krypto.js. Flatt: ingen bokser i bokser. */
+
+.kr-host .sp-stage { height: auto; min-height: 220px; display: block; padding: var(--d-sm) var(--d-md); overflow-x: auto; }
+.kr-host .btn[aria-pressed="true"], .kr-calc .btn[aria-pressed="true"], .kr-pqc .btn[aria-pressed="true"],
+.kr-flip .btn[aria-pressed="true"], [id^="viz-"] .btn[aria-pressed="true"] {
+  background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok);
+}
+.kr-ok, .kr-host .ok, .kr-okter .ok, .kr-pqc-out.ok { color: var(--color-on-tone-ok); }
+.kr-bad, .kr-host .bad, .kr-okter .bad, .kr-pqc-out.bad { color: var(--color-on-tone-danger); }
+
+/* Kalkulator og små kontroller */
+.kr-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--d-sm); margin: .4rem 0; }
+.kr-ctl input[type="range"] { flex: 1 1 12rem; min-width: 8rem; max-width: 28rem; }
+.kr-ctl input[type="number"] { width: 7rem; }
+.kr-txt { flex: 1 1 16rem; min-width: 0; max-width: 32rem; }
+.kr-ctl label { display: inline-flex; align-items: center; gap: var(--d-xs); flex-wrap: wrap; min-width: 0; }
+.kr-out { margin: .5rem 0 0; padding-left: 1.3rem; }
+.kr-out li { margin: .2rem 0; }
+
+/* Bitruter */
+.kr-bits { display: flex; flex-direction: column; gap: 6px; padding: var(--d-xs) 0; }
+.kr-bitrow { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.kr-bitlbl { min-width: 8.5rem; font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+.kr-bit {
+  display: inline-flex; align-items: center; justify-content: center; width: 1.9rem; height: 1.9rem;
+  font-family: var(--font-mono); font-weight: 600; border-radius: var(--radius); border: 0; padding: 0;
+  background: var(--color-surface-container-high); color: var(--color-on-surface);
+}
+.kr-bit.one { background: var(--color-tone-info); color: var(--color-on-tone-info); }
+.kr-bit.unk { color: var(--color-on-surface-variant); background: transparent; outline: 1px dashed var(--color-outline-variant); }
+.kr-bit.hl { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.kr-bit.strike { text-decoration: line-through; opacity: .45; }
+button.kr-bit { cursor: pointer; }
+button.kr-bit.flipped { outline: 2px solid var(--color-on-tone-danger); outline-offset: 1px; }
+.kr-bitrow.res .kr-bitlbl { color: var(--color-on-surface); font-weight: 600; }
+.kr-bitrow.bad .kr-bitlbl, .kr-bitrow.bad .kr-bitnote { color: var(--color-on-tone-danger); }
+.kr-bitrow.ok .kr-bitlbl { color: var(--color-on-tone-ok); }
+.kr-bitnote { margin-left: .4rem; }
+.kr-sep { border: 0; border-top: 1px solid var(--color-outline-variant); margin: 4px 0; width: 100%; max-width: 22rem; }
+.kr-flip-out { margin: .3rem 0 0; }
+
+/* Operasjonsmoduser (SVG) */
+.kr-mode-name { margin: 0 0 .2rem; font-weight: 600; color: var(--color-primary); }
+.kr-svgwrap { overflow-x: auto; }
+.kr-mode-svg { display: block; width: 100%; min-width: 520px; max-width: 760px; height: auto; }
+.kr-t { font-family: var(--font-mono); font-size: 12px; fill: var(--color-on-surface); }
+.kr-small { font-size: 11px; }
+.kr-mid { fill: var(--color-on-surface-variant); }
+.kr-boxname { font-size: 14px; font-weight: 700; fill: var(--color-primary); }
+.kr-key { fill: var(--color-on-surface-variant); font-weight: 700; }
+.kr-out { font-weight: 700; }
+.kr-ln { fill: none; stroke: var(--color-on-surface-variant); stroke-width: 1.4; }
+.kr-arrhead { fill: var(--color-on-surface-variant); }
+.kr-chain { stroke: var(--color-primary); }
+.kr-ghost { stroke-dasharray: 3 4; opacity: .35; }
+.kr-xor { fill: none; stroke: var(--color-on-surface); stroke-width: 1.4; }
+.kr-xorl { stroke: var(--color-on-surface); stroke-width: 1.4; }
+.kr-box { fill: none; stroke: var(--color-on-surface); stroke-width: 1.4; }
+.kr-box-e { stroke: var(--color-primary); stroke-width: 2.4; }
+.kr-same { fill: var(--color-on-tone-danger); }
+.kr-diff { fill: var(--color-on-tone-ok); }
+.kr-same-m { font-weight: 700; }
+
+/* Pingvinen */
+.kr-pv-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--d-md); margin: .5rem 0; }
+.kr-pv-t { margin-bottom: .3rem; }
+.kr-pv-grid { display: grid; grid-template-columns: repeat(8, 1fr); width: 100%; max-width: 160px; aspect-ratio: 1; margin-bottom: .3rem; }
+.kr-pv-c { display: block; }
+@media (max-width: 560px) { .kr-pv-row { grid-template-columns: 1fr 1fr; } }
+
+/* Hash */
+.kr-hex { word-break: break-all; margin: .2rem 0; font-size: var(--text-sm); }
+.kr-hex b { color: var(--color-on-tone-danger); }
+.kr-ht p, .kr-skred p { margin: .4rem 0; }
+
+/* Sekvensdiagram */
+.kr-seq { display: grid; column-gap: var(--d-sm); row-gap: 0; font-size: var(--text-sm); min-width: 420px; }
+.kr-lane { font-weight: 700; text-align: center; padding: 2px 0 6px; border-bottom: 1px solid var(--color-outline-variant); margin-bottom: 4px; }
+.kr-act { padding: 4px 2px; text-align: center; overflow-wrap: anywhere; }
+.kr-act.kr-empty { padding: 0; }
+.kr-hid { visibility: hidden; }
+.kr-cur { font-weight: 600; }
+.kr-cur:not(.bad):not(.ok) { color: var(--color-primary); }
+.kr-msg { position: relative; padding: 2px 10% 8px; text-align: center; }
+.kr-msg-t { display: block; font-family: var(--font-mono); font-size: 12px; overflow-wrap: anywhere; }
+.kr-msg-ar { display: block; height: 0; border-top: 2px solid currentColor; position: relative; margin-top: 2px; opacity: .8; }
+.kr-msg-ar::after {
+  content: ""; position: absolute; right: -2px; top: -6px;
+  border-left: 9px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+}
+.kr-msg.left .kr-msg-ar::after { right: auto; left: -2px; border-left: 0; border-right: 9px solid currentColor; }
+
+/* Lekket langtidsnøkkel */
+.kr-okter { list-style: none; padding: 0; margin: .4rem 0; }
+.kr-okter li { padding: 3px 0; border-bottom: 1px solid var(--color-outline-variant); }
+.kr-pqc-out { margin: .4rem 0; }
+
+@media (prefers-reduced-motion: no-preference) { .kr-act, .kr-msg { transition: color .15s; } }
+
+/* Øvinger i blokka (regn først, XOR, forutsi lekkasje) */
+.kr-oppg { margin: var(--d-md) 0 var(--d-xs); }
+.kr-xov { padding: var(--d-xs) 0; }
+.kr-xov-q { margin: 0 0 .3rem; }
+.kr-xov-in { width: 9.5rem; letter-spacing: .12em; }
+.kr-xov-in[aria-invalid="true"] { outline: 2px solid var(--color-on-tone-danger); }
+.kr-xov-fb { margin: .3rem 0 0; min-height: 1.2em; }
+.kr-xov-fb.ok { color: var(--color-on-tone-ok); }
+.kr-xov-fb.bad { color: var(--color-on-tone-danger); }
+.kr-bit.wrong { outline: 2px solid var(--color-on-tone-danger); outline-offset: 1px; }
+.kr-lekk-q { margin: .4rem 0; padding-left: var(--d-sm); border-left: 3px solid var(--color-primary); }
+.kr-lekk-sp { margin: 0 0 .3rem; }
+
+/* Diffie–Hellman som fargeblanding (viz-dhfarge.js) */
+.dhf-valg { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: var(--d-sm) 0; }
+.dhf-vr { display: flex; align-items: center; gap: 6px; }
+.dhf-sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--color-outline-variant); cursor: pointer; padding: 0; }
+.dhf-sw[aria-pressed="true"] { border-color: var(--color-on-surface); box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-on-surface); }
+.dhf { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: var(--d-sm); align-items: start; }
+.dhf-col { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.dhf-mid { border-left: 1px dashed var(--color-outline-variant); border-right: 1px dashed var(--color-outline-variant); padding: 0 6px; }
+.dhf-h { font-weight: 700; font-size: var(--text-sm); text-align: center; padding-bottom: 4px; border-bottom: 1px solid var(--color-outline-variant); align-self: stretch; }
+.dhf-rad { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.dhf-b { display: flex; flex-direction: column; align-items: center; max-width: 110px; }
+.dhf-b svg { display: block; }
+.dhf-bt { font-size: var(--text-xs, .75rem); text-align: center; line-height: 1.25; }
+.dhf-b.hemmelig .dhf-bt::before { content: "🔒 "; }
+.dhf-b.feil .dhf-bt { color: var(--color-error, #b3261e); }
+.dhf-b.ny { animation: dhf-inn .35s ease-out; }
+@keyframes dhf-inn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .dhf-b.ny { animation: none; } }
+.dhf-pil { font-size: var(--text-xs, .75rem); color: var(--color-on-surface-variant); text-align: center; }
+.dhf-ok { margin-top: var(--d-sm); border-left: 3px solid var(--c-sorted, #2e9b4a); padding-left: 8px; }
+@media (max-width: 560px) { .dhf { grid-template-columns: 1fr 1fr; } .dhf-mid { grid-column: 1 / -1; grid-row: 2; border: 0; border-top: 1px dashed var(--color-outline-variant); padding-top: 6px; } }

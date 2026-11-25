@@ -1,0 +1,70 @@
+/* IN2120 · blokk 8 (IAM): stiler for viz-iam.js og sidens grenseforklaringer. Flatt: ingen ekstra rammer. */
+
+/* Stegspilleren: scenen vokser med diagrammet */
+.sp-stage.iam-stage { height: auto; min-height: 220px; align-items: flex-start; display: block; }
+
+/* Sekvensdiagram */
+.iam-seq { display: block; width: 100%; height: auto; font-family: inherit; }
+.iam-seq .seq-life { stroke: var(--color-outline-variant); stroke-dasharray: 3 4; }
+.iam-seq .seq-party { fill: var(--color-surface-container-high); stroke: var(--color-outline); }
+.iam-seq .seq-plbl { fill: var(--color-on-surface); font-size: 12.5px; font-weight: 600; }
+.iam-seq .seq-pre { stroke: var(--color-on-surface-variant); stroke-dasharray: 5 4; }
+.iam-seq .seq-pretxt { fill: var(--color-on-surface-variant); font-size: 11px; font-style: italic; }
+.iam-seq .seq-line { stroke: var(--color-on-surface-variant); stroke-width: 1.4; fill: none; }
+.iam-seq .seq-head { fill: var(--color-on-surface-variant); }
+.iam-seq .seq-txt { fill: var(--color-on-surface); font-size: 11.5px; }
+.iam-seq .seq-msg.dash .seq-line { stroke-dasharray: 5 4; }
+.iam-seq .seq-msg.done { opacity: .5; }
+.iam-seq .seq-msg.cur .seq-line { stroke: var(--color-primary); stroke-width: 2.2; }
+.iam-seq .seq-msg.cur .seq-head { fill: var(--color-primary); }
+.iam-seq .seq-msg.cur .seq-txt { font-weight: 600; }
+.iam-seq .seq-nr circle { fill: var(--color-surface); stroke: var(--color-on-surface-variant); }
+.iam-seq .seq-msg.cur .seq-nr circle { fill: var(--color-primary); stroke: var(--color-primary); }
+.iam-seq .seq-nr text { fill: var(--color-on-surface); font-size: 10.5px; font-weight: 700; }
+.iam-seq .seq-msg.cur .seq-nr text { fill: var(--color-on-primary); }
+.seq-merke { fill: var(--color-tone-warn); stroke: var(--color-on-tone-warn); }
+.seq-merketxt { fill: var(--color-on-tone-warn); font-size: 10px; font-weight: 700; }
+
+/* Silo / føderert */
+.iam-fig { overflow-x: auto; }
+.iam-mod { display: block; width: 100%; max-width: 640px; min-width: 460px; height: auto; }
+.iam-mod .mod-user { fill: none; stroke: var(--color-on-surface); stroke-width: 2; }
+.iam-mod .mod-box { fill: var(--color-surface-container-high); stroke: var(--color-outline); }
+.iam-mod .mod-box.idp { fill: var(--color-tone-info); stroke: var(--color-primary); }
+.iam-mod .mod-l { stroke: var(--color-on-surface-variant); stroke-width: 1.4; }
+.iam-mod .mod-t { fill: var(--color-on-surface); font-size: 13px; font-weight: 600; }
+.iam-mod .mod-s { fill: var(--color-on-surface-variant); font-size: 11px; }
+.btn[aria-pressed="true"] { background: var(--color-tone-ok); border-color: var(--color-on-tone-ok); color: var(--color-on-tone-ok); }
+
+/* Tabeller uten ramme rundt */
+.iam-tw { overflow-x: auto; margin: .6rem 0; }
+
+/* 2×2-tabellen */
+.iam-2x2 th[scope="row"] { width: 11rem; }
+.iam-2x2 td { vertical-align: top; min-width: 9rem; }
+.iam-cell-l { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+.iam-ok { display: inline-block; font-size: var(--text-xs); padding: 1px 7px; border-radius: var(--radius); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.iam-cell-b { font: inherit; font-size: var(--text-xs); padding: 3px 8px; border: 1px dashed var(--color-primary); border-radius: var(--radius); background: transparent; color: var(--color-primary); cursor: pointer; }
+.iam-cell-b[hidden] { display: none; }
+.iam-msg { min-height: 2.6em; margin: .4rem 0; }
+.iam-msg.ok { color: var(--color-on-tone-ok); }
+.iam-msg.feil { color: var(--color-on-tone-danger); }
+
+/* Bell-LaPadula og ABAC */
+.iam-blp-ctl { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin: .5rem 0; }
+.iam-blp-ctl .fld { flex-direction: column; align-items: flex-start; gap: 2px; }
+.iam-blp-ctl select { font: inherit; font-size: var(--text-sm); padding: 3px 6px; }
+.iam-blp-v p { margin: .3em 0; }
+.iam-y { color: var(--color-on-tone-ok); font-weight: 700; }
+.iam-n { color: var(--color-on-tone-danger); font-weight: 700; }
+.iam-blp-t tbody tr { cursor: pointer; }
+.iam-blp-t tr.akt th { color: var(--color-primary); }
+.iam-blp-t tr.obj { box-shadow: inset 3px 0 0 var(--color-primary); }
+.iam-abac-pol { color: var(--color-on-surface); line-height: 1.6; }
+.iam-abac-l { list-style: none; padding-left: 0; margin: .4rem 0; }
+.iam-abac-l li { margin: .2rem 0; }
+
+/* Grenseforklaringer i felle-callouts */
+.callout details.grense { margin: .35rem 0; }
+.callout details.grense > summary { font-weight: 600; cursor: pointer; }
+.callout details.grense > p { margin: .3rem 0 .5rem 1.1rem; }

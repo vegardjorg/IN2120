@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Øv på et helt sett · IN2120</title>
+  <meta name="description" content="Øv på et helt eksamenssett i IN2120 (H2021–H2025) med Inspera-oppgavetypene og eksamens egen poengregel.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme')||'light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level')||'normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
+  <style>
+    .sett-bar { display: flex; flex-wrap: wrap; gap: var(--d-sm); align-items: center; margin: var(--d-sm) 0; }
+    .sett-sum { position: sticky; top: 52px; z-index: 5; background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline-variant);
+      border-radius: var(--radius-lg); padding: 8px 12px; margin: var(--d-sm) 0; display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center; font-size: var(--text-sm); }
+    .sett-sum b { font-variant-numeric: tabular-nums; }
+    .sett-tid { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    .sett-del { margin-top: var(--d-lg); }
+    .sett-forside { font-size: var(--text-sm); }
+  </style>
+</head>
+<body data-page="eksamen">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Øv på et helt sett</h1>
+      <p class="lead">Velg et år og løs settet slik det sto i Inspera. Oppgavene som rettes automatisk, rettes med arkets egen poenglinje
+        (minuspoeng for feil, men aldri under 0 per oppgave). Fritekst vurderer du selv mot «Perfekt svar» og sensors retteinstrukser.</p>
+    </div>
+
+    <div class="sett-bar" id="sett-aar" role="group" aria-label="Velg eksamen"></div>
+    <div id="sett"></div>
+  </main>
+
+  <footer class="footer">IN2120-guide · laget for eksamensøving · fungerer frakoblet (file://) og på GitHub Pages.</footer>
+
+  <script src="assets/js/core.js?v=20261125f"></script>
+  <script src="assets/js/symboler.js?v=20261125f"></script>
+  <script src="assets/js/inspera.js?v=20261125f"></script>
+  <script src="assets/js/bank.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
+  <script>
+  (function () {
+    var IN = window.IN, el = IN.el, B = window.IN_EXAM_BANK || {};
+    var years = Object.keys(B).filter(function (y) { return /^H\d{4}$/.test(y); }).sort().reverse();
+    var bar = IN.qs("#sett-aar"), host = IN.qs("#sett");
+    var KEY_Y = "in2120:sett:aar", timer = null;
+    function num(x) { return String(Math.round(x * 100) / 100).replace(".", ","); }
+
+    if (!years.length) { host.appendChild(el("p", { class: "muted", text: "Eksamensbanken er ikke lastet ennå." })); return; }
+
+    years.forEach(function (y) {
+      bar.appendChild(el("button", { class: "btn sm", type: "button", text: y, "data-y": y, onclick: function () { show(y); } }));
+    });
+
+    function show(y) {
+      IN.store.set(KEY_Y, y);
+      IN.qsa("button", bar).forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-y") === y ? "true" : "false"); });
+      if (timer) { clearInterval(timer); timer = null; }
+      IN.clear(host);
+      var ex = B[y], opp = (ex.oppgaver || []).slice();
+      var autoMaks = 0, manMaks = 0, scores = {}, manScores = {};
+      opp.forEach(function (o) {
+        var p = +o.points || 0, t = o.inspera && o.inspera.type;
+        if (t === "K" || t === "E" || !t) manMaks += p; else autoMaks += p;
+      });
+
+      // Forside
+      var fs = el("details", { class: "sett-forside" });
+      fs.appendChild(el("summary", { html: "<b>" + y + "</b> · " + [ex.dato, ex.varighet, ex.hjelpemidler ? "hjelpemidler: " + ex.hjelpemidler : ""].filter(Boolean).join(" · ") }));
+      if (ex.forside) fs.appendChild(el("div", { html: ex.forside }));
+      if (ex.merknad) fs.appendChild(el("p", { class: "muted", html: ex.merknad }));
+      fs.appendChild(el("p", { class: "small muted", text: "Oppgavetekst: UiO, IN2120, " + y + "." }));
+      host.appendChild(fs);
+
+      // Poengstatus og tidtaker
+      var sum = el("div", { class: "sett-sum", "aria-live": "polite" });
+      var sAuto = el("span"), sMan = el("span"), sTid = el("span", { class: "sett-tid" });
+      var tBtn = el("button", { class: "btn sm", type: "button", text: "Start tidtaker (4 t)" });
+      var rBtn = el("button", { class: "btn sm", type: "button", text: "Nullstill hele settet" });
+      sum.appendChild(sAuto); sum.appendChild(sMan); sum.appendChild(sTid); sum.appendChild(tBtn); sum.appendChild(rBtn);
+      host.appendChild(sum);
+      function paint() {
+        var got = 0, n = 0;
+        Object.keys(scores).forEach(function (k) { got += scores[k]; n++; });
+        sAuto.innerHTML = "Automatisk rettet: <b>" + num(got) + " av " + num(autoMaks) + "</b> p (" + n + " rettet)";
+        var mg = 0, mn = 0;
+        Object.keys(manScores).forEach(function (k) { mg += manScores[k]; mn++; });
+        sMan.innerHTML = manMaks ? "Fritekst (egenvurdert): <b>" + num(mg) + " av " + num(manMaks) + "</b> p (" + mn + " vurdert)" : "";
+      }
+
+      var TKEY = "in2120:sett:" + y + ":start";
+      function tick() {
+        var st = +IN.store.get(TKEY, "0");
+        if (!st) { sTid.textContent = ""; tBtn.textContent = "Start tidtaker (4 t)"; return; }
+        var left = Math.max(0, 4 * 3600e3 - (Date.now() - st)), h = Math.floor(left / 3600e3), m = Math.floor(left % 3600e3 / 60e3), s = Math.floor(left % 60e3 / 1e3);
+        sTid.textContent = "Tid igjen " + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+        tBtn.textContent = "Stopp tidtaker";
+      }
+      tBtn.onclick = function () {
+        if (+IN.store.get(TKEY, "0")) { try { localStorage.removeItem(TKEY); } catch (e) {} } else IN.store.set(TKEY, String(Date.now()));
+        tick();
+      };
+      timer = setInterval(tick, 1000); tick();
+
+      // Oppgavene, gruppert per del
+      var api = [], lastDel = null, delHost = host;
+      opp.forEach(function (o) {
+        var d = o.del || "";
+        if (d !== lastDel) {
+          lastDel = d;
+          var sec = el("section", { class: "sett-del" });
+          if (d) sec.appendChild(el("h2", { html: d }));
+          host.appendChild(sec); delHost = sec;
+        }
+        IN.examBank.card(delHost, { ex: ex, y: y, o: o });
+      });
+      // Les opp poeng fra oppgaver som allerede er rettet (lagret)
+      IN.qsa(".insp", host).forEach(function (w) {
+        var k = w.getAttribute("data-key"); if (!k) return;
+        var r = IN.qs(".insp-sum b", w);
+        var eg = w.getAttribute("data-egen-score");
+        if (eg != null && eg !== "") { manScores[k] = +eg; return; }
+        if (r) { var m = /^([\d,]+)/.exec(r.textContent); if (m) scores[k] = +m[1].replace(",", "."); }
+      });
+      document.addEventListener("in:insp", onScore);
+      function onScore(e) { if (!document.body.contains(sum)) { document.removeEventListener("in:insp", onScore); return; } var tgt = e.detail.manual ? manScores : scores; if (e.detail.score == null) delete tgt[e.detail.key]; else tgt[e.detail.key] = e.detail.score; paint(); }
+      rBtn.onclick = function () {
+        if (!confirm("Nullstille alle svar i " + y + "?")) return;
+        opp.forEach(function (o) { try { localStorage.removeItem("in2120:insp:" + o.key); } catch (e) {} });
+        show(y);
+      };
+      paint();
+    }
+
+    var start = IN.store.get(KEY_Y, years[0]);
+    show(years.indexOf(start) >= 0 ? start : years[0]);
+  })();
+  </script>
+</body>
+</html>

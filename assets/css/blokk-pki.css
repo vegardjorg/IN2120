@@ -1,0 +1,169 @@
+/* IN2120 · blokk 3 (nøkkelhåndtering og PKI). Visualiseringene i viz-pki.js. Lastes etter viz.css.
+   Flatt: ingen bokser i bokser, bare tynne skillelinjer og fargede venstrekanter. Fargene bygger på
+   temavariablene i styles.css, så lyst og mørkt tema følger med. */
+:root {
+  --pki-ok: var(--c-sorted);
+  --pki-bad: var(--c-swap);
+  --pki-warn: var(--c-compare);
+  --pki-line: var(--color-outline-variant);
+}
+
+.callout details.grense { margin: .5rem 0 .2rem; }
+.callout details.grense > summary { cursor: pointer; font-weight: 600; }
+.callout details.grense > p { margin: .35rem 0 0 1.1rem; }
+.callout ul { margin: .35rem 0 .2rem 1.1rem; padding: 0; }
+a.badge { text-decoration: none; }
+.pki-q { margin: .6rem 0 .2rem; }
+
+/* ---------- Felles ---------- */
+.pki-viz { margin: .6rem 0 1.2rem; display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+.pki-viz p { margin: .2rem 0; }
+.pki-row { display: flex; flex-wrap: wrap; gap: .4rem .6rem; align-items: center; }
+.pki-k { font-weight: 600; font-size: var(--text-sm); }
+.pki-lbl { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .35rem; font-size: var(--text-sm); }
+.pki-h { margin: .8rem 0 .1rem; font-size: var(--text-sm); }
+.pki-note { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+.pki-out { font-size: var(--text-sm); padding-left: .6rem; border-left: 3px solid var(--pki-line); }
+.pki-out:empty { display: none; }
+.pki-out.ok { border-left-color: var(--pki-ok); }
+.pki-out.nei { border-left-color: var(--pki-bad); }
+.pki-viz .ok { color: var(--color-on-tone-ok); }
+.pki-viz .nei { color: var(--color-on-tone-danger); }
+.pki-viz .pki-out.ok, .pki-viz .pki-out.nei { color: inherit; }
+.pki-viz .btn[aria-pressed="true"] { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); }
+.pki-sel, .pki-num, .pki-inp { font: inherit; font-size: var(--text-sm); padding: 3px 6px; border: 1px solid var(--color-outline);
+  border-radius: var(--radius); background: var(--color-surface-container-lowest); color: var(--color-on-surface); max-width: 100%; }
+.pki-num { width: 6.5em; }
+.pki-adr { width: 16em; }
+.pki-tab { border-collapse: collapse; width: 100%; font-size: var(--text-sm); }
+.pki-tab th, .pki-tab td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--pki-line); vertical-align: top; }
+.pki-tab td.mono { overflow-wrap: anywhere; }
+.pki-mini { padding: 0 6px; font-size: 12px; min-height: 0; line-height: 1.6; }
+
+/* ---------- Tilstander (bøtteoppgaven er dra.js) og disk-demoen ---------- */
+.pki-disk { display: grid; gap: 0; font-size: var(--text-sm); }
+.pki-disk-r { padding: 4px 0; border-bottom: 1px solid var(--pki-line); overflow-wrap: anywhere; }
+.pki-disk-r .pki-k { display: inline-block; min-width: 9em; }
+
+/* ---------- Tidslinje og SVG ---------- */
+.pki-svg { overflow-x: auto; }
+.pki-svg svg { display: block; width: 100%; max-width: 680px; height: auto; }
+.viz-svg .pki-tl-l { font-size: 12px; font-weight: 600; fill: var(--color-on-surface); }
+.viz-svg .pki-tl-b { fill: var(--pki-ok); }
+.viz-svg .pki-tl-p { fill: var(--c-target); }
+.viz-svg .pki-tl-stopp { fill: none; stroke: var(--pki-ok); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .6; }
+.viz-svg .pki-tl-dash { fill: none; stroke: var(--c-target); stroke-width: 2; stroke-dasharray: 6 4; }
+.viz-svg .pki-tl-k { stroke: var(--pki-bad); stroke-width: 2.5; }
+.viz-svg .pki-tl-kl { font-size: 11px; font-weight: 700; fill: var(--pki-bad); }
+.viz-svg .pki-ax { stroke: var(--color-outline); stroke-width: 1; }
+.viz-svg .pki-tk { font-size: 11px; fill: var(--color-on-surface-variant); }
+
+/* ---------- Tyveri (scenario i ovelse.js; tabellen i oppsummeringen) ---------- */
+.pki-tyv td { width: 34%; }
+
+/* ---------- Distribusjon (regn først i ovelse.js; stolpene vises etter svaret) ---------- */
+.pki-regn + .pki-regn { margin-top: .8rem; }
+.pki-bars { display: grid; gap: .3rem; }
+.pki-barrow { display: grid; grid-template-columns: 10em minmax(0, 1fr); align-items: center; gap: .1rem .6rem; font-size: var(--text-sm);
+  padding: .25rem 0; border-bottom: 1px solid var(--pki-line); }
+.pki-barrow .pki-bar { display: block; height: 10px; border-radius: 3px; background: var(--color-primary); }
+.pki-barrow > .mono, .pki-barrow > .muted { grid-column: 2; overflow-wrap: anywhere; }
+.pki-barrow:last-child .pki-bar { background: var(--pki-ok); }
+
+/* ---------- Sertifikatfelter ---------- */
+.pki-gate { padding-left: .6rem; border-left: 3px solid var(--pki-line); }
+.pki-fasit[hidden], .pki-gate[hidden] { display: none; }
+.pki-sp .sp-stage { height: auto; min-height: 220px; display: block; align-items: initial; padding: var(--d-sm, .5rem); }
+.pki-genstage { width: 100%; }
+.pki-cert th { width: 34%; font-weight: 600; }
+.pki-cert.rec tr.i-rec > th { border-left: 3px solid var(--color-primary); }
+.pki-cert tr.pki-sigrad > th { border-left: 3px solid var(--color-tertiary); }
+.pki-cert tr.endret > th, .pki-cert tr.endret > td { color: var(--color-on-tone-danger); }
+.pki-cert tr.endret > th { border-left-color: var(--pki-bad); }
+.pki-cert tr.hl > th { border-left: 3px solid var(--c-target); }
+.pki-calc { margin: .4rem 0; font-weight: 600; color: var(--color-primary); overflow-wrap: anywhere; }
+
+/* ---------- Kjeden ---------- */
+.pki-scen .btn { white-space: nowrap; }
+.pki-lay { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(0, 2.2fr); gap: .6rem 1.4rem; align-items: start; }
+@media (max-width: 760px) { .pki-lay { grid-template-columns: 1fr; } }
+.pki-lager { font-size: var(--text-sm); min-width: 0; }
+.pki-lager-h { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-on-surface-variant);
+  padding-bottom: .25rem; border-bottom: 1px solid var(--color-outline); }
+.pki-lager-r { padding: .3rem 0 .3rem .5rem; border-bottom: 1px solid var(--pki-line); border-left: 3px solid transparent; }
+.pki-lager-r.treff { border-left-color: var(--pki-ok); font-weight: 600; }
+.pki-lager-r.mismatch { border-left-color: var(--pki-bad); }
+.pki-chain { display: flex; flex-direction: column; min-width: 0; }
+.pki-pil { font-size: 12px; color: var(--color-on-surface-variant); padding: .25rem 0 .25rem 1rem; }
+.pki-card { display: flex; flex-direction: column; gap: .05rem; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  background: transparent; border: 0; border-left: 4px solid var(--color-outline); border-bottom: 1px solid var(--pki-line);
+  padding: .35rem .2rem .35rem .7rem; width: 100%; }
+.pki-card:hover { background: var(--color-surface-container-low); }
+.pki-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.pki-card.valgt { background: var(--color-surface-container); }
+.pki-card.ok { border-left-color: var(--pki-ok); }
+.pki-card.bad { border-left-color: var(--pki-bad); }
+.pki-card.grey { border-left-color: var(--color-outline-variant); opacity: .55; }
+.pki-card-r { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-on-surface-variant); }
+.pki-card.ok .pki-card-r b { color: var(--color-on-tone-ok); }
+.pki-card.bad .pki-card-r b { color: var(--color-on-tone-danger); }
+.pki-card-s { font-weight: 700; font-family: var(--font-mono); overflow-wrap: anywhere; }
+.pki-card-m { font-size: 12px; color: var(--color-on-surface-variant); overflow-wrap: anywhere; }
+.pki-card-m.pki-varsel { color: var(--color-on-tone-danger); font-weight: 600; }
+.pki-card-m.pki-stift.ok { color: var(--color-on-tone-ok); font-weight: 600; }
+.pki-card-m.pki-stift.nei { color: var(--color-on-tone-danger); font-weight: 600; }
+.pki-ctl { margin-top: .3rem; }
+.pki-steps { list-style: none; margin: .2rem 0; padding: 0; font-size: var(--text-sm); }
+.pki-step { padding: .3rem 0 .3rem .6rem; border-left: 3px solid var(--pki-line); border-bottom: 1px solid var(--pki-line); }
+.pki-step.ok { border-left-color: var(--pki-ok); }
+.pki-step.bad { border-left-color: var(--pki-bad); }
+.pki-step.skip { border-left-color: var(--pki-warn); }
+.pki-step.grey { opacity: .5; }
+.pki-step.gjett { background: var(--color-surface-container); }
+.pki-ikon { display: inline-block; width: 1.2em; font-weight: 700; }
+.pki-step.ok .pki-ikon { color: var(--color-on-tone-ok); }
+.pki-step.bad .pki-ikon { color: var(--color-on-tone-danger); }
+.pki-snr { font-weight: 600; margin-right: .3rem; }
+.pki-step-a { margin: .1rem 0 0 1.2em; color: var(--color-on-surface-variant); }
+.pki-step.bad .pki-step-a { color: var(--color-on-tone-danger); }
+.pki-stepbtn { font: inherit; color: inherit; text-align: left; background: transparent; border: 0; padding: 0; cursor: pointer; width: 100%; }
+.pki-stepbtn:hover { text-decoration: underline; }
+.pki-stepbtn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.pki-detalj { min-width: 0; }
+
+/* ---------- CAA ---------- */
+.pki-dns { font-size: var(--text-sm); padding: .2rem 0 .2rem .6rem; border-left: 3px solid var(--color-tertiary); }
+
+/* ---------- Tillitsmodeller ---------- */
+.pki-modell svg { max-width: 460px; }
+.viz-svg .pki-arh { fill: var(--color-outline); }
+.viz-svg .pki-edge { stroke: var(--color-outline); stroke-width: 1.5; }
+.viz-svg .pki-edge.bad { stroke: var(--pki-bad); stroke-width: 2.5; }
+.viz-svg .pki-node { cursor: pointer; }
+.viz-svg .pki-node:focus { outline: none; }
+.viz-svg .pki-node:focus-visible .pki-n { stroke: var(--color-on-surface); stroke-width: 3; }
+.viz-svg .pki-n { stroke: var(--color-surface); stroke-width: 1.5; }
+.viz-svg .pki-n-rot { fill: var(--color-primary); }
+.viz-svg .pki-n-ca { fill: var(--c-target); }
+.viz-svg .pki-n-subj { fill: var(--color-surface-container-high); stroke: var(--color-outline); }
+.viz-svg .pki-n-selv { fill: var(--color-tertiary); }
+.viz-svg .pki-n-bro { fill: var(--pki-warn); }
+.viz-svg .pki-anker { fill: none; stroke: var(--color-on-surface); stroke-width: 1.5; }
+.viz-svg .pki-node.bad .pki-n { fill: var(--pki-bad); stroke: var(--pki-bad); }
+.viz-svg .pki-node.komp .pki-n { stroke: var(--color-on-surface); stroke-width: 3; }
+.viz-svg .pki-nl { font-size: 10px; fill: var(--color-on-surface-variant); }
+.pki-legend { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: 12px; }
+.pki-legend .item { display: inline-flex; align-items: center; gap: .35rem; }
+.pki-sw { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+.pki-sw-rot { background: var(--color-primary); }
+.pki-sw-ca { background: var(--c-target); }
+.pki-sw-subj { background: var(--color-surface-container-high); border: 1px solid var(--color-outline); }
+.pki-sw-selv { background: var(--color-tertiary); }
+.pki-sw-bro { background: var(--pki-warn); }
+.pki-sw-anker { background: transparent; border: 2px solid var(--color-on-surface); }
+.pki-sw-bad { background: var(--pki-bad); }
+.pki-tf2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.4rem; }
+@media (max-width: 640px) { .pki-tf2 { grid-template-columns: 1fr; } }
+.pki-browser { font-size: var(--text-sm); padding: .3rem 0 .3rem .6rem; border-left: 3px solid var(--pki-ok); border-bottom: 1px solid var(--pki-line); overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) { .pki-card, .pki-step { transition: none; } }

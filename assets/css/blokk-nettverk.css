@@ -1,0 +1,217 @@
+/* IN2120 · blokk 9 (nettverk). Visualiseringene i viz-nett.js. Flatt: ingen bokser i bokser,
+   bare tynne skillelinjer og farget tekst/understrek. Farger bygger på temavariablene i styles.css,
+   så lyst og mørkt tema følger med. */
+:root {
+  --nt-ok: var(--c-sorted);
+  --nt-bad: var(--c-swap);
+  --nt-warn: var(--c-compare);
+  --nt-line: var(--color-outline-variant);
+}
+
+/* Stegspillerne her trenger høyde etter innhold */
+.nt-sp .sp-stage { height: auto; min-height: 200px; display: block; align-items: initial; }
+.nt-scene { width: 100%; }
+.nt-note, .nt-over { margin: .5rem 0 0; }
+
+/* ---------- Protokollstakken ---------- */
+.nt-stakk {
+  display: grid; grid-template-columns: minmax(7rem, 1fr) minmax(8rem, 1fr) minmax(0, 2fr);
+  column-gap: 1rem; margin: .8rem 0; font-size: var(--text-sm, .92rem);
+}
+.nt-c1 { grid-column: 1; } .nt-c2 { grid-column: 2; } .nt-c3 { grid-column: 3; }
+.nt-sh { grid-row: 1; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--color-on-surface-variant); padding-bottom: .3rem; border-bottom: 1px solid var(--color-outline); }
+.nt-lag, .nt-osi, .nt-ex { padding: .35rem 0; border-bottom: 1px solid var(--nt-line); display: flex; align-items: center; }
+.nt-lag { font-weight: 600; border-left: 3px solid var(--color-primary); padding-left: .5rem; }
+.nt-app { border-left-color: var(--color-outline); font-weight: 500; }
+.nt-k-a { border-left-color: var(--color-tertiary); }
+.nt-k-t { border-left-color: var(--c-target); }
+.nt-k-i { border-left-color: var(--c-compare); }
+.nt-k-l { border-left-color: var(--c-min); }
+.nt-k-f { border-left-color: var(--color-outline); }
+.nt-osi { color: var(--color-on-surface-variant); }
+@media (max-width: 560px) { .nt-stakk { grid-template-columns: 6.5rem 6.5rem minmax(0, 1fr); column-gap: .5rem; font-size: 13px; } }
+
+/* ---------- Innkapsling ---------- */
+.nt-pakke { display: flex; flex-wrap: wrap; gap: 0; font-family: var(--font-mono); font-size: 13px; margin: .4rem 0; }
+.nt-del { padding: .45rem .6rem; border-bottom: 3px solid var(--color-outline); border-right: 1px solid var(--nt-line); }
+.nt-del:first-child { border-left: 1px solid var(--nt-line); }
+.nt-d-data { border-bottom-color: var(--color-outline); }
+.nt-d-app  { border-bottom-color: var(--color-tertiary); }
+.nt-d-tls  { border-bottom-color: var(--nt-ok); }
+.nt-d-tcp  { border-bottom-color: var(--c-target); }
+.nt-d-ip   { border-bottom-color: var(--c-compare); }
+.nt-d-link { border-bottom-color: var(--c-min); }
+.nt-d-ipsec { border-bottom-color: var(--nt-ok); }
+.nt-d-laas { border-bottom-color: var(--nt-ok); color: var(--nt-ok); font-weight: 600; }
+.nt-ny { font-weight: 700; }
+
+/* ---------- Sekvensdiagram ---------- */
+.nt-seq { width: 100%; min-width: 30rem; }
+.nt-seq-head { display: grid; grid-template-columns: repeat(var(--nt-n), 1fr); border-bottom: 1px solid var(--color-outline); }
+.nt-seq-rolle { text-align: center; font-weight: 600; padding: .2rem 0 .35rem; }
+.nt-seq-body { position: relative; padding: .3rem 0; }
+.nt-seq-ll { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px dashed var(--color-outline); }
+.nt-seq-row { position: relative; height: 2.55rem; }
+.nt-seq-row.nt-later { visibility: hidden; }
+.nt-seq-arr { position: absolute; top: .1rem; height: 2.3rem; }
+.nt-seq-lbl { display: block; text-align: center; font-size: 12.5px; line-height: 1.2; padding: 0 .3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nt-sub { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--color-on-surface-variant); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nt-seq-line { position: absolute; left: 0; right: 0; bottom: .25rem; border-top: 2px solid var(--color-on-surface-variant); }
+.nt-seq-line::after { content: ""; position: absolute; top: -6px; border: 5px solid transparent; }
+.nt-r .nt-seq-line::after { right: -2px; border-left: 8px solid var(--color-on-surface-variant); border-right: 0; }
+.nt-l .nt-seq-line::after { left: -2px; border-right: 8px solid var(--color-on-surface-variant); border-left: 0; }
+.nt-laas .nt-seq-line { border-top-color: var(--nt-ok); }
+.nt-r.nt-laas .nt-seq-line::after { border-left-color: var(--nt-ok); }
+.nt-l.nt-laas .nt-seq-line::after { border-right-color: var(--nt-ok); }
+.nt-bad .nt-seq-line { border-top-color: var(--nt-bad); border-top-style: dashed; }
+.nt-r.nt-bad .nt-seq-line::after { border-left-color: var(--nt-bad); }
+.nt-l.nt-bad .nt-seq-line::after { border-right-color: var(--nt-bad); }
+.nt-bad .nt-seq-lbl { color: var(--nt-bad); }
+.nt-seq-note { position: absolute; top: .35rem; text-align: center; font-size: 12.5px; font-style: italic; color: var(--color-on-surface-variant); }
+.nt-seq-note.nt-bad { color: var(--nt-bad); font-style: normal; font-weight: 600; }
+.nt-seq-note.nt-ok { color: var(--nt-ok); font-style: normal; font-weight: 600; }
+.nt-seq-row.nt-cur .nt-seq-lbl, .nt-seq-row.nt-cur .nt-seq-note { font-weight: 700; color: var(--color-on-surface); }
+.nt-seq-row.nt-cur .nt-bad .nt-seq-lbl, .nt-seq-row.nt-cur .nt-seq-note.nt-bad { color: var(--nt-bad); }
+.nt-seq-row.nt-cur .nt-seq-note.nt-ok { color: var(--nt-ok); }
+.nt-seq-row.nt-cur { background: color-mix(in srgb, var(--color-primary) 7%, transparent); }
+
+/* ---------- Nøkkeltyveri ---------- */
+.nt-tyveri { margin-top: .4rem; }
+.nt-ty-rad { border-left: 3px solid var(--color-outline); padding: .2rem 0 .2rem .7rem; margin: .5rem 0; }
+.nt-ty-rad p { margin: .15rem 0; }
+.nt-ty-rad.nt-ok { border-left-color: var(--nt-ok); }
+.nt-ty-rad.nt-bad { border-left-color: var(--nt-bad); }
+
+/* ---------- Brannmur og tabeller ---------- */
+.nt-fw-tools { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; margin: .5rem 0; }
+.nt-fw-tools label, .nt-chk { display: inline-flex; align-items: center; gap: .3rem; cursor: pointer; }
+.nt-fw-pk { margin: 0 0 .4rem; }
+table.nt-fw { border-collapse: collapse; font-size: 13px; width: 100%; }
+table.nt-fw th, table.nt-fw td { padding: .3rem .5rem; border-bottom: 1px solid var(--nt-line); text-align: left; }
+table.nt-fw thead th { border-bottom: 1px solid var(--color-outline); font-weight: 600; }
+table.nt-fw tr.nt-cur td { background: color-mix(in srgb, var(--nt-warn) 10%, transparent); }
+table.nt-fw tr.nt-hit td { background: color-mix(in srgb, var(--color-primary) 12%, transparent); font-weight: 600; }
+table.nt-fw tr.nt-done td { color: var(--color-on-surface-variant); }
+.nt-m-ja { color: var(--nt-ok); font-weight: 600; }
+.nt-m-nei { color: var(--nt-bad); font-weight: 600; text-decoration: line-through; }
+.nt-anon .nt-m-nei, .nt-sn-tab .nt-m-nei { text-decoration: none; }
+.nt-m-any { color: var(--color-on-surface-variant); }
+.nt-dim { opacity: .7; }
+.nt-j-accept { color: var(--nt-ok); }
+.nt-j-drop { color: var(--nt-bad); }
+.nt-verdict { margin: .6rem 0 0; font-size: 1rem; }
+.nt-verdict.nt-ok b { color: var(--nt-ok); }
+.nt-verdict.nt-bad b { color: var(--nt-bad); }
+.nt-alarm { color: var(--nt-bad); font-weight: 700; }
+
+/* ---------- DMZ ---------- */
+.nt-dmz { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin: .8rem 0; }
+.nt-sone, .nt-mur { padding: .3rem .6rem; border-top: 3px solid var(--color-outline); }
+.nt-mur { border-top-color: var(--nt-bad); }
+.nt-sone.nt-ute { border-top-color: var(--color-outline); }
+.nt-sone.nt-dmzs { border-top-color: var(--nt-warn); }
+.nt-sone.nt-inne { border-top-color: var(--nt-ok); }
+.nt-sone-h, .nt-mur-h { font-weight: 600; margin-bottom: .2rem; }
+@media (max-width: 760px) {
+  .nt-dmz { grid-template-columns: 1fr; }
+  .nt-sone, .nt-mur { border-top: 0; border-left: 3px solid var(--color-outline); margin-bottom: .4rem; }
+  .nt-mur { border-left-color: var(--nt-bad); }
+  .nt-sone.nt-dmzs { border-left-color: var(--nt-warn); }
+  .nt-sone.nt-inne { border-left-color: var(--nt-ok); }
+}
+
+/* ---------- Snort ---------- */
+.nt-snort { display: flex; flex-wrap: wrap; gap: .25rem; margin: .6rem 0 .3rem; }
+.nt-sn {
+  font: inherit; font-size: 13px; background: none; border: 0; border-bottom: 3px solid var(--color-outline);
+  padding: .3rem .4rem; cursor: pointer; color: var(--color-on-surface);
+}
+.nt-sn:hover, .nt-sn.on { background: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+.nt-sn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.nt-sn-h { border-bottom-color: var(--nt-bad); }
+.nt-sn-p { border-bottom-color: var(--color-tertiary); }
+.nt-sn-s { border-bottom-color: var(--c-target); }
+.nt-sn-r { border-bottom-color: var(--color-on-surface); }
+.nt-sn-d { border-bottom-color: var(--nt-warn); }
+.nt-sn-o { border-bottom-color: var(--nt-ok); }
+.nt-snort-info { min-height: 2.6em; }
+
+/* ---------- Anomali ---------- */
+.nt-anom-svg { width: 100%; max-width: 30rem; height: auto; display: block; }
+.nt-bar { fill: var(--color-primary); opacity: .75; }
+.nt-bar-over { fill: var(--nt-bad); }
+.nt-ax { font-size: 11px; fill: var(--color-on-surface-variant); }
+.nt-terskel { stroke: var(--nt-warn); stroke-width: 2; stroke-dasharray: 5 4; }
+.nt-terskel-t { fill: var(--nt-warn); }
+
+/* ---------- Tor ---------- */
+.nt-tor-vei { display: flex; flex-wrap: wrap; gap: .2rem .8rem; margin-bottom: .6rem; }
+.nt-tor-n { padding: .15rem 0; border-bottom: 2px solid transparent; color: var(--color-on-surface-variant); }
+.nt-tor-n.on { color: var(--color-on-surface); font-weight: 700; border-bottom-color: var(--color-primary); }
+.nt-tor-n + .nt-tor-n::before { content: "→ "; color: var(--color-outline); font-weight: 400; }
+.nt-tor-pk { font-size: 13px; }
+.nt-tor-skall { display: inline-flex; align-items: center; gap: .3rem; padding: .25rem .45rem; border-left: 3px solid; border-right: 3px solid; }
+.nt-tor-k { font-family: var(--font-mono); font-weight: 600; }
+.nt-tx { border-color: var(--c-compare); }
+.nt-ty { border-color: var(--color-tertiary); }
+.nt-tz { border-color: var(--c-target); }
+.nt-tor-last { font-family: var(--font-mono); padding: 0 .3rem; }
+.nt-tor-ser { margin: .6rem 0 0; }
+
+/* ---------- Hvem ser passordet ---------- */
+.nt-hs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: .7rem 0; }
+.nt-hs-col { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.nt-hs-st { font-weight: 600; font-size: 13px; padding: 0 .3rem .2rem 0; }
+.nt-hs-link { font-size: 11.5px; border-top: 3px solid var(--nt-bad); padding: .15rem .3rem .3rem 0; color: var(--nt-bad); }
+.nt-hs-link.nt-hs-end { border-top-color: transparent; }
+.nt-hs-p { border-left: 3px solid var(--color-outline); padding: .15rem .4rem; display: flex; flex-direction: column; font-size: 13px; }
+.nt-hs-p .small { color: var(--color-on-surface-variant); }
+.nt-hs-link.nt-hs-noy { border-top-color: var(--color-outline); }
+@media (max-width: 760px) {
+  .nt-hs { grid-template-columns: 1fr; }
+  .nt-hs-col { flex-direction: row; flex-wrap: wrap; align-items: baseline; border-bottom: 1px solid var(--nt-line); padding: .3rem 0; }
+  .nt-hs-st { flex: 0 0 7.5rem; }
+  .nt-hs-link { border-top: 0; padding: 0; flex: 0 0 auto; }
+  .nt-hs-link.nt-hs-end { display: none; }
+}
+
+/* ---------- Egg, løk og zero trust ---------- */
+.nt-forsvar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; width: 100%; }
+.nt-fv-h { font-weight: 700; border-bottom: 1px solid var(--color-outline); padding-bottom: .25rem; margin-bottom: .3rem; }
+.nt-fv-c { padding: .3rem 0; border-bottom: 1px solid var(--nt-line); font-size: 13px; color: var(--color-on-surface-variant); }
+.nt-fv-c.nt-her { color: var(--color-on-surface); font-weight: 600; }
+.nt-fv-c.nt-forbi { text-decoration: line-through; }
+.nt-fv-c.nt-stopp { color: var(--nt-ok); font-weight: 700; }
+.nt-fv-c.nt-tapt { color: var(--nt-bad); font-weight: 700; }
+@media (max-width: 560px) { .nt-forsvar { grid-template-columns: 1fr; } }
+
+/* ---------- ARP-tabell og diverse ---------- */
+table.nt-arp tr.nt-dup td { color: var(--nt-bad); font-weight: 600; }
+.nt-mod { margin: .4rem 0 1rem; }
+
+/* ---------- Snort-bygger ---------- */
+.nt-sb-oppg { margin: .5rem 0 .3rem; }
+.nt-sb-regel { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; font-size: 13px; margin: .3rem 0 0; }
+.nt-sb-fast { padding: .25rem .2rem; }
+.nt-sb-sel {
+  font: inherit; font-size: 13px; color: var(--color-on-surface); background: var(--color-surface, transparent);
+  border: 0; border-bottom: 2px solid var(--color-primary); padding: .2rem .25rem; cursor: pointer;
+}
+.nt-sb-sel:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.nt-sb-res { margin: .6rem 0 0; }
+.nt-sb-res.nt-ok b { color: var(--nt-ok); }
+.nt-sb-res.nt-bad b { color: var(--nt-bad); }
+table.nt-fw tr.nt-sb-vil td:first-child { color: var(--nt-warn); font-weight: 700; }
+
+/* ---------- Anomali: gjett først ---------- */
+.nt-gjett { margin-top: .5rem; border-left: 3px solid var(--nt-warn); padding-left: .7rem; }
+.nt-gjett p { margin: .2rem 0; }
+
+/* ---------- IDS-hendelser ---------- */
+.nt-ih p { margin: .25rem 0; }
+.nt-ih-t { font-size: 1rem; }
+.nt-ih-r { border-bottom: 1px solid var(--nt-line); padding: .2rem 0; }
+.nt-ih-n { display: inline-block; min-width: 9rem; font-weight: 600; }
+
+/* ---------- Matriser i nettverksblokka ---------- */
+.nt-mod-h { margin: 1rem 0 .2rem; }

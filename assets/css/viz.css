@@ -1,0 +1,138 @@
+/* ============================================================
+   IN2120 guide · viz.css
+   Fagets egne klasser: eksamensbank, del 1-øving og visualiseringer.
+   (Bank/del 1-reglene er hentet fra IN2090-guiden.) Lastes etter styles.css.
+   ============================================================ */
+
+
+
+/* ---------- Del 1 (automatisk rettet) ---------- */
+.del1 { margin: .6rem 0; padding: .6rem .8rem; border: 1px dashed var(--color-outline); border-radius: 10px; background: var(--color-surface-container-low); }
+.del1-regel { margin: 0 0 .5rem; }
+.del1-sum { margin: .4rem 0 0; padding: .45rem .7rem; border-radius: 8px; background: var(--color-tone-info); color: var(--color-on-tone-info); }
+.qz-extra .et-sql { margin: .3rem 0 .2rem; }
+
+/* ---------- Eksamensbank ---------- */
+.bank-sum { margin: .2rem 0 .5rem; }
+.bank-years { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .8rem; }
+.bank-years .btn[aria-pressed="true"] { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); font-weight: 600; } /* grønn valgt-farge som sidefanene */
+.bank-year { margin-bottom: 1.4rem; }
+.bank-year[hidden] { display: none; }
+.bank-yh { margin: .4rem 0 .5rem; }
+.bank-cards { display: grid; gap: .6rem; }
+.bank-oppg .exam-fig { margin: .6rem 0; }
+.et-formel { white-space: pre-wrap; }
+.et-pf-pre { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+
+/* ---------- Inspera-øving (inspera.js) ---------- */
+/* Flatt (2010 design-eksamenskort: ingen boks i boks i kortet). Bare en tynn skillelinje over øvingen. */
+.insp { margin: var(--d-md) 0 var(--d-sm); padding-top: var(--d-sm); border-top: 1px solid var(--color-outline-variant); }
+.insp-regel { margin-bottom: var(--d-sm); }
+.insp-regel p { margin: .2em 0; }
+.insp-m { border-collapse: collapse; width: 100%; font-size: var(--text-sm); }
+.insp-m th, .insp-m td { border-bottom: 1px solid var(--color-outline-variant); padding: 6px 8px; vertical-align: middle; }
+.insp-m thead th { text-align: center; font-weight: 600; }
+.insp-m td { text-align: center; }
+.insp-m th.insp-m-s { text-align: left; font-weight: 400; }
+.insp-m .insp-m-st { width: 2em; font-weight: 700; }
+.insp-m tr.is-right { box-shadow: inset 3px 0 0 var(--color-on-tone-ok); }
+.insp-m tr.is-right .insp-m-st { color: var(--color-on-tone-ok); background: var(--color-tone-ok); }
+.insp-m tr.is-wrong { box-shadow: inset 3px 0 0 var(--color-on-tone-danger); }
+.insp-m tr.is-wrong .insp-m-st { color: var(--color-on-tone-danger); background: var(--color-tone-danger); }
+.insp-m tr.is-blank .insp-m-st { color: var(--muted); }
+.insp-m input { width: 18px; height: 18px; cursor: pointer; }
+.insp-alts { display: grid; gap: 6px; }
+.insp-opt { display: flex; gap: 10px; align-items: flex-start; padding: 6px 8px; border-left: 3px solid transparent; border-radius: var(--radius); cursor: pointer; }
+.insp-opt:hover { background: var(--state-hover); }
+.insp-opt input { margin-top: 4px; flex: 0 0 auto; }
+.insp-opt.is-right { border-left-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.insp-opt.is-wrong { border-left-color: var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.insp-opt.is-missed { border-left: 3px dashed var(--color-on-tone-ok); }
+.insp-tekst { line-height: 2.1; }
+.insp-sel, .insp-t { font: inherit; font-size: var(--text-sm); padding: 3px 6px; border: 1px solid var(--color-outline); border-radius: var(--radius); background: var(--color-surface-container-lowest); color: var(--color-on-surface); max-width: 100%; }
+.insp-t { min-width: 9em; font-family: var(--font-mono); }
+.insp-sel.is-right, .insp-t.is-right { border-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.insp-sel.is-wrong, .insp-t.is-wrong { border-color: var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.insp-sel.is-blank, .insp-t.is-blank { border-style: dashed; }
+.insp-felt { margin: .35em 0; }
+.insp-et { margin-right: .4em; }
+.insp-chip { display: inline-block; padding: 1px 8px; margin: 2px; border: 1px solid var(--color-outline-variant); border-radius: 999px; background: var(--color-surface-container-high); font-size: var(--text-xs); }
+.insp-del { margin: var(--d-sm) 0; }
+.insp-del-h { margin: .2em 0; }
+.insp-ta { width: 100%; font: inherit; font-size: var(--text-sm); padding: 8px; border: 1px solid var(--color-outline); border-radius: var(--radius-md); background: var(--color-surface-container-lowest); color: var(--color-on-surface); resize: vertical; }
+.insp-bar { display: flex; gap: var(--d-sm); flex-wrap: wrap; margin-top: var(--d-sm); }
+.insp-res:empty, .insp-fasit:empty { display: none; }
+.insp-sum { margin: var(--d-sm) 0 .3em; }
+.insp-fasit-l { margin: .3em 0; padding-left: 1.2em; }
+.insp-fasit-l li { margin: .45em 0; }
+.insp-ex { color: var(--muted); }
+.insp-figtxt { padding: 2px 0 2px var(--d-card); border-left: 2px solid var(--color-outline-variant); }
+.insp-fig { margin: var(--d-sm) 0; }
+.insp-sq { margin: var(--d-sm) 0 var(--d-md); }
+.insp-sq-t { margin-bottom: 4px; }
+.insp-grp { margin-top: var(--d-sm); }
+
+/* ---------- Fritekst-trener: egenvurdering med sjekkliste (inspera.js, K/E) ---------- */
+/* Flatt: tynne linjer og fargede venstrekanter, ingen boks i boks. */
+.insp-vurd { margin-top: var(--d-sm); padding: var(--d-xs) 0 var(--d-xs) var(--d-card); border-left: 3px solid var(--color-primary); }
+.insp-vurd[hidden] { display: none; }
+.insp-vurd:focus { outline: none; }
+.insp-vurd:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.insp-sj { margin: 0; padding: 0; border: 0; min-width: 0; }
+.insp-sj legend { padding: 0; font-weight: 600; }
+.insp-sj-intro, .insp-sj-tom { margin: .2em 0 .5em; }
+.insp-sj-tom { color: var(--color-on-tone-warn); }
+.insp-sj-grp { margin: var(--d-sm) 0; }
+.insp-sj-grp + .insp-sj-grp { padding-top: var(--d-sm); border-top: 1px solid var(--color-outline-variant); }
+.insp-sj-h { margin: 0 0 .25em; }
+.insp-sj-niv { margin: 0 0 .3em; }
+.insp-sj-opt { display: flex; gap: 10px; align-items: flex-start; padding: 5px 8px; border-left: 3px solid transparent; border-radius: var(--radius); cursor: pointer; }
+.insp-sj-opt:hover { background: var(--state-hover); }
+.insp-sj-opt input { margin-top: 4px; flex: 0 0 auto; width: 16px; height: 16px; cursor: pointer; }
+.insp-sj-opt:has(input:checked) { border-left-color: var(--color-on-tone-ok); }
+.insp-sj-grp.is-nivaa .insp-sj-opt { border-left-style: dotted; }
+.insp-sj-grp.is-nivaa .insp-sj-opt:has(input:checked) { border-left-style: solid; }
+.insp-sj-txt .et-p { color: var(--muted); white-space: nowrap; }
+.insp-hint { display: block; margin-top: 2px; color: var(--muted); font-style: italic; }
+.insp-hint[hidden] { display: none; }
+.insp-egen { margin: var(--d-sm) 0; padding: 4px 0 4px 10px; border-left: 3px solid var(--color-on-tone-info); }
+.insp-pf { margin-top: var(--d-sm); padding-top: var(--d-sm); border-top: 1px solid var(--color-outline-variant); }
+.insp-pf > summary { cursor: pointer; font-weight: 600; }
+.insp-pf-h { margin: var(--d-sm) 0 .2em; }
+.insp-pf-src { margin: 0 0 .3em; }
+.insp-pf-del { margin: .4em 0; }
+.insp-pf-dl { font-weight: 600; }
+.insp-pf-ours { padding-left: 10px; border-left: 2px solid var(--color-on-tone-ok); }
+.insp-pf-sensor { margin-top: var(--d-sm); }
+.insp-pf-sensor blockquote.sensor { margin: .3em 0; padding: 2px 0 2px 10px; border-left: 2px solid var(--color-outline); }
+/* I eksamenskortet (iKort): knapper som åpner fanene «Løsning» og «Sensorveiledning» i stedet for å gjenta dem */
+.insp-kort-lenker { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: var(--d-sm); padding-top: var(--d-sm); border-top: 1px solid var(--color-outline-variant); }
+.insp-kort-lenker[hidden] { display: none; }
+.insp-kort-txt { margin: 0; }
+.insp-gaa::before { content: ""; display: inline-block; width: .55em; height: .55em; border-radius: 50%; margin-right: .4em; vertical-align: .05em; background: var(--color-outline); }
+.insp-gaa.t-losning::before { background: var(--color-on-tone-ok); }
+.insp-gaa.t-sensor::before { background: var(--color-on-tone-warn); }
+.insp-fasit-d > .et-h { margin: var(--d-sm) 0 .3rem; }
+
+/* ---------- Stegspiller: «Gjett før neste» (stepplayer.js, steg med spor) ---------- */
+.sp-gjett-tog { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 var(--d-xs); cursor: pointer; color: var(--muted); }
+.sp-gjett-tog[hidden] { display: none; }
+.sp-gjett-tog input { width: 16px; height: 16px; margin: 0; cursor: pointer; }
+.sp-gjett { margin: var(--d-sm) 0; padding: 6px 0 6px var(--d-card); border-left: 3px solid var(--color-on-tone-info); }
+.sp-gjett[hidden] { display: none; }
+.sp-gjett.is-locked { border-left-color: var(--color-primary); }
+.sp-gjett.is-right { border-left-color: var(--color-on-tone-ok); }
+.sp-gjett.is-wrong { border-left-color: var(--color-on-tone-danger); }
+.sp-gjett .tagline { display: block; margin-bottom: 2px; }
+.sp-gjett-q { margin: 0 0 6px; }
+.sp-gjett-q > :first-child { margin-top: 0; }
+.sp-gjett-q > :last-child { margin-bottom: 0; }
+.sp-gjett-valg { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sp-gjett-btn.is-right, .sp-gjett-opt.is-right { border-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.sp-gjett-btn.is-wrong, .sp-gjett-opt.is-wrong { border-color: var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.sp-gjett-btn:disabled { opacity: 1; cursor: default; }
+.sp-gjett-opt { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border: 1px solid var(--color-outline-variant); border-radius: var(--radius); cursor: pointer; }
+.sp-gjett-tall { font: inherit; font-size: var(--text-sm); font-family: var(--font-mono); width: 8em; padding: 3px 6px; border: 1px solid var(--color-outline); border-radius: var(--radius); background: var(--color-surface-container-lowest); color: var(--color-on-surface); }
+.sp-gjett-bar { display: flex; flex-wrap: wrap; gap: var(--d-sm); align-items: center; margin-top: 6px; }
+.sp-gjett-fb:empty { display: none; }
+.sp-gjett-fb { margin-top: 6px; font-size: var(--text-sm); }

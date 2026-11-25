@@ -1,0 +1,71 @@
+/* IN2120 · blokk 4 (angrep og pentest): stiler for viz-angrep.js og sidens grenseforklaringer.
+   Flatt: ingen bokser i bokser, bare tonede flater og linjer. */
+
+/* Grenseforklaringer i felle-callouts */
+.callout details.grense { margin: .35rem 0; }
+.callout details.grense > summary { font-weight: 600; cursor: pointer; }
+.callout details.grense > p { margin: .3rem 0 .5rem 1.1rem; }
+
+.an-k { font-weight: 700; }
+.an-pc-h { font-weight: 700; margin: .2rem 0 .3rem; font-size: var(--text-sm); }
+.btn[aria-pressed="true"] { background: var(--color-tone-ok); border-color: var(--color-on-tone-ok); color: var(--color-on-tone-ok); }
+
+/* ---------- Boksfargene (fargeprøver i radene i IN.matrise) ---------- */
+.an-sw { display: inline-block; width: .95em; height: .95em; border-radius: 3px; margin-right: .4em; vertical-align: -.1em;
+  border: 1px solid var(--color-outline); }
+.an-sw-svart { background: #151515; }
+.an-sw-gra { background: #8d8d8d; }
+.an-sw-hvit { background: #ffffff; }
+
+/* Øvingene står rett etter hverandre i pentestfanen */
+#angrep-sort-faser { margin-bottom: 1rem; }
+
+/* ---------- Tidslinje for pentestfasene ---------- */
+.an-tl-scroll { overflow-x: auto; padding: .2rem 0 .4rem; }
+.an-tl-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(84px, 1fr));
+  position: relative; min-width: 600px; }
+.an-tl-row::before { content: ""; position: absolute; left: 7%; right: 7%; top: 15px; height: 2px; background: var(--color-outline-variant); }
+.an-tl-row li { display: flex; justify-content: center; position: relative; }
+.an-tl-b { display: flex; flex-direction: column; align-items: center; gap: .3rem; background: none; border: 0; padding: 0 .2rem;
+  font: inherit; color: var(--color-on-surface); cursor: pointer; }
+.an-tl-n { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: var(--text-sm);
+  background: var(--color-surface); border: 2px solid var(--color-outline); }
+.an-tl-t { font-size: var(--text-xs); text-align: center; line-height: 1.25; }
+.an-tl-b.done .an-tl-n { border-color: var(--color-primary); color: var(--color-primary); }
+.an-tl-b.cur .an-tl-n { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
+.an-tl-b.cur .an-tl-t { font-weight: 700; color: var(--color-primary); }
+.an-tl-b:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius); }
+.an-tl-det { border-top: 1px solid var(--color-outline-variant); margin-top: .5rem; padding-top: .5rem; min-height: 11rem; }
+.an-tl-h { margin: 0 0 .4rem; }
+
+/* ---------- Kode mot data ---------- */
+.an-sql-fld { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .8rem; }
+.an-sql-in { font-family: var(--font-mono); min-width: 14rem; }
+.an-sql-g { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; margin-top: .4rem; }
+@media (max-width: 760px) { .an-sql-g { grid-template-columns: 1fr; } }
+.an-sql-code { font-family: var(--font-mono); font-size: var(--text-sm); white-space: pre-wrap; word-break: break-word; margin: .3rem 0;
+  padding: .55rem .7rem; background: var(--color-surface-container); border-radius: var(--radius-md); line-height: 1.7; }
+.an-sql-step { padding-left: .6rem; border-left: 3px solid transparent; margin-bottom: .4rem; transition: border-color .2s; }
+.an-sql-step.cur { border-left-color: var(--color-primary); }
+.an-sql-msg { min-height: 3em; }
+.t-k { color: var(--color-on-surface); }
+.t-d { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-radius: 2px; }
+.t-q { background: var(--color-tone-danger); color: var(--color-on-tone-danger); font-weight: 700; outline: 1px solid var(--color-on-tone-danger); border-radius: 2px; }
+.t-x { background: var(--color-tone-danger); color: var(--color-on-tone-danger); font-weight: 700; border-radius: 2px; }
+.t-rest { color: var(--color-on-surface-variant); text-decoration: underline wavy var(--color-on-tone-danger); }
+.an-slot { font-weight: 700; color: var(--color-primary); }
+.an-legend { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin-top: .2rem; }
+.an-lg { font-family: var(--font-mono); padding: 0 4px; }
+@media (prefers-reduced-motion: reduce) { .an-sql-step { transition: none; } }
+
+/* ---------- Logganalyse ---------- */
+.an-logg-t td.an-ok { color: var(--color-on-tone-ok); font-weight: 700; }
+.an-logg-t td.an-feil { color: var(--color-on-tone-danger); }
+.an-logg-cnt { margin: .3rem 0 .6rem; }
+.an-logg-msg { min-height: 2.6em; }
+.an-logg-msg.ok { color: var(--color-on-tone-ok); }
+.an-logg-msg.feil { color: var(--color-on-tone-danger); }
+.an-merk { margin: .8rem 0 0; padding-top: .5rem; border-top: 1px solid var(--color-outline); color: var(--color-on-surface-variant, inherit); }
+
+/* Tabeller på siden */
+.an-tab th[scope="row"] { white-space: nowrap; }

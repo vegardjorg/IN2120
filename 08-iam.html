@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blokk 8 · IAM · IN2120</title>
+  <meta name="description" content="Identitets- og tilgangshåndtering i IN2120: IAM-fasene, silo og føderert identitet, OIDC, FEIDE og ID-porten, OAuth, og tilgangskontrollmodellene DAC, MAC (Bell-LaPadula), RBAC og ABAC – med sekvensdiagram, øving og eksamensoppgavene.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125f">
+  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261125f">
+</head>
+<body data-page="iam">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Blokk 8 · Identitets- og tilgangshåndtering (IAM)</h1>
+      <p class="lead">IAM ga 41 av 503 poeng på eksamenene H2021–H2025 (8 %). Gjengangerne er rekkefølgen på meldingene i OIDC og OAuth, hvilke trinn som hører til hvilken fase, og om en ordning har sentralisert eller distribuert navnerom og autentisering. Husk kursets skille hele veien: <b>autorisering</b> er å spesifisere policy, <b>tilgangskontroll</b> er å håndheve den.</p>
+      <div class="badges">
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-7_2"><b>H2021</b> · OIDC: 12 meldinger · <span class="pts">6p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-35"><b>H2023</b> · OAuth: meldingene 1–7 · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-1_3"><b>H2022</b> · Trinnene i IAM · <span class="pts">4p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-31"><b>H2024</b> · OIDC: 12 meldinger · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-34"><b>H2023</b> · Identitet og føderering · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-9_1"><b>H2022</b> · Sentralisert eller distribuert · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-9_4"><b>H2022</b> · ABAC-figuren · <span class="pts">3p</span></a>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="IAM">
+      <button data-tab="faser">IAM-faser og begreper</button>
+      <button data-tab="modeller">Silo og føderert</button>
+      <button data-tab="oidc">OIDC, FEIDE og ID-porten</button>
+      <button data-tab="oauth">OAuth</button>
+      <button data-tab="tk">Tilgangskontrollmodeller</button>
+      <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <!-- ===================== 1 · IAM-FASER ===================== -->
+    <section data-panel="faser">
+      <h3>IAM-faser og begreper</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <b>IAM</b> skal sørge for at rette personer får tilgang til rette ressurser, til rett tid og av rette grunner, og hindre svindel og uautorisert tilgang.
+        Arbeidet har to faser:
+        <ul>
+          <li><b>Konfigureringsfasen</b> (én gang): registrering av bruker-ID, klargjøring av autentikator(er) og tilgangsautorisering.</li>
+          <li><b>Bruksfasen</b> (hver gang): oppgi bruker-ID, oppgi og sjekk autentikator(er) (sammen: brukerautentisering) og tilgangskontroll.</li>
+        </ul>
+        <b>Identitetshåndtering</b> er registrering, klargjøring, oppgi bruker-ID og oppgi autentikator. <b>Tilgangshåndtering</b> er autorisering og tilgangskontroll.
+        <ul>
+          <li><b>Entitet:</b> person, organisasjon, system, prosess o.l. <b>Identitet:</b> et sett attributter for en entitet i et bestemt domene. <b>Identifikator (bruker-ID):</b> et entydig navn på én identitet i domenet. <b>Digital identitet:</b> en identitet som datasystemer kan behandle.</li>
+          <li><b>Autentikator:</b> det private eller hemmelige elementet (noe du vet, har eller er) som beviser at bruker-ID-en er din.</li>
+          <li><b>PAP / PDP / PEP:</b> der policyen administreres, der beslutningen tas, og der den håndheves.</li>
+          <li><b>Registrering før autentisering:</b> «identitet» betyr opprinnelig «den samme som sist». Uten registrering finnes det ingen «sist». Registreringen bygger enten på en identitet du har fra før (for eksempel pass) eller gir en helt ny entitet identitet (en nyfødt).</li>
+        </ul></div>
+      <div id="ex-faser"></div>
+
+      <h4>Hvilket trinn er det? Plasser handlingene</h4>
+      <p class="small muted">Seks trinn, tre i hver fase. Legg hver handling i trinnet den hører til. Trykk på en handling og så på et trinn, eller dra.</p>
+      <div id="dra-iam-faser"></div>
+
+      <h4>PAP, PDP og PEP i ett scenario</h4>
+      <p class="small muted">Stiplede piler (1–3) hører til konfigureringsfasen, heltrukne (4–8) til bruksfasen. Registrering og klargjøring kan skje hos ressurseieren eller hos IdP-en; her er de tegnet mot IdP-en.</p>
+      <div id="sp-pap"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor heter trinn 3 «autorisering» og ikke trinn 7–8?</summary>
+          <p>Autorisering er å <i>spesifisere</i> policyen, og det skjer i konfigureringsfasen. Det som skjer når forespørselen kommer, er tilgangskontroll: policyen håndheves. Ukesoppgavene kaller den vanlige lesningen «autorisering = å slippe noen inn» feil.</p></details>
+        <details class="grense"><summary>Hvorfor er «oppgi bruker-ID» identitetshåndtering og ikke tilgangshåndtering?</summary>
+          <p>Det handler om <i>hvem</i> du er, ikke hva du får gjøre. Oppgi bruker-ID og oppgi autentikator er til sammen brukerautentisering.</p></details>
+        <details class="grense"><summary>Hvorfor er ikke identitet det samme som brukernavn?</summary>
+          <p>Identiteten er hele settet attributter. Brukernavnet er identifikatoren, det entydige navnet som peker på identiteten.</p></details>
+        <ul>
+          <li><b>Identitetsdomene</b> er et navnerom med unike navn, ikke et sett attributter.</li>
+          <li>Én entitet kan ha identiteter i mange domener, og til og med flere i samme domene.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 1.3 (3 p) og H2023 14 (3 p): dra trinnene inn i figuren med de to fasene.</li>
+          <li>H2022 1.3 (4 p): kryss av hvilke trinn hvert begrep består av (brukerautentisering, identitetshåndtering, tilgangshåndtering, de to fasene, IAM). 0,2 p per kryss.</li>
+          <li>H2023 34 (3 p): korrekt eller feil om identitet og identitetsdomene (også fane 2).</li>
+          <li>Kom i H2021, H2022 og H2023, men ikke H2024–H2025. Det kan godt komme igjen.</li>
+        </ul></div>
+
+      <h4>Øv som på eksamen</h4>
+      <p class="small">Plasser hvert trinn i riktig fase og del.</p>
+      <div id="ov-iam-1"></div>
+      <p class="small">Fyll inn hvor policy forvaltes, avgjøres og håndheves.</p>
+      <div id="ov-iam-2"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-faser"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-faser"></div>
+    </section>
+
+    <!-- ===================== 2 · SILO OG FØDERERT ===================== -->
+    <section data-panel="modeller">
+      <h3>Identitetsmodeller: silo og føderert</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Identitetsdomene:</b> et navnerom med unike navn. En bruker har som regel én identitet per domene.</li>
+          <li><b>Silomodell:</b> SP er også IdP. Hver tjeneste har sitt eget navnerom og autentiserer selv, så brukeren får én bruker-ID og én autentikator per tjeneste.</li>
+          <li><b>Føderert modell:</b> SP og IdP er ulike aktører. IdP-en autentiserer brukeren og sender et digitalt signert ID-token (en sikkerhetsbillett) til SP-en. Mange SP-er kan godta samme IdP.</li>
+          <li><b>Aktørene:</b> brukeren (har bruker-ID og autentikator), SP, også kalt Relying Party (har et register over bruker-ID-er og en avtale med IdP-en), IdP (i e-forvaltning: eID-leverandør) og noen ganger en autentiseringsportal som ID-porten.</li>
+          <li><b>Fire kategorier</b> av føderering: navnerommet kan være sentralisert eller distribuert, og autentiseringen kan være sentralisert eller distribuert.</li>
+        </ul></div>
+      <div id="ex-modeller"></div>
+
+      <h4>Silo og føderert side om side</h4>
+      <div id="viz-modeller"></div>
+
+      <h4>Eksempel: Sindre og fem tjenester</h4>
+      <p><b>Silo:</b> fem brukernavn og fem passord. Nettbutikken lekker databasen, og fordi Sindre har gjenbrukt passordet, er alle fem kontoene i fare.
+        <b>Føderert:</b> fire av tjenestene har «Logg inn med Kontoleverandøren». Sindre har ett sterkt passord og en passnøkkel hos IdP-en, og nettbutikken lagrer ingen autentikator den kan lekke.
+        Baksiden: når IdP-en er nede, kommer han ikke inn på noen av de fire, og IdP-en ser hver gang han logger inn.</p>
+
+      <h4>Plasser ordningene: navnerom og autentisering</h4>
+      <p class="small muted">Velg en ordning, og trykk på ruta der den hører hjemme. Forklaringen kommer når du treffer.</p>
+      <div id="viz-kategorier"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Er føderering alltid distribuert autentisering?</summary>
+          <p>Nei. I FEIDE og Eduroam kan en bruker bare autentiseres av hjemmeinstitusjonen, så autentiseringen regnes som sentralisert. Tysk eID har både sentralisert navnerom og sentralisert autentisering.</p></details>
+        <details class="grense"><summary>Har føderering alltid distribuerte identitetsdomener?</summary>
+          <p>Nei. ID-porten bruker fødselsnummeret, som er ett sentralt navnerom.</p></details>
+        <details class="grense"><summary>Kan silo bare bruke én autentiseringsfaktor?</summary>
+          <p>Nei. Antall faktorer har ingenting med identitetsmodellen å gjøre.</p></details>
+        <details class="grense"><summary>Hvorfor står Eduroam under sentralisert autentisering?</summary>
+          <p>Fordi bare hjemmeinstitusjonen kan autentisere deg, selv om navnerommene er mange. 2026-lysarket plasserer Eduroam slik. En eldre fasit (H2018) hadde distribuert på begge aksene. Følg 2026-lysarket.</p></details>
+        <ul>
+          <li><b>Personvern:</b> silo gir <i>potensielt</i> bedre personvern fordi tjenestene vanskelig kan dele data. Føderering gjør det lett å dele informasjon om brukere.</li>
+          <li><b>Hvem lager billetten?</b> IdP-en autentiserer og utsteder billetten. SP-en tilbyr tjenesten og tar imot billetten.</li>
+          <li><b>Eduroam i Stockholm:</b> UiO-brukeren kommer på nett uten oppsett. Det er føderert identitet.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 7.1 (2 p): silo eller føderert for fire kjennetegn.</li>
+          <li>H2022 9.1 (3 p): sentralisert eller distribuert identitet og autentisering for OIDC, ID-porten, internett-IdP-er, silo, FIDO og personnummer.</li>
+          <li>H2022 9.2 (2 p): hvilke oppgaver SP og IdP har.</li>
+          <li>H2023 13 (1 p): Eduroam i Stockholm. H2023 34 (3 p): seks utsagn korrekt eller feil.</li>
+        </ul></div>
+
+      <h4>Øv som på eksamen</h4>
+      <p class="small">Silo eller føderert?</p>
+      <div id="ov-iam-3"></div>
+      <p class="small">Kryss av navnerom og autentisering for hver ordning (to kryss per rad).</p>
+      <div id="ov-iam-4"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-modeller"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-modeller"></div>
+    </section>
+
+    <!-- ===================== 3 · OIDC ===================== -->
+    <section data-panel="oidc">
+      <h3>Føderering i praksis: OIDC, FEIDE, ID-porten og eID</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>ID-føderering</b> bruker protokoller der IdP-en autentiserer brukeren og sender et digitalt signert ID-token til SP-en, som tar det som bevis på at brukeren er autentisert.</li>
+          <li><b>Standarder:</b> OAuth, <b>OIDC</b> (OpenID Connect, bygd på OAuth 2.0) og <b>SAML</b> (eldre og XML-basert; ordningene går over til OIDC).</li>
+          <li><b>SSO:</b> når klienten har fått ID-token fra en IdP, trenger den ikke autentisere seg på nytt hos andre SP-er som bruker samme IdP.</li>
+          <li><b>FEIDE:</b> føderasjonen i utdanningssektoren. Brukeren er registrert hos hjemmeinstitusjonen (IdP-en) og logger inn via FEIDE. SP-en får billett og attributter, aldri passordet.</li>
+          <li><b>ID-porten:</b> autentiseringsportal for offentlige tjenester. Brukeren velger eID-leverandør: BankID, Buypass og Commfides gir nivå HØYT, MinID gir BETYDELIG.</li>
+          <li><b>Europeisk eID (eIDAS):</b> en borger i land A logger på en tjeneste i land B via de to landenes eIDAS-portaler. EU krever en statlig IdP. I Norge er bare MinID statlig, og den gir bare BETYDELIG.</li>
+        </ul></div>
+      <div id="ex-oidc"></div>
+
+      <h4>OIDC: de tolv meldingene</h4>
+      <p class="small muted">Føderasjonsavtalen mellom SP og IdP er satt opp på forhånd (stiplet). Merkene C og R er utfordring og respons, ID er ID-tokenet. Ved noen steg må du gjette hva som skjer før du får gå videre.</p>
+      <div id="sp-oidc"></div>
+
+      <h4>Eksempel: Lina og Bibliotekappen</h4>
+      <p>Lina åpner Bibliotekappen (SP) og velger «Logg inn med Studentkonto» (IdP).</p>
+      <ol class="small">
+        <li>Nettleseren ber Bibliotekappen om lånelista.</li>
+        <li>Appen viser valgene «Studentkonto» og «Kommune-ID».</li>
+        <li>Lina velger Studentkonto.</li>
+        <li>Appen omdirigerer nettleseren til Studentkonto.</li>
+        <li>Nettleseren ber Studentkonto om innlogging.</li>
+        <li>Studentkonto viser innloggingssiden med en utfordring.</li>
+        <li>Lina skriver passordet og godkjenner i appen på telefonen.</li>
+        <li>Nettleseren sender svaret.</li>
+        <li>Studentkonto sjekker svaret.</li>
+        <li>Nettleseren får et ID-token signert av Studentkonto.</li>
+        <li>Tokenet sendes videre til Bibliotekappen.</li>
+        <li>Lina ser lånelista. Bibliotekappen så aldri passordet.</li>
+      </ol>
+
+      <h4>FEIDE og ID-porten i fem steg</h4>
+      <p>1 Brukeren ber SP-en om tjenesten. 2 SP-en ber brukeren velge hjemmeinstitusjon. 3 Brukeren logger inn i hjemmeinstitusjonens vindu. 4 Hjemmeinstitusjonen sender ID-token og attributter til SP-en. 5 SP-en sjekker billetten og attributtene og gir tjeneste etter sin policy.
+        ID-porten følger samme mønster, men brukeren velger eID-leverandør i ID-portens vindu.</p>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Hvorfor går ID-tokenet via nettleseren og ikke rett fra IdP til SP?</summary>
+          <p>I OIDC-figuren er det klienten som bærer meldingene: tokenet går fra IdP til klient (10) og videre fra klient til SP (11). Forenklede figurer sier «sendes til SP», men det skjer egentlig via nettleseren.</p></details>
+        <details class="grense"><summary>Hvorfor kommer 3 før 4?</summary>
+          <p>SP-en viser lista over IdP-er (2), brukeren velger (3), og først da kan SP-en omdirigere til den valgte IdP-en (4). Det er lett å bytte 3 og 4.</p></details>
+        <details class="grense"><summary>Hvorfor kommer 7 før 8?</summary>
+          <p>Brukeren gir autentikatoren lokalt til klienten (7). Deretter sender klienten responsen til IdP-en (8).</p></details>
+        <ul>
+          <li><b>Speilvendt figur:</b> H2021 7.2 og H2024 31 har samme protokoll, men H2021-figuren har IdP til venstre og andre etiketter («Nettleser», «Token»). Lær meldingene, ikke plasseringen.</li>
+          <li><b>OIDC eller OAuth for innlogging?</b> OIDC gir autentisering (ID-token). OAuth gir tilgang (tilgangstoken).</li>
+          <li><b>Er alle eID-leverandørene statlige?</b> Nei, bare MinID. BankID er privat.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 7.2 (6 p) og H2024 31 (3 p): skriv 1–12 på meldingene i OIDC-figuren. Samme figur, men 0,5 p per tall i 2021 og 0,25 p i 2024.</li>
+          <li>H2024 30 (2 p): sant eller usant om eID-leverandørene (statlige? HØYT overalt? brukt i e-forvaltning?).</li>
+          <li>H2022 9.1: OIDC støtter alle kombinasjoner av sentralisert og distribuert (fane 2).</li>
+        </ul></div>
+
+      <h4>Øv som på eksamen</h4>
+      <p class="small">Sett alle tolv meldingene i riktig rekkefølge (som H2021 7.2 og H2024 31).</p>
+      <div id="dra-iam-oidc"></div>
+      <p class="small">Skriv meldingsnummeret.</p>
+      <div id="ov-iam-5"></div>
+      <p class="small">Sant eller usant om eID?</p>
+      <div id="ov-iam-6"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-oidc"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-oidc"></div>
+    </section>
+
+    <!-- ===================== 4 · OAUTH ===================== -->
+    <section data-panel="oauth">
+      <h3>OAuth: distribuert tilgangskontroll</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>OAuth</b> (Open Authorization) er en IETF-standard for arkitekturer for <b>tilgangsautorisering og tilgangskontroll</b> når ressurseieren og ressurstjeneren er ulike aktører. OIDC bygger på OAuth.</li>
+          <li><b>Tilgangstoken</b> (accesstoken, AC): beviset fra autoriseringstjeneren på at ressurseieren har godkjent forespørselen.</li>
+          <li><b>Motivasjon:</b> internettbransjen trengte en felles standard for å dele brukerdata mellom tjenester som har samme kunde.</li>
+          <li><b>Rollene:</b> ressurseier (brukeren), klient (appen som vil ha tilgang), autoriseringstjener og IdP, ressurstjener (der dataene ligger).</li>
+        </ul></div>
+      <div id="ex-oauth"></div>
+
+      <h4>OAuth: de sju meldingene</h4>
+      <p class="small muted">Eksempelet fra figuren: Photo Edit vil redigere brukerens bilder i Google Photos. AC er tilgangstokenet. Ved noen steg må du gjette hva som skjer før du får gå videre.</p>
+      <div id="sp-oauth"></div>
+
+      <h4>Eksempel: Løpelogg og Klokkesky</h4>
+      <p>Treningsappen Løpelogg (klient) vil hente pulsdata fra Klokkesky (ressurstjener).
+        1 Aron trykker «Koble til Klokkesky» i Løpelogg. 2 Løpelogg ber Klokkeskys autoriseringstjener om lesetilgang til puls. 3 Aron får spørsmålet «Løpelogg vil lese pulsdata. Godta?»
+        4 Aron logger inn og godkjenner. 5 Løpelogg får et tilgangstoken (bare lesing, bare puls). 6 Løpelogg ber om pulsdata og viser tokenet. 7 Pulsdataene sendes.
+        Løpelogg kan ikke slette noe eller lese meldinger, og kjenner ikke Arons passord.</p>
+
+      <div class="callout eksempel"><span class="lbl">OAuth i helsesektoren</span>
+        Én sentral autoriseringstjener kan erstatte parvise avtaler mellom sykehus. Med <b>generell policy</b> har sykehuset gitt policyen på forhånd, og legens forespørsel godkjennes automatisk (spørsmålet til ressurseieren i steg 3–4 faller bort).
+        Med <b>spesifikk policy</b> går hver forespørsel til ressurseieren for godkjenning. Tilgangstokenet følges av et ID-token for legen.</div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Er OAuth for innlogging?</summary>
+          <p>Nei. OAuth gir tilgang (tilgangstoken). Innlogging med ID-token er OIDC, som er bygd oppå OAuth.</p></details>
+        <details class="grense"><summary>Hvem spør hvem i steg 3?</summary>
+          <p>Autoriseringstjeneren spør ressurseieren. Appen spør aldri brukeren om lov selv.</p></details>
+        <details class="grense"><summary>Hvem får tokenet, og hvem viser det fram?</summary>
+          <p>Klienten (appen) får tokenet i steg 5 og viser det til ressurstjeneren i steg 6. Ressurseieren håndterer ikke tokenet.</p></details>
+        <ul>
+          <li><b>Steg 1</b> går fra brukeren til appen, ikke til autoriseringstjeneren.</li>
+          <li><b>Hvorfor bedre enn å gi appen passordet?</b> Tokenet gjelder bare én ressurs og ett formål, og passordet lekker ikke.</li>
+          <li><b>Autorisering eller tilgangskontroll?</b> Godkjenningen i steg 4 er ressurseierens autorisering. Ressurstjenerens sjekk av tokenet i steg 6–7 er tilgangskontroll.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2023 35 (4 p): skriv 1–7 i Photo Edit-figuren, 0,5 p per riktig tall og bonus når alt er riktig.</li>
+          <li>Ukesoppgavene spør i fritekst om motivasjonen for OAuth og om bruk i helsesektoren.</li>
+        </ul></div>
+
+      <h4>Øv som på eksamen</h4>
+      <div id="ov-iam-7"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-oauth"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-oauth"></div>
+    </section>
+
+    <!-- ===================== 5 · TILGANGSKONTROLLMODELLER ===================== -->
+    <section data-panel="tk">
+      <h3>Tilgangskontrollmodeller: DAC, MAC, RBAC og ABAC</h3>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        Tilgangskontroll avgjør hvilke <b>subjekter</b> (brukere) som får tilgang til hvilke <b>objekter</b> (ressurser), og med hvilken <b>tilgangsmodus</b> (lese, skrive, utføre).
+        <ul>
+          <li><b>DAC</b> (navnebasert): policyen spesifiseres og håndheves ut fra subjektnavn og objektnavn, gjerne i en ACL. Eieren bestemmer etter eget skjønn. Brukes i Windows, macOS og Linux.</li>
+          <li><b>MAC</b> (merkebasert): subjekter har <b>klarering</b>, objekter har <b>gradering</b>, og en obligatorisk policy sammenligner merkene. Brukeren kan ikke gi bort tilgang. Brukes i SELinux og militære systemer.</li>
+          <li><b>Bell-LaPadula</b> (en MAC-modell): <b>ikke les opp</b> (ss-egenskapen) og <b>ikke skriv ned</b> (∗-egenskapen). Brukeren har en maks klarering, men kan velge et lavere <b>aktuelt nivå for økten</b>. Modellen støtter <b>konfidensialitet</b>.</li>
+          <li><b>RBAC:</b> tilgang ut fra arbeidsrolle. Rollene lages fra jobbfunksjonene, og vanligvis har man én rolle om gangen. Det forenkler tildelingen, men gir fare for rolleeksplosjon. RBAC kan konfigureres som DAC eller MAC.</li>
+          <li><b>ABAC:</b> policyer kombinert med attributter av alle slag: subjekt, objekt, kontekst og forespørsel. ABAC generaliserer DAC, MAC og RBAC. Policyene skrives i JSON (OAuth og OIDC) eller XACML (XML, SAML).</li>
+        </ul></div>
+      <div id="ex-tk"></div>
+
+      <h4>Bell-LaPadula: lese, skrive eller redigere?</h4>
+      <p class="small muted">Graderingene fra lavest til høyest: BEGRENSET, KONFIDENSIELT, HEMMELIG, STRENGT HEMMELIG. Aktuelt nivå kan ikke settes over maks.</p>
+      <div id="viz-blp"></div>
+
+      <h4>Eksempel: Major Dahl</h4>
+      <p>Tre dokumenter: Øvelsesplan (BEGRENSET), Logistikk (KONFIDENSIELT) og Angrepsplan (HEMMELIG). Major Dahl har maks klarering HEMMELIG.</p>
+      <div class="iam-tw"><table>
+        <thead><tr><th>Aktuelt nivå</th><th>Kan lese</th><th>Kan skrive</th><th>Kan redigere</th></tr></thead>
+        <tbody>
+          <tr><td>HEMMELIG</td><td>alle tre</td><td>Angrepsplan (og STRENGT HEMMELIG-dokumenter)</td><td>Angrepsplan</td></tr>
+          <tr><td>KONFIDENSIELT</td><td>Øvelsesplan, Logistikk</td><td>Logistikk, Angrepsplan (og høyere)</td><td>Logistikk</td></tr>
+        </tbody></table></div>
+
+      <h4>ABAC: en policy for journaler</h4>
+      <p class="small muted">Dr. Berg på kirurgi ber kl. 14 om å lese en kirurgijournal: tilgang. Samme forespørsel kl. 03, når hun ikke er på vakt: avslag. Prøv selv.</p>
+      <div id="viz-abac"></div>
+
+      <div class="callout felle"><span class="lbl">Feller</span>
+        <details class="grense"><summary>Beskytter Bell-LaPadula integritet?</summary>
+          <p>Nei, <b>konfidensialitet</b>. «Ikke skriv ned» hindrer at hemmelig informasjon lekker til et lavere nivå. Det er ikke en regel om korrekte data.</p></details>
+        <details class="grense"><summary>Betyr «ikke skriv ned» at man ikke kan skrive?</summary>
+          <p>Nei. Skriving på eget aktuelt nivå og oppover er lov. Bare skriving til et lavere nivå er forbudt.</p></details>
+        <details class="grense"><summary>Hvorfor gjelder reglene aktuelt nivå og ikke maks klarering?</summary>
+          <p>Økten kjører på det aktuelle nivået. Skal en bruker med maks STRENGT HEMMELIG redigere et HEMMELIG dokument, logger hun inn med aktuelt nivå HEMMELIG. Fasiten fra 2022 sier «skriv på eget nivå og oppover», og «eget nivå» betyr da det aktuelle. Hold de to nivåene adskilt.</p></details>
+        <ul>
+          <li><b>Hvem bestemmer?</b> I DAC eieren av ressursen. I MAC den obligatoriske policyen.</li>
+          <li><b>RBACs problem</b> er rolleeksplosjon, ikke at roller er ustabile.</li>
+          <li><b>«MAC» betyr to ting</b> på eksamen: Mandatory Access Control her, Message Authentication Code i kryptografi.</li>
+          <li><b>Klarering eller gradering?</b> Klarering er et subjektattributt, gradering er et objektattributt.</li>
+          <li>Tradisjonelt bruker kommersielle systemer DAC, mens militære bruker både DAC og MAC.</li>
+        </ul></div>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li>H2021 7.3 (2 p): RBAC, MAC, ABAC eller DAC for fire kjennetegn.</li>
+          <li>H2022 9.3 (2 p): hva kan en bruker med maks HEMMELIG lese og skrive med aktuelt nivå HEMMELIG eller KONFIDENSIELT?</li>
+          <li>H2022 9.4 (3 p): plasser MAC, beslutning, gradering, tidspunkt, klarering og tilgangsmodus i ABAC-figuren.</li>
+          <li>Temaet har ikke vært på eksamen etter 2022, men er fortsatt pensum.</li>
+        </ul></div>
+
+      <h4>Øv som på eksamen</h4>
+      <p class="small">Hvilken modell passer?</p>
+      <div id="ov-iam-8"></div>
+      <p class="small">Bell-LaPadula: kryss av alle graderinger som passer.</p>
+      <div id="ov-iam-9"></div>
+
+      <h4>Test deg selv</h4>
+      <div id="quiz-tk"></div>
+      <h4>Sant eller usant?</h4>
+      <div id="tf-tk"></div>
+    </section>
+
+    <!-- ===================== EKSAMEN ===================== -->
+    <section data-panel="eksamen">
+      <h3>Eksamensoppgaver</h3>
+      <p class="muted small">IAM-oppgavene fra eksamenene i banken, nyeste først. Autentiseringsfaktorer og garantinivå ligger i blokk 7.</p>
+      <div id="bank-iam"></div>
+    </section>
+  </main>
+
+  <footer class="footer">IN2120-guide · Blokk 8 · Identitets- og tilgangshåndtering · <a href="index.html">Til forsiden</a></footer>
+
+  <script src="assets/js/core.js?v=20261125f"></script>
+  <script src="assets/js/symboler.js?v=20261125f"></script>
+  <script src="assets/js/pseudocode.js?v=20261125f"></script>
+  <script src="assets/js/stepplayer.js?v=20261125f"></script>
+  <script src="assets/js/varline.js?v=20261125f"></script>
+  <script src="assets/js/inspera.js?v=20261125f"></script>
+  <script src="assets/js/dra.js?v=20261125f"></script>
+  <script src="assets/js/ovelse.js?v=20261125f"></script>
+  <script src="assets/js/bank.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261125f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261125f"></script>
+  <script src="assets/js/viz-iam.js?v=20261125f"></script>
+  <script>
+  (function () {
+    "use strict";
+    var IN = window.IN;
+    function safe(navn, fn) { try { fn(); } catch (e) { if (window.console) console.error("[08-iam] " + navn, e); } }
+
+    /* ---------- Forklaringer på tre nivåer ---------- */
+    var EX = {
+      "ex-faser": {
+        eli5: "<p>Tenk på et treningssenter. Første gang skriver du deg inn i kundelista (registrering), får et kort med kode (klargjøring), og resepsjonen noterer at du har betalt for styrkerommet, ikke svømmehallen (autorisering).</p><p>Senere kommer du bare, drar kortet og taster koden (autentisering), og døra slipper deg inn i styrkerommet, men ikke i bassenget (tilgangskontroll).</p>",
+        normal: "<p>IAM har en forberedende del og en daglig del. I konfigureringsfasen blir brukeren kjent for systemet, får autentikatorene sine, og eieren av ressursen bestemmer hva brukeren skal få gjøre.</p><p>I bruksfasen sier brukeren hvem han er (bruker-ID), beviser det (autentikator), og systemet sjekker hver forespørsel mot det som ble bestemt. Autorisering skjer altså <i>før</i>, tilgangskontroll skjer <i>nå</i>.</p>",
+        teknisk: "<p>I scenarioet med PAP, PDP og PEP er meldingene 1–3 konfigurering: registrering og klargjøring mellom brukeren og IdP-en (eller ressurseieren), og autorisering fra ressurseieren inn i PAP. Meldingene 4–8 er bruk: bruker-ID og autentikator til IdP-en, forespørsel med ressursnavn og tilgangsmodus til PEP, PEP spør PDP, som henter policyen fra PAP, PDP gir beslutningen tilbake, og PEP gir tilgang.</p><p>Skillet betyr noe fordi ISO 27000 definerer K, I og T med ordet «autorisert». Betydde «autorisering» at systemet slipper deg inn, ville definisjonene bli sirkulære.</p>"
+      },
+      "ex-modeller": {
+        eli5: "<p>Silo er som at hver butikk har sitt eget kundekort med egen PIN. Du ender med en lommebok full av kort.</p><p>Føderert er som at alle butikkene godtar bankkortet ditt: banken sjekker at det er deg, og butikken stoler på banken.</p>",
+        normal: "<p>Silo er enkelt og billig å starte, og godt for personvernet, siden tjenestene ikke deler data. Men brukeren får identitetsoverlast (mange passord), og nye tjenester møter lav aksept.</p><p>Føderering gir bedre brukervennlighet og lar SP-en konsentrere seg om tjenesten, mens IdP-en tar seg av autentiseringen. Prisen er teknisk og juridisk kompleksitet, krav om tillit mellom aktørene, svakere personvern (IdP-en ser bruksmønsteret) og avhengighet av noen få IdP-er.</p>",
+        teknisk: "<p>«Sentralisert navnerom» betyr at én aktør forvalter identifikatorene (fødselsnummer, helse-ID). «Distribuert autentisering» betyr at flere aktører kan autentisere samme bruker (BankID, Buypass, Commfides, MinID).</p><p>I FEIDE og Eduroam har hver institusjon sitt navnerom (distribuert), men en bruker kan bare autentiseres av hjemmeinstitusjonen, så autentiseringen er sentralisert. Et føderert domene kan selv bli en ny silo mot andre sektorer. IdP-avhengigheten ble tydelig da Facebook var nede i seks timer i oktober 2021: millioner kom ikke inn på tjenester med «logg inn med Facebook».</p>"
+      },
+      "ex-oidc": {
+        eli5: "<p>Du vil inn på en konsert (SP). Vakten sier: «Gå til billettluka (IdP) og vis legitimasjon.» Luka sjekker deg og gir deg et stemplet armbånd (ID-token). Vakten ser stempelet og slipper deg inn.</p><p>Andre konserter som stoler på samme luke, godtar armbåndet uten ny sjekk. Det er SSO.</p>",
+        normal: "<p>I OIDC snakker SP og IdP sjelden direkte. Nettleseren (klienten) bærer meldingene: SP-en sender nettleseren til IdP-en, brukeren logger inn der, og IdP-en gir nettleseren et signert ID-token som sendes videre til SP-en.</p><p>SP-en sjekker signaturen og gir tjenesten. Føderasjonsavtalen mellom SP og IdP er satt opp på forhånd.</p>",
+        teknisk: "<p>ID-tokenet er digitalt signert av IdP-en, så SP-en kan verifisere at det kommer fra IdP-en og ikke er endret (dataautentisering med signatur). I figuren er autentiseringen utfordring–respons (C i melding 6, R i melding 8), og brukeren gir autentikatoren lokalt til klienten i melding 7.</p><p>HelseID i helsesektoren bygger på OIDC: arbeidsgiveren gir helsepersonell identitet, og koblingen til fødselsnummeret finnes, men er beskyttet.</p>"
+      },
+      "ex-oauth": {
+        eli5: "<p>Du vil at en fotograf skal hente bildene dine fra et album i et bankhvelv. I stedet for å gi fotografen nøkkelen din, ringer hvelvet deg og spør: «Skal fotografen få se albumet?»</p><p>Du sier ja, og fotografen får et besøkskort som bare åpner det ene albumet.</p>",
+        normal: "<p>Appen ber om tilgang, autoriseringstjeneren spør eieren, eieren godkjenner med autentikatoren sin, og appen får et tilgangstoken. Med tokenet henter appen dataene fra ressurstjeneren.</p><p>Appen får aldri brukerens passord, og tokenet gjelder bare det eieren sa ja til.</p>",
+        teknisk: "<p>Godkjenningen i melding 4 er ressurseierens <i>autorisering</i> (spesifiserer hvem som får hva). Ressurstjenerens sjekk av tokenet i melding 6–7 er <i>tilgangskontroll</i>.</p><p>I helsesektoren kan én sentral autoriseringstjener erstatte parvise avtaler. Med generell policy er policyen gitt på forhånd og forespørselen godkjennes automatisk. Med spesifikk policy sendes hver forespørsel til ressurseieren.</p>"
+      },
+      "ex-tk": {
+        eli5: "<p>DAC er som at du selv skriver gjestelista til bursdagen din. MAC er som et skilt i en militærleir: «bare for de med rødt kort», og det bestemmer ikke du.</p><p>RBAC er som at alle som jobber på kjøkkenet, får nøkkel til kjølerommet, uansett hvem de er. ABAC er en klok dørvakt som ser på hvem du er, hva du vil inn til, og hva klokka er.</p>",
+        normal: "<p>I DAC står navnene i en tabell (ACL). I MAC er det merkene som avgjør, og brukeren kan ikke gi bort tilgang. RBAC legger roller mellom brukere og ressurser, fordi ansatte kommer og går mens rollene er mer stabile.</p><p>ABAC er det mest generelle: en policymotor tar inn attributter og svarer ja eller nei.</p>",
+        teknisk: "<p>Med aktuelt nivå L(økt) og objektgradering L(o) krever Bell-LaPadula at <b>lesing</b> har L(o) ≤ L(økt) (ikke les opp) og <b>skriving</b> har L(o) ≥ L(økt) (ikke skriv ned). Redigering, som er både lesing og skriving, krever derfor L(o) = L(økt).</p><p>ABAC-flyten: forespørselen med ressursnavn og tilgangsmodus går til autoriserings- og AC-tjeneren, policyene hentes, og så hentes subjektattributter (klarering, avdeling, rolle, lokasjon, autentiseringsnivå), objektattributter (type, eier, gradering, samtykke) og kontekstattributter (tidspunkt, risikonivå, beredskapsnivå) før beslutningen tas. DAC i ABAC: identitet som subjekt- og objektattributt, policy = ACL. MAC i ABAC: klarering og gradering som attributter, policy = Bell-LaPadula.</p>"
+      }
+    };
+    Object.keys(EX).forEach(function (id) {
+      safe(id, function () { IN.explain("#" + id, EX[id], { label: "Forklaring:" }); });
+    });
+
+    /* ---------- Sekvensdiagrammer ---------- */
+    var PAP = {
+      aria: "Scenario med bruker, ressurseier, IdP, PEP, PDP og PAP i åtte meldinger",
+      parter: ["Bruker", "Ressurseier", "IdP", "PEP", "PDP", "PAP"],
+      intro: { eli5: "Seks aktører. Først gjøres forberedelsene (stiplet), så kommer den daglige bruken.",
+               normal: "Seks aktører: brukeren, ressurseieren, IdP-en og de tre policypunktene PEP (håndhever), PDP (avgjør) og PAP (forvalter policy).",
+               teknisk: "PAP, PDP og PEP deler tilgangshåndteringen i forvaltning, beslutning og håndheving. IdP-en står for identitetshåndteringen." },
+      meldinger: [
+        { nr: 1, fra: 0, til: 2, tekst: "registrering", stiplet: true, forkl: "Brukeren registreres og får en bruker-ID. Konfigureringsfasen, identitetshåndtering." },
+        { nr: 2, fra: 2, til: 0, tekst: "klargjøring av autentikator", stiplet: true, forkl: "Brukeren får autentikatoren sin. Fortsatt konfigurering og identitetshåndtering." },
+        { nr: 3, fra: 1, til: 5, tekst: "autorisering: policy", stiplet: true,
+          spor: { sporsmal: "Brukeren er registrert og har fått autentikatoren. Ressurseieren legger nå policyen inn i PAP. Hva heter dette trinnet?", valg: ["Autorisering", "Tilgangskontroll", "Autentisering"], fasit: 0,
+                  forklaring: "Å spesifisere policyen er autorisering, og det skjer i konfigureringsfasen." }, forkl: { eli5: "Eieren skriver ned hvem som får gjøre hva, og legger lista i arkivet (PAP).", normal: "Ressurseieren spesifiserer policyen, som lagres i PAP. Dette er autorisering, og det skjer på forhånd.", teknisk: "Autorisering = spesifisere policy. PAP er stedet der policyen administreres. Siste trinn i konfigureringsfasen." } },
+        { nr: 4, fra: 0, til: 2, tekst: "bruker-ID + autentikator", forkl: "Bruksfasen begynner: brukeren autentiseres hos IdP-en." },
+        { nr: 5, fra: 0, til: 3, tekst: "forespørsel: ressurs + modus", forkl: "Brukeren ber om tilgang til en ressurs med en tilgangsmodus (for eksempel lese). Forespørselen treffer PEP, som står foran ressursen." },
+        { nr: "6a", fra: 3, til: 4, tekst: "be om beslutning",
+          spor: { sporsmal: "Forespørselen har nådd PEP. Hva gjør PEP nå?", valg: ["Avgjør selv ut fra policyen", "Ber PDP om en beslutning", "Spør ressurseieren"], fasit: 1,
+                  forklaring: "PEP håndhever, men avgjør ikke. Beslutningen tas i PDP." }, forkl: "PEP avgjør ikke selv. Den sender spørsmålet videre til PDP." },
+        { nr: "6b", fra: 4, til: 5, tekst: "hent policy", forkl: "PDP henter policyen fra PAP for å kunne avgjøre." },
+        { nr: 7, fra: 4, til: 3, tekst: "beslutning", forkl: "PDP gir beslutningen (tillat eller avslå) tilbake til PEP." },
+        { nr: 8, fra: 3, til: 0, tekst: "tilgang til ressursen", forkl: { eli5: "Døra åpner seg, fordi lista sa ja.", normal: "PEP håndhever beslutningen og gir tilgang. Meldingene 5–8 er tilgangskontroll.", teknisk: "Håndhevingen i PEP fullfører tilgangskontrollen. Autoriseringen (3) og tilgangskontrollen (5–8) ligger i hver sin fase." } }
+      ]
+    };
+    var OIDC = {
+      aria: "OIDC-protokollen med tolv meldinger mellom bruker, klient, SP og IdP",
+      parter: ["Bruker", "Klient\n(nettleser)", "SP", "IdP"],
+      pre: [{ fra: 2, til: 3, tekst: "føderasjonsavtale (på forhånd)" }],
+      intro: { eli5: "Fire aktører: deg, nettleseren din, tjenesten du vil bruke (SP), og innloggingstjenesten (IdP). SP og IdP har en avtale fra før.",
+               normal: "Partene er brukeren, klienten (nettleseren), SP og IdP. Føderasjonsavtalen mellom SP og IdP er satt opp på forhånd, og nesten alle meldinger går via klienten.",
+               teknisk: "Føderasjonsavtalen gir SP-en IdP-ens offentlige nøkkel, slik at signaturen på ID-tokenet kan verifiseres. Klienten bærer alle meldingene mellom SP og IdP." },
+      meldinger: [
+        { fra: 1, til: 2, tekst: "tjenesteforespørsel", forkl: "Klienten ber SP-en om tjenesten." },
+        { fra: 2, til: 1, tekst: "liste over IdP-er", forkl: "SP-en svarer med lista over IdP-er den har avtale med." },
+        { fra: 1, til: 2, tekst: "velg IdP",
+          spor: { sporsmal: "SP-en har sendt lista over IdP-er. Hva er neste melding?", valg: ["SP-en omdirigerer nettleseren til IdP-en", "Brukeren velger IdP", "IdP-en sender innloggingssiden"], fasit: 1,
+                  forklaring: "SP-en vet ikke hvor den skal omdirigere før brukeren har valgt. Valget (3) kommer før omdirigeringen (4)." }, forkl: "Brukeren velger IdP. Valget kommer <i>før</i> omdirigeringen." },
+        { fra: 2, til: 1, tekst: "omdiriger til IdP", forkl: "SP-en omdirigerer nettleseren til den valgte IdP-en." },
+        { fra: 1, til: 3, tekst: "be om autentisering", forkl: "Klienten ber IdP-en om autentisering." },
+        { fra: 3, til: 1, tekst: "login-side + utfordring", merke: "C", forkl: { eli5: "Innloggingstjenesten viser innloggingssiden og stiller en «gåte».", normal: "IdP-en viser innloggingssiden og sender en utfordring (C).", teknisk: "IdP-en sender utfordringen C. Responsen R kommer i melding 8." } },
+        { fra: 0, til: 1, tekst: "presenter autentikator",
+          spor: { sporsmal: "IdP-en har sendt innloggingssiden med utfordringen C. Hva skjer nå?", valg: ["Klienten sender responsen R til IdP-en", "Brukeren gir autentikatoren til klienten", "IdP-en sender ID-tokenet"], fasit: 1,
+                  forklaring: "Klienten kan ikke svare før brukeren har gitt autentikatoren lokalt (7). Responsen kommer i 8." }, forkl: "Brukeren gir autentikatoren lokalt til klienten (passord, passnøkkel, kode)." },
+        { fra: 1, til: 3, tekst: "respons", merke: "R", forkl: "Klienten sender responsen (R) på utfordringen til IdP-en." },
+        { fra: 3, til: 3, tekst: "brukerautentisering", forkl: "IdP-en sjekker responsen. Dette er selve brukerautentiseringen, og den skjer internt hos IdP-en." },
+        { fra: 3, til: 1, tekst: "ID-token", merke: "ID",
+          spor: { sporsmal: "IdP-en har autentisert brukeren. Hva får klienten tilbake nå?", valg: ["Et signert ID-token", "Et tilgangstoken (AC)", "Brukerens passord", "Tjenesten fra SP-en"], fasit: 0,
+                  forklaring: "OIDC gir autentisering, så det som kommer, er et ID-token signert av IdP-en. Tilgangstoken hører til OAuth." }, forkl: { eli5: "Du får det stemplede armbåndet.", normal: "IdP-en sender et signert ID-token til klienten.", teknisk: "ID-tokenet er signert med IdP-ens private nøkkel. Det går til klienten, ikke rett til SP-en." } },
+        { fra: 1, til: 2, tekst: "videresend ID-token", merke: "ID",
+          spor: { sporsmal: "Klienten har ID-tokenet. Hvor går det nå?", valg: ["Fra IdP-en rett til SP-en", "Fra klienten til SP-en", "Tilbake til IdP-en"], fasit: 1,
+                  forklaring: "Klienten bærer meldingene: tokenet går IdP → klient (10) og klient → SP (11)." }, forkl: "Klienten videresender ID-tokenet til SP-en, som verifiserer signaturen." },
+        { fra: 2, til: 1, tekst: "tjeneste", forkl: { eli5: "Du er inne. Tjenesten så aldri passordet ditt.", normal: "SP-en godtar tokenet og gir tjenesten. SP-en så aldri autentikatoren.", teknisk: "SP-en har nå dataautentisert tokenet. Senere SP-er med samme IdP kan gi SSO uten ny innlogging." } }
+      ]
+    };
+    var OAUTH = {
+      aria: "OAuth-protokollen med sju meldinger mellom ressurseier, Photo Edit, autoriseringstjener og ressurstjener",
+      parter: ["Ressurseier\n(bruker)", "Photo Edit\n(klient-app)", "Autoriserings-\ntjener og IdP", "Ressurstjener\n(Google Photos)"],
+      intro: { eli5: "Fire aktører: du, appen som vil låne bildene dine, vakten som spør deg om lov, og stedet der bildene ligger.",
+               normal: "Ressurseieren er brukeren. Photo Edit er klienten som vil ha tilgang. Autoriseringstjeneren spør eieren og lager tilgangstokenet. Ressurstjeneren har bildene.",
+               teknisk: "OAuth brukes når ressurseier og ressurstjener er ulike aktører. Tokenet (AC) er autoriseringstjenerens bevis på at eieren har godkjent." },
+      meldinger: [
+        { fra: 0, til: 1, tekst: "vil redigere bildene mine", forkl: "Brukeren sier til Photo Edit at hun vil redigere bildene sine fra Google Photos. Steg 1 går til appen." },
+        { fra: 1, til: 2, tekst: "brukeren vil redigere bildene", forkl: "Photo Edit sender forespørselen videre til autoriseringstjeneren." },
+        { fra: 2, til: 0, tekst: "gi Photo Edit tilgang?",
+          spor: { sporsmal: "Autoriseringstjeneren har fått forespørselen fra Photo Edit. Hvem spør ressurseieren om lov?", valg: ["Photo Edit", "Autoriseringstjeneren", "Ressurstjeneren"], fasit: 1,
+                  forklaring: "Autoriseringstjeneren spør ressurseieren. Appen spør aldri om lov selv." }, forkl: "Autoriseringstjeneren spør ressurseieren om Photo Edit skal få tilgang. Det er ikke appen som spør." },
+        { fra: 0, til: 2, tekst: "godkjenner med autentikator", forkl: { eli5: "Du logger inn og sier ja.", normal: "Ressurseieren godkjenner forespørselen og beviser hvem hun er med autentikatoren.", teknisk: "Dette er ressurseierens autorisering: hun spesifiserer at Photo Edit får tilgang. Hun autentiseres samtidig." } },
+        { fra: 2, til: 1, tekst: "tilgangstoken", merke: "AC",
+          spor: { sporsmal: "Ressurseieren har godkjent. Hva får Photo Edit tilbake nå?", valg: ["Et tilgangstoken (AC)", "Et ID-token", "Brukerens passord", "Bildene"], fasit: 0,
+                  forklaring: "OAuth gir tilgang: klienten får et tilgangstoken. Bildene kommer først i melding 7." }, forkl: "Photo Edit får tilgangstokenet (AC) som bevis på at forespørselen er godkjent." },
+        { fra: 1, til: 3, tekst: "be om bilder + token", merke: "AC",
+          spor: { sporsmal: "Photo Edit har tokenet. Hvem viser det fram for ressurstjeneren?", valg: ["Ressurseieren", "Photo Edit (klienten)", "Autoriseringstjeneren"], fasit: 1,
+                  forklaring: "Klienten fikk tokenet i melding 5 og viser det i melding 6." }, forkl: "Photo Edit ber ressurstjeneren om bildene og viser fram tokenet." },
+        { fra: 3, til: 1, tekst: "bildene", forkl: { eli5: "Appen får bildene, men aldri nøkkelen din.", normal: "Ressurstjeneren sjekker tokenet og gir Photo Edit tilgang til bildene.", teknisk: "Sjekken av tokenet er tilgangskontroll hos ressurstjeneren. Passordet har aldri forlatt ressurseieren og autoriseringstjeneren." } }
+      ]
+    };
+    safe("sp-pap", function () { IN.iam.seq("#sp-pap", PAP); });
+    safe("sp-oidc", function () { IN.iam.seq("#sp-oidc", OIDC); });
+    safe("sp-oauth", function () { IN.iam.seq("#sp-oauth", OAUTH); });
+    safe("viz-modeller", function () { IN.iam.modeller("#viz-modeller"); });
+    safe("viz-kategorier", function () { IN.iam.kategorier("#viz-kategorier"); });
+    safe("viz-blp", function () { IN.iam.blp("#viz-blp"); });
+    safe("viz-abac", function () { IN.iam.abac("#viz-abac"); });
+
+    /* ---------- Dra og slipp ---------- */
+    var FASER = {
+      id: "iam-faser",
+      prompt: { eli5: "Seks skuffer: tre for det som gjøres én gang når du begynner, tre for det som skjer hver gang du bruker systemet. Legg hver handling i riktig skuff.",
+                normal: "Legg hver handling i trinnet den hører til. De tre første trinnene er konfigureringsfasen, de tre siste bruksfasen.",
+                teknisk: "Plasser handlingene i de seks trinnene i IAM. Husk: autorisering spesifiserer policy (konfigurering), tilgangskontroll håndhever den (bruk)." },
+      zones: [
+        { id: "reg", label: "Brukerregistrering", hint: "konfigurering · identitetshåndtering" },
+        { id: "klar", label: "Klargjøring av autentikator", hint: "konfigurering · identitetshåndtering" },
+        { id: "aut", label: "Tilgangsautorisering", hint: "konfigurering · tilgangshåndtering" },
+        { id: "id", label: "Oppgi bruker-ID", hint: "bruk · identitetshåndtering" },
+        { id: "autn", label: "Oppgi og sjekk autentikator", hint: "bruk · identitetshåndtering" },
+        { id: "tk", label: "Tilgangskontroll", hint: "bruk · tilgangshåndtering" }
+      ],
+      items: [
+        { id: "a1", html: "Banken sjekker passet ditt og oppretter deg som kunde", forklaring: "Registrering som bygger på en identitet du har fra før (passet). Nå finnes det en «første gang» å kjenne deg igjen fra." },
+        { id: "a2", html: "En ny student blir lagt inn med brukernavnet «ola.n»", forklaring: "Registrering: identiteten får en identifikator i domenet." },
+        { id: "a3", html: "Du setter opp en passnøkkel på telefonen", forklaring: "Klargjøring av autentikator: det som senere skal bevise at bruker-ID-en er din." },
+        { id: "a4", html: "Du registrerer fingeravtrykket ditt på den nye jobb-PC-en", forklaring: "Også klargjøring: en biometrisk autentikator (noe du er) knyttes til bruker-ID-en før den brukes." },
+        { id: "a5", html: "Prosjektlederen bestemmer at Ola får lese prosjektmappa", forklaring: { eli5: "Noen skriver ned hva Ola har lov til. Ingen dør åpnes ennå.", normal: "Tilgangsautorisering: policyen spesifiseres på forhånd.", teknisk: "Autorisering = spesifisere policy, som lagres i PAP. Ikke det samme som å slippe noen inn." } },
+        { id: "a6", html: "Ressurseieren legger en ny regel inn i PAP", forklaring: "PAP forvalter policyen. Å legge inn regelen er autorisering." },
+        { id: "a7", html: "Du skriver brukernavnet i innloggingsfeltet", forklaring: "Oppgi bruker-ID: du sier hvem du er." },
+        { id: "a8", html: "Du taster engangskoden fra appen", forklaring: "Oppgi autentikator. Sammen med bruker-ID-en er det brukerautentisering." },
+        { id: "a9", html: "Tjeneren kontrollerer at passordet stemmer", forklaring: "Sjekk av autentikatoren hører til samme trinn som å oppgi den: brukerautentisering, identitetshåndtering." },
+        { id: "a10", html: "PDP slår opp policyen, og PEP avviser at Ola sletter fila", forklaring: { eli5: "Døra sjekker lista og sier nei.", normal: "Tilgangskontroll: forespørselen sjekkes mot policyen og håndheves.", teknisk: "Beslutning i PDP og håndheving i PEP er tilgangskontroll i bruksfasen. Mange kaller det «autorisering», men kurset gjør ikke det." } },
+        { id: "a11", html: "Systemet lar Ola åpne prosjektmappa fordi policyen sier ja", forklaring: "Også tilgangskontroll: en tillatelse er like mye håndheving som et avslag." }
+      ],
+      answer: { a1: "reg", a2: "reg", a3: "klar", a4: "klar", a5: "aut", a6: "aut", a7: "id", a8: "autn", a9: "autn", a10: "tk", a11: "tk" },
+      oppsummering: { eli5: "Autorisering er å skrive lista. Tilgangskontroll er døra som leser lista.",
+                      normal: "Den vanligste feilen er å bytte autorisering og tilgangskontroll. Autorisering skjer i konfigureringsfasen (policyen skrives), tilgangskontroll i bruksfasen (policyen håndheves).",
+                      teknisk: "Identitetshåndtering er de fire trinnene om hvem du er (registrering, klargjøring, oppgi bruker-ID, oppgi autentikator). Tilgangshåndtering er autorisering og tilgangskontroll. Brukerautentisering er oppgi bruker-ID og oppgi og sjekk autentikator." },
+      kilde: { ref: "IAM-lysarkene, figuren med de to fasene", egneOrd: true }
+    };
+    safe("dra-iam-faser", function () { IN.bucketTask("#dra-iam-faser", FASER); });
+
+    var PARTER_OIDC = ["Bruker", "Klient", "SP", "IdP"];
+    var OIDC_SORT = {
+      id: "iam-oidc-sort",
+      prompt: { eli5: "Innlogging med en innloggingstjeneste skjer i tolv små steg. Sett dem i riktig rekkefølge.",
+                normal: "Sett de tolv meldingene i OIDC-figuren i riktig rekkefølge. Partene er bruker, klient (nettleser), SP og IdP.",
+                teknisk: "Ordne de tolv meldingene i OIDC-protokollen slik kursfiguren nummererer dem. Føderasjonsavtalen mellom SP og IdP er på plass fra før og telles ikke." },
+      items: OIDC.meldinger.map(function (m, i) {
+        var hvem = m.fra === m.til ? PARTER_OIDC[m.fra] + " (internt)" : PARTER_OIDC[m.fra] + " → " + PARTER_OIDC[m.til];
+        return { id: "m" + (i + 1), html: "<b>" + hvem + ":</b> " + m.tekst + (m.merke ? " [" + m.merke + "]" : ""), forklaring: m.forkl };
+      }),
+      answer: OIDC.meldinger.map(function (m, i) { return "m" + (i + 1); }),
+      regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0 },
+      oppsummering: "Fellene: 3 (velg IdP) kommer før 4 (omdiriger), 7 (autentikator til klienten) før 8 (respons til IdP), og tokenet går via klienten (10 og 11).",
+      kilde: { ref: "IAM-lysarkene, OIDC-figuren", egneOrd: true }
+    };
+    safe("dra-iam-oidc", function () { IN.sortTask("#dra-iam-oidc", OIDC_SORT); });
+
+    /* ---------- Flervalg ---------- */
+    var QUIZ = {
+      faser: [
+        { q: "Hvilket trinn hører til konfigureringsfasen <i>og</i> tilgangshåndtering?", options: ["Tilgangskontroll", "Tilgangsautorisering", "Oppgi autentikator", "Klargjøring av autentikator"], answer: 1,
+          explain: "Autorisering spesifiserer policy på forhånd. Klargjøring er også konfigurering, men den hører til identitetshåndtering." },
+        { q: "Hva gjør PEP?", options: ["Lagrer policyen", "Tar beslutningen", "Håndhever beslutningen ved ressursen", "Autentiserer brukeren"], answer: 2,
+          explain: "PAP forvalter policyen, PDP avgjør, og PEP håndhever." },
+        { q: "Brukerautentisering består av …", options: ["registrering og klargjøring", "oppgi bruker-ID og oppgi/sjekk autentikator", "autorisering og tilgangskontroll", "bare passordsjekk"], answer: 1,
+          explain: "Begge trinnene ligger i bruksfasen og i identitetshåndtering." },
+        { q: "Hvorfor kan ingen autentiseres uten å være registrert først?", options: ["Loven krever det", "Det finnes ingen «forrige gang» å kjenne igjen", "IdP-en mangler sertifikat", "PAP er tom"], answer: 1,
+          explain: "Identitet betyr «den samme som sist». Registreringen skaper den første gangen." }
+      ],
+      modeller: [
+        { q: "I silomodellen er …", options: ["IdP og SP ulike aktører", "SP og IdP samme aktør", "IdP-en alltid statlig", "navnerommet distribuert"], answer: 1,
+          explain: "Hver tjeneste autentiserer sine egne brukere." },
+        { q: "Hvilken ordning har sentralisert navnerom og distribuert autentisering?", options: ["FEIDE", "ID-porten", "Aadhaar", "Logg inn med Google"], answer: 1,
+          explain: "Fødselsnummeret er ett navnerom, og flere eID-leverandører kan autentisere." },
+        { q: "En ulempe for brukeren med føderering er …", options: ["mange passord", "avhengighet av få IdP-er og svakere personvern", "høye oppstartskostnader for brukeren", "ingen SSO"], answer: 1,
+          explain: "IdP-en blir et felles feilpunkt og ser hvor brukeren logger inn." },
+        { q: "Hva tar SP-en imot i føderering?", options: ["Passordet", "ID-token (sikkerhetsbillett)", "Brukerens private nøkkel", "Policyen fra PAP"], answer: 1,
+          explain: "SP-en ser aldri autentikatoren, bare billetten fra IdP-en." }
+      ],
+      oidc: [
+        { q: "Hva bygger OIDC på?", options: ["SAML", "OAuth 2.0", "Kerberos", "X.509"], answer: 1, explain: "OIDC legger autentisering (ID-token) oppå OAuth 2.0." },
+        { q: "Hvem autentiserer brukeren i OIDC?", options: ["SP", "IdP", "Nettleseren alene", "PEP"], answer: 1, explain: "Melding 9 skjer internt hos IdP-en." },
+        { q: "Hva er melding 11 i OIDC-figuren?", options: ["IdP sender ID-token til klienten", "Klienten videresender ID-token til SP", "SP gir tjenesten", "Brukeren velger IdP"], answer: 1, explain: "Melding 10 går fra IdP til klient, 11 fra klient til SP, og 12 er tjenesten." },
+        { q: "Hvilken eID-leverandør gir bare nivå BETYDELIG?", options: ["BankID", "Buypass", "MinID", "Commfides"], answer: 2, explain: "MinID er den statlige, men den gir ikke HØYT." }
+      ],
+      oauth: [
+        { q: "Hva får Photo Edit i melding 5?", options: ["Brukerens passord", "Et ID-token", "Et tilgangstoken", "Bildene"], answer: 2, explain: "Tilgangstokenet (AC) er beviset på at eieren har godkjent. Bildene kommer i melding 7." },
+        { q: "Hvem godkjenner i melding 4?", options: ["Photo Edit", "Ressurseieren", "Ressurstjeneren", "Google Photos-appen"], answer: 1, explain: "Ressurseieren godkjenner med autentikatoren sin." },
+        { q: "Hva var motivasjonen for OAuth?", options: ["Å kryptere e-post", "En felles standard for å dele brukerdata mellom tjenester", "Å erstatte TLS", "Å lage sterkere passord"], answer: 1, explain: "Mange tjenester har samme kunde og trengte en standard måte å dele data på." }
+      ],
+      tk: [
+        { q: "Hvilken modell brukes i Windows og Linux?", options: ["RBAC", "MAC", "ABAC", "DAC"], answer: 3, explain: "Eieren av filen bestemmer, og rettighetene står i en ACL." },
+        { q: "En bruker har aktuelt nivå KONFIDENSIELT. Hva kan hun lese?", options: ["Bare KONFIDENSIELT", "BEGRENSET og KONFIDENSIELT", "Alt", "KONFIDENSIELT og oppover"], answer: 1, explain: "Ikke les opp: eget aktuelt nivå og nedover." },
+        { q: "Hvilken attributtkategori er «tidspunkt» i ABAC?", options: ["Subjekt", "Objekt", "Kontekst", "Forespørsel"], answer: 2, explain: "Tid, risikonivå og beredskapsnivå er kontekst." },
+        { q: "Hovedproblemet med RBAC er …", options: ["at den mangler ACL", "rolleeksplosjon", "at den ikke kan brukes i bedrifter", "at den bryter Bell-LaPadula"], answer: 1, explain: "Mange spesialroller gjør systemet uoversiktlig." },
+        { q: "Hvilket sikkerhetsmål støtter Bell-LaPadula?", options: ["Integritet", "Tilgjengelighet", "Konfidensialitet", "Ubenektelighet"], answer: 2, explain: "Reglene hindrer at informasjon lekker nedover." }
+      ]
+    };
+    Object.keys(QUIZ).forEach(function (f) {
+      safe("quiz-" + f, function () { IN.quiz("#quiz-" + f, QUIZ[f], { id: "iam-" + f }); });
+    });
+
+    /* ---------- Sant/usant per fane ---------- */
+    var TF = {
+      faser: [
+        [false, "Autorisering skjer i bruksfasen.", "Autorisering spesifiserer policy i konfigureringsfasen."],
+        [true, "Tilgangskontroll er en del av tilgangshåndtering.", "Tilgangshåndtering = autorisering + tilgangskontroll."],
+        [true, "Klargjøring av autentikator er identitetshåndtering.", "Den handler om hvordan brukeren skal bevise hvem hun er."],
+        [true, "En identitet er et sett attributter for en entitet i et domene.", "Identifikatoren er navnet, identiteten er attributtene."],
+        [false, "En bruker kan bare ha én identitet totalt.", "Én per domene er vanlig, og flere i samme domene er mulig."],
+        [true, "En identifikator er entydig innenfor sitt domene.", "Den peker på nøyaktig én identitet der."],
+        [true, "PDP henter policyen fra PAP.", "PDP trenger policyen for å avgjøre forespørselen fra PEP."],
+        [false, "«Autorisering = at systemet gir deg tilgang» er kursets definisjon.", "Kurset kaller det tilgangskontroll. Autorisering er å spesifisere policyen."]
+      ],
+      modeller: [
+        [true, "Silo er billig å sette opp.", "Tjenesten trenger ingen avtaler med andre."],
+        [false, "Føderering gjør det vanskelig å dele informasjon om brukere.", "Det er motsatt: føderering gjør deling lett."],
+        [true, "FEIDE har distribuert navnerom.", "Hver institusjon forvalter sine egne brukernavn."],
+        [false, "Fødererte arkitekturer har alltid distribuert autentisering.", "FEIDE, Eduroam og tysk eID har sentralisert autentisering."],
+        [true, "Aadhaar har sentralisert navnerom og sentralisert autentisering.", "Staten forvalter både nummeret og autentiseringen."],
+        [true, "En bruker kan ha ulike identiteter i ulike domener.", "Én per domene er det vanlige."],
+        [false, "Silo kan bare bruke én autentiseringsfaktor.", "Antall faktorer har ingenting med modellen å gjøre."],
+        [true, "IdP-avhengighet er et problem fordi det er få IdP-er og mange SP-er.", "Når én stor IdP faller ut, stenges mange tjenester."]
+      ],
+      oidc: [
+        [false, "SP-en i FEIDE får brukerens passord.", "SP-en får bare billetten og attributtene."],
+        [true, "ID-tokenet er digitalt signert av IdP-en.", "Signaturen lar SP-en sjekke opphav og integritet."],
+        [false, "SAML er den nye standarden som erstatter OIDC.", "Det er omvendt: SAML er eldre, og ordningene går over til OIDC."],
+        [true, "SSO betyr at klienten ikke må autentisere seg på nytt hos SP-er med samme IdP.", "ID-tokenet fra IdP-en gjenbrukes."],
+        [false, "EU godtar BankID som statlig IdP for europeisk eID.", "BankID er privat. I Norge er bare MinID statlig."],
+        [true, "ID-porten er en autentiseringsportal.", "Brukeren velger eID-leverandør i ID-portens vindu."],
+        [false, "Alle offentlige tjenester krever nivå HØYT.", "Mange tjenester godtar BETYDELIG, for eksempel med MinID."]
+      ],
+      oauth: [
+        [true, "OIDC er basert på OAuth.", "OIDC legger ID-tokenet oppå OAuth 2.0."],
+        [false, "I OAuth får klientappen brukerens passord.", "Appen får bare et tilgangstoken."],
+        [true, "Ressurstjener og ressurseier er ofte ulike aktører.", "Det er nettopp den situasjonen OAuth er laget for."],
+        [true, "OAuth kan brukes til tilgangsstyring mellom sykehus.", "En sentral autoriseringstjener kan erstatte parvise avtaler."],
+        [false, "Tilgangstokenet sendes til ressurstjeneren av ressurseieren selv.", "Klienten (appen) viser tokenet i melding 6."],
+        [true, "OAuth er standardisert av IETF.", "Det er en åpen internettstandard."]
+      ],
+      tk: [
+        [true, "I DAC kan eieren selv bestemme hvem som får tilgang.", "Det er det «discretionary» betyr: etter eierens skjønn."],
+        [false, "I MAC kan brukeren gi bort tilgang til sine dokumenter.", "Den obligatoriske policyen bestemmer, ikke brukeren."],
+        [true, "ABAC kan uttrykke DAC, MAC og RBAC.", "Navn, merker og roller kan alle behandles som attributter."],
+        [true, "«Ikke les opp» betyr at en bruker ikke kan lese dokumenter med høyere gradering enn sitt aktuelle nivå.", "Lesing krever gradering ≤ aktuelt nivå."],
+        [false, "En bruker kan velge et aktuelt nivå høyere enn maks klarering.", "Aktuelt nivå kan bare være likt eller lavere enn maks."],
+        [true, "RBAC kan konfigureres som DAC eller MAC.", "Rollene kan tildeles etter skjønn eller etter en obligatorisk policy."],
+        [false, "XACML brukes i løsninger basert på OIDC.", "XACML hører til SAML-verdenen. Med OAuth og OIDC brukes JSON."],
+        [true, "«Tilgangsmodus» er et forespørselsattributt i ABAC.", "Ressursnavn og tilgangsmodus kommer med forespørselen."],
+        [false, "«Klarering» er et objektattributt.", "Klarering hører til subjektet. Gradering hører til objektet."]
+      ]
+    };
+    Object.keys(TF).forEach(function (f) {
+      safe("tf-" + f, function () {
+        IN.tfTest("#tf-" + f, TF[f].map(function (r) { return { s: r[1], answer: r[0], explain: r[2], kilde: false }; }), { id: "iam-" + f + "-tf" });
+      });
+    });
+
+    /* ---------- Inspera-øvinger (egne oppgaver) ---------- */
+    var NIV = ["BEGRENSET", "KONFIDENSIELT", "HEMMELIG", "STRENGT HEMMELIG"];
+    var OV = [
+      { key: "ov-iam-1", inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+          kolonner: ["Konfig. / identitet", "Konfig. / tilgang", "Bruk / identitet", "Bruk / tilgang"], multi: false,
+          rader: [
+            { s: "HR oppretter brukeren «mira.l»", svar: [0], explain: "<p>Registrering: identitetshåndtering i konfigureringsfasen.</p>" },
+            { s: "Mira får en kodebrikke i posten", svar: [0], explain: "<p>Klargjøring av autentikator.</p>" },
+            { s: "Lederen bestemmer at Mira kan lese journaler", svar: [1], explain: "<p>Tilgangsautorisering = spesifisere policy.</p>" },
+            { s: "Mira taster koden fra brikken", svar: [2], explain: "<p>Oppgi autentikator: brukerautentisering.</p>" },
+            { s: "Systemet avviser at Mira endrer en journal", svar: [3], explain: "<p>Håndheving = tilgangskontroll.</p>" },
+            { s: "Mira skriver brukernavnet sitt", svar: [2], explain: "<p>Oppgi bruker-ID.</p>" } ] } },
+      { key: "ov-iam-2", inspera: { type: "N", regelTekst: "1 for hver riktig, 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
+          tekst: "<p>Policyen lagres og forvaltes i {0}. Beslutningen tas i {1}. Beslutningen håndheves i {2}.</p>",
+          felt: [ { etikett: "Forvaltes i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 0, explain: "<p>Policy Administration Point.</p>" },
+                  { etikett: "Avgjøres i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 1, explain: "<p>Policy Decision Point.</p>" },
+                  { etikett: "Håndheves i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 2, explain: "<p>Policy Enforcement Point, foran ressursen.</p>" } ] } },
+      { key: "ov-iam-3", inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 }, kolonner: ["Silo", "Føderert"], multi: false,
+          rader: [
+            { s: "Brukeren må huske ett passord per tjeneste", svar: [0], explain: "<p>Identitetsoverlast er siloens hovedulempe.</p>" },
+            { s: "Tjenesten trenger aldri å se brukerens autentikator", svar: [1], explain: "<p>SP-en får bare ID-token fra IdP-en.</p>" },
+            { s: "Et utfall hos én aktør stenger mange tjenester", svar: [1], explain: "<p>IdP-avhengighet.</p>" },
+            { s: "Lavest startkostnad for en ny nettbutikk", svar: [0], explain: "<p>Enkelt å sette opp selv, ingen avtaler.</p>" },
+            { s: "Logg inn med HelseID i et journalsystem", svar: [1], explain: "<p>HelseID er en føderasjon med sentralisert navnerom og distribuert autentisering.</p>" } ] } },
+      { key: "ov-iam-4", inspera: { type: "M", multi: true, kolonner: ["Sentr. navnerom", "Distr. navnerom", "Sentr. aut.", "Distr. aut."],
+          regelTekst: "0,2 for hver riktig avkrysning, −0,2 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.2, feil: -0.2, blankt: 0, min: 0 },
+          rader: [
+            { s: "FEIDE", svar: [1, 2], explain: "<p>Hver institusjon har sitt navnerom, men brukeren kan bare autentiseres hjemme.</p>" },
+            { s: "Altinn", svar: [0, 3], explain: "<p>Fødselsnummeret forvaltes av staten, og flere eID-leverandører kan autentisere.</p>" },
+            { s: "Tysk eID", svar: [0, 2], explain: "<p>Én statlig aktør forvalter både navnerom og autentisering.</p>" },
+            { s: "Logg inn med Apple", svar: [1, 3], explain: "<p>Hver leverandør har sitt navnerom, og brukeren velger leverandør.</p>" } ] } },
+      { key: "ov-iam-5", inspera: { type: "T", regelTekst: "0,25 for korrekt tall, 0 for feil eller intet tall, minimum 0.",
+          regel: { riktig: 0.25, feil: 0, blankt: 0, min: 0, maks: 1.5 },
+          tekst: "<p>Lina logger inn i Bibliotekappen med Studentkonto (OIDC). Skriv meldingsnummeret (1–12): nettleseren videresender ID-tokenet {0}; Studentkonto viser innloggingssiden {1}; Lina velger Studentkonto {2}; Studentkonto kontrollerer svaret {3}; appen omdirigerer nettleseren {4}; Lina får lånelista {5}.</p>",
+          felt: [ { etikett: "Videresender ID-token", godta: ["11"] }, { etikett: "Innloggingsside", godta: ["6"] }, { etikett: "Velger IdP", godta: ["3"] },
+                  { etikett: "Kontrollerer svaret", godta: ["9"] }, { etikett: "Omdirigerer", godta: ["4"] }, { etikett: "Får tjenesten", godta: ["12"] } ] } },
+      { key: "ov-iam-6", inspera: { type: "M", kolonner: ["Sant", "Usant"], multi: false, regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+          regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
+          rader: [
+            { s: "Alle eID-leverandørene i ID-porten kan brukes til offentlige tjenester", svar: [0], explain: "<p>Det er det ID-porten er til for.</p>" },
+            { s: "MinID gir sikkerhetsnivå HØYT", svar: [1], explain: "<p>MinID gir BETYDELIG.</p>" },
+            { s: "BankID er en statlig tjeneste", svar: [1], explain: "<p>BankID eies av bankene. Bare MinID er statlig.</p>" },
+            { s: "I europeisk eID går innloggingen via eIDAS-portaler i begge land", svar: [0], explain: "<p>Borgeren går via sitt eget lands portal og tjenestelandets portal.</p>" } ] } },
+      { key: "ov-iam-7", inspera: { type: "T", regelTekst: "0,5 for hver riktig, 0 for feil eller ubesvart, minimum 0.",
+          regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 3.5 },
+          tekst: "<p>Løpelogg henter pulsdata fra Klokkesky med OAuth. Skriv meldingsnummeret (1–7): tokenet utstedes {0}; Aron trykker «Koble til» {1}; Aron blir spurt {2}; dataene sendes {3}; Løpelogg viser tokenet {4}; Løpelogg ber om tilgang {5}; Aron godkjenner {6}.</p>",
+          felt: [ { etikett: "Tokenet utstedes", godta: ["5"] }, { etikett: "Koble til", godta: ["1"] }, { etikett: "Aron blir spurt", godta: ["3"] },
+                  { etikett: "Dataene sendes", godta: ["7"] }, { etikett: "Viser tokenet", godta: ["6"] }, { etikett: "Ber om tilgang", godta: ["2"] }, { etikett: "Godkjenner", godta: ["4"] } ] } },
+      { key: "ov-iam-8", inspera: { type: "M", multi: false, kolonner: ["RBAC", "MAC", "ABAC", "DAC"],
+          regelTekst: "0,5 for hver korrekt, −0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
+          rader: [
+            { s: "Eieren av mappa legger til en kollega i ACL-en", svar: [3], explain: "<p>Navnebasert, og eieren bestemmer.</p>" },
+            { s: "Alle i rollen «lønn» får lese lønnsfilene", svar: [0], explain: "<p>Tilgang via arbeidsrolle.</p>" },
+            { s: "Tilgang bare i arbeidstiden og fra kontornettet", svar: [2], explain: "<p>Kontekstattributter (tid og lokasjon).</p>" },
+            { s: "SELinux med graderte merker", svar: [1], explain: "<p>Merkebasert, obligatorisk policy.</p>" },
+            { s: "Modellen som generaliserer de tre andre", svar: [2], explain: "<p>Alt kan uttrykkes som attributter.</p>" } ] } },
+      { key: "ov-iam-9", inspera: { type: "M", multi: true, kolonner: NIV,
+          regelTekst: "0,5 for hver riktig avkrysning, −0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0 },
+          rader: [
+            { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun LESE?", svar: [0], explain: "<p>Bare eget aktuelt nivå og nedover.</p>" },
+            { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun SKRIVE?", svar: [0, 1, 2, 3], explain: "<p>Eget aktuelt nivå og oppover.</p>" },
+            { s: "Maks KONFIDENSIELT, aktuelt KONFIDENSIELT: hva kan han REDIGERE?", svar: [1], explain: "<p>Redigere = lese og skrive, altså bare likt nivå.</p>" } ] } }
+    ];
+    OV.forEach(function (o) {
+      var q = o.inspera, rg = q.regel;
+      // Matrise med avkrysning rettes per boks (inspera.js): maks = antall riktige bokser × riktig
+      if (rg.maks == null && q.type === "M" && q.multi) rg.maks = Math.round(q.rader.reduce(function (n, r) { return n + [].concat(r.svar).length; }, 0) * rg.riktig * 100) / 100;
+      o.points = rg.maks;
+      o.title = "Øving";
+      safe(o.key, function () { IN.inspera("#" + o.key, o); });
+    });
+
+    /* ---------- Eksamensbanken ---------- */
+    safe("bank-iam", function () { IN.examBank("#bank-iam", { block: "iam" }); });
+  })();
+  </script>
+</body>
+</html>

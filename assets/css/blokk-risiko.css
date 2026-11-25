@@ -1,0 +1,118 @@
+/* IN2120 · blokk 6 Risiko og styring. Flatt: ingen bokser i bokser, bare tynne skillelinjer.
+   Bruker fargevariablene fra styles.css, så lys og mørk modus følger med. */
+
+/* Feller: utvidbare «Hvorfor …?» inne i callout felle */
+.callout details.grense { border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent); padding: .35rem 0; }
+.callout details.grense:first-of-type { border-top: 0; }
+.callout details.grense > summary { cursor: pointer; font-weight: 600; }
+.callout details.grense > p { margin: .3rem 0 .2rem; }
+.callout details.grense > summary:focus-visible { outline: var(--focus); outline-offset: 2px; }
+
+.rk-hull { font-size: var(--text-sm); color: var(--color-on-surface-variant); margin: -.4rem 0 1rem; }
+.rk-sjekk { font-weight: 600; color: var(--color-on-tone-warn); }
+
+/* Felles for figurene */
+.rk-svgwrap { overflow-x: auto; margin: .5rem 0; }
+.rk-svg { display: block; width: 100%; max-width: 640px; height: auto; font-family: inherit; }
+.rk-narrow .rk-svg { max-width: 340px; }
+.rk-ctl { display: flex; flex-wrap: wrap; gap: var(--d-sm); align-items: center; margin: .5rem 0; }
+.rk-chips { display: flex; flex-wrap: wrap; gap: var(--d-xs); align-items: center; margin: .3rem 0; }
+.rk-ctl .btn[aria-pressed="true"], .rk-chips .btn[aria-pressed="true"] {
+  background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); }
+.rk-chip.is-done { border-color: var(--color-on-tone-ok); color: var(--color-on-tone-ok); }
+.rk-info { border-top: 1px solid var(--color-outline-variant); padding-top: .5rem; margin: .5rem 0 1rem; min-height: 2rem; }
+.rk-info p { margin: .2rem 0 .4rem; }
+.rk-list { margin: .2rem 0; padding-left: 1.2rem; font-size: var(--text-sm); }
+.rk-slider { display: inline-flex; align-items: center; gap: var(--d-sm); font-size: var(--text-sm); }
+.rk-slider input { width: 120px; }
+
+/* Risikomatrisen */
+.rk-cell rect { stroke: var(--color-surface); stroke-width: 2; cursor: pointer; }
+.rk-cell:hover rect { opacity: .8; }
+.rk-ok rect { fill: var(--color-tone-ok); }
+.rk-warn rect { fill: var(--color-tone-warn); }
+.rk-bad rect { fill: var(--color-tone-danger); }
+.rk-sum { font-size: 10px; fill: var(--color-on-surface-variant); pointer-events: none; }
+.rk-ax { font-size: 12px; fill: var(--color-on-surface); }
+.rk-axt { font-size: 12px; font-weight: 600; fill: var(--color-on-surface-variant); }
+.rk-terskel { fill: none; stroke: var(--color-on-surface); stroke-width: 3; stroke-dasharray: 7 4; pointer-events: none; }
+.rk-terskel-l { font-size: 11px; fill: var(--color-on-surface); pointer-events: none; }
+.rk-dot { pointer-events: none; }
+.rk-dot circle { fill: var(--color-primary); stroke: var(--color-surface); stroke-width: 1.5; }
+.rk-dot text { font-size: 11px; font-weight: 700; fill: var(--color-on-primary); }
+.rk-dot-gammel circle { fill: var(--color-surface); stroke: var(--color-primary); stroke-dasharray: 3 2; }
+.rk-dot-gammel text { fill: var(--color-primary); }
+.rk-dot-fjernet circle { fill: var(--color-surface); stroke: var(--color-outline); }
+.rk-dot-fjernet text { fill: var(--color-outline); }
+.rk-dot-rest circle { stroke: var(--color-on-tone-warn); stroke-width: 3; }
+.rk-x { stroke: var(--color-error); stroke-width: 2.5; }
+.rk-tag { font-size: 10px !important; font-weight: 600; fill: var(--color-on-surface) !important; }
+.rk-pil { stroke: var(--color-on-surface); stroke-width: 2; }
+.rk-arrowhead { fill: var(--color-on-surface); }
+.rk-v { font-weight: 600; }
+.rk-v-ok { color: var(--color-on-tone-ok); }
+.rk-v-warn, .rk-v-bad { color: var(--color-on-tone-danger); }
+
+/* Tabeller og utregning */
+.rk-table td, .rk-table th { vertical-align: top; }
+.rk-table tr.rk-row-bad td:last-child { color: var(--color-on-tone-danger); font-weight: 600; }
+.rk-table tr.rk-row-sum td { border-top: 2px solid var(--color-outline); }
+.rk-steps li { margin: .3rem 0; }
+.rk-kontroll { margin: .3rem 0 1rem; }
+.rk-kontroll.is-ok { color: var(--color-on-tone-ok); }
+.rk-kontroll.is-bad { color: var(--color-error); font-weight: 600; }
+
+/* Prosessfigur og dataflyt */
+.rk-node, .rk-delm, .rk-dflow, .rk-corner { cursor: pointer; }
+.rk-node rect, .rk-node polygon { fill: var(--color-surface-container-lowest); stroke: var(--color-outline); stroke-width: 1.5; }
+.rk-diamond polygon { fill: var(--color-tone-warn); stroke: var(--color-on-tone-warn); }
+.rk-node text, .rk-delm text { font-size: 13px; fill: var(--color-on-surface); pointer-events: none; }
+.rk-node:hover rect, .rk-node:hover polygon, .rk-delm:hover rect, .rk-delm:hover circle { stroke: var(--color-primary); }
+.rk-node.is-sel rect, .rk-node.is-sel polygon, .rk-delm.is-sel rect, .rk-delm.is-sel circle, .rk-delm.is-sel line { stroke: var(--color-primary); stroke-width: 3; }
+.rk-node:focus-visible, .rk-delm:focus-visible, .rk-dflow:focus-visible, .rk-corner:focus-visible { outline: var(--focus); }
+.rk-flow { fill: none; stroke: var(--color-on-surface-variant); stroke-width: 1.6; }
+.rk-nei { stroke: var(--color-on-tone-danger); stroke-dasharray: 5 3; }
+.rk-sub { stroke-dasharray: 2 3; }
+.rk-flowlbl { font-size: 11px; fill: var(--color-on-surface-variant); pointer-events: none; }
+.rk-ext rect { fill: var(--color-surface-container-lowest); stroke: var(--color-outline); stroke-width: 1.5; }
+.rk-proc-c circle { fill: var(--color-tone-info); stroke: var(--color-primary); stroke-width: 1.5; }
+.rk-store line { stroke: var(--color-on-surface); stroke-width: 1.6; }
+.rk-store .rk-hit { fill: transparent; stroke: none; }
+.rk-sub-t { font-size: 11px !important; fill: var(--color-on-surface-variant) !important; }
+.rk-trust { stroke: var(--color-on-tone-danger); stroke-width: 2; stroke-dasharray: 6 4; }
+.rk-trust-l { font-size: 11px; fill: var(--color-on-tone-danger); }
+.rk-dflow-hit { stroke: transparent; stroke-width: 16; fill: none; }
+.rk-dflow-line { stroke: var(--color-on-surface-variant); stroke-width: 1.8; fill: none; }
+.rk-dflow.is-sel .rk-dflow-line { stroke: var(--color-primary); stroke-width: 3.5; }
+.rk-dflow:hover .rk-dflow-line { stroke: var(--color-primary); }
+.rk-letters { display: flex; flex-wrap: wrap; gap: var(--d-xs); margin: .4rem 0; }
+.rk-letter.is-on { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
+
+/* ROS-trinn: vanlig liste med venstrestrek, ingen rammer */
+.rk-ros { list-style: none; padding: 0; margin: .5rem 0; display: flex; flex-wrap: wrap; gap: var(--d-sm) var(--d-md); }
+.rk-ros li { flex: 1 1 170px; display: flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--color-primary); padding-left: .5rem; }
+
+/* Fasitfiguren under sorteringsøvingen: utvidbar, uten ramme */
+details.rk-fig { border-top: 1px solid var(--color-outline-variant); margin: .6rem 0 1rem; padding-top: .4rem; }
+details.rk-fig > summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); }
+details.rk-fig > summary:focus-visible { outline: var(--focus); outline-offset: 2px; }
+
+/* Risikotrekant */
+.rk-tri-p { fill: var(--color-tone-info); stroke: var(--color-primary); stroke-width: 2; }
+.rk-tri-mid { font-size: 20px; font-weight: 700; fill: var(--color-on-tone-danger); transition: opacity .2s; }
+.rk-tri-mid.is-off { opacity: .15; }
+.rk-corner circle { fill: var(--color-primary); }
+.rk-corner text { font-size: 10px; font-weight: 700; fill: var(--color-on-primary); pointer-events: none; }
+.rk-corner.is-off circle { fill: var(--color-surface); stroke: var(--color-outline); stroke-dasharray: 3 2; }
+.rk-corner.is-off text { fill: var(--color-on-surface-variant); }
+
+/* ISO 27002-stolpe */
+.rk-stack { display: flex; height: 34px; max-width: 560px; margin: .5rem 0 .2rem; }
+.rk-seg { display: flex; align-items: center; justify-content: center; font-size: var(--text-sm); }
+.rk-seg0 { background: var(--color-tone-info); color: var(--color-on-tone-info); }
+.rk-seg1 { background: var(--color-tone-heavy); color: var(--color-on-tone-heavy); }
+.rk-seg2 { background: var(--color-tone-warn); color: var(--color-on-tone-warn); }
+.rk-seg3 { background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.rk-key { display: inline-block; width: .8em; height: .8em; margin-right: .3em; vertical-align: -1px; }
+
+@media (prefers-reduced-motion: reduce) { .rk-tri-mid { transition: none; } }

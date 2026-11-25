@@ -1,0 +1,175 @@
+/* IN2120 · blokk 1 (grunnbegreper, fysisk sikkerhet og lov). Visualiseringene i viz-grunn.js.
+   Flatt: ingen bokser i bokser, bare tynne skillelinjer og fargede venstrekanter.
+   Alle farger fra temavariablene i styles.css, så lyst og mørkt tema følger med. */
+:root {
+  --gr-ok: var(--c-sorted);
+  --gr-bad: var(--c-swap);
+  --gr-warn: var(--c-compare);
+  --gr-line: var(--color-outline-variant);
+}
+
+.callout details.grense { margin: .5rem 0 .2rem; }
+.callout details.grense > summary { cursor: pointer; font-weight: 600; }
+.callout details.grense > p { margin: .35rem 0 0 1.1rem; }
+.callout ul { margin: .35rem 0 .2rem 1.1rem; padding: 0; }
+a.badge { text-decoration: none; }
+
+/* Forbehold om fasit: venstrekant, ingen boks */
+.gr-forbehold { margin: .8rem 0 1rem; padding: .1rem 0 .1rem .8rem; border-left: 3px solid var(--gr-warn); }
+.gr-forbehold > p:first-child { margin-top: 0; }
+.gr-forbehold ul { margin: .3rem 0 0 1.1rem; padding: 0; }
+.gr-forbehold li { margin: .25rem 0; }
+.gr-oppg-intro { margin: .3rem 0 0; }
+
+/* Tabeller i panelene (eksempler) */
+.gr-tab { border-collapse: collapse; width: 100%; font-size: var(--text-sm); }
+.gr-tab th, .gr-tab td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--gr-line); vertical-align: top; }
+.gr-tab thead th { border-bottom-color: var(--color-outline); font-weight: 600; }
+.gr-tab tr.on td { box-shadow: inset 0 -2px 0 var(--color-primary); }
+.gr-tab tr.on td:first-child { box-shadow: inset 3px -2px 0 var(--color-primary); font-weight: 600; }
+.gr-tab tr.ok td:first-child { box-shadow: inset 3px 0 0 var(--gr-ok); }
+.gr-tab tr.nei td:first-child { box-shadow: inset 3px 0 0 var(--gr-bad); }
+.gr-ja { font-weight: 700; color: var(--gr-ok); }
+
+/* Felles for visualiseringene */
+.gr-viz { margin: .6rem 0 1.2rem; display: flex; flex-direction: column; gap: .55rem; }
+.gr-viz p { margin: .15rem 0; }
+.gr-row { display: flex; flex-wrap: wrap; gap: .4rem .6rem; align-items: center; }
+.gr-note { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+.gr-out { font-size: var(--text-sm); padding-left: .6rem; border-left: 3px solid var(--color-outline); }
+.gr-out.ok { border-left-color: var(--gr-ok); }
+.gr-out.nei { border-left-color: var(--gr-bad); }
+.gr-out.on { border-left-color: var(--color-primary); }
+.gr-b { font-weight: 700; }
+.gr-k { font-weight: 600; font-size: var(--text-sm); }
+.gr-viz .btn[aria-pressed="true"] { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); }
+.gr-word { white-space: normal; text-align: left; max-width: 100%; }
+.gr-used { text-decoration: line-through; }
+
+/* SVG (følger temaet via variablene) */
+.gr-svg { display: block; max-width: 100%; height: auto; }
+.gr-svg .gr-ln { fill: none; stroke: var(--color-on-surface-variant); stroke-width: 1.5; stroke-linecap: round; }
+.gr-svg .gr-thick { stroke-width: 3; }
+.gr-svg .gr-acc { stroke: var(--color-primary); }
+.gr-svg .gr-dash { stroke-dasharray: 5 4; }
+.gr-svg .gr-fill { fill: var(--color-surface-container-high); stroke: var(--color-outline); stroke-width: 1; }
+.gr-svg .gr-t { font-size: 11px; fill: var(--color-on-surface-variant); font-family: var(--font-mono, monospace); }
+.gr-svg .gr-acct { fill: var(--color-primary); font-weight: 700; }
+
+/* Tre gjerder */
+.gr-figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .8rem 1.2rem; }
+.gr-fig { margin: 0; padding: .2rem 0 .2rem .6rem; border-left: 3px solid var(--gr-line); display: flex; flex-direction: column; gap: .3rem; }
+.gr-fig.ok { border-left-color: var(--gr-ok); }
+.gr-fig.nei { border-left-color: var(--gr-bad); }
+.gr-fig .gr-svg { width: 160px; }
+.gr-slot { font: inherit; font-weight: 600; text-align: left; padding: 4px 8px; cursor: pointer; background: transparent;
+  color: var(--color-on-surface); border: 0; border-bottom: 2px dashed var(--color-outline); border-radius: 0; }
+.gr-fig.ok .gr-slot { border-bottom-style: solid; border-bottom-color: var(--gr-ok); color: var(--gr-ok); cursor: default; }
+.gr-fig.nei .gr-slot { border-bottom-color: var(--gr-bad); color: var(--gr-bad); }
+.gr-why { color: var(--color-on-surface-variant); }
+
+/* Kontrolltype-rutenett */
+.gr-grid { border-collapse: collapse; width: 100%; min-width: 520px; font-size: var(--text-sm); table-layout: fixed; }
+.gr-grid th, .gr-grid td { border-bottom: 1px solid var(--gr-line); padding: 4px 6px; vertical-align: top; text-align: left; }
+.gr-grid thead th { border-bottom-color: var(--color-outline); font-weight: 600; }
+.gr-grid tbody th { font-weight: 600; width: 8.5em; }
+.gr-sub { display: block; font-size: 12px; font-weight: 400; color: var(--color-on-surface-variant); }
+.gr-cell { font: inherit; display: flex; flex-direction: column; gap: .25rem; width: 100%; min-height: 3.2rem; text-align: left;
+  padding: 4px 6px; cursor: pointer; background: transparent; color: var(--color-on-surface);
+  border: 0; border-left: 2px solid var(--gr-line); border-radius: 0; }
+.gr-cell:hover, .gr-cell:focus-visible { border-left-color: var(--color-primary); }
+.gr-placed { font-weight: 600; color: var(--gr-ok); }
+.gr-empty { color: var(--color-on-surface-variant); }
+
+/* Stegspillere her får høyde etter innhold */
+.gr-sp .sp-stage { height: auto; min-height: 220px; display: block; align-items: initial; padding: var(--d-sm, .6rem); }
+.gr-task { padding-left: .6rem; border-left: 3px solid var(--color-outline); }
+.gr-task.on { border-left-color: var(--color-primary); }
+.gr-r-lav { color: var(--gr-ok); font-weight: 600; }
+.gr-r-middels { color: var(--gr-warn); font-weight: 600; }
+.gr-r-hoy { color: var(--gr-bad); font-weight: 600; }
+.gr-check { list-style: none; margin: .2rem 0; padding: 0; font-size: var(--text-sm); }
+.gr-check li { padding: 2px 0 2px .6rem; border-left: 3px solid var(--gr-line); }
+.gr-check li.ok { border-left-color: var(--gr-ok); }
+.gr-check li.nei { border-left-color: var(--gr-bad); }
+
+/* Bemanning */
+.gr-ppl { display: flex; flex-direction: column; gap: .3rem; }
+.gr-lbl { display: flex; flex-wrap: wrap; gap: .4rem .8rem; align-items: center; font-size: var(--text-sm); }
+.gr-sel { font: inherit; font-size: var(--text-sm); padding: 3px 6px; border: 1px solid var(--color-outline); border-radius: var(--radius);
+  background: var(--color-surface-container-lowest); color: var(--color-on-surface); }
+
+/* Forsvar i dybden */
+.gr-svg .gr-ring { fill: none; stroke: var(--color-primary); stroke-width: 2; }
+.gr-svg .gr-ring.krypt { stroke: var(--color-tertiary); stroke-dasharray: 2 3; }
+.gr-svg .gr-ring.off { stroke: var(--color-outline-variant); stroke-dasharray: 6 5; }
+.gr-svg .gr-ringt.off { opacity: .5; text-decoration: line-through; }
+.gr-svg .gr-srv { fill: var(--color-surface-container-high); stroke: var(--color-on-surface); stroke-width: 1.5; }
+.gr-svg .gr-thief { fill: var(--gr-bad); stroke: var(--color-on-surface); stroke-width: 1; }
+.gr-svg .gr-thief.caught { fill: var(--color-outline); }
+.gr-svg .gr-bar-thief { fill: var(--gr-bad); opacity: .55; }
+.gr-svg .gr-vakt { stroke: var(--gr-ok); stroke-width: 2.5; }
+.gr-svg .gr-vaktt { fill: var(--gr-ok); font-weight: 700; }
+.gr-svg .gr-now { stroke: var(--color-on-surface); stroke-width: 3; }
+.gr-svg .gr-res { font-size: 13px; font-weight: 700; font-family: inherit; }
+.gr-svg .gr-res.ok { fill: var(--gr-ok); }
+.gr-svg .gr-res.warn { fill: var(--gr-warn); }
+.gr-svg .gr-res.nei { fill: var(--gr-bad); }
+
+/* Backup */
+.gr-cols3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem 1.2rem; }
+@media (max-width: 560px) { .gr-cols3 { grid-template-columns: 1fr; } }
+.gr-col { padding: .1rem 0 .1rem .6rem; border-left: 3px solid var(--gr-line); }
+.gr-col.on { border-left-color: var(--color-primary); }
+.gr-kost { color: var(--color-primary); letter-spacing: .1em; }
+.gr-kost .off { color: var(--gr-line); }
+
+/* SJA-skjema (egen utfylling). Tabellen stables på smal skjerm. */
+.gr-sjaform .gr-task { margin: 0 0 .5rem; font-size: var(--text-sm); }
+.gr-sjat td { padding: 4px 4px; }
+.gr-sjat tbody th { width: 1.6em; font-weight: 600; color: var(--color-on-surface-variant); padding-top: 12px; }
+.gr-sjat .ov-sel { width: 100%; min-width: 0; }
+.gr-sjat td[data-k="Risiko"] { width: 7.5em; }
+.gr-sja-vis { margin-top: var(--d-md, .9rem); display: flex; flex-direction: column; gap: .45rem; }
+.gr-sja-vis > p { margin: 0; }
+@media (max-width: 640px) {
+  .gr-sjat thead { display: none; }
+  .gr-sjat, .gr-sjat tbody, .gr-sjat tr, .gr-sjat td, .gr-sjat tbody th { display: block; width: auto; }
+  .gr-sjat tr { padding: .3rem 0 .4rem .6rem; border-left: 3px solid var(--gr-line); border-bottom: 1px solid var(--gr-line); }
+  .gr-sjat tbody th { padding: 0; border: 0; }
+  .gr-sjat tbody th::before { content: "Delsteg "; }
+  .gr-sjat td { border: 0; padding: 2px 0; }
+  .gr-sjat td[data-k="Risiko"] { width: auto; }
+  .gr-sjat td::before { content: attr(data-k); display: block; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
+}
+
+/* § 204-treet */
+.gr-tree { margin: 0; padding: 0 0 0 1.4rem; display: flex; flex-direction: column; gap: .3rem; }
+.gr-node { padding: .2rem 0 .2rem .6rem; border-left: 3px solid var(--gr-line); }
+.gr-node .btn { margin-left: .4rem; }
+.gr-node p { margin: .2rem 0 0; }
+.gr-node.ok { border-left-color: var(--gr-ok); }
+.gr-node.nei { border-left-color: var(--gr-bad); }
+.gr-node.now { border-left-color: var(--color-primary); }
+.gr-node.off { color: var(--color-on-surface-variant); }
+.gr-q { font-weight: 600; }
+.gr-ans { font-weight: 700; }
+.gr-node.ok .gr-ans { color: var(--gr-ok); }
+.gr-node.nei .gr-ans { color: var(--gr-bad); }
+
+/* Graderingstrappa */
+.gr-trapp { list-style: none; margin: .6rem 0 1rem; padding: 0; display: flex; flex-direction: column-reverse; gap: .25rem; max-width: 40rem; }
+.gr-trapp li { padding: .25rem 0 .25rem .6rem; border-left: 3px solid var(--color-primary); font-size: var(--text-sm); }
+.gr-trapp li:nth-child(1) { margin-left: 0; }
+.gr-trapp li:nth-child(2) { margin-left: 1.2rem; }
+.gr-trapp li:nth-child(3) { margin-left: 2.4rem; }
+.gr-trapp li:nth-child(4) { margin-left: 3.6rem; border-left-color: var(--gr-bad); }
+@media (max-width: 560px) { .gr-trapp li:nth-child(n) { margin-left: 0; } }
+.gr-trapp b { display: inline-block; min-width: 10.5em; }
+
+/* Legalitetsprinsippet: to dører */
+.gr-dorer { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.4rem; margin: .6rem 0 1rem; }
+@media (max-width: 560px) { .gr-dorer { grid-template-columns: 1fr; } }
+.gr-dorer > div { padding: .1rem 0 .1rem .7rem; border-left: 3px solid var(--color-primary); }
+.gr-dorer > div:last-child { border-left-color: var(--color-tertiary); }
+.gr-dorer p { margin: .2rem 0; }

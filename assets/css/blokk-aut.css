@@ -1,0 +1,105 @@
+/* IN2120 · blokk 7 (autentisering): tillegg til styles.css/viz.css. Lastes etter viz.css.
+   Flatt: visualiseringene ligger rett i panelet, uten egne rammer rundt (bare SVG-en har kant). */
+.callout details.grense { margin: .5rem 0 .2rem; }
+.callout details.grense > summary { cursor: pointer; font-weight: 600; }
+.callout details.grense > p { margin: .35rem 0 0 1.1rem; }
+.callout ul { margin: .35rem 0 .2rem 1.1rem; padding: 0; }
+a.badge { text-decoration: none; }
+.aut-q { margin: .6rem 0 .2rem; }
+
+/* Felles for visualiseringene */
+.aut-viz { margin: .6rem 0 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
+.aut-viz p { margin: .2rem 0; }
+.aut-row { display: flex; flex-wrap: wrap; gap: .4rem .8rem; align-items: center; }
+.aut-k { font-weight: 600; font-size: var(--text-sm); }
+.aut-lbl { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .35rem; font-size: var(--text-sm); }
+.aut-num { width: 6.5em; }
+.aut-num, .aut-txt, .aut-sel, .aut-time { font: inherit; font-size: var(--text-sm); padding: 3px 6px; border: 1px solid var(--color-outline);
+  border-radius: var(--radius); background: var(--color-surface-container-lowest); color: var(--color-on-surface); max-width: 100%; }
+.aut-txt { width: 9em; font-family: var(--font-mono); }
+.aut-big { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 3.5em; }
+.aut-h { margin: .6rem 0 .2rem; font-size: var(--text-sm); }
+.aut-viz .btn[aria-pressed="true"] { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); }
+.aut-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.6rem; }
+@media (max-width: 760px) { .aut-cols { grid-template-columns: 1fr; } }
+.aut-col { min-width: 0; border-top: 2px solid var(--color-outline-variant); padding-top: .2rem; }
+.aut-chk { display: flex; flex-wrap: wrap; gap: .2rem .8rem; font-size: var(--text-sm); }
+.aut-cb { display: inline-flex; gap: .3rem; align-items: center; cursor: pointer; }
+.aut-out p { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.aut-cmp p { margin: .3rem 0; }
+.aut-tab { border-collapse: collapse; width: 100%; font-size: var(--text-sm); }
+.aut-tab th, .aut-tab td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--color-outline-variant); }
+.aut-tab tr.on td { font-weight: 700; color: var(--color-primary); }
+.aut-note { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+.aut-login { font-size: var(--text-sm); padding-left: .6rem; border-left: 3px solid var(--color-outline); }
+.aut-login.ok { border-left-color: var(--color-on-tone-ok); }
+.aut-login.nei { border-left-color: var(--color-on-tone-danger); }
+.aut-same { color: var(--color-on-tone-danger); font-weight: 700; text-decoration: underline wavy; }
+.aut-calc p { margin: .1rem 0; overflow-wrap: anywhere; }
+
+/* Søyler (log-skala) */
+.aut-bars { display: grid; gap: .25rem; }
+.aut-barrow { display: grid; grid-template-columns: 3.5em 1fr 7em; align-items: center; gap: .5rem; font-size: var(--text-sm); }
+.aut-bar { display: block; height: 10px; border-radius: 3px; background: var(--color-primary); }
+.aut-barrow:last-child .aut-bar { background: var(--color-tertiary); }
+
+/* OTP */
+.aut-code { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; letter-spacing: .12em; color: var(--color-primary); }
+.aut-tl { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+@media (max-width: 560px) { .aut-tl { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.aut-win { display: flex; flex-direction: column; align-items: center; padding: 4px 2px; border-bottom: 3px solid var(--color-outline-variant); font-variant-numeric: tabular-nums; }
+.aut-win.ok { border-bottom-color: var(--color-on-tone-ok); }
+.aut-win.dev .mono { text-decoration: underline; }
+.aut-win.hit { background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.aut-win:not(.ok).hit { background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+
+/* SVG-farger (følger tema via variablene) */
+.aut-svg svg { display: block; }
+.viz-svg .aut-ax, .viz-svg .aut-life { stroke: var(--color-outline); stroke-width: 1; }
+.viz-svg .aut-life { stroke-dasharray: 4 4; }
+.viz-svg .aut-tk, .viz-svg .aut-dl { font-size: 11px; fill: var(--color-on-surface-variant); }
+.viz-svg .aut-rl { font-size: 12px; font-weight: 600; }
+.viz-svg .aut-g { fill: var(--color-primary); }
+.viz-svg .aut-i { fill: var(--color-tertiary); }
+.viz-svg .aut-bad { fill: var(--color-error); stroke: var(--color-on-surface); stroke-width: 1.5; }
+.viz-svg .aut-T { stroke: var(--color-on-surface); stroke-width: 2; }
+.viz-svg .aut-Tl { font-size: 12px; font-weight: 700; }
+.viz-svg .aut-eerband { fill: var(--color-tone-ok); opacity: .7; }
+.viz-svg .aut-eer { fill: var(--color-on-tone-ok); }
+.viz-svg .aut-fmr { fill: none; stroke: var(--color-tertiary); stroke-width: 2.5; }
+.viz-svg .aut-fnmr { fill: none; stroke: var(--color-primary); stroke-width: 2.5; stroke-dasharray: 7 4; }
+.viz-svg .aut-fmrl { font-size: 12px; font-weight: 700; fill: var(--color-tertiary); }
+.viz-svg .aut-fnmrl { font-size: 12px; font-weight: 700; fill: var(--color-primary); }
+
+/* Sekvensdiagram i stegspilleren */
+.sp-stage:has(> .aut-seq) { height: auto; min-height: 260px; display: block; padding: var(--d-sm); }
+.aut-seq { width: 100%; }
+.aut-seq .viz-svg { border: 0; }
+.viz-svg .aut-part { fill: var(--color-surface-container-high); stroke: var(--color-outline); }
+.viz-svg .aut-partl { font-size: 12px; font-weight: 600; }
+.viz-svg .aut-msg { stroke: var(--color-on-surface-variant); stroke-width: 1.5; }
+.viz-svg .aut-msg.cur { stroke: var(--color-primary); stroke-width: 2.5; }
+.viz-svg .aut-msg.lok { stroke-dasharray: 5 3; }
+.viz-svg .aut-msg.bad { stroke: var(--color-error); }
+.viz-svg .aut-mk { fill: var(--color-on-surface-variant); }
+.viz-svg .aut-msgl { font-size: 12px; fill: var(--color-on-surface-variant); }
+.viz-svg .aut-msgl.cur { fill: var(--color-on-surface); font-weight: 700; }
+.viz-svg .aut-self { fill: var(--color-surface-container); stroke: var(--color-outline-variant); }
+.viz-svg .aut-self.ok { fill: var(--color-tone-ok); stroke: var(--color-on-tone-ok); }
+.viz-svg .aut-self.bad { fill: var(--color-tone-danger); stroke: var(--color-on-tone-danger); }
+.viz-svg .aut-self.cur { stroke-width: 2; }
+.viz-svg .aut-brace { fill: none; stroke: var(--color-on-surface-variant); stroke-width: 1.5; }
+
+/* Garantinivå */
+.aut-chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+.aut-chip { font-size: var(--text-xs); padding: 2px 9px; border-radius: 999px; border: 1px dashed var(--color-outline); color: var(--color-on-surface-variant); }
+.aut-chip.on { border-style: solid; border-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); font-weight: 600; }
+
+/* Fase 2: regn først, bøtteøvinger og sammenleggbar kalkulator/oppslag */
+.aut-nr-regn, .aut-bio-regn, .aut-niv-ov { margin: .6rem 0 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
+.aut-nr-regn > .aut-h, .aut-niv-ov > .aut-h { margin: .8rem 0 0; }
+.aut-nr-regn > .aut-h:first-child, .aut-niv-ov > .aut-h:first-child { margin-top: 0; }
+details.aut-more { border-top: 1px solid var(--color-outline-variant, var(--color-outline)); padding-top: .5rem; margin-top: .4rem; }
+details.aut-more > summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); }
+details.aut-more > summary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+details.aut-more > div > .aut-viz { margin-top: .5rem; }
