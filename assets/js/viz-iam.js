@@ -239,8 +239,8 @@
       for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = order[i]; order[i] = order[j]; order[j] = x; }
     }
     var tools = el("div", { class: "btn-row" }, [
-      el("button", { class: "btn sm", type: "button", text: "Vis fasit", onclick: function () { ORDNINGER.forEach(function (o, i) { placed[i] = true; }); sel = cSel = rSel = panelMsg = sist = null; paint(); say("Alle ordningene er plassert.", ""); } }),
-      el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { placed = {}; sel = cSel = rSel = panelMsg = sist = null; stokk(); paint(); say(START, ""); } })
+      el("button", { class: "btn", type: "button", text: "Vis fasit", onclick: function () { ORDNINGER.forEach(function (o, i) { placed[i] = true; }); sel = cSel = rSel = panelMsg = sist = null; paint(); say("Alle ordningene er plassert.", ""); } }),
+      el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { placed = {}; sel = cSel = rSel = panelMsg = sist = null; stokk(); paint(); say(START, ""); } })
     ]);
     var cells = [];
     tab.appendChild(el("thead", {}, [el("tr", {}, [el("th", { text: "" })].concat(KOL.map(function (k) { return el("th", { scope: "col", text: k }); })))]));
@@ -267,7 +267,7 @@
       var o = ORDNINGER[sel];
       if (o.r === r && o.c === c) {
         placed[sel] = true;
-        sist = { i: sel, html: "<b>Riktig: " + esc(o.n) + "</b> har " + KOL[c].toLowerCase() + " og " + RAD[r].toLowerCase() + ". " + o.d };
+        sist = { i: sel, html: "<b>Riktig.</b> " + esc(o.n) + " har " + KOL[c].toLowerCase() + " og " + RAD[r].toLowerCase() + ". " + o.d };
         sel = cSel = rSel = panelMsg = null;
         return true;
       }
@@ -277,7 +277,7 @@
     function drop(r, c) {
       if (sel == null) { say("Velg først en ordning i lista over tabellen.", ""); return; }
       var o = ORDNINGER[sel];
-      if (proev(r, c)) { feilRute = null; say("<b>Riktig: " + esc(o.n) + ".</b> " + o.d, "ok"); }
+      if (proev(r, c)) { feilRute = null; say("<b>Riktig.</b> " + esc(o.n) + ". " + o.d, "ok"); }
       else {
         say("<b>Ikke der.</b> " + hintFor(o, r, c), "feil");
         feilRute = r + "," + c;
@@ -385,11 +385,21 @@
       for (var i = NIV.length - 1; i >= 0; i--) {
         (function (i) {
           var tr = el("tr", { class: (i === a ? "akt" : "") + (i === o ? " obj" : ""), title: "Velg " + NIV[i] + " som dokumentets gradering" });
-          tr.appendChild(el("th", { scope: "row", html: NIV[i] + (i === a ? ' <span class="tag">aktuelt</span>' : "") + (i === st.maks && i !== a ? ' <span class="tag">maks</span>' : "") }));
+          // Knapp i radoverskriften: raden kan velges med tastatur (Tab + Enter/Mellomrom), ikke bare med trykk på raden
+          var rb = el("button", { type: "button", class: "iam-rad-b", "aria-pressed": i === o ? "true" : "false", "data-niv": String(i), text: NIV[i],
+            "aria-label": "Velg " + NIV[i] + " som dokumentets gradering" });
+          var rth = el("th", { scope: "row" }, [rb]);
+          if (i === a) rth.insertAdjacentHTML("beforeend", ' <span class="tag">aktuelt</span>');
+          if (i === st.maks && i !== a) rth.insertAdjacentHTML("beforeend", ' <span class="tag">maks</span>');
+          tr.appendChild(rth);
           tr.appendChild(el("td", { html: yes(i <= a) }));
           tr.appendChild(el("td", { html: yes(i >= a) }));
           tr.appendChild(el("td", { html: yes(i === a) }));
-          tr.addEventListener("click", function () { st.obj = i; paint(); });
+          tr.addEventListener("click", function () {
+            var fokus = document.activeElement === rb;
+            st.obj = i; paint();
+            if (fokus) { var nb = tab.querySelector('.iam-rad-b[data-niv="' + i + '"]'); if (nb) nb.focus(); }
+          });
           tb.appendChild(tr);
         })(i);
       }

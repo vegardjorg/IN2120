@@ -30,17 +30,21 @@
 .an-tl-sveip[hidden] { display: none; }
 .an-tl-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(84px, 1fr));
   position: relative; min-width: 600px; }
-.an-tl-row::before { content: ""; position: absolute; left: 7%; right: 7%; top: 15px; height: 2px; background: var(--color-outline-variant); }
+.an-tl-row::before { content: ""; position: absolute; left: 7%; right: 7%; top: 21px; height: 2px; background: var(--color-outline-variant); }
 .an-tl-row li { display: flex; justify-content: center; position: relative; }
-.an-tl-b { display: flex; flex-direction: column; align-items: center; gap: .3rem; background: none; border: 0; padding: 0 .2rem;
+/* Stadiene er trykkbare faner (samme uttrykk som .qz-choice): ramme, flate og hover */
+.an-tl-b { display: flex; flex-direction: column; align-items: center; gap: .3rem; width: calc(100% - 6px); min-height: 44px; box-sizing: border-box;
+  background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline-variant); border-radius: var(--radius-md); padding: .3rem .2rem .4rem;
   font: inherit; color: var(--color-on-surface); cursor: pointer; }
+.an-tl-b:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); border-color: var(--color-primary); }
+.an-tl-b.cur { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
 .an-tl-n { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: var(--text-sm);
   background: var(--color-surface); border: 2px solid var(--color-outline); }
 .an-tl-t { font-size: var(--text-xs); text-align: center; line-height: 1.25; }
 .an-tl-b.done .an-tl-n { border-color: var(--color-primary); color: var(--color-primary); }
 .an-tl-b.cur .an-tl-n { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
 .an-tl-b.cur .an-tl-t { font-weight: 700; color: var(--color-primary); }
-.an-tl-b:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius); }
+.an-tl-b:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .an-tl-det { border-top: 1px solid var(--color-outline-variant); margin-top: .5rem; padding-top: .5rem; min-height: 11rem; }
 .an-tl-h { margin: 0 0 .4rem; }
 

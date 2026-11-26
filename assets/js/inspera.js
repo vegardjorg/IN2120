@@ -444,7 +444,7 @@
             if (state) {
               st.appendChild(document.createTextNode(state === "right" ? "✓" : state === "wrong" ? "✗" : "–"));
               var fas = sv.map(function (i) { return String(q.kolonner[i]).replace(/<[^>]+>/g, ""); }).join(" + ");
-              st.appendChild(el("span", { class: "qz-sr", text: state === "right" ? " Riktig." : (state === "wrong" ? " Feil." : " Ubesvart.") + " Riktig: " + fas + "." }));
+              st.appendChild(el("span", { class: "qz-sr", text: state === "right" ? " Riktig." : (state === "wrong" ? " Ikke riktig." : " Ubesvart.") + " Riktig: " + fas + "." }));
             }
             tds.forEach(function (td, ci) {
               var f = vis && sv.indexOf(ci) >= 0;
@@ -639,11 +639,11 @@
     var res = el("div", { class: "insp-res", "aria-live": "polite" });
     var fasitBox = el("div", { class: "insp-fasit" });
     if (!manual) {
-      bar.appendChild(el("button", { class: "btn primary sm", type: "button", text: "Rett som på eksamen", onclick: function () { check(true); } }));
-      bar.appendChild(el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { reset(); } }));
+      bar.appendChild(el("button", { class: "btn primary", type: "button", text: "Rett som på eksamen", onclick: function () { check(true); } }));
+      bar.appendChild(el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { reset(); } }));
     } else {
-      bar.appendChild(el("button", { class: "btn primary sm insp-vurder", type: "button", text: "Vurder svaret mitt", onclick: function () { vurder(true); } }));
-      bar.appendChild(el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { reset(); } }));
+      bar.appendChild(el("button", { class: "btn primary insp-vurder", type: "button", text: "Vurder svaret mitt", onclick: function () { vurder(true); } }));
+      bar.appendChild(el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { reset(); } }));
       vurd = el("div", { class: "insp-vurd", hidden: true, tabindex: "-1" });
     }
     wrap.appendChild(bar); wrap.appendChild(res); if (vurd) wrap.appendChild(vurd); wrap.appendChild(fasitBox);
@@ -653,6 +653,16 @@
     /* Synlig tittel (oppgavetittel og poeng) utenfor eksamenskort, så to oppgaver på rad blir to enheter.
        Står spørsmålsteksten rett foran verten (p, pre, .ov-tekst eller en callout som ikke er et eksempel),
        settes tittelen foran den. Ellers øverst i verten. I eksamenskortet har kortet allerede tittelen. */
+    function normT(s) { return String(s || "").replace(/\s+/g, " ").trim().toLowerCase(); }
+    function dupOverskrift(h) {
+      var p = h.previousElementSibling;
+      if (!p && h.parentNode === host) p = host.previousElementSibling;
+      while (p && p.classList && (p.classList.contains("ov-intro") || p.classList.contains("case-ctx"))) p = p.previousElementSibling;
+      if (!p || p.tagName !== "H4" || !p.classList.contains("ov-h")) return null;
+      var c = p.cloneNode(true);
+      IN.qsa(".ov-tag", c).forEach(function (t) { t.parentNode.removeChild(t); });
+      return normT(c.textContent) === normT(h.firstChild.textContent) ? p : null;
+    }
     function tittel() {
       if (host._inspTittel && host._inspTittel.parentNode) host._inspTittel.parentNode.removeChild(host._inspTittel);
       var pts = maks != null ? maks : (o.points != null ? +o.points : null);
@@ -672,6 +682,14 @@
       for (var i = 0; i < 2 && prompt(p); i++) { anchor = p; p = p.previousElementSibling; }
       if (anchor) anchor.parentNode.insertBefore(h, anchor); else host.insertBefore(h, wrap);
       host._inspTittel = h;
+      // Står en øvingsoverskrift h4.ov-h med samme tittel rett foran (bare .ov-intro/.case-ctx imellom), skjules
+      // tittelteksten her så den ikke står to ganger. Poenglinja blir stående.
+      var hs = dupOverskrift(h);
+      if (hs) {
+        h.classList.add("insp-tittel-dup");
+        h.firstChild.hidden = true;
+        if (pts == null) h.hidden = true;
+      }
       wrap.classList.add("insp-har-tittel");
     }
 
@@ -934,7 +952,7 @@
       u.mark(st, v);
       straksListe();
       if (si && st && u._straksSig !== sig) live.textContent = st === "right" ? "Riktig." :
-        "Feil." + (u.fasit != null ? " Riktig: " + plain(u.fasit).replace(/\s+/g, " ").trim() + "." : "");
+        "Ikke riktig." + (u.fasit != null ? " Riktig: " + plain(u.fasit).replace(/\s+/g, " ").trim() + "." : "");
       u._straksSig = sig;
     }
     var varKoblet = false;

@@ -40,6 +40,8 @@
 /* Rett under en overskrift (h4 «Inspera-øving» o.l.) har overskriften allerede streken */
 :is(h2, h3, h4, h5) + .insp-tittel,
 :is(h2, h3, h4, h5) + * > .insp-tittel:first-child { margin-top: .5rem; padding-top: 0; border-top: 0; }
+/* Samme tittel som øvingsoverskriften rett over (inspera.js dupOverskrift): bare poenglinja vises, uten egen strek */
+.insp-tittel.insp-tittel-dup { margin-top: .3rem; padding-top: 0; border-top: 0; }
 .insp-regel { margin-bottom: var(--d-sm); }
 .insp-regel p { margin: .2em 0; }
 .insp-regel > summary { cursor: pointer; list-style-position: inside; }
@@ -116,12 +118,19 @@
 .insp-m tr.is-blank .insp-m-st { color: var(--muted); }
 .insp-m input { width: 18px; height: 18px; cursor: pointer; }
 .insp-alts { display: grid; gap: 6px; }
-.insp-opt { display: flex; gap: 10px; align-items: flex-start; padding: 6px 8px; border-left: 3px solid transparent; border-radius: var(--radius); cursor: pointer; }
-.insp-opt:hover { background: var(--state-hover); }
-.insp-opt input { margin-top: 4px; flex: 0 0 auto; }
-.insp-opt.is-right { border-left-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
-.insp-opt.is-wrong { border-left-color: var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
-.insp-opt.is-missed { border-left: 3px dashed var(--color-on-tone-ok); }
+/* Svaralternativ = trykkbart svarmål (samme uttrykk som .qz-choice), med radio/avkryssing inni */
+.insp-opt {
+  display: flex; gap: 10px; align-items: flex-start; min-height: 44px; padding: 8px 10px; box-sizing: border-box; cursor: pointer; line-height: 1.4;
+  background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline); border-radius: var(--radius-md); color: var(--color-on-surface);
+}
+.insp-opt:hover:not(:has(input:disabled)) { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
+.insp-opt:has(input:focus-visible) { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.insp-opt:has(input:checked) { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.insp-opt:has(input:disabled) { cursor: default; }
+.insp-opt input { margin-top: 3px; flex: 0 0 auto; }
+.insp-opt.is-right { border-color: var(--color-on-tone-ok); box-shadow: inset 0 0 0 1px var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.insp-opt.is-wrong { border-color: var(--color-on-tone-danger); box-shadow: inset 0 0 0 1px var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.insp-opt.is-missed { border: 1px dashed var(--color-on-tone-ok); box-shadow: none; }
 .insp-tekst { line-height: 2.1; }
 .insp-sel, .insp-t { font: inherit; font-size: var(--text-sm); padding: 3px 6px; border: 1px solid var(--color-outline); border-radius: var(--radius); background: var(--color-surface-container-lowest); color: var(--color-on-surface); max-width: 100%; }
 .insp-t { min-width: 9em; font-family: var(--font-mono); }

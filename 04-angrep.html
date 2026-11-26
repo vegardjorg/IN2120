@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Angrepsvektorer, skadevare og pentesting i IN2120, sett fra forsvareren: trusselaktører, phishingtypene, skadevaretypene, leveransekjede og andre vektorer, pentestens stadier og boksfarger, straffeloven § 204, SQL-injeksjon som kode mot data, OSINT, sudo og logganalyse – med øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126j">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
 </head>
 <body data-page="angrep">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -99,12 +99,15 @@
         </ul>
         Kan komme som fritekst «forklar forskjellen mellom …».</div>
 
-      <h4>Øving: aktør og motiv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Aktør og motiv</h4>
+      <div class="ov-intro">Velg hvilken type trusselaktør som passer best til hver beskrivelse: amatør, cyberkriminell eller APT.</div>
       <div id="ov-angrep-1"></div>
 
-      <h4>Test deg selv: trusselaktører</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Trusselaktører</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-aktorer"></div>
-      <h4>Sant eller usant: trusselaktører</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Trusselaktører</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-aktorer"></div>
     </section>
 
@@ -162,18 +165,21 @@
         </ul>
         De tester om du kan skille typene ut fra hvem meldingen er laget for, og om du leser hintet i oppgaveteksten.</div>
 
-      <h4>Sorter meldingene</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Sorter meldingene</h4>
       <p class="small muted">Kanalen, e-post, SMS eller telefon, avgjør ikke typen.</p>
       <div id="angrep-dra-phish"></div>
 
-      <h4>Øving: hvilken type?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hvilken phishingtype?</h4>
+      <div class="ov-intro">Les e-posten og velg hvilken type phishing den er.</div>
       <div class="callout eksempel"><span class="lbl">E-posten</span>
         Fra en ukjent avsender: «Hei Mari! Fint innlegg på seminaret i IN1234 på torsdag. Jeg setter opp en kollokviegruppe før eksamen – meld deg på her:» etterfulgt av en lang, ukjent adresse.</div>
       <div id="ov-angrep-2"></div>
 
-      <h4>Test deg selv: phishing</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Phishing</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-phishing"></div>
-      <h4>Sant eller usant: phishing</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Phishing</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-phishing"></div>
     </section>
 
@@ -205,7 +211,7 @@
       <p class="small muted fig-vis-led">Spørsmålene som beslutningstre: først spredningen, så når og hva. Treet viser hovedkjennetegnet, ikke en klasse som utelukker de andre.</p>
       <div id="fk-skadevaretre"></div>
 
-      <h4>Øving: hva definerer hver type?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hva definerer hver type?</h4>
       <div id="angrep-mat-skadevare"></div>
 
       <p class="case-ctx" data-case="brodkassa"></p>
@@ -245,16 +251,19 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2023-25">H2023 25</a> og <a href="#fane=eksamen&amp;oppg=o-H2024-22">H2024 22</a>: dra-og-slipp med trojaner, kryptoutvinningsbott, injeksjon og rootkit.</li>
         </ul></div>
 
-      <h4>Scenario: rootkit (H2025 19)</h4>
+      <h4 class="ov-h"><span class="ov-tag">Scenario</span> Rootkit (H2025 19)</h4>
       <p class="small muted">Velg tiltak steg for steg. Poengene følger sensorveiledningen: A 1p, B 3p, C 3p.</p>
       <div id="angrep-scen-rootkit"></div>
 
-      <h4>Øving: skadevaretyper</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Skadevaretyper</h4>
+      <div class="ov-intro">Velg skadevaretypen som passer til hver beskrivelse, én per rad.</div>
       <div id="ov-angrep-3"></div>
 
-      <h4>Test deg selv: skadevare</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Skadevare</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-skadevare"></div>
-      <h4>Sant eller usant: skadevare</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Skadevare</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-skadevare"></div>
     </section>
 
@@ -319,12 +328,15 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2021-2_4">H2021 2.4</a>: tiltak mot løsepengevirus for tap av data og personvern.</li>
         </ul></div>
 
-      <h4>Øving: hvilken vektor?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hvilken vektor?</h4>
+      <div class="ov-intro">Velg angrepsvektoren som passer til hvert angrep, én per rad.</div>
       <div id="ov-angrep-4"></div>
 
-      <h4>Test deg selv: andre vektorer</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Andre vektorer</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-vektorer"></div>
-      <h4>Sant eller usant: andre vektorer</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Andre vektorer</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-vektorer"></div>
     </section>
 
@@ -343,13 +355,13 @@
         </ul></div>
       <div id="ex-pentest"></div>
 
-      <h4>Stadiene i en pentest</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Stadiene i en pentest</h4>
       <p class="small muted">Sett stadiene i rekkefølge først. Trykk deretter på et stadium i tidslinja (eller bruk piltastene) for hva som skjer, hva forsvareren kan gjøre der, og eksamensoppgavene som hører til.</p>
       <div id="angrep-sort-faser"></div>
       <div id="viz-faser"></div>
 
-      <h4>Boksfargene: hvor mye får testeren vite?</h4>
-      <p class="small muted">Fyll ut tabellen og trykk «Sjekk». Kolonnene etter den første er grove sammenligninger fra forelesningen og LF, ikke målte tall. «Gulboks» finnes ikke; den er distraktor på eksamen.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Boksfargene: hvor mye får testeren vite?</h4>
+      <p class="small muted">Fyll ut tabellen og trykk «Sjekk svar». Kolonnene etter den første er grove sammenligninger fra forelesningen og LF, ikke målte tall. «Gulboks» finnes ikke; den er distraktor på eksamen.</p>
       <div id="viz-bokser"></div>
 
       <div class="callout begrep"><span class="lbl">Legalitetsprinsippet (forenklet)</span>
@@ -404,9 +416,10 @@
           <li>Verktøyene i angrepskjeden: <a href="#fane=eksamen&amp;oppg=o-H2023-8">H2023 8</a>, <a href="#fane=eksamen&amp;oppg=o-H2024-8">H2024 8</a>, <a href="#fane=eksamen&amp;oppg=o-H2024-24">H2024 24</a>, <a href="#fane=eksamen&amp;oppg=o-H2025-14">H2025 14</a>. Selve verktøyene tas ikke opp her.</li>
         </ul></div>
 
-      <h4>Øving: boksfarge</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Boksfarge</h4>
+      <div class="ov-intro">Velg boksfargen som passer til det testeren får vite, én per rad.</div>
       <div id="ov-angrep-5"></div>
-      <h4>Skriveøving: pentestavtalen</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Skriv selv: pentestavtalen</h4>
       <div id="ov-angrep-6"></div>
       <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
         <div class="examtask-body">
@@ -422,9 +435,11 @@
           <p><b>B)</b> Den som gir tillatelsen, må ha myndighet over systemet. Ellers er tilgangen fortsatt uberettiget etter § 204. I forvaltningen trekker kurset i tillegg inn legalitetsprinsippet (forenklet, d05 s. 8): tillatelsen må komme fra noen som har myndighet til å gi den.</p>
         </div></details>
 
-      <h4>Test deg selv: pentest</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Pentest</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-pentest"></div>
-      <h4>Sant eller usant: pentest</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Pentest</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-pentest"></div>
     </section>
 
@@ -442,7 +457,7 @@
         </ul></div>
       <div id="ex-sqli"></div>
 
-      <h4>Kode mot data</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Kode mot data</h4>
       <p class="small muted">Samme tekst i passordfeltet, to måter å lage spørringen på. Velg et eksempel eller skriv selv, og trykk «Spill av». Grønt er data, rødt er brukerens tekst som databasen leser som kode. Eksempelet med anførselstegn i midten er et helt vanlig etternavn.</p>
       <div id="viz-sql"></div>
 
@@ -482,18 +497,20 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-16">H2025 16</a> (1p): lur et ordfilter, to løsninger.</li>
         </ul></div>
 
-      <h4>Øving: gjenkjenn typen</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Gjenkjenn typen</h4>
       <div id="ov-angrep-7"></div>
-      <h4>Skriveøving: anførselstegn fjernet i nettleseren</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Skriv selv: anførselstegn fjernet i nettleseren</h4>
       <div id="ov-angrep-8"></div>
       <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
         <div class="examtask-body">
           <p>Nei. Kontrollen kjører hos brukeren og kan omgås: brukeren kan skru av skriptet eller endre forespørselen i en proxy etter at skriptet har kjørt. Bruk parametriserte spørringer på serveren, slik at inndataene alltid behandles som data, med inputvalidering på serveren som et ekstra lag.</p>
         </div></details>
 
-      <h4>Test deg selv: SQL-injeksjon</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> SQL-injeksjon</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-sqli"></div>
-      <h4>Sant eller usant: SQL-injeksjon</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> SQL-injeksjon</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-sqli"></div>
     </section>
 
@@ -544,13 +561,15 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-18">H2025 18</a> (3p): A) hva OSINT er, B) to formål.</li>
         </ul></div>
 
-      <h4>Øving: hva er OSINT?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hva er OSINT?</h4>
       <p>Hvilke av disse er OSINT? Kryss av alle som passer.</p>
       <div id="ov-angrep-9"></div>
 
-      <h4>Test deg selv: OSINT</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> OSINT</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-osint"></div>
-      <h4>Sant eller usant: OSINT</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> OSINT</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-osint"></div>
     </section>
 
@@ -576,10 +595,10 @@
 
       <p class="small muted fig-vis-led">Slik ser det ut fra angriperens side: <code>sudo -l</code> viser hvilke programmer brukeren kan kjøre som root.</p>
       <div id="fv-sudo"></div>
-      <h4>Finn feilen i sudo-oppsettet</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Finn feilen i sudo-oppsettet</h4>
       <div id="angrep-feil-sudo"></div>
 
-      <h4>Logganalyse: fire mønstre</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Logganalyse: fire mønstre</h4>
       <p class="small muted">Gjenskapte logger med egne data. Velg en logg, se på tellerne og bestem hva den viser.</p>
       <div id="viz-logg"></div>
 
@@ -610,11 +629,12 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2023-26">H2023 26</a>: logganalyse, se vurderingen over.</li>
         </ul></div>
 
-      <h4>Øving: hva viser loggen?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hva viser loggen?</h4>
+      <div class="ov-intro">Les loggen og velg hva den viser.</div>
       <div class="callout eksempel"><span class="lbl">Loggen</span>
         400 linjer «drift – feil passord» fra adressen 203.0.113.9 mellom 03:10 og 03:12.</div>
       <div id="ov-angrep-10"></div>
-      <h4>Skriveøving: sudo og et redigeringsprogram</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Skriv selv: sudo og et redigeringsprogram</h4>
       <div id="ov-angrep-11"></div>
       <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
         <div class="examtask-body">
@@ -627,9 +647,11 @@
           <p><b>B)</b> Fjern regelen. Gi i stedet tilgang til et eget skript som gjør den ene oppgaven med faste argumenter. Gå gjennom og logg sudo-bruken.</p>
         </div></details>
 
-      <h4>Test deg selv: sudo og logger</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sudo og logger</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-sudo"></div>
-      <h4>Sant eller usant: sudo og logger</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Sudo og logger</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-sudo"></div>
     </section>
 
@@ -650,38 +672,38 @@
         kort: "Et bakeri med nettbutikk, kassasystemer, kontornett og en utviklingsavdeling for oppskrifter. Jonas jobber i regnskap." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126j"></script>
-  <script src="assets/js/symboler.js?v=20261126j"></script>
-  <script src="assets/js/begreper-data.js?v=20261126j"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126j"></script>
-  <script src="assets/js/pseudocode.js?v=20261126j"></script>
-  <script src="assets/js/stepplayer.js?v=20261126j"></script>
-  <script src="assets/js/varline.js?v=20261126j"></script>
-  <script src="assets/js/inspera.js?v=20261126j"></script>
-  <script src="assets/js/dra.js?v=20261126j"></script>
-  <script src="assets/js/ovelse.js?v=20261126j"></script>
-  <script src="assets/js/bank.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126j"></script>
-  <script src="assets/js/viz-angrep.js?v=20261126j"></script>
+  <script src="assets/js/core.js?v=20261126k"></script>
+  <script src="assets/js/symboler.js?v=20261126k"></script>
+  <script src="assets/js/begreper-data.js?v=20261126k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
+  <script src="assets/js/pseudocode.js?v=20261126k"></script>
+  <script src="assets/js/stepplayer.js?v=20261126k"></script>
+  <script src="assets/js/varline.js?v=20261126k"></script>
+  <script src="assets/js/inspera.js?v=20261126k"></script>
+  <script src="assets/js/dra.js?v=20261126k"></script>
+  <script src="assets/js/ovelse.js?v=20261126k"></script>
+  <script src="assets/js/bank.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
+  <script src="assets/js/viz-angrep.js?v=20261126k"></script>
   <script>
   (function () {
     "use strict";

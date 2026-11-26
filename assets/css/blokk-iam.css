@@ -74,6 +74,13 @@
 .iam-y { color: var(--color-on-tone-ok); font-weight: 700; }
 .iam-n { color: var(--color-on-tone-danger); font-weight: 700; }
 .iam-blp-t tbody tr { cursor: pointer; }
+.iam-blp-t tbody tr:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
+/* Radknappen (gradering): trykkbart svarmål som .qz-choice; valgt rad = primærkant */
+.iam-rad-b { font: inherit; font-size: var(--text-sm); font-weight: 600; text-align: left; min-height: 40px; padding: 4px 10px; box-sizing: border-box; cursor: pointer;
+  background: var(--color-surface-container-lowest); color: inherit; border: 1px solid var(--color-outline); border-radius: var(--radius-md); }
+.iam-rad-b:hover { border-color: var(--color-primary); }
+.iam-rad-b:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.iam-rad-b[aria-pressed="true"] { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface-container-lowest)); }
 .iam-blp-t tr.akt th { color: var(--color-primary); }
 .iam-blp-t tr.obj { box-shadow: inset 3px 0 0 var(--color-primary); }
 .iam-abac-pol { color: var(--color-on-surface); line-height: 1.6; }

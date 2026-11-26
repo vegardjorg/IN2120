@@ -107,7 +107,7 @@
       for (var i = ord.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = ord[i]; ord[i] = ord[j]; ord[j] = x; }
     }
     root.appendChild(info); root.appendChild(live); root.appendChild(pool); root.appendChild(grid); root.appendChild(tabHost);
-    root.appendChild(el("div", { class: "gr-row" }, [btn("↺ Nullstill", function () { valgt = null; placed = {}; panelMsg = sist = tomFig = null; stokk(); info.textContent = START; paint(); })]));
+    root.appendChild(el("div", { class: "gr-row" }, [el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { valgt = null; placed = {}; panelMsg = sist = tomFig = null; stokk(); info.textContent = START; paint(); } })]));
 
     function synlig(f) { return !(f.id === "d" && ord.indexOf("Garanti") < 0); }
     var HINT = "Spør deg selv: finnes det en motstander? Handler det om å vite noe? Eller om tillit til et tiltak?";
@@ -122,11 +122,11 @@
         if (tre && ord.indexOf("Garanti") < 0) { ord.push("Garanti"); neste = " Trinn to: en fjerde figur og et fjerde ord dukker opp."; info.textContent = "Trinn to: en fjerde figur og et fjerde ord dukker opp."; }
         else info.textContent = "Riktig.";
         var alle = FIG.every(function (x) { return placed[x.id] === x.svar; });
-        sist = { w: w, html: "<b>Riktig:</b> «" + f.navn + "» er " + w.toLowerCase() + "." + neste + (alle ? " Alle riktig. Oppsummeringen står under figurene." : "") };
-        live.textContent = "Riktig: " + f.navn + " er " + w.toLowerCase() + "." + neste;
+        sist = { w: w, html: "<b>Riktig.</b> «" + f.navn + "» er " + w.toLowerCase() + "." + neste + (alle ? " Alle riktig. Oppsummeringen står under figurene." : "") };
+        live.textContent = "Riktig. " + f.navn + " er " + w.toLowerCase() + "." + neste;
       } else {
         panelMsg = "Ikke «" + f.navn.toLowerCase() + "». " + HINT;
-        info.textContent = "Ikke riktig ennå. Prøv et annet ord.";
+        info.textContent = "Ikke riktig. Prøv et annet ord.";
         live.textContent = panelMsg;
       }
     }
@@ -174,7 +174,7 @@
         fig.appendChild(slot);
         if (ok) fig.appendChild(el("p", { class: "gr-why small", text: f.why }));
         else if (tomFig === f.id) fig.appendChild(el("p", { class: "gr-why small", text: "Velg et ord først (over figurene)." }));
-        else if (p) fig.appendChild(el("p", { class: "gr-why small", text: "Ikke helt. " + HINT }));
+        else if (p) fig.appendChild(el("p", { class: "gr-why small", text: "Ikke riktig. " + HINT }));
         grid.appendChild(fig);
       });
       clear(tabHost);
@@ -342,8 +342,8 @@
       var n = valgt, t = TILTAK[n];
       if (t.d === d && t.t === k) {
         plass[n] = true;
-        sist = { n: n, html: "<b>Riktig:</b> " + riktigTekst(t, d, k) + (t.extra ? ' <span class="gr-sub">' + t.extra + "</span>" : "") };
-        live.textContent = "Riktig: " + riktigTekst(t, d, k);
+        sist = { n: n, html: "<b>Riktig.</b> " + riktigTekst(t, d, k) + (t.extra ? ' <span class="gr-sub">' + t.extra + "</span>" : "") };
+        live.textContent = "Riktig. " + riktigTekst(t, d, k);
         valgt = null; dSel = tSel = panelMsg = null;
         return true;
       }
@@ -426,7 +426,7 @@
     function drop(d, k) {
       if (valgt == null) { gridMsg.textContent = "Velg et tiltak først (over rutenettet)."; return; }
       var t = TILTAK[valgt];
-      if (proev(d, k)) { gridMsg.textContent = "Riktig: " + riktigTekst(t, d, k); feilRute = null; }
+      if (proev(d, k)) { gridMsg.textContent = "Riktig. " + riktigTekst(t, d, k); feilRute = null; }
       else {
         gridMsg.textContent = panelMsg;
         feilRute = d + "," + k;
@@ -746,7 +746,7 @@
     BACKUP_RUNDER.forEach(function (r) {
       noder[r.id] = { tekst: r.tekst, valg: BACKUP_TYPER.map(function (ty, i) {
         var kons, p, kit;
-        if (i === r.rett) { p = 2; kit = { T: "ok" }; kons = "Riktig: " + ty.navn.toLowerCase() + " er den billigste som holder. Tid til drift er " + ty.tid + "."; }
+        if (i === r.rett) { p = 2; kit = { T: "ok" }; kons = "Riktig. " + ty.navn + " er den billigste som holder. Tid til drift er " + ty.tid + "."; }
         else if (i < r.rett) { p = -1; kit = { T: "brutt" }; kons = "For treg: " + ty.navn.toLowerCase() + " tar " + ty.tid + " å få i drift. Virksomheten er nede lenger enn den tåler, så T er brutt."; }
         else { p = 0; kit = { T: "ok" }; kons = "Holder, men du betaler for mer enn nødvendig. " + BACKUP_TYPER[r.rett].navn + " hadde vært nok."; }
         return { tekst: ty.navn + " · " + ty.tid, til: r.til, poeng: p, kit: kit, konsekvens: kons };

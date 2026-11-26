@@ -713,7 +713,7 @@
   };
   hv("H2020-6.3",
     "<p>I et fotballag vet ingen hva treneren har bestemt, én spiller tuller med ballen i eget mål, de andre tør ikke si noe, og keeperen vil bare høre om det når det har blitt mål. Laget må snakke sammen og si fra tidlig.</p>",
-    "<p>Sikkerhetskultur handler om holdninger og vaner. Her svikter flere: ledelsen informerer ikke om policyene, kollegaen skjønner ikke risikoen ved phishing, du sier ikke fra, og IT-drift vil bare ha beskjed når skaden har skjedd. Tiltakene er tydelig ledelse, informasjon og opplæring, en kultur der man sier fra, og en enkel avviksrapportering uten straff.</p>",
+    "<p>Sikkerhetskultur handler om holdninger og vaner. Her svikter flere:</p><ul><li>ledelsen informerer ikke om policyene</li><li>kollegaen skjønner ikke risikoen ved phishing</li><li>du sier ikke fra</li><li>IT-drift vil bare ha beskjed når skaden har skjedd.</li></ul><p>Tiltakene er:</p><ul><li>tydelig ledelse</li><li>informasjon og opplæring</li><li>en kultur der man sier fra</li><li>en enkel avviksrapportering uten straff.</li></ul>",
     "<p>Menneskelige svakheter kan bare delvis dekkes av teknikk. Phishing lykkes når de ansatte ikke kjenner risikoen og ikke melder fra. Tidlig melding er avgjørende: et klikk som meldes med en gang, kan stoppes før skadevaren sprer seg, mens et klikk som skjules, blir oppdaget sent. Derfor må rapportering være enkel og trygg, og ledelsen må vise at sikkerhet prioriteres. Ellers følger ingen policyene, uansett hvor gode de er på papiret.</p>");
 
   /* ============================ DEL 7: RISIKOSTYRING ============================ */

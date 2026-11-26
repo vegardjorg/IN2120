@@ -150,7 +150,7 @@
         press(b, k === i); b.classList.toggle("cy-ok", k === h.svar); b.classList.toggle("cy-feil", k === i && !ok);
         merk(b, k === h.svar ? (ok ? "✓ Riktig" : "✓ Riktig nivå") : k === i ? "✗ Ditt valg. Se kortet med ✓." : "");
       });
-      msg.textContent = (ok ? "Riktig: " : "Ikke helt. Riktig er ") + NIVA[h.svar].navn + ". Ledetrådene i teksten har samme farge som raden de hører til på kortet.";
+      msg.textContent = (ok ? "Riktig. Det er " : "Ikke riktig. Riktig er ") + NIVA[h.svar].navn + ". Ledetrådene i teksten har samme farge som raden de hører til på kortet.";
     }
     vis(0);
     return { vis: vis };
@@ -698,7 +698,7 @@
       zones: [{ id: "data", label: "Treningsdata" }, { id: "input", label: "Input ved inferens" }, { id: "kjede", label: "Hele leveransekjeden" }],
       opphav: { type: "egen", kilder: ["ki s. 27–36"] }
     }, {
-      // Etter «Sjekk» ringes de tre stedene inn i figuren, slik lysarket gjør
+      // Etter «Sjekk svar» ringes de tre stedene inn i figuren, slik lysarket gjør
       onCheck: function () { [nData, nIn, fig].forEach(function (n) { n.classList.add("cy-hit"); }); }
     });
     // «↺ Nullstill» tar ringene bort igjen

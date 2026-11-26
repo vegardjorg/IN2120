@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126j">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -51,14 +51,20 @@
           <li><b>Én nøkkel – én anvendelse:</b> en nøkkel brukes bare til én ting (kryptering, MAC eller signatur), så skaden blir mindre om den lekker. Samme tanke som at passord ikke gjenbrukes (d03 s. 12).</li>
           <li><b>Nøkkeltyper</b> skilles på om de er symmetriske, offentlige eller private, hva de brukes til, og om de er statiske eller flyktige. NIST SP 800-57 har 19 typer (d03 s. 13).</li>
           <li><b>Generering</b> er den mest sensitive operasjonen: nøkkelen må trekkes tilfeldig og med lik sannsynlighet fra hele nøkkelrommet. BSAFE-saken viser hva som skjer når tallgeneratoren er svekket (d03 s. 21–22).</li>
-          <li><b>Tilstander (NIST):</b> pre-operasjonell (generert), operasjonell (aktivert: beskytte og/eller prosessere, og suspendert: bare prosessere), post-operasjonell (deaktivert eller kompromittert: bare prosessere) og til slutt destruert (d03 s. 24).</li>
+          <li><b>Tilstander (NIST)</b> (d03 s. 24):
+            <ol>
+              <li>pre-operasjonell (generert)</li>
+              <li>operasjonell (aktivert: beskytte og/eller prosessere, og suspendert: bare prosessere)</li>
+              <li>post-operasjonell (deaktivert eller kompromittert: bare prosessere)</li>
+              <li>og til slutt destruert.</li>
+            </ol></li>
           <li><b>Beskyttelse:</b> hemmelige og private nøkler trenger konfidensialitet og integritet. Offentlige nøkler trenger bare integritet og autentisitet, og det er det PKI gir (d03 s. 25).</li>
           <li><b>Destruering:</b> nøkkelen skal ikke finnes igjen, verken i minnet eller på disk. Vanlig sletting er ikke nok. Overskriving, degaussing og fysisk ødeleggelse virker. Destrueres en masternøkkel, er nøklene kryptert under den også borte (d03 s. 26).</li>
           <li><b>Kvante:</b> symmetrisk og hash holder med dobbel lengde (AES-256, SHA-2/SHA-3 med 512 bit). RSA, ECC, DSA og DH knekkes og må erstattes med postkvantealgoritmer (d03 s. 17–20).</li>
         </ul></div>
       <div id="ex-livssyklus"></div>
 
-      <h4>Tilstandene og hva som er lov</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Tilstandene og hva som er lov</h4>
       <p class="small muted">Legg hver tilstand i bøtta for det den får brukes til, og trykk «Sjekk svar». Nederst ser du hvorfor «slett» ikke er det samme som «destruer».</p>
       <div id="viz-tilstander"></div>
 
@@ -85,21 +91,25 @@
           <li><b>«Kvante knekker AES»:</b> dobbel nøkkellengde holder. Det er RSA, ECC og DH som må byttes ut (d03 s. 20).</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Beskyttelsesbehov</h4>
       <p class="pki-q">Hvilken beskyttelse trenger hver nøkkel?</p>
       <div id="ov-pki-1"></div>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Tilstander og lov bruk</h4>
       <p class="pki-q">Fyll inn tilstand og lov bruk.</p>
       <div id="ov-pki-2"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
           <li>Ingen oppgave i H21–H25 spør direkte om tilstander, generering eller destruering. Eldre sett gjør det (NISTs seks tilstander og de fire nøkkelhåndteringsprosessene), så det er mulig fritekst- eller matrisestoff.</li>
-          <li>Beskyttelsesbehov per nøkkeltype kommer indirekte i H2024 12, felt 5–6 (publisert privat eller offentlig nøkkel). Banken har den under kryptografi, se fane 2.</li>
+          <li>Beskyttelsesbehov per nøkkeltype kommer indirekte i H2024 12, felt 5–6 (publisert privat eller offentlig nøkkel). Banken har den under kryptografi. Se også fanen <a href="#fane=kryptoperiode">Kryptoperioder</a>.</li>
           <li>Kvante og nøkkellengde: se <a href="02-krypto.html">blokk 2</a>.</li>
         </ul></div>
 
-      <h4>Test deg selv: nøkkelens livssyklus</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Nøkkelens livssyklus</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-livssyklus"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Nøkkelens livssyklus</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-livssyklus"></div>
     </section>
 
@@ -117,11 +127,11 @@
         </ul></div>
       <div id="ex-kryptoperiode"></div>
 
-      <h4>Tidslinje: beskyttelse og prosessering</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Tidslinje: beskyttelse og prosessering</h4>
       <p class="small muted">Velg nøkkeltype og se hvem som holder hvilken nøkkel i hver periode. Kryss av for «kompromittert» og flytt merket.</p>
       <div id="viz-tidslinje"></div>
 
-      <h4>Hva kan tyven gjøre?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hva kan tyven gjøre?</h4>
       <p class="small muted">Svar på hvert spørsmål før du ser forklaringen. Til slutt velger du tiltakene, og hele tabellen fra H2022 6.1 vises.</p>
       <div id="viz-tyveri"></div>
 
@@ -150,12 +160,13 @@
           <li><b>«Kompromittert privat nøkkel kan fortsatt signere»:</b> nei, signering er beskyttelse og må stoppe. Dekryptering kan fortsette (H2021 4.2).</li>
           <li><b>«Med Bobs private nøkkel kan Alice lese det Bob sender»:</b> nei. Bob krypterer med mottakerens offentlige nøkkel. Alice kan lese det som sendes <i>til</i> Bob (H2022 6.1).</li>
           <li><b>«Offentlig nøkkel publisert = nytt nøkkelpar»:</b> nei, den skal være offentlig (H2024 12).</li>
-          <li><b>H2024 7, del 3:</b> fasiten sier «revokere sin offentlige nøkkel». Se merknaden under.</li>
+          <li><b>H2024 7, del 3:</b> fasiten sier «revokere sin offentlige nøkkel». Se merknaden i «Hva eksamen spør om» under.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Nøkkel per periode</h4>
       <p class="pki-q">Hvilken nøkkel brukes? Velg hemmelig, offentlig eller privat for hver handling.</p>
       <div id="ov-pki-3"></div>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Stjålet privat nøkkel</h4>
       <p class="pki-q">Eva har stjålet Petters private nøkkel. Alle kan se all trafikk. Hvilke utsagn er korrekte?</p>
       <div id="ov-pki-4"></div>
 
@@ -187,8 +198,11 @@
           <li>H2023 15, felt 3 (kryptografi): en stjålet privat nøkkel gir grunnlag for å benekte en digitalt signert melding.</li>
         </ul></div>
 
-      <h4>Test deg selv: kryptoperioder</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Kryptoperioder</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-kryptoperiode"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Kryptoperioder</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-kryptoperiode"></div>
     </section>
 
@@ -207,15 +221,24 @@
           <li><b>PKI</b> skal garantere at offentlige nøkler er autentiske og gjøre distribusjonen enklere. PKI består av policyer, teknologier, prosedyrer og en tillitsmodell (d03 s. 30).</li>
           <li><b>X.509-sertifikat:</b> en datarecord med blant annet subjektets (domene)navn og offentlige nøkkel, digitalt signert med CA-ens private nøkkel. Det binder navnet og nøkkelen logisk sammen. For å validere det trengs en autentisk kopi av CA-ens offentlige nøkkel (d03 s. 31).</li>
           <li><b>Felt</b> (d03 s. 31): Version, Serial Number, Algorithm Identifier, Issuer (CA-navn), Subject (navn og offentlig nøkkel), Validity Period, Extensions og Digital Signature.</li>
-          <li><b>Generering</b> (d03 s. 34): samle feltene i en record Rec, regn ut H = Hash(Rec), lag S = Sig(H, K<sup>CA</sup><sub>priv</sub>) og legg S til recorden. Lysarket skriver det som Sig[H, Kpriv(CA)].</li>
+          <li><b>Generering</b> (d03 s. 34):
+            <ol>
+              <li>samle feltene i en record Rec</li>
+              <li>regn ut H = Hash(Rec)</li>
+              <li>lag S = Sig(H, K<sup>CA</sup><sub>priv</sub>)</li>
+              <li>legg S til recorden.</li>
+            </ol>
+            Lysarket skriver det som Sig[H, Kpriv(CA)].</li>
         </ul></div>
       <div id="ex-x509"></div>
 
       <h4>Eksempel: hvor mange distribusjoner?</h4>
-      <p>For n = 8: symmetrisk 8·7/2 = <b>28</b> hemmelige nøkler, uten PKI 8·7 = <b>56</b> autentiske overføringer, med PKI <b>8</b>. For n = 100: 4 950, 9 900 og 100. Regn selv før du ser svaret, og flytt glideren for å få en ny n:</p>
+      <p>For n = 8: symmetrisk 8·7/2 = <b>28</b> hemmelige nøkler, uten PKI 8·7 = <b>56</b> autentiske overføringer, med PKI <b>8</b>. For n = 100: 4 950, 9 900 og 100. </p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Regn selv: antall distribusjoner</h4>
+      <p class="ov-intro">Regn selv før du ser svaret. Flytt glideren for å få en ny n.</p>
       <div id="viz-distribusjon"></div>
 
-      <h4>Sertifikatfeltene og signaturen</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Sertifikatfeltene og signaturen</h4>
       <p class="case-ctx" data-case="fjellvik">Sertifikatet er subjektsertifikatet til bibliotek.lerkedal.no, utstedt og signert av Fjellvik TLS CA 2.</p>
       <p class="small muted">Først fyller du ut sertifikatet selv. Når du har sjekket svaret, lager CA-en sertifikatet steg for steg (med gjett før neste steg), og nederst kan du endre et felt og se om nettleseren oppdager det. Leke-RSA med modul 33 er et leketøy, ikke kursstoff: ekte nøkler har tusenvis av bit eller er ECC.</p>
       <div id="viz-felter"></div>
@@ -243,9 +266,10 @@
           <li><b>X.500 eller «X509v3»</b> er ikke godkjent. Godtatt er X.509, x509, x 509 og x-509 (H2023 19).</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hva kan sertifikatet brukes til?</h4>
       <p class="pki-q">Sertifikatet for bibliotek.lerkedal.no har ecdsa-with-SHA256 og ECC P-256. Hvilke utsagn er korrekte? Velg opp til 2.</p>
       <div id="ov-pki-5"></div>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Generering av sertifikat</h4>
       <p class="pki-q">Hvordan genereres og valideres et sertifikat?</p>
       <div id="ov-pki-6"></div>
 
@@ -261,8 +285,11 @@
           <li>Eldre sett spør om antall nøkler og distribusjoner for n brukere. Regnestoffet kan komme igjen.</li>
         </ul></div>
 
-      <h4>Test deg selv: PKI og X.509</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> PKI og X.509</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-x509"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> PKI og X.509</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-x509"></div>
     </section>
 
@@ -282,7 +309,7 @@
       <p class="small muted fig-vis-led">Slik ser en sertifikatsti ut i nettleseren: roten øverst, subjektet nederst.</p>
       <div id="fv-kjede"></div>
 
-      <h4>Klikkbar sertifikatkjede</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Klikkbar sertifikatkjede</h4>
       <p class="small muted">Velg et scenario og trykk «Valider ett steg». Klikk på et kort for å se feltene, og endre et felt i subjektkortet. «Oppgave: finn feilen» laster et ukjent scenario: klikk på steget du tror feiler.</p>
       <div id="viz-kjede"></div>
 
@@ -298,7 +325,7 @@
           <tr><td>5</td><td>Issuer på «bibliotek.lerkedal.no» = «Fjellvik TLS CA 2»?</td><td>Ja</td></tr>
           <tr><td>6</td><td>Ver(S<sub>bib</sub>, K<sup>CA2</sup><sub>pub</sub>) = Hash(Rec<sub>bib</sub>)?</td><td>Ja</td></tr>
           <tr><td>7</td><td>03.12.2026 innenfor 15.09.2026–14.12.2026?</td><td>Ja</td></tr>
-          <tr><td>8</td><td>Domenet i adresselinjen = bibliotek.lerkedal.no?</td><td>Ja → <b>autentisk</b> (men ikke nødvendigvis pålitelig, fane 5)</td></tr>
+          <tr><td>8</td><td>Domenet i adresselinjen = bibliotek.lerkedal.no?</td><td>Ja → <b>autentisk</b> (men ikke nødvendigvis pålitelig, se fanen <a href="#fane=tillit">Tillitsmodeller</a>)</td></tr>
         </tbody></table></div>
       <p>Åpnes siden 20.12.2026, feiler steg 7: subjektsertifikatet er utløpt, selv om resten av kjeden er i orden. Ekte kjeder kan ha flere mellomliggende ledd. Kjeden til uio.no er USERTrust ECC (rot) → GEANT OV ECC CA 4 (mellomliggende) → uio.no (d03 s. 32–33).</p>
 
@@ -314,9 +341,10 @@
           <li><b>«Utløpt rot betyr at bare roten er ugyldig»:</b> alt under mister tilliten.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Rot, mellomliggende eller subjekt</h4>
       <p class="pki-q">For hver beskrivelse, angi riktig sertifikat i kjeden Fjellvik Root R1 → Fjellvik TLS CA 2 → bibliotek.lerkedal.no (Ingen er også et alternativ).</p>
       <div id="ov-pki-7"></div>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sertifikatstien</h4>
       <p class="pki-q">Sertifikatstien er Fjellvik Root R1 → Fjellvik TLS CA 2 → bibliotek.lerkedal.no.</p>
       <div id="ov-pki-8"></div>
 
@@ -335,8 +363,11 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2024-15">H2024 15</a> (N, 2p, inspera.no): <b>subjektsertifikat</b>, signert av <b>mellomliggende CA</b>, altså med den CA-ens private nøkkel.</li>
         </ul></div>
 
-      <h4>Test deg selv: sertifikatkjeden</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sertifikatkjeden</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-kjede"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Sertifikatkjeden</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-kjede"></div>
     </section>
 
@@ -355,15 +386,16 @@
         </ul></div>
       <div id="ex-tillit"></div>
 
-      <h4>Tillitsmodellene og en kompromittert node</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Tillitsmodellene og en kompromittert node</h4>
+      <p class="ov-intro">Velg en tillitsmodell og trykk på en node for å se hva som skjer når den kompromitteres. Nederst svarer du på hvilken av to nettsider sertifikatet kan si er pålitelig.</p>
       <div id="viz-modeller"></div>
 
       <h4>Eksempel: Lerkedal Sparebank</h4>
       <ul>
         <li>Banken har <span class="mono">lerkedalsparebank.no</span>. En svindler registrerer <span class="mono">lerkedal-sparebank.no</span>, får et ekte domenevalidert sertifikat fra en kjent CA og kopierer innloggingssiden.</li>
-        <li>Nettleseren viser hengelås, og alle de åtte stegene i fane 4 er grønne, fordi domenet i adresselinjen er det samme som i sertifikatet.</li>
+        <li>Nettleseren viser hengelås, og alle de åtte valideringsstegene i fanen <a href="#fane=kjede">Sertifikatkjeden</a> er grønne, fordi domenet i adresselinjen er det samme som i sertifikatet.</li>
         <li>Resultat: <b>autentisk</b> (siden tilhører virkelig lerkedal-sparebank.no), men <b>upålitelig</b>. Bare en bruker som kjenner det riktige domenenavnet, kan oppdage det (d03 s. 42).</li>
-        <li>Kompromittert CA: en angriper bryter seg inn i Nordkapp CA og utsteder et sertifikat for selve lerkedalsparebank.no. Med DNS-forfalskning i tillegg får offeret riktig domene, gyldig kjede og hengelås. Ingen av de åtte stegene feiler. Det som hjelper, er å fjerne Nordkapp CA fra rotlagrene, og tiltakene i fane 6.</li>
+        <li>Kompromittert CA: en angriper bryter seg inn i Nordkapp CA og utsteder et sertifikat for selve lerkedalsparebank.no. Med DNS-forfalskning i tillegg får offeret riktig domene, gyldig kjede og hengelås. Ingen av de åtte stegene feiler. Det som hjelper, er å fjerne Nordkapp CA fra rotlagrene, og tiltakene i fanen <a href="#fane=revokering">Tilbakekalling</a>.</li>
       </ul>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -384,9 +416,10 @@
             </ul></li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> PKI og tillit</h4>
       <p class="pki-q">Angi de korrekte utsagnene om PKI og tillit.</p>
       <div id="ov-pki-9"></div>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Tillitsmodeller</h4>
       <p class="pki-q">Hvilken tillitsmodell passer med kjennetegnet?</p>
       <div id="ov-pki-10"></div>
 
@@ -404,8 +437,11 @@
           <li>Ingen H21–H25-oppgave spør direkte om DigiNotar eller navnene på tillitsmodellene, men foreleseren la vekt på begge (d03 s. 38–44). Mulig stoff.</li>
         </ul></div>
 
-      <h4>Test deg selv: tillitsmodeller</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Tillitsmodeller</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-tillit"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Tillitsmodeller</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-tillit"></div>
     </section>
 
@@ -432,12 +468,12 @@
       <p class="small muted fig-vis-led">OCSP uten og med stifting. Med stifting henter tjeneren statussvaret selv, så CA-en ikke får vite hvem som besøker nettstedet (utenfor 2026-lysarkene).</p>
       <div id="fk-ocsp-stifting"></div>
 
-      <h4>Statussjekk i kjeden</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Statussjekk i kjeden</h4>
       <p class="case-ctx" data-case="fjellvik"></p>
-      <p class="small muted">Samme kjede som i fane 4. Bytt statussjekk mellom OCSP, stifting og ingen, og se hva som skjer med et tilbakekalt sertifikat.</p>
+      <p class="small muted">Samme kjede som i fanen <a href="#fane=kjede">Sertifikatkjeden</a>. Bytt statussjekk mellom OCSP, stifting og ingen, og se hva som skjer med et tilbakekalt sertifikat.</p>
       <div id="viz-kjede-status"></div>
 
-      <h4>CAA: hvem får utstede for lerkedal.no?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> CAA: hvem får utstede for lerkedal.no?</h4>
       <p class="case-ctx" data-case="fjellvik">Lerkedal bibliotek (bibliotek.lerkedal.no) har sertifikatet sitt fra Fjellvik TLS CA 2. Nordkapp CA er en annen CA som nettleserne også stoler på.</p>
       <p class="small muted">Du er CA-en. Velg hva du gjør, så ser du konsekvensen.</p>
       <div id="viz-caa"></div>
@@ -458,27 +494,31 @@
         <details class="grense"><summary>Er vanlig OCSP den personvernvennlige løsningen?</summary>
           <p>Nei, tvert imot. Vanlig OCSP lekker hvor du surfer, og stifting / must-staple løser det (t03 O9b).</p></details>
         <ul>
-          <li><b>«Revoker den private» / «revoker den offentlige nøkkelen»:</b> formelt er det <b>sertifikatet</b> som tilbakekalles. H2024 7 godtok bare «offentlige» (fane 2).</li>
+          <li><b>«Revoker den private» / «revoker den offentlige nøkkelen»:</b> formelt er det <b>sertifikatet</b> som tilbakekalles. H2024 7 godtok bare «offentlige» (se fanen <a href="#fane=kryptoperiode">Kryptoperioder</a>).</li>
           <li><b>«CAA lagres hos CA-en»:</b> den lagres i domenets DNS-record (t03 O6b).</li>
           <li><b>«Must-staple betyr at nettleseren må hente OCSP»:</b> det er tjeneren som må legge ved svaret (t03 O6c).</li>
           <li>t03 skriver «OSCP» i O6c. Det er en skrivefeil for OCSP.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Mekanisme og problem</h4>
       <p class="pki-q">Hvilken mekanisme løser problemet?</p>
       <div id="ov-pki-11"></div>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Revokeringsflyt</h4>
       <p class="pki-q">Fyll inn revokeringsflyten.</p>
       <div id="ov-pki-12"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
           <li>Ingen H21–H25-oppgave med PKI-blokk spør om OCSP, CAA eller CT.</li>
-          <li>H2024 7 del 3 (banken har den under kryptografi) er den eneste revokeringsoppgaven. Fasiten «Revokere sin offentlige nøkkel» er tvilsom, se fane 2.</li>
+          <li>H2024 7 del 3 (banken har den under kryptografi) er den eneste revokeringsoppgaven. Fasiten «Revokere sin offentlige nøkkel» er tvilsom, se fanen <a href="#fane=kryptoperiode">Kryptoperioder</a>.</li>
           <li>Eldre sett har hatt OCSP som et lite enkeltvalg, så revokering kan komme slik.</li>
         </ul></div>
 
-      <h4>Test deg selv: tilbakekalling</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Tilbakekalling</h4>
+      <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
       <div id="quiz-revokering"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Tilbakekalling</h4>
+      <p class="ov-intro">Ta stilling til hver påstand: sant eller usant. Når svaret er rettet, får du en forklaring.</p>
       <div id="tf-revokering"></div>
     </section>
 
@@ -499,37 +539,37 @@
         kort: "Lerkedal bibliotek har nettstedet bibliotek.lerkedal.no. Sertifikatstien er Fjellvik Root R1 (rot) → Fjellvik TLS CA 2 (mellomliggende CA) → bibliotek.lerkedal.no (subjektsertifikat)." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126j"></script>
-  <script src="assets/js/symboler.js?v=20261126j"></script>
-  <script src="assets/js/begreper-data.js?v=20261126j"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126j"></script>
-  <script src="assets/js/pseudocode.js?v=20261126j"></script>
-  <script src="assets/js/stepplayer.js?v=20261126j"></script>
-  <script src="assets/js/varline.js?v=20261126j"></script>
-  <script src="assets/js/inspera.js?v=20261126j"></script>
-  <script src="assets/js/dra.js?v=20261126j"></script>
-  <script src="assets/js/ovelse.js?v=20261126j"></script>
-  <script src="assets/js/bank.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126j"></script>
-  <script src="assets/js/viz-pki.js?v=20261126j"></script>
+  <script src="assets/js/core.js?v=20261126k"></script>
+  <script src="assets/js/symboler.js?v=20261126k"></script>
+  <script src="assets/js/begreper-data.js?v=20261126k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
+  <script src="assets/js/pseudocode.js?v=20261126k"></script>
+  <script src="assets/js/stepplayer.js?v=20261126k"></script>
+  <script src="assets/js/varline.js?v=20261126k"></script>
+  <script src="assets/js/inspera.js?v=20261126k"></script>
+  <script src="assets/js/dra.js?v=20261126k"></script>
+  <script src="assets/js/ovelse.js?v=20261126k"></script>
+  <script src="assets/js/bank.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
+  <script src="assets/js/viz-pki.js?v=20261126k"></script>
   <script>
   (function () {
     "use strict";
@@ -557,7 +597,7 @@
       "ex-kjede": {
         eli5: "<p>Tenk på en stafett med stempler. Skolen (roten) har et stempel som alle kjenner fra før, fordi det sto i velkomstheftet. Skolen stempler en lærer (mellomliggende). Læreren stempler en elevs bevis (subjekt). Du sjekker: er lærerstempelet ekte ifølge skolen? Er elevens bevis ekte ifølge læreren? Er ett ledd galt, faller hele beviset.</p>",
         normal: "<p>Nettleseren får subjektsertifikatet (og som regel det mellomliggende) fra tjeneren. Den finner roten i sitt eget lager, bruker rotens offentlige nøkkel til å sjekke signaturen på det mellomliggende sertifikatet, og bruker så den mellomliggende CA-ens offentlige nøkkel til å sjekke subjektsertifikatet.</p><p>Hvert sertifikat sier hvem som utstedte det (Issuer), og det navnet må stemme med Subject i sertifikatet over. Til slutt sjekker nettleseren at navnet i subjektsertifikatet er domenet i adresselinjen.</p>",
-        teknisk: "<p>For hvert ledd i, fra roten og ned:</p><ul><li>Issuer(i) = Subject(i−1),</li><li>Ver(S<sub>i</sub>, K<sup>i−1</sup><sub>pub</sub>) = Hash(Rec<sub>i</sub>),</li><li>dagens dato innenfor Validity,</li><li>og sertifikat i−1 er markert som CA.</li></ul><p>Statussjekk er tema i fane 6.</p><p>Roten sjekkes ikke kryptografisk mot noe over seg: selvsignaturen kan hvem som helst lage, og tilliten er at roten <b>finnes i lageret</b>.</p><p>Mellomliggende CA-er finnes fordi rotnøkkelen da kan holdes frakoblet og fysisk sikret (fane 1). Lekker en mellomliggende nøkkel, kan den tilbakekalles uten at roten må byttes i alle nettlesere.</p>"
+        teknisk: "<p>For hvert ledd i, fra roten og ned:</p><ul><li>Issuer(i) = Subject(i−1),</li><li>Ver(S<sub>i</sub>, K<sup>i−1</sup><sub>pub</sub>) = Hash(Rec<sub>i</sub>),</li><li>dagens dato innenfor Validity,</li><li>og sertifikat i−1 er markert som CA.</li></ul><p>Statussjekk er tema i fanen Tilbakekalling.</p><p>Roten sjekkes ikke kryptografisk mot noe over seg: selvsignaturen kan hvem som helst lage, og tilliten er at roten <b>finnes i lageret</b>.</p><p>Mellomliggende CA-er finnes fordi rotnøkkelen da kan holdes frakoblet og fysisk sikret (fanen Nøkkelens livssyklus). Lekker en mellomliggende nøkkel, kan den tilbakekalles uten at roten må byttes i alle nettlesere.</p>"
       },
       "ex-tillit": {
         eli5: "<p>Et ID-kort viser at du er den du sier du er. Det viser ikke at du er snill. En svindler kan ha et ekte ID-kort. Og hvis kontoret som lager ID-kort blir rundstjålet for blanke kort, kan tyvene lage «ekte» kort til hvem som helst. Da må alle slutte å stole på det kontoret.</p>",
@@ -567,7 +607,7 @@
       "ex-revokering": {
         eli5: "<p>Mister du bankkortet, sperrer du det, selv om det står «gyldig til 2028» på kortet. Butikken må kunne sjekke om kortet er sperret. Den kan slå opp i en liste over sperrede kort, ringe banken, eller få en fersk lapp fra banken som kunden har med seg. Den siste måten er OCSP-stifting.</p>",
         normal: "<p>Utløpsdatoen er ikke nok. Lekker den private nøkkelen, må sertifikatet stoppes med en gang. Nettleseren kan spørre CA-en direkte (OCSP), men da ser CA-en hvor du surfer. Med stifting legger tjeneren ved et ferskt, signert «fortsatt gyldig»-svar.</p><p>CAA og CT angriper et annet problem: CA-er som utsteder sertifikater de ikke skulle ha utstedt. CAA sier «bare disse CA-ene får utstede for meg», og CT gjør utstedelsene synlige.</p>",
-        teknisk: "<p>Statussvaret ved stifting er signert av CA-en (eller dens OCSP-responder), så tjeneren kan ikke forfalske det, og det er ferskt, så tjeneren kan ikke bruke et gammelt «gyldig»-svar etter tilbakekallingen. Must-staple gjør at et sertifikat som kommer <i>uten</i> statussvar, avvises. Ellers kunne en angriper med stjålet nøkkel bare utelate svaret.</p><p>Revokeres et mellomliggende CA-sertifikat, faller alle subjektsertifikater under det, fordi tilliten er avledet (fane 4).</p><p>CAA hindrer en <i>ærlig</i> CA i å utstede feil. En CA som ignorerer CAA, stoppes bare av at det oppdages i ettertid, og der kommer CT inn. Den presiseringen er vår egen: t03 O6a sier kort at CAA forhindrer falske sertifikater. Et tilbakekalt sertifikat svarer til at nøkkelparet går til «kompromittert» (fane 1).</p>"
+        teknisk: "<p>Statussvaret ved stifting er signert av CA-en (eller dens OCSP-responder), så tjeneren kan ikke forfalske det, og det er ferskt, så tjeneren kan ikke bruke et gammelt «gyldig»-svar etter tilbakekallingen. Must-staple gjør at et sertifikat som kommer <i>uten</i> statussvar, avvises. Ellers kunne en angriper med stjålet nøkkel bare utelate svaret.</p><p>Revokeres et mellomliggende CA-sertifikat, faller alle subjektsertifikater under det, fordi tilliten er avledet (fanen Sertifikatkjeden).</p><p>CAA hindrer en <i>ærlig</i> CA i å utstede feil. En CA som ignorerer CAA, stoppes bare av at det oppdages i ettertid, og der kommer CT inn. Den presiseringen er vår egen: t03 O6a sier kort at CAA forhindrer falske sertifikater. Et tilbakekalt sertifikat svarer til at nøkkelparet går til «kompromittert» (fanen Nøkkelens livssyklus).</p>"
       }
     };
     Object.keys(EX).forEach(function (id) {

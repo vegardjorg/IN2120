@@ -16,7 +16,10 @@
        countControl:{min,max,unit} (unit standard «elementer»),
        gjett: true|false (standard true når minst ett steg har spor),
        fit: true|false (standard true: skaler ned innhold som er bredere enn scenen),
-       fitMin: tall (nedre grense for skaleringen, standard 0.7) }
+       fitMin: tall (nedre grense for skaleringen, standard 0.7),
+       kontroller: "auto"|true|false (standard "auto": Forrige/Neste/Spill av, «Steg x av y» og
+         stegtipset skjules når gjeldende input bare gir ett steg; false skjuler dem alltid) }
+     Når «Neste» er låst av et gjett, står en kort forklaring ved knappene (sp-lashint).
      Tilpasning til bredden: etter hver render måles barna i ctx.stage. Er et barn bredere enn scenen,
      får det CSS-zoom ned til fitMin. Er det fortsatt for bredt, scroller scenen og rammen viser et
      uttoningshint. ctx.width er scenens innerbredde (px), så render kan velge en smal tegning selv.
@@ -128,7 +131,16 @@
     var bPlay = el("button", { class: "btn sm sp-play", type: "button", title: "Spill av", "aria-label": "Spill av", onclick: togglePlay }, [playIc, playTx]);
     var bReset = el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { svar = {}; goto(0); } });
     var scope = IN.levelScope({ initial: opts.initial_level || null });
-    wrap.appendChild(el("div", { class: "sp-controls" }, [bPrev, bNext, bPlay, bReset, scope.el]));
+    var lockHint = el("p", { class: "sp-lashint small", hidden: true, text: "Svar på spørsmålet under, eller trykk «Hopp over», for å gå videre." });
+    var controls = el("div", { class: "sp-controls" }, [bPrev, bNext, bPlay, bReset, scope.el]);
+    wrap.appendChild(controls);
+    wrap.appendChild(lockHint);
+    /* Ett steg (eller kontroller:false): skjul stegkontrollene, så spilleren ikke ser ut som en animasjon */
+    function stegKontroller() {
+      var vis = opts.kontroller === false ? false : opts.kontroller === true ? true : steps.length > 1;
+      [bPrev, bNext, bPlay, bReset, hint, counter].forEach(function (b) { b.hidden = !vis; });
+      wrap.classList.toggle("sp-enkel", !vis);
+    }
     function playLabel(on) {
       playIc.textContent = on ? "❚❚" : "▶";
       playTx.textContent = on ? " Pause" : " Spill av";
@@ -249,7 +261,7 @@
       } else {
         if (a.ok) gBox.classList.add("is-right"); else if (!a.skip) gBox.classList.add("is-wrong");
         var msg = a.skip ? "Hoppet over. Riktig svar: <b>" + fasitTekst(sp) + "</b>."
-          : a.ok ? "<b>Riktig!</b>" : "<b>Ikke helt.</b> Riktig svar: <b>" + fasitTekst(sp) + "</b>.";
+          : a.ok ? "<b>Riktig.</b>" : "<b>Ikke riktig.</b> Riktig svar: <b>" + fasitTekst(sp) + "</b>.";
         var fx = sp.forklaring ? " " + IN.level.pick(sp.forklaring, scope.get()) : "";
         fb.innerHTML = msg + fx + (annonser ? " Trykk «Neste» for å se steget." : "");
       }
@@ -283,6 +295,8 @@
       }
       bNext.disabled = atEnd || lock;
       bPlay.disabled = lock;
+      lockHint.hidden = !lock;
+      stegKontroller();
       gBox.classList.toggle("is-locked", lock);
     }
     /* ---------- Tilpasning til bredden ---------- */

@@ -242,8 +242,8 @@
   function tyvSp(r, hva, tekst, til, kit) {
     var a = tyveri(r), v = hva === "les" ? a.les : a.sig, ja = v !== "nei", forkl = hva === "les" ? a.lesT : a.sigT;
     return { tekst: tekst, valg: [
-      { tekst: "Ja", til: til, poeng: ja ? 1 : -1, kit: kit, konsekvens: (ja ? "<b>Riktig.</b> " : "<b>Nei.</b> ") + forkl },
-      { tekst: "Nei", til: til, poeng: ja ? -1 : 1, kit: kit, konsekvens: (ja ? "<b>Jo.</b> " : "<b>Riktig.</b> ") + forkl }
+      { tekst: "Ja", til: til, poeng: ja ? 1 : -1, kit: kit, konsekvens: (ja ? "<b>Riktig.</b> " : "<b>Ikke riktig.</b> ") + forkl },
+      { tekst: "Nei", til: til, poeng: ja ? -1 : 1, kit: kit, konsekvens: (ja ? "<b>Ikke riktig.</b> " : "<b>Riktig.</b> ") + forkl }
     ] };
   }
   function tyveriScenario() {
@@ -440,7 +440,7 @@
     // Fasitdelen (generering og validering) bygges først når studenten har sjekket svaret, eller ber om det.
     var gate = el("div", { class: "pki-gate" });
     var gateTxt = H("p", "pki-note", "Fyll ut feltene og trykk «Sjekk svar». Da vises det ferdige sertifikatet, hvordan CA-en signerer det, og hva signaturen dekker.");
-    var bVis = btn("Vis fasit uten å sjekke", function () { aapne(); });
+    var bVis = btn("Vis fasit", function () { aapne(); });
     gate.appendChild(gateTxt); gate.appendChild(el("div", { class: "pki-row" }, [bVis]));
     w.appendChild(gate);
     var fasit = el("div", { class: "pki-fasit", hidden: true });
@@ -666,7 +666,7 @@
     var bNeste = btn("Valider ett steg →", function () { neste(); }, "primary");
     var bAlle = btn("Valider alt", function () { alle(); });
     var bTving = btn("Tving videre", function () { st.force = true; neste(); });
-    var bNy = btn("↺ Start på nytt", function () { nullstill(); });
+    var bNy = btn("↺ Nullstill", function () { nullstill(); });
     var bOppg = btn("Oppgave: finn feilen", function () { oppgave(); });
     w.appendChild(el("div", { class: "pki-row pki-ctl" }, [bNeste, bAlle, bTving, bNy, bOppg]));
     var oppgTxt = H("p", "pki-out");
@@ -712,7 +712,7 @@
       st.gjett = i; st.pos = ff + 1;
       var sc = SCEN.filter(function (s) { return s.id === st.oppg; })[0];
       var rett = S2[i].id === S2[ff].id;
-      oppgTxt.innerHTML = (rett ? "<b>Riktig.</b> " : "<b>Ikke helt.</b> Du valgte steg " + S2[i].id + ", men ") + "steg " + S2[ff].id + " feiler. Scenarioet var «" + sc.navn + "».";
+      oppgTxt.innerHTML = (rett ? "<b>Riktig.</b> " : "<b>Ikke riktig.</b> Du valgte steg " + S2[i].id + ", men ") + "steg " + S2[ff].id + " feiler. Scenarioet var «" + sc.navn + "».";
       oppgTxt.className = "pki-out " + (rett ? "ok" : "nei");
       paint();
     }

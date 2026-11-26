@@ -91,8 +91,8 @@
         quic: "tr", ip: "inet", ipsec: "inet", arp: "link", wpa: "link", outlook: "prog", fiber: "fys" },
       oppsummering: {
         eli5: "Det lure: TLS bor i to etasjer. Håndtrykket er oppe hos programmene, og selve låsingen rett over TCP.",
-        normal: "Fellene: TLS er delt (Handshake i applikasjon, Record i transport), IPsec har ingen port fordi den ligger under transportlaget, og Outlook er et program over stakken.",
-        teknisk: "Fasitkonvensjonen: Handshake i applikasjonslaget, Record i transportlaget, IPsec i internettlaget. Sikkerhetsprotokoller per lag: applikasjon (SSH, DNSSEC, TLS Handshake), transport (TLS Record), internett (IPsec), link (WPA, utenfor 2026-pensum)."
+        normal: "<p>Fellene:</p><ul><li>TLS er delt (Handshake i applikasjon, Record i transport),</li><li>IPsec har ingen port fordi den ligger under transportlaget,</li><li>og Outlook er et program over stakken.</li></ul>",
+        teknisk: "<p>Fasitkonvensjonen: Handshake i applikasjonslaget, Record i transportlaget, IPsec i internettlaget. Sikkerhetsprotokoller per lag:</p><ul><li>applikasjon (SSH, DNSSEC, TLS Handshake),</li><li>transport (TLS Record),</li><li>internett (IPsec),</li><li>link (WPA, utenfor 2026-pensum).</li></ul>"
       },
       kilde: { ref: "d09 s. 7–12; fasit H2022 7.1 og H2025 22", egneOrd: true }
     }, { instant: false });
@@ -573,7 +573,7 @@
     var gFb = el("p", { class: "small", "aria-live": "polite" });
     function svar(ja) {
       clear(gjett);
-      gFb.innerHTML = (ja ? "<b>Ikke helt.</b> " : "<b>Riktig.</b> ") + "Når angrepstrafikken er med i treningsdataene, blir den en del av «normalt», og terskelen havner over toppen. Se selv:";
+      gFb.innerHTML = (ja ? "<b>Ikke riktig.</b> " : "<b>Riktig.</b> ") + "Når angrepstrafikken er med i treningsdataene, blir den en del av «normalt», og terskelen havner over toppen. Se selv:";
       gjett.appendChild(gFb);
       btn.hidden = false; pentest = true; paint();
     }
@@ -705,8 +705,8 @@
       id: "nett-mat-vpn",
       opphav: { type: "egen", kilder: ["d09 s. 26–35"] },
       sporsmal: {
-        eli5: "Du går på nett gjennom en låst gang til en VPN-tjeneste. Hvem kan se hva? Kryss av, og trykk «Sjekk».",
-        normal: "Du bruker en sky-VPN og besøker et nettsted med TLS (https). Fyll ut hva hver aktør ser, og trykk «Sjekk». Prøv så bryteren.",
+        eli5: "Du går på nett gjennom en låst gang til en VPN-tjeneste. Hvem kan se hva? Kryss av, og trykk «Sjekk svar».",
+        normal: "Du bruker en sky-VPN og besøker et nettsted med TLS (https). Fyll ut hva hver aktør ser, og trykk «Sjekk svar». Prøv så bryteren.",
         teknisk: "Tunnel fra klient til VPN-tjenesten, TLS ende til ende til nettstedet. Hva ser hver aktør av innhold, kildeadresse og mål?"
       },
       rader: ["Internett-leverandøren (ISP)", "VPN-tilbyderen", "Nettstedet (målet)"],
@@ -864,7 +864,7 @@
       opphav: { type: "egen", kilder: ["d09 s. 36–71"] },
       sporsmal: {
         eli5: "Fem vakter med ulike jobber. Hvem kan stoppe noen selv, hvem leser brevene, og hvem husker hvem som har vært innom?",
-        normal: "Sammenlign verktøyene som brukes i lagdelt forsvar. Fyll ut, og trykk «Sjekk». Celler merket som ikke telt, har ingen fasit i kurset.",
+        normal: "Sammenlign verktøyene som brukes i lagdelt forsvar. Fyll ut, og trykk «Sjekk svar». Celler merket som ikke telt, har ingen fasit i kurset.",
         teknisk: "Sammenlign pakkefilter, tilstandsbasert brannmur, applikasjonsbrannmur/proxy, IDS og IPS etter inngrep, innsyn i nyttelast, tilstand og typisk svakhet."
       },
       rader: ["Pakkefilter (tilstandsløs brannmur)", "Tilstandsbasert brannmur", "Applikasjonsbrannmur / proxy", "IDS (for eksempel Snort)", "IPS"],
@@ -993,7 +993,7 @@
             { tekst: "Emma og Stine", til: "tiltak", poeng: 3, kit: { K: "brutt" },
               konsekvens: "Riktig. Emma fanger tastene før TLS krypterer. Stine eier serveren der TLS termineres og scriptet leser passordet i klartekst. Alle de andre står på strekningen og ser bare chiffertekst." },
             { tekst: "Bare Stine: keyloggeren ser jo bare krypterte data", til: "tiltak", poeng: 0, kit: { K: "brutt" },
-              konsekvens: "Ikke helt. Keyloggeren sitter før krypteringen og ser tastetrykkene i klartekst. Emma har passordet også." },
+              konsekvens: "Ikke riktig. Keyloggeren sitter før krypteringen og ser tastetrykkene i klartekst. Emma har passordet også." },
             { tekst: "Emma, Stine, Tomas og Frank: en mann i midten ser alt", til: "tiltak", poeng: -1, kit: { K: "brutt" },
               konsekvens: "Nei. Med TLS ser en mann i midten bare chiffertekst. HSTS og et tidligere besøk gjør at Tomas og Frank verken kan nedgradere til http eller få Bob til å godta et falskt sertifikat. Bare Emma og Stine har passordet." },
             { tekst: "Ingen: TLS og HSTS beskytter passordet", til: "tiltak", poeng: -1, kit: { K: "brutt" },

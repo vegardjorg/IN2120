@@ -385,9 +385,9 @@
     var fixed = plain ? null : el("div", { class: "parsons-fixed muted small", html: tokenize("Procedure " + algo.name + "(" + (algo.params || "") + ")") });
     var list = el("div", { class: "parsons" });
     var controls = el("div", { class: "btn-row" }, [
-      el("button", { class: "btn primary sm", type: "button", text: "Sjekk", onclick: check }),
-      el("button", { class: "btn sm", type: "button", text: "Vis fasit", onclick: solve }),
-      el("button", { class: "btn sm", type: "button", text: "Stokk på nytt", onclick: function () { reshuffle(); } })
+      el("button", { class: "btn primary", type: "button", text: "Sjekk svar", onclick: check }),
+      el("button", { class: "btn", type: "button", text: "Vis fasit", onclick: solve }),
+      el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { reshuffle(); } })
     ]);
     var status = el("div", { class: "muted small", "aria-live": "polite", style: "margin-top:.3rem" });
 
@@ -466,9 +466,9 @@
       });
       status.textContent = orderOk
         ? (indentOff
-            ? "Riktig rekkefølge! (Innrykket avviker litt fra fasiten, men det teller ikke her.)"
-            : "Riktig! Rekkefølgen stemmer.")
-        : "Ikke helt – se de røde linjene (rekkefølgen).";
+            ? "Riktig. Rekkefølgen stemmer (innrykket avviker litt fra fasiten, men det teller ikke her)."
+            : "Riktig. Rekkefølgen stemmer.")
+        : "Ikke riktig. Se de røde linjene (rekkefølgen).";
       if (orderOk && IN.progress) IN.progress.solved("parsons", host.id || algo.name, 1, 1);
     }
     function solve() {

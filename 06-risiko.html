@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126j">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -50,11 +50,17 @@
         <ul>
           <li><b>Styring av informasjonssikkerhet</b>: å sette strategiske sikkerhetsmål og sørge for at de nås. Det betyr å styre sikkerhetsrisikoen med fornuftig ressursbruk og å følge med på at styringen virker (ism s. 4).</li>
           <li><b>ISMS</b> (styringssystem for informasjonssikkerhet): policyer, prosedyrer, retningslinjer, ressurser og aktiviteter som beskytter informasjonsverdiene systematisk. Det bygger på risikovurdering (ism s. 9).</li>
-          <li>Samme ting har flere navn: <b>LSIS</b> (Standard Norge og UiO), «styringssystem for informasjonssikkerhet» (NSM og lovverket) og omtrent «internkontroll» hos Digdir (ism s. 12). H2024 brukte «ledelsessystem».</li>
+          <li>Samme ting har flere navn (ism s. 12):
+            <ul>
+              <li><b>LSIS</b> (Standard Norge og UiO)</li>
+              <li>«styringssystem for informasjonssikkerhet» (NSM og lovverket)</li>
+              <li>omtrent «internkontroll» hos Digdir.</li>
+            </ul>
+            H2024 brukte «ledelsessystem».</li>
         </ul></div>
       <div id="ex-styring"></div>
 
-      <h4>CMMI-trappen</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> CMMI-trappen</h4>
       <p class="case-ctx" data-case="smuldre"></p>
       <div class="rk-hva"><b>Hva du skal gjøre:</b> sett nivåene i rekkefølge, og trykk «Sjekk svar». Forklaringen per brikke viser hvor Smuldre står.</div>
       <div id="viz-cmmi"></div>
@@ -64,7 +70,12 @@
         Smuldre har 12 ansatte, tre utsalg, en nettbutikk, kasse- og ordresystem i sky, et kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken.
         <ul>
           <li>Daglig leder eier sikkerheten. Butikksjefen har ansvar for kassene, og regnskapsmedarbeideren for betalingsrutinene.</li>
-          <li>Policyen sier: programvare oppdateres innen 14 dager, alle har egen innlogging, og sikkerhetskopi tas hver natt og lagres frakoblet.</li>
+          <li>Policyen sier:
+            <ul>
+              <li>programvare oppdateres innen 14 dager</li>
+              <li>alle har egen innlogging</li>
+              <li>sikkerhetskopi tas hver natt og lagres frakoblet.</li>
+            </ul></li>
           <li>Ledelsen går gjennom hendelsesloggen og risikovurderingen hvert halvår.</li>
         </ul>
         I dag er bakeriet på CMMI-nivå 1 fordi tiltakene er tilfeldige. Med policy og ledelsesforankring kommer det til nivå 3, og med helhetlig, målt risikostyring til nivå 4.</div>
@@ -97,11 +108,14 @@
           <li>H2021 8.3: CMMI-nivå (nedtrekk, 2 p). Ledelsesforankring er nivå 3, helhetlig risikostyring nivå 4.</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Styring og ISMS i eksamensformat</h4>
+      <p class="ov-intro">Egen oppgave med poengregel som på eksamen. Avgjør for hvert krav om det er oppfylt ved forsvarlig nivå eller ved samsvar, og rett for å se poeng og forklaring.</p>
       <div id="ov-styring"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Styring og ISMS</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-styring"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Styring og ISMS</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-styring"></div>
     </section>
 
@@ -164,13 +178,15 @@
           <li>H2025 28: kapitlene i 27001 til PDCA, pluss hvor NSM hører hjemme (matrise, 4 p).</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> ISO 27000 i eksamensformat</h4>
       <div class="rk-hva"><b>Hva du skal gjøre:</b> to oppgaver som på eksamen, hver med egen tittel. Svar og sjekk dem hver for seg. Først hvilken standard, så hvor i PDCA.</div>
       <div id="ov-iso"></div>
       <div id="ov-pdca"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> ISO 27000</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-iso"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> ISO 27000</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-iso"></div>
     </section>
 
@@ -239,11 +255,14 @@
           <li>H2025 29: NSM eller ISO 27001 (matrise, 2 p).</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> NIST CSF og NSM i eksamensformat</h4>
+      <p class="ov-intro">Egen oppgave med poengregel som på eksamen. Avgjør for hver påstand om den gjelder NSMs grunnprinsipper, NIST CSF 2.0, begge eller ingen.</p>
       <div id="ov-rammeverk"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> NIST CSF og NSM</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-rammeverk"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> NIST CSF og NSM</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-rammeverk"></div>
     </section>
 
@@ -264,7 +283,7 @@
         </ul></div>
       <div id="ex-begreper"></div>
 
-      <h4>Risikotrekanten</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Risikotrekanten</h4>
       <p class="case-ctx" data-case="smuldre">Et bakeri med 12 ansatte og nettbutikk, der en regnskapsmedarbeider betaler fakturaer i nettbanken. Trekanten og øvingen under bruker bakeriets risikoer, blant annet R2 fakturasvindel.</p>
       <div id="viz-trekant"></div>
 
@@ -285,11 +304,14 @@
           <li>H2023 16 = H2024 13: risikotrekanten (tekstfelt, 3 p).</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Risikobegreper i eksamensformat</h4>
+      <p class="ov-intro">Egen oppgave med poengregel som på eksamen. Plasser hver rad fra Smuldre Bakeri som verdi, trussel, sårbarhet, hendelse, konsekvens eller risiko.</p>
       <div id="ov-begreper"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Risikobegreper</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-begreper"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Risikobegreper</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-begreper"></div>
     </section>
 
@@ -306,7 +328,7 @@
         </ul></div>
       <div id="ex-vurdering"></div>
 
-      <h4>Risikomatrisen for Smuldre</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Risikomatrisen for Smuldre</h4>
       <p class="case-ctx" data-case="smuldre">Et bakeri med 12 ansatte, nettbutikk, kasser og kunderegister. Fem risikoer: R1 løsepengevirus på ordre/kasse, R2 fakturasvindel via falsk e-post, R3 DDoS mot nettbutikken i julen, R4 lekkasje av kunderegister og R5 tapt mobil/PC med e-post og regnskap. Akseptgrensen er R ≤ 5.</p>
       <p class="small muted">Konsekvens vannrett, sannsynlighet loddrett, og tallet i ruta er s + k. Fargene er våre egne: grønt er innenfor grensen, gult er ett over, rødt er mer. Den stiplede trappen er akseptgrensen. Dra glideren (oblig 3 lar grensen ligge mellom 4 og 7).</p>
       <div id="viz-matrise"></div>
@@ -318,8 +340,8 @@
       <h4>Eksempel B: kvantitativt (R = S × K)</h4>
       <div id="viz-kvantitativ"></div>
 
-      <h4>Regn først: risiko og ROI</h4>
-      <p class="small muted">Regn selv før du trykker «Sjekk». Gliderne gir nye tall. Standardtallene er eksempel C (H2022 10.3-stil).</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Regn først: risiko og ROI</h4>
+      <p class="small muted">Regn selv før du trykker «Sjekk svar». Gliderne gir nye tall. Standardtallene er et eget eksempel i samme stil som H2022 10.3.</p>
       <div id="viz-kalk"></div>
       <div id="viz-kalk-roi"></div>
 
@@ -344,11 +366,14 @@
           <li>Akseptgrense og matrise med piler er øvd i oblig 3, men ikke spurt på eksamen H2021–H2025. Det kan komme som fritekst.</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Risikovurdering i eksamensformat</h4>
+      <p class="ov-intro">Egen oppgave med poengregel som på eksamen. Regn ut og velg riktig tall i hvert nedtrekksfelt.</p>
       <div id="ov-vurdering"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Risikovurdering</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-vurdering"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Risikovurdering</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-vurdering"></div>
     </section>
 
@@ -358,12 +383,13 @@
       <p class="rk-hull">Bygger på ukesoppgave t06 og eksamensfigurene, ikke på et 2026-lysark.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <p>Prosessen etter ISO 27005, slik eksamensfiguren viser den, har fire hovedsteg og to beslutningspunkter.
-        «Nei» i et beslutningspunkt sender prosessen tilbake. Rekkefølgen står under øvingen.</p>
+        «Nei» i et beslutningspunkt sender prosessen tilbake. Rekkefølgen står under «Vis fasit» rett etter øvingen.</p>
         <p>Figuren og beslutningspunktene er kursets (t06 oppg. 6 og eksamen) og bygger på eldre utgaver av ISO 27005 (2008–2018). Utgaven fra 2022 er bygd om og har ikke egne beslutningspunkter. Svar etter kursets figur.</p></div>
 
-      <h4>Sett sammen prosessen</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Sett sammen prosessen</h4>
       <p class="case-ctx" data-case="smuldre">Forklaringene bruker bakeriets fem risikoer R1–R5 fra fanen Risikovurdering. Daglig leder er risikoeier, og akseptgrensen er R ≤ 5.</p>
       <div id="viz-prosess"></div>
+      <details class="rk-fig"><summary>Vis fasit</summary>
       <div class="callout begrep"><span class="lbl">Fasit</span>
         Rekkefølgen etter kursets ISO 27005-figur:
         <ol>
@@ -375,6 +401,7 @@
           <li><b>Implementer sikkerhetstiltak</b>.</li>
         </ol>
       </div>
+      </details>
       <div id="ex-prosess"></div>
       <details class="rk-fig"><summary>Fasitfiguren: klikk en boks eller en rombe</summary>
         <div id="viz-prosess-fig"></div>
@@ -383,9 +410,9 @@
       <h4>Inne i risikovurderingen</h4>
       <div id="viz-ros"></div>
 
-      <h4>Fire måter å håndtere R1 på</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Fire måter å håndtere R1 på</h4>
       <p class="case-ctx" data-case="smuldre">R1 er løsepengevirus på bakeriets ordre- og kassesystem: s = 2 og k = 4, altså R = 6, over grensen 5.</p>
-      <p class="small muted">Samme matrise som i forrige fane. Prøv knappene og se hva som skjer med R1.</p>
+      <p class="small muted">Samme matrise som i fanen Risikovurdering. Prøv knappene og se hva som skjer med R1.</p>
       <div id="viz-handling"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -411,13 +438,15 @@
           <li>H2023 39: gyldig håndtering (matrise, 2 p).</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Risikostyringsprosessen i eksamensformat</h4>
       <div class="rk-hva"><b>Hva du skal gjøre:</b> to oppgaver som på eksamen, hver med egen tittel. Svar og sjekk dem hver for seg. Først hvilket beslutningspunkt som sier «Nei», så boksene i prosessfiguren.</div>
       <div id="ov-prosess"></div>
       <div id="ov-prosess-d"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Risikostyringsprosessen</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-prosess"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Risikostyringsprosessen</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-prosess"></div>
     </section>
 
@@ -427,16 +456,18 @@
       <p class="rk-hull">Det finnes ikke noe 2026-lysark for sikker utvikling. Fanen bygger på eksamenssettene H2021, H2022 og H2025. Eksamensforelesningen sier at det kan komme spørsmål fra bokstoff som ikke er forelest.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Innebygd informasjonssikkerhet</b>: sikkerhet i hele livssyklusen til programvaren, i <b>7 faser</b> (H2021 9.1, H2022 4.1). Rekkefølgen står under øvingene om livssyklusen.</li>
+          <li><b>Innebygd informasjonssikkerhet</b>: sikkerhet i hele livssyklusen til programvaren, i <b>7 faser</b> (H2021 9.1, H2022 4.1). Rekkefølgen står under «Vis fasit» etter øvingene om livssyklusen.</li>
           <li><b>STRIDE</b>: sjekkliste for trusselmodellering. Spoofing, Tampering, Repudiation, Information disclosure, Denial of service og Elevation of privilege.</li>
           <li><b>OWASP Top 10</b>: rangerer de ti mest kritiske sikkerhetsrisikoene for nettapplikasjoner og gir råd om tiltak. Siste utgave kom i november 2025 (H2025 32).</li>
         </ul></div>
 
-      <h4>Livssyklusen</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Livssyklusen</h4>
       <div id="viz-livssyklus"></div>
-      <h4>Aktivitet til fase</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Aktivitet til fase</h4>
       <div id="viz-livssyklus-akt"></div>
-      <p class="small"><b>Fasit, livssyklusen:</b> opplæring → krav → design → koding → test → produksjonssetting → forvaltning (H2021 9.1, H2022 4.1).</p>
+      <details class="rk-fig"><summary>Vis fasit</summary>
+        <p class="small"><b>Fasit, livssyklusen:</b> opplæring → krav → design → koding → test → produksjonssetting → forvaltning (H2021 9.1, H2022 4.1).</p>
+      </details>
       <div id="ex-utvikling"></div>
 
       <h4>STRIDE: trussel og brutt mål</h4>
@@ -461,7 +492,7 @@
         <li>Et lekket adminpassord uten MFA er <b>7 feil i identifisering og autentisering</b>.</li>
       </ul>
 
-      <h4>Klassifiser truslene</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Klassifiser truslene</h4>
       <p class="case-ctx" data-case="smuldre"></p>
       <div id="viz-stride-sort"></div>
 
@@ -509,13 +540,15 @@
           <li>H2025 32: OWASP Top 10 og årstall (fritekst, 3 p).</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sikker utvikling i eksamensformat</h4>
       <div class="rk-hva"><b>Hva du skal gjøre:</b> to oppgaver som på eksamen, hver med egen tittel. Svar og sjekk dem hver for seg. Først nedtrekk om STRIDE, OWASP og faser, så en fritekst om hele STRIDE som du vurderer selv.</div>
       <div id="ov-utvikling"></div>
       <div id="ov-utvikling-fri"></div>
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sikker utvikling</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-utvikling"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Sikker utvikling</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-utvikling"></div>
     </section>
 
@@ -536,37 +569,37 @@
         kort: "12 ansatte, tre utsalg, nettbutikk, kasse- og ordresystem i sky, kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken. Akseptgrensen for risiko er R ≤ 5." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126j"></script>
-  <script src="assets/js/symboler.js?v=20261126j"></script>
-  <script src="assets/js/begreper-data.js?v=20261126j"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126j"></script>
-  <script src="assets/js/pseudocode.js?v=20261126j"></script>
-  <script src="assets/js/stepplayer.js?v=20261126j"></script>
-  <script src="assets/js/varline.js?v=20261126j"></script>
-  <script src="assets/js/inspera.js?v=20261126j"></script>
-  <script src="assets/js/dra.js?v=20261126j"></script>
-  <script src="assets/js/ovelse.js?v=20261126j"></script>
-  <script src="assets/js/bank.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126j"></script>
-  <script src="assets/js/viz-risiko.js?v=20261126j"></script>
+  <script src="assets/js/core.js?v=20261126k"></script>
+  <script src="assets/js/symboler.js?v=20261126k"></script>
+  <script src="assets/js/begreper-data.js?v=20261126k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
+  <script src="assets/js/pseudocode.js?v=20261126k"></script>
+  <script src="assets/js/stepplayer.js?v=20261126k"></script>
+  <script src="assets/js/varline.js?v=20261126k"></script>
+  <script src="assets/js/inspera.js?v=20261126k"></script>
+  <script src="assets/js/dra.js?v=20261126k"></script>
+  <script src="assets/js/ovelse.js?v=20261126k"></script>
+  <script src="assets/js/bank.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
+  <script src="assets/js/viz-risiko.js?v=20261126k"></script>
   <script>
   (function () {
     "use strict";
@@ -588,7 +621,7 @@
       "ex-rammeverk": {
         eli5: "<p>Begge er huskelister sortert etter når man gjør tingene: finne ut hva man har, beskytte det, merke at noe skjer, og rydde opp etterpå. NIST har i tillegg en sjef-funksjon i midten som styrer resten.</p>",
         normal: "<p>Begge sorterer tiltak etter sikkerhetsfunksjoner og kan brukes sammen med ISO 27001 som Do-delen av PDCA. NSMs fjerde kategori «håndtere og gjenopprette» dekker både RESPOND og RECOVER hos NIST. GOVERN hos NIST tilsvarer omtrent NSMs egen veileder i sikkerhetsstyring.</p><p>Hvert NSM-tiltak har prioritet 1, 2 eller 3. NSM regner med at om lag 90 % av hendelsene kan unngås ved å innføre alle tiltakene i gruppe 1 (ism s. 22).</p>",
-        teknisk: "<p>Funksjonene kan kobles til risiko: IDENTIFY og PROTECT er forebyggende og senker sannsynligheten, DETECT er oppdagende, og RESPOND og RECOVER er korrigerende og senker konsekvensen (ism s. 19). De 22 kategoriene fordeler seg slik: GV 6, ID 3, PR 5, DE 2, RS 4, RC 2. NSM er bygd som kategori → prinsipp (for eksempel 1.2 «kartlegg enheter og programvare») → tiltak (1.2.1 osv.).</p><p>Andre rammeverk (ism s. 26–33):</p><ul><li>COBIT,</li><li>ISF Standard of Good Practice,</li><li>ITIL,</li><li>Digdirs internkontroll-veileder,</li><li>Datatilsynet (innebygd personvern),</li><li>CIS Controls (18 kategorier) og</li><li>NIST SP 800-53 (20 tiltaksfamilier).</li></ul><p>Cyberforsvarsmatrisen krysser de fem opprinnelige CSF-funksjonene med fem klasser digitale verdier og brukes til gap-analyse (nåprofil mot målprofil) og ansvarsfordeling.</p>"
+        teknisk: "<p>Funksjonene kan kobles til risiko (ism s. 19):</p><ul><li>IDENTIFY og PROTECT er forebyggende og senker sannsynligheten,</li><li>DETECT er oppdagende,</li><li>RESPOND og RECOVER er korrigerende og senker konsekvensen.</li></ul><p>De 22 kategoriene fordeler seg slik: GV 6, ID 3, PR 5, DE 2, RS 4, RC 2. NSM er bygd som kategori → prinsipp (for eksempel 1.2 «kartlegg enheter og programvare») → tiltak (1.2.1 osv.).</p><p>Andre rammeverk (ism s. 26–33):</p><ul><li>COBIT,</li><li>ISF Standard of Good Practice,</li><li>ITIL,</li><li>Digdirs internkontroll-veileder,</li><li>Datatilsynet (innebygd personvern),</li><li>CIS Controls (18 kategorier) og</li><li>NIST SP 800-53 (20 tiltaksfamilier).</li></ul><p>Cyberforsvarsmatrisen krysser de fem opprinnelige CSF-funksjonene med fem klasser digitale verdier og brukes til gap-analyse (nåprofil mot målprofil) og ansvarsfordeling.</p>"
       },
       "ex-begreper": {
         eli5: "<p>Du har en kakeboks (verdi). Lillebror elsker kaker (trussel). Lokket går ikke i lås (sårbarhet). Risikoen er hele denne situasjonen. Hvor stor risikoen er (risikonivået), avhenger av hvor ofte lillebror prøver og hvor mange kaker som forsvinner.</p>",

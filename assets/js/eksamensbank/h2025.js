@@ -1253,7 +1253,7 @@
     ark: "STRIDE", title: "STRIDE: seks trusler og brutt mål",
     points: 6, block: "utvikling", tema: ["STRIDE", "trusselmodellering", "sikkerhetsmål"],
     gjenganger: ["H2021-9.2", "H2022-4.2"],
-    oppgave: "<p>STRIDE er et hjelpemiddel for trusselmodellering ved programvareutvikling. Hver av de seks bokstavene i STRIDE er forbokstaven for et engelsk trusselbegrep. For hver av de seks bokstavene, nevn 1) trusselbegrepet på engelsk eller norsk, og 2) hvilken sikkerhetmålsetting trusselen medfører brudd på (f.eks. brudd på konfidensielitet, integritet, tilgjengelighet, autentisering etc.).</p><p>Maks 6p.</p>",
+    oppgave: "<p>STRIDE er et hjelpemiddel for trusselmodellering ved programvareutvikling. Hver av de seks bokstavene i STRIDE er forbokstaven for et engelsk trusselbegrep. For hver av de seks bokstavene, nevn</p><ol><li>trusselbegrepet på engelsk eller norsk, og</li><li>hvilken sikkerhetmålsetting trusselen medfører brudd på (f.eks. brudd på konfidensielitet, integritet, tilgjengelighet, autentisering etc.).</li></ol><p>Maks 6p.</p>",
     inspera: {
       type: "E",
       regelTekst: "Maks 6p.",

@@ -313,7 +313,7 @@
     function svar(i) {
       var g = LOGGER[cur], rett = i === g.svar;
       msg.className = "an-logg-msg " + (rett ? "ok" : "feil");
-      msg.textContent = (rett ? "Riktig. " : "Ikke helt: dette er «" + MONSTER[g.svar] + "». ") + g.hvorfor;
+      msg.textContent = (rett ? "Riktig. " : "Ikke riktig. Dette er «" + MONSTER[g.svar] + "». ") + g.hvorfor;
     }
     wrap.appendChild(sel); wrap.appendChild(tw); wrap.appendChild(cnt);
     wrap.appendChild(el("p", { class: "small muted", text: "Hva er dette?" }));
@@ -568,7 +568,7 @@
       },
       bra: { slutt: true, oppsummering: {
         eli5: "<p>Godt gjort. Tyven var usynlig, så du kan ikke vite at alt er borte. Du sjekket resten av huset, fant døra han kom inn gjennom, og bygde rommet på nytt.</p>",
-        normal: "<p>Godt håndtert: isolere, sjekke spredning (2p), finne inngangsveien (1p), og si nei til drift med begrunnelse (reinstallere 1p, begrunnelse 2p). Si «reinstallere» eksplisitt i fritekstsvaret.</p>",
+        normal: "<p>Godt håndtert:</p><ul><li>isolere,</li><li>sjekke spredning (2p),</li><li>finne inngangsveien (1p),</li><li>og si nei til drift med begrunnelse (reinstallere 1p, begrunnelse 2p).</li></ul><p>Si «reinstallere» eksplisitt i fritekstsvaret.</p>",
         teknisk: "<p>Godt håndtert, i hendelseshåndteringens rekkefølge: inneslutning (isolere), analyse (spredning, inngangsvei, hva som er sendt ut), utrydding (reinstallering fra rent medium) og gjenoppretting. En maskin som har hatt rootkit, regnes som upålitelig til den er bygd opp på nytt.</p>" } },
       risiko: { slutt: true, oppsummering: "<p>Maskinen er tilbake i drift uten at noen vet hva rootkitet har etterlatt. Sensor krever at maskinen reinstalleres, med begrunnelsen at et rootkit skjuler, og at det kan være bakdører eller annen skadevare igjen.</p>" }
     },

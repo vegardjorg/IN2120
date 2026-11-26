@@ -339,9 +339,9 @@
     if (op) wrap.appendChild(op);
     var q = el("p", { class: "kr-xov-q" });
     var rows = el("div", { class: "kr-bits" });
-    var bS = el("button", { class: "btn primary sm", type: "button", text: "Sjekk" });
-    var bV = el("button", { class: "btn sm", type: "button", text: "Vis svar", disabled: "" });
-    var bN = el("button", { class: "btn sm", type: "button", text: "Ny oppgave" });
+    var bS = el("button", { class: "btn primary", type: "button", text: "Sjekk svar" });
+    var bV = el("button", { class: "btn", type: "button", text: "Vis fasit", disabled: "" });
+    var bN = el("button", { class: "btn", type: "button", text: "Ny oppgave" });
     var fb = el("p", { class: "kr-xov-fb", role: "status", "aria-live": "polite" });
     wrap.appendChild(q); wrap.appendChild(rows);
     wrap.appendChild(el("div", { class: "kr-ctl" }, [bS, bV, bN]));
@@ -736,7 +736,7 @@
       id: "krypto-hashkrav",
       opphav: { type: "egen", variantAv: ["H2023-21"], kilder: ["d02 s. 36–48"] },
       sporsmal: {
-        eli5: "Holder disse «fingeravtrykk-maskinene» kravene? Velg Ja eller Nei i hver rute, og trykk «Sjekk».",
+        eli5: "Holder disse «fingeravtrykk-maskinene» kravene? Velg Ja eller Nei i hver rute, og trykk «Sjekk svar».",
         normal: "Hvilke av de fem hashkravene oppfyller hver funksjon? x er et ikke-negativt heltall.",
         teknisk: "Vurder de fem kravene for hver funksjon (x ∈ ℕ). For x + 1 gjelder premisset fra H2023 21: hver inndata gir unik verdi."
       },

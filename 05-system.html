@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126j">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -49,14 +49,20 @@
       <h3>Privilegienivåer (ringer) og tilgang mellom dem</h3>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Privilegienivåer</b> er CPU-ens måte å skille prosesser på. Modellen kom med x86 på 1980-tallet: nivå 3 er applikasjoner i <b>brukermodus</b>, nivå 2 og 1 er som regel ubrukt, og nivå 0 er operativsystemet i <b>kjernemodus</b> (Unix root, Windows administrator). Rundt 2006 kom nivå <b>−1</b> for hypervisoren, som da ble det mest privilegerte nivået. Nivåene tegnes ofte som beskyttelsesringer (d08 s. 7).</li>
+          <li><b>Privilegienivåer</b> er CPU-ens måte å skille prosesser på. Modellen kom med x86 på 1980-tallet:
+            <ul>
+              <li>nivå 3 er applikasjoner i <b>brukermodus</b></li>
+              <li>nivå 2 og 1 er som regel ubrukt</li>
+              <li>nivå 0 er operativsystemet i <b>kjernemodus</b> (Unix root, Windows administrator).</li>
+            </ul>
+            Rundt 2006 kom nivå <b>−1</b> for hypervisoren, som da ble det mest privilegerte nivået. Nivåene tegnes ofte som beskyttelsesringer (d08 s. 7).</li>
           <li><b>Lavere tall = mer makt.</b> Når d08 kaller nivå 0 «høyest» og nivå 3 «lavest», betyr «høyt» mye makt, ikke stort tall.</li>
           <li><b>Tilgangsregelen:</b> en prosess kan lese og endre data og programvare på <b>sitt eget nivå og alle mindre privilegerte nivåer</b> (høyere tall). En prosess i kjernemodus når altså 0, 1, 2 og 3, men ikke −1 (d08 s. 8).</li>
           <li><b>Angriperens mål</b> er å komme seg ned til nivå 0 eller −1, for eksempel med exploits eller ved å lure brukeren til å installere skadevare (d08 s. 8).</li>
         </ul></div>
       <div id="ex-ringer"></div>
 
-      <h4>Hva når en prosess?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hva når en prosess?</h4>
       <p class="small muted">Velg modus og se hvilke ringer prosessen når. Huk av «Øv først» for å fylle ut tabellen før fargene vises, slik eksamen spør. «Angriper eskalerer» viser privilegieeskalering fra nivå 3 til 0.</p>
       <div id="viz-ringer" data-modus="ringer"></div>
 
@@ -85,7 +91,8 @@
           <li><b>H2024 5 gir −1 for ubesvart.</b> La aldri en rad stå tom.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Privilegienivåer i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
       <p class="sys-q">Indiker for hver rad om prosessen kan få tilgang til nivået.</p>
       <div id="ov-system-1"></div>
       <p class="sys-q">Fyll inn ringmodellen.</p>
@@ -106,9 +113,11 @@
           <li><b>Eldre sett</b> (in2120-2020) brukte ringer helt ned til −3 med Intel ME og UEFI/BIOS. Det er <span class="sys-ukjent">ukjent i kildene for 2026</span> og utenfor pensum: d08 går bare ned til −1.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Privilegienivåer</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-ringer"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Privilegienivåer</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-ringer"></div>
     </section>
 
@@ -132,7 +141,7 @@
         </ul></div>
       <div id="ex-minne"></div>
 
-      <h4>Stakkrammen steg for steg</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Stakkrammen steg for steg</h4>
       <p class="small muted">En modell av hvordan minnet ser ut, ikke angrepskode. Velg lengde på inputen og se hvilke felt som overskrives. Slå kanarifugl, NX og ASLR av og på og se hva som stopper hoppet ved retur. «Kjør programmet på nytt» gir ny kanariverdi, og med ASLR en ny plassering av stakken.</p>
       <div id="viz-stakk" data-modus="stakk"></div>
 
@@ -173,7 +182,8 @@
           <li><b>Bufferoverflyt er ikke DDoS</b>, ikke «minnet er brukt opp» og ikke «data kommer for fort». Det er en programfeil der det skrives forbi en variabel.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Minne og bufferoverflyt i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
       <p class="sys-q">Hvilket tiltak beskriver raden?</p>
       <div id="ov-system-3"></div>
       <p class="sys-q">Velg 3 korrekte utsagn om bufferoverflyt.</p>
@@ -198,9 +208,11 @@
             «Kan forhindres med ASLR» var ikke riktig.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Minne og bufferoverflyt</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-minne"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Minne og bufferoverflyt</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-minne"></div>
     </section>
 
@@ -215,12 +227,17 @@
           <li><b>Type 2 (vertsbasert):</b> hypervisoren installeres som et vanlig program på et vertsoperativsystem på nivå 0. Lett å installere, men mer overhead enn type 1, fordi verts-OS-et styrer ressursene og I/O går gjennom vertens drivere (d08 s. 15).</li>
           <li><b>Container (Docker Engine):</b> en enhet med koden og alle avhengighetene (binærfiler og biblioteker), som kan flyttes mellom plattformer. Det trengs ikke noe gjeste-OS. Containere <b>deler kjerne med verten</b>, og isolasjonen er derfor svakere enn for VM-er (d08 s. 16–17).</li>
           <li><b>Bruk:</b> skyleverandører gir hver kunde sin egen VM på delt maskinvare. Testing og skadevareanalyse gjøres i isolerte omgivelser med snapshot og tilbakerulling (d08 s. 18).</li>
-          <li><b>Sikkerhetsmål</b> (d08 s. 19): gjestene må ikke kunne nå eller påvirke hverandre, ikke kunne påvirke hypervisoren, og ikke kunne oppdage at de er virtualisert.</li>
+          <li><b>Sikkerhetsmål</b> (d08 s. 19): gjestene må
+            <ul>
+              <li>ikke kunne nå eller påvirke hverandre</li>
+              <li>ikke kunne påvirke hypervisoren</li>
+              <li>ikke kunne oppdage at de er virtualisert.</li>
+            </ul></li>
         </ul></div>
       <div id="ex-virt"></div>
 
-      <h4>Bygg stablene</h4>
-      <p class="small muted">Velg arkitektur og plasser boksene fra banken i riktig lag, slik H2022 2.4 og 2.5 spør. «Sjekk» viser nivåtallene. «Angrep fra gjest» viser hva som skiller naboene, og hvilke sikkerhetsmål som holder.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Bygg stablene</h4>
+      <p class="small muted">Velg arkitektur og plasser boksene fra banken i riktig lag, slik H2022 2.4 og 2.5 spør. «Sjekk svar» viser nivåtallene. «Angrep fra gjest» viser hva som skiller naboene, og hvilke sikkerhetsmål som holder.</p>
       <div id="viz-lag" data-modus="lag"></div>
 
       <h4>Eksempel: Lerkedal kommune</h4>
@@ -248,7 +265,8 @@
           <li><b>Distraktorer:</b> H2022 2.4 har Kontainer og Docker Engine som distraktorer. I 2.5 er det fire bokser til fire felt.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Virtualisering og containere i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
       <p class="sys-q">Her brukes type 2 (vertsbasert) virtualisering. Vis arkitekturen ved å plassere de rette elementene, fra øverste til nederste lag.</p>
       <div id="ov-system-5"></div>
       <p class="sys-q">Gjelder egenskapen VM, container, begge eller ingen?</p>
@@ -267,9 +285,11 @@
           <li><b>Hvordan containere isoleres</b> (navnerom og cgroups i kjernen) står ikke på d08. Det er <span class="sys-ukjent">utover lysarket</span>.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Virtualisering og containere</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-virt"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Virtualisering og containere</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-virt"></div>
     </section>
 
@@ -287,7 +307,7 @@
         </ul></div>
       <div id="ex-tiltrodd"></div>
 
-      <h4>Oppstarten, TPM-loggen og BitLocker</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Oppstarten, TPM-loggen og BitLocker</h4>
       <p class="small muted">Velg scenario. Flyten i midten er UEFI-sikker oppstart, stripa under er TPM-ens målinger, og til høyre ser du om BitLocker-nøkkelen frigis og hva attesteringen svarer. Hashverdiene er korte leketøysverdier.</p>
       <div id="viz-oppstart" data-modus="oppstart"></div>
 
@@ -316,7 +336,8 @@
           <li><b>TEE beskytter ikke mot alt.</b> d08 sier bare at OS og hypervisor ikke skal kunne lese dataene.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sikker oppstart, TPM og TEE i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
       <p class="sys-q">Hvilken teknologi beskriver raden? Les kolonneoverskriftene: rekkefølgen er den samme som i H2022 2.6.</p>
       <div id="ov-system-7"></div>
       <p class="sys-q">Fyll inn oppstartsflyten.</p>
@@ -341,9 +362,11 @@
           <li><b>Utover lysarket:</b> at målingene lagres i registre som bare kan utvides (PCR), og begrepet TCB (Trusted Computing Base), er <span class="sys-ukjent">ukjent i kildene for 2026</span>.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sikker oppstart, TPM og TEE</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-tiltrodd"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Sikker oppstart, TPM og TEE</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-tiltrodd"></div>
     </section>
 
@@ -353,12 +376,17 @@
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Sidekanal:</b> en <b>utilsiktet</b> informasjonslekkasje som kommer av den fysiske implementasjonen, ikke av selve grensesnittet. Angriperen observerer bieffekter og trekker slutninger om hemmelige data. Eksempler: tidsforbruk (ulik behandlingstid kan avsløre bit i en kryptonøkkel), strømforbruk, lyd og elektromagnetisk stråling (d08 s. 24).</li>
-          <li><b>Skjult kanal:</b> en mekanisme som <b>ikke er laget for kommunikasjon</b>, men som <b>misbrukes bevisst</b> til å overføre informasjon mellom parter som ikke har lov til å utveksle dataene. Båndbredden er typisk svært lav. Eksempler: viftestøy eller blinkende lysdioder fra isolerte maskiner, to mobilapper som «snakker» via volumet, og DNS-tunnelering forbi brannmuren (d08 s. 25).</li>
+          <li><b>Skjult kanal:</b> en mekanisme som <b>ikke er laget for kommunikasjon</b>, men som <b>misbrukes bevisst</b> til å overføre informasjon mellom parter som ikke har lov til å utveksle dataene. Båndbredden er typisk svært lav. Eksempler (d08 s. 25):
+            <ul>
+              <li>viftestøy eller blinkende lysdioder fra isolerte maskiner</li>
+              <li>to mobilapper som «snakker» via volumet</li>
+              <li>DNS-tunnelering forbi brannmuren.</li>
+            </ul></li>
           <li><b>TEMPEST</b> er avlytting av elektromagnetisk stråling, altså en sidekanal (d01b s. 30).</li>
         </ul></div>
       <div id="ex-kanaler"></div>
 
-      <h4>Sorter scenarioene</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Sorter scenarioene</h4>
       <p class="small muted">Plasser hvert kort som sidekanal, skjult kanal eller ingen av dem. Etter sjekk ser du hvem som sender. Nederst gjetter du først hvor lang tid en langsom skjult kanal trenger, og får så en kalkulator du kan prøve andre tall i.</p>
       <div id="viz-kanal" data-modus="kanal"></div>
 
@@ -377,7 +405,8 @@
           <li><b>Tor er ikke et angrep</b>, og MitM er ingen av kanaltypene: angriperen går aktivt inn i forbindelsen.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Side- og skjulte kanaler i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
       <p class="sys-q">Hvilken angrepstype beskriver raden?</p>
       <div id="ov-system-9"></div>
       <p class="sys-q">Fyll inn definisjonene.</p>
@@ -385,7 +414,7 @@
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
-          <li>H2021 2.2 (2p, ligger i banken for <a href="04-angrep.html#fane=eksamen">blokk 4</a>): kolonnene Skjult kanal, Ingen, MitM og Sidekanal.
+          <li><a href="04-angrep.html#fane=eksamen&amp;oppg=o-H2021-2_2">H2021 2.2</a> (2p, ligger i banken for blokk 4): kolonnene Skjult kanal, Ingen, MitM og Sidekanal.
             <ul>
               <li>«Kryptert forbindelse gjennom TOR» → <b>Ingen</b>,</li>
               <li>«opptre som både avsender og mottager i en kryptert forbindelse» → <b>MitM</b>,</li>
@@ -395,9 +424,11 @@
           <li>Ingen oppgave i H2022–H2025 om side- eller skjulte kanaler. Lysarket fikk to nye sider om dem i 2026, så de kan komme igjen.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Side- og skjulte kanaler</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-kanaler"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Side- og skjulte kanaler</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-kanaler"></div>
     </section>
 
@@ -423,7 +454,8 @@
       <p class="small muted fig-vis-led">Livsløpet til en sårbarhet. Nulldag er tiden uten rettelse; etterpå er faren at rettelsen ikke er installert.</p>
       <div id="fk-nulldag"></div>
 
-      <h4>CVSS-skalaen og prioritering</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> CVSS-skalaen og prioritering</h4>
+      <p class="case-ctx" data-case="lerkedal">Driftsgruppen i Lerkedal kommune får fire sårbarhetsvarsler en mandag morgen og må velge hva som tas først.</p>
       <p class="small muted">Dra i glidebryteren og se kategorien. Prøv grensene 3,9/4,0, 6,9/7,0 og 8,9/9,0. Sorter så mandagens varsler etter alvorlighet.</p>
       <div id="viz-cvss" data-modus="cvss"></div>
 
@@ -452,7 +484,8 @@
           <li><b>God kryptering veier ikke opp for svake systemer.</b> Det er poenget med Spafford-sitatet.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sårbarheter og CVSS i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
       <p class="sys-q">Hvilken kategori har skåren?</p>
       <div id="ov-system-11"></div>
       <p class="sys-q">Hvilken av de fem tilnærmingene til systemsikkerhet hører tiltaket til?</p>
@@ -471,16 +504,18 @@
           <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er vår egen kobling til risikoblokka.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sårbarheter og CVSS</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-sarbarhet"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Sårbarheter og CVSS</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-sarbarhet"></div>
     </section>
 
     <!-- ===================== EKSAMEN ===================== -->
     <section data-panel="eksamen">
       <h3>Eksamensoppgaver</h3>
-      <p class="muted small">Systemsikkerhetsoppgavene fra eksamenene i banken, med øving i Inspera-format og perfekt svar. H2021 2.2 om sidekanal, skjult kanal og MitM ligger i <a href="04-angrep.html#fane=eksamen">blokk 4</a>.</p>
+      <p class="muted small">Systemsikkerhetsoppgavene fra eksamenene i banken, med øving i Inspera-format og perfekt svar. H2021 2.2 om sidekanal, skjult kanal og MitM ligger i <a href="04-angrep.html#fane=eksamen&amp;oppg=o-H2021-2_2">blokk 4</a>.</p>
       <div id="bank-system"></div>
     </section>
   </main>
@@ -494,36 +529,36 @@
         kort: "En kommune med egen driftsgruppe: skytjener med VM-er for 40 kunder, bibliotekets nettsted som 15 mikrotjenester i containere, VPN-gateway og intranett." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126j"></script>
-  <script src="assets/js/symboler.js?v=20261126j"></script>
-  <script src="assets/js/begreper-data.js?v=20261126j"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126j"></script>
-  <script src="assets/js/pseudocode.js?v=20261126j"></script>
-  <script src="assets/js/stepplayer.js?v=20261126j"></script>
-  <script src="assets/js/varline.js?v=20261126j"></script>
-  <script src="assets/js/inspera.js?v=20261126j"></script>
-  <script src="assets/js/dra.js?v=20261126j"></script>
-  <script src="assets/js/bank.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126j"></script>
-  <script src="assets/js/viz-system.js?v=20261126j"></script>
+  <script src="assets/js/core.js?v=20261126k"></script>
+  <script src="assets/js/symboler.js?v=20261126k"></script>
+  <script src="assets/js/begreper-data.js?v=20261126k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
+  <script src="assets/js/pseudocode.js?v=20261126k"></script>
+  <script src="assets/js/stepplayer.js?v=20261126k"></script>
+  <script src="assets/js/varline.js?v=20261126k"></script>
+  <script src="assets/js/inspera.js?v=20261126k"></script>
+  <script src="assets/js/dra.js?v=20261126k"></script>
+  <script src="assets/js/bank.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
+  <script src="assets/js/viz-system.js?v=20261126k"></script>
   <script>
   (function () {
     "use strict";

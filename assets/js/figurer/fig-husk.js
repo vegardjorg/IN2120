@@ -41,7 +41,7 @@
     "med fysisk lag under og selve appen (programmet brukeren kjører) over.</p>" +
     "<p>Internettstakkens applikasjonslag dekker OSI 7, 6 og 5 (applikasjon, presentasjon, sesjon); transport er OSI 4. " +
     "(Lysark d09 s. 7 tegner applikasjon over OSI 7–6 og transport over 5–4; standard tilordning er 7–5 og 4.)</p>" +
-    "<p>Kjennetegn: portnummer = transport (TCP, UDP); IP-adresse = internett; MAC-adresse = link (Ethernet, ARP).</p>";
+    "<p>Kjennetegn:</p><ul><li>portnummer = transport (TCP, UDP)</li><li>IP-adresse = internett</li><li>MAC-adresse = link (Ethernet, ARP)</li></ul>";
   H["H2021-5.1"] = { tittel: "A-T-I-L ovenfra", tekst: STAKK };
   H["H2025-22"] = { tittel: "A-T-I-L ovenfra", tekst: STAKK +
     "<p><b>Kursets konvensjon for TLS:</b> TLS Record = transport, TLS Handshake = applikasjon. " +
@@ -175,8 +175,8 @@
     "<p>Microsofts SDL har de samme sju stegene; der heter det siste respons.</p>" };
 
   H["H2021-10.1"] = { tittel: "lag våpenet før du sender det", tekst:
-    "<p>Rekognosering → <b>bevæpning</b> (våpenet lages hos angriperen) → <b>overlevering</b> (sendes til målet) → utførelse av exploit → " +
-    "installering → kommando og kontroll → aksjon (lysarkene 2026: måloppnåelse).</p>" +
+    "<ol><li>Rekognosering</li><li><b>Bevæpning</b> (våpenet lages hos angriperen)</li><li><b>Overlevering</b> (sendes til målet)</li>" +
+    "<li>Utførelse av exploit</li><li>Installering</li><li>Kommando og kontroll</li><li>Aksjon (lysarkene 2026: måloppnåelse)</li></ol>" +
     "<p>Par å huske: bevæpning før overlevering, exploit før installering, kommando og kontroll før aksjon.</p>" };
 
   H["H2022-2.3"] = { tittel: "returadressen styrer hoppet", tekst:
@@ -234,8 +234,9 @@
     "<p>En MAC (meldingsautentiseringskode) med felles nøkkel kan lages av alle som har nøkkelen, så den gir ikke ubenektelighet. Det krever digital signatur.</p>" };
 
   H["H2025-28"] = { tittel: "4–7 P, 8 D, 9 C, 10 A", tekst:
-    "<p>Plan = kapittel 4–7 (kontekst, ledelse, planlegging, støtte), Do = 8 (drift), Check = 9 (prestasjonsevaluering), Act = 10 (forbedring). " +
-    "Tiltakssett som NSMs grunnprinsipper brukes i driften: Do.</p>" +
+    "<ul><li>Plan = kapittel 4–7 (kontekst, ledelse, planlegging, støtte)</li><li>Do = 8 (drift)</li>" +
+    "<li>Check = 9 (prestasjonsevaluering)</li><li>Act = 10 (forbedring)</li></ul>" +
+    "<p>Tiltakssett som NSMs grunnprinsipper brukes i driften: Do.</p>" +
     "<p><b>Merk:</b> ISO 27001 sier ikke selv hvilken fase hvert kapittel hører til. Noen kilder legger kapittel 7 i Do; følg kurset (P).</p>" };
 
   H["H2025-37"] = { tittel: "klartekst bare i endepunktene", tekst:

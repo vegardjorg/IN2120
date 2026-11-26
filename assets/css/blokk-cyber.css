@@ -32,19 +32,19 @@
 
 /* ---------- Aktørnivåene ---------- */
 .cy-akt-txt { font-size: 1.02rem; line-height: 1.7; margin: .3rem 0 .6rem; }
-.cy-akt-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--color-outline-variant);
-  border-bottom: 1px solid var(--color-outline-variant); }
-.cy-akt-card { font: inherit; text-align: left; background: none; border: 0; border-left: 1px solid var(--color-outline-variant);
-  color: var(--color-on-surface); padding: .5rem .7rem; cursor: pointer; display: flex; flex-direction: column; gap: .35rem; }
-.cy-akt-card:first-child { border-left: 0; }
+.cy-akt-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+/* Trykkbare kort (samme uttrykk som .qz-choice) */
+.cy-akt-card { font: inherit; text-align: left; background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline); border-radius: var(--radius-md);
+  color: var(--color-on-surface); padding: .5rem .7rem; min-height: 44px; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: .35rem; }
 .cy-akt-card:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
-.cy-akt-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
-.cy-akt-card[aria-pressed="true"] { box-shadow: inset 0 3px 0 var(--color-primary); }
-.cy-akt-card.cy-ok { box-shadow: inset 0 3px 0 var(--color-on-tone-ok); }
-.cy-akt-card.cy-feil { box-shadow: inset 0 3px 0 var(--color-on-tone-danger); }
+.cy-akt-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.cy-akt-card[aria-pressed="true"] { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface-container-lowest)); }
+.cy-akt-card.cy-ok { border-color: var(--color-on-tone-ok); box-shadow: inset 0 0 0 1px var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+.cy-akt-card.cy-feil { border-color: var(--color-on-tone-danger); box-shadow: inset 0 0 0 1px var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
 .cy-akt-dom { display: block; font-size: var(--text-sm); font-weight: 700; margin: .1rem 0 .2rem; }
 .cy-akt-card.cy-ok .cy-akt-dom { color: var(--color-on-tone-ok); }
 .cy-akt-card.cy-feil .cy-akt-dom { color: var(--color-on-tone-danger); }
+.cy-akt-card.cy-ok .cy-akt-nr, .cy-akt-card.cy-feil .cy-akt-nr, .cy-akt-card.cy-ok .cy-akt-k, .cy-akt-card.cy-feil .cy-akt-k { color: inherit; }
 .cy-akt-t { font-weight: 700; }
 .cy-akt-nr { color: var(--color-on-surface-variant); font-weight: 600; font-size: var(--text-xs); }
 .cy-akt-row { display: flex; flex-direction: column; font-size: var(--text-sm); padding-left: .5rem; border-left: 3px solid transparent; }
@@ -59,8 +59,6 @@
 .cy-akt-lg { display: flex; gap: .3rem .8rem; flex-wrap: wrap; }
 @media (max-width: 640px) {
   .cy-akt-cards { grid-template-columns: 1fr; }
-  .cy-akt-card { border-left: 0; border-top: 1px solid var(--color-outline-variant); }
-  .cy-akt-card:first-child { border-top: 0; }
 }
 
 /* ---------- Sporing ---------- */

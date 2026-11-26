@@ -100,7 +100,7 @@
                       slutt?: true, oppsummering?: tekst } },
        avslutt?: { fritekst?: { sporsmal: tekst, sjekkliste: [tekst] } }
      }
-     Viser sti, konsekvensen av siste valg og et KIT-panel. «← Ett steg tilbake» og «↺ Start på nytt».
+     Viser sti, konsekvensen av siste valg og et KIT-panel. «← Ett steg tilbake» og «↺ Nullstill».
      På sluttnoden: oppsummering av valgene, poeng mot beste mulige sti, og ev. fritekst med
      sjekkliste studenten krysser av selv.
      handle: { el, velg(i), tilbake(), omstart(), node() → id, sti() → [valgindeks], kit(), poeng(),
@@ -809,7 +809,7 @@
         cell.td.className = "ov-cell is-" + s;
         cell.mark.textContent = s === "right" ? "✓" : s === "wrong" ? "✗" : "–";
         var fasitTxt = fasitTekst(fv);
-        cell.sr.textContent = s === "right" ? " Riktig." : " " + (s === "wrong" ? "Feil" : "Ubesvart") + ". Fasit: " + fasitTxt + ".";
+        cell.sr.textContent = s === "right" ? " Riktig." : " " + (s === "wrong" ? "Ikke riktig" : "Ubesvart") + ". Fasit: " + fasitTxt + ".";
         var ex = forklaring(r, k);
         var head = s === "right" ? "" : "<b>Fasit: " + fasitTxt + ".</b> ";
         if (ex || head) { cell.ex.hidden = false; put(cell.ex, head + (pick(ex) || "")); }
@@ -985,7 +985,7 @@
     var valgEl = el("div", { class: "ov-valg", role: "group", "aria-labelledby": uid + "-node" });
     var slutt = el("div", { class: "ov-slutt", hidden: true });
     var bTilbake = el("button", { class: "btn", type: "button", text: "← Ett steg tilbake", onclick: function () { tilbake(); } });
-    var bOm = el("button", { class: "btn", type: "button", text: "↺ Start på nytt", onclick: function () { omstart(); } });
+    var bOm = el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { omstart(); } });
     var foot = el("div", { class: "qz-foot" }, [bTilbake, bOm]);
     [tittel, opEl(o), kitEl, stiEl, kons, nodeH, valgEl, slutt, foot].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap); wrap._ovSeen = true;

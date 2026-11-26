@@ -62,10 +62,14 @@ a.badge { text-decoration: none; }
 .gr-fig.ok { border-left-color: var(--gr-ok); }
 .gr-fig.nei { border-left-color: var(--gr-bad); }
 .gr-fig .gr-svg { width: 160px; }
-.gr-slot { font: inherit; font-weight: 600; text-align: left; padding: 4px 8px; cursor: pointer; background: transparent;
-  color: var(--color-on-surface); border: 0; border-bottom: 2px dashed var(--color-outline); border-radius: 0; }
-.gr-fig.ok .gr-slot { border-bottom-style: solid; border-bottom-color: var(--gr-ok); color: var(--gr-ok); cursor: default; }
-.gr-fig.nei .gr-slot { border-bottom-color: var(--gr-bad); color: var(--gr-bad); }
+/* Trykkbart svarmål (samme uttrykk som .qz-choice): ramme, flate, hover og fokusring */
+.gr-slot { font: inherit; font-size: var(--text-sm); font-weight: 600; text-align: left; min-height: 44px; padding: 4px 10px; box-sizing: border-box; cursor: pointer;
+  background: var(--color-surface-container-lowest); color: var(--color-on-surface);
+  border: 1px dashed var(--color-outline); border-radius: var(--radius-md); }
+.gr-slot:hover:not(:disabled) { background-image: linear-gradient(var(--state-hover), var(--state-hover)); border-color: var(--color-primary); }
+.gr-slot:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.gr-fig.ok .gr-slot { border-style: solid; border-color: var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); cursor: default; }
+.gr-fig.nei .gr-slot { border-style: solid; border-color: var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
 .gr-why { color: var(--color-on-surface-variant); }
 
 /* Kontrolltype-rutenett */
@@ -74,10 +78,11 @@ a.badge { text-decoration: none; }
 .gr-grid thead th { border-bottom-color: var(--color-outline); font-weight: 600; }
 .gr-grid tbody th { font-weight: 600; width: 8.5em; }
 .gr-sub { display: block; font-size: 12px; font-weight: 400; color: var(--color-on-surface-variant); }
-.gr-cell { font: inherit; display: flex; flex-direction: column; gap: .25rem; width: 100%; min-height: 3.2rem; text-align: left;
-  padding: 4px 6px; cursor: pointer; background: transparent; color: var(--color-on-surface);
-  border: 0; border-left: 2px solid var(--gr-line); border-radius: 0; }
-.gr-cell:hover, .gr-cell:focus-visible { border-left-color: var(--color-primary); }
+.gr-cell { font: inherit; display: flex; flex-direction: column; gap: .25rem; width: 100%; min-height: 3.2rem; text-align: left; box-sizing: border-box;
+  padding: 4px 6px; cursor: pointer; background: var(--color-surface-container-lowest); color: var(--color-on-surface);
+  border: 1px solid var(--color-outline-variant); border-radius: var(--radius-md); }
+.gr-cell:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); border-color: var(--color-primary); }
+.gr-cell:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; border-color: var(--color-primary); }
 .gr-placed { font-weight: 600; color: var(--gr-ok); }
 /* Velgepanelet rett under valgt tiltak (domene × type) og kvitteringen der tiltaket sto */
 .gr-pool { align-items: flex-start; }
@@ -96,7 +101,7 @@ a.badge { text-decoration: none; }
 .gr-kvitt:focus { outline: none; }
 .gr-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .gr-gridmsg:empty { display: none; }
-.gr-cell-feil { border-left-color: var(--gr-bad) !important; background: var(--color-tone-danger); animation: gr-blink .35s 2; }
+.gr-cell-feil { border-color: var(--color-on-tone-danger) !important; background: var(--color-tone-danger); animation: gr-blink .35s 2; }
 @keyframes gr-blink { 50% { background: transparent; } }
 @media (prefers-reduced-motion: reduce) { .gr-cell-feil { animation: none; } }
 .gr-extra { margin: .1rem 0 0 .4rem; font-size: 12px; }

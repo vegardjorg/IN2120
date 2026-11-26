@@ -479,7 +479,7 @@
       b.disabled = locked();
       if (s === "wrong" && revealKey()) { b._fas.hidden = false; b._fas.textContent = "→ " + (mode === "sort" ? "plass " + (ns.key[id] + 1) : zoneName(ns.key[id])); }
       else { b._fas.hidden = true; b._fas.textContent = ""; }
-      b._sr.textContent = s === "right" ? " Riktig." : s === "wrong" ? (revealKey() ? " Feil. Riktig: " + keyText(id) + "." : " Feil plass.") : "";
+      b._sr.textContent = s === "right" ? " Riktig." : s === "wrong" ? (revealKey() ? " Ikke riktig. Riktig: " + keyText(id) + "." : " Ikke riktig plass.") : "";
       var kanX = canExplain(id), xOpen = kanX && !!open[id];
       b.classList.toggle("har-x", kanX);
       b.classList.toggle("x-open", xOpen);
@@ -635,7 +635,7 @@
       var s = stateOf(id);
       paint();
       flash(id);
-      say(msg + (s === "right" ? " Riktig." : s === "wrong" ? (revealKey() ? " Feil. Riktig: " + keyText(id) + "." : " Feil plass.") : ""));
+      say(msg + (s === "right" ? " Riktig." : s === "wrong" ? (revealKey() ? " Ikke riktig. Riktig: " + keyText(id) + "." : " Ikke riktig plass.") : ""));
       var c = counts();
       if (instant() && !checked && !reported && c.answered === c.total && mode !== "sort") { reported = true; report(); }
     }

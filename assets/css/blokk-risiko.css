@@ -27,8 +27,12 @@
 .rk-slider input { width: 120px; }
 
 /* Risikomatrisen */
+/* Cellene er trykkbare mål: pekermarkør på hele cellen, primærkant ved hover og tastaturfokus */
+.rk-cell { cursor: pointer; }
 .rk-cell rect { stroke: var(--color-surface); stroke-width: 2; cursor: pointer; }
-.rk-cell:hover rect { opacity: .8; }
+.rk-cell:hover rect { opacity: .8; stroke: var(--color-primary); stroke-width: 3; }
+.rk-cell:focus { outline: none; }
+.rk-cell:focus-visible rect { stroke: var(--color-primary); stroke-width: 4; }
 .rk-cell.rk-cell-feil rect { fill: var(--color-on-tone-danger); fill-opacity: .45; stroke: var(--color-on-tone-danger); stroke-width: 3; animation: rk-blink .35s 2; }
 @keyframes rk-blink { 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .rk-cell.rk-cell-feil rect { animation: none; } }

@@ -31,6 +31,8 @@
     return n;
   }
   function btn(text, fn, cls) { return el("button", { class: "btn sm" + (cls ? " " + cls : ""), type: "button", html: text, onclick: fn }); }
+  // Kontrollrad i en øving (Sjekk svar / ↺ Nullstill): samme størrelse som øvingsmotorene (ovelse.js, dra.js, core-quiz)
+  function kbtn(text, fn, cls) { return el("button", { class: "btn" + (cls ? " " + cls : ""), type: "button", html: text, onclick: fn }); }
   function press(b, on) { b.setAttribute("aria-pressed", on ? "true" : "false"); }
   function skey(m) { return "in2120:viz-system:" + m; }
   function sget(m, d) { return IN.store ? IN.store.get(skey(m), d) : d; }
@@ -114,7 +116,7 @@
     var ovLbl = el("label", { class: "sys-lbl" });
     var ovCb = el("input", { type: "checkbox" });
     ovCb.addEventListener("change", function () { ovFirst = ovCb.checked; sjekket = false; paint(); });
-    ovLbl.appendChild(ovCb); ovLbl.appendChild(document.createTextNode(" Øv først: skjul fargene til jeg trykker «Sjekk»"));
+    ovLbl.appendChild(ovCb); ovLbl.appendChild(document.createTextNode(" Øv først: skjul fargene til jeg trykker «Sjekk svar»"));
     w.appendChild(ovLbl);
 
     var lay = el("div", { class: "sys-lay" });
@@ -128,9 +130,9 @@
     tab.appendChild(el("thead", {}, [el("tr", {}, [el("th", { text: "Nivå" }), el("th", { text: "Kan få tilgang" }), el("th", { text: "Kan IKKE få tilgang" })])]));
     tab.appendChild(tbody);
     var ctl = el("div", { class: "sys-row" }, [
-      btn("Sjekk", function () { sjekket = true; paint(); }, "primary"),
-      btn("Angriper eskalerer", eskaler),
-      btn("Nullstill", function () { modus = null; angriper = null; svar = {}; sjekket = false; paint(); })
+      kbtn("Sjekk svar", function () { sjekket = true; paint(); }, "primary"),
+      kbtn("Angriper eskalerer", eskaler),
+      kbtn("↺ Nullstill", function () { modus = null; angriper = null; svar = {}; sjekket = false; paint(); })
     ]);
     var out = el("div", { class: "sys-out", "aria-live": "polite" });
     side.appendChild(el("div", { class: "table-wrap" }, [tab]));
@@ -152,7 +154,7 @@
         out.innerHTML = "<p>Privilegieeskalering: en exploit flytter angriperen fra nivå 3 til <b>nivå 0</b>. Nå når den nivå 0, 1, 2 og 3 i denne maskinen, men fortsatt ikke hypervisoren på −1. Det ville krevd en ny feil (en «VM-flukt», ordet står ikke på d08).</p>";
       } else {
         out.className = "sys-out";
-        out.innerHTML = "<p>Angriperens mål er nivå 0 eller −1 (d08 s. 8). Her stopper den på 0. Trykk «Nullstill» for å starte på nytt.</p>";
+        out.innerHTML = "<p>Angriperens mål er nivå 0 eller −1 (d08 s. 8). Her stopper den på 0. Trykk «↺ Nullstill» for å starte på nytt.</p>";
       }
     }
 
@@ -217,7 +219,7 @@
       if (!sjekket) {
         out.className = "sys-out";
         out.innerHTML = "<p>" + m.navn.replace("…", "Prosess") + " kjører på nivå <b>" + nivaTekst(m.n) + "</b>." +
-          (ovFirst ? " Fyll ut tabellen og trykk «Sjekk»." : " Grønt = når, rødt med lås = når ikke.") + "</p>";
+          (ovFirst ? " Fyll ut tabellen og trykk «Sjekk svar»." : " Grønt = når, rødt med lås = når ikke.") + "</p>";
         return;
       }
       var riktig = 0, feil = 0, blank = 0;
@@ -694,8 +696,8 @@
     w.appendChild(pool);
     w.appendChild(kols);
     w.appendChild(el("div", { class: "sys-row" }, [
-      btn("Sjekk", function () { sjekket = true; paint(); }, "primary"),
-      btn("Nullstill", function () { valg = {}; sjekket = false; paint(); })
+      kbtn("Sjekk svar", function () { sjekket = true; paint(); }, "primary"),
+      kbtn("↺ Nullstill", function () { valg = {}; sjekket = false; paint(); })
     ]));
     var out = el("div", { class: "sys-out", "aria-live": "polite" });
     w.appendChild(out);
@@ -718,7 +720,7 @@
       var t = kanalTid(0.5, 256), fasit = gjettTrinn(t), ok = i === fasit;
       gBtn.forEach(function (b, k) { press(b, k === i); b.disabled = true; });
       gOut.className = "sys-out " + (ok ? "ok" : "nei");
-      gOut.innerHTML = "<p><b>" + (ok ? "Riktig." : "Ikke helt. Riktig er «" + GJETT[fasit].tekst + "».") + "</b> 256 bit / 0,5 bit/s = 512 s, altså " + varighet(t) + ".</p>";
+      gOut.innerHTML = "<p><b>" + (ok ? "Riktig." : "Ikke riktig. Riktig er «" + GJETT[fasit].tekst + "».") + "</b> 256 bit / 0,5 bit/s = 512 s, altså " + varighet(t) + ".</p>";
       verktoy.hidden = false;
     }
     var bps = el("input", { type: "number", class: "sys-num", min: "0.01", step: "0.1", value: "0.5", "aria-label": "Bit per sekund" });
@@ -837,8 +839,8 @@
     var pOut = el("div", { class: "sys-out", "aria-live": "polite" });
     w.appendChild(liste);
     w.appendChild(el("div", { class: "sys-row" }, [
-      btn("Sjekk", function () { sjekket = true; paintPrio(); }, "primary"),
-      btn("Nullstill", function () { rek = ["xss", "ver", "vpn", "lpe"]; sjekket = false; paintPrio(); })
+      kbtn("Sjekk svar", function () { sjekket = true; paintPrio(); }, "primary"),
+      kbtn("↺ Nullstill", function () { rek = ["xss", "ver", "vpn", "lpe"]; sjekket = false; paintPrio(); })
     ]));
     w.appendChild(pOut);
     host.appendChild(w);

@@ -692,7 +692,7 @@
       });
       var key = plain(it.keyLabel);
       r.sr.textContent = st === "right" ? "Riktig." : st === "blank" ? "Ikke besvart." :
-        st === "wrong" ? (has(it.id) ? "Feil. " : "Blankt, teller som galt. ") + "Riktig svar: " + key + "." : "";
+        st === "wrong" ? (has(it.id) ? "Ikke riktig. " : "Blankt, teller som galt. ") + "Riktig svar: " + key + "." : "";
       var canExp = !(o.lock && !checked), got = earned(it);
       var isOpen = canExp && got && !!open[it.id];
       r.tog.hidden = !canExp;
@@ -733,7 +733,7 @@
       if (st === "wrong") open[it.id] = true;
       paint();
       if (st === "right") say("Riktig.");
-      else if (st === "wrong") say("Feil. Riktig svar: " + plain(it.keyLabel) + ".");
+      else if (st === "wrong") say("Ikke riktig. Riktig svar: " + plain(it.keyLabel) + ".");
       // Fremdrift i straks-modus: første gang alle er besvart (deretter ved «Sjekk svar»)
       if (instant() && !checked && !reported && counts().answered === items.length) { reported = true; report(); }
     }

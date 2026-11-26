@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126j">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -77,7 +77,7 @@
           <p>Kurset skiller: kroppen (fingeravtrykk, ansikt, iris) er «noe du er», mens atferd (stemme, tastetrykk, signatur) er «noe du gjør».</p></details>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Faktorer i eksamensformat</h4>
       <p class="aut-q">Hvilken faktor hører hver autentikator til?</p>
       <div id="ov-aut-1"></div>
 
@@ -87,8 +87,11 @@
           <li>Eldre sett hadde et tofaktoreksempel med minibank.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Faktorer</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-faktorer"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Faktorer</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-faktorer"></div>
     </section>
 
@@ -114,17 +117,28 @@
               <li>ikke gjenbruk, og</li>
               <li>lagre trygt (i hodet, på papir du passer på, eller i en passordbank).</li>
             </ul></li>
-          <li><b>NIST 800-63-4:</b> minst 15 tegn når passordet er eneste faktor, minst 8 som del av MFA, ingen sammensetningsregler og ingen krav om periodisk bytte.</li>
-          <li><b>Hvor hashene ligger:</b> Linux <span class="mono">/etc/shadow</span> (krever root), Windows SAM (krever admin), i nettverk AD, Entra ID eller LDAP.</li>
+          <li><b>NIST 800-63-4:</b>
+            <ul>
+              <li>minst 15 tegn når passordet er eneste faktor</li>
+              <li>minst 8 som del av MFA</li>
+              <li>ingen sammensetningsregler</li>
+              <li>ingen krav om periodisk bytte.</li>
+            </ul></li>
+          <li><b>Hvor hashene ligger:</b>
+            <ul>
+              <li>Linux <span class="mono">/etc/shadow</span> (krever root)</li>
+              <li>Windows SAM (krever admin)</li>
+              <li>i nettverk AD, Entra ID eller LDAP.</li>
+            </ul></li>
           <li><b>Pass-the-hash:</b> i noen systemer kan selve hashen brukes til å logge på andre maskiner. Derfor skal selv gode passord ikke gjenbrukes, og tilgangen til hashene må beskyttes.</li>
         </ul></div>
       <div id="ex-passord"></div>
 
-      <h4>Klartekst, hash og saltet hash</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Klartekst, hash og saltet hash</h4>
       <p class="small muted">Velg lagringsmåte og trykk «Lekk databasen» for å se hva en angriper får. Endre passord og salt, og prøv innloggingen. Nederst regner vi ut hvor mye lenger gjettingen tar med salt og med en treg hashfunksjon.</p>
       <div id="viz-salt"></div>
 
-      <h4>Nøkkelrom og gjettetid</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Nøkkelrom og gjettetid</h4>
       <p class="small muted">Regn selv først: antall passord A<sup>L</sup>, og hvor lang tid det tar å prøve alle. Gliderne gir nye tall. Etterpå kan du åpne kalkulatoren og sammenligne før og etter en policyendring med de samme eksemplene som i regneoppgavene på eksamen.</p>
       <div id="viz-noekkelrom"></div>
 
@@ -159,7 +173,8 @@
           <li><b>«For likt det gamle passordet» (H2023 9):</b> fasiten sier klartekst, fordi hasher av like passord ikke ligner hverandre.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Passord, hash og salt i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar og rett hver for seg.</div>
       <p class="aut-q">Hvilket tiltak oppfyller kravet?</p>
       <div id="ov-aut-2"></div>
       <p class="aut-q">Policyen endres fra 8 til 12 tegn med 62 mulige tegn. Hvor mye mer komplekst blir passordet?</p>
@@ -174,8 +189,11 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2024-11">H2024 11</a> (1p): 10 til 14 tegn med 105 tegn gir 105⁴.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Passord, hash og salt</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-passord"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Passord, hash og salt</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-passord"></div>
     </section>
 
@@ -184,7 +202,13 @@
       <h3>Eierskapsfaktorer: OTP-brikker, kort, pass og sekundærkanaler</h3>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Typer enheter:</b> OTP-brikker, online-enheter (for eksempel FIDO og passnøkler), adgangs- og ID-kort og pass, og sekundærkanaler (SMS, app, SIM, e-post).</li>
+          <li><b>Typer enheter:</b>
+            <ul>
+              <li>OTP-brikker</li>
+              <li>online-enheter (for eksempel FIDO og passnøkler)</li>
+              <li>adgangs- og ID-kort og pass</li>
+              <li>sekundærkanaler (SMS, app, SIM, e-post).</li>
+            </ul></li>
           <li><b>Tidsbasert OTP-brikke:</b> brikken har en klokke og en hemmelig nøkkel og viser en engangskode for et kort tidsvindu. Tjeneren har samme nøkkel og algoritme, regner ut forventet kode og sammenligner. Koder fra nabovinduene godtas, klokkene må være synkrone, og brikken trenger batteri. Eksempler: BankID-brikke, RSA SecurID.</li>
           <li><b>Kort:</b> kontaktløse RFID-kort får strøm fra leserens felt. Et adgangskort med <b>symmetrisk</b> nøkkel svarer på en tilfeldig utfordring fra leseren, og leseren sammenligner med forventet svar. Nasjonale ID-kort og pass bruker <b>asymmetrisk</b> nøkkel.</li>
           <li><b>Pass:</b> landets rotsertifikat (CS) signerer et DS-sertifikat, og DS signerer foto og passets offentlige nøkkel i chipen. Kontrollen sjekker signaturene og sender en utfordring som chipen signerer med den private nøkkelen, som aldri forlater chipen.</li>
@@ -193,16 +217,16 @@
         </ul></div>
       <div id="ex-eierskap"></div>
 
-      <h4>Leke-OTP: brikke og tjener</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Leke-OTP: brikke og tjener</h4>
       <p class="small muted">Flytt klokka og se koden skifte hvert 30. sekund. La brikkens klokke drive for å se hvorfor tjeneren godtar nabovinduene, og skriv ned en kode for å se at den blir verdiløs etter kort tid.</p>
       <div id="viz-otp"></div>
 
       <h4>Eksempel: regnet for hånd</h4>
-      <p>Nøkkel K = 123, klokka er 10:00:15. Det er 36 015 sekunder etter midnatt, og 36 015 / 30 = 1200,5, så t = 1200.</p>
+      <p>Leke-formelen er OTP = (K · t + 7) mod 1000, der t er nummeret på 30-sekundersvinduet. Nøkkel K = 123, klokka er 10:00:15. Det er 36 015 sekunder etter midnatt, og 36 015 / 30 = 1200,5, så t = 1200.</p>
       <ul>
         <li>(123 · 1200 + 7) mod 1000 = 147 607 mod 1000 = <b>607</b>.</li>
         <li>Tjeneren godtar også t = 1199, som gir <b>484</b>, og t = 1201, som gir <b>730</b>.</li>
-        <li>Kristin taster 607, og tjeneren finner treff i vindu 1200. En angriper som ser 607 klokka 10:05, er for sent ute.</li>
+        <li>Brukeren taster 607, og tjeneren finner treff i vindu 1200. En angriper som ser 607 klokka 10:05, er for sent ute.</li>
       </ul>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -216,7 +240,7 @@
           <li><b>SMS er svakest</b> av sekundærkanalene på lysarket.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> OTP, kort og SMS i eksamensformat</h4>
       <p class="aut-q">Hvilken type autentiseringsenhet passer best med beskrivelsen?</p>
       <div id="ov-aut-4"></div>
 
@@ -225,8 +249,11 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a> (3p): koble beskrivelser (FIDO, klokke, BankID på mobil, BankID-brikke, leser eller terminal, overføring av kode) til OTP-brikke, pass og ID-kort, online-enheter eller sekundærkanal.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> OTP, kort og SMS</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-eierskap"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> OTP, kort og SMS</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-eierskap"></div>
     </section>
 
@@ -238,8 +265,22 @@
           <li><b>Phishing</b> mot autentisering: en melding lurer brukeren til en falsk nettside som stjeler autentikatorene, og angriperen bruker dem på den ekte siden. Vanlige brikker og apper, også BankID, er ikke phishingresistente fordi de stoler på at brukeren forstår domenenavn.</li>
           <li><b>Phishingresistent:</b> autentikatoren kan ikke brukes mot andre enn den ekte siden, fordi <b>klienten</b>, ikke brukeren, sjekker domenenavnet.</li>
           <li><b>Passnøkkel:</b> en kryptografisk <b>privat nøkkel</b>, én per autentiseringstjener, knyttet til tjenerens <b>domenenavn</b>. Tjeneren har bare den tilsvarende <b>offentlige nøkkelen</b>.</li>
-          <li><b>To etapper:</b> 1. etappe (lokal): brukeren autentiserer seg til klienten med PIN eller biometri. 2. etappe (online): klienten autentiserer seg til tjeneren med challenge–respons: <b>1</b> utfordring C fra tjeneren, <b>2</b> lokal autentikator, <b>3</b> signert respons R.</li>
-          <li><b>Lagring:</b> innebygd i klienten (operativsystem, nettleser, maskinvare), i en brikke (USB, smartkort, NFC eller blåtann) eller i en passordbank.</li>
+          <li><b>To etapper:</b>
+            <ol>
+              <li>etappe (lokal): brukeren autentiserer seg til klienten med PIN eller biometri.</li>
+              <li>etappe (online): klienten autentiserer seg til tjeneren med challenge–respons:
+                <ol>
+                  <li>utfordring C fra tjeneren</li>
+                  <li>lokal autentikator</li>
+                  <li>signert respons R.</li>
+                </ol></li>
+            </ol></li>
+          <li><b>Lagring:</b>
+            <ul>
+              <li>innebygd i klienten (operativsystem, nettleser, maskinvare)</li>
+              <li>i en brikke (USB, smartkort, NFC eller blåtann)</li>
+              <li>eller i en passordbank.</li>
+            </ul></li>
           <li><b>Utfordringer:</b>
             <ul>
               <li>det er komplisert å flytte nøklene til en ny enhet,</li>
@@ -251,7 +292,7 @@
       <p class="small muted fig-vis-led">De to etappene i passnøkkel-arkitekturen: bruker til klient (lokalt), så klient til tjener (online).</p>
       <div id="fv-fido"></div>
 
-      <h4>Sekvensdiagram: registrering og innlogging</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Sekvensdiagram: registrering og innlogging</h4>
       <p class="small muted">Velg scenario og gå steg for steg. Før noen av stegene får du et spørsmål om hva som skjer videre. Svar før du går videre, eller slå av «Gjett før hvert steg». Tallene 1, 2 og 3 på pilene er de samme som i figuren fra lysarket og eksamen.</p>
       <div id="sp-fido"></div>
 
@@ -278,7 +319,7 @@
           <li><b>Phishingresistensen gjelder ikke skykontoen</b> som synkroniserer passnøklene (H2025 27).</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> FIDO og passnøkler i eksamensformat</h4>
       <p class="aut-q">Figuren viser innlogging med passnøkler. Plasser de seks boksene på riktig sted i figuren.</p>
       <div id="ov-aut-5"></div>
 
@@ -292,8 +333,11 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-27">H2025 27</a> (3p): phishing mot en passordbank som synkroniserer passnøkler, og NIST AL3.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> FIDO og passnøkler</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-fido"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> FIDO og passnøkler</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-fido"></div>
     </section>
 
@@ -325,7 +369,7 @@
         </ul></div>
       <div id="ex-biometri"></div>
 
-      <h4>Terskel, FMR, FNMR og EER</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Terskel, FMR, FNMR og EER</h4>
       <p class="small muted">Regn ut FMR for terskelen først. Når svaret vises, åpnes figuren: ti genuine forsøk (sirkler) og ti ikke-genuine (firkanter) med skåring fra 0 til 100. Dra i terskelen. Merker på feil side blir røde, og kurvene under viser FMR og FNMR for alle terskler. Det grønne feltet er der FMR = FNMR.</p>
       <div id="viz-biometri"></div>
 
@@ -357,7 +401,8 @@
           <li><b>Desimaltall med punktum</b> i Inspera: 0.06, ikke 0,06 eller 6 %.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Biometri i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar og rett hver for seg.</div>
       <p class="aut-q">Regn ut ratene.</p>
       <div id="ov-aut-6"></div>
       <p class="aut-q">Velg riktig ord.</p>
@@ -377,8 +422,11 @@
           <li>Temaet falt ut etter 2022, men er pensum i 2026. Regneoppgaven gir rask uttelling.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Biometri</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-biometri"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Biometri</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-biometri"></div>
     </section>
 
@@ -421,7 +469,7 @@
       <p class="small muted fig-vis-led">eIDAS og NIST har tre nivåer hver, men kravene er formulert ulikt. Stigene står derfor side om side, uten likhetstegn mellom trinnene.</p>
       <div id="fx-garantinivaa-stiger"></div>
 
-      <h4>Fra konsekvens til nivå</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Fra konsekvens til nivå</h4>
       <p class="small muted">Plasser tjenestene og eID-ene på riktig nivå, og trykk «Sjekk svar». Tjenestene er fra en tenkt kommune, Fjellvik. Oppslaget under viser hvilke eID-er som holder hvert nivå.</p>
       <div id="viz-nivaa"></div>
 
@@ -439,7 +487,7 @@
           <li><b>Phishingresistens</b> er bare et uttrykt krav i NIST 800-63-4, ikke i eIDAS.</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> MFA og garantinivå i eksamensformat</h4>
       <p class="aut-q">Er påstandene sanne eller usanne?</p>
       <div id="ov-aut-8"></div>
 
@@ -451,8 +499,11 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-27">H2025 27</a>, del 2: NIST AL3 og synkronisering av passnøkler.</li>
         </ul></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> MFA og garantinivå</h4>
+      <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
       <div id="quiz-mfa"></div>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> MFA og garantinivå</h4>
+      <p class="ov-intro">Åpne lista og avgjør om hver påstand er sann eller usann. Forklaringen vises når du har svart.</p>
       <div id="tf-mfa"></div>
     </section>
 
@@ -466,38 +517,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261126j"></script>
-  <script src="assets/js/symboler.js?v=20261126j"></script>
-  <script src="assets/js/begreper-data.js?v=20261126j"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126j"></script>
-  <script src="assets/js/pseudocode.js?v=20261126j"></script>
-  <script src="assets/js/stepplayer.js?v=20261126j"></script>
-  <script src="assets/js/varline.js?v=20261126j"></script>
-  <script src="assets/js/inspera.js?v=20261126j"></script>
-  <script src="assets/js/dra.js?v=20261126j"></script>
-  <script src="assets/js/ovelse.js?v=20261126j"></script>
-  <script src="assets/js/bank.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126j"></script>
-  <script src="assets/js/viz-aut.js?v=20261126j"></script>
+  <script src="assets/js/core.js?v=20261126k"></script>
+  <script src="assets/js/symboler.js?v=20261126k"></script>
+  <script src="assets/js/begreper-data.js?v=20261126k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
+  <script src="assets/js/pseudocode.js?v=20261126k"></script>
+  <script src="assets/js/stepplayer.js?v=20261126k"></script>
+  <script src="assets/js/varline.js?v=20261126k"></script>
+  <script src="assets/js/inspera.js?v=20261126k"></script>
+  <script src="assets/js/dra.js?v=20261126k"></script>
+  <script src="assets/js/ovelse.js?v=20261126k"></script>
+  <script src="assets/js/bank.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
+  <script src="assets/js/viz-aut.js?v=20261126k"></script>
   <script>
   (function () {
     "use strict";
@@ -687,29 +738,29 @@
       { key: "ov-aut-1", title: "Faktorer", points: 2.5, opphav: { type: "egen", kilder: ["ba s. 3–13"] }, inspera: { type: "M", multi: false, kolonner: ["Noe du vet", "Noe du har", "Noe du er/gjør"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
-          { s: "Sikkerhetsspørsmål «navnet på første kjæledyr»", svar: [0] },
-          { s: "USB-brikke med passnøkkel", svar: [1] },
-          { s: "Ansiktsgjenkjenning", svar: [2] },
+          { s: "Sikkerhetsspørsmål «navnet på første kjæledyr»", svar: [0], explain: "<p>Svaret er noe du husker, akkurat som et passord eller en PIN. Det er noe du vet.</p>" },
+          { s: "USB-brikke med passnøkkel", svar: [1], explain: "<p>Brikken er en fysisk ting du må ha med deg. Passnøkler kan ligge i en brikke (USB, smartkort, NFC), og da er det noe du har.</p>" },
+          { s: "Ansiktsgjenkjenning", svar: [2], explain: "<p>Ansiktet er en del av kroppen. Det er fysiologisk biometri, altså noe du er.</p>" },
           { s: "Engangskode sendt på e-post", svar: [1], explain: "<p>Sekundærkanal: du må ha tilgang til e-postkontoen.</p>" },
-          { s: "Signaturdynamikk på et nettbrett", svar: [2] } ] } },
+          { s: "Signaturdynamikk på et nettbrett", svar: [2], explain: "<p>Måten du skriver signaturen på, er atferd og ikke kropp. Kurset kaller det «noe du gjør», og det hører til i samme kolonne som «noe du er».</p>" } ] } },
       { key: "ov-aut-2", title: "Krav og tiltak", points: 2, opphav: { type: "egen", variantAv: ["H2022-8.1"], kilder: ["ba s. 3–13"] }, inspera: { type: "M", multi: false, kolonner: ["Tilgangskontroll", "Salting", "Komplekse passord", "Hashing"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         rader: [
-          { s: "En regnbuetabell for vanlige passord skal ikke gi treff", svar: [1] },
-          { s: "Bare root skal kunne lese passordfila", svar: [0] },
-          { s: "En databasedump skal ikke vise passordene direkte", svar: [3] },
-          { s: "Uttømmende søk mot én bruker med kjent salt skal ta urimelig lang tid", svar: [2] } ] } },
+          { s: "En regnbuetabell for vanlige passord skal ikke gi treff", svar: [1], explain: "<p>Salt gir hver bruker en egen tilfeldig verdi, så like passord får ulike hasher. En ferdig regnbuetabell gir da ingen treff.</p>" },
+          { s: "Bare root skal kunne lese passordfila", svar: [0], explain: "<p>Det er tilgangskontroll: den bestemmer hvem som får lese fila. I Linux ligger hashene i /etc/shadow, som krever root.</p>" },
+          { s: "En databasedump skal ikke vise passordene direkte", svar: [3], explain: "<p>Med hashing ligger passordene ikke i klartekst. Ved innlogging hashes det brukeren taster, og hashen sammenlignes med den som er lagret.</p>" },
+          { s: "Uttømmende søk mot én bruker med kjent salt skal ta urimelig lang tid", svar: [2], explain: "<p>Salt hjelper ikke her: når saltet er kjent, kan passordet fortsatt gjettes. Bare et langt og komplekst passord gjør antallet mulige passord så stort at søket tar urimelig lang tid.</p>" } ] } },
       { key: "ov-aut-3", title: "Fra 8 til 12 tegn", points: 1, opphav: { type: "egen", kilder: ["ba s. 3–13", "t07"] }, inspera: { type: "F1", regelTekst: "1 for riktig; 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
         alternativer: ["62*4", "62^4", "4 ganger", "Umulig å si"], svar: 1,
         explain: ["<p>Ganging med 4 gjelder ikke eksponentiell vekst.</p>", "<p>62¹² / 62⁸ = 62⁴.</p>", "<p>Lengde gir ikke lineær vekst.</p>", "<p>Det kan regnes ut som forholdet mellom nøkkelrommene.</p>"] } },
       { key: "ov-aut-4", title: "Typer enheter", points: 2.5, opphav: { type: "egen", variantAv: ["H2021-6.3"], kilder: ["ba s. 14–19"] }, inspera: { type: "M", multi: false, kolonner: ["OTP-brikke", "Pass og ID-kort", "Online-enheter", "Sekundærkanal"],
         regelTekst: "0,5 for hver korrekt, -0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
-          { s: "Engangskode i en tekstmelding", svar: [3] },
-          { s: "Viser ny sekssifret kode hvert 30. sekund", svar: [0] },
-          { s: "Signerer en utfordring med privat nøkkel i en sikker chip ved grensa", svar: [1] },
-          { s: "Lagrer passnøkler for mange nettsteder", svar: [2] },
-          { s: "Godkjenning i en bankapp på mobilen", svar: [3] } ] } },
+          { s: "Engangskode i en tekstmelding", svar: [3], explain: "<p>Koden kommer via mobilnettet, ikke via nettsiden. Det er en sekundærkanal, og SMS regnes som relativt svak.</p>" },
+          { s: "Viser ny sekssifret kode hvert 30. sekund", svar: [0], explain: "<p>En tidsbasert OTP-brikke har klokke og en hemmelig nøkkel, og viser en ny engangskode for hvert korte tidsvindu.</p>" },
+          { s: "Signerer en utfordring med privat nøkkel i en sikker chip ved grensa", svar: [1], explain: "<p>Det er passet. Kontrollen sender en utfordring, og chipen signerer den med den private nøkkelen, som aldri forlater chipen.</p>" },
+          { s: "Lagrer passnøkler for mange nettsteder", svar: [2], explain: "<p>Passnøkler hører til online-enhetene (FIDO). De kan ligge i klienten, i en brikke eller i en passordbank, med én nøkkel per nettsted.</p>" },
+          { s: "Godkjenning i en bankapp på mobilen", svar: [3], explain: "<p>Godkjenningen skjer i en app ved siden av nettsiden. En slik app er en sekundærkanal, som BankID på mobil.</p>" } ] } },
       { key: "ov-aut-5", title: "Passnøkler i figuren", points: 3,
         opphav: { type: "egen", variantAv: ["H2025-25", "H2022-8.3"], kilder: ["ba s. 20–23"], merknad: "Samme figur som H2025 oppgave 25, med et sjette felt for den lokale etappen" },
         figurTekst: "Figuren fra H2025 oppgave 25, tegnet på nytt, med en klamme lagt til for øvingen.",
@@ -729,16 +780,16 @@
                 { godta: ["0.04", "0,04", ".04", "4%", "4 prosent"], explain: "<p>2/50 = 0.04.</p>" }, { godta: ["0.06", "0,06", ".06", "6%", "6 prosent"], explain: "<p>3/50 = 0.06.</p>" } ] } },
       { key: "ov-aut-7", title: "Terskel, PAD og modus", points: 1.5, opphav: { type: "egen", kilder: ["ba s. 29–39"] }, inspera: { type: "N", regelTekst: "0,5 for riktig, -0,5 for feil, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 1.5 },
         tekst: "<p>Senkes terskelen, vil FNMR {0}. Et silikonavtrykk av en ekte finger stoppes best av {1}. Søk i et register med 10 000 maler er {2}.</p>",
-        felt: [ { valg: ["øke", "minske", "forbli uendret"], svar: 1 }, { valg: ["lav FMR", "PAD", "lav EER"], svar: 1 },
-                { valg: ["autentisering (1:1)", "identifikasjon (1:N)", "registrering"], svar: 1 } ] } },
+        felt: [ { valg: ["øke", "minske", "forbli uendret"], svar: 1, explain: "<p>Med lavere terskel kommer flere genuine forsøk over streken, så færre genuine avvises. FNMR minsker, mens FMR øker.</p>" }, { valg: ["lav FMR", "PAD", "lav EER"], svar: 1, explain: "<p>En god forfalskning av en ekte finger ser genuin ut, så lav FMR eller lav EER hjelper ikke. Det er PAD som skal oppdage presentasjonsangrep.</p>" },
+                { valg: ["autentisering (1:1)", "identifikasjon (1:N)", "registrering"], svar: 1, explain: "<p>Å søke i hele registeret er identifikasjon (1:N). Autentisering (1:1) sammenligner bare med malen til den oppgitte bruker-ID-en.</p>" } ] } },
       { key: "ov-aut-8", title: "Garantinivå og eID", points: 2.5, opphav: { type: "egen", variantAv: ["H2023-33", "H2024-30"], kilder: ["ba s. 40–48"] }, inspera: { type: "M", multi: false, kolonner: ["Sant", "Usant"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
-          { s: "MinID gir sikkerhetsnivå HØYT", svar: [1] },
-          { s: "Garantinivået skal stå i forhold til konsekvensen av en autentiseringsfeil", svar: [0] },
-          { s: "Commfides og Buypass er statlige eID-leverandører", svar: [1] },
-          { s: "Krav til hvordan autentikatoren overleveres, påvirker garantinivået", svar: [0] },
-          { s: "eIDAS 2.0 har fire garantinivåer", svar: [1] } ] } }
+          { s: "MinID gir sikkerhetsnivå HØYT", svar: [1], explain: "<p>Usant. MinID gir BETYDELIG. HØYT får man med for eksempel BankID, Buypass eller Commfides.</p>" },
+          { s: "Garantinivået skal stå i forhold til konsekvensen av en autentiseringsfeil", svar: [0], explain: "<p>Sant. Alvorlige konsekvenser krever høyt nivå, men sterk autentisering koster. Nivået balanseres derfor mot risikoen.</p>" },
+          { s: "Commfides og Buypass er statlige eID-leverandører", svar: [1], explain: "<p>Usant. Bare MinID er statlig.</p>" },
+          { s: "Krav til hvordan autentikatoren overleveres, påvirker garantinivået", svar: [0], explain: "<p>Sant. Overleveringen hører til kravene om ID-registrering og håndtering av autentikatoren (kategori a). Det svakeste leddet bestemmer nivået.</p>" },
+          { s: "eIDAS 2.0 har fire garantinivåer", svar: [1], explain: "<p>Usant. eIDAS har tre nivåer: Low, Substantial og High. Fire nivåer har ISO 29115 og det eldre norske RAU.</p>" } ] } }
     ];
     OV.forEach(function (o) {
       safe(o.key, function () {

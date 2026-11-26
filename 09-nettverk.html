@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126j">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126j">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -57,7 +57,7 @@
         </ul></div>
       <div id="ex-lag"></div>
 
-      <h4>Plasser protokollene i stakken</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Plasser protokollene i stakken</h4>
       <div id="viz-stakk"></div>
       <details class="grense"><summary>Fasitfiguren: stakken slik fasiten plasserer protokollene</summary>
         <div id="viz-stakk-fig"></div></details>
@@ -89,7 +89,8 @@
           <li>og linklaget legger på rammehodet.</li>
         </ul>
         <p>En ruter underveis ser bare IP-hodet og det som ligger utenfor krypteringen.</p></div>
-      <p class="small muted">Spilleren stiller spørsmål underveis. Slå av «Gjett før hvert steg» hvis du bare vil se.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Lises forespørsel, hode for hode</h4>
+      <p class="ov-intro">Samme forespørsel som i eksempelet over. Trykk «Neste» for å legge på ett hode om gangen. Spilleren stiller spørsmål underveis; slå av «Gjett før hvert steg» hvis du bare vil se.</p>
       <div id="sp-innkapsling"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -115,14 +116,18 @@
           <li>Kryptert eller ukryptert (H2025 23)</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format: protokoll til lag</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Protokoll til lag</h4>
+      <div class="ov-intro">Kryss av laget hver protokoll hører til. «App (over stakken)» er for programmer, ikke protokoller.</div>
       <div id="ov-nett-1"></div>
-      <h4>Øv i Inspera-format: tjeneste til port</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Tjeneste til port</h4>
+      <div class="ov-intro">Kryss av standardporten for hver tjeneste (tabellen over har alle).</div>
       <div id="ov-nett-2"></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Lag og porter</h4>
+      <p class="ov-intro">Flervalg om lagene, protokollene og portene. Velg ett svar per spørsmål.</p>
       <div id="quiz-lag"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Lag og porter</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-lag"></div>
     </section>
 
@@ -138,11 +143,12 @@
         </ul></div>
       <div id="ex-tls"></div>
 
-      <h4>Håndtrykket steg for steg</h4>
-      <p class="small muted">K = klient, T = tjener. Alt etter ServerHello går kryptert (grønne piler med lås). Hele håndtrykket tar én runde frem og tilbake.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Håndtrykket steg for steg</h4>
+      <p class="ov-intro">Trykk «Neste» for én melding om gangen; ved noen steg må du gjette først. K = klient, T = tjener. Alt etter ServerHello går kryptert (grønne piler med lås). Hele håndtrykket tar én runde frem og tilbake.</p>
       <div id="sp-tls"></div>
 
-      <h4>Etterspill: noen stjeler tjenerens privatnøkkel</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Etterspill: noen stjeler tjenerens privatnøkkel</h4>
+      <p class="ov-intro">Trykk på knappen og se hva som skjer med gamle, lagrede økter når tjenerens privatnøkkel lekker et år senere, med og uten efemær Diffie-Hellman.</p>
       <div id="viz-tyveri"></div>
 
       <h4>Eksempel med små tall: Diffie-Hellman i håndtrykket</h4>
@@ -172,12 +178,15 @@
         </ul>
         <p>Diffie-Hellman selv hører til <a href="02-krypto.html">blokk 2</a>.</p></div>
 
-      <h4>Øv i Inspera-format: TLS 1.3-håndtrykket</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> TLS 1.3-håndtrykket</h4>
+      <div class="ov-intro">Velg riktig ord i hver nedtrekksliste i teksten.</div>
       <div id="ov-nett-3"></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> TLS 1.3</h4>
+      <p class="ov-intro">Flervalg om håndtrykket og fremoverhemmelighold. Velg ett svar per spørsmål.</p>
       <div id="quiz-tls"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> TLS 1.3</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-tls"></div>
     </section>
 
@@ -193,8 +202,8 @@
         </ul></div>
       <div id="ex-hsts"></div>
 
-      <h4>Tre varianter i sekvensdiagram</h4>
-      <p class="small muted">Velg variant. A: stripping uten HSTS (eller første besøk uten preload). B: HSTS er husket. C: TLS-inspeksjon på jobben.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Stripping, HSTS og inspeksjon i sekvensdiagram</h4>
+      <p class="ov-intro">Velg variant og trykk «Neste»; ved noen steg må du gjette først. A: stripping uten HSTS (eller første besøk uten preload). B: HSTS er husket. C: TLS-inspeksjon på jobben.</p>
       <div id="sp-hsts"></div>
 
       <h4>Eksempel: Nora på kafé, med og uten HSTS</h4>
@@ -224,12 +233,15 @@
           <li>HSTS + «ikke første gang» i scenariet H2025 37 (se fanen «Hvem ser hva?»)</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format: HSTS og TLS-inspeksjon</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> HSTS og TLS-inspeksjon</h4>
+      <div class="ov-intro">Velg riktig ord i hver nedtrekksliste i teksten.</div>
       <div id="ov-nett-4"></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Stripping og HSTS</h4>
+      <p class="ov-intro">Flervalg om TLS-stripping, HSTS og TLS-inspeksjon. Velg ett svar per spørsmål.</p>
       <div id="quiz-hsts"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Stripping og HSTS</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-hsts"></div>
     </section>
 
@@ -254,7 +266,7 @@
       <p class="small muted fig-vis-led">Hvilken kjede en pakke møter, avgjøres før reglene leses: rutingsbeslutningen ser om pakken skal til brannmuren selv, gjennom den, eller om brannmuren har laget den.</p>
       <div id="fx-iptables-kjeder"></div>
 
-      <h4>Én pakke gjennom fem regler</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Én pakke gjennom fem regler</h4>
       <div class="callout eksempel"><span class="lbl">Regelsettet</span>
         <p>Webtjener i DMZ 172.16.5.10, admin-PC 192.168.7.20, database 10.20.0.5, kjent angriper 203.0.113.66. All trafikken går gjennom brannmuren (FORWARD).</p>
 <pre class="mono">1  iptables -A FORWARD -p tcp -d 172.16.5.10 --dport 443 -j ACCEPT
@@ -265,7 +277,7 @@
       <p class="small muted">Velg pakke a–f, gjett ACCEPT eller DROP, og gå så regel for regel. Prøv bryterne: uten regel 5 slipper e) og f) gjennom, og med regel 2 øverst blir a) stoppet.</p>
       <div id="sp-brannmur"></div>
 
-      <h4>DMZ og to brannmurer: hvor skal tjenestene stå?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> DMZ og to brannmurer: hvor skal tjenestene stå?</h4>
       <div id="viz-dmz"></div>
       <details class="grense"><summary>Fasitfiguren: DMZ-topologien med porter</summary>
         <div id="viz-dmz-fig"></div></details>
@@ -296,8 +308,8 @@
           <li>Evaluer seks regler mot åtte rader (H2025 24)</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format: slipper reglene gjennom?</h4>
-      <p class="small muted">Alt er trafikk gjennom brannmuren.</p>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Slipper reglene gjennom?</h4>
+      <div class="ov-intro">Les de åtte reglene under ovenfra og ned. For hver pakke: kryss av om den slipper gjennom. Alt er trafikk gjennom brannmuren.</div>
 <pre class="mono">1 iptables -A FORWARD -s 10.9.9.9 -p tcp --dport 443 -j ACCEPT
 2 iptables -A INPUT -s 172.20.1.1 -j DROP
 3 iptables -A FORWARD -s 172.20.1.1 -p tcp --dport 3389 -j ACCEPT
@@ -310,17 +322,19 @@
 
       <p class="small muted fig-vis-led">Nettet fra H2023 32: web-tjeneren i ytre segment skal nå databasen i indre segment. Trafikken går <i>gjennom</i> brannmuren.</p>
       <div id="fv-brannmur"></div>
-      <h4>Skriv regelen selv (2 p)</h4>
-      <p>Slipp SSH fra admin-PC 10.1.1.5 til tjeneren 10.2.2.8, og ingenting annet til tjeneren.</p>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Skriv regelen selv (2 p)</h4>
+      <p>Skriv iptables-reglene i svarfeltet, trykk «Vurder svaret mitt» og sammenlign. Slipp SSH fra admin-PC 10.1.1.5 til tjeneren 10.2.2.8, og ingenting annet til tjeneren.</p>
       <div id="ov-nett-6"></div>
       <details class="grense"><summary>Vårt svar</summary>
 <pre class="mono">iptables -A FORWARD -p tcp -s 10.1.1.5 -d 10.2.2.8 --dport 22 -j ACCEPT
 iptables -A FORWARD -d 10.2.2.8 -j DROP</pre>
         <p class="small">ACCEPT-regelen må stå først, ellers tar DROP-regelen SSH-trafikken også. <span class="mono">-p tcp</span> må med fordi <span class="mono">--dport</span> krever <span class="mono">-p tcp</span> eller <span class="mono">-p udp</span>.</p></details>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Brannmurer</h4>
+      <p class="ov-intro">Flervalg om brannmurtyper, iptables og DMZ. Velg ett svar per spørsmål.</p>
       <div id="quiz-brannmur"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Brannmurer</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-brannmur"></div>
     </section>
 
@@ -342,8 +356,8 @@ iptables -A FORWARD -d 10.2.2.8 -j DROP</pre>
         </ul></div>
       <div id="ex-ids"></div>
 
-      <h4>Les en Snort-regel</h4>
-      <p class="small muted">Formen er <span class="mono">handling protokoll kilde-IP kildeport -&gt; mål-IP målport (valg)</span>. Klikk på delene.</p>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Les en Snort-regel</h4>
+      <p class="ov-intro">Formen er <span class="mono">handling protokoll kilde-IP kildeport -&gt; mål-IP målport (valg)</span>. Klikk på delene.</p>
       <div id="viz-snort"></div>
 
       <div class="callout eksempel"><span class="lbl">Egne regler</span>
@@ -356,17 +370,18 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           <li><span class="mono">$HOME_NET</span> er en variabel for eget nett, og <span class="mono">any</span> betyr alt.</li>
         </ul></div>
 
-      <h4>Bygg en Snort-regel og test den</h4>
-      <p class="small muted">Velg en oppgave, sett sammen hodet i regelen, og se hvilke eksempelpakker som gir alarm. Bare hodet teller her: protokoll, adresser, porter og retning.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Bygg en Snort-regel og test den</h4>
+      <p class="ov-intro">Velg en oppgave, sett sammen hodet i regelen, og se hvilke eksempelpakker som gir alarm. Bare hodet teller her: protokoll, adresser, porter og retning.</p>
       <div id="viz-snortbygger"></div>
 
-      <h4>Anomalibasert IDS: hva lærte den som normalt?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Anomalibasert IDS: hva lærte den som normalt?</h4>
       <div id="viz-anomali"></div>
 
-      <h4>Signatur eller anomali: gir hendelsen alarm?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Signatur eller anomali: gir hendelsen alarm?</h4>
       <div id="sp-idshendelser"></div>
 
-      <h4>Scenario: IDS-alarmer under en avtalt pentest</h4>
+      <h4 class="ov-h"><span class="ov-tag">Scenario</span> IDS-alarmer under en avtalt pentest</h4>
+      <p class="ov-intro">Du får situasjonen steg for steg. Velg hva du gjør ved hvert steg, og se konsekvensen før du går videre.</p>
       <div id="scen-nett-pentest"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -398,17 +413,20 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <p class="small muted fig-vis-led">Plasseringen i ett bilde: passive sensorer får en kopi av trafikken og varsler, mens en IPS står inline, så all trafikken går gjennom den.</p>
       <div id="fx-nids-plassering"></div>
 
-      <h4>Øv i Inspera-format: les Snort-reglene</h4>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Les Snort-reglene</h4>
+      <div class="ov-intro">Velg riktig ord i hver nedtrekksliste i teksten.</div>
       <div id="ov-nett-7"></div>
-      <h4>Fritekst (3 p): treningsperioden for en anomalibasert IDS</h4>
-      <p>Hvorfor bør en anomalibasert IDS ikke trenes samme uke som et kjent botnett-utbrudd i nettet?</p>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Fritekst (3 p): treningsperioden for en anomalibasert IDS</h4>
+      <p>Skriv svaret i feltet, trykk «Vurder svaret mitt» og sammenlign. Hvorfor bør en anomalibasert IDS ikke trenes samme uke som et kjent botnett-utbrudd i nettet?</p>
       <div id="ov-nett-8"></div>
       <details class="grense"><summary>Kjernen i svaret</summary>
         <p>Modellen lærer «normal» trafikk fra treningsperioden. Er botnett-trafikken med der, lærer den at den er normal, og varsler ikke om den senere. Tren på en periode du vet er ren, og tren på nytt når nettet endrer seg.</p></details>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> IDS og Snort</h4>
+      <p class="ov-intro">Flervalg om IDS-typer, Snort-regler, mørke IP-adresser og hvor en NIDS bør stå. Velg ett svar per spørsmål.</p>
       <div id="quiz-ids"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> IDS og Snort</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-ids"></div>
     </section>
 
@@ -427,7 +445,8 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul></div>
       <div id="ex-ipsec"></div>
 
-      <h4>IPsec i tunnelmodus</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> IPsec i tunnelmodus</h4>
+      <p class="ov-intro">En pakke fra kontor 1 til kontor 2 går gjennom to IPsec-gatewayer. Trykk «Neste» for ett steg om gangen; ved noen steg må du gjette først.</p>
       <div id="sp-ipsec"></div>
       <ul class="small">
         <li>Gateway–gateway kobler to nett (for eksempel to kontorer).</li>
@@ -438,7 +457,8 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <p class="small muted fig-vis-led">Transportmodus til sammenligning: der beskytter ESP bare innholdet, og det opprinnelige IP-hodet står synlig ytterst.</p>
       <div id="fk-ipsec-moduser"></div>
 
-      <h4>Tor: ett skall per node</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Tor: ett skall per node</h4>
+      <p class="ov-intro">Les eksempelet, og gå så gjennom spilleren under med «Neste». Ved noen noder må du gjette hva noden får vite.</p>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         <p>Nora sender til Petter via nodene X → Y → Z.</p>
         <ul>
@@ -449,7 +469,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         <p>X ser Noras IP og Y. Z ser Petters adresse og, hvis forbindelsen er http, innholdet. Ingen lag er kryptert med en nøkkel delt med Petter i Tor selv.</p></div>
       <div id="sp-tor"></div>
 
-      <h4>Hvem ser hva ved sky-VPN og Tor?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hvem ser hva ved sky-VPN og Tor?</h4>
       <div id="viz-anonym"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -469,13 +489,15 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           <li>IPsec som VPN-løsning (H2024 10)</li>
         </ul></div>
 
-      <h4>Øv i Inspera-format: Tor-lagene</h4>
-      <p class="small muted">Nora sender til Petter via X → Y → Z. Hvilken nøkkel hører til hvert lag?</p>
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Tor-lagene</h4>
+      <div class="ov-intro">Samme oppsett som eksempelet over: Nora sender til Petter via X → Y → Z. Hvilken nøkkel hører til hvert lag?</div>
       <div id="ov-nett-9"></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> IPsec, VPN og Tor</h4>
+      <p class="ov-intro">Flervalg om IPsec, VPN og Tor. Velg ett svar per spørsmål.</p>
       <div id="quiz-ipsec"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> IPsec, VPN og Tor</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-ipsec"></div>
     </section>
 
@@ -492,14 +514,14 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul></div>
       <div id="ex-hvemser"></div>
 
-      <h4>Ida logger inn på skole.example</h4>
-      <p class="small muted">Fyll ut for hver person og trykk «Sjekk». Bryterne gir to andre scenarioer: stripping ved første besøk, og ingen TLS.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Ida logger inn på skole.example</h4>
+      <p class="ov-intro">Bryterne gir to andre scenarioer: stripping ved første besøk, og ingen TLS.</p>
       <div id="viz-hvemser"></div>
       <details class="grense"><summary>Fasit for hovedscenariet</summary>
         <p>HSTS er satt, og det er ikke første besøk. Ser passordet: Ola (før kryptering) og Sara (TLS termineres hos henne). Ser bare chiffertekst: Kari, Per, Even (Even får bare det Per har) og teleoperatøren.</p></details>
 
-      <h4>Scenario: Bobs passord (H2025 37)</h4>
-      <p class="small muted">Samme oppsett som eksamensoppgaven, sett fra forsvarersiden: hvem har passordet, og hva gjør du nå?</p>
+      <h4 class="ov-h"><span class="ov-tag">Scenario</span> Bobs passord (H2025 37)</h4>
+      <p class="ov-intro">Samme oppsett som eksamensoppgaven, sett fra forsvarersiden: hvem har passordet, og hva gjør du nå?</p>
       <p class="small muted fig-vis-led">Eksamensfiguren: nettsiden Bob tastet passordet inn på, og tavletegningen av nettverket.</p>
       <div id="fv-bob"></div>
       <div id="scen-nett-bob"></div>
@@ -536,9 +558,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul>
         <p>Verktøyene nmap og Wireshark står på <a href="verktoy.html">verktøysiden</a>.</p></div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Hvem ser hva?</h4>
+      <p class="ov-intro">Flervalg om hvem som ser klartekst i en TLS-økt, og om ARP-tabellen. Velg ett svar per spørsmål.</p>
       <div id="quiz-hvemser"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Hvem ser hva?</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-hvemser"></div>
     </section>
 
@@ -556,7 +580,8 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <p class="small muted fig-vis-led">Skallmodellen stoler på alt innenfor perimeteren. Med zero trust går hver forespørsel via et håndhevingspunkt (PEP) som spør et beslutningspunkt (PDP), samme ord som i IAM. PEP/PDP i zero trust står ikke på d09; det er utdyping fra NIST SP 800-207.</p>
       <div id="fk-skall-zt"></div>
 
-      <h4>En angriper kommer inn via phishing</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> En angriper kommer inn via phishing</h4>
+      <p class="ov-intro">Eksempelet sammenligner to skolenett. Gå gjennom angrepet med «Neste» i spilleren under; ved noen steg må du gjette i hvilke modeller angriperen lykkes.</p>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         <p>Et skolenett med én brannmur mot Internett og flatt innside (egg), mot samme nett med</p>
         <ul>
@@ -568,7 +593,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul></div>
       <div id="sp-forsvar"></div>
 
-      <h4>Verktøyene i lagene: sammenlign</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Verktøyene i lagene: sammenlign</h4>
       <div id="mat-nett-forsvar"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -584,9 +609,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         Ingen egen oppgave i 2021–2025. Begrepene støtter fritekstsvar om DMZ, brannmurer og IDS-plassering, og kan komme som nedtrekk.</div>
 
-      <h4>Test deg selv</h4>
+      <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Lagdelt forsvar</h4>
+      <p class="ov-intro">Flervalg om skallmodellen, eksplisitt DROP og zero trust. Velg ett svar per spørsmål.</p>
       <div id="quiz-forsvar"></div>
-      <h4>Sant eller usant?</h4>
+      <h4 class="ov-h"><span class="ov-tag">Sant/usant</span> Lagdelt forsvar</h4>
+      <p class="ov-intro">Avgjør om hver påstand er sant eller usant.</p>
       <div id="tf-forsvar"></div>
     </section>
 
@@ -600,38 +627,38 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261126j"></script>
-  <script src="assets/js/symboler.js?v=20261126j"></script>
-  <script src="assets/js/begreper-data.js?v=20261126j"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126j"></script>
-  <script src="assets/js/pseudocode.js?v=20261126j"></script>
-  <script src="assets/js/stepplayer.js?v=20261126j"></script>
-  <script src="assets/js/varline.js?v=20261126j"></script>
-  <script src="assets/js/inspera.js?v=20261126j"></script>
-  <script src="assets/js/dra.js?v=20261126j"></script>
-  <script src="assets/js/ovelse.js?v=20261126j"></script>
-  <script src="assets/js/bank.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126j"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126j"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126j"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126j"></script>
-  <script src="assets/js/viz-nett.js?v=20261126j"></script>
+  <script src="assets/js/core.js?v=20261126k"></script>
+  <script src="assets/js/symboler.js?v=20261126k"></script>
+  <script src="assets/js/begreper-data.js?v=20261126k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
+  <script src="assets/js/pseudocode.js?v=20261126k"></script>
+  <script src="assets/js/stepplayer.js?v=20261126k"></script>
+  <script src="assets/js/varline.js?v=20261126k"></script>
+  <script src="assets/js/inspera.js?v=20261126k"></script>
+  <script src="assets/js/dra.js?v=20261126k"></script>
+  <script src="assets/js/ovelse.js?v=20261126k"></script>
+  <script src="assets/js/bank.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126k"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
+  <script src="assets/js/viz-nett.js?v=20261126k"></script>
   <script>
   (function () {
     "use strict";

@@ -175,7 +175,7 @@
   P("H2018-1.5",
     [
       { del: "A)", tekst: "<p>Mennesket. Brukere er nysgjerrige og godtroende og klarer ikke alltid å skille en falsk e-post fra en ekte.</p>", poeng: ["Mennesket/brukeren som sårbarhet (1p)"] },
-      { del: "B)", tekst: "<p>1) Bevisstgjøring og opplæring av brukerne (f.eks. phishing-øvelser). 2) Filtrering av e-post: fjerne eller omskrive lenker og skanne eller fjerne vedlegg.</p>", poeng: ["Første tiltak, f.eks. opplæring (1p)", "Andre tiltak, f.eks. e-postfiltrering (1p)"] }
+      { del: "B)", tekst: "<ol><li>Bevisstgjøring og opplæring av brukerne (f.eks. phishing-øvelser).</li><li>Filtrering av e-post: fjerne eller omskrive lenker og skanne eller fjerne vedlegg.</li></ol>", poeng: ["Første tiltak, f.eks. opplæring (1p)", "Andre tiltak, f.eks. e-postfiltrering (1p)"] }
     ],
     [
       { del: "A)", fasit: "<p>Vulnerability: \"Humans\".<br>Humans are curious and can not distinguish between phishing and harmless emails.</p>", kriterier: "<p>Points: max 3</p>" },
@@ -289,7 +289,7 @@
     tips: ["Andre gode svar: integritetssjekk av nedlastede filer, nøkkelavledning."]
   });
   P("H2018-2.3",
-    [{ del: "", tekst: "<p>1) Digital signatur: man signerer hashen av meldingen i stedet for hele meldingen. 2) Passordlagring: tjeneren lagrer en (saltet) hash av passordet, ikke passordet selv.</p>", poeng: ["Første bruksområde (1p)", "Andre bruksområde (1p)"] }],
+    [{ del: "", tekst: "<ol><li>Digital signatur: man signerer hashen av meldingen i stedet for hele meldingen.</li><li>Passordlagring: tjeneren lagrer en (saltet) hash av passordet, ikke passordet selv.</li></ol>", poeng: ["Første bruksområde (1p)", "Andre bruksområde (1p)"] }],
     [{ del: "", fasit: "<p>HMAC, Digital signature, password storage, challenge response protocols</p>", kriterier: "<p>Points: max 2</p>" }],
     "Fordelingen 1 + 1 er vår antakelse.");
   hv("H2018-2.3",
@@ -559,7 +559,7 @@
     tips: ["Andre gode svar: TLS-stripping (første besøk uten HSTS), brukere som klikker forbi sertifikatadvarsler, TLS-inspeksjon."]
   });
   P("H2018-4.2",
-    [{ del: "", tekst: "<p>1) TLS hviler på nettleser-PKI-en: én kompromittert eller uforsiktig CA kan utstede falske sertifikater for hvilket som helst domene. 2) Gamle og svake algoritmer og protokollversjoner (f.eks. RC4, SHA-1, SSL) må støttes for kompatibilitet og har gitt nedgraderingsangrep.</p>", poeng: ["Første problem (1p)", "Andre problem (1p)"] }],
+    [{ del: "", tekst: "<ol><li>TLS hviler på nettleser-PKI-en: én kompromittert eller uforsiktig CA kan utstede falske sertifikater for hvilket som helst domene.</li><li>Gamle og svake algoritmer og protokollversjoner (f.eks. RC4, SHA-1, SSL) må støttes for kompatibilitet og har gitt nedgraderingsangrep.</li></ol>", poeng: ["Første problem (1p)", "Andre problem (1p)"] }],
     [{ del: "", fasit: "<p>Old/broken algorithms (e.g. RC4, SHA-1); relying on (vulnerable) browser PKI/CA/certificate system; vulnerabilities/attacks in/on protocol (e.g. FREAK, Logjam, BEAST, DROWN, ...)</p>", kriterier: "<p>Points: max 2</p>" }],
     "Fordelingen 1 + 1 er vår antakelse.");
   hv("H2018-4.2",
@@ -750,7 +750,7 @@
   });
   P("H2018-5.3",
     [
-      { del: "A)", tekst: "<p>1) Målt (autentisert) oppstart: hver komponent som startes, måles inn i TPM-ens registre. 2) Forseglet lagring: data eller nøkler krypteres slik at de bare kan pakkes ut i en bestemt, målt tilstand. 3) Fjernattestering: TPM-en signerer målingene så en tredjepart kan kontrollere oppstartstilstanden.</p>", poeng: ["Målt/autentisert oppstart (1p)", "Forseglet lagring (1p)", "Fjernattestering (1p)"] },
+      { del: "A)", tekst: "<ol><li>Målt (autentisert) oppstart: hver komponent som startes, måles inn i TPM-ens registre.</li><li>Forseglet lagring: data eller nøkler krypteres slik at de bare kan pakkes ut i en bestemt, målt tilstand.</li><li>Fjernattestering: TPM-en signerer målingene så en tredjepart kan kontrollere oppstartstilstanden.</li></ol>", poeng: ["Målt/autentisert oppstart (1p)", "Forseglet lagring (1p)", "Fjernattestering (1p)"] },
       { del: "B)", tekst: "<p>Forseglet lagring: BitLocker forsegler disknøkkelen i TPM-en, som bare frigir den når oppstarten er uendret.</p>", poeng: ["Forseglet lagring (1p)"] }
     ],
     [
@@ -784,7 +784,7 @@
       ]
     },
     avvik: null,
-    losning: ["1) Identifisere risikoene, 2) estimere (analysere) dem, 3) evaluere dem mot akseptkriteriene."],
+    losning: ["Identifisere risikoene.", "Estimere (analysere) dem.", "Evaluere dem mot akseptkriteriene."],
     tips: [UTENFOR + "ISO 27005-trinnene som egen pugg er ikke på 2026-lysarkene, men logikken (finn → anslå → prioriter) går igjen i all risikostyring.", "Arket staver «acording» (skrivefeil). Radene står i en annen rekkefølge enn trinnene."]
   });
   hv("H2018-6.1",
@@ -974,7 +974,7 @@
   P("H2018-7.3",
     [
       { del: "Advantage", tekst: "<p>Lett å bruke: brukeren har alltid med seg kjennetegnet og kan verken glemme eller miste det.</p>", poeng: ["Gyldig fordel (1p)"] },
-      { del: "Disadvantages/Problems/Challenges", tekst: "<p>1) Feilrater: legitime brukere kan bli avvist (høy FNMR). 2) Personvern: biometriske data kan avsløre helseopplysninger (f.eks. sykdom).</p>", poeng: ["Første ulempe (1p)", "Andre ulempe (1p)"] }
+      { del: "Disadvantages/Problems/Challenges", tekst: "<ol><li>Feilrater: legitime brukere kan bli avvist (høy FNMR).</li><li>Personvern: biometriske data kan avsløre helseopplysninger (f.eks. sykdom).</li></ol>", poeng: ["Første ulempe (1p)", "Andre ulempe (1p)"] }
     ],
     [
       { del: "Advantage", fasit: "<p>Easy to use, can not loose/forget authorization credentials, ...</p>", kriterier: "<p>Points: 1 for each correct answer, 0 for wrong answer, 0 for no answer, max 3 total score</p>" },
@@ -1074,7 +1074,7 @@
       ]
     },
     avvik: null,
-    losning: ["1) Bruker går til SP. 2) Sendes til IdP. 3) Logger inn hos IdP. 4) Sendes tilbake til SP med påstand. 5) Får tilgang."],
+    losning: ["Bruker går til SP.", "Sendes til IdP.", "Logger inn hos IdP.", "Sendes tilbake til SP med påstand.", "Får tilgang."],
     tips: ["Arket skriver «ressource» (skrivefeil).", "Brukeren logger aldri inn hos SP-en selv; passordet ses bare av IdP-en."]
   });
   hv("H2018-8.2",

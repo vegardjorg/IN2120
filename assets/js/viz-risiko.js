@@ -229,7 +229,7 @@
           chips.appendChild(el("button", { type: "button", class: "btn sm rk-chip" + (done ? " is-done" : ""), "aria-pressed": st.valgt === r.id ? "true" : "false",
             text: r.id + (done ? " ✓" : ""), title: r.navn, onclick: function () { st.valgt = r.id; paint(); } }));
         });
-        chips.appendChild(el("button", { type: "button", class: "btn sm ghost", text: "Nullstill", onclick: function () { st.plassert = {}; st.valgt = null; info.innerHTML = ""; paint(); } }));
+        chips.appendChild(el("button", { type: "button", class: "btn sm", text: "↺ Nullstill", onclick: function () { st.plassert = {}; st.valgt = null; info.innerHTML = ""; paint(); } }));
       }
       // SVG
       while (s.firstChild) s.removeChild(s.firstChild);
@@ -238,11 +238,13 @@
       mk.appendChild(svg("path", { d: "M0,0 L10,5 L0,10 z", class: "rk-arrowhead" }));
       defs.appendChild(mk); s.appendChild(defs);
       for (var sv = 0; sv < N; sv++) for (var k = 0; k < N; k++) {
-        var sum = sv + k, g = svg("g", { class: "rk-cell rk-" + sone(sum) + (st.feil === sv + ":" + k ? " rk-cell-feil" : ""), "data-s": sv, "data-k": k });
+        var sum = sv + k, g = svg("g", { class: "rk-cell rk-" + sone(sum) + (st.feil === sv + ":" + k ? " rk-cell-feil" : ""), "data-s": sv, "data-k": k,
+          tabindex: "0", role: "button", "aria-label": "Sannsynlighet " + sv + ", konsekvens " + k });
         g.appendChild(svg("rect", { x: cellX(k), y: cellY(sv), width: C, height: C }));
         g.appendChild(svg("text", { x: cellX(k) + 5, y: cellY(sv) + 13, class: "rk-sum" }, String(sum)));
         (function (sv2, k2) {
           g.addEventListener("click", function () { cellClick(sv2, k2); });
+          g.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); cellClick(sv2, k2); } });
         })(sv, k);
         s.appendChild(g);
       }
