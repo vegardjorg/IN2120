@@ -234,7 +234,7 @@
   hv("H2019-2.1",
     "<p>AES er en lås der samme nøkkel låser og låser opp. Du kan velge en kort eller lang nøkkel, og du kan låse et langt brev bit for bit på ulike måter.</p>",
     "<p>AES er et symmetrisk blokkchiffer: samme nøkkel brukes begge veier. Det krypterer 128 bit om gangen, men en modus (CBC, CTR o.l.) gjør at hele meldinger kan krypteres. Modusene har ulike egenskaper, og nøkkelen kan være 128, 192 eller 256 bit.</p>",
-    "<p>Blokkstørrelsen er fast på 128 bit; antall runder avhenger av nøkkelstørrelsen (10, 12 eller 14). Valg av modus avgjør sikkerheten for lengre meldinger: ECB gir samme chiffertekst for like klartekstblokker, CBC trenger en tilfeldig IV, og CTR gjør blokkchifferet om til et strømchiffer der bare E brukes, også ved dekryptering.</p>");
+    "<p>Blokkstørrelsen er fast på 128 bit; antall runder avhenger av nøkkelstørrelsen (10, 12 eller 14). Valg av modus avgjør sikkerheten for lengre meldinger:</p><ul><li>ECB gir samme chiffertekst for like klartekstblokker,</li><li>CBC trenger en tilfeldig IV,</li><li>og CTR gjør blokkchifferet om til et strømchiffer der bare E brukes, også ved dekryptering.</li></ul>");
 
   O.push({
     key: "H2019-2.2", year: Y, oppgave_nr: "Oppgave 2.2", del: D2,
@@ -579,7 +579,7 @@
   });
   hv("H2019-4.3",
     "<p>En portvakt som husker at du gikk ut for å hente pizza, slipper inn pizzabudet etterpå. En portvakt som åpner esker, må vite hva som skal være i hver type eske.</p>",
-    "<p>Et pakkefilter ser på adresser og porter (lag 3 og 4). Et tilstandsbasert pakkefilter husker forespørsler og kan derfor slippe inn bare svarene som hører til, f.eks. DNS-svar. En applikasjonsportner må forstå hver protokoll og håndterer derfor ikke alt. En brannmur filtrerer trafikk etter regler; den blokkerer ikke alt.</p>",
+    "<ul><li>Et pakkefilter ser på adresser og porter (lag 3 og 4).</li><li>Et tilstandsbasert pakkefilter husker forespørsler og kan derfor slippe inn bare svarene som hører til, f.eks. DNS-svar.</li><li>En applikasjonsportner må forstå hver protokoll og håndterer derfor ikke alt.</li><li>En brannmur filtrerer trafikk etter regler; den blokkerer ikke alt.</li></ul>",
     "<p>For UDP (som DNS) finnes ingen forbindelse i protokollen, så filteret lager en pseudoforbindelse fra adresser og porter i forespørselen og godtar bare svar som matcher innen en tidsfrist. Applikasjonsportnere (proxyer) tolker protokollen på lag 7 og kan inspisere innhold, men krever støtte per protokoll.</p>");
 
   O.push({
@@ -860,7 +860,7 @@
   hv("H2019-6.4",
     "<p>«Litt farlig, ganske farlig, veldig farlig» er lett å si, og du slår opp i en tabell hva du skal gjøre. Å si nøyaktig hvor mange kroner du taper i året er vanskeligere, men gir et presist tall.</p>",
     "<p>Kvalitative metoder bruker grove nivåer som er lette å anslå, og risikonivået finnes i en oppslagstabell (risikomatrise). Resultatet er relativt. Kvantitative metoder bruker tall og beregner risikoen, og gir absolutte verdier som et pengebeløp per år.</p>",
-    "<p>Kvantitative metoder ser presise ut, men inputverdiene (frekvens, eksponeringsfaktor) er ofte usikre anslag, så presisjonen kan være falsk. Kvalitative metoder er raske og lette å kommunisere, men et risikonivå som «høy» kan ikke sammenlignes direkte med hva et tiltak koster. (At 2026-kurset summerer sannsynlighets- og konsekvensnivå på logaritmisk skala, er en egen regel for å finne nivået, se tipset.)</p>");
+    "<ul><li>Kvantitative metoder ser presise ut, men inputverdiene (frekvens, eksponeringsfaktor) er ofte usikre anslag, så presisjonen kan være falsk.</li><li>Kvalitative metoder er raske og lette å kommunisere, men et risikonivå som «høy» kan ikke sammenlignes direkte med hva et tiltak koster.</li></ul><p>(At 2026-kurset summerer sannsynlighets- og konsekvensnivå på logaritmisk skala, er en egen regel for å finne nivået, se tipset.)</p>");
 
   O.push({
     key: "H2019-6.5", year: Y, oppgave_nr: "Oppgave 6.5", del: D6,
@@ -1217,7 +1217,7 @@
   hv("H2019-9.1",
     "<p>En låsesmed som eieren har bedt om å teste låsene, prøver alle dørene og skriver ned hva som må fikses. En innbruddstyv finner én åpen dør, går inn i det stille og tar det han vil ha.</p>",
     "<p>Forskjellen ligger i tillatelse, mål og framgangsmåte. Den etiske hackeren (pentesteren) har skriftlig avtale på forhånd, leter etter alle svakheter og rapporterer dem for å bedre sikkerheten. Den ulovlige hackeren har ingen tillatelse, tar enkleste vei inn og er ute etter vinning eller skade.</p>",
-    "<p>Juridisk er tillatelsen avgjørende: å skaffe seg tilgang til et datasystem ved å bryte en beskyttelse eller på annen uberettiget måte er straffbart etter straffeloven § 204 (bot eller fengsel inntil 2 år), også med god hensikt. Avtalen definerer omfang, tidsrom og metoder. Praktisk er pentesten bredere og kortere (dager til uker), mens en angriper kan bruke måneder på å være usynlig og etablere varig tilgang.</p>");
+    "<ul><li>Juridisk er tillatelsen avgjørende: å skaffe seg tilgang til et datasystem ved å bryte en beskyttelse eller på annen uberettiget måte er straffbart etter straffeloven § 204 (bot eller fengsel inntil 2 år), også med god hensikt.</li><li>Avtalen definerer omfang, tidsrom og metoder.</li><li>Praktisk er pentesten bredere og kortere (dager til uker), mens en angriper kan bruke måneder på å være usynlig og etablere varig tilgang.</li></ul>");
 
   O.push({
     key: "H2019-9.2", year: Y, oppgave_nr: "Oppgave 9.2", del: D9,
@@ -1402,7 +1402,7 @@
   hv("H2019-10.3",
     "<p>Å leie leilighet i en stor blokk gir vaktmester og reservestrøm, men du deler vegger med fremmede. Og hvis blokka står i et annet land, gjelder kanskje andre regler for tingene dine.</p>",
     "<p>Skyen kan gi høyere tilgjengelighet gjennom redundans, men flerleietakermiljøer gir også nye risikoer. Lagring i utenlandske datasentre kan bryte med personvernregler. Office 365 er programvare som tjeneste (SaaS), ikke infrastruktur (IaaS).</p>",
-    "<p>I IaaS leier kunden virtuelle maskiner og drifter alt fra operativsystemet og opp; i SaaS leverer leverandøren hele applikasjonen. Flerleietaker betyr delt maskinvare og programvare, så isolasjonen mellom kunder blir en kritisk kontroll. Overføring av personopplysninger ut av EU/EØS krever et gyldig overføringsgrunnlag.</p>");
+    "<ul><li>I IaaS leier kunden virtuelle maskiner og drifter alt fra operativsystemet og opp; i SaaS leverer leverandøren hele applikasjonen.</li><li>Flerleietaker betyr delt maskinvare og programvare, så isolasjonen mellom kunder blir en kritisk kontroll.</li><li>Overføring av personopplysninger ut av EU/EØS krever et gyldig overføringsgrunnlag.</li></ul>");
 
   O.push({
     key: "H2019-10.4", year: Y, oppgave_nr: "Oppgave 10.4", del: D10,

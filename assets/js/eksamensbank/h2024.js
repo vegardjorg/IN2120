@@ -149,7 +149,7 @@
             { s: "Hashkollisjoner i signaturer", svar: [0], explain: "<p>En kollisjon lar angriperen bytte ut et dokument med et annet som gir samme hash, slik at den gamle signaturen fortsatt ser gyldig ut. Det er brudd på integritet, ikke konfidensialitet.</p>" }
           ]
         },
-        avvik: "Ubesvart gir -0,5 (avvik fra hovedregelen i settet). «Passordspraying mot en enkelt brukerkonto» er en uvanlig bruk av ordet: spraying betyr vanligvis ett eller noen få vanlige passord mot mange kontoer (MITRE ATT&CK T1110.003); mange passord mot én konto kalles der Password Guessing (T1110.001). Samme ordbruk står i H2023 26. Fasiten (tilgjengelighet) handler om kontosperren, og den er riktig uansett navn på angrepet.",
+        avvik: ["Ubesvart gir -0,5 (avvik fra hovedregelen i settet).", "«Passordspraying mot en enkelt brukerkonto» er en uvanlig bruk av ordet: spraying betyr vanligvis ett eller noen få vanlige passord mot mange kontoer (MITRE ATT&CK T1110.003); mange passord mot én konto kalles der Password Guessing (T1110.001). Samme ordbruk står i H2023 26.", "Fasiten (tilgjengelighet) handler om kontosperren, og den er riktig uansett navn på angrepet."],
         losning: [
           "Spør hva som faktisk skjer med dataene eller tjenesten: lest (K), endret (I) eller utilgjengelig (T).",
           "To rader er feller: IPS-raden og spraying-raden handler om at et forsvarstiltak stenger ute en legitim bruker → T.",
@@ -282,7 +282,7 @@
             }
           ]
         },
-        avvik: "Del 3: fasiten er «Revokere sin offentlige nøkkel». Det er den private nøkkelen som er stjålet, men i en PKI tilbakekalles sertifikatet (bindingen mellom Bob og den offentlige nøkkelen), og dermed hele nøkkelparet. Begge formuleringer kan forsvares; arket godtar bare «offentlige». Del 1: å «kryptere» med en privat nøkkel er i praksis signering, og Bobs «dekryptering» med den offentlige nøkkelen er verifisering.",
+        avvik: ["Del 3: fasiten er «Revokere sin offentlige nøkkel». Det er den private nøkkelen som er stjålet, men i en PKI tilbakekalles sertifikatet (bindingen mellom Bob og den offentlige nøkkelen), og dermed hele nøkkelparet. Begge formuleringer kan forsvares; arket godtar bare «offentlige».", "Del 1: å «kryptere» med en privat nøkkel er i praksis signering, og Bobs «dekryptering» med den offentlige nøkkelen er verifisering."],
         losning: [
           "Nøklene i et par er hverandres motsatte: det ene låser, det andre åpner.",
           "Del 1: privat brukt → offentlig åpner. Del 2: offentlig brukt → privat åpner, og Alice har en kopi av Bobs private.",
@@ -576,7 +576,7 @@
               explain: "Trygge valg er RSA, DSA, ECDSA eller EdDSA, som alle er signaturalgoritmer. Lista godtar også DH og MQV, selv om de egentlig er nøkkelutveksling." }
           ]
         },
-        avvik: "Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Vårt råd er å svare RSA eller ECDSA. FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC. Lista forklares trolig av at kurset (d02, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon.",
+        avvik: ["Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Vårt råd er å svare RSA eller ECDSA.", "FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC.", "Lista forklares trolig av at kurset (d02, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon."],
         merknad: "«Fyll in» og mellomrommet før spørsmålstegnet står slik i arket.",
         losning: ["Felt 1: X.509.", "Felt 2: RSA (eller ECDSA/EdDSA/DSA)."],
         tips: ["Skriv bare én algoritme i felt 2. Feltet rettes automatisk mot lista."]
@@ -1270,7 +1270,7 @@
             { del: "F)", poeng: 1, sporsmal: "<p>Oppgave F: Navngi ett verktøy som kan brukes til å generere falske pakker (1 poeng).</p>", grense: "ett verktøy" }
           ]
         },
-        avvik: "Bobs MAC-adresse er oppgitt med fem bytes («34-24-d8-02-24»); en MAC-adresse har seks. Den avviker uansett fra adressen i ARP-tabellen, som er poenget. Ordet «MAC» brukes både om nettverksadresse og om meldingsautentiseringskode i samme oppgave, og arket kaller en MAC for «signatur». Charlies ARP-tabell inneholder hans egen adresse (10.0.0.155, static); en vanlig ARP-tabell viser ikke maskinens egen IP. Det kan tolkes som et tegn på at utskriften er manipulert, og støtter alternativet i sensorens D-del.",
+        avvik: ["Bobs MAC-adresse er oppgitt med fem bytes («34-24-d8-02-24»); en MAC-adresse har seks. Den avviker uansett fra adressen i ARP-tabellen, som er poenget.", "Ordet «MAC» brukes både om nettverksadresse og om meldingsautentiseringskode i samme oppgave, og arket kaller en MAC for «signatur».", "Charlies ARP-tabell inneholder hans egen adresse (10.0.0.155, static); en vanlig ARP-tabell viser ikke maskinens egen IP. Det kan tolkes som et tegn på at utskriften er manipulert, og støtter alternativet i sensorens D-del."],
         merknad: "Skrivefeilene «med en å legge med en MAC», «beskrive beskrive», «(2poeng)» og «Oppgave B;» står slik i arket.",
         losning: [
           "A: Felles nøkkel → alle fire kan lage MAC-en → ingen ubenektelighet.",
@@ -1335,7 +1335,7 @@
   P["H2024-10"] = { type: "eksamen", hvorfor: {
     eli5: "<p>iptables er dørvakten. IPsec er en hemmelig tunnel. Wireshark er et forstørrelsesglass for nettrafikk.</p>",
     normal: "<p>Linux-brannmur = iptables. VPN = IPsec. Wireshark = pakkeanalysator.</p>",
-    teknisk: "<p>iptables er grensesnittet til pakkefilteret i Linux-kjernen (kjeder INPUT, OUTPUT, FORWARD). IPsec gir kryptering og autentisering på IP-laget, for VPN typisk i tunnelmodus. Wireshark fanger pakker passivt og dekoder protokollene; den filtrerer bare det den viser, ikke trafikken.</p>" } };
+    teknisk: "<ul><li>iptables er grensesnittet til pakkefilteret i Linux-kjernen (kjeder INPUT, OUTPUT, FORWARD).</li><li>IPsec gir kryptering og autentisering på IP-laget, for VPN typisk i tunnelmodus.</li><li>Wireshark fanger pakker passivt og dekoder protokollene; den filtrerer bare det den viser, ikke trafikken.</li></ul>" } };
 
   P["H2024-11"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Hvert ekstra tegn ganger antall muligheter med antall tegn du kan velge. Fire ekstra tegn betyr å gange fire ganger.</p>",
@@ -1355,7 +1355,7 @@
   P["H2024-14"] = { type: "eksamen", hvorfor: {
     eli5: "<p>En ekte underskrift beviser hvem som skrev. Et gammelt skranglete lås (SHA-1) stoler man ikke på. Og å avtale et hemmelig ord med noen du ikke har sjekket hvem er, kan gjøre at du egentlig snakker med en mellommann.</p>",
     normal: "<p>Asymmetrisk signatur beviser avsender overfor tredjepart. SHA-1 er usikker. Diffie-Hellman uten signatur er sårbar for mann-i-midten.</p>",
-    teknisk: "<p>Bare eieren av K<sup>A</sup><sub>priv</sub> kan signere, så signaturen er ubenektelig. SHA-1 har praktiske kollisjoner, og dermed kan to dokumenter dele signatur. DH gir en felles nøkkel gᵃᵇ [mod p], men uten signaturene Sig(gᵃᵇ, K<sup>A</sup><sub>priv</sub>) og Sig(gᵃᵇ, K<sup>B</sup><sub>priv</sub>) vet ingen av partene hvem de har utvekslet med (kursets fremstilling, d02 s. 63; i praktiske protokoller som TLS 1.3 signeres de utvekslede verdiene eller hele håndtrykket, ikke selve gᵃᵇ).</p>" } };
+    teknisk: "<ul><li>Bare eieren av K<sup>A</sup><sub>priv</sub> kan signere, så signaturen er ubenektelig.</li><li>SHA-1 har praktiske kollisjoner, og dermed kan to dokumenter dele signatur.</li><li>DH gir en felles nøkkel gᵃᵇ [mod p], men uten signaturene Sig(gᵃᵇ, K<sup>A</sup><sub>priv</sub>) og Sig(gᵃᵇ, K<sup>B</sup><sub>priv</sub>) vet ingen av partene hvem de har utvekslet med (kursets fremstilling, d02 s. 63; i praktiske protokoller som TLS 1.3 signeres de utvekslede verdiene eller hele håndtrykket, ikke selve gᵃᵇ).</li></ul>" } };
 
   P["H2024-15"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Rektor (rot) gir læreren (mellomliggende) lov til å skrive vitnemål, og læreren skriver vitnemålet til eleven (inspera.no).</p>",
@@ -1375,7 +1375,7 @@
   P["H2024-18"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Et godt fingeravtrykk er raskt å ta, og to ulike personer skal aldri ha samme avtrykk.</p>",
     normal: "<p>Lett å beregne og sterk kollisjonsresistens er krav. Nøkler, salt og kryptering er ikke egenskaper ved en hashfunksjon.</p>",
-    teknisk: "<p>Kravene er: effektiv beregning, komprimering til fast lengde, enveis (preimage-motstand), svak kollisjonsresistens (gitt x, finn ikke x′ med samme hash) og sterk kollisjonsresistens (finn ikke noe par).</p>" } };
+    teknisk: "<p>Kravene er:</p><ul><li>effektiv beregning</li><li>komprimering til fast lengde</li><li>enveis (preimage-motstand)</li><li>svak kollisjonsresistens (gitt x, finn ikke x′ med samme hash)</li><li>sterk kollisjonsresistens (finn ikke noe par)</li></ul>" } };
 
   P["H2024-19"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Du låser brevet med mottakerens hengelås (som alle kan få), og skriver under med din egen penn (som bare du har).</p>",
@@ -1390,7 +1390,7 @@
   P["H2024-21"] = { type: "eksamen", hvorfor: {
     eli5: "<p>En orm kryper selv fra hus til hus. En bakdør er en hemmelig inngang. En trojaner er en gave med noe ekkelt inni. En logisk bombe er en vekkerklokke som eksploderer.</p>",
     normal: "<p>Morris = dataorm. Skjult passord = bakdør. Antivirus med skadevare = trojaner. Utløses på et tidspunkt = logisk bombe.</p>",
-    teknisk: "<p>Skillet går på spredning og utløsning: ormer sprer seg selv over nett, virus trenger vert og brukerhandling, trojanere sprer seg ikke selv, bakdører omgår autentisering, og logiske bomber har en utløsende betingelse.</p>" } };
+    teknisk: "<p>Skillet går på spredning og utløsning:</p><ul><li>ormer sprer seg selv over nett</li><li>virus trenger vert og brukerhandling</li><li>trojanere sprer seg ikke selv</li><li>bakdører omgår autentisering</li><li>logiske bomber har en utløsende betingelse</li></ul>" } };
 
   P["H2024-22"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Trojaneren gjemmer seg i en gave, kryptoboten stjeler strøm, «&amp;&amp;» lurer maskinen til å gjøre en ekstra ting, og rootkitet er en usynlighetskappe.</p>",
@@ -1426,7 +1426,7 @@
     teknisk: "<p>Mimikatz skaffer seg debug-privilegium og leser innloggingsdata fra LSASS-prosessens minne. Hashene kan brukes direkte (pass-the-hash) eller knekkes, og enkelte eldre moduler gir passord i klartekst.</p>" } };
 
   P["H2024-25"] = { type: "eksamen", hvorfor: {
-    eli5: "<p>Håndtrykket er der de avtaler hemmelig kode. Både TLS og IPsec er konvolutter. HSTS sier «bare låst dør». VPN-en er en tunnel naboene bare ser inngangen til. OWASP-lista er en topp-ti over farlige feil på nettsider.</p>",
+    eli5: "<ul><li>Håndtrykket er der de avtaler hemmelig kode.</li><li>Både TLS og IPsec er konvolutter.</li><li>HSTS sier «bare låst dør».</li><li>VPN-en er en tunnel naboene bare ser inngangen til.</li><li>OWASP-lista er en topp-ti over farlige feil på nettsider.</li></ul>",
     normal: "<p>Handshake etablerer nøkkelen. Både TLS og IPsec krypterer data. HSTS hindrer TLS-stripping. ISP-en ser bare at du bruker sky-VPN. OWASP Top 10 rangerer risikoene for nettapplikasjoner.</p>",
     teknisk: "<p>I TLS forhandler Handshake chifferserie og etablerer øktnøkkel (helst med DH for fremoverhemmelighold), mens Record krypterer og integritetsbeskytter dataene. I en sky-VPN er destinasjon og innhold innkapslet i tunnelen til VPN-tjeneren, så ISP-en ser bare den ytre IP-headeren.</p>" } };
 
@@ -1482,12 +1482,12 @@
   P["H2024-33"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Først spør sjefen: «Er kartet godt nok?» Så spør sjefen: «Er planen god nok, og har vi råd?»</p>",
     normal: "<p>Punkt 1 avviser en vurdering som ikke skiller risikoene eller er for usikker. Punkt 2 avviser en plan som aksepterer for mye risiko eller koster for mye.</p>",
-    teknisk: "<p>Beslutningspunkt 1 er en kvalitetskontroll av risikovurderingen (gir den grunnlag for å prioritere?). Beslutningspunkt 2 er ledelsens godkjenning av risikohåndteringen (restrisiko og ressursbruk). Nei sender prosessen tilbake til kontekstetablering. De to beslutningspunktene er kursets modell (ukesoppgave 6, oppg. 6, som viser til ISO 27005); de stammer fra eldre utgaver av ISO 27005 (2008–2018), og 2022-utgaven har ikke egne beslutningspunkt 1 og 2.</p>" } };
+    teknisk: "<ul><li>Beslutningspunkt 1 er en kvalitetskontroll av risikovurderingen (gir den grunnlag for å prioritere?).</li><li>Beslutningspunkt 2 er ledelsens godkjenning av risikohåndteringen (restrisiko og ressursbruk).</li><li>Nei sender prosessen tilbake til kontekstetablering.</li></ul><p>De to beslutningspunktene er kursets modell (ukesoppgave 6, oppg. 6, som viser til ISO 27005); de stammer fra eldre utgaver av ISO 27005 (2008–2018), og 2022-utgaven har ikke egne beslutningspunkt 1 og 2.</p>" } };
 
   P["H2024-34"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Først finner du ut hva som kan gå galt, så regner du ut hvor ille det er, så sorterer du og sammenligner med hva du tåler.</p>",
     normal: "<p>Risikoidentifisering (med verdi-identifisering først), risikoanalyse (med risikoberegning sist) og risikoevaluering (med risikorangering først).</p>",
-    teknisk: "<p>Figuren og delpunktene er kursets fremstilling, bygd på eldre utgaver av ISO 27005 (2008–2018); 2022-utgaven er bygd om og har ikke de samme beslutningspunktene. Strukturen: identifisering av verdier, trusler, tiltak, sårbarheter og konsekvenser; analyse av sannsynlighet og konsekvens som gir risikonivå; evaluering der risikoene rangeres og sammenlignes med akseptkriterier før beslutningspunkt 1.</p>" } };
+    teknisk: "<p>Figuren og delpunktene er kursets fremstilling, bygd på eldre utgaver av ISO 27005 (2008–2018); 2022-utgaven er bygd om og har ikke de samme beslutningspunktene. Strukturen:</p><ul><li>identifisering av verdier, trusler, tiltak, sårbarheter og konsekvenser</li><li>analyse av sannsynlighet og konsekvens som gir risikonivå</li><li>evaluering der risikoene rangeres og sammenlignes med akseptkriterier før beslutningspunkt 1</li></ul>" } };
 
   P["H2024-35"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Et ISMS er husreglene og rutinene for sikkerhet, ikke et dataprogram.</p>",

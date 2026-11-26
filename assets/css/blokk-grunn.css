@@ -79,6 +79,28 @@ a.badge { text-decoration: none; }
   border: 0; border-left: 2px solid var(--gr-line); border-radius: 0; }
 .gr-cell:hover, .gr-cell:focus-visible { border-left-color: var(--color-primary); }
 .gr-placed { font-weight: 600; color: var(--gr-ok); }
+/* Velgepanelet rett under valgt tiltak (domene × type) og kvitteringen der tiltaket sto */
+.gr-pool { align-items: flex-start; }
+.gr-pick { flex: 1 1 100%; margin: -.1rem 0 .3rem; padding: .5rem .6rem; border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md); background: var(--color-surface-container-low); display: flex; flex-direction: column; gap: .4rem; }
+.gr-pick-r { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
+.gr-pick-l { flex: 0 0 4.2rem; font-weight: 600; font-size: var(--text-sm); }
+@media (max-width: 480px) { .gr-pick-l { flex-basis: 100%; } }
+.gr-pick-b { display: inline-flex; flex-direction: column; align-items: flex-start; text-align: left; }
+.gr-pick-b .gr-sub { font-size: 11px; }
+.gr-pick-msg { margin: 0; font-size: var(--text-sm); }
+.gr-pick-msg:not(.muted) { color: var(--color-on-tone-danger); }
+.gr-kvitt { flex: 1 1 100%; margin: 0; padding: .35rem .6rem; font-size: var(--text-sm); border-left: 3px solid var(--gr-ok);
+  background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.gr-kvitt .gr-sub { color: inherit; opacity: .85; margin-top: .15rem; }
+.gr-kvitt:focus { outline: none; }
+.gr-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.gr-gridmsg:empty { display: none; }
+.gr-cell-feil { border-left-color: var(--gr-bad) !important; background: var(--color-tone-danger); animation: gr-blink .35s 2; }
+@keyframes gr-blink { 50% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .gr-cell-feil { animation: none; } }
+.gr-extra { margin: .1rem 0 0 .4rem; font-size: 12px; }
+.gr-extra > summary { cursor: pointer; color: var(--color-primary); font-weight: 600; }
 .gr-empty { color: var(--color-on-surface-variant); }
 /* Uttoningshint når rutenettet scroller vannrett (fade-r/fade-l settes i viz-grunn.js) */
 .gr-sveip { margin: 0; }
@@ -187,6 +209,8 @@ a.badge { text-decoration: none; }
 .gr-dorer > div { padding: .1rem 0 .1rem .7rem; border-left: 3px solid var(--color-primary); }
 .gr-dorer > div:last-child { border-left-color: var(--color-tertiary); }
 .gr-dorer p { margin: .2rem 0; }
+.gr-dorer ul, .gr-dorer ol { margin: .3rem 0; padding-left: 1.15rem; }
+.gr-dorer li { margin: .2rem 0; }
 
 /* Grenser mellom øvinger og grupper (fase 3, mild variant uten rammer): tynn toppstrek og mer luft over
    hver mellomtittel i panelene. */

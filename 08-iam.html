@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Identitets- og tilgangshåndtering i IN2120: IAM-fasene, silo og føderert identitet, OIDC, FEIDE og ID-porten, OAuth, og tilgangskontrollmodellene DAC, MAC (Bell-LaPadula), RBAC og ABAC – med sekvensdiagram, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126i">
 </head>
 <body data-page="iam">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -60,7 +60,11 @@
           <li><b>Digital identitet:</b> en identitet som datasystemer kan behandle.</li>
           <li><b>Autentikator:</b> det private eller hemmelige elementet (noe du vet, har eller er) som beviser at bruker-ID-en er din.</li>
           <li><b>PAP / PDP / PEP:</b> der policyen administreres, der beslutningen tas, og der den håndheves.</li>
-          <li><b>Registrering før autentisering:</b> «identitet» betyr opprinnelig «den samme som sist». Uten registrering finnes det ingen «sist». Registreringen bygger enten på en identitet du har fra før (for eksempel pass) eller gir en helt ny entitet identitet (en nyfødt).</li>
+          <li><b>Registrering før autentisering:</b> «identitet» betyr opprinnelig «den samme som sist». Uten registrering finnes det ingen «sist». Registreringen
+            <ul>
+              <li>bygger enten på en identitet du har fra før (for eksempel pass) eller</li>
+              <li>gir en helt ny entitet identitet (en nyfødt).</li>
+            </ul></li>
         </ul></div>
       <div id="ex-faser"></div>
 
@@ -68,7 +72,7 @@
       <div id="fx-entitet-identitet"></div>
 
       <h4>Hvilket trinn er det? Plasser handlingene</h4>
-      <p class="small muted">Seks trinn, tre i hver fase. Legg hver handling i trinnet den hører til. Trykk på en handling og så på et trinn, eller dra.</p>
+      <p class="small muted">Seks trinn, tre i hver fase. Legg hver handling i trinnet den hører til.</p>
       <div id="dra-iam-faser"></div>
 
       <h4>PAP, PDP og PEP i ett scenario</h4>
@@ -115,18 +119,27 @@
           <li><b>Identitetsdomene:</b> et navnerom med unike navn. En bruker har som regel én identitet per domene.</li>
           <li><b>Silomodell:</b> SP er også IdP. Hver tjeneste har sitt eget navnerom og autentiserer selv, så brukeren får én bruker-ID og én autentikator per tjeneste.</li>
           <li><b>Føderert modell:</b> SP og IdP er ulike aktører. IdP-en autentiserer brukeren og sender et digitalt signert ID-token (en sikkerhetsbillett) til SP-en. Mange SP-er kan godta samme IdP.</li>
-          <li><b>Aktørene:</b> brukeren (har bruker-ID og autentikator), SP, også kalt Relying Party (har et register over bruker-ID-er og en avtale med IdP-en), IdP (i e-forvaltning: eID-leverandør) og noen ganger en autentiseringsportal som ID-porten.</li>
+          <li><b>Aktørene:</b>
+            <ul>
+              <li>brukeren (har bruker-ID og autentikator),</li>
+              <li>SP, også kalt Relying Party (har et register over bruker-ID-er og en avtale med IdP-en),</li>
+              <li>IdP (i e-forvaltning: eID-leverandør) og</li>
+              <li>noen ganger en autentiseringsportal som ID-porten.</li>
+            </ul></li>
           <li><b>Fire kategorier</b> av føderering: navnerommet kan være sentralisert eller distribuert, og autentiseringen kan være sentralisert eller distribuert.</li>
         </ul></div>
       <div id="ex-modeller"></div>
 
       <h4>Silo og føderert side om side</h4>
+      <p class="small muted">Samme bruker og tre tjenester (nettbutikk, bibliotek, treningsapp). Bytt mellom Silo og Føderert for å se hvem som autentiserer, og hvor mange bruker-ID-er brukeren trenger.</p>
       <div id="viz-modeller"></div>
 
       <h4>Eksempel: Sindre og fem tjenester</h4>
-      <p><b>Silo:</b> fem brukernavn og fem passord. Nettbutikken lekker databasen, og fordi Sindre har gjenbrukt passordet, er alle fem kontoene i fare.
-        <b>Føderert:</b> fire av tjenestene har «Logg inn med Kontoleverandøren». Sindre har ett sterkt passord og en passnøkkel hos IdP-en, og nettbutikken lagrer ingen autentikator den kan lekke.
-        Baksiden: når IdP-en er nede, kommer han ikke inn på noen av de fire, og IdP-en ser hver gang han logger inn.</p>
+      <ul>
+        <li><b>Silo:</b> fem brukernavn og fem passord. Nettbutikken lekker databasen, og fordi Sindre har gjenbrukt passordet, er alle fem kontoene i fare.</li>
+        <li><b>Føderert:</b> fire av tjenestene har «Logg inn med Kontoleverandøren». Sindre har ett sterkt passord og en passnøkkel hos IdP-en, og nettbutikken lagrer ingen autentikator den kan lekke.</li>
+        <li>Baksiden: når IdP-en er nede, kommer han ikke inn på noen av de fire, og IdP-en ser hver gang han logger inn.</li>
+      </ul>
 
       <h4>Plasser ordningene: navnerom og autentisering</h4>
       <p class="small muted">Velg en ordning, og trykk på ruta der den hører hjemme. Forklaringen kommer når du treffer.</p>
@@ -152,7 +165,8 @@
           <li>H2021 7.1 (2 p): silo eller føderert for fire kjennetegn.</li>
           <li>H2022 9.1 (3 p): sentralisert eller distribuert identitet og autentisering for OIDC, ID-porten, internett-IdP-er, silo, FIDO og personnummer.</li>
           <li>H2022 9.2 (2 p): hvilke oppgaver SP og IdP har.</li>
-          <li>H2023 13 (1 p): Eduroam i Stockholm. H2023 34 (3 p): seks utsagn korrekt eller feil.</li>
+          <li>H2023 13 (1 p): Eduroam i Stockholm.</li>
+          <li>H2023 34 (3 p): seks utsagn korrekt eller feil.</li>
         </ul></div>
 
       <h4>Øv som på eksamen</h4>
@@ -177,7 +191,12 @@
           <li><b>SSO:</b> når klienten har fått ID-token fra en IdP, trenger den ikke autentisere seg på nytt hos andre SP-er som bruker samme IdP.</li>
           <li><b>FEIDE:</b> føderasjonen i utdanningssektoren. Brukeren er registrert hos hjemmeinstitusjonen (IdP-en) og logger inn via FEIDE. SP-en får billett og attributter, aldri passordet.</li>
           <li><b>ID-porten:</b> autentiseringsportal for offentlige tjenester. Brukeren velger eID-leverandør: BankID, Buypass og Commfides gir nivå HØYT, MinID gir BETYDELIG.</li>
-          <li><b>Europeisk eID (eIDAS):</b> en borger i land A logger på en tjeneste i land B via de to landenes eIDAS-portaler. EU krever en statlig IdP (IAM-lysarket s. 25). I Norge er bare MinID statlig, og den gir bare BETYDELIG. Forbehold: selve forordningen (eIDAS art. 7) godtar også eID som er utstedt på statens mandat eller anerkjent av staten. Lær lysarkets versjon til eksamen.</li>
+          <li><b>Europeisk eID (eIDAS):</b> en borger i land A logger på en tjeneste i land B via de to landenes eIDAS-portaler.
+            <ul>
+              <li>EU krever en statlig IdP (IAM-lysarket s. 25).</li>
+              <li>I Norge er bare MinID statlig, og den gir bare BETYDELIG.</li>
+              <li>Forbehold: selve forordningen (eIDAS art. 7) godtar også eID som er utstedt på statens mandat eller anerkjent av staten. Lær lysarkets versjon til eksamen.</li>
+            </ul></li>
         </ul></div>
       <div id="ex-oidc"></div>
 
@@ -203,8 +222,14 @@
       </ol>
 
       <h4>FEIDE og ID-porten i fem steg</h4>
-      <p>1 Brukeren ber SP-en om tjenesten. 2 SP-en ber brukeren velge hjemmeinstitusjon. 3 Brukeren logger inn i hjemmeinstitusjonens vindu. 4 Hjemmeinstitusjonen sender ID-token og attributter til SP-en. 5 SP-en sjekker billetten og attributtene og gir tjeneste etter sin policy.
-        ID-porten følger samme mønster, men brukeren velger eID-leverandør i ID-portens vindu.</p>
+      <ol>
+        <li>Brukeren ber SP-en om tjenesten.</li>
+        <li>SP-en ber brukeren velge hjemmeinstitusjon.</li>
+        <li>Brukeren logger inn i hjemmeinstitusjonens vindu.</li>
+        <li>Hjemmeinstitusjonen sender ID-token og attributter til SP-en.</li>
+        <li>SP-en sjekker billetten og attributtene og gir tjeneste etter sin policy.</li>
+      </ol>
+      <p>ID-porten følger samme mønster, men brukeren velger eID-leverandør i ID-portens vindu.</p>
       <p class="small muted fig-vis-led">ID-porten er IdP-en tjenesten har avtale med, og den står mellom tjenesten og eID-leverandørene. Tjenesten får ID-tokenet fra ID-porten, ikke fra BankID eller MinID.</p>
       <div id="fk-idporten"></div>
 
@@ -250,7 +275,13 @@
           <li><b>OAuth</b> (Open Authorization) er en IETF-standard for arkitekturer for <b>tilgangsautorisering og tilgangskontroll</b> når ressurseieren og ressurstjeneren er ulike aktører. OIDC bygger på OAuth.</li>
           <li><b>Tilgangstoken</b> (accesstoken, AC): beviset fra autoriseringstjeneren på at ressurseieren har godkjent forespørselen.</li>
           <li><b>Motivasjon:</b> internettbransjen trengte en felles standard for å dele brukerdata mellom tjenester som har samme kunde.</li>
-          <li><b>Rollene:</b> ressurseier (brukeren), klient (appen som vil ha tilgang), autoriseringstjener og IdP, ressurstjener (der dataene ligger).</li>
+          <li><b>Rollene:</b>
+            <ul>
+              <li>ressurseier (brukeren),</li>
+              <li>klient (appen som vil ha tilgang),</li>
+              <li>autoriseringstjener og IdP,</li>
+              <li>ressurstjener (der dataene ligger).</li>
+            </ul></li>
         </ul></div>
       <div id="ex-oauth"></div>
 
@@ -259,14 +290,25 @@
       <div id="sp-oauth"></div>
 
       <h4>Eksempel: Løpelogg og Klokkesky</h4>
-      <p>Treningsappen Løpelogg (klient) vil hente pulsdata fra Klokkesky (ressurstjener).
-        1 Aron trykker «Koble til Klokkesky» i Løpelogg. 2 Løpelogg ber Klokkeskys autoriseringstjener om lesetilgang til puls. 3 Aron får spørsmålet «Løpelogg vil lese pulsdata. Godta?»
-        4 Aron logger inn og godkjenner. 5 Løpelogg får et tilgangstoken (bare lesing, bare puls). 6 Løpelogg ber om pulsdata og viser tokenet. 7 Pulsdataene sendes.
-        Løpelogg kan ikke slette noe eller lese meldinger, og kjenner ikke Arons passord.</p>
+      <p>Treningsappen Løpelogg (klient) vil hente pulsdata fra Klokkesky (ressurstjener).</p>
+      <ol>
+        <li>Aron trykker «Koble til Klokkesky» i Løpelogg.</li>
+        <li>Løpelogg ber Klokkeskys autoriseringstjener om lesetilgang til puls.</li>
+        <li>Aron får spørsmålet «Løpelogg vil lese pulsdata. Godta?»</li>
+        <li>Aron logger inn og godkjenner.</li>
+        <li>Løpelogg får et tilgangstoken (bare lesing, bare puls).</li>
+        <li>Løpelogg ber om pulsdata og viser tokenet.</li>
+        <li>Pulsdataene sendes.</li>
+      </ol>
+      <p>Løpelogg kan ikke slette noe eller lese meldinger, og kjenner ikke Arons passord.</p>
 
       <div class="callout eksempel"><span class="lbl">OAuth i helsesektoren</span>
-        Én sentral autoriseringstjener kan erstatte parvise avtaler mellom sykehus. Med <b>generell policy</b> har sykehuset gitt policyen på forhånd, og legens forespørsel godkjennes automatisk (spørsmålet til ressurseieren i steg 3–4 faller bort).
-        Med <b>spesifikk policy</b> går hver forespørsel til ressurseieren for godkjenning. Tilgangstokenet følges av et ID-token for legen.</div>
+        Én sentral autoriseringstjener kan erstatte parvise avtaler mellom sykehus.
+        <ul>
+          <li>Med <b>generell policy</b> har sykehuset gitt policyen på forhånd, og legens forespørsel godkjennes automatisk (spørsmålet til ressurseieren i steg 3–4 faller bort).</li>
+          <li>Med <b>spesifikk policy</b> går hver forespørsel til ressurseieren for godkjenning.</li>
+        </ul>
+        Tilgangstokenet følges av et ID-token for legen.</div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Er OAuth for innlogging?</summary>
@@ -304,7 +346,13 @@
         <ul>
           <li><b>DAC</b> (navnebasert): policyen spesifiseres og håndheves ut fra subjektnavn og objektnavn, gjerne i en ACL. Eieren bestemmer etter eget skjønn. Brukes i Windows, macOS og Linux.</li>
           <li><b>MAC</b> (merkebasert): subjekter har <b>klarering</b>, objekter har <b>gradering</b>, og en obligatorisk policy sammenligner merkene. Brukeren kan ikke gi bort tilgang. Brukes i SELinux og militære systemer.</li>
-          <li><b>Bell-LaPadula</b> (en MAC-modell): <b>ikke les opp</b> (ss-egenskapen) og <b>ikke skriv ned</b> (∗-egenskapen). Brukeren har en maks klarering, men kan velge et lavere <b>aktuelt nivå for økten</b>. Modellen støtter <b>konfidensialitet</b>.</li>
+          <li><b>Bell-LaPadula</b> (en MAC-modell):
+            <ul>
+              <li><b>ikke les opp</b> (ss-egenskapen) og</li>
+              <li><b>ikke skriv ned</b> (∗-egenskapen).</li>
+              <li>Brukeren har en maks klarering, men kan velge et lavere <b>aktuelt nivå for økten</b>.</li>
+              <li>Modellen støtter <b>konfidensialitet</b>.</li>
+            </ul></li>
           <li><b>RBAC:</b> tilgang ut fra arbeidsrolle. Rollene lages fra jobbfunksjonene, og vanligvis har man én rolle om gangen. Det forenkler tildelingen, men gir fare for rolleeksplosjon. RBAC kan konfigureres som DAC eller MAC.</li>
           <li><b>ABAC:</b> policyer kombinert med attributter av alle slag: subjekt, objekt, kontekst og forespørsel. ABAC generaliserer DAC, MAC og RBAC. Policyene skrives i JSON (OAuth og OIDC) eller XACML (XML, SAML).</li>
         </ul></div>
@@ -314,7 +362,7 @@
       <div id="fx-rbac-dac"></div>
 
       <h4>Bell-LaPadula: lese, skrive eller redigere?</h4>
-      <p class="small muted">Graderingene fra lavest til høyest: BEGRENSET, KONFIDENSIELT, HEMMELIG, STRENGT HEMMELIG. Aktuelt nivå kan ikke settes over maks.</p>
+      <p class="small muted">Graderingene fra lavest til høyest: BEGRENSET, KONFIDENSIELT, HEMMELIG, STRENGT HEMMELIG. Aktuelt nivå kan ikke settes over maks. Eksempelknappene «Major Dahl» gjelder en bruker med maks klarering HEMMELIG (eksempelet under).</p>
       <div id="viz-blp"></div>
 
       <h4>Eksempel: Major Dahl</h4>
@@ -377,38 +425,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 8 · Identitets- og tilgangshåndtering · <a href="index.html">Til forsiden</a></footer>
 
-  <script src="assets/js/core.js?v=20261126h"></script>
-  <script src="assets/js/symboler.js?v=20261126h"></script>
-  <script src="assets/js/begreper-data.js?v=20261126h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126h"></script>
-  <script src="assets/js/pseudocode.js?v=20261126h"></script>
-  <script src="assets/js/stepplayer.js?v=20261126h"></script>
-  <script src="assets/js/varline.js?v=20261126h"></script>
-  <script src="assets/js/inspera.js?v=20261126h"></script>
-  <script src="assets/js/dra.js?v=20261126h"></script>
-  <script src="assets/js/ovelse.js?v=20261126h"></script>
-  <script src="assets/js/bank.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126h"></script>
-  <script src="assets/js/viz-iam.js?v=20261126h"></script>
+  <script src="assets/js/core.js?v=20261126i"></script>
+  <script src="assets/js/symboler.js?v=20261126i"></script>
+  <script src="assets/js/begreper-data.js?v=20261126i"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126i"></script>
+  <script src="assets/js/pseudocode.js?v=20261126i"></script>
+  <script src="assets/js/stepplayer.js?v=20261126i"></script>
+  <script src="assets/js/varline.js?v=20261126i"></script>
+  <script src="assets/js/inspera.js?v=20261126i"></script>
+  <script src="assets/js/dra.js?v=20261126i"></script>
+  <script src="assets/js/ovelse.js?v=20261126i"></script>
+  <script src="assets/js/bank.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126i"></script>
+  <script src="assets/js/viz-iam.js?v=20261126i"></script>
   <script>
   (function () {
     "use strict";
@@ -420,11 +468,11 @@
       "ex-faser": {
         eli5: "<p>Tenk på et treningssenter. Første gang skriver du deg inn i kundelista (registrering), får et kort med kode (klargjøring), og resepsjonen noterer at du har betalt for styrkerommet, ikke svømmehallen (autorisering).</p><p>Senere kommer du bare, drar kortet og taster koden (autentisering), og døra slipper deg inn i styrkerommet, men ikke i bassenget (tilgangskontroll).</p>",
         normal: "<p>IAM har en forberedende del og en daglig del. I konfigureringsfasen blir brukeren kjent for systemet, får autentikatorene sine, og eieren av ressursen bestemmer hva brukeren skal få gjøre.</p><p>I bruksfasen sier brukeren hvem han er (bruker-ID), beviser det (autentikator), og systemet sjekker hver forespørsel mot det som ble bestemt. Autorisering skjer altså <i>før</i>, tilgangskontroll skjer <i>nå</i>.</p>",
-        teknisk: "<p>I scenarioet med PAP, PDP og PEP er meldingene 1–3 konfigurering: registrering og klargjøring mellom brukeren og IdP-en (eller ressurseieren), og autorisering fra ressurseieren inn i PAP. Meldingene 4–8 er bruk: bruker-ID og autentikator til IdP-en, forespørsel med ressursnavn og tilgangsmodus til PEP, PEP spør PDP, som henter policyen fra PAP, PDP gir beslutningen tilbake, og PEP gir tilgang.</p><p>Skillet betyr noe fordi ISO 27000 definerer K, I og T med ordet «autorisert». Betydde «autorisering» at systemet slipper deg inn, ville definisjonene bli sirkulære.</p>"
+        teknisk: "<p>I scenarioet med PAP, PDP og PEP er meldingene 1–3 konfigurering: registrering og klargjøring mellom brukeren og IdP-en (eller ressurseieren), og autorisering fra ressurseieren inn i PAP. Meldingene 4–8 er bruk:</p><ul><li>bruker-ID og autentikator til IdP-en,</li><li>forespørsel med ressursnavn og tilgangsmodus til PEP,</li><li>PEP spør PDP, som henter policyen fra PAP,</li><li>PDP gir beslutningen tilbake, og</li><li>PEP gir tilgang.</li></ul><p>Skillet betyr noe fordi ISO 27000 definerer K, I og T med ordet «autorisert». Betydde «autorisering» at systemet slipper deg inn, ville definisjonene bli sirkulære.</p>"
       },
       "ex-modeller": {
         eli5: "<p>Silo er som at hver butikk har sitt eget kundekort med egen PIN. Du ender med en lommebok full av kort.</p><p>Føderert er som at alle butikkene godtar bankkortet ditt: banken sjekker at det er deg, og butikken stoler på banken.</p>",
-        normal: "<p>Silo er enkelt og billig å starte, og godt for personvernet, siden tjenestene ikke deler data. Men brukeren får identitetsoverlast (mange passord), og nye tjenester møter lav aksept.</p><p>Føderering gir bedre brukervennlighet og lar SP-en konsentrere seg om tjenesten, mens IdP-en tar seg av autentiseringen. Prisen er teknisk og juridisk kompleksitet, krav om tillit mellom aktørene, svakere personvern (IdP-en ser bruksmønsteret) og avhengighet av noen få IdP-er.</p>",
+        normal: "<p>Silo er enkelt og billig å starte, og godt for personvernet, siden tjenestene ikke deler data. Men brukeren får identitetsoverlast (mange passord), og nye tjenester møter lav aksept.</p><p>Føderering gir bedre brukervennlighet og lar SP-en konsentrere seg om tjenesten, mens IdP-en tar seg av autentiseringen. Prisen er</p><ul><li>teknisk og juridisk kompleksitet,</li><li>krav om tillit mellom aktørene,</li><li>svakere personvern (IdP-en ser bruksmønsteret) og</li><li>avhengighet av noen få IdP-er.</li></ul>",
         teknisk: "<p>«Sentralisert navnerom» betyr at én aktør forvalter identifikatorene (fødselsnummer, helse-ID). «Distribuert autentisering» betyr at flere aktører kan autentisere samme bruker (BankID, Buypass, Commfides, MinID).</p><p>I FEIDE og Eduroam har hver institusjon sitt navnerom (distribuert), men en bruker kan bare autentiseres av hjemmeinstitusjonen, så autentiseringen er sentralisert. Et føderert domene kan selv bli en ny silo mot andre sektorer. IdP-avhengigheten ble tydelig da Facebook var nede i seks timer i oktober 2021: millioner kom ikke inn på tjenester med «logg inn med Facebook».</p>"
       },
       "ex-oidc": {
@@ -440,7 +488,7 @@
       "ex-tk": {
         eli5: "<p>DAC er som at du selv skriver gjestelista til bursdagen din. MAC er som et skilt i en militærleir: «bare for de med rødt kort», og det bestemmer ikke du.</p><p>RBAC er som at alle som jobber på kjøkkenet, får nøkkel til kjølerommet, uansett hvem de er. ABAC er en klok dørvakt som ser på hvem du er, hva du vil inn til, og hva klokka er.</p>",
         normal: "<p>I DAC står navnene i en tabell (ACL). I MAC er det merkene som avgjør, og brukeren kan ikke gi bort tilgang. RBAC legger roller mellom brukere og ressurser, fordi ansatte kommer og går mens rollene er mer stabile.</p><p>ABAC er det mest generelle: en policymotor tar inn attributter og svarer ja eller nei.</p>",
-        teknisk: "<p>Med aktuelt nivå L(økt) og objektgradering L(o) krever Bell-LaPadula at <b>lesing</b> har L(o) ≤ L(økt) (ikke les opp) og <b>skriving</b> har L(o) ≥ L(økt) (ikke skriv ned). Redigering, som er både lesing og skriving, krever derfor L(o) = L(økt).</p><p>ABAC-flyten: forespørselen med ressursnavn og tilgangsmodus går til autoriserings- og AC-tjeneren, policyene hentes, og så hentes subjektattributter (klarering, avdeling, rolle, lokasjon, autentiseringsnivå), objektattributter (type, eier, gradering, samtykke) og kontekstattributter (tidspunkt, risikonivå, beredskapsnivå) før beslutningen tas. DAC i ABAC: identitet som subjekt- og objektattributt, policy = ACL. MAC i ABAC: klarering og gradering som attributter, policy = Bell-LaPadula.</p>"
+        teknisk: "<p>Med aktuelt nivå L(økt) og objektgradering L(o) krever Bell-LaPadula at <b>lesing</b> har L(o) ≤ L(økt) (ikke les opp) og <b>skriving</b> har L(o) ≥ L(økt) (ikke skriv ned). Redigering, som er både lesing og skriving, krever derfor L(o) = L(økt).</p><p>ABAC-flyten: forespørselen med ressursnavn og tilgangsmodus går til autoriserings- og AC-tjeneren, policyene hentes, og så hentes</p><ul><li>subjektattributter (klarering, avdeling, rolle, lokasjon, autentiseringsnivå),</li><li>objektattributter (type, eier, gradering, samtykke) og</li><li>kontekstattributter (tidspunkt, risikonivå, beredskapsnivå)</li></ul><p>før beslutningen tas.</p><ul><li>DAC i ABAC: identitet som subjekt- og objektattributt, policy = ACL.</li><li>MAC i ABAC: klarering og gradering som attributter, policy = Bell-LaPadula.</li></ul>"
       }
     };
     Object.keys(EX).forEach(function (id) {

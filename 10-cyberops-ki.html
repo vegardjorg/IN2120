@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126i">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -96,7 +96,7 @@
         <p class="cy-forbehold"><span class="lbl">Forbehold</span>Kryptert DNS (DoH og DoT) finnes, men er ukjent i kildene. Kurset sier bare at DNS-oppslag går ukryptert.</p>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: aktørnivå og sporing</h4>
       <p class="cy-q">Hvilket aktørnivå passer best?</p>
       <div id="ov-cyber-1"></div>
       <p class="cy-q">Hvem ser hva når Grågås bruker VPN?</p>
@@ -130,6 +130,7 @@
         </ul></div>
       <div id="ex-killchain"></div>
 
+      <h4>De sju trinnene, med ATT&amp;CK-taktikk</h4>
       <div class="table-wrap"><table class="cy-tab">
         <thead><tr><th>#</th><th>Norsk</th><th>Engelsk</th><th>Hva skjer</th><th>ATT&amp;CK-taktikk i ukesoppgaven</th></tr></thead>
         <tbody>
@@ -145,7 +146,8 @@
       <p class="small muted fig-vis-led">Taktikk, teknikk og prosedyre er tre nivåer: ett delmål kan nås på mange måter, og hver måte kan gjennomføres ulikt av hver gruppe.</p>
       <div id="fk-ttp-hierarki"></div>
 
-      <h4>Plasser hendelsene og knert angrepet</h4>
+      <h4 class="ov-h">Plasser hendelsene og knert angrepet</h4>
+      <p class="case-ctx" data-case="fjordnett">Målet for APT-en «Grågås», som vil ha anbudsdokumentene Ingrid Solberg jobber med.</p>
       <p class="small muted">«Sjekk plasseringen» regner ut poeng med den justerte skåringen fra eksamen. «Knert her» viser hvor mye av angrepet som aldri skjer.</p>
       <div id="viz-killchain"></div>
 
@@ -176,10 +178,16 @@
           <li><b>«Kill» betyr ikke at angriperen skader offeret.</b> Det betyr at forsvareren kan stoppe angrepet på hvert trinn (H2021 10.2).</li>
           <li><b>ATT&amp;CK er ikke en katalog over forsvarstiltak.</b> Den beskriver angriperens taktikker og teknikker. Distraktorene på eksamen handler om forsvar.</li>
         </ul>
-        <p class="cy-forbehold"><span class="lbl">Forbehold om ukesoppgaven</span>Løsningsforslaget til ukesoppgaven om Cyber Kill Chain mapper et case med en falsk innloggingsside og skadevare som selv leter etter et anbud til «overlevering og utførelse» og «kommando og kontroll». Begge er tvilsomme. Det utføres ingen exploit når en falsk side stjeler passord, så «utførelse» er en romslig tolkning. Og kommando og kontroll forutsetter at skadevaren tar kontakt med angriperen og fjernstyres. Skadevare som leter på egen hånd, kan like gjerne regnes som aksjon. At integriteten er brutt, og kanskje konfidensialiteten, står seg.</p>
+        <div class="cy-forbehold"><span class="lbl">Forbehold om ukesoppgaven</span>
+          <p>Løsningsforslaget til ukesoppgaven om Cyber Kill Chain mapper et case med en falsk innloggingsside og skadevare som selv leter etter et anbud til «overlevering og utførelse» og «kommando og kontroll». Begge er tvilsomme.</p>
+          <ul>
+            <li>Det utføres ingen exploit når en falsk side stjeler passord, så «utførelse» er en romslig tolkning.</li>
+            <li>Og kommando og kontroll forutsetter at skadevaren tar kontakt med angriperen og fjernstyres. Skadevare som leter på egen hånd, kan like gjerne regnes som aksjon.</li>
+          </ul>
+          <p>At integriteten er brutt, og kanskje konfidensialiteten, står seg.</p></div>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: trinn i Cyber Kill Chain</h4>
       <p class="cy-q">Hvilket trinn i Cyber Kill Chain er hendelsen?</p>
       <div id="ov-cyber-3"></div>
       <p class="cy-q">Velg riktig ord.</p>
@@ -224,7 +232,8 @@
         </ul></div>
       <div id="ex-cti"></div>
 
-      <h4>Pyramiden, DML-trappa og levetiden</h4>
+      <h4 class="ov-h">Pyramiden, DML-trappa og levetiden</h4>
+      <p class="case-ctx" data-case="fjordnett">Kortene er det firmaet deler etter at APT-en «Grågås» har stjålet anbudsdokumenter via makroregneark og VPS-er.</p>
       <p class="small muted">Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så kortene på riktig nivå.</p>
       <div id="viz-cti"></div>
 
@@ -251,10 +260,17 @@
           <li><b>«PST har etterretning i utlandet»</b> er feil. Det er Etterretningstjenesten. PST har intern nasjonal sikkerhet.</li>
           <li><b>«NCSC er en egen etat ved siden av NSM»</b> er feil. NCSC er en del av NSM.</li>
         </ul>
-        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Lysarkene skriver ikke ut forkortelsene DML, TLP og EOS. Fra nettkilder: DML = Detection Maturity Level (Stillions, 2014), TLP = Traffic Light Protocol (FIRST), EOS = etterretnings-, overvåkings- og sikkerhetstjenestene (EOS-kontrolloven). KI-lysarket viser et varsel merket «TLP:CLEAR» med IP-adresser, domener og hasher, altså teknisk CTI, men forklarer ikke merket.</p>
+        <div class="cy-forbehold"><span class="lbl">Forbehold</span>
+          <p>Lysarkene skriver ikke ut forkortelsene DML, TLP og EOS. Fra nettkilder:</p>
+          <ul>
+            <li>DML = Detection Maturity Level (Stillions, 2014),</li>
+            <li>TLP = Traffic Light Protocol (FIRST),</li>
+            <li>EOS = etterretnings-, overvåkings- og sikkerhetstjenestene (EOS-kontrolloven).</li>
+          </ul>
+          <p>KI-lysarket viser et varsel merket «TLP:CLEAR» med IP-adresser, domener og hasher, altså teknisk CTI, men forklarer ikke merket.</p></div>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: CTI-nivå og hvem som gjør hva i Norge</h4>
       <p class="cy-q">Hvilket CTI-nivå hører informasjonen til?</p>
       <div id="ov-cyber-5"></div>
       <p class="cy-q">Hvem gjør hva i Norge?</p>
@@ -288,10 +304,20 @@
               <li><b>angrep/sabotasje</b> (ofte begrenset effekt fordi skaden kan rettes, virker best sammen med militære operasjoner) og</li>
               <li><b>forsvar</b>.</li>
             </ul></li>
-          <li><b>Cybervåpen:</b> verktøy og metoder for å angripe i en cyberoperasjon. De ødelegges ikke ved bruk, så offeret kan analysere og gjenbruke dem. De blir verdiløse når sårbarheten de bygger på, blir rettet. De er vanskelige å se, kan stjeles og kan kjøpes og selges.</li>
+          <li><b>Cybervåpen:</b> verktøy og metoder for å angripe i en cyberoperasjon.
+            <ul>
+              <li>De ødelegges ikke ved bruk, så offeret kan analysere og gjenbruke dem.</li>
+              <li>De blir verdiløse når sårbarheten de bygger på, blir rettet.</li>
+              <li>De er vanskelige å se, kan stjeles og kan kjøpes og selges.</li>
+            </ul></li>
           <li><b>Cyberavskrekking:</b> en stat truer med å gjengjelde cyberangrep, så motparten lar være. Svakheten er attribusjonen: man må vite hvem man skal svare. Avskrekking virker mest mot sabotasje og mindre mot spionasje.</li>
           <li><b>Paris Call</b> (2018) for tillit og sikkerhet i cyberrommet fikk støtte fra små land, men stormaktene var imot. De har stor nytte av cyberoperasjoner og mener overholdelse knapt kan kontrolleres.</li>
-          <li><b>Virkelige hendelser</b> fra ukesoppgaven: angrepet på Stortinget i 2020 (kontoer tatt over med stjålne eller svake passord, knyttet av PST til Fancy Bear) og Microsoft Exchange-sårbarheten i 2021 (nulldag utnyttet i stor skala). <b>Stuxnet</b> ødela sentrifuger i det iranske atomprogrammet.</li>
+          <li><b>Virkelige hendelser</b> fra ukesoppgaven:
+            <ul>
+              <li>angrepet på Stortinget i 2020 (kontoer tatt over med stjålne eller svake passord, knyttet av PST til Fancy Bear) og</li>
+              <li>Microsoft Exchange-sårbarheten i 2021 (nulldag utnyttet i stor skala).</li>
+            </ul>
+            <b>Stuxnet</b> ødela sentrifuger i det iranske atomprogrammet.</li>
         </ul></div>
       <div id="ex-operasjoner"></div>
 
@@ -322,7 +348,7 @@
         </ul>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: type operasjon og cybervåpen</h4>
       <p class="cy-q">Hvilken type operasjon er det?</p>
       <div id="ov-cyber-7"></div>
       <p class="cy-q">Hvilke påstander om cybervåpen stemmer?</p>
@@ -330,7 +356,11 @@
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2024-37">H2024 37</a> (2p, flere riktige): «Land A har et begrenset budsjett for å drifte sin militære cyberavdeling.» (ordrett, kilde: IN2120 eksamen H2024, oppgave 37). Del 1: finansier deg med løsepengevirus og salg av nulldagssårbarheter. Del 2: bruk exploit-arsenalet i innledende fase av militærangrepet og i ukene og månedene før.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-37">H2024 37</a> (2p, flere riktige): «Land A har et begrenset budsjett for å drifte sin militære cyberavdeling.» (ordrett, kilde: IN2120 eksamen H2024, oppgave 37).
+            <ul>
+              <li>Del 1: finansier deg med løsepengevirus og salg av nulldagssårbarheter.</li>
+              <li>Del 2: bruk exploit-arsenalet i innledende fase av militærangrepet og i ukene og månedene før.</li>
+            </ul></li>
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-15">H2025 15</a> (1p, tekst): skadevaren som ødela sentrifuger i det iranske atomprogrammet, er <b>Stuxnet</b>. Stavevarianter godtas.</li>
           <li>Ingen oppgave i H2021–H2025 spør om avskrekking, informasjonsoperasjoner eller Paris Call. Ukesoppgaven har dem som fritekst, så de kan komme som korte tekstsvar.</li>
         </ul>
@@ -378,6 +408,7 @@
       <div id="viz-ringer"></div>
 
       <h4>Eksempel: én netflow-post hos Fjordnett</h4>
+      <p class="case-ctx" data-case="fjordnett"></p>
       <p>Varighet 2,1 s, 48 000 bytes sendt ut, TCP, port 443, klokka 03:12.</p>
       <ul>
         <li><b>Klassifisering:</b> normal 31 %, DoS 3 %, eksfiltrering 66 %. Høyeste klasse er eksfiltrering, så det går et varsel.</li>
@@ -403,7 +434,7 @@
         <p class="cy-forbehold"><span class="lbl">Forbehold</span>Lysarket viser at KI kan brukes i hendelsesrespons med en SIEM, men har ingen tekst om hvordan. Hvordan kryptografisk autentisering av video gjøres i praksis, er også ukjent i kildene. Idéen er at kameraet eller avsenderen signerer opptaket med en privat nøkkel, som i blokk 2.</p>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: offensiv KI, defensiv KI eller angrep mot KI</h4>
       <p class="cy-q">Er det offensiv KI, defensiv KI eller et angrep mot KI?</p>
       <div id="ov-cyber-9"></div>
       <p class="cy-q">Velg riktig ord.</p>
@@ -438,6 +469,7 @@
         </ul></div>
       <div id="ex-kisarbar"></div>
 
+      <h4>De fire risikonivåene i AI Act</h4>
       <div class="table-wrap"><table class="cy-tab">
         <thead><tr><th>Nivå</th><th>Krav</th><th>Eksempler på lysarket</th></tr></thead>
         <tbody>
@@ -446,9 +478,15 @@
           <tr><td>Begrenset risiko</td><td>Transparens</td><td>Chatteboter, biometrisk kategorisering, emosjonsgjenkjenning, deepfakes</td></tr>
           <tr><td>Minimal risiko</td><td>Etiske retningslinjer</td><td>Spill, datainnsamling, prosessautomatisering, oversettelse, beslutningsstøtte</td></tr>
         </tbody></table></div>
-      <p class="cy-forbehold"><span class="lbl">Forbehold om AI Act</span>Lysarket knytter nivåene til artikkel 5, 6, 52 og 69. Numrene 52 og 69 ser ut til å komme fra kommisjonens forslag fra 2021. I den vedtatte forordningen (EU) 2024/1689 er transparens artikkel 50 og frivillige atferdsregler artikkel 95. I den vedtatte teksten er dessuten noen former for emosjonsgjenkjenning (på arbeidsplass og i skole) og biometrisk kategorisering etter sensitive kjennetegn forbudt, mens andre former er høy risiko. Dette er ukjent i kildene og bygger på generell kunnskap. For eksamen: følg lysarkets pyramide og nivånavn, og ikke legg vekt på artikkelnumrene.</p>
+      <div class="cy-forbehold"><span class="lbl">Forbehold om AI Act</span>
+        <ul>
+          <li>Lysarket knytter nivåene til artikkel 5, 6, 52 og 69. Numrene 52 og 69 ser ut til å komme fra kommisjonens forslag fra 2021. I den vedtatte forordningen (EU) 2024/1689 er transparens artikkel 50 og frivillige atferdsregler artikkel 95.</li>
+          <li>I den vedtatte teksten er dessuten noen former for emosjonsgjenkjenning (på arbeidsplass og i skole) og biometrisk kategorisering etter sensitive kjennetegn forbudt, mens andre former er høy risiko.</li>
+        </ul>
+        <p>Dette er ukjent i kildene og bygger på generell kunnskap. For eksamen: følg lysarkets pyramide og nivånavn, og ikke legg vekt på artikkelnumrene.</p></div>
 
       <h4>Eksempel: e-postassistenten «Fjordhjelp»</h4>
+      <p class="case-ctx" data-case="fjordnett">Samme firma som ble rammet av APT-en «Grågås». Ingrid Solberg jobber med anbudene.</p>
       <p>Fjordnett tar i bruk Fjordhjelp, som kan lese nettsider, åpne filer og sende e-post.</p>
       <div class="table-wrap"><table class="cy-tab">
         <thead><tr><th>Hendelse</th><th>Angrep</th><th>Fase eller sted</th><th>KIT</th></tr></thead>
@@ -482,10 +520,22 @@
           <li><b>«Synsbedrag krever synlig endring»</b> er feil. Støyen er så liten at mennesker ikke ser den.</li>
           <li><b>Chatteboter er begrenset risiko</b>, ikke høy. <b>Sosial skåring er forbudt</b>, ikke høy risiko. <b>HR-systemer er høy risiko</b>, ikke minimal.</li>
         </ul>
-        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Lysarket plasserer synsbedrag etter datasiden. Siden angrepet skjer på input ved inferens, plasserer øvingene det der. Det er vår tolkning. Siden om angrep på selve modellen er skjult i PDF-en, så hva den dekket, er ukjent i kildene. Tiltak som minste privilegium for agentens verktøy, bekreftelse fra et menneske før data sendes ut, å behandle eksternt innhold som upålitelig og kontroll med hvor modeller og datasett kommer fra, er generell kunnskap og ukjent i kildene.</p>
+        <div class="cy-forbehold"><span class="lbl">Forbehold</span>
+          <ul>
+            <li>Lysarket plasserer synsbedrag etter datasiden. Siden angrepet skjer på input ved inferens, plasserer øvingene det der. Det er vår tolkning.</li>
+            <li>Siden om angrep på selve modellen er skjult i PDF-en, så hva den dekket, er ukjent i kildene.</li>
+            <li>Tiltak som
+              <ul>
+                <li>minste privilegium for agentens verktøy,</li>
+                <li>bekreftelse fra et menneske før data sendes ut,</li>
+                <li>å behandle eksternt innhold som upålitelig og</li>
+                <li>kontroll med hvor modeller og datasett kommer fra,</li>
+              </ul>
+              er generell kunnskap og ukjent i kildene.</li>
+          </ul></div>
       </div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: risikonivå og hvor angrepet treffer</h4>
       <p class="cy-q">Hvilket risikonivå har KI-systemet etter lysarkets pyramide?</p>
       <div id="ov-cyber-11"></div>
       <p class="cy-q">Hvor i KI-kjeden treffer angrepet?</p>
@@ -494,7 +544,12 @@
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
           <li><b>Ingen tidligere eksamen.</b> Sannsynlige oppgavetyper er en AI Act-matrise (øving 1), angrep koblet til fase (øving 2) og forskjellen på jailbreak og prompt injection som kort tekst.</li>
-          <li>Kryssreferanser: leveransekjedeangrep i H2021 2.3 (angrepsblokka) og ukesoppgaven om cyberoperasjoner, injeksjon som SQL-injeksjon i blokk 4, og forgiftning som integritetsbrudd i KIT-matrisene i blokk 1.</li>
+          <li>Kryssreferanser:
+            <ul>
+              <li>leveransekjedeangrep i H2021 2.3 (angrepsblokka) og ukesoppgaven om cyberoperasjoner,</li>
+              <li>injeksjon som SQL-injeksjon i blokk 4, og</li>
+              <li>forgiftning som integritetsbrudd i KIT-matrisene i blokk 1.</li>
+            </ul></li>
         </ul></div>
 
       <h4>Test deg selv</h4>
@@ -512,36 +567,43 @@
 
   <footer class="footer">IN2120-guide · Blokk 10 · Cyberops og KI · <a href="eksamen.html">Neste: øv på et helt sett</a></footer>
 
-  <script src="assets/js/core.js?v=20261126h"></script>
-  <script src="assets/js/symboler.js?v=20261126h"></script>
-  <script src="assets/js/begreper-data.js?v=20261126h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126h"></script>
-  <script src="assets/js/pseudocode.js?v=20261126h"></script>
-  <script src="assets/js/stepplayer.js?v=20261126h"></script>
-  <script src="assets/js/varline.js?v=20261126h"></script>
-  <script src="assets/js/inspera.js?v=20261126h"></script>
-  <script src="assets/js/dra.js?v=20261126h"></script>
-  <script src="assets/js/bank.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126h"></script>
-  <script src="assets/js/viz-cyber.js?v=20261126h"></script>
+  <script>
+    /* Gjennomgående case på denne siden (vises med <p class="case-ctx" data-case="…"> der caset brukes) */
+    window.IN_CASER = {
+      fjordnett: { navn: "Fjordnett AS", fane: "aktorer", fanenavn: "Trusselaktører og sporing",
+        kort: "Firmaet i eksemplene på denne siden. Det rammes av tre aktører: amatøren «Pixelulv», en løsepengegruppe og APT-en «Grågås», som stjeler anbudsdokumenter i 14 måneder via en kjede av VPS-er." }
+    };
+  </script>
+  <script src="assets/js/core.js?v=20261126i"></script>
+  <script src="assets/js/symboler.js?v=20261126i"></script>
+  <script src="assets/js/begreper-data.js?v=20261126i"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126i"></script>
+  <script src="assets/js/pseudocode.js?v=20261126i"></script>
+  <script src="assets/js/stepplayer.js?v=20261126i"></script>
+  <script src="assets/js/varline.js?v=20261126i"></script>
+  <script src="assets/js/inspera.js?v=20261126i"></script>
+  <script src="assets/js/dra.js?v=20261126i"></script>
+  <script src="assets/js/bank.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126i"></script>
+  <script src="assets/js/viz-cyber.js?v=20261126i"></script>
   <script>
   (function () {
     "use strict";
@@ -552,8 +614,8 @@
     var EX = {
       "ex-aktorer": {
         eli5: "<p>Tenk på tre slags innbruddstyver. Den første er en tenåring som klatrer over gjerdet for å skryte av det. Den andre er en bande som stjeler for penger. Den tredje er sendt av et annet land, har uendelig med penger og kan vente i et år før den slår til.</p><p>Politiet finner tyven ved å se på spor: fotavtrykk ved huset (endepunktet) og bilder fra kameraer langs veien (midtpunktet). En lur tyv kjører flere leiebiler etter hverandre, så sporet hjem blir vanskelig å følge.</p>",
-        normal: "<p>Kurset deler trusselaktører i tre nivåer, og det som skiller dem, er motivasjon, ressurser og teknisk evne. Amatøren jobber alene og gjør feil. Den cyberkriminelle vil tjene penger og jobber i gruppe. APT-en er statlig, tålmodig og har mest ressurser, og den er derfor vanskeligst å stoppe og å avsløre.</p><p>Attribusjon handler om å samle spor fra endepunkt og nettverk. Aktører gjemmer seg bak VPN og kjeder av leide tjenere, men gjør ofte små feil, for eksempel ved å koble seg til rett fra hjemmeruteren.</p>",
-        teknisk: "<p>Attribusjon bygger på mange svake spor som til sammen peker mot én aktør: nettverksspor (IP-adresser, DNS-oppslag, TLS-fingeravtrykk), spor på vertsmaskinen (logger, konfigurasjon, selve skadevaren) og over tid TTP-ene, som aktøren har vanskelig for å endre.</p><p>Fingeravtrykk virker fordi kryptering bare skjuler <i>innholdet</i>. Metadata som Client Hello og ukrypterte DNS-oppslag er fortsatt synlige. VPN og VPS flytter tilliten, men fjerner den ikke: VPN-tilbyderen ser alt, og en VPS-leverandør kan ha logger, så et beslag hos tilbyderen kan gi gjennombrudd. Grensene mellom nivåene er flytende: kriminelle kan få hjelp fra stater, og en stat kan finansiere seg med kriminalitet.</p>"
+        normal: "<p>Kurset deler trusselaktører i tre nivåer, og det som skiller dem, er motivasjon, ressurser og teknisk evne.</p><ul><li>Amatøren jobber alene og gjør feil.</li><li>Den cyberkriminelle vil tjene penger og jobber i gruppe.</li><li>APT-en er statlig, tålmodig og har mest ressurser, og den er derfor vanskeligst å stoppe og å avsløre.</li></ul><p>Attribusjon handler om å samle spor fra endepunkt og nettverk. Aktører gjemmer seg bak VPN og kjeder av leide tjenere, men gjør ofte små feil, for eksempel ved å koble seg til rett fra hjemmeruteren.</p>",
+        teknisk: "<p>Attribusjon bygger på mange svake spor som til sammen peker mot én aktør:</p><ul><li>nettverksspor (IP-adresser, DNS-oppslag, TLS-fingeravtrykk),</li><li>spor på vertsmaskinen (logger, konfigurasjon, selve skadevaren) og</li><li>over tid TTP-ene, som aktøren har vanskelig for å endre.</li></ul><p>Fingeravtrykk virker fordi kryptering bare skjuler <i>innholdet</i>. Metadata som Client Hello og ukrypterte DNS-oppslag er fortsatt synlige. VPN og VPS flytter tilliten, men fjerner den ikke: VPN-tilbyderen ser alt, og en VPS-leverandør kan ha logger, så et beslag hos tilbyderen kan gi gjennombrudd. Grensene mellom nivåene er flytende: kriminelle kan få hjelp fra stater, og en stat kan finansiere seg med kriminalitet.</p>"
       },
       "ex-killchain": {
         eli5: "<p>Et innbrudd har sju trinn: speide på huset, lage et dirkesett, gå bort til døra, dirke opp låsen, gjemme en ekstra nøkkel, ringe kompisen ute for å få beskjed, og til slutt ta med sølvtøyet. Stopper du tyven på ett av trinnene, blir det ikke noe innbrudd. Jo tidligere, jo mindre skade.</p>",
@@ -562,7 +624,7 @@
       },
       "ex-cti": {
         eli5: "<p>Tenk deg at alle butikkene i en by deler bilder av tyver med hverandre. Bildet av ansiktet er nyttig lenge, for ansiktet er vanskelig å bytte. Bilnummeret er nyttig bare en dag eller to, for tyven bytter bil. Byens politi samler alt og sier fra når en ny bande dukker opp.</p>",
-        normal: "<p>CTI er kunnskap om angripere som gjør at du kan forsvare deg bedre. Strategisk CTI er til ledelsen: hvem er ute etter oss, og hvorfor? Taktisk CTI er til forsvarere og analytikere: hvordan jobber de? Her ligger TTP og MITRE ATT&amp;CK. Teknisk CTI er til maskinene: konkrete IP-adresser og hasher som brannmurer og IDS kan blokkere.</p><p>Jo lenger ned, jo mer detaljert og jo kortere levetid. Deling gjør at ett offers erfaring kan beskytte mange. I Norge samler NSM, NCSC, PST og E-tjenesten trådene.</p>",
+        normal: "<p>CTI er kunnskap om angripere som gjør at du kan forsvare deg bedre.</p><ul><li>Strategisk CTI er til ledelsen: hvem er ute etter oss, og hvorfor?</li><li>Taktisk CTI er til forsvarere og analytikere: hvordan jobber de? Her ligger TTP og MITRE ATT&amp;CK.</li><li>Teknisk CTI er til maskinene: konkrete IP-adresser og hasher som brannmurer og IDS kan blokkere.</li></ul><p>Jo lenger ned, jo mer detaljert og jo kortere levetid. Deling gjør at ett offers erfaring kan beskytte mange. I Norge samler NSM, NCSC, PST og E-tjenesten trådene.</p>",
         teknisk: "<p>Teknisk CTI er lett å dele automatisk, for den er strukturert og entydig, men angriperen kan bytte den nesten uten kostnad. TTP-er er dyrere for angriperen å endre og derfor mer verdt for forsvareren, men de er vanskeligere å beskrive formelt. Derfor trengs språk som STIX, som må være verken for strenge eller for vage.</p><p>DML-trappa på KI-lysarket viser det samme som pyramiden. Den som bare ser isolerte indikatorer, henger etter. Den som kjenner taktikkene, kan oppdage nye angrep fra samme aktør selv om alle IP-ene er nye. Attribusjon er øverst og bygger på alt under.</p>"
       },
       "ex-operasjoner": {

@@ -155,7 +155,7 @@
      ========================================================= */
   var JN = ["Ja", "Nei"], BEGGE = ["Ja", "Nei"];
   var KIT_RADER = [
-    { s: "Angriper tar opp trafikken mellom foreldreappen og tjeneren", f: ["Ja", "Nei", "Nei"],
+    { s: "Angriper tar opp trafikken mellom barnehagens foreldreapp og tjeneren", f: ["Ja", "Nei", "Nei"],
       x: { "0": "Trafikken er ukryptert, så angriperen leser passord og meldinger i klartekst. Bare lesing: K." } },
     { s: "Løsepengevirus krypterer alle filene på filserveren", f: ["Nei", BEGGE, "Ja"],
       x: { "0": "Krypteringen gir ingen andre lesetilgang. Lekker angriperen dataene i tillegg (dobbel utpressing), kommer K inn, men det står ikke i raden.",
@@ -202,7 +202,7 @@
       opphav: { type: "egen", variantAv: ["H2024-3", "H2025-2"], kilder: ["d01a s. 20"] },
       sporsmal: {
         eli5: "<p>Velg det målet angrepet ødelegger. K: noen leser det de ikke skal. I: noe blir endret eller falskt. T: noe kan ikke brukes. Ingen: ingenting av dette skjer. Bryterne under endrer hvordan avlyttingen i første rad skjer.</p>",
-        normal: "<p>Velg ett mål per rad, slik som på eksamen. Poengregel som i H2024 3 (−0,5 for feil eller blankt); andre år har hatt andre regler. Spør hva angriperen <i>oppnår</i>: lese (K), endre eller forfalske (I) eller stenge ute (T). Velg «Ingen» hvis ingen av dem brytes. Eksamen H22–H25 har bare K, I og T; H2021 1.1 hadde også «ingen». «Ingen» er med her for å øve på avlyttingsbryterne. Bryterne endrer forutsetningen for avlyttingen i første rad.</p>",
+        normal: "<p>Velg ett mål per rad, slik som på eksamen. Spør hva angriperen <i>oppnår</i>: lese (K), endre eller forfalske (I) eller stenge ute (T). Velg «Ingen» hvis ingen av dem brytes.</p><ul><li>Poengregel som i H2024 3 (−0,5 for feil eller blankt); andre år har hatt andre regler.</li><li>Eksamen H22–H25 har bare K, I og T; H2021 1.1 hadde også «ingen». «Ingen» er med her for å øve på avlyttingsbryterne.</li><li>Bryterne endrer forutsetningen for avlyttingen i første rad.</li></ul>",
         teknisk: "<p>Velg målet som brytes direkte. Eksamensmatrisen har ett riktig mål per rad («Ingen» bare i H2021 1.1), så følgebrudd som angrepet <i>kan</i> føre til senere, teller ikke. Bryterne viser at avlytting er K bare når innholdet faktisk leses (H2021 1.1).</p>"
       },
       rader: KIT_RADER.map(function (r) { return r.s; }),
@@ -247,17 +247,31 @@
     { s: "IDS og logganalyse", t: 1, d: 3 },
     { s: "Gjenoppretting fra sikkerhetskopi", t: 2, d: 3 }
   ];
+  /* Mobilvennlig (eierens ønske 2026-11-26): tiltakene står i tilfeldig rekkefølge. Trykk på et tiltak, så åpnes
+     et lite velgepanel rett under det: domene (4) og type (3). Svaret og hintet vises i panelet, og et riktig
+     plassert tiltak etterlater en kort kvittering der det sto. Rutenettet under fylles som oversikt; å trykke
+     rett i ei rute virker fortsatt (feil rute blinker rødt, med melding rett over rutenettet).
+     Tilleggsforklaringen (extra) står i rutenettet som «Hvorfor?» (lukket på smal skjerm, åpen på PC). */
   function tiltak(host) {
     host = H(host); if (!host) return;
     var root = el("div", { class: "gr-viz gr-tiltak" });
-    var nist = false, valgt = null, plass = {}, feil = 0;
+    var nist = false, valgt = null, plass = {}, feil = 0, dSel = null, tSel = null, panelMsg = null, sist = null, feilRute = null, order = [];
+    var START = "Trykk på et tiltak, og velg så domene og type i panelet som åpnes. Du kan også trykke rett i ei rute i rutenettet.";
+    function stokk() {
+      order = TILTAK.map(function (t, n) { return n; });
+      for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = order[i]; order[i] = order[j]; order[j] = x; }
+    }
     var bN = btn("Vis NIST CSF", function () { nist = !nist; press(bN, nist); paint(); }); press(bN, false);
-    var bR = btn("↺ Nullstill", function () { valgt = null; plass = {}; feil = 0; msg.textContent = "Velg et tiltak, og klikk så på ruta det hører hjemme i."; paint(); });
-    var msg = el("p", { class: "gr-note", "aria-live": "polite", text: "Velg et tiltak, og klikk så på ruta det hører hjemme i." });
+    var bR = btn("↺ Nullstill", function () { valgt = null; plass = {}; feil = 0; dSel = tSel = panelMsg = sist = null; stokk(); gridMsg.textContent = ""; paint(); });
+    var msg = el("p", { class: "gr-note", text: START });
+    var live = el("p", { class: "gr-live", "aria-live": "polite" });
     var pool = el("div", { class: "gr-row gr-pool", role: "group", "aria-label": "Tiltak" });
+    var gridMsg = el("p", { class: "gr-note gr-gridmsg", "aria-live": "polite" });
     var gridHost = el("div", { class: "table-wrap gr-gridwrap" });
     var sveip = el("p", { class: "gr-note gr-sveip", hidden: true, text: "Rutenettet er bredere enn skjermen. Sveip sideveis for å se alle tre typene." });
-    root.appendChild(el("div", { class: "gr-row" }, [bN, bR])); root.appendChild(msg); root.appendChild(pool); root.appendChild(sveip); root.appendChild(gridHost);
+    root.appendChild(el("div", { class: "gr-row" }, [bN, bR])); root.appendChild(msg); root.appendChild(live); root.appendChild(pool);
+    root.appendChild(gridMsg); root.appendChild(sveip); root.appendChild(gridHost);
+    function smal() { return !!(window.matchMedia && window.matchMedia("(max-width: 700px)").matches); }
     /* Uttoningshint på den siden der rutenettet har mer innhold (som menyen i styles.css) */
     function fade() {
       var over = gridHost.scrollWidth > gridHost.clientWidth + 1;
@@ -269,14 +283,68 @@
     window.addEventListener("resize", fade);
     if (window.ResizeObserver) new ResizeObserver(fade).observe(gridHost); /* også når fanen blir synlig */
 
-    function paint() {
+    function hintFor(t, d) {
+      return t.d !== d ? "Domenet stemmer ikke. Er det en regel (organisatorisk), noe rettet mot folk (personell), noe i den fysiske verden eller noe i IT-systemet?" :
+        "Typen stemmer ikke. Virker tiltaket før hendelsen (forebyggende), under eller like etter (oppdagende), eller etterpå (korrigerende)?";
+    }
+    function riktigTekst(t, d, k) { return "«" + t.s + "» er " + TYPER[k].toLowerCase() + " og " + DOMENER[d].toLowerCase() + "."; }
+    /* Prøv å plassere valgt tiltak i (domene d, type k). Returnerer true ved riktig. */
+    function proev(d, k) {
+      var n = valgt, t = TILTAK[n];
+      if (t.d === d && t.t === k) {
+        plass[n] = true;
+        sist = { n: n, html: "<b>Riktig:</b> " + riktigTekst(t, d, k) + (t.extra ? ' <span class="gr-sub">' + t.extra + "</span>" : "") };
+        live.textContent = "Riktig: " + riktigTekst(t, d, k);
+        valgt = null; dSel = tSel = panelMsg = null;
+        return true;
+      }
+      feil++;
+      panelMsg = "Ikke der. " + hintFor(t, d);
+      live.textContent = panelMsg;
+      return false;
+    }
+    function velg(n) {
+      valgt = valgt === n ? null : n; dSel = tSel = panelMsg = null; sist = null;
+      paint(valgt != null);
+    }
+    function panel() {
+      var p = el("div", { class: "gr-pick", role: "group", "aria-label": "Plasser «" + TILTAK[valgt].s + "»" });
+      function rad(navn, liste, cur, sub, on) {
+        var r = el("div", { class: "gr-pick-r" }, [el("span", { class: "gr-pick-l", text: navn })]);
+        liste.forEach(function (x, i) {
+          var b = el("button", { type: "button", class: "btn sm gr-pick-b", onclick: function () { on(i); } },
+            [el("span", { text: x })].concat(sub ? [el("span", { class: "gr-sub", text: sub[i] })] : []));
+          press(b, cur === i); r.appendChild(b);
+        });
+        return r;
+      }
+      p.appendChild(rad("Domene", DOMENER, dSel, null, function (i) { dSel = i; vurder(); }));
+      p.appendChild(rad("Type", TYPER, tSel, nist ? NIST : null, function (i) { tSel = i; vurder(); }));
+      p.appendChild(panelMsg ? el("p", { class: "gr-pick-msg", text: panelMsg }) : el("p", { class: "gr-pick-msg muted", text: "Velg både domene og type." }));
+      return p;
+    }
+    function vurder() {
+      if (dSel != null && tSel != null) { proev(dSel, tSel); if (valgt != null) dSel = tSel = null; }
+      else panelMsg = null;
+      paint(true);
+    }
+    function paint(fokus) {
       clear(pool);
-      TILTAK.forEach(function (t, n) {
-        if (plass[n]) return;
-        var b = btn(t.s, function () { valgt = valgt === n ? null : n; paint(); }, "gr-word");
+      order.forEach(function (n) {
+        var t = TILTAK[n];
+        if (plass[n]) {
+          if (sist && sist.n === n) pool.appendChild(el("p", { class: "gr-kvitt", tabindex: "-1", html: sist.html }));
+          return;
+        }
+        var b = btn(t.s, function () { velg(n); }, "gr-word");
         press(b, valgt === n); pool.appendChild(b);
+        if (valgt === n) pool.appendChild(panel());
       });
       if (Object.keys(plass).length === TILTAK.length) pool.appendChild(el("p", { class: "gr-note", html: "<b>Alle plassert</b> med " + feil + " feilplassering" + (feil === 1 ? "" : "er") + " underveis." }));
+      if (fokus) {
+        var f = pool.querySelector(".gr-pick .btn[aria-pressed=false]") || pool.querySelector(".gr-kvitt");
+        if (f) f.focus({ preventScroll: true });
+      }
       clear(gridHost);
       var tab = el("table", { class: "gr-grid" });
       var hr = el("tr", {}, [el("th", { text: "" })]);
@@ -288,11 +356,18 @@
         TYPER.forEach(function (ty, k) {
           var inne = TILTAK.map(function (t, n) { return { t: t, n: n }; }).filter(function (x) { return plass[x.n] && x.t.t === k && x.t.d === d; });
           var cell = el("td");
-          var b = el("button", { type: "button", class: "gr-cell", "aria-label": dm + ", " + ty.toLowerCase(),
-            onclick: function () { drop(d, k, b); } });
-          inne.forEach(function (x) { b.appendChild(el("span", { class: "gr-placed", text: x.t.s })); if (x.t.extra) b.appendChild(el("span", { class: "gr-sub", text: x.t.extra })); });
+          var b = el("button", { type: "button", class: "gr-cell" + (feilRute === d + "," + k ? " gr-cell-feil" : ""), "aria-label": dm + ", " + ty.toLowerCase(),
+            onclick: function () { drop(d, k); } });
+          inne.forEach(function (x) { b.appendChild(el("span", { class: "gr-placed", text: x.t.s })); });
           if (!inne.length) b.appendChild(el("span", { class: "gr-empty", text: "…" }));
-          cell.appendChild(b); tr.appendChild(cell);
+          cell.appendChild(b);
+          inne.forEach(function (x) {
+            if (!x.t.extra) return;
+            var det = el("details", { class: "gr-extra" }, [el("summary", { text: "Hvorfor?" }), el("span", { class: "gr-sub", text: x.t.extra })]);
+            if (!smal()) det.open = true;
+            cell.appendChild(det);
+          });
+          tr.appendChild(cell);
         });
         tb.appendChild(tr);
       });
@@ -300,17 +375,17 @@
       fade();
     }
     function drop(d, k) {
-      if (valgt == null) { msg.textContent = "Velg et tiltak først."; return; }
+      if (valgt == null) { gridMsg.textContent = "Velg et tiltak først (over rutenettet)."; return; }
       var t = TILTAK[valgt];
-      if (t.d === d && t.t === k) { plass[valgt] = true; msg.textContent = "Riktig: «" + t.s + "» er " + TYPER[k].toLowerCase() + " og " + DOMENER[d].toLowerCase() + "."; valgt = null; }
+      if (proev(d, k)) { gridMsg.textContent = "Riktig: " + riktigTekst(t, d, k); feilRute = null; }
       else {
-        feil++;
-        var hint = t.d !== d ? "Domenet stemmer ikke. Er det en regel (organisatorisk), noe rettet mot folk (personell), noe i den fysiske verden eller noe i IT-systemet?" :
-          "Typen stemmer ikke. Virker tiltaket før hendelsen (forebyggende), under eller like etter (oppdagende), eller etterpå (korrigerende)?";
-        msg.textContent = "Ikke der. " + hint;
+        gridMsg.textContent = panelMsg;
+        feilRute = d + "," + k;
+        setTimeout(function () { feilRute = null; var c = gridHost.querySelector(".gr-cell-feil"); if (c) c.classList.remove("gr-cell-feil"); }, 1400);
       }
       paint();
     }
+    stokk();
     paint();
     clear(host); host.appendChild(root);
     fade();

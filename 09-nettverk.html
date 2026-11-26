@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126i">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -80,8 +80,15 @@
 
       <h4>Eksempel: én forespørsel ned gjennom stakken</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
-        Lise åpner <span class="mono">https://bibliotek.example/lån</span>. Nettleseren lager en HTTP-forespørsel, TLS Record krypterer den, TCP legger på målport 443, IP legger på kilde 192.168.1.40 og mål 203.0.113.80, og linklaget legger på rammehodet.
-        En ruter underveis ser bare IP-hodet og det som ligger utenfor krypteringen.</div>
+        <p>Lise åpner <span class="mono">https://bibliotek.example/lån</span>.</p>
+        <ul>
+          <li>Nettleseren lager en HTTP-forespørsel,</li>
+          <li>TLS Record krypterer den,</li>
+          <li>TCP legger på målport 443,</li>
+          <li>IP legger på kilde 192.168.1.40 og mål 203.0.113.80,</li>
+          <li>og linklaget legger på rammehodet.</li>
+        </ul>
+        <p>En ruter underveis ser bare IP-hodet og det som ligger utenfor krypteringen.</p></div>
       <p class="small muted">Spilleren stiller spørsmål underveis. Slå av «Gjett før hvert steg» hvis du bare vil se.</p>
       <div id="sp-innkapsling"></div>
 
@@ -100,7 +107,13 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Lagene i stakken (H2021 5.1, H2024 28), sikkerhetsprotokoll per lag (H2021 5.2, H2023 10), protokoll til lag med QUIC (H2022 7.1, H2025 22), standardporter (H2024 26) og kryptert eller ukryptert (H2025 23).</div>
+        <ul>
+          <li>Lagene i stakken (H2021 5.1, H2024 28)</li>
+          <li>Sikkerhetsprotokoll per lag (H2021 5.2, H2023 10)</li>
+          <li>Protokoll til lag med QUIC (H2022 7.1, H2025 22)</li>
+          <li>Standardporter (H2024 26)</li>
+          <li>Kryptert eller ukryptert (H2025 23)</li>
+        </ul></div>
 
       <h4>Øv i Inspera-format: protokoll til lag</h4>
       <div id="ov-nett-1"></div>
@@ -132,7 +145,7 @@
       <h4>Etterspill: noen stjeler tjenerens privatnøkkel</h4>
       <div id="viz-tyveri"></div>
 
-      <h4>Eksempel med små tall</h4>
+      <h4>Eksempel med små tall: Diffie-Hellman i håndtrykket</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         <p>p = 23 og g = 5. Klienten velger a = 6 og sender gᵃ = 5⁶ mod 23 = 8. Tjeneren velger b = 15 og sender gᵇ = 5¹⁵ mod 23 = 19.</p>
         <p>Klienten regner 19⁶ mod 23 = 2, og tjeneren regner 8¹⁵ mod 23 = 2. Felles hemmelighet: 2.</p>
@@ -152,9 +165,14 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Fremoverhemmelighold som fritekst (H2021 5.3, 4 p), at Handshake etablerer øktnøkkelen (første nedtrekk i H2023 30 og H2024 25), fremoverhemmelighold igjen i H2025 12 og H2023 17 (c). Diffie-Hellman selv hører til <a href="02-krypto.html">blokk 2</a>.</div>
+        <ul>
+          <li>Fremoverhemmelighold som fritekst (H2021 5.3, 4 p)</li>
+          <li>At Handshake etablerer øktnøkkelen (første nedtrekk i H2023 30 og H2024 25)</li>
+          <li>Fremoverhemmelighold igjen i H2025 12 og H2023 17 (c)</li>
+        </ul>
+        <p>Diffie-Hellman selv hører til <a href="02-krypto.html">blokk 2</a>.</p></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4>Øv i Inspera-format: TLS 1.3-håndtrykket</h4>
       <div id="ov-nett-3"></div>
 
       <h4>Test deg selv</h4>
@@ -179,11 +197,13 @@
       <p class="small muted">Velg variant. A: stripping uten HSTS (eller første besøk uten preload). B: HSTS er husket. C: TLS-inspeksjon på jobben.</p>
       <div id="sp-hsts"></div>
 
-      <h4>Eksempel</h4>
+      <h4>Eksempel: Nora på kafé, med og uten HSTS</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
-        Nora på kafé taster <span class="mono">nettbank.example</span>. Kafé-ruteren er kompromittert av Rune.
-        <b>Uten HSTS</b> henter Rune <span class="mono">https://nettbank.example/login</span> selv, sender Nora en http-kopi, og Nora sender brukernavn og passord ukryptert til Rune.
-        <b>Med HSTS</b> fra et tidligere besøk går nettleseren rett til https. Rune kan ikke vise et gyldig sertifikat for nettbank.example, og økten blir blokkert.</div>
+        <p>Nora på kafé taster <span class="mono">nettbank.example</span>. Kafé-ruteren er kompromittert av Rune.</p>
+        <ul>
+          <li><b>Uten HSTS</b> henter Rune <span class="mono">https://nettbank.example/login</span> selv, sender Nora en http-kopi, og Nora sender brukernavn og passord ukryptert til Rune.</li>
+          <li><b>Med HSTS</b> fra et tidligere besøk går nettleseren rett til https. Rune kan ikke vise et gyldig sertifikat for nettbank.example, og økten blir blokkert.</li>
+        </ul></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor er HSTS, og ikke TLS eller IPsec, svaret på hva som beskytter mot stripping?</summary>
@@ -197,9 +217,14 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Hva som beskytter mot stripping (H2024 9: HSTS), «HSTS beskytter mot …» i nedtrekk (H2023 30, H2024 25), TLS-inspeksjon leser HTTPS ved å bryte krypteringen (H2023 11) og HSTS + «ikke første gang» i scenariet H2025 37 (se fanen «Hvem ser hva?»).</div>
+        <ul>
+          <li>Hva som beskytter mot stripping (H2024 9: HSTS)</li>
+          <li>«HSTS beskytter mot …» i nedtrekk (H2023 30, H2024 25)</li>
+          <li>TLS-inspeksjon leser HTTPS ved å bryte krypteringen (H2023 11)</li>
+          <li>HSTS + «ikke første gang» i scenariet H2025 37 (se fanen «Hvem ser hva?»)</li>
+        </ul></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4>Øv i Inspera-format: HSTS og TLS-inspeksjon</h4>
       <div id="ov-nett-4"></div>
 
       <h4>Test deg selv</h4>
@@ -262,7 +287,14 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Typer brannmur (H2021 5.4), filtrere pakker og bare pakker i eksisterende TCP-økt (H2022 7.3), brannmur som sjekkpunkt (H2023 11), iptables som Linux-brannmur og Wireshark som pakkeanalysator (H2024 10), skriv en iptables-regel fra web til database på port 1433 (H2023 32), og evaluer seks regler mot åtte rader (H2025 24).</div>
+        <ul>
+          <li>Typer brannmur (H2021 5.4)</li>
+          <li>Filtrere pakker og bare pakker i eksisterende TCP-økt (H2022 7.3)</li>
+          <li>Brannmur som sjekkpunkt (H2023 11)</li>
+          <li>iptables som Linux-brannmur og Wireshark som pakkeanalysator (H2024 10)</li>
+          <li>Skriv en iptables-regel fra web til database på port 1433 (H2023 32)</li>
+          <li>Evaluer seks regler mot åtte rader (H2025 24)</li>
+        </ul></div>
 
       <h4>Øv i Inspera-format: slipper reglene gjennom?</h4>
       <p class="small muted">Alt er trafikk gjennom brannmuren.</p>
@@ -318,8 +350,11 @@ iptables -A FORWARD -d 10.2.2.8 -j DROP</pre>
 <pre class="mono">alert tcp any any -&gt; 192.168.40.7 23 (msg:"Telnet mot 192.168.40.7"; sid:1000101; rev:1;)
 alert tcp 192.168.40.12 any -&gt; any 3389 (msg:"Utgående RDP fra 192.168.40.12"; sid:1000102; rev:1;)
 alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; rev:1;)</pre>
-        Den første varsler om all TCP-trafikk til port 23 på 192.168.40.7, fra hvem som helst. Den andre varsler når 192.168.40.12 starter RDP mot hvilken som helst maskin.
-        <span class="mono">$HOME_NET</span> er en variabel for eget nett, og <span class="mono">any</span> betyr alt.</div>
+        <ul>
+          <li>Den første varsler om all TCP-trafikk til port 23 på 192.168.40.7, fra hvem som helst.</li>
+          <li>Den andre varsler når 192.168.40.12 starter RDP mot hvilken som helst maskin.</li>
+          <li><span class="mono">$HOME_NET</span> er en variabel for eget nett, og <span class="mono">any</span> betyr alt.</li>
+        </ul></div>
 
       <h4>Bygg en Snort-regel og test den</h4>
       <p class="small muted">Velg en oppgave, sett sammen hodet i regelen, og se hvilke eksempelpakker som gir alarm. Bare hodet teller her: protokoll, adresser, porter og retning.</p>
@@ -349,14 +384,23 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        IDS mot brannmur til filtrering (H2022 7.3), Snort som signaturbasert IDS (H2023 11), maskinlæring og tolkning av en regel til 443 (H2023 31), gjenkjenne regelsett (H2024 27), mørke IP-adresser (H2024 29, 4 p), skriv en Snort-regel for utgående SSH (H2025 20) og anomali-IDS under pentest (H2025 21). NIDS plasseres utenfor gatewayen (ser alle forsøk), i DMZ og i indre segmenter, så sensorene kan korreleres.</div>
+        <ul>
+          <li>IDS mot brannmur til filtrering (H2022 7.3)</li>
+          <li>Snort som signaturbasert IDS (H2023 11)</li>
+          <li>Maskinlæring og tolkning av en regel til 443 (H2023 31)</li>
+          <li>Gjenkjenne regelsett (H2024 27)</li>
+          <li>Mørke IP-adresser (H2024 29, 4 p)</li>
+          <li>Skriv en Snort-regel for utgående SSH (H2025 20)</li>
+          <li>Anomali-IDS under pentest (H2025 21)</li>
+        </ul>
+        <p>NIDS plasseres utenfor gatewayen (ser alle forsøk), i DMZ og i indre segmenter, så sensorene kan korreleres.</p></div>
 
       <p class="small muted fig-vis-led">Plasseringen i ett bilde: passive sensorer får en kopi av trafikken og varsler, mens en IPS står inline, så all trafikken går gjennom den.</p>
       <div id="fx-nids-plassering"></div>
 
-      <h4>Øv i Inspera-format</h4>
+      <h4>Øv i Inspera-format: les Snort-reglene</h4>
       <div id="ov-nett-7"></div>
-      <h4>Fritekst (3 p)</h4>
+      <h4>Fritekst (3 p): treningsperioden for en anomalibasert IDS</h4>
       <p>Hvorfor bør en anomalibasert IDS ikke trenes samme uke som et kjent botnett-utbrudd i nettet?</p>
       <div id="ov-nett-8"></div>
       <details class="grense"><summary>Kjernen i svaret</summary>
@@ -385,14 +429,24 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
       <h4>IPsec i tunnelmodus</h4>
       <div id="sp-ipsec"></div>
-      <p class="small">Gateway–gateway kobler to nett (for eksempel to kontorer). Vert–gateway er en hjemmearbeider inn til kontornettet. Vert–vert er to maskiner direkte. Hjemme-VPN gir kryptert tilgang, men en kompromittert ekstern maskin blir en vei inn.</p>
+      <ul class="small">
+        <li>Gateway–gateway kobler to nett (for eksempel to kontorer).</li>
+        <li>Vert–gateway er en hjemmearbeider inn til kontornettet.</li>
+        <li>Vert–vert er to maskiner direkte.</li>
+      </ul>
+      <p class="small">Hjemme-VPN gir kryptert tilgang, men en kompromittert ekstern maskin blir en vei inn.</p>
       <p class="small muted fig-vis-led">Transportmodus til sammenligning: der beskytter ESP bare innholdet, og det opprinnelige IP-hodet står synlig ytterst.</p>
       <div id="fk-ipsec-moduser"></div>
 
       <h4>Tor: ett skall per node</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
-        Nora sender til Petter via nodene X → Y → Z. Ytterst: kryptert med nøkkel delt med X. Inni: nøkkel delt med Y. Innerst: nøkkel delt med Z, med Petter som mål.
-        X ser Noras IP og Y. Z ser Petters adresse og, hvis forbindelsen er http, innholdet. Ingen lag er kryptert med en nøkkel delt med Petter i Tor selv.</div>
+        <p>Nora sender til Petter via nodene X → Y → Z.</p>
+        <ul>
+          <li>Ytterst: kryptert med nøkkel delt med X.</li>
+          <li>Inni: nøkkel delt med Y.</li>
+          <li>Innerst: nøkkel delt med Z, med Petter som mål.</li>
+        </ul>
+        <p>X ser Noras IP og Y. Z ser Petters adresse og, hvis forbindelsen er http, innholdet. Ingen lag er kryptert med en nøkkel delt med Petter i Tor selv.</p></div>
       <div id="sp-tor"></div>
 
       <h4>Hvem ser hva ved sky-VPN og Tor?</h4>
@@ -409,7 +463,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Dra nøkler til Tor-lagene (H2022 7.2, 3 p), at TLS og IPsec krypterer all applikasjonsdata og hva ISP ser ved sky-VPN (H2023 30, H2024 25), og IPsec som VPN-løsning (H2024 10).</div>
+        <ul>
+          <li>Dra nøkler til Tor-lagene (H2022 7.2, 3 p)</li>
+          <li>At TLS og IPsec krypterer all applikasjonsdata, og hva ISP ser ved sky-VPN (H2023 30, H2024 25)</li>
+          <li>IPsec som VPN-løsning (H2024 10)</li>
+        </ul></div>
 
       <h4>Øv i Inspera-format: Tor-lagene</h4>
       <p class="small muted">Nora sender til Petter via X → Y → Z. Hvilken nøkkel hører til hvert lag?</p>
@@ -425,10 +483,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
     <section data-panel="hvemser">
       <h3>Scenario: hvem kan se hva?</h3>
       <div class="callout begrep"><span class="lbl">Begrep</span>
-        Med TLS ser bare endepunktene klartekst: klienten og tjeneren som terminerer TLS. Avlytting og mann-i-midten på strekningen ser bare chiffertekst, med mindre TLS er strippet eller inspisert.
-        Den som fanger data <i>før</i> krypteringen (tastelogger, skjermopptak) eller <i>etter</i> dekrypteringen (eieren av tjeneren), ser klartekst.
-        Å lese en ukryptert pakkestrøm i Wireshark er et brudd på konfidensialitet.
         <ul>
+          <li>Med TLS ser bare endepunktene klartekst: klienten og tjeneren som terminerer TLS.</li>
+          <li>Avlytting og mann-i-midten på strekningen ser bare chiffertekst, med mindre TLS er strippet eller inspisert.</li>
+          <li>Den som fanger data <i>før</i> krypteringen (tastelogger, skjermopptak) eller <i>etter</i> dekrypteringen (eieren av tjeneren), ser klartekst.</li>
+          <li>Å lese en ukryptert pakkestrøm i Wireshark er et brudd på konfidensialitet.</li>
           <li><b>ARP-forfalskning</b>: en maskin svarer på ARP-forespørsler for en annens IP-adresse, slik at trafikken går via angriperen (mann i midten i lokalnettet, med verktøy som Ettercap).</li>
         </ul></div>
       <div id="ex-hvemser"></div>
@@ -471,7 +530,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Hvem får passordet (H2025 37, 9 p) og «Retten er satt» med MAC og felles nøkkel, PKI, mann i midten med ARP-forfalskning, Ettercap og pakkeverktøy (H2024 38, 10 p). Verktøyene nmap og Wireshark står på <a href="verktoy.html">verktøysiden</a>.</div>
+        <ul>
+          <li>Hvem får passordet (H2025 37, 9 p)</li>
+          <li>«Retten er satt» med MAC og felles nøkkel, PKI, mann i midten med ARP-forfalskning, Ettercap og pakkeverktøy (H2024 38, 10 p)</li>
+        </ul>
+        <p>Verktøyene nmap og Wireshark står på <a href="verktoy.html">verktøysiden</a>.</p></div>
 
       <h4>Test deg selv</h4>
       <div id="quiz-hvemser"></div>
@@ -495,7 +558,14 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
       <h4>En angriper kommer inn via phishing</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
-        Et skolenett med én brannmur mot Internett og flatt innside (egg), mot samme nett med DMZ for web, indre brannmur foran elevregisteret, eget VLAN for lærer-PC-er med filtrering mellom VLAN, NIDS i hver sone og innlogging med passnøkkel også internt (løk og zero trust).</div>
+        <p>Et skolenett med én brannmur mot Internett og flatt innside (egg), mot samme nett med</p>
+        <ul>
+          <li>DMZ for web,</li>
+          <li>indre brannmur foran elevregisteret,</li>
+          <li>eget VLAN for lærer-PC-er med filtrering mellom VLAN,</li>
+          <li>NIDS i hver sone og</li>
+          <li>innlogging med passnøkkel også internt (løk og zero trust).</li>
+        </ul></div>
       <div id="sp-forsvar"></div>
 
       <h4>Verktøyene i lagene: sammenlign</h4>
@@ -530,38 +600,38 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261126h"></script>
-  <script src="assets/js/symboler.js?v=20261126h"></script>
-  <script src="assets/js/begreper-data.js?v=20261126h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126h"></script>
-  <script src="assets/js/pseudocode.js?v=20261126h"></script>
-  <script src="assets/js/stepplayer.js?v=20261126h"></script>
-  <script src="assets/js/varline.js?v=20261126h"></script>
-  <script src="assets/js/inspera.js?v=20261126h"></script>
-  <script src="assets/js/dra.js?v=20261126h"></script>
-  <script src="assets/js/ovelse.js?v=20261126h"></script>
-  <script src="assets/js/bank.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126h"></script>
-  <script src="assets/js/viz-nett.js?v=20261126h"></script>
+  <script src="assets/js/core.js?v=20261126i"></script>
+  <script src="assets/js/symboler.js?v=20261126i"></script>
+  <script src="assets/js/begreper-data.js?v=20261126i"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126i"></script>
+  <script src="assets/js/pseudocode.js?v=20261126i"></script>
+  <script src="assets/js/stepplayer.js?v=20261126i"></script>
+  <script src="assets/js/varline.js?v=20261126i"></script>
+  <script src="assets/js/inspera.js?v=20261126i"></script>
+  <script src="assets/js/dra.js?v=20261126i"></script>
+  <script src="assets/js/ovelse.js?v=20261126i"></script>
+  <script src="assets/js/bank.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126i"></script>
+  <script src="assets/js/viz-nett.js?v=20261126i"></script>
   <script>
   (function () {
     "use strict";

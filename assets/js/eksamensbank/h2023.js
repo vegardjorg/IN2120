@@ -248,7 +248,7 @@
             "Riktig ifølge fasit. For å si at det nye ligner det gamle, må systemet ha det gamle passordet i lesbar form."
           ]
         },
-        avvik: "Fasiten forutsetter at systemet sammenligner med det lagrede gamle passordet. Ved passordbytte skriver brukeren ofte inn det gamle passordet også, og da kan systemet sammenligne de to inntastede verdiene selv om det bare lagrer hasher. Et system som bare lagrer hasher, kan også lage varianter av det nye passordet (f.eks. 2023 → 2022) og hashe dem mot den lagrede hashen. Oppgaveteksten sier ikke noe om dette, så «Klartekst» er det forventede svaret.",
+        avvik: ["Fasiten forutsetter at systemet sammenligner med det lagrede gamle passordet.", "Ved passordbytte skriver brukeren ofte inn det gamle passordet også, og da kan systemet sammenligne de to inntastede verdiene selv om det bare lagrer hasher.", "Et system som bare lagrer hasher, kan også lage varianter av det nye passordet (f.eks. 2023 → 2022) og hashe dem mot den lagrede hashen.", "Oppgaveteksten sier ikke noe om dette, så «Klartekst» er det forventede svaret."],
         losning: ["Hashfunksjoner sprer små endringer over hele utdataene. Likhet kan bare sjekkes direkte på lesbare passord."],
         tips: ["Riktig praksis er saltet, treg hashing. Da kan systemet ikke sammenligne med det lagrede passordet for å se om det ligner, bare sjekke om det er helt likt. Likhet kan det bare sjekke mot det du taster inn."]
       },
@@ -686,11 +686,11 @@
             "Det er ingen SQL-syntaks (apostrof, or-betingelse) i feltene."
           ]
         },
-        avvik: "Fasiten (og H24 3) kaller dette «passordspraying», men loggen viser mange passord mot én konto. Kurset selv (d05, lysarket «Passordspraying», og LF til pentest-ukesoppgaven) definerer passordspraying som ett passord mot mange brukere, og mange passord mot én bruker som bruteforce. MITRE ATT&CK skiller på samme måte (T1110.003 Password Spraying, T1110.001 Password Guessing). Velg likevel «Passordspraying» på eksamen: det er fasit, og det eneste passordangrepet blant alternativene.",
+        avvik: ["Fasiten (og H24 3) kaller dette «passordspraying», men loggen viser mange passord mot én konto.", "Kurset selv (d05, lysarket «Passordspraying», og LF til pentest-ukesoppgaven) definerer passordspraying som ett passord mot mange brukere, og mange passord mot én bruker som bruteforce. MITRE ATT&CK skiller på samme måte (T1110.003 Password Spraying, T1110.001 Password Guessing).", "Velg likevel «Passordspraying» på eksamen: det er fasit, og det eneste passordangrepet blant alternativene."],
         losning: [
           "Les loggen: samme kilde, samme bruker, omtrent to nye passord i sekundet. Det er et automatisert gjetteangrep på innlogging.",
           "Sårbarheten er at innloggingen tillater ubegrenset mange forsøk, og at admin-kontoen er lett å gjette navnet på.",
-          "Forsvar: begrens antall forsøk per konto og per kilde (forsinkelse eller midlertidig sperre), krev flerfaktor for administratorkontoer, overvåk og varsle på slike mønstre, og bruk lange, unike passord."
+          "Forsvar:<ul><li>begrens antall forsøk per konto og per kilde (forsinkelse eller midlertidig sperre)</li><li>krev flerfaktor for administratorkontoer</li><li>overvåk og varsle på slike mønstre</li><li>bruk lange, unike passord</li></ul>"
         ],
         tips: ["Merk deg fasitens bruk av ordet her. Kjenner du også kursets egen definisjon (ett passord mot mange brukere), kan du nevne forskjellen i en fritekstoppgave."]
       },
@@ -735,7 +735,7 @@
             { s: "\"a' or 1 == 1\"", svar: [4], explain: "<p>Samme mønster: apostrof og en alltid sann or-betingelse.</p>" }
           ]
         },
-        avvik: "«-lt» er ikke SQL (det er skallets test-syntaks). «==» er ikke standard-SQL, selv om enkelte databaser (f.eks. SQLite) godtar det; standard-SQL bruker &lt; og =. Det som avslører SQL-injeksjonen i radene er apostrofen som lukker strengen pluss or-betingelsen.",
+        avvik: ["«-lt» er ikke SQL (det er skallets test-syntaks).", "«==» er ikke standard-SQL, selv om enkelte databaser (f.eks. SQLite) godtar det; standard-SQL bruker &lt; og =.", "Det som avslører SQL-injeksjonen i radene er apostrofen som lukker strengen pluss or-betingelsen."],
         losning: ["Verktøy for å finne porter = kartlegging. Skalloperator = kommandoinjeksjon. Apostrof + or = SQL-injeksjon."],
         tips: ["Feil gir −1. Kjenn igjen mønsteret, ikke den nøyaktige syntaksen."]
       },
@@ -764,7 +764,7 @@
           "Sårbarheten: brukeren har fått lov til å kjøre et fillesingsprogram som root uten begrensning. Det betyr i praksis lesetilgang til alle filer på maskinen.",
           "Hvorfor det gir root: filer som bare root skal kunne lese, inneholder hemmeligheter. Den viktigste er fila med passordhashene. Hashene kan knekkes offline, og et knekt root- eller administratorpassord gir full tilgang.",
           "Andre hemmeligheter som blir lesbare: andre brukeres private SSH-nøkler, konfigurasjonsfiler med passord og lignende.",
-          "Forsvar: gi sudo bare for det som trengs, aldri for generelle verktøy som kan lese eller skrive vilkårlige filer, kjør et program med faste argumenter i stedet, og gå gjennom sudo-oppsettet jevnlig."
+          "Forsvar:<ul><li>gi sudo bare for det som trengs, aldri for generelle verktøy som kan lese eller skrive vilkårlige filer</li><li>kjør et program med faste argumenter i stedet</li><li>gå gjennom sudo-oppsettet jevnlig</li></ul>"
         ],
         tips: ["To måter = to typer hemmeligheter som blir lesbare: passordhashene (knekkes offline) og andres private filer/nøkler.", "Mange vanlige verktøy gir mer makt enn de ser ut til når de kjøres med sudo. Det er derfor minste privilegium er så viktig her."]
       },
@@ -1104,7 +1104,7 @@
     "<p>CTR: C<sub>i</sub> = E(T<sub>i</sub>, K) ⊕ M<sub>i</sub>, parallelliserbar, bruker bare E. CBC: C<sub>1</sub> = E(IV ⊕ M<sub>1</sub>, K) og deretter kjeding, så like klartekstblokker gir ulike chiffertekster.</p>");
   hv(21, "<p>«Pluss én» er lett å regne og gir aldri samme svar for to tall, men er like lett å regne baklengs.</p>",
     "<p>H er lett å beregne og kollisjonsfri, men ikke enveis og komprimerer ikke.</p>",
-    "<p>Kravene er lett å beregne, komprimering til fast lengde, enveis, svak og sterk kollisjonsresistens. En injektiv funksjon har ingen kollisjoner. Ekte hashfunksjoner komprimerer og har derfor kollisjoner, men de er praktisk umulige å finne.</p>");
+    "<p>Kravene er:</p><ul><li>lett å beregne</li><li>komprimering til fast lengde</li><li>enveis</li><li>svak og sterk kollisjonsresistens</li></ul><p>En injektiv funksjon har ingen kollisjoner. Ekte hashfunksjoner komprimerer og har derfor kollisjoner, men de er praktisk umulige å finne.</p>");
   hv(22, "<p>Et program du starter, får de samme nøklene som du har i lomma, ikke nøklene i safen du kunne bedt om.</p>",
     "<p>Skadevaren kjører med rettighetene til brukeren nilspw. Root krever at rettighetene heves eksplisitt.</p>",
     "<p>En prosess arver bruker-ID-en til brukeren som starter den (unntak: setuid-programmer). Sudo-retten er en mulighet til å heve rettigheter, ikke noe prosessen har fra start. Skadevare med brukerens rettigheter kan likevel lese, endre og kryptere alt brukeren eier, så minste privilegium for kontoen begrenser skaden.</p>");
@@ -1137,7 +1137,7 @@
     hvorfor: {
       eli5: "<p>Du har fått lov til å bruke sjefens lesebriller. Med dem kan du lese alle lappene i sjefens skuff, også den med koden til safen.</p>",
       normal: "<p>Å gi sudo for et program som leser filer, gir i praksis lesetilgang til hele systemet. Passordhasher og private nøkler blir tilgjengelige, og de kan brukes til å bli root. Riktig oppsett er minste privilegium: aldri sudo for generelle verktøy.</p>",
-      teknisk: "<p>Sudo kjører programmet med root sin bruker-ID, så filrettighetene som skal beskytte hashfila og andres hjemmekataloger, gjelder ikke lenger. Hashene kan knekkes offline uten at systemet merker gjetningene. Mange tilsynelatende harmløse programmer gir slik makt når de kjøres med sudo. Forsvar: begrens sudo til spesifikke kommandoer med faste argumenter, bruk sterke saltede hasher og lange passord, og overvåk bruk av sudo.</p>"
+      teknisk: "<p>Sudo kjører programmet med root sin bruker-ID, så filrettighetene som skal beskytte hashfila og andres hjemmekataloger, gjelder ikke lenger. Hashene kan knekkes offline uten at systemet merker gjetningene. Mange tilsynelatende harmløse programmer gir slik makt når de kjøres med sudo. Forsvar:</p><ul><li>begrens sudo til spesifikke kommandoer med faste argumenter</li><li>bruk sterke saltede hasher og lange passord</li><li>overvåk bruk av sudo</li></ul>"
     },
     sensor: {
       deler: [
@@ -1147,12 +1147,12 @@
     }
   };
 
-  hv(30, "<p>Håndtrykket lager den hemmelige koden. Begge låsene beskytter innholdet. HSTS nekter å gå ulåst. Internettleverandøren ser bare at du går inn i en tunnel. OWASP lister de vanligste svakhetene i nettsider.</p>",
+  hv(30, "<ul><li>Håndtrykket lager den hemmelige koden.</li><li>Begge låsene beskytter innholdet.</li><li>HSTS nekter å gå ulåst.</li><li>Internettleverandøren ser bare at du går inn i en tunnel.</li><li>OWASP lister de vanligste svakhetene i nettsider.</li></ul>",
     "<p>Handshake etablerer øktnøkkelen, TLS og IPsec krypterer begge applikasjonsdata, HSTS hindrer TLS-stripping, ISP ser bare VPN-tilkoblingen, OWASP Top 10 rangerer webrisiko.</p>",
-    "<p>TLS Handshake (applikasjonslaget i kursets konvensjon) gjør nøkkelutveksling og tjenerautentisering. Record (transportlaget) krypterer. IPsec ESP krypterer hele IP-nyttelasten. HSTS er en HTTP-header som tvinger HTTPS for domenet, men beskytter ikke første besøk uten preload.</p>");
+    "<ul><li>TLS Handshake (applikasjonslaget i kursets konvensjon) gjør nøkkelutveksling og tjenerautentisering.</li><li>Record (transportlaget) krypterer.</li><li>IPsec ESP krypterer hele IP-nyttelasten.</li><li>HSTS er en HTTP-header som tvinger HTTPS for domenet, men beskytter ikke første besøk uten preload.</li></ul>");
   hv(31, "<p>Én vakt har et album med kjente tyver, en annen merker når noe er rart. En kjent tyv kan fanges av begge.</p>",
     "<p>Anomalibasert bruker ofte maskinlæring. En kjent, upatchet sårbarhet kan fanges av begge typer. Regelen gjelder HTTPS fra 1.2.3.4 til 5.6.7.8.</p>",
-    "<p>Signaturbasert IDS har få falske alarmer men ser bare kjente mønstre. Anomalibasert kan se nye angrep, men gir flere falske alarmer. En Snort-regel leses: handling, protokoll, kilde-IP, kildeport, retning, mål-IP, målport, deretter valg i parentes.</p>");
+    "<p>Signaturbasert IDS har få falske alarmer men ser bare kjente mønstre. Anomalibasert kan se nye angrep, men gir flere falske alarmer.</p><p>En Snort-regel leses: handling, protokoll, kilde-IP, kildeport, retning, mål-IP, målport, deretter valg i parentes.</p>");
 
   IN.PERFEKT["H2023-32"] = {
     type: "eksamen",
@@ -1162,7 +1162,7 @@
     hvorfor: {
       eli5: "<p>Vakten mellom to rom får en lapp: «Slipp gjennom bud fra webrommet til databasedøra nummer 1433, ingen andre.»</p>",
       normal: "<p>Brannmuren står mellom segmentene, så trafikken videresendes gjennom den. Regelen må ligge i FORWARD-kjeden og være så smal som mulig: én kilde, ett mål, én protokoll og én port.</p>",
-      teknisk: "<p>INPUT og OUTPUT gjelder trafikk til og fra brannmuren selv. FORWARD gjelder trafikk som rutes gjennom den. Siden brannmuren ifølge oppgaven allerede blokkerer alt annet (policy DROP her; iptables’ egen standard er implisitt ACCEPT, d09), holder det med én ACCEPT-regel. Portfilteret krever at protokollen er oppgitt. Blokkerer brannmuren også trafikk ut, må svartrafikken fra databasen slippes tilbake, vanligvis med en tilstandsbasert regel for etablerte forbindelser, men oppgaven spør ikke om det.</p>"
+      teknisk: "<p>INPUT og OUTPUT gjelder trafikk til og fra brannmuren selv. FORWARD gjelder trafikk som rutes gjennom den.</p><p>Siden brannmuren ifølge oppgaven allerede blokkerer alt annet (policy DROP her; iptables’ egen standard er implisitt ACCEPT, d09), holder det med én ACCEPT-regel. Portfilteret krever at protokollen er oppgitt.</p><p>Blokkerer brannmuren også trafikk ut, må svartrafikken fra databasen slippes tilbake, vanligvis med en tilstandsbasert regel for etablerte forbindelser, men oppgaven spør ikke om det.</p>"
     },
     sensor: {
       deler: [

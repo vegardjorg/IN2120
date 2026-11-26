@@ -498,6 +498,9 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 .explain-body { }
 .explain-body > :first-child { margin-top: 0; }
 .explain-body > :last-child { margin-bottom: 0; }
+.explain-body ul, .explain-body ol { margin: .3rem 0; padding-left: 1.15rem; }
+.explain-body li { margin: .2rem 0; }
+.explain-body li > ul, .explain-body li > ol { margin: .15rem 0 0; padding-left: 1rem; }
 
 /* Nivåstyrt synlighet: elementer med .lvl vises bare på nivåene de merker seg for
    (data-eli5 / data-normal / data-teknisk). Uten .lvl er innholdet alltid synlig. */
@@ -597,10 +600,11 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 .callout.begrep   { border-color: var(--color-primary);            background: var(--color-tone-info);    color: var(--color-on-tone-info); }
 .callout.begrep .lbl   { color: var(--color-on-tone-info); }
 /* Begrep-boksen: ett begrep per <li>, underbegreper som innrykket <ul> under foreldrebegrepet */
-.callout.begrep ul { margin: .3rem 0 0; padding-left: 1.15rem; }
-.callout.begrep li { margin: .3rem 0; }
-.callout.begrep li > ul { margin: .15rem 0 0; padding-left: 1rem; }
-.callout.begrep li > ul > li { margin: .15rem 0; }
+/* Gjelder alle callouts (snarvei, felle, eksempel, sensor …): tettere innrykk enn nettleserens 40 px, også på 360 px */
+.callout ul, .callout ol { margin: .3rem 0 0; padding-left: 1.15rem; }
+.callout li { margin: .3rem 0; }
+.callout li > ul, .callout li > ol { margin: .15rem 0 0; padding-left: 1rem; }
+.callout li > ul > li, .callout li > ol > li { margin: .15rem 0; }
 .callout.sensor   { border-color: var(--color-on-tone-warn);      background: var(--color-tone-warn);    color: var(--color-on-tone-warn); }
 .callout.sensor .lbl   { color: var(--color-on-tone-warn); }
 .callout.felle    { border-color: var(--color-on-tone-danger);    background: var(--color-tone-danger);  color: var(--color-on-tone-danger); }
@@ -2254,6 +2258,9 @@ blockquote.sensor .et-sv-krit, blockquote.sensor .et-sv-fasit + .et-sv-fasit { m
 /* Opphavslinje: hvor en øving kommer fra (IN.opphavTekst / IN.opphavEl i core.js) */
 .insp-opphav { margin: 0 0 .55rem; font-size: var(--text-xs); color: var(--color-on-surface-variant); overflow-wrap: anywhere; }
 .insp-opphav b { color: var(--color-on-surface); font-weight: 600; }
+/* Gjennomgående case: én linje med kontekst der caset brukes (IN.caseLinjer i core.js) */
+.case-ctx { margin: 0 0 .6rem; padding: .35rem .6rem; font-size: var(--text-sm, .875rem); color: var(--color-on-surface-variant); background: var(--color-surface-container-low); border-left: 3px solid var(--color-outline); border-radius: 0 6px 6px 0; }
+.case-ctx b { color: var(--color-on-surface); }
 
 /* ===== Variabellinje ===== */
 /* varline.js: én diskret rad øverst i demofeltet med variablene i pseudokoden (i = 3 · j = 2 · n = 8).

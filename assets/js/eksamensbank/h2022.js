@@ -444,7 +444,7 @@
         },
         avvik: "Oppgaven bygger på OWASP Top 10 fra 2021 (SSRF = nr. 10, injeksjon = nr. 3). En nyere utgave kom i november 2025 (jf. H2025 32), med endret rekkefølge; der er SSRF ikke lenger egen kategori. Svar etter 2021-lista på denne oppgaven.",
         losning: ["STRIDE: hver bokstav bryter én egenskap. T(ampering) bryter integritet.", "SSRF = tjeneren gjør forespørsler for angriperen. Injeksjon = input tolkes som kode eller kommando."],
-        tips: ["STRIDE → mål: Spoofing–autentisitet, Tampering–integritet, Repudiation–ubenektelighet, Information disclosure–konfidensialitet, DoS–tilgjengelighet, Elevation of privilege–tilgangskontroll (som i fasiten for H2021 9.2 og H2025 31).", "OWASP Top 10 og STRIDE står ikke på 2026-lysarkene.", "Arket skriver «Informasjon disclosure» og «priveilege» – skrivefeil i originalen, gjengitt ordrett."]
+        tips: ["STRIDE → mål (som i fasiten for H2021 9.2 og H2025 31):<ul><li>Spoofing–autentisitet</li><li>Tampering–integritet</li><li>Repudiation–ubenektelighet</li><li>Information disclosure–konfidensialitet</li><li>DoS–tilgjengelighet</li><li>Elevation of privilege–tilgangskontroll</li></ul>", "OWASP Top 10 og STRIDE står ikke på 2026-lysarkene.", "Arket skriver «Informasjon disclosure» og «priveilege» – skrivefeil i originalen, gjengitt ordrett."]
       },
       {
         key: "H2022-4.3", year: "H2022", oppgave_nr: "Oppgave 4.3", del: D4,
@@ -1093,7 +1093,7 @@
             { etikett: "ROI", godta: ["4", "4.0", "4,0", "fire", "400%", "400 prosent"], explain: "<p>(Gevinst − kostnad) / kostnad = (500 000 − 100 000) / 100 000 = 4.</p>" }
           ]
         },
-        avvik: "ROI-formelen står ikke i oppgaven. Fasiten 4 stemmer med (risikoreduksjon − kostnad) / kostnad. Ren risikoreduksjon / kostnad ville gitt 5. Godkjentlistene på arket har bare «1500000» og «750000», uten mellomrom eller tusenskille. Øvingen godtar også mellomrom og enhet (kr, NOK), men på eksamen er det tryggest å skrive bare tallet.",
+        avvik: ["ROI-formelen står ikke i oppgaven. Fasiten 4 stemmer med (risikoreduksjon − kostnad) / kostnad. Ren risikoreduksjon / kostnad ville gitt 5.", "Godkjentlistene på arket har bare «1500000» og «750000», uten mellomrom eller tusenskille. Øvingen godtar også mellomrom og enhet (kr, NOK), men på eksamen er det tryggest å skrive bare tallet."],
         losning: [
           "Sannsynlighet per år: 1 gang per 2 år = 0.5.",
           "Konsekvens: 1 000 000 + 500 000 = 1 500 000 NOK.",
@@ -1114,7 +1114,7 @@
   P("H2022-1.1",
     "Er en hemmelighet sladret, ødelagt eller låst inne? Det avgjør hvilket mål som er brutt.",
     "Konfidensialitet brytes når uvedkommende får se noe. Integritet brytes når noe endres uten lov. Tilgjengelighet brytes når rettmessige brukere ikke kommer til.",
-    "Se på hva angrepet gjør med dataene. Avlytting og lekkasje gir K. Endring og forfalskning gir I. Tjenestenekt og løsepengevirus som låser data gir T. Løsepengevirus er T selv om det også kan lekke data, fordi hovedeffekten er at data blir utilgjengelige.");
+    "Se på hva angrepet gjør med dataene.</p><ul><li>Avlytting og lekkasje gir K.</li><li>Endring og forfalskning gir I.</li><li>Tjenestenekt og løsepengevirus som låser data gir T.</li></ul><p>Løsepengevirus er T selv om det også kan lekke data, fordi hovedeffekten er at data blir utilgjengelige.");
   P("H2022-1.2",
     "Gullet er verdien. Tyven er trusselen. Et åpent vindu er sårbarheten. Innbruddet er hendelsen, og det du taper er konsekvensen.",
     "Risiko er kombinasjonen av en trussel, sårbarhetene den kan utnytte og verdiene som kan rammes. Hvor stor risikoen er (risikonivået), måles med sannsynlighet og konsekvens. En hendelse skjer når en trussel utnytter en sårbarhet mot en verdi.",
@@ -1122,7 +1122,7 @@
   P("H2022-1.3",
     "Først får du et medlemskort og en nøkkel. Senere viser du kortet i døra og slipper inn der du har lov.",
     "IAM har en konfigureringsfase (registrere, klargjøre, autorisere) og en bruksfase (bruker-ID, autentikator, tilgangskontroll). Brukerautentisering er en del av identitetshåndteringen; tilgangshåndtering er autorisering og tilgangskontroll.",
-    "Identitetshåndtering: registrering, klargjøring, og i bruksfasen å oppgi ID og autentikator. Brukerautentisering: bare de to bruksstegene ID og autentikator. Tilgangshåndtering: autorisering (å fastsette policy) i konfigureringsfasen og tilgangskontroll i bruksfasen. Autorisering betyr å bestemme reglene, ikke å sjekke dem.");
+    "Identitetshåndtering: registrering, klargjøring, og i bruksfasen å oppgi ID og autentikator.</p><p>Brukerautentisering: bare de to bruksstegene ID og autentikator.</p><p>Tilgangshåndtering: autorisering (å fastsette policy) i konfigureringsfasen og tilgangskontroll i bruksfasen. Autorisering betyr å bestemme reglene, ikke å sjekke dem.");
   P("H2022-2.1",
     "En oppskrift i en bok (fil) blir til kokkens arbeid (prosess) på kjøkkenbenken (minnet) med kokken (CPU).",
     "En kjørbar fil på disk lastes inn i minnet av operativsystemet og blir en prosess. Prosessens instruksjoner utføres av CPU-en.",
@@ -1162,7 +1162,7 @@
   P("H2022-3.4",
     "Trojaneren lurer deg til å slippe den inn. Viruset gjemmer seg i andre filer. Ormen sprer seg selv. Bakdøra er en hemmelig inngang.",
     "Trojaner = ser nyttig ut men er skadelig. Virus = trenger en vertsfil. Orm = sprer seg selv over nett. Bakdør = skjult tilgang.",
-    "Skillet går på spredning og forkledning. Virus krever at vertsprogrammet kjøres. Orm sprer seg uten brukerens hjelp. Trojaner sprer seg ikke selv, men forkler seg. Bakdør er en funksjon (skjult tilgang) og kan installeres av hvilken som helst av de andre.");
+    "Skillet går på spredning og forkledning.</p><ul><li>Virus krever at vertsprogrammet kjøres.</li><li>Orm sprer seg uten brukerens hjelp.</li><li>Trojaner sprer seg ikke selv, men forkler seg.</li></ul><p>Bakdør er en funksjon (skjult tilgang) og kan installeres av hvilken som helst av de andre.");
   P("H2022-3.5",
     "Løsepengevirus låser tingene dine og krever penger for nøkkelen.",
     "Løsepengevirus krypterer eller låser data og bryter dermed først og fremst tilgjengeligheten. En hashfunksjon som SHA-256 kan ikke kryptere, fordi den er enveis og uten nøkkel. Minste privilegium (ingen administratorrettigheter for vanlige brukere) begrenser hva løsepengeviruset når.",
@@ -1178,7 +1178,7 @@
   P("H2022-4.2",
     "STRIDE er en sjekkliste over måter noe kan gå galt på. OWASP-lista er de vanligste feilene i nettsider.",
     "Tampering (manipulasjon) bryter integritet. I OWASP Top 10 fra 2021, som oppgaven bruker, var SSRF nr. 10 og injeksjon nr. 3.",
-    "Hver STRIDE-trussel motsvarer en sikkerhetsegenskap: Spoofing–autentisitet, Tampering–integritet, Repudiation–ubenektelighet (også kalt uavviselighet), Information disclosure–konfidensialitet, DoS–tilgjengelighet, Elevation of privilege–tilgangskontroll. SSRF får tjeneren til å sende forespørsler angriperen velger. Injeksjon blander data og kommando.");
+    "Hver STRIDE-trussel motsvarer en sikkerhetsegenskap:</p><ul><li>Spoofing–autentisitet</li><li>Tampering–integritet</li><li>Repudiation–ubenektelighet (også kalt uavviselighet)</li><li>Information disclosure–konfidensialitet</li><li>DoS–tilgjengelighet</li><li>Elevation of privilege–tilgangskontroll</li></ul><p>SSRF får tjeneren til å sende forespørsler angriperen velger. Injeksjon blander data og kommando.");
   P("H2022-4.3",
     "Testeren får hele tegningen av huset før hun prøver å bryte seg inn.",
     "Hvitbokstest betyr at testeren har full innsikt (kildekode, dokumentasjon). Svartboks: ingen innsikt. Gråboks: delvis.",
@@ -1187,7 +1187,7 @@
   IN.PERFEKT["H2022-4.4"] = {
     type: "skjonn",
     svar: [
-      { del: "Svar", tekst: "<p>Brukeren får kjøre Python-tolken som root, og en tolk kan kjøre hvilken som helst kode. Sensorveiledningen godtar blant annet disse måtene (beskrevet på overordnet nivå):</p><ol><li><b>Start et skall fra tolken.</b> Koden kjører som root, så et skall startet fra den blir et root-shell.</li><li><b>Gi deg selv varig root-tilgang.</b> Skriv som root til systemfilene som styrer rettigheter, for eksempel ved å legge brukeren din inn i sudoers-fila eller opprette en ny bruker med root-rettigheter.</li><li><b>Hent passordhashene.</b> Les /etc/shadow som root og knekk root-passordet offline.</li></ol><p>Mottiltak: gi aldri sudo-tilgang til tolker, skall eller redigeringsprogram, tillat bare bestemte kommandoer med faste argumenter (minste privilegium), og logg bruken av sudo.</p>", poeng: ["Nevnt én konkret måte (f.eks. skall fra tolken)", "Nevnt en annen konkret måte (f.eks. sudoers/ny root-bruker eller passordhasher)"] }
+      { del: "Svar", tekst: "<p>Brukeren får kjøre Python-tolken som root, og en tolk kan kjøre hvilken som helst kode. Sensorveiledningen godtar blant annet disse måtene (beskrevet på overordnet nivå):</p><ol><li><b>Start et skall fra tolken.</b> Koden kjører som root, så et skall startet fra den blir et root-shell.</li><li><b>Gi deg selv varig root-tilgang.</b> Skriv som root til systemfilene som styrer rettigheter, for eksempel ved å legge brukeren din inn i sudoers-fila eller opprette en ny bruker med root-rettigheter.</li><li><b>Hent passordhashene.</b> Les /etc/shadow som root og knekk root-passordet offline.</li></ol><p>Mottiltak:</p><ul><li>gi aldri sudo-tilgang til tolker, skall eller redigeringsprogram</li><li>tillat bare bestemte kommandoer med faste argumenter (minste privilegium)</li><li>logg bruken av sudo</li></ul>", poeng: ["Nevnt én konkret måte (f.eks. skall fra tolken)", "Nevnt en annen konkret måte (f.eks. sudoers/ny root-bruker eller passordhasher)"] }
     ],
     hvorfor: {
       eli5: "<p>Får du låne sjefens nøkkel for å åpne én dør, men nøkkelen passer i alle dører, kan du gå hvor du vil.</p>",

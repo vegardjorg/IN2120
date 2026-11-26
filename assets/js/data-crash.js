@@ -41,7 +41,7 @@
         hvorfor: "Gir ingen poeng i seg selv, men bestemmer hvordan du henter poengene i resten.",
         kjerne: t(
           "<p>Eksamen er fire timer uten bøker eller notater. Den har ni deler. Del 1 har lette spørsmål fra hele pensum. Så kommer én del per tema. Helt til slutt kommer én stor oppgave. Svar på alt, og skriv kort.</p>",
-          "<p>Eksamen 3. desember 2026 er i Inspera, 09:00–13:00, uten hjelpemidler. Den har ni deler og 100 poeng. Del 1 er generell og den letteste. Del 2–9 tar for seg utvalgte temaer, og den siste oppgaven er stor. Det blir færre flervalg enn før og flere korte tekstsvar: H2025 hadde 55 poeng fritekst.</p>",
+          "<p>Eksamen 3. desember 2026 er i Inspera, 09:00–13:00, uten hjelpemidler. Den har ni deler og 100 poeng.</p><ul><li>Del 1 er generell og den letteste.</li><li>Del 2–9 tar for seg utvalgte temaer, og den siste oppgaven er stor.</li></ul><p>Det blir færre flervalg enn før og flere korte tekstsvar: H2025 hadde 55 poeng fritekst.</p>",
           "<p>Hver oppgave har sin egen poenglinje, typisk +0,5 per riktig, −0,5 per feil og 0 for blankt, med minst 0 per oppgave. Fritekst rettes manuelt etter sensors poengfordeling, for eksempel «2 p for prinsippet, 1 p for …». Fremgang i settet vises som blå søyler, og du kan gå fram og tilbake.</p>"),
         kunne: [
           "Ni deler, 100 poeng, 4 timer, ingen hjelpemidler. Ta de lette først og sett av tid til den store oppgaven til slutt (9–10 p).",
@@ -316,7 +316,7 @@
         hvorfor: "De fem nedtrekkene om TLS, IPsec, HSTS, sky-VPN og OWASP kom ordrett H2023 og H2024 (5 p). Tor kom H2022, HSTS H2024.",
         kjerne: t(
           "<p>TLS er en låst tunnel mellom nettleseren og nettsiden. En angriper kan prøve å lure deg over på en ulåst vei (stripping). HSTS er et skilt som sier «bruk alltid den låste veien hit». Tor pakker meldingen i flere lag, som en løk.</p>",
-          "<p>TLS 1.3 gir konfidensialitet, integritet og autentisering av tjeneren med sertifikat. TLS-stripping nedgraderer HTTPS til HTTP. HSTS sier at nettleseren bare skal bruke HTTPS mot domenet. IPsec beskytter IP-pakker (ESP i transport- eller tunnelmodus) og brukes i VPN. Tor krypterer i tre lag, ett for hver node.</p>",
+          "<ul><li>TLS 1.3 gir konfidensialitet, integritet og autentisering av tjeneren med sertifikat.</li><li>TLS-stripping nedgraderer HTTPS til HTTP.</li><li>HSTS sier at nettleseren bare skal bruke HTTPS mot domenet.</li><li>IPsec beskytter IP-pakker (ESP i transport- eller tunnelmodus) og brukes i VPN.</li><li>Tor krypterer i tre lag, ett for hver node.</li></ul>",
           "<p>HSTS virker ikke ved første besøk, med mindre domenet ligger i preload-listen. Tor: klienten krypterer med nøkkelen til utgangsnoden innerst og inngangsnoden ytterst. Hver node fjerner ett lag. Utgangsnoden ser klarteksten hvis forbindelsen ikke også er TLS-kryptert.</p>"),
         kunne: [
           "TLS-stripping: mann-i-midten nedgraderer til HTTP. HSTS hindrer det, men ikke ved første besøk uten preload.",
@@ -492,7 +492,7 @@
         hvorfor: "Egen del i H2021 (10 p, autorettet) og H2025 (9 p, fritekst). STRIDE kom H2021, H2022 og H2025. Ingen 2026-lysark, men læreboka er pensum.",
         kjerne: t(
           "<p>STRIDE er en huskeliste med seks måter et system kan angripes på. Hver bokstav bryter et bestemt sikkerhetsmål.</p>",
-          "<p>STRIDE: Spoofing bryter autentisitet, Tampering integritet, Repudiation sporbarhet (ubenektelighet), Information disclosure konfidensialitet, Denial of service tilgjengelighet og Elevation of privilege tilgangskontroll (autorisering). OWASP Top 10 er en liste over de mest kritiske sårbarhetene i nettapplikasjoner.</p>",
+          "<p>STRIDE:</p><ul><li>Spoofing bryter autentisitet,</li><li>Tampering integritet,</li><li>Repudiation sporbarhet (ubenektelighet),</li><li>Information disclosure konfidensialitet,</li><li>Denial of service tilgjengelighet og</li><li>Elevation of privilege tilgangskontroll (autorisering).</li></ul><p>OWASP Top 10 er en liste over de mest kritiske sårbarhetene i nettapplikasjoner.</p>",
           "<p>Sensor H2025 31: 0,5 p for begrepet og 0,5 p for målet som brytes, per bokstav (6 p). Innebygd sikkerhet har sju faser: opplæring, krav, design, koding, test, produksjonssetting og forvaltning (eksamensordene i H2021 9.1 og H2022 4.1; Microsoft SDL kaller den siste «respons»). DevSecOps flytter sikkerheten tidlig inn i løpet («shift left»).</p>"),
         kunne: [
           "S → autentisitet, T → integritet, R → sporbarhet/ubenektelighet, I → konfidensialitet, D → tilgjengelighet, E → tilgangskontroll.",
@@ -570,7 +570,7 @@
         hvorfor: "Ingen tidligere eksamen. Det er ny forelesning i 2026, og faglærer sier at eksamen kommer innom det meste av pensum. Regn med et kort spørsmål.",
         kjerne: t(
           "<p>KI kan brukes til å angripe (falske videoer), til å forsvare (finne rare mønstre i trafikken), og KI kan selv bli angrepet (noen lurer den med skjulte beskjeder).</p>",
-          "<p>Kurset deler KI og cyber i tre: offensiv KI (deepfakes, skadevareproduksjon, automatiserte angrep), defensiv KI (inntrengningsdeteksjon, analyse av skadevare, trusseletterretning) og angrep mot KI. Angrepene mot KI er forgiftning av læringsdata, bakdør i modellen, synsbedrag (adversarial examples), leveransekjedeangrep, jailbreak og prompt injection.</p>",
+          "<p>Kurset deler KI og cyber i tre:</p><ul><li>offensiv KI (deepfakes, skadevareproduksjon, automatiserte angrep),</li><li>defensiv KI (inntrengningsdeteksjon, analyse av skadevare, trusseletterretning) og</li><li>angrep mot KI.</li></ul><p>Angrepene mot KI er forgiftning av læringsdata, bakdør i modellen, synsbedrag (adversarial examples), leveransekjedeangrep, jailbreak og prompt injection.</p>",
           "<ul><li>Jailbreak: brukeren selv lurer modellen forbi reglene.</li><li>Prompt injection: modellen leser tredjeparts data med skjulte instruksjoner og følger dem, fordi den ikke skiller sikkert mellom instruksjon og data (OWASP har den som LLM01).</li><li>Forgiftning skjer under trening.</li><li>EUs KI-forordning (2024/1689) har fire nivåer: uakseptabel (forbudt), høy (samsvarsvurdering), begrenset (transparens, f.eks. chatteboter og deepfakes) og minimal.</li></ul>"),
         kunne: [
           "Tre møtepunkter: offensiv KI, defensiv KI og angrep mot KI.",

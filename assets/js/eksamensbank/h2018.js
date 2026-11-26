@@ -565,7 +565,7 @@
   hv("H2018-4.2",
     "<p>En sikker lås hjelper lite hvis noen av nøklesmedene du stoler på, lager nøkler til hvem som helst, eller hvis låsen fortsatt kan byttes til en gammel og dårlig modell.</p>",
     "<p>TLS er ikke sterkere enn delene det bygger på. Det stoler på mange CA-er, det har måttet støtte eldre og svakere algoritmer, og selve protokollen har hatt feil som er utnyttet i navngitte angrep. Derfor er nye versjoner (TLS 1.3) strammet inn.</p>",
-    "<p>Nedgraderingsangrep (FREAK, Logjam) lurer partene til å velge svak eksportkryptografi; BEAST utnyttet forutsigbar IV i CBC i TLS 1.0; DROWN brukte en tjener som fortsatt støttet SSLv2 til å angripe TLS-økter med samme RSA-nøkkel. TLS 1.3 fjernet RSA-nøkkeltransport, svake chiffer og de fleste valgmuligheter for å stenge slike veier.</p>");
+    "<ul><li>Nedgraderingsangrep (FREAK, Logjam) lurer partene til å velge svak eksportkryptografi;</li><li>BEAST utnyttet forutsigbar IV i CBC i TLS 1.0;</li><li>DROWN brukte en tjener som fortsatt støttet SSLv2 til å angripe TLS-økter med samme RSA-nøkkel.</li></ul><p>TLS 1.3 fjernet RSA-nøkkeltransport, svake chiffer og de fleste valgmuligheter for å stenge slike veier.</p>");
 
   O.push({
     key: "H2018-4.3", year: Y, oppgave_nr: "Oppgave 4.3", del: D4,
@@ -761,7 +761,7 @@
   hv("H2018-5.3",
     "<p>TPM-en er en liten safe på hovedkortet med en dagbok. Den skriver ned alt som starter (målt oppstart), låser bare opp safen hvis dagboken ser normal ut (forsegling), og kan vise dagboken med sitt eget stempel til andre (attestering).</p>",
     "<p>En TPM er en sikkerhetsbrikke som måler oppstarten, kan forsegle hemmeligheter til en bestemt systemtilstand og kan attestere tilstanden overfor andre. BitLocker forsegler disknøkkelen i TPM-en: hvis noen har tuklet med oppstarten, stemmer ikke målingene, og nøkkelen frigis ikke.</p>",
-    "<p>Målingene lagres i PCR-registre som bare kan utvides (hash av gammel verdi og ny måling), aldri skrives fritt. Forsegling knytter dekryptering til bestemte PCR-verdier. Attestering signerer PCR-verdiene med en nøkkel som bare finnes i TPM-en. Målt oppstart registrerer, mens UEFI sikker oppstart stopper kode med ugyldig signatur; de utfyller hverandre.</p>");
+    "<ul><li>Målingene lagres i PCR-registre som bare kan utvides (hash av gammel verdi og ny måling), aldri skrives fritt.</li><li>Forsegling knytter dekryptering til bestemte PCR-verdier.</li><li>Attestering signerer PCR-verdiene med en nøkkel som bare finnes i TPM-en.</li><li>Målt oppstart registrerer, mens UEFI sikker oppstart stopper kode med ugyldig signatur; de utfyller hverandre.</li></ul>");
 
   /* ============================ PART 6: RISK MANAGEMENT ============================ */
 
@@ -823,7 +823,7 @@
   hv("H2018-6.2",
     "<p>Først lager du en liste: hva har jeg (verdier), hva kan skade det (trusler), hvor er jeg svak (sårbarheter), og hva har jeg allerede gjort (tiltak). Å regne ut hvor mye det er verdt og hvor farlig det er, kommer etterpå.</p>",
     "<p>Risikoidentifisering er kartlegging: hvilke verdier finnes, hvilke trusler finnes mot dem, hvilke sårbarheter kan utnyttes, og hvilke tiltak er allerede på plass. Verdsetting, sannsynlighet og risikonivå er vurderinger som gjøres i estimeringen, og strategier for å redusere risikoen kommer i behandlingen etter hele vurderingen.</p>",
-    "<p>En risiko kan skrives som et scenario: en trussel utnytter en sårbarhet i en verdi til tross for eksisterende tiltak. Identifiseringen finner byggesteinene i scenarioet; estimeringen setter sannsynlighet og konsekvens på det (der verdien av verdien inngår i konsekvensen); evalueringen sammenligner risikonivået med akseptkriteriene.</p>");
+    "<p>En risiko kan skrives som et scenario: en trussel utnytter en sårbarhet i en verdi til tross for eksisterende tiltak.</p><ul><li>Identifiseringen finner byggesteinene i scenarioet;</li><li>estimeringen setter sannsynlighet og konsekvens på det (der verdien av verdien inngår i konsekvensen);</li><li>evalueringen sammenligner risikonivået med akseptkriteriene.</li></ul>");
 
   O.push({
     key: "H2018-6.3", year: Y, oppgave_nr: "Oppgave 6.3", del: D6,
@@ -877,7 +877,7 @@
         { etikett: "Verdi for ALE", godta: ["50000", "50 000", "50,000", "50.000"], explain: "<p>ALE = ARO × AV = 10 × 5000 = <strong>50000</strong> ($ per år), når hele verdien tapes ved hver hendelse.</p>" }
       ]
     },
-    avvik: "Arkets fasit krysser av «Qualitative» for analysetypen. En analyse med tallverdier i dollar og hendelser per år, regnet ut med en formel, er kvantitativ; øvingen viser «Quantitative» som riktig og godtar «Qualitative». Enheten er hakket av som «$», mens ALE strengt tatt er $ per år; begge godtas. Fasitverdien 50000 = ARO × AV forutsetter at hele verdien tapes ved hver hendelse (eksponeringsfaktor 1); den vanlige formen er ALE = ARO × SLE med SLE = AV × EF.",
+    avvik: ["Arkets fasit krysser av «Qualitative» for analysetypen. En analyse med tallverdier i dollar og hendelser per år, regnet ut med en formel, er kvantitativ; øvingen viser «Quantitative» som riktig og godtar «Qualitative».", "Enheten er hakket av som «$», mens ALE strengt tatt er $ per år; begge godtas.", "Fasitverdien 50000 = ARO × AV forutsetter at hele verdien tapes ved hver hendelse (eksponeringsfaktor 1); den vanlige formen er ALE = ARO × SLE med SLE = AV × EF."],
     losning: ["Kvantitativ analyse (tall med enheter og formel).", "ARO = 10 per år, AV = 5000 $.", "ALE = 10 × 5000 = 50000 $ per år (arket: skriv bare tallet)."],
     tips: [UTENFOR + "ALE/ARO-formelen står ikke på 2026-lysarkene. 2026 bruker kvalitative skalaer, der risikonivået er summen av logaritmiske nivåer for sannsynlighet og konsekvens.", "Arket staver «Occurance» (skrivefeil)."]
   });
@@ -1012,8 +1012,8 @@
   });
   hv("H2018-7.4",
     "<p>En kodebrikke er som et armbåndsur som viser et nytt tall hvert minutt. Banken har et likt ur, så urene må gå likt. En annen brikke teller bare hvor mange ganger knappen er trykket, og banken teller med. En tredje får et nytt spørsmål fra banken hver gang, så et gammelt svar er verdiløst.</p>",
-    "<p>Autentiseringstokener lager engangskoder fra en hemmelig nøkkel de deler med tjeneren. Klokkebaserte tokener bruker tiden og må gå i takt med tjeneren. Tellerbaserte tokener bruker en teller som både tokenet og tjeneren holder selv, så brukeren trenger ikke vite den. Utfordring–svar-tokener regner ut svaret på en ny utfordring fra tjeneren hver gang, så et oppfanget svar kan ikke brukes senere.</p>",
-    "<p>Klokkebasert OTP: kode avledet av MAC(K, tidsintervall); tjeneren godtar et lite vindu rundt nåtid og lagrer driften. Tellerbasert: MAC(K, teller), med resynkronisering hvis tokenet er trykket uten innlogging. Utfordring–svar: MAC(K, utfordring) med ny tilfeldig utfordring hver gang. Alle disse bruker en delt symmetrisk nøkkel, som tjeneren må beskytte.</p>");
+    "<p>Autentiseringstokener lager engangskoder fra en hemmelig nøkkel de deler med tjeneren.</p><ul><li>Klokkebaserte tokener bruker tiden og må gå i takt med tjeneren.</li><li>Tellerbaserte tokener bruker en teller som både tokenet og tjeneren holder selv, så brukeren trenger ikke vite den.</li><li>Utfordring–svar-tokener regner ut svaret på en ny utfordring fra tjeneren hver gang, så et oppfanget svar kan ikke brukes senere.</li></ul>",
+    "<ul><li>Klokkebasert OTP: kode avledet av MAC(K, tidsintervall); tjeneren godtar et lite vindu rundt nåtid og lagrer driften.</li><li>Tellerbasert: MAC(K, teller), med resynkronisering hvis tokenet er trykket uten innlogging.</li><li>Utfordring–svar: MAC(K, utfordring) med ny tilfeldig utfordring hver gang.</li></ul><p>Alle disse bruker en delt symmetrisk nøkkel, som tjeneren må beskytte.</p>");
 
   /* ============================ PART 8: IDENTITY & ACCESS MANAGEMENT ============================ */
 
@@ -1049,7 +1049,7 @@
   });
   hv("H2018-8.1",
     "<p>På et treningssenter blir du først registrert, så får du et kort, og det bestemmes hvilke rom du får gå inn i. Hver gang du kommer, sier du hvem du er, viser kortet og blir sluppet inn i de rommene du har lov til.</p>",
-    "<p>IAM har en konfigureringsfase og en bruksfase med tre trinn hver. Konfigurering: registrering (identitet opprettes), provisjonering (konto og autentikator utstedes) og autorisering (tilgangspolicyen spesifiseres). Bruk: selvidentifisering (brukernavn), autentisering (bevis) og tilgangskontroll (policyen håndheves). Trinn 1, 2, 4 og 5 er identitetsstyring, trinn 3 og 6 tilgangsstyring.</p>",
+    "<p>IAM har en konfigureringsfase og en bruksfase med tre trinn hver.</p><ul><li>Konfigurering: registrering (identitet opprettes), provisjonering (konto og autentikator utstedes) og autorisering (tilgangspolicyen spesifiseres).</li><li>Bruk: selvidentifisering (brukernavn), autentisering (bevis) og tilgangskontroll (policyen håndheves).</li></ul><p>Trinn 1, 2, 4 og 5 er identitetsstyring, trinn 3 og 6 tilgangsstyring.</p>",
     "<p>Hvert trinn i bruksfasen speiler et trinn i konfigureringen: identifisering bruker identiteten fra registreringen, autentisering sjekker mot autentikatoren fra provisjoneringen, og tilgangskontrollen håndhever policyen fra autoriseringen. Feil i et konfigureringstrinn (svak identitetssjekk ved registrering, for vide rettigheter) kan ikke rettes opp i bruksfasen. Livsløpet omfatter også endring og avvikling (deprovisjonering).</p>");
 
   O.push({
@@ -1163,7 +1163,7 @@
   hv("H2018-8.4",
     "<p>På en skole har lærerne én rolle og bibliotekarene en annen. Hver rolle har noen nøkler. Cary er både lærer og bibliotekar, så Cary får nøklene til begge rollene.</p>",
     "<p>I RBAC tildeles rettigheter til roller, og brukere får roller. Brukerens rettigheter er summen av rettighetene til alle rollene hen har. Cary har R1 og R2; R1 gir skriving på O1 og R2 gir skriving på O4. Tilgangsmatrisen viser hvilke rettigheter hver rolle har på hvert objekt.</p>",
-    "<p>RBAC kobler brukere til roller og roller til rettigheter, slik at endringer skjer på rollenivå. Tilgangsmatrisen (subjekt × objekt → rettigheter) er en generell representasjon; lagret per kolonne gir den tilgangslister (ACL). DAC kjennetegnes av at eieren selv deler rettigheter, MAC av at systemet bestemmer ut fra klarering og gradering, og ABAC av regler over attributter.</p>");
+    "<ul><li>RBAC kobler brukere til roller og roller til rettigheter, slik at endringer skjer på rollenivå.</li><li>Tilgangsmatrisen (subjekt × objekt → rettigheter) er en generell representasjon; lagret per kolonne gir den tilgangslister (ACL).</li><li>DAC kjennetegnes av at eieren selv deler rettigheter, MAC av at systemet bestemmer ut fra klarering og gradering, og ABAC av regler over attributter.</li></ul>");
 
   /* ============================ PART 9: NETWORK PERIMETER SECURITY ============================ */
 
@@ -1426,7 +1426,7 @@
   });
   hv("H2018-10.3",
     "<p>Gir du telefonnummeret ditt til en pizzabutikk for levering, skal de bare be om det de trenger, slette det når de ikke trenger det mer, og vise deg hva de har lagret hvis du spør.</p>",
-    "<p>Personvernforordningen bygger på noen prinsipper: bare samle inn det som trengs (dataminimering), bare bruke det til formålet (formålsbegrensning), og slette det når det ikke lenger trengs (lagringsbegrensning). Den registrerte har rettigheter, blant annet innsyn. Sensitive data er ikke forbudt, men har strengere vilkår, og hvilke tekniske tiltak som brukes, bestemmer virksomheten.</p>",
+    "<p>Personvernforordningen bygger på noen prinsipper:</p><ul><li>bare samle inn det som trengs (dataminimering),</li><li>bare bruke det til formålet (formålsbegrensning),</li><li>og slette det når det ikke lenger trengs (lagringsbegrensning).</li></ul><p>Den registrerte har rettigheter, blant annet innsyn. Sensitive data er ikke forbudt, men har strengere vilkår, og hvilke tekniske tiltak som brukes, bestemmer virksomheten.</p>",
     "<p>GDPR art. 5 lister prinsippene (lovlighet og åpenhet, formålsbegrensning, dataminimering, riktighet, lagringsbegrensning, integritet og konfidensialitet, ansvarlighet). Art. 9 setter vilkår for særlige kategorier som helse. Art. 15 gir innsynsrett. Art. 32 krever sikkerhet tilpasset risikoen og nevner kryptering og pseudonymisering som mulige tiltak.</p>");
 
   O.push({

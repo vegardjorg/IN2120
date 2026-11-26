@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126i">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -82,7 +82,10 @@
       <div id="ov-aut-1"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Faktorene spørres sjelden alene, men de ligger under spørsmålene om enhetstyper (<a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a>) og om MFA. Eldre sett hadde et tofaktoreksempel med minibank.</div>
+        <ul>
+          <li>Faktorene spørres sjelden alene, men de ligger under spørsmålene om enhetstyper (<a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a>) og om MFA.</li>
+          <li>Eldre sett hadde et tofaktoreksempel med minibank.</li>
+        </ul></div>
 
       <h4>Test deg selv</h4>
       <div id="quiz-faktorer"></div>
@@ -102,7 +105,16 @@
             </ul></li>
           <li><b>Salt:</b> en tilfeldig verdi per bruker (BA-lysarket: i Linux et heltall fra 0 til 4095; det gjelder klassisk DES-crypt, moderne systemer bruker et mye lengre tilfeldig salt). Like passord gir da ulike hasher, og ferdige hashtabeller og <b>regnbuetabeller</b> blir ubrukelige. Salt hindrer <i>ikke</i> at ett svakt passord gjettes.</li>
           <li><b>Kompleksitet:</b> antall mulige passord er N<sup>L</sup>, der N er størrelsen på tegnsettet og L er lengden. Uttømmende søk finner passordet i snitt etter halve rommet.</li>
-          <li><b>Kursets råd:</b> minst 13 tegn, flere tegnkategorier, ingen ordboksord, navn eller datoer, bytt sjelden eller aldri, men straks ved mistanke om lekkasje, ikke gjenbruk, og lagre trygt (i hodet, på papir du passer på, eller i en passordbank). <b>NIST 800-63-4:</b> minst 15 tegn når passordet er eneste faktor, minst 8 som del av MFA, ingen sammensetningsregler og ingen krav om periodisk bytte.</li>
+          <li><b>Kursets råd:</b>
+            <ul>
+              <li>minst 13 tegn,</li>
+              <li>flere tegnkategorier,</li>
+              <li>ingen ordboksord, navn eller datoer,</li>
+              <li>bytt sjelden eller aldri, men straks ved mistanke om lekkasje,</li>
+              <li>ikke gjenbruk, og</li>
+              <li>lagre trygt (i hodet, på papir du passer på, eller i en passordbank).</li>
+            </ul></li>
+          <li><b>NIST 800-63-4:</b> minst 15 tegn når passordet er eneste faktor, minst 8 som del av MFA, ingen sammensetningsregler og ingen krav om periodisk bytte.</li>
           <li><b>Hvor hashene ligger:</b> Linux <span class="mono">/etc/shadow</span> (krever root), Windows SAM (krever admin), i nettverk AD, Entra ID eller LDAP.</li>
           <li><b>Pass-the-hash:</b> i noen systemer kan selve hashen brukes til å logge på andre maskiner. Derfor skal selv gode passord ikke gjenbrukes, og tilgangen til hashene må beskyttes.</li>
         </ul></div>
@@ -137,7 +149,13 @@
         <ul>
           <li><b>«Bytt passord ofte og bruk spesialtegn»</b> er ikke kursets råd: lengde, sjelden eller aldri bytte, ingen gjenbruk. NIST har ingen sammensetningsregler (lysarket sier likevel «flere kategorier tegn»).</li>
           <li><b>«Lagret som salt» (H2021 6.1)</b> gir ingen mening alene, så svaret der er «ingen».</li>
-          <li><b>Riktig tiltak til riktig krav (H2022 8.1):</b> tilgangskontroll hindrer at fila leses, hashing hindrer klartekst, salting hindrer tabeller, og komplekse passord gjør knekking av saltet hash svært vanskelig.</li>
+          <li><b>Riktig tiltak til riktig krav (H2022 8.1):</b>
+            <ul>
+              <li>tilgangskontroll hindrer at fila leses,</li>
+              <li>hashing hindrer klartekst,</li>
+              <li>salting hindrer tabeller, og</li>
+              <li>komplekse passord gjør knekking av saltet hash svært vanskelig.</li>
+            </ul></li>
           <li><b>«For likt det gamle passordet» (H2023 9):</b> fasiten sier klartekst, fordi hasher av like passord ikke ligner hverandre.</li>
         </ul></div>
 
@@ -151,7 +169,8 @@
         <ul>
           <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_1">H2021 6.1</a> (2p): lagringsmåte koblet til hvordan passordet kan knekkes.</li>
           <li>H2022 8.1 (2p): krav koblet til tiltak (tilgangskontroll, salting, komplekse passord, hashing).</li>
-          <li>H2023 9 (1p): «for likt» betyr klartekst. H2023 27 (1p): PIN fra 4 til 6 sifre gir hundre ganger.</li>
+          <li>H2023 9 (1p): «for likt» betyr klartekst.</li>
+          <li>H2023 27 (1p): PIN fra 4 til 6 sifre gir hundre ganger.</li>
           <li><a href="#fane=eksamen&amp;oppg=o-H2024-11">H2024 11</a> (1p): 10 til 14 tegn med 105 tegn gir 105⁴.</li>
         </ul></div>
 
@@ -202,7 +221,9 @@
       <div id="ov-aut-4"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a> (3p): koble beskrivelser (FIDO, klokke, BankID på mobil, BankID-brikke, leser eller terminal, overføring av kode) til OTP-brikke, pass og ID-kort, online-enheter eller sekundærkanal.</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_3">H2021 6.3</a> (3p): koble beskrivelser (FIDO, klokke, BankID på mobil, BankID-brikke, leser eller terminal, overføring av kode) til OTP-brikke, pass og ID-kort, online-enheter eller sekundærkanal.</li>
+        </ul></div>
 
       <h4>Test deg selv</h4>
       <div id="quiz-eierskap"></div>
@@ -219,7 +240,12 @@
           <li><b>Passnøkkel:</b> en kryptografisk <b>privat nøkkel</b>, én per autentiseringstjener, knyttet til tjenerens <b>domenenavn</b>. Tjeneren har bare den tilsvarende <b>offentlige nøkkelen</b>.</li>
           <li><b>To etapper:</b> 1. etappe (lokal): brukeren autentiserer seg til klienten med PIN eller biometri. 2. etappe (online): klienten autentiserer seg til tjeneren med challenge–respons: <b>1</b> utfordring C fra tjeneren, <b>2</b> lokal autentikator, <b>3</b> signert respons R.</li>
           <li><b>Lagring:</b> innebygd i klienten (operativsystem, nettleser, maskinvare), i en brikke (USB, smartkort, NFC eller blåtann) eller i en passordbank.</li>
-          <li><b>Utfordringer:</b> det er komplisert å flytte nøklene til en ny enhet, synkronisering via sky krever til syvende og sist vanlig, ikke phishingresistent innlogging, og ordningen er vanskelig å forstå for vanlige brukere.</li>
+          <li><b>Utfordringer:</b>
+            <ul>
+              <li>det er komplisert å flytte nøklene til en ny enhet,</li>
+              <li>synkronisering via sky krever til syvende og sist vanlig, ikke phishingresistent innlogging, og</li>
+              <li>ordningen er vanskelig å forstå for vanlige brukere.</li>
+            </ul></li>
         </ul></div>
       <div id="ex-fido"></div>
       <p class="small muted fig-vis-led">De to etappene i passnøkkel-arkitekturen: bruker til klient (lokalt), så klient til tjener (online).</p>
@@ -261,7 +287,8 @@
         <ul>
           <li>H2022 8.3 (5p): plassere etappene, utfordring, respons, autentikator, privat og offentlig nøkkel og tallene 1–3 i figuren.</li>
           <li>H2023 33 (3p): seks sant/usant-påstander om passnøkler.</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2025-25">H2025 25</a> (3p): arkitekturfiguren. <a href="#fane=eksamen&amp;oppg=o-H2025-26">H2025 26</a> (2p): hva phishing er og hva som gjør passnøkler phishingresistente.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-25">H2025 25</a> (3p): arkitekturfiguren.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-26">H2025 26</a> (2p): hva phishing er og hva som gjør passnøkler phishingresistente.</li>
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-27">H2025 27</a> (3p): phishing mot en passordbank som synkroniserer passnøkler, og NIST AL3.</li>
         </ul></div>
 
@@ -276,7 +303,11 @@
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Biometri:</b> automatiske metoder for å autentisere eller gjenkjenne en person ut fra kroppen eller atferden. Eksempler: fingeravtrykk, ansikt, iris, håndgeometri, signatur, stemme, tastetrykk.</li>
-          <li><b>Krav til en modalitet:</b> universalitet, særpreg, permanens, målbarhet, nøyaktighet (EER), ytelse, aksept og beskyttelse mot forfalskning (BA-lysarket, åtte krav). Ukesoppgave t07 teller sju: universalitet, entydighet (= særpreg), varighet (= permanens), målbarhet, ytelse (der nøyaktighet inngår), aksept og anti-spoofing (= beskyttelse mot forfalskning).</li>
+          <li><b>Krav til en modalitet:</b>
+            <ul>
+              <li>universalitet, særpreg, permanens, målbarhet, nøyaktighet (EER), ytelse, aksept og beskyttelse mot forfalskning (BA-lysarket, åtte krav).</li>
+              <li>Ukesoppgave t07 teller sju: universalitet, entydighet (= særpreg), varighet (= permanens), målbarhet, ytelse (der nøyaktighet inngår), aksept og anti-spoofing (= beskyttelse mot forfalskning).</li>
+            </ul></li>
           <li><b>Komponenter:</b> sensor → uttrekk av kjennetegn (for eksempel linjesplitt og linjeender i et fingeravtrykk) → komparator → database med maler.</li>
           <li><b>Moduser:</b>
             <ul>
@@ -286,7 +317,8 @@
             </ul></li>
           <li><b>Skåring og terskel:</b> match når <span class="mono">S ≥ T</span>, ikke-match når <span class="mono">S &lt; T</span>.</li>
           <li><b>FMR</b> = antall match blant ikke-genuine / antall ikke-genuine.</li>
-          <li><b>FNMR</b> = antall ikke-match blant genuine / antall genuine. TMR = 1 − FNMR og TNMR = 1 − FMR.</li>
+          <li><b>FNMR</b> = antall ikke-match blant genuine / antall genuine.</li>
+          <li>TMR = 1 − FNMR og TNMR = 1 − FMR.</li>
           <li><b>EER:</b> raten når T er satt slik at FMR = FNMR. Liten EER betyr høy nøyaktighet og lite overlapp mellom kurvene.</li>
           <li><b>PAD</b> (presentation attack detection): å oppdage presentasjonsangrep som falsk finger, falskt ansikt eller deepfake.</li>
           <li><b>Tvang:</b> kroppsbasert biometri kan tvinges fram, mens atferd krever at brukeren er bevisst.</li>
@@ -333,7 +365,14 @@
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_2">H2021 6.2</a> (3p): FMR når T heves, ideelt system, hva PAD er, at forfalskning er vanskelig å oppdage tross lav EER, og baklengsregning.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-6_2">H2021 6.2</a> (3p):
+            <ul>
+              <li>FMR når T heves,</li>
+              <li>ideelt system,</li>
+              <li>hva PAD er,</li>
+              <li>at forfalskning er vanskelig å oppdage tross lav EER, og</li>
+              <li>baklengsregning.</li>
+            </ul></li>
           <li>H2022 8.2 (2p): 100 + 100 testbrukere, regn ut TMR, TNMR, FMR og FNMR.</li>
           <li>Temaet falt ut etter 2022, men er pensum i 2026. Regneoppgaven gir rask uttelling.</li>
         </ul></div>
@@ -351,9 +390,20 @@
           <li><b>Flerfaktorautentisering:</b> to eller flere teknikker kombineres, ofte vet + har (passord og BankID-brikke, passord og SMS).</li>
           <li><b>Kontinuerlig autentisering:</b> etter innloggingen sammenlignes atferden med det som er forventet. Faller likheten under en terskel, logges brukeren ut eller får færre rettigheter.</li>
           <li><b>Garantinivå</b> (også autentiseringsnivå eller sikkerhetsnivå): hvor robust autentiseringen er. Alvorlige konsekvenser krever høyt nivå, men sterk autentisering koster, så nivået balanseres mot risikoen.</li>
-          <li><b>Tre kategorier krav:</b> a) ID-registrering og håndtering av autentikatoren (identitetsbevis, overlevering, gjenoppretting), b) autentiseringsmetoden (passordkvalitet, kryptostyrke, MFA, phishingresistens, der det siste bare står i NIST 800-63-4), c) sikkerheten i føderasjonen (sertifisering av IdP, avtaler mellom aktørene).</li>
+          <li><b>Tre kategorier krav:</b>
+            <ul>
+              <li>a) ID-registrering og håndtering av autentikatoren (identitetsbevis, overlevering, gjenoppretting),</li>
+              <li>b) autentiseringsmetoden (passordkvalitet, kryptostyrke, MFA, phishingresistens, der det siste bare står i NIST 800-63-4),</li>
+              <li>c) sikkerheten i føderasjonen (sertifisering av IdP, avtaler mellom aktørene).</li>
+            </ul></li>
           <li><b>eIDAS</b> er EUs forordning om elektronisk identifikasjon og tillitstjenester («trust services» = PKI-tjenester). Nivået følger av konsekvensen: liten → Low, betydelig → Substantial, alvorlig → High.</li>
-          <li><b>Norske eID-er:</b> BankID, Buypass og Commfides (HØYT), MinID (BETYDELIG), og for virksomheter Foretaks-ID (HØYT) og SMS-PIN og Altinn-PIN (LAVT). Bare MinID er statlig.</li>
+          <li><b>Norske eID-er:</b>
+            <ul>
+              <li>BankID, Buypass og Commfides (HØYT),</li>
+              <li>MinID (BETYDELIG), og</li>
+              <li>for virksomheter Foretaks-ID (HØYT) og SMS-PIN og Altinn-PIN (LAVT).</li>
+            </ul>
+            Bare MinID er statlig.</li>
           <li><b>Fjernverifisering:</b> en app leser passet, sjekker at personen er levende og sammenligner biometri. Passets ekthet sjekkes mot ICAOs nøkkelkatalog.</li>
         </ul></div>
       <div id="ex-mfa"></div>
@@ -416,38 +466,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261126h"></script>
-  <script src="assets/js/symboler.js?v=20261126h"></script>
-  <script src="assets/js/begreper-data.js?v=20261126h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126h"></script>
-  <script src="assets/js/pseudocode.js?v=20261126h"></script>
-  <script src="assets/js/stepplayer.js?v=20261126h"></script>
-  <script src="assets/js/varline.js?v=20261126h"></script>
-  <script src="assets/js/inspera.js?v=20261126h"></script>
-  <script src="assets/js/dra.js?v=20261126h"></script>
-  <script src="assets/js/ovelse.js?v=20261126h"></script>
-  <script src="assets/js/bank.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126h"></script>
-  <script src="assets/js/viz-aut.js?v=20261126h"></script>
+  <script src="assets/js/core.js?v=20261126i"></script>
+  <script src="assets/js/symboler.js?v=20261126i"></script>
+  <script src="assets/js/begreper-data.js?v=20261126i"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126i"></script>
+  <script src="assets/js/pseudocode.js?v=20261126i"></script>
+  <script src="assets/js/stepplayer.js?v=20261126i"></script>
+  <script src="assets/js/varline.js?v=20261126i"></script>
+  <script src="assets/js/inspera.js?v=20261126i"></script>
+  <script src="assets/js/dra.js?v=20261126i"></script>
+  <script src="assets/js/ovelse.js?v=20261126i"></script>
+  <script src="assets/js/bank.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126i"></script>
+  <script src="assets/js/viz-aut.js?v=20261126i"></script>
   <script>
   (function () {
     "use strict";
@@ -474,7 +524,7 @@
       "ex-fido": {
         eli5: "<p>Du har en nøkkelring der hver nøkkel har navnet på én dør gravert inn. Ser nøkkelringen at døra har feil navn, nekter den å gi deg nøkkelen, selv om døra ser helt lik ut. Du kan ikke overtale den.</p>",
         normal: "<p>Tjeneren sender en tilfeldig utfordring. Enheten ber om PIN eller fingeravtrykk, finner passnøkkelen som hører til <i>akkurat dette</i> domenet, og signerer utfordringen. Tjeneren sjekker signaturen med den offentlige nøkkelen.</p><p>På en falsk side finnes ingen passnøkkel med det domenet, så ingenting blir signert. Ingen hemmelighet sendes over nettet, og en lekkasje fra tjenerens database gir bare offentlige nøkler.</p>",
-        teknisk: "<p>Responsen er R = Sig(C, K<sup>A</sup><sub>priv</sub>) med brukerens nøkkel for akkurat den tjeneren, og tjeneren verifiserer med K<sup>A</sup><sub>pub</sub>. Phishingresistensen kommer av at domenet er bundet til nøkkelen og at klienten håndhever bindingen. Brukeren kan ikke overstyre den.</p><p>Restangrepene går rundt passnøkkelen: skadevare som får plattformen til å bryte regelen, DNS-angrep, nedgradering til passord, tyveri av enheten sammen med falsk biometri, phishing mot skykontoen eller passordbanken som synkroniserer nøklene, og sosial manipulering. For NIST AAL3 kan passnøkler ikke synkroniseres. De må være bundet til enheten, typisk en brikke.</p>"
+        teknisk: "<p>Responsen er R = Sig(C, K<sup>A</sup><sub>priv</sub>) med brukerens nøkkel for akkurat den tjeneren, og tjeneren verifiserer med K<sup>A</sup><sub>pub</sub>. Phishingresistensen kommer av at domenet er bundet til nøkkelen og at klienten håndhever bindingen. Brukeren kan ikke overstyre den.</p><p>Restangrepene går rundt passnøkkelen:</p><ul><li>skadevare som får plattformen til å bryte regelen,</li><li>DNS-angrep,</li><li>nedgradering til passord,</li><li>tyveri av enheten sammen med falsk biometri,</li><li>phishing mot skykontoen eller passordbanken som synkroniserer nøklene, og</li><li>sosial manipulering.</li></ul><p>For NIST AAL3 kan passnøkler ikke synkroniseres. De må være bundet til enheten, typisk en brikke.</p>"
       },
       "ex-biometri": {
         eli5: "<p>Maskinen gir hvert fingeravtrykk en likhetspoengsum. Er summen over streken, slipper du inn. Legger du streken lavt, kommer nesten alle ekte inn, men også noen falske. Legger du den høyt, holdes de falske ute, men noen ekte må prøve igjen.</p>",

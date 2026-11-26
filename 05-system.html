@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126i">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -108,6 +108,7 @@
 
       <h4>Test deg selv</h4>
       <div id="quiz-ringer"></div>
+      <h4>Sant eller usant?</h4>
       <div id="tf-ringer"></div>
     </section>
 
@@ -148,7 +149,13 @@
       <ul>
         <li><b>8 byte input:</b> alt får plass. Ingen overflyt.</li>
         <li><b>12 byte:</b> kanarifuglen overskrives. Sjekken ved retur feiler, og programmet avsluttes. Tilgjengeligheten rammes, men angriperen får ikke kontroll.</li>
-        <li><b>20 byte:</b> returadressen overskrives. Uten kanarifugl hopper programmet til adressen i byte 16–19. Med kanarifugl må angriperen gjette <code>0x5be0c41d</code> (opptil 2³² muligheter). Med ASLR vet angriperen ikke hvilken adresse som skal stå der. Med NX kan ikke angrepskoden ligge i <code>navn[]</code>.</li>
+        <li><b>20 byte:</b> returadressen overskrives.
+          <ul>
+            <li>Uten kanarifugl hopper programmet til adressen i byte 16–19.</li>
+            <li>Med kanarifugl må angriperen gjette <code>0x5be0c41d</code> (opptil 2³² muligheter).</li>
+            <li>Med ASLR vet angriperen ikke hvilken adresse som skal stå der.</li>
+            <li>Med NX kan ikke angrepskoden ligge i <code>navn[]</code>.</li>
+          </ul></li>
         <li><b>Den egentlige rettingen:</b> lengdesjekk, for eksempel <code>fgets(navn, sizeof navn, stdin)</code>, eller et språk med grensesjekk.</li>
       </ul>
 
@@ -175,13 +182,25 @@
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
           <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_1">H2022 2.1</a> (2p): fire nedtrekk. <b>kjørbar fil → prosess → minnet → CPU</b>.</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_2">H2022 2.2</a> (1p): «To prosesser kan ikke ha samme virtuelle minneadresse» er <b>usant</b>, og «virtuelle minneområder fjerner buffer-overflow-sårbarheten» er <b>usant</b>.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_2">H2022 2.2</a> (1p):
+            <ul>
+              <li>«To prosesser kan ikke ha samme virtuelle minneadresse» er <b>usant</b>, og</li>
+              <li>«virtuelle minneområder fjerner buffer-overflow-sårbarheten» er <b>usant</b>.</li>
+            </ul></li>
           <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_3">H2022 2.3</a> (1p): klikk i stakkfiguren. Riktig område er <b>returadressen</b> i B()-rammen. Forrige rammepeker er distraktoren.</li>
-          <li>Eldre sett hadde «velg fire» om bufferoverflyt: kan finnes med fuzzing, er typisk del av en exploit, skriver mer enn variabelen har plass til, og er en bug. «Kan forhindres med ASLR» var ikke riktig.</li>
+          <li>Eldre sett hadde «velg fire» om bufferoverflyt:
+            <ul>
+              <li>kan finnes med fuzzing,</li>
+              <li>er typisk del av en exploit,</li>
+              <li>skriver mer enn variabelen har plass til, og</li>
+              <li>er en bug.</li>
+            </ul>
+            «Kan forhindres med ASLR» var ikke riktig.</li>
         </ul></div>
 
       <h4>Test deg selv</h4>
       <div id="quiz-minne"></div>
+      <h4>Sant eller usant?</h4>
       <div id="tf-minne"></div>
     </section>
 
@@ -250,6 +269,7 @@
 
       <h4>Test deg selv</h4>
       <div id="quiz-virt"></div>
+      <h4>Sant eller usant?</h4>
       <div id="tf-virt"></div>
     </section>
 
@@ -272,6 +292,7 @@
       <div id="viz-oppstart" data-modus="oppstart"></div>
 
       <h4>Eksempel: laptopen «LK-0417»</h4>
+      <p class="case-ctx" data-case="lerkedal">LK-0417 er en av kommunens bærbare PC-er, med sikker oppstart og BitLocker. Kommunens VPN-tjener sjekker maskinen med attestering.</p>
       <div class="table-wrap"><table class="sys-ex">
         <thead><tr><th>Scenario</th><th>Sikker oppstart (UEFI)</th><th>Målt oppstart (TPM)</th><th>BitLocker</th></tr></thead>
         <tbody>
@@ -303,7 +324,13 @@
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_6">H2022 2.6</a> (2p): kolonnene Begge, Bare TPM, Ingen, Bare UEFI. «Tillitskjede basert på sertifikat i firmware» → <b>Bare UEFI</b>, «kan brukes til å støtte autentisering» → <b>Bare TPM</b>, «erstatter BIOS» → <b>Bare UEFI</b>, «kan brukes for å bedre sikkerhet ved oppstart» → <b>Begge</b>.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_6">H2022 2.6</a> (2p): kolonnene Begge, Bare TPM, Ingen, Bare UEFI.
+            <ul>
+              <li>«Tillitskjede basert på sertifikat i firmware» → <b>Bare UEFI</b>,</li>
+              <li>«kan brukes til å støtte autentisering» → <b>Bare TPM</b>,</li>
+              <li>«erstatter BIOS» → <b>Bare UEFI</b>,</li>
+              <li>«kan brukes for å bedre sikkerhet ved oppstart» → <b>Begge</b>.</li>
+            </ul></li>
           <li>Eldre sett spurte om TPM-ens tre tjenester (målt oppstart, forseglet lagring, fjernattestering) og om forskjellen på målt og sikker oppstart. En kort fritekst er mulig.</li>
         </ul></div>
       <div class="sys-forbehold">
@@ -316,6 +343,7 @@
 
       <h4>Test deg selv</h4>
       <div id="quiz-tiltrodd"></div>
+      <h4>Sant eller usant?</h4>
       <div id="tf-tiltrodd"></div>
     </section>
 
@@ -357,12 +385,19 @@
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <ul>
-          <li>H2021 2.2 (2p, ligger i banken for <a href="04-angrep.html#fane=eksamen">blokk 4</a>): kolonnene Skjult kanal, Ingen, MitM og Sidekanal. «Kryptert forbindelse gjennom TOR» → <b>Ingen</b>, «opptre som både avsender og mottager i en kryptert forbindelse» → <b>MitM</b>, «måle variasjon av tidsbruk ved kryptering med ulike nøkkelverdier» → <b>Sidekanal</b>, «kalle funksjoner med ulike tidsbruk med hensikt at det kan måles utenfor systemet» → <b>Skjult kanal</b>.</li>
+          <li>H2021 2.2 (2p, ligger i banken for <a href="04-angrep.html#fane=eksamen">blokk 4</a>): kolonnene Skjult kanal, Ingen, MitM og Sidekanal.
+            <ul>
+              <li>«Kryptert forbindelse gjennom TOR» → <b>Ingen</b>,</li>
+              <li>«opptre som både avsender og mottager i en kryptert forbindelse» → <b>MitM</b>,</li>
+              <li>«måle variasjon av tidsbruk ved kryptering med ulike nøkkelverdier» → <b>Sidekanal</b>,</li>
+              <li>«kalle funksjoner med ulike tidsbruk med hensikt at det kan måles utenfor systemet» → <b>Skjult kanal</b>.</li>
+            </ul></li>
           <li>Ingen oppgave i H2022–H2025 om side- eller skjulte kanaler. Lysarket fikk to nye sider om dem i 2026, så de kan komme igjen.</li>
         </ul></div>
 
       <h4>Test deg selv</h4>
       <div id="quiz-kanaler"></div>
+      <h4>Sant eller usant?</h4>
       <div id="tf-kanaler"></div>
     </section>
 
@@ -375,7 +410,14 @@
           <li><b>Kontinuerlig oppdatering:</b> nye sårbarheter oppdages hele tiden. Oppdatering tar tid fordi den må testes og kan ødelegge for egne systemer. Derfor utnytter angripere ofte <b>kjente</b> sårbarheter (d08 s. 4).</li>
           <li><b>Zero-day (nulldagssårbarhet):</b> en sårbarhet som leverandøren ikke kjenner til, eller som det ikke finnes noen tilgjengelig sikkerhetsoppdatering for (d08 s. 4).</li>
           <li><b>CVE, NVD og CVSS</b> (d08 s. 5): den som finner sårbarheten, rapporterer den. <b>CVE</b> registrerer den og gir en CVE-ID. <b>NVD</b> gir retningslinjer og en <b>CVSS</b>-skår. Virksomhetene prioriterer etter alvorlighet. Skalaen går fra 0 til 10: <b>Kritisk 9,0–10 · Høy 7,0–8,9 · Middels 4,0–6,9 · Lav 0,1–3,9</b>.</li>
-          <li><b>Fem tilnærminger</b> (d08 s. 6): fjerne feil i OS-et (oppdateringer), sikkerhetsfunksjoner i OS og CPU (privilegienivåer, NX, ASLR), overvåking (antivirus, brannmur, inntrengingsdeteksjon), virtualisering, og tiltrodd beregning (UEFI, TPM).</li>
+          <li><b>Fem tilnærminger</b> (d08 s. 6):
+            <ul>
+              <li>fjerne feil i OS-et (oppdateringer),</li>
+              <li>sikkerhetsfunksjoner i OS og CPU (privilegienivåer, NX, ASLR),</li>
+              <li>overvåking (antivirus, brannmur, inntrengingsdeteksjon),</li>
+              <li>virtualisering, og</li>
+              <li>tiltrodd beregning (UEFI, TPM).</li>
+            </ul></li>
         </ul></div>
       <div id="ex-sarbarhet"></div>
       <p class="small muted fig-vis-led">Livsløpet til en sårbarhet. Nulldag er tiden uten rettelse; etterpå er faren at rettelsen ikke er installert.</p>
@@ -386,6 +428,7 @@
       <div id="viz-cvss" data-modus="cvss"></div>
 
       <h4>Eksempel: mandag morgen i Lerkedal</h4>
+      <p class="case-ctx" data-case="lerkedal"></p>
       <p>Driftsgruppen får fire varsler (oppdiktede sårbarheter, ingen ekte CVE-ID):</p>
       <div class="table-wrap"><table class="sys-ex">
         <thead><tr><th>Sårbarhet</th><th>CVSS</th><th>Kategori</th><th>Tiltak i prioritert rekkefølge</th></tr></thead>
@@ -430,6 +473,7 @@
 
       <h4>Test deg selv</h4>
       <div id="quiz-sarbarhet"></div>
+      <h4>Sant eller usant?</h4>
       <div id="tf-sarbarhet"></div>
     </section>
 
@@ -443,36 +487,43 @@
 
   <footer class="footer">IN2120-guide · Blokk 5 · Systemsikkerhet · <a href="06-risiko.html">Neste: blokk 6, risiko og styring</a></footer>
 
-  <script src="assets/js/core.js?v=20261126h"></script>
-  <script src="assets/js/symboler.js?v=20261126h"></script>
-  <script src="assets/js/begreper-data.js?v=20261126h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126h"></script>
-  <script src="assets/js/pseudocode.js?v=20261126h"></script>
-  <script src="assets/js/stepplayer.js?v=20261126h"></script>
-  <script src="assets/js/varline.js?v=20261126h"></script>
-  <script src="assets/js/inspera.js?v=20261126h"></script>
-  <script src="assets/js/dra.js?v=20261126h"></script>
-  <script src="assets/js/bank.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126h"></script>
-  <script src="assets/js/viz-system.js?v=20261126h"></script>
+  <script>
+    /* Gjennomgående case på denne siden (vises med <p class="case-ctx" data-case="…"> der caset brukes) */
+    window.IN_CASER = {
+      lerkedal: { navn: "Lerkedal kommune", fane: "virt", fanenavn: "Virtualisering og containere",
+        kort: "En kommune med egen driftsgruppe: skytjener med VM-er for 40 kunder, bibliotekets nettsted som 15 mikrotjenester i containere, VPN-gateway og intranett." }
+    };
+  </script>
+  <script src="assets/js/core.js?v=20261126i"></script>
+  <script src="assets/js/symboler.js?v=20261126i"></script>
+  <script src="assets/js/begreper-data.js?v=20261126i"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126i"></script>
+  <script src="assets/js/pseudocode.js?v=20261126i"></script>
+  <script src="assets/js/stepplayer.js?v=20261126i"></script>
+  <script src="assets/js/varline.js?v=20261126i"></script>
+  <script src="assets/js/inspera.js?v=20261126i"></script>
+  <script src="assets/js/dra.js?v=20261126i"></script>
+  <script src="assets/js/bank.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126i"></script>
+  <script src="assets/js/viz-system.js?v=20261126i"></script>
   <script>
   (function () {
     "use strict";
@@ -498,7 +549,7 @@
       },
       "ex-tiltrodd": {
         eli5: "<p>Sikker oppstart er en dørvakt med gjesteliste. Den som ikke står på lista, kommer ikke inn, og festen starter ikke. TPM er en sekretær som skriver ned alle som kom inn, i en bok ingen kan viske i. Etterpå kan hun vise boka til andre («bare godkjente gjester kom»), og hun låser opp safen bare hvis boka ser ut som den skal. TEE er et lite pengeskap inne i prosessoren som selv huseieren ikke har nøkkel til.</p>",
-        normal: "<p>Programvare kan angripes og endres. Derfor legger man et anker i maskinvaren, som er vanskeligere å tukle med. UEFI-sikker oppstart sjekker signaturen på hvert steg mot lista over godkjente nøkler og stopper hvis noe er feil.</p><p>TPM stopper ingenting. Den måler hva som startes og lagrer målingene. De brukes til attestering (bevise for en tjener at maskinen startet riktig) og forsegling: BitLocker-nøkkelen slippes bare ut hvis maskinen startet slik den skal. TEE går et steg videre og beskytter data <i>mens de brukes</i>, også mot OS-et og hypervisoren.</p>",
+        normal: "<p>Programvare kan angripes og endres. Derfor legger man et anker i maskinvaren, som er vanskeligere å tukle med. UEFI-sikker oppstart sjekker signaturen på hvert steg mot lista over godkjente nøkler og stopper hvis noe er feil.</p><p>TPM stopper ingenting. Den måler hva som startes og lagrer målingene. De brukes til</p><ul><li>attestering (bevise for en tjener at maskinen startet riktig) og</li><li>forsegling: BitLocker-nøkkelen slippes bare ut hvis maskinen startet slik den skal.</li></ul><p>TEE går et steg videre og beskytter data <i>mens de brukes</i>, også mot OS-et og hypervisoren.</p>",
         teknisk: "<p>Sikker oppstart er en <b>tillitskjede basert på signaturer</b>: PK beskytter db og dbx, db avgjør hvilke signaturer som godtas, og hvert steg verifiserer det neste. Det er håndheving: feil betyr stopp.</p><p>Målt oppstart er <b>registrering</b>: hver komponent hashes før den kjøres, og hashen legges inn i TPM-en. Attestering betyr at TPM-en signerer målingene, så en tredjepart kan stole på dem. Forsegling betyr at en nøkkel bare låses opp når målingene er de forventede. Derfor ber BitLocker om gjenopprettingsnøkkelen hvis oppstartskjeden er endret.</p><p>TEE flytter grensen for hva man må stole på: med SGX eller SEV trenger ikke skykunden å stole på leverandørens hypervisor, bare på prosessoren.</p>"
       },
       "ex-kanaler": {
@@ -509,7 +560,7 @@
       "ex-sarbarhet": {
         eli5: "<p>Et hus får stadig nye sprekker. Noen ganger vet ingen om sprekken ennå, ikke engang snekkeren. Det er en nulldagssprekk. Når sprekkene blir kjent, får de et nummer i et felles register (CVE) og en karakter fra 0 til 10 for hvor farlige de er (CVSS). Du tetter de farligste først. Tyvene vet at det tar tid å tette, så de prøver gjerne de kjente sprekkene først.</p>",
         normal: "<p>Sårbarheter er uunngåelige, så forsvaret er en prosess: finn ut hvilke sårbarheter som gjelder deg, prioriter etter CVSS og oppdater. Det tar tid fordi oppdateringer må testes. Mens du venter, er du sårbar for angrep på <i>kjente</i> hull, og det er dem de fleste angripere bruker.</p><p>Mot nulldagssårbarheter hjelper ikke oppdatering, for det finnes ingen ennå. Da trengs lagene fra d08 s. 6: NX, ASLR, privilegienivåer, overvåking, virtualisering og tiltrodd beregning, som begrenser skaden selv om én feil utnyttes.</p>",
-        teknisk: "<p>Hele blokka henger sammen gjennom d08 s. 6: sikkerhetsfunksjoner i OS og CPU er fane 1 og 2, virtualisering er fane 3, og tiltrodd beregning er fane 4. Overvåking (IDS, brannmur) behandles i nettverksblokka.</p><p>CVSS-skåren er en alvorlighetsgrad, ikke risikoen for akkurat din virksomhet. Om sårbarheten finnes hos deg, hvor utsatt systemet er og hva det beskytter, må vurderes i tillegg. Spafford-sitatet står på lysarket som motivasjon, ikke som definisjon: gjengi poenget med egne ord.</p>"
+        teknisk: "<p>Hele blokka henger sammen gjennom d08 s. 6:</p><ul><li>sikkerhetsfunksjoner i OS og CPU er fane 1 og 2,</li><li>virtualisering er fane 3, og</li><li>tiltrodd beregning er fane 4.</li></ul><p>Overvåking (IDS, brannmur) behandles i nettverksblokka.</p><p>CVSS-skåren er en alvorlighetsgrad, ikke risikoen for akkurat din virksomhet. Om sårbarheten finnes hos deg, hvor utsatt systemet er og hva det beskytter, må vurderes i tillegg. Spafford-sitatet står på lysarket som motivasjon, ikke som definisjon: gjengi poenget med egne ord.</p>"
       }
     };
     Object.keys(EX).forEach(function (id) {

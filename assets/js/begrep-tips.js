@@ -59,9 +59,31 @@
     ".qz-prompt, .qz-choices, .qz-choice, .qz-key, .qz-lbl, .qz-head, .qz-foot, " +
     ".ov, .dra, [class*=insp], .bank-insp, .et-pane.t-oppgave, .et-head, .et-tabs, .et-foot, .sp-gjett, " +
     "[data-bt-off]";
-  var SCOPE = "details.examtask, .card, .callout, table, [data-panel], section, main";
+  var SCOPE = ".qz-item, .insp-m tr, .insp-sq, .insp, .dra, .ov, details.examtask, .card, .callout, table, [data-panel], section, main";
+
+  /* Øvingstekst (eierens ønske 2026-11-26: «MAC i sant/usant skal få tips»): påstanden i sant/usant og quiz,
+     Inspera-teksten (deloppgave, felttekst, matriserad), øvingenes spørsmål og eksamenskortets «Oppgave»-fane.
+     Aldri i svaralternativer, felt, knapper eller fasit. Bare oppslag med fullform (forkortelser), og før
+     øvingen er besvart viser tipset bare fullformen og forvekslingslinja, ikke forklaringen (den kunne røpe svaret). */
+  var EXTXT = ".qz-prompt, .insp-sq-t, .insp-tekst, .insp-m-s, .insp-et, .ov-tekst, .ov-q, .dra-prompt, .et-pane.t-oppgave";
+  var EXSKIP = "code, kbd, pre, samp, var, a, button, input, textarea, select, option, label, output, svg, script, style, " +
+    "h1, h2, h3, h4, h5, h6, summary, [contenteditable], [data-tip], [aria-live], [role=status], [role=button], " +
+    ".sym, .bt, .has-tip, .pc-tip, .mono, .kbd, .term, .terminal, .pseudo, .pcode, figure, .fig, " +
+    ".insp-slot, .insp-opt, .insp-fasit, .insp-res, .qz-choices, .qz-exp-btn, .dra-board, .dra-chip, .ov-losn, [data-bt-off]";
+  var EXCTX = "[data-panel], details.examtask, section, main";
 
   function scopeOf(n) { return (n.closest && n.closest(SCOPE)) || document.body; }
+
+  /* Er øvingen tipset står i besvart (eller fasiten vist)? Da kan hele forklaringen vises. */
+  function besvart(s) {
+    var q = s.closest(".qz-item");
+    if (q) return /\b(answered|is-right|is-wrong|is-blank)\b/.test(q.className) || !!q.querySelector(".qz-exp:not([hidden])");
+    var c = s.closest(".insp, .ov, .dra, .et-pane");
+    if (!c && s.closest(".ov-tekst")) c = s.closest(".ov-tekst").parentNode;
+    if (!c) return true;
+    if (/\bis-(right|wrong)\b/.test(c.className)) return true;
+    return !!c.querySelector(".insp-sum, .ov-losn:not([hidden]), .dra-fasit:not([hidden]), .is-right, .is-wrong");
+  }
 
   /* Treff i én tekst: [{ i, n, id }] i rekkefølge, uten overlapp (lengste treff vinner).
      sc = seksjonens tekst (for ctx/nctx), page = body[data-page]. */
@@ -96,33 +118,41 @@
     bind();
     if (st.cur && !st.cur.isConnected) hide();
     var page = pageId(), seenBy = [], todo = [], n;
-    function info(scope) {
+    function info(scope, ov) {
       for (var k = 0; k < seenBy.length; k++) if (seenBy[k][0] === scope) return seenBy[k][1];
       var s = {};
       Array.prototype.forEach.call(scope.querySelectorAll(".bt"), function (b) {
         if (scopeOf(b.parentNode) === scope) s[b.getAttribute("data-bt")] = 1;
       });
-      var r = { seen: s, text: scope.textContent || "" };
+      // I øvinger er enheten liten (én påstand), så ctx/nctx (MAC = meldingsautentisering eller tvungen tilgang)
+      // avgjøres av hele fanen/kortet rundt.
+      var cx = ov ? scope.closest(EXCTX) : null;
+      var r = { seen: s, text: (scope.textContent || "") + (cx && cx !== scope ? " " + (cx.textContent || "") : "") };
       seenBy.push([scope, r]);
       return r;
     }
-    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), ovSet = [];
     while ((n = w.nextNode())) {
       var p = n.parentNode;
       if (!n.nodeValue || !PRE.test(n.nodeValue) || !p || !p.closest) continue;
-      if (!p.closest("main, [data-bt-on]") || !p.closest(ALLOW) || p.closest(SKIP)) continue;
+      if (!p.closest("main, [data-bt-on]")) continue;
       if (p.closest("[data-panel][hidden]")) continue;            // lat: skannes når fanen vises
-      todo.push(n);
+      if (p.closest(ALLOW) && !p.closest(SKIP)) todo.push(n);
+      else if (p.closest(EXTXT) && !p.closest(EXSKIP)) { todo.push(n); ovSet.push(n); }
     }
     todo.forEach(function (tn) {
-      var text = tn.nodeValue, inf = info(scopeOf(tn.parentNode)), s = inf.seen, keep = [];
-      hitsIn(text, page, inf.text).forEach(function (h) { if (!s[h.id]) { s[h.id] = 1; keep.push(h); } });
+      var ov = ovSet.indexOf(tn) >= 0;
+      var text = tn.nodeValue, inf = info(scopeOf(tn.parentNode), ov), s = inf.seen, keep = [];
+      hitsIn(text, page, inf.text).forEach(function (h) {
+        if (ov && !LIST[h.id].full) return;                       // øving: bare forkortelser
+        if (!s[h.id]) { s[h.id] = 1; h.ov = ov; keep.push(h); }
+      });
       if (!keep.length) return;
       var frag = document.createDocumentFragment(), pos = 0;
       keep.forEach(function (h) {
         if (h.i > pos) frag.appendChild(document.createTextNode(text.slice(pos, h.i)));
         var sp = document.createElement("span");
-        sp.className = "bt";
+        sp.className = h.ov ? "bt bt-ov" : "bt";
         sp.setAttribute("data-bt", h.id);
         sp.tabIndex = 0;
         sp.textContent = text.substr(h.i, h.n);
@@ -152,15 +182,17 @@
     document.body.appendChild(t);
     return t;
   }
-  function fill(t, id) {
+  function fill(t, id, s) {
     var e = LIST[id];
+    var skjul = !!(s && s.classList.contains("bt-ov") && !besvart(s));
     while (t.firstChild) t.removeChild(t.firstChild);
     var h = mk("span", "bt-tip-h");
     h.appendChild(mk("b", null, e.ord));
     if (e.full) h.appendChild(document.createTextNode(" · " + e.full));
     t.appendChild(h);
-    t.appendChild(mk("span", "bt-tip-t", e.txt));
+    if (!skjul) t.appendChild(mk("span", "bt-tip-t", e.txt));
     if (e.forveks) t.appendChild(mk("span", "bt-tip-fv", e.forveks));
+    if (skjul) t.appendChild(mk("span", "bt-tip-se", "Hele forklaringen vises når du har svart."));
     var b = BG.BLOKK && BG.BLOKK[e.b];
     if (b && b[1] !== pageId()) t.appendChild(mk("span", "bt-tip-se", BG.se(e)));
   }
@@ -169,7 +201,7 @@
     if (!LIST[id]) return;
     clearTimeout(st.timer);
     var t = tipEl();
-    if (st.cur !== s) fill(t, id);
+    fill(t, id, s);
     t.hidden = false;
     t.classList.toggle("is-pinned", !!pin);
     if (st.cur && st.cur !== s) { st.cur.removeAttribute("aria-describedby"); st.cur.classList.remove("is-open"); }

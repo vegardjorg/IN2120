@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261126h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261126i">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126i">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -90,7 +90,7 @@
           <li><a href="#fane=eksamen&amp;oppg=o-H2025-11">H2025 11</a>: Vigenère (29ᴷ og frekvensanalyse, fritekst, 3 p).</li>
         </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: sterk kryptografi</h4>
       <div id="ov-maal"></div>
       <h4>Test deg selv</h4>
       <div id="quiz-maal"></div>
@@ -138,11 +138,15 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <a href="#fane=eksamen&amp;oppg=o-H2025-3">H2025 3</a> (algoritme → symmetrisk eller asymmetrisk), og begrepsmatrisene
-        <a href="#fane=eksamen&amp;oppg=o-H2025-6">H2025 6</a>, <a href="#fane=eksamen&amp;oppg=o-H2024-6">H2024 6</a> og <a href="#fane=eksamen&amp;oppg=o-H2023-6">H2023 6</a>
-        («felles hemmelig nøkkel», «samme nøkkel», «AES-512», «raskeste måte»). XOR-regning kommer i moduser-oppgavene. Bit-flipping er ikke gitt i H21–H25, men er en god fritekstkandidat.</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-3">H2025 3</a> (algoritme → symmetrisk eller asymmetrisk)</li>
+          <li>begrepsmatrisene
+            <a href="#fane=eksamen&amp;oppg=o-H2025-6">H2025 6</a>, <a href="#fane=eksamen&amp;oppg=o-H2024-6">H2024 6</a> og <a href="#fane=eksamen&amp;oppg=o-H2023-6">H2023 6</a>
+            («felles hemmelig nøkkel», «samme nøkkel», «AES-512», «raskeste måte»)</li>
+        </ul>
+        <p>XOR-regning kommer i moduser-oppgavene. Bit-flipping er ikke gitt i H21–H25, men er en god fritekstkandidat.</p></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: symmetrisk, asymmetrisk eller hash</h4>
       <div id="ov-symmetrisk"></div>
       <h4>Test deg selv</h4>
       <div id="quiz-symmetrisk"></div>
@@ -163,6 +167,7 @@
       <div id="ex-moduser"></div>
 
       <h4>Steg for steg med lekechifferet</h4>
+      <p class="case-ctx" data-case="leke"></p>
       <p class="small muted">K = 0111, M = 1001 · 1001 · 1100 (legg merke til at M₁ = M₂), IV = 1010 og tellerne T = 0001, 0010, 0011. Velg modus øverst. I «Eget:» kan du skrive inn egne 4-bits blokker; da brukes modusen du sist valgte. Før den andre like blokken krypteres, må du gjette hva som skjer med mønsteret.</p>
       <div id="viz-moduser"></div>
 
@@ -197,12 +202,14 @@
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         Figuren kommer hvert år H21–H25 og er den sikreste poengkilden i blokka:
-        <a href="#fane=eksamen&amp;oppg=o-H2021-3_2">H2021 3.2</a> (pingvin: ECB, tellermodus, «Symmetrisk modus» = ingen),
-        <a href="#fane=eksamen&amp;oppg=o-H2021-3_3">H2021 3.3</a> (dekryptering i tellermodus: E, ikke D),
-        <a href="#fane=eksamen&amp;oppg=o-H2022-5_5">H2022 5.5</a> (XOR-regning i CTR),
-        <a href="#fane=eksamen&amp;oppg=o-H2023-20">H2023 20</a> (CTR, CBC),
-        <a href="#fane=eksamen&amp;oppg=o-H2024-17">H2024 17</a> (ECB, CTR),
-        <a href="#fane=eksamen&amp;oppg=o-H2025-8">H2025 8</a> (CBC, CTR, ECB).</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-3_2">H2021 3.2</a> (pingvin: ECB, tellermodus, «Symmetrisk modus» = ingen)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-3_3">H2021 3.3</a> (dekryptering i tellermodus: E, ikke D)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-5_5">H2022 5.5</a> (XOR-regning i CTR)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-20">H2023 20</a> (CTR, CBC)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-17">H2024 17</a> (ECB, CTR)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-8">H2025 8</a> (CBC, CTR, ECB)</li>
+        </ul></div>
 
       <h4>Inspera-øving 1: regn i tellermodus</h4>
       <div id="ov-moduser-1"></div>
@@ -226,8 +233,8 @@
           <li><b>Svak kollisjonsresistens:</b> gitt x er det praktisk umulig å finne en annen x′ med samme hash.</li>
           <li><b>Sterk kollisjonsresistens:</b> det er praktisk umulig å finne noe par x ≠ x′ med samme hash.</li>
         </ol>
-        MD5 (128 bit) og SHA-1 (160 bit) skal ikke brukes. SHA-2 (256/384/512) regnes som sikker. SHA-3 finnes, men brukes lite.
-        Bruk: filsammenligning, passordlagring, integritetssjekk, MAC, signatur, kryptovaluta, tilfeldige tall og nøkkelgenerering.</div>
+        <p>MD5 (128 bit) og SHA-1 (160 bit) skal ikke brukes. SHA-2 (256/384/512) regnes som sikker. SHA-3 finnes, men brukes lite.</p>
+        <p>Bruk: filsammenligning, passordlagring, integritetssjekk, MAC, signatur, kryptovaluta, tilfeldige tall og nøkkelgenerering.</p></div>
       <div id="ex-hash"></div>
       <p class="small muted fig-vis-led">Krav 3–5 skilles på hva angriperen får gitt, og hva angriperen må finne.</p>
       <div id="fk-hashkrav"></div>
@@ -254,12 +261,16 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <a href="#fane=eksamen&amp;oppg=o-H2021-3_4">H2021 3.4</a> og <a href="#fane=eksamen&amp;oppg=o-H2022-5_2">H2022 5.2</a> (sant/usant),
-        <a href="#fane=eksamen&amp;oppg=o-H2023-21">H2023 21</a> (x + 1: lett å beregne og kollisjonsresistent, fordi premisset «unik output» gjør den kollisjonsfri),
-        <a href="#fane=eksamen&amp;oppg=o-H2024-18">H2024 18</a> (lett å beregne, sterk kollisjonsresistens),
-        SHA-2 sikker / SHA-1 usikker i H2023 17 og H2024 14, «enveis» og «sjekke integritet» i begrepsmatrisene, og «OS lagrer passord ved hjelp av» i H2025 6.</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-3_4">H2021 3.4</a> og <a href="#fane=eksamen&amp;oppg=o-H2022-5_2">H2022 5.2</a> (sant/usant)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-21">H2023 21</a> (x + 1: lett å beregne og kollisjonsresistent, fordi premisset «unik output» gjør den kollisjonsfri)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-18">H2024 18</a> (lett å beregne, sterk kollisjonsresistens)</li>
+          <li>SHA-2 sikker / SHA-1 usikker i H2023 17 og H2024 14</li>
+          <li>«enveis» og «sjekke integritet» i begrepsmatrisene</li>
+          <li>«OS lagrer passord ved hjelp av» i H2025 6</li>
+        </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: krav til en hashfunksjon</h4>
       <div id="ov-hash"></div>
       <h4>Test deg selv</h4>
       <div id="quiz-hash"></div>
@@ -277,6 +288,7 @@
       <div id="ex-mac"></div>
 
       <h4>MAC-flyten steg for steg</h4>
+      <p class="case-ctx" data-case="leke"></p>
       <p class="small muted">Leke-MAC: Hash(M, K) = (M ⊕ K) rotert, samme regnestykke som lekechifferet, med K = 0111. En ekte MAC kan ikke regnes baklengs.</p>
       <div id="viz-mac"></div>
       <p class="small muted">Variantene «Mallory endrer M» og «Dommer» hører til hver sin rute i matrisen <a href="#fane=signatur">Hva gir hver mekanisme?</a> i fanen Signatur: integritet og ubenektelighet.</p>
@@ -293,12 +305,16 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <a href="#fane=eksamen&amp;oppg=o-H2021-1_4">H2021 1.4</a> (hvem kan validere MAC og signatur),
-        <a href="#fane=eksamen&amp;oppg=o-H2022-5_3">H2022 5.3</a> (MAC/DigSig/Begge/Ingen),
-        <a href="#fane=eksamen&amp;oppg=o-H2023-15">H2023 15</a> og <a href="#fane=eksamen&amp;oppg=o-H2024-12">H2024 12</a> (enkel mot ubenektelig, nøkkeltyper, lekket nøkkel),
-        H2023 17 a (MAC er ikke bevis for tredjepart), H2024 38 (felles MAC-nøkkel kan ikke identifisere avsenderen; bruk PKI og signatur). Se også sammenligningen i fanen <a href="#fane=signatur">Signatur</a>.</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-1_4">H2021 1.4</a> (hvem kan validere MAC og signatur)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-5_3">H2022 5.3</a> (MAC/DigSig/Begge/Ingen)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-15">H2023 15</a> og <a href="#fane=eksamen&amp;oppg=o-H2024-12">H2024 12</a> (enkel mot ubenektelig, nøkkeltyper, lekket nøkkel)</li>
+          <li>H2023 17 a (MAC er ikke bevis for tredjepart)</li>
+          <li>H2024 38 (felles MAC-nøkkel kan ikke identifisere avsenderen; bruk PKI og signatur)</li>
+        </ul>
+        <p>Se også sammenligningen i fanen <a href="#fane=signatur">Signatur</a>.</p></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: hva MAC gir og ikke gir</h4>
       <div id="ov-mac"></div>
       <h4>Test deg selv</h4>
       <div id="quiz-mac"></div>
@@ -350,12 +366,15 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <a href="#fane=eksamen&amp;oppg=o-H2022-5_4">H2022 5.4</a> og <a href="#fane=eksamen&amp;oppg=o-H2023-7">H2023 7</a> (nøkler ved kryptering),
-        <a href="#fane=eksamen&amp;oppg=o-H2024-7">H2024 7</a> (stjålet privat nøkkel; fasitens «revokere sin offentlige nøkkel» betyr i praksis at sertifikatet for paret trekkes tilbake),
-        begrepsmatrisene H2023 6, H2024 6 og H2025 6 («en nøkkel for kryptering og en annen for dekryptering», «deler offentlige nøkler» = PKI),
-        <a href="#fane=eksamen&amp;oppg=o-H2025-3">H2025 3</a> (RSA, ECC) og H2023 17 c (hybrid gir ikke fremoverhemmelighold).</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-5_4">H2022 5.4</a> og <a href="#fane=eksamen&amp;oppg=o-H2023-7">H2023 7</a> (nøkler ved kryptering)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-7">H2024 7</a> (stjålet privat nøkkel; fasitens «revokere sin offentlige nøkkel» betyr i praksis at sertifikatet for paret trekkes tilbake)</li>
+          <li>begrepsmatrisene H2023 6, H2024 6 og H2025 6 («en nøkkel for kryptering og en annen for dekryptering», «deler offentlige nøkler» = PKI)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-3">H2025 3</a> (RSA, ECC)</li>
+          <li>H2023 17 c (hybrid gir ikke fremoverhemmelighold)</li>
+        </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: nøkler ved asymmetrisk kryptering</h4>
       <div id="ov-asym"></div>
       <h4>Test deg selv</h4>
       <div id="quiz-asym"></div>
@@ -394,11 +413,14 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        H2021 5.3 (blokk 5) (fritekst, 4 p: TLS 1.3, kompromittert langtidsnøkkel, DH, hvorfor ikke TLS 1.2/SSL),
-        H2023 17 c (hybrid → påstanden riktig), <a href="#fane=eksamen&amp;oppg=o-H2024-14">H2024 14 c</a> (DH uten signatur → mann-i-midten mulig),
-        <a href="#fane=eksamen&amp;oppg=o-H2025-12">H2025 12</a> (fritekst, 3 p). H2025-modellsvaret nevner ikke kompromittert langtidsnøkkel; ta det med likevel.</div>
+        <ul>
+          <li>H2021 5.3 (blokk 5) (fritekst, 4 p: TLS 1.3, kompromittert langtidsnøkkel, DH, hvorfor ikke TLS 1.2/SSL)</li>
+          <li>H2023 17 c (hybrid → påstanden riktig)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-14">H2024 14 c</a> (DH uten signatur → mann-i-midten mulig)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-12">H2025 12</a> (fritekst, 3 p). H2025-modellsvaret nevner ikke kompromittert langtidsnøkkel; ta det med likevel.</li>
+        </ul></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: DH og fremoverhemmelighold</h4>
       <div id="ov-dh"></div>
       <div class="callout eksempel"><span class="lbl">Fritekst (som H2025 12, 3 p)</span>
         Forklar på maks fem linjer hvorfor DH gir fremoverhemmelighold og hybrid kryptering ikke gjør det.
@@ -465,11 +487,13 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <a href="#fane=eksamen&amp;oppg=o-H2021-3_5">H2021 3.5</a> = H2022 5.1 (Alice signerer med sin private, Bob verifiserer med Alices offentlige; dommeren er distraktor),
-        <a href="#fane=eksamen&amp;oppg=o-H2024-19">H2024 19</a> = <a href="#fane=eksamen&amp;oppg=o-H2025-9">H2025 9</a> (krypter og signer),
-        <a href="#fane=eksamen&amp;oppg=o-H2024-14">H2024 14 a</a> (signatur er bevis for tredjepart),
-        H2021 1.4, H2022 5.3, H2023 15 og <a href="#fane=eksamen&amp;oppg=o-H2024-12">H2024 12</a> (MAC mot signatur),
-        H2024 38 B (bruk PKI og signatur i stedet for felles MAC-nøkkel).</div>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-3_5">H2021 3.5</a> = H2022 5.1 (Alice signerer med sin private, Bob verifiserer med Alices offentlige; dommeren er distraktor)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-19">H2024 19</a> = <a href="#fane=eksamen&amp;oppg=o-H2025-9">H2025 9</a> (krypter og signer)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-14">H2024 14 a</a> (signatur er bevis for tredjepart)</li>
+          <li>H2021 1.4, H2022 5.3, H2023 15 og <a href="#fane=eksamen&amp;oppg=o-H2024-12">H2024 12</a> (MAC mot signatur)</li>
+          <li>H2024 38 B (bruk PKI og signatur i stedet for felles MAC-nøkkel)</li>
+        </ul></div>
 
       <h4>Inspera-øving 1: MAC, DigSig, Begge eller Ingen</h4>
       <div id="ov-signatur-1"></div>
@@ -523,9 +547,14 @@
         </ul></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Ingen egen PQC-oppgave i H21–H25. Eldre: X20 2.2 (hva er PQC) og 2.4 (DH kan knekkes av kvantedatamaskiner). FIPS 203–205 er nytt i pensum 2026, så en kort matrise eller en fritekstsetning er mulig.</div>
+        Ingen egen PQC-oppgave i H21–H25. Eldre:
+        <ul>
+          <li>X20 2.2 (hva er PQC)</li>
+          <li>X20 2.4 (DH kan knekkes av kvantedatamaskiner)</li>
+        </ul>
+        <p>FIPS 203–205 er nytt i pensum 2026, så en kort matrise eller en fritekstsetning er mulig.</p></div>
 
-      <h4>Inspera-øving</h4>
+      <h4>Inspera-øving: kvantetrusselen</h4>
       <div id="ov-pqc"></div>
       <h4>Test deg selv</h4>
       <div id="quiz-pqc"></div>
@@ -543,38 +572,45 @@
 
   <footer class="footer">IN2120-guide · Blokk 2 · Kryptografi · <a href="03-pki.html">Neste: blokk 3, PKI</a></footer>
 
-  <script src="assets/js/core.js?v=20261126h"></script>
-  <script src="assets/js/symboler.js?v=20261126h"></script>
-  <script src="assets/js/begreper-data.js?v=20261126h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126h"></script>
-  <script src="assets/js/pseudocode.js?v=20261126h"></script>
-  <script src="assets/js/stepplayer.js?v=20261126h"></script>
-  <script src="assets/js/varline.js?v=20261126h"></script>
-  <script src="assets/js/inspera.js?v=20261126h"></script>
-  <script src="assets/js/dra.js?v=20261126h"></script>
-  <script src="assets/js/ovelse.js?v=20261126h"></script>
-  <script src="assets/js/bank.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126h"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126h"></script>
-  <script src="assets/js/viz-krypto.js?v=20261126h"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261126h"></script>
+  <script>
+    /* Gjennomgående case på denne siden (vises med <p class="case-ctx" data-case="…"> der caset brukes) */
+    window.IN_CASER = {
+      leke: { navn: "Lekechifferet", fane: "symmetrisk", fanenavn: "Symmetrisk",
+        kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
+    };
+  </script>
+  <script src="assets/js/core.js?v=20261126i"></script>
+  <script src="assets/js/symboler.js?v=20261126i"></script>
+  <script src="assets/js/begreper-data.js?v=20261126i"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126i"></script>
+  <script src="assets/js/pseudocode.js?v=20261126i"></script>
+  <script src="assets/js/stepplayer.js?v=20261126i"></script>
+  <script src="assets/js/varline.js?v=20261126i"></script>
+  <script src="assets/js/inspera.js?v=20261126i"></script>
+  <script src="assets/js/dra.js?v=20261126i"></script>
+  <script src="assets/js/ovelse.js?v=20261126i"></script>
+  <script src="assets/js/bank.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126i"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126i"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126i"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126i"></script>
+  <script src="assets/js/viz-krypto.js?v=20261126i"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261126i"></script>
   <script>
   (function () {
     "use strict";
@@ -659,7 +695,7 @@
       "ex-dh": {
         eli5: "<p>To venner vil lage en felles hemmelig farge mens alle ser på. Begge starter med samme gule maling. Hver blander inn sin egen hemmelige farge og bytter bøtter. Så blander hver sin hemmelige farge oppi den andres bøtte. Nå har begge samme brune farge, men den som bare så bøttene, klarer ikke å skille fargene ad. De lager en ny farge hver dag og kaster den, så om noen bryter seg inn neste år, finner de ingen gamle farger.</p>",
         normal: "<p>DH lar to parter lage en felles symmetrisk nøkkel over en åpen kanal uten at nøkkelen noen gang sendes. Siden hver økt bruker nye, tilfeldige delnøkler som kastes etterpå, finnes det ingenting en angriper kan stjele senere for å åpne gamle økter. Det er fremoverhemmelighold.</p><p>Hybrid kryptering mangler dette fordi øktnøkkelen faktisk sendes, kryptert med samme langtidsnøkkel hver gang. DH alene vet ikke hvem den snakker med, så den må kombineres med signaturer.</p>",
-        teknisk: "<p>I autentisert DH brukes langtidsnøklene bare til å <i>signere</i>, ikke til å kryptere øktnøkkelen. Lekker " + kp("A", "priv") + " senere, kan angriperen utgi seg for Alice i <i>framtidige</i> økter, men gamle øktnøkler kan ikke regnes ut: a og b er slettet, og K<sup>AB</sup> ble aldri sendt. Hver økt får dermed en uavhengig nøkkel, så én nøkkel kan ikke brukes til å utlede en annen. Et fullt svar nevner begge deler: uavhengige, kortlevde øktnøkler <i>og</i> at en kompromittert langtidsnøkkel ikke åpner gammel trafikk.</p><p>Uten signatur kan Mallory kjøre én DH med Alice og én med Bob og videresende alt (mann-i-midten). DH lager én felles symmetrisk nøkkel – den krypterer ikke selv, og den lager ikke asymmetriske nøkkelpar. DH kan knekkes av kvantedatamaskiner. TLS 1.2 hadde DH som valg, og eldre SSL sendte øktnøkkelen kryptert med tjenerens offentlige nøkkel, så det ga ikke alltid fremoverhemmelighold.</p>"
+        teknisk: "<p>I autentisert DH brukes langtidsnøklene bare til å <i>signere</i>, ikke til å kryptere øktnøkkelen. Lekker " + kp("A", "priv") + " senere, kan angriperen utgi seg for Alice i <i>framtidige</i> økter, men gamle øktnøkler kan ikke regnes ut: a og b er slettet, og K<sup>AB</sup> ble aldri sendt. Hver økt får dermed en uavhengig nøkkel, så én nøkkel kan ikke brukes til å utlede en annen. Et fullt svar nevner begge deler: uavhengige, kortlevde øktnøkler <i>og</i> at en kompromittert langtidsnøkkel ikke åpner gammel trafikk.</p><ul><li>Uten signatur kan Mallory kjøre én DH med Alice og én med Bob og videresende alt (mann-i-midten).</li><li>DH lager én felles symmetrisk nøkkel – den krypterer ikke selv, og den lager ikke asymmetriske nøkkelpar.</li><li>DH kan knekkes av kvantedatamaskiner.</li><li>TLS 1.2 hadde DH som valg, og eldre SSL sendte øktnøkkelen kryptert med tjenerens offentlige nøkkel, så det ga ikke alltid fremoverhemmelighold.</li></ul>"
       },
       "ex-signatur": {
         eli5: "<p>Bare du har din egen spesielle stempelring. Alle i byen har fått et bilde av hvordan avtrykket skal se ut. Stempler du et brev, kan alle sjekke at det er ditt avtrykk – også en dommer. Derfor kan du ikke senere si at det ikke var deg (med mindre ringen ble stjålet).</p>",

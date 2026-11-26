@@ -89,9 +89,9 @@
   P("1", {
     type: "eksamen",
     hvorfor: {
-      eli5: "<p>Kjører du veldig fort, kan du krasje: det er utrygt. Kaster du en mynt, vet du ikke hva du får: det er uvisst. Bruker du et passord alle kan gjette, kan en tyv komme inn: det er usikkert. Måler du med øynene, blir tallet litt feil: det er unøyaktig.</p>",
+      eli5: "<ul><li>Kjører du veldig fort, kan du krasje: det er utrygt.</li><li>Kaster du en mynt, vet du ikke hva du får: det er uvisst.</li><li>Bruker du et passord alle kan gjette, kan en tyv komme inn: det er usikkert.</li><li>Måler du med øynene, blir tallet litt feil: det er unøyaktig.</li></ul>",
       normal: "<p>De fire ordene er negasjoner av fire ulike egenskaper. Sikkerhet handler om vern mot noen som vil skade med vilje, trygghet om vern mot uhell, visshet om at man vet utfallet, og nøyaktighet om hvor presis en måling er. Finn hvilken av disse som mangler i hver situasjon.</p>",
-      teknisk: "<p>På norsk dekker ordet «sikkerhet» både security og safety, så eksamen tvinger deg til å skille dem. Security (sikkerhet) gjelder tilsiktede trusler med en aktør, som en angriper som gjetter 123456. Safety (trygghet) gjelder utilsiktede hendelser, som en bilulykke. Certainty (visshet) gjelder kunnskap om utfall; p = 0,5 betyr maksimal uvisshet for et binært utfall. Accuracy (nøyaktighet) gjelder målefeil.</p>"
+      teknisk: "<p>På norsk dekker ordet «sikkerhet» både security og safety, så eksamen tvinger deg til å skille dem.</p><ul><li>Security (sikkerhet) gjelder tilsiktede trusler med en aktør, som en angriper som gjetter 123456.</li><li>Safety (trygghet) gjelder utilsiktede hendelser, som en bilulykke.</li><li>Certainty (visshet) gjelder kunnskap om utfall; p = 0,5 betyr maksimal uvisshet for et binært utfall.</li><li>Accuracy (nøyaktighet) gjelder målefeil.</li></ul>"
     }
   });
 
@@ -138,7 +138,7 @@
     hvorfor: {
       eli5: "<p>Tenk på dagboka di. Noen leser den: hemmeligheten er brutt (K). Noen skriver i den: innholdet er ødelagt (I). Noen låser den inne: du får ikke brukt den (T).</p>",
       normal: "<p>KIT er de tre sikkerhetsmålene. For hvert angrep spør du hva angriperen oppnår: lese (konfidensialitet), endre (integritet) eller hindre bruk (tilgjengelighet). Kryptovirus er lurt fordi ordet «krypto» får deg til å tenke på hemmelighold, men skaden er at eieren mister tilgang.</p>",
-      teknisk: "<p>Wireshark og keylogger gir uautorisert innsyn (K). Kryptovirus og DDoS hindrer autorisert bruk (T); ved dobbel utpressing med datalekkasje kommer K i tillegg, men det er ikke det typiske målet her. En kollisjon H(M) = H(M′) gjør at Sig(H, K<sup>A</sup><sub>priv</sub>) også validerer M′, så dataintegritet og dataautentisitet faller. Å endre en innlevert besvarelse er en uautorisert modifikasjon (I).</p>"
+      teknisk: "<ul><li>Wireshark og keylogger gir uautorisert innsyn (K).</li><li>Kryptovirus og DDoS hindrer autorisert bruk (T); ved dobbel utpressing med datalekkasje kommer K i tillegg, men det er ikke det typiske målet her.</li><li>En kollisjon H(M) = H(M′) gjør at Sig(H, K<sup>A</sup><sub>priv</sub>) også validerer M′, så dataintegritet og dataautentisitet faller.</li><li>Å endre en innlevert besvarelse er en uautorisert modifikasjon (I).</li></ul>"
     }
   });
 
@@ -201,7 +201,7 @@
     hvorfor: {
       eli5: "<p>Tenk deg en eske du ikke kan se inn i. Du må prøve deg fram utenfra. Det er en svart boks.</p>",
       normal: "<p>Fargen sier hvor mye testeren vet på forhånd: svart = ingenting, grå = litt, hvit = alt. Svartboks etterligner en angriper utenfra, men tar lengre tid fordi testeren må kartlegge alt selv.</p>",
-      teknisk: "<p>Svartboks-testing starter med rekognosering (OSINT, portskanning) som en ekstern trusselaktør. Hvitboks gir kildekode og konfigurasjon og finner flere feil per time, men simulerer ikke en uinformert angriper. Gråboks ligner en innsider eller en angriper som allerede har en brukerkonto. Uansett boks krever pentest skriftlig avtale på forhånd (d05); uten samtykke er det innbrudd etter straffeloven § 204.</p>"
+      teknisk: "<ul><li>Svartboks-testing starter med rekognosering (OSINT, portskanning) som en ekstern trusselaktør.</li><li>Hvitboks gir kildekode og konfigurasjon og finner flere feil per time, men simulerer ikke en uinformert angriper.</li><li>Gråboks ligner en innsider eller en angriper som allerede har en brukerkonto.</li></ul><p>Uansett boks krever pentest skriftlig avtale på forhånd (d05); uten samtykke er det innbrudd etter straffeloven § 204.</p>"
     }
   });
 
@@ -270,7 +270,7 @@
     hvorfor: {
       eli5: "<p>AES er en rask felles lås. Passord lagres som et «fingeravtrykk» (hash), ikke som selve passordet. PKI er telefonkatalogen for offentlige nøkler.</p>",
       normal: "<p>Symmetrisk kryptering (AES) er rask og brukes til selve dataene. Hashfunksjoner er enveis og brukes til passordlagring. PKI sørger for at du får riktig offentlig nøkkel til riktig navn via sertifikater.</p>",
-      teknisk: "<p>AES har 128-bits blokk og nøkler på 128, 192 eller 256 bit. Passord lagres som Hash(passord, salt), helst med en bevisst treg funksjon. Asymmetriske operasjoner er størrelsesordener tregere enn AES, så hybrid kryptering kombinerer dem. PKI binder (domene)navn og offentlig nøkkel i X.509-sertifikater signert av en CA.</p>"
+      teknisk: "<ul><li>AES har 128-bits blokk og nøkler på 128, 192 eller 256 bit.</li><li>Passord lagres som Hash(passord, salt), helst med en bevisst treg funksjon.</li><li>Asymmetriske operasjoner er størrelsesordener tregere enn AES, så hybrid kryptering kombinerer dem.</li><li>PKI binder (domene)navn og offentlig nøkkel i X.509-sertifikater signert av en CA.</li></ul>"
     }
   });
 
@@ -340,7 +340,7 @@
       ]
     },
     losning: [
-      "Se etter kjennetegn: IV + kjeding fra forrige C = CBC; tellere T inn i E og XOR etterpå = CTR; ingenting mellom blokkene = ECB.",
+      "Se etter kjennetegn:<ul><li>IV + kjeding fra forrige C = CBC</li><li>tellere T inn i E og XOR etterpå = CTR</li><li>ingenting mellom blokkene = ECB</li></ul>",
       "OFB er en distraktor (ikke vist). Bruker du den, mister du 1 poeng."
     ],
     tips: ["Minuspoengene er like store som plusspoengene her (±1). Er du usikker på én, kan blankt lønne seg.", "Operasjonsmodus-diagram har kommet H23, H24 og H25."]
@@ -348,9 +348,9 @@
   P("8", {
     type: "eksamen",
     hvorfor: {
-      eli5: "<p>ECB låser hver bit av brevet for seg, så like biter ser like ut. CBC blander inn forrige låste bit før den neste låses, som en kjede. CTR lager en hemmelig «støy» fra et telleverk og blander den med brevet.</p>",
-      normal: "<p>Operasjonsmoduser sier hvordan et blokkchiffer brukes på mange blokker. ECB krypterer hver blokk alene og lekker mønstre. CBC kjeder blokkene ved å XOR-e inn forrige chiffertekst (første blokk med IV). CTR krypterer en teller og XOR-er resultatet med klarteksten, så den fungerer som et strømchiffer.</p>",
-      teknisk: "<p>ECB: Cᵢ = E(Mᵢ, K). CBC: C₁ = E(IV ⊕ M₁, K) og videre med forrige Cᵢ₋₁ i stedet for IV; IV skal være tilfeldig, men trenger ikke være hemmelig. CTR: Cᵢ = E(Tᵢ, K) ⊕ Mᵢ og Mᵢ = E(Tᵢ, K) ⊕ Cᵢ, så bare E brukes også ved dekryptering, og blokkene kan behandles parallelt. Tellerverdier må aldri gjenbrukes med samme nøkkel.</p>"
+      eli5: "<ul><li>ECB låser hver bit av brevet for seg, så like biter ser like ut.</li><li>CBC blander inn forrige låste bit før den neste låses, som en kjede.</li><li>CTR lager en hemmelig «støy» fra et telleverk og blander den med brevet.</li></ul>",
+      normal: "<p>Operasjonsmoduser sier hvordan et blokkchiffer brukes på mange blokker.</p><ul><li>ECB krypterer hver blokk alene og lekker mønstre.</li><li>CBC kjeder blokkene ved å XOR-e inn forrige chiffertekst (første blokk med IV).</li><li>CTR krypterer en teller og XOR-er resultatet med klarteksten, så den fungerer som et strømchiffer.</li></ul>",
+      teknisk: "<ul><li>ECB: Cᵢ = E(Mᵢ, K).</li><li>CBC: C₁ = E(IV ⊕ M₁, K) og videre med forrige Cᵢ₋₁ i stedet for IV; IV skal være tilfeldig, men trenger ikke være hemmelig.</li><li>CTR: Cᵢ = E(Tᵢ, K) ⊕ Mᵢ og Mᵢ = E(Tᵢ, K) ⊕ Cᵢ, så bare E brukes også ved dekryptering, og blokkene kan behandles parallelt.</li></ul><p>Tellerverdier må aldri gjenbrukes med samme nøkkel.</p>"
     }
   });
 
@@ -459,7 +459,7 @@
     hvorfor: {
       eli5: "<p>Vigenère flytter bokstavene med et kodeord som gjentas. Siden «e» er så vanlig på norsk, ser du etter bokstaven som dukker opp oftest på hver plass i kodeordet, og da kan du gjette deg fram.</p>",
       normal: "<p>Nøkkelrommet er antall mulige nøkler: 29 valg for hver av K posisjoner gir 29<sup>K</sup>. Svakheten er at nøkkelen gjentas. Når man vet nøkkellengden, kan man dele teksten i grupper som hver er forskjøvet like mye, og knekke dem med frekvensanalyse.</p>",
-      teknisk: "<p>Vigenère er et polyalfabetisk substitusjonschiffer: Cᵢ = (Mᵢ + k<sub>i mod K</sub>) mod 29, der k<sub>j</sub> er nøkkelbokstav nr. j og K er nøkkellengden. Nøkkelrommet 29<sup>K</sup> kan være stort, men chifferet har dårlig spredning (diffusion): statistikken i klarteksten bevares innenfor hver nøkkelposisjon. Kasiski-undersøkelse (avstand mellom gjentatte trigrammer) eller koinsidensindeks gir K; frekvensanalyse gir deretter hver nøkkelbokstav. Med en tilfeldig nøkkel like lang som meldingen, brukt én gang, blir det en engangsnøkkel og ubrytbart.</p>"
+      teknisk: "<p>Vigenère er et polyalfabetisk substitusjonschiffer: Cᵢ = (Mᵢ + k<sub>i mod K</sub>) mod 29, der k<sub>j</sub> er nøkkelbokstav nr. j og K er nøkkellengden. Nøkkelrommet 29<sup>K</sup> kan være stort, men chifferet har dårlig spredning (diffusion): statistikken i klarteksten bevares innenfor hver nøkkelposisjon.</p><p>Kasiski-undersøkelse (avstand mellom gjentatte trigrammer) eller koinsidensindeks gir K; frekvensanalyse gir deretter hver nøkkelbokstav.</p><p>Med en tilfeldig nøkkel like lang som meldingen, brukt én gang, blir det en engangsnøkkel og ubrytbart.</p>"
     },
     sensor: {
       deler: [
@@ -499,7 +499,7 @@
     hvorfor: {
       eli5: "<p>Med DH lager dere en ny engangsnøkkel hver gang og kaster den etterpå. Stjeler noen husnøkkelen din senere, hjelper det ikke å åpne de gamle boksene. Med hybrid ligger alle de gamle nøklene låst med samme hovednøkkel. Stjeles hovednøkkelen, kan alt åpnes.</p>",
       normal: "<p>Fremoverhemmelighold betyr at gamle økter forblir hemmelige selv om en langtidsnøkkel lekker senere. DH gir det fordi hver øktnøkkel lages av ferske, tilfeldige verdier som slettes. Hybrid kryptering gir det ikke fordi alle øktnøklene er beskyttet av den samme private nøkkelen.</p>",
-      teknisk: "<p>Ephemeral DH: A sender gᵃ, B sender gᵇ, begge beregner g<sup>ab</sup> [mod p]; a og b slettes etter økta. Autentisering skjer med signatur, f.eks. S<sub>A</sub> = Sig(g<sup>ab</sup>, A<sub>priv</sub>), så langtidsnøkkelen inngår aldri i nøkkelmaterialet. I hybrid kryptering er C<sub>K</sub> = E(K<sub>økt</sub>, K<sup>B</sup><sub>pub</sub>); med K<sup>B</sup><sub>priv</sub> kan en angriper som har lagret trafikken («lagre nå, dekrypter senere») hente ut hver K<sub>økt</sub>. Derfor fjernet TLS 1.3 RSA-nøkkeltransport; vanlige håndtrykk bruker (EC)DHE.</p>"
+      teknisk: "<p>Ephemeral DH: A sender gᵃ, B sender gᵇ, begge beregner g<sup>ab</sup> [mod p]; a og b slettes etter økta. Autentisering skjer med signatur, f.eks. S<sub>A</sub> = Sig(g<sup>ab</sup>, A<sub>priv</sub>), så langtidsnøkkelen inngår aldri i nøkkelmaterialet.</p><p>I hybrid kryptering er C<sub>K</sub> = E(K<sub>økt</sub>, K<sup>B</sup><sub>pub</sub>); med K<sup>B</sup><sub>priv</sub> kan en angriper som har lagret trafikken («lagre nå, dekrypter senere») hente ut hver K<sub>økt</sub>. Derfor fjernet TLS 1.3 RSA-nøkkeltransport; vanlige håndtrykk bruker (EC)DHE.</p>"
     },
     sensor: {
       deler: [{ del: "",
@@ -703,7 +703,7 @@
     type: "skjonn",
     svar: [
       { del: "A)", tekst: "<p>OSINT er å samle inn og analysere informasjon fra åpent tilgjengelige kilder, som søkemotorer, nettsider, sosiale medier og offentlige registre, uten å bryte seg inn noe sted.</p>", poeng: ["Beskriver hva OSINT er (1p)"] },
-      { del: "B)", tekst: "<p>1) Finne navn, roller og e-postadresser til ansatte for å lage troverdig, målrettet phishing (spyd-phishing). 2) Kartlegge hvilken teknologi virksomheten bruker, f.eks. fra stillingsannonser og DNS, for å finne mulige sårbarheter. (En forsvarer kan bruke det samme for å se hva virksomheten eksponerer.)</p>", poeng: ["Eksempel 1 (1p)", "Eksempel 2 (1p)"] }
+      { del: "B)", tekst: "<ol><li>Finne navn, roller og e-postadresser til ansatte for å lage troverdig, målrettet phishing (spyd-phishing).</li><li>Kartlegge hvilken teknologi virksomheten bruker, f.eks. fra stillingsannonser og DNS, for å finne mulige sårbarheter.</li></ol><p>(En forsvarer kan bruke det samme for å se hva virksomheten eksponerer.)</p>", poeng: ["Eksempel 1 (1p)", "Eksempel 2 (1p)"] }
     ],
     hvorfor: {
       eli5: "<p>Før en tyv bryter seg inn, kan han lese på nettet hvem som jobber der og hvilke låser de har. Det er OSINT. Den som forsvarer seg, kan gjøre det samme for å se hva tyven ser.</p>",
@@ -758,7 +758,7 @@
     hvorfor: {
       eli5: "<p>En tyv har gjemt seg i huset og tatt bort alle spor. Du fant én av dem, men du vet ikke om det er flere eller om de har laget en hemmelig dør. Det tryggeste er å bygge rommet på nytt og sjekke resten av huset.</p>",
       normal: "<p>Et rootkit gjemmer skadevare ved å manipulere det operativsystemet viser: filer, prosesser og logger. Derfor fant IT ingenting. Når du først har funnet et rootkit, kan du ikke stole på maskinen lenger. Riktig håndtering er å isolere, sjekke spredning, finne inngangen og reinstallere.</p>",
-      teknisk: "<p>Rootkits kan ligge i kjernen (nivå 0), i fastvare/oppstart eller under OS (hypervisor-rootkit), og avskjærer systemkall slik at de selv blir usynlige. At systemfilene er identiske med produsentens og at loggene er tomme, peker mot noe som skjuler seg under OS-nivå. Antivirus som kjører på det kompromitterte systemet, ser bare det rootkitet slipper gjennom. Hendelseshåndtering: inneslutning (isolasjon), analyse (spredning, angrepsvektor, eksfiltrert data), utryddelse (reinstallering, eventuelt flashing av fastvare) og gjenoppretting fra rene kilder.</p>"
+      teknisk: "<p>Rootkits kan ligge i kjernen (nivå 0), i fastvare/oppstart eller under OS (hypervisor-rootkit), og avskjærer systemkall slik at de selv blir usynlige. At systemfilene er identiske med produsentens og at loggene er tomme, peker mot noe som skjuler seg under OS-nivå. Antivirus som kjører på det kompromitterte systemet, ser bare det rootkitet slipper gjennom. Hendelseshåndtering:</p><ul><li>inneslutning (isolasjon)</li><li>analyse (spredning, angrepsvektor, eksfiltrert data)</li><li>utryddelse (reinstallering, eventuelt flashing av fastvare)</li><li>gjenoppretting fra rene kilder</li></ul>"
     },
     sensor: {
       deler: [
@@ -798,7 +798,7 @@
       "Sensor trekker for manglende «alert», «tcp» eller feil/manglende port 22. Feil retning gir 0.",
       "Fasit setter 22 som kildeport. Vil du dekke tilfellet der DC selv er SSH-klient, ville porten stått på mottakersiden: alert tcp 10.10.23.23 any -&gt; any 22. Skriv gjerne den regelen som fasit viser, og nevn den andre i en setning."
     ],
-    avvik: "Fasit `alert tcp 10.10.23.23 22 -> any any` har SSH-porten som kildeport, altså trafikk der DC er SSH-tjener og svarer. Leses «utgående SSH-trafikk fra DC» som at DC starter SSH-forbindelser ut, ville 22 stått som målport (slik lysarkets eksempel har 22 på mottakersiden). Fasit mangler også «msg:» og «;» (sensorteksten sier at enkle syntaksfeil ses bort fra). Skrivefeil «generer» og «poeg» beholdt ordrett."
+    avvik: ["Fasit `alert tcp 10.10.23.23 22 -> any any` har SSH-porten som kildeport, altså trafikk der DC er SSH-tjener og svarer. Leses «utgående SSH-trafikk fra DC» som at DC starter SSH-forbindelser ut, ville 22 stått som målport (slik lysarkets eksempel har 22 på mottakersiden).", "Fasit mangler også «msg:» og «;» (sensorteksten sier at enkle syntaksfeil ses bort fra).", "Skrivefeil «generer» og «poeg» beholdt ordrett."]
   });
   P("20", {
     type: "skjonn",
@@ -808,7 +808,7 @@
     hvorfor: {
       eli5: "<p>Snort er en vakt som leser alle pakker. Regelen sier: «Rop ut hvis du ser SSH-pakker som går ut fra domenekontrolleren.»</p>",
       normal: "<p>En Snort-regel har et hode og en kropp. Hodet sier hva som skal skje (alert), hvilken protokoll (tcp), fra hvilken adresse og port, retningspilen, og til hvilken adresse og port. Kroppen i parentes har melding og ID. SSH bruker port 22.</p>",
-      teknisk: "<p>Regelhode: &lt;handling&gt; &lt;protokoll&gt; &lt;kilde-IP&gt; &lt;kildeport&gt; -&gt; &lt;mål-IP&gt; &lt;målport&gt;. Opsjoner skilles med semikolon, f.eks. msg:\"…\"; sid:…; rev:…; (lokale regler bruker sid ≥ 1000000). En TCP-forbindelse har én klientport (tilfeldig, høy) og én tjenerport (22 for SSH). Om 22 skal stå som kilde- eller målport avhenger av hvem som er SSH-tjener; fasit forutsetter at DC er tjeneren. Med «&lt;&gt;» kan man fange begge retninger.</p>"
+      teknisk: "<p>Regelhode: &lt;handling&gt; &lt;protokoll&gt; &lt;kilde-IP&gt; &lt;kildeport&gt; -&gt; &lt;mål-IP&gt; &lt;målport&gt;. Opsjoner skilles med semikolon, f.eks. msg:\"…\"; sid:…; rev:…; (lokale regler bruker sid ≥ 1000000).</p><p>En TCP-forbindelse har én klientport (tilfeldig, høy) og én tjenerport (22 for SSH). Om 22 skal stå som kilde- eller målport avhenger av hvem som er SSH-tjener; fasit forutsetter at DC er tjeneren. Med «&lt;&gt;» kan man fange begge retninger.</p>"
     },
     sensor: {
       deler: [{ del: "",
@@ -903,8 +903,8 @@
     type: "eksamen",
     hvorfor: {
       eli5: "<p>Tenk på et brev: programmet du skriver i (Outlook), språket i brevet (HTTP), konvolutten med avsender og mottaker (TCP/UDP og IP), og postbilen i nabolaget (link). Hver protokoll har sin etasje.</p>",
-      normal: "<p>Internettstakken har lagene fysisk, link, internett, transport og applikasjon, og kurset legger brukerprogrammet (App) øverst. ARP jobber i lokalnettet (link), IP mellom nett (internett), UDP/TCP mellom prosesser (transport) og HTTP/Telnet er applikasjonsprotokoller. TLS deles i to: Record i transportlaget og Handshake i applikasjonslaget.</p>",
-      teknisk: "<p>ARP oversetter IPv4-adresse til MAC-adresse via kringkasting og har ingen autentisering (derav ARP-spoofing). IP gir ruting og adressering mellom nett; UDP gir porter uten forbindelse. TLS Record-laget fragmenterer, krypterer og MAC-beskytter data over TCP og oppfører seg som et sikkert transportlag. Handshake-protokollen er meldinger som bæres av Record-laget og hører derfor høyere. Kurset plasserer IPsec i IP-laget (uten port).</p>"
+      normal: "<p>Internettstakken har lagene fysisk, link, internett, transport og applikasjon, og kurset legger brukerprogrammet (App) øverst.</p><ul><li>ARP jobber i lokalnettet (link)</li><li>IP mellom nett (internett)</li><li>UDP/TCP mellom prosesser (transport)</li><li>HTTP/Telnet er applikasjonsprotokoller</li></ul><p>TLS deles i to: Record i transportlaget og Handshake i applikasjonslaget.</p>",
+      teknisk: "<ul><li>ARP oversetter IPv4-adresse til MAC-adresse via kringkasting og har ingen autentisering (derav ARP-spoofing).</li><li>IP gir ruting og adressering mellom nett; UDP gir porter uten forbindelse.</li><li>TLS Record-laget fragmenterer, krypterer og MAC-beskytter data over TCP og oppfører seg som et sikkert transportlag.</li><li>Handshake-protokollen er meldinger som bæres av Record-laget og hører derfor høyere.</li><li>Kurset plasserer IPsec i IP-laget (uten port).</li></ul>"
     }
   });
 
@@ -936,7 +936,7 @@
     hvorfor: {
       eli5: "<p>Noen protokoller sender postkort som alle kan lese (Telnet, HTTP, FTP, ARP). Andre sender brev i en låst konvolutt (SSH, RDP).</p>",
       normal: "<p>De eldste internettprotokollene ble laget før kryptering var vanlig og sender alt i klartekst. SSH og RDP krypterer forbindelsen, så den som avlytter bare ser chiffertekst.</p>",
-      teknisk: "<p>SSH etablerer nøkler med DH, autentiserer tjeneren med en vertsnøkkel og krypterer kanalen. RDP bruker normalt TLS (og kan bruke NLA for autentisering før økta). Telnet (23), FTP (20/21) og HTTP (80) er klartekst, så passord kan leses med Wireshark. ARP har verken kryptering eller autentisering på linklaget.</p>"
+      teknisk: "<ul><li>SSH etablerer nøkler med DH, autentiserer tjeneren med en vertsnøkkel og krypterer kanalen.</li><li>RDP bruker normalt TLS (og kan bruke NLA for autentisering før økta).</li><li>Telnet (23), FTP (20/21) og HTTP (80) er klartekst, så passord kan leses med Wireshark.</li><li>ARP har verken kryptering eller autentisering på linklaget.</li></ul>"
     }
   });
 
@@ -972,14 +972,14 @@
       "Trafikk som ingen regel treffer, avgjøres av standardpolicyen; fasit forutsetter at den er DROP."
     ],
     tips: ["Lag deg en tabell: kilde, protokoll, port → første treff.", "Kjenn portene: HTTP 80, HTTPS 443, SSH 22, Telnet 23, RDP 3389."],
-    avvik: "Standardpolicyen for FORWARD er ikke oppgitt. iptables har ACCEPT som standard, så fasit «Nei» for HTTP fra 141.10.10.10 og UDP fra 129.240.31.23 (som ingen regel treffer) forutsetter at policyen er satt til DROP. Regelteksten bruker tankestrek (–A, –s, –j, -–dport) og små bokstaver (accept/drop), mens iptables krever bindestrek og ACCEPT/DROP; dette er beholdt ordrett og påvirker ikke fasit."
+    avvik: ["Standardpolicyen for FORWARD er ikke oppgitt. iptables har ACCEPT som standard, så fasit «Nei» for HTTP fra 141.10.10.10 og UDP fra 129.240.31.23 (som ingen regel treffer) forutsetter at policyen er satt til DROP.", "Regelteksten bruker tankestrek (–A, –s, –j, -–dport) og små bokstaver (accept/drop), mens iptables krever bindestrek og ACCEPT/DROP; dette er beholdt ordrett og påvirker ikke fasit."]
   });
   P("24", {
     type: "eksamen",
     hvorfor: {
       eli5: "<p>Brannmuren er en dørvakt med en liste. Han leser lista ovenfra og gjør det den første linja som passer sier. Står du ikke på lista i det hele tatt, slipper du ikke inn (i denne oppgaven).</p>",
       normal: "<p>En tilstandsløs brannmur vurderer hver pakke mot reglene i rekkefølge. Første treff bestemmer. Derfor betyr rekkefølgen alt: en bred drop-regel tidlig skygger for en smal accept-regel senere. Trafikk som ikke treffer noen regel, får standardpolicyen.</p>",
-      teknisk: "<p>iptables har kjedene INPUT (til verten), OUTPUT (fra verten) og FORWARD (gjennom verten). Hver regel matcher på f.eks. -s (kilde), -p (protokoll) og --dport (målport), og -j angir mål (ACCEPT/DROP). Standardpolicy settes med «iptables -P FORWARD DROP»; uten den er den ACCEPT, og det er vanlig å avslutte med en eksplisitt DROP. Tilstandsløs betyr at returtrafikk må tillates med egne regler.</p>"
+      teknisk: "<p>iptables har kjedene INPUT (til verten), OUTPUT (fra verten) og FORWARD (gjennom verten). Hver regel matcher på f.eks. -s (kilde), -p (protokoll) og --dport (målport), og -j angir mål (ACCEPT/DROP).</p><p>Standardpolicy settes med «iptables -P FORWARD DROP»; uten den er den ACCEPT, og det er vanlig å avslutte med en eksplisitt DROP. Tilstandsløs betyr at returtrafikk må tillates med egne regler.</p>"
     }
   });
 
@@ -1274,7 +1274,7 @@
     hvorfor: {
       eli5: "<p>STRIDE er en huskeliste over seks måter noen kan lage trøbbel på: late som de er en annen, endre ting, nekte for det de gjorde, se hemmeligheter, ødelegge tjenesten og få mer makt enn de skal ha.</p>",
       normal: "<p>Hver STRIDE-trussel er det motsatte av et sikkerhetsmål. Spoofing angriper autentisitet, tampering integritet, repudiation sporbarhet, information disclosure konfidensialitet, denial of service tilgjengelighet og elevation of privilege tilgangskontrollen. Utviklere går gjennom hver komponent og spør hvilke av de seks som kan skje.</p>",
-      teknisk: "<p>STRIDE (Microsoft) brukes på dataflytdiagrammer: hver prosess, datalager, dataflyt og tillitsgrense vurderes mot de seks kategoriene. Repudiation handler om at en aktør kan nekte for en handling fordi logging/signatur mangler; motmiddelet er sporbarhet og ubenektelighet (f.eks. digital signatur og sikre logger). Elevation of privilege betyr at en aktør får rettigheter utover det policyen spesifiserer; tilgangskontrollen håndhever ikke autoriseringen.</p>"
+      teknisk: "<p>STRIDE (Microsoft) brukes på dataflytdiagrammer: hver prosess, datalager, dataflyt og tillitsgrense vurderes mot de seks kategoriene.</p><p>Repudiation handler om at en aktør kan nekte for en handling fordi logging/signatur mangler; motmiddelet er sporbarhet og ubenektelighet (f.eks. digital signatur og sikre logger).</p><p>Elevation of privilege betyr at en aktør får rettigheter utover det policyen spesifiserer; tilgangskontrollen håndhever ikke autoriseringen.</p>"
     },
     sensor: {
       deler: [{ del: "",
@@ -1298,7 +1298,7 @@
     },
     losning: ["Hva: rangert liste over de ti mest kritiske sikkerhetsrisikoene for nettapplikasjoner.", "Nytte: råd om hvordan risikoene kan reduseres.", "Når: siste utgave kom i november 2025."],
     tips: ["Få med alle tre punktene: rangering av risikoer, råd om tiltak og årstallet."],
-    avvik: "«en kort beskrivelser» og stor N i «Når» etter komma beholdt ordrett. Det som kom 6.11.2025, var release candidate 1 av OWASP Top 10:2025 (top10.owasp.org/2025); 2025-utgaven har blant annet de nye kategoriene A03 Software Supply Chain Failures og A10 Mishandling of Exceptional Conditions. Fasiten sier «november 2025», så skriv det på eksamen."
+    avvik: ["«en kort beskrivelser» og stor N i «Når» etter komma beholdt ordrett.", "Det som kom 6.11.2025, var release candidate 1 av OWASP Top 10:2025 (top10.owasp.org/2025); 2025-utgaven har blant annet de nye kategoriene A03 Software Supply Chain Failures og A10 Mishandling of Exceptional Conditions. Fasiten sier «november 2025», så skriv det på eksamen."]
   });
   P("32", {
     type: "skjonn",
@@ -1407,7 +1407,7 @@
     hvorfor: {
       eli5: "<p>Skjermer og kabler «hvisker» litt radiostøy. Med riktig utstyr kan noen utenfor fange opp hviskingen og se hva som er på skjermen. TEMPEST er navnet på dette og på beskyttelsen mot det.</p>",
       normal: "<p>Elektronisk utstyr sender ut utilsiktet elektromagnetisk stråling. TEMPEST er NATO-navnet på avlytting av slik stråling og på kravene til å skjerme mot den. Det er en form for sidekanal.</p>",
-      teknisk: "<p>Kompromitterende emisjon (f.eks. fra skjermsignaler, tastaturer eller kobberkabler) kan rekonstrueres på avstand («van Eck-avlytting»). Mottiltak er skjermede rom (Faradaybur), TEMPEST-sertifisert utstyr, sonering/avstand og fiberkabler, som ikke stråler slik kobber gjør.</p>"
+      teknisk: "<p>Kompromitterende emisjon (f.eks. fra skjermsignaler, tastaturer eller kobberkabler) kan rekonstrueres på avstand («van Eck-avlytting»). Mottiltak er:</p><ul><li>skjermede rom (Faradaybur)</li><li>TEMPEST-sertifisert utstyr</li><li>sonering/avstand</li><li>fiberkabler, som ikke stråler slik kobber gjør</li></ul>"
     }
   });
 
@@ -1434,7 +1434,7 @@
     hvorfor: {
       eli5: "<p>Den ene står oppe og skrur, den andre står nede og passer på. Begge har lært å kjøre liften.</p>",
       normal: "<p>Arbeid i høyden kan gi alvorlige fallulykker. Regelen er minst to personer, der én er på bakken og kan tilkalle hjelp eller kjøre liften ned hvis den som er oppe blir skadet eller liften svikter. Begge må ha opplæring.</p>",
-      teknisk: "<p>Kravene er personellsikkerhet i praksis: dobbel bemanning gir redundans (ingen alene i en farlig situasjon), personen på bakken kan bruke nødbetjening og sikre området mot trafikk, og opplæring er et krav for å betjene personløftere. Tilsvarende prinsipp i informasjonssikkerhet er tomannsregel og funksjonsdeling.</p>"
+      teknisk: "<p>Kravene er personellsikkerhet i praksis:</p><ul><li>dobbel bemanning gir redundans (ingen alene i en farlig situasjon)</li><li>personen på bakken kan bruke nødbetjening og sikre området mot trafikk</li><li>opplæring er et krav for å betjene personløftere</li></ul><p>Tilsvarende prinsipp i informasjonssikkerhet er tomannsregel og funksjonsdeling.</p>"
     },
     sensor: {
       deler: [{ del: "",
@@ -1486,19 +1486,19 @@
       "Fellen: å tro at MitM betyr at man ser alt. Med TLS og HSTS gir en MitM bare chiffertekst, og et falskt sertifikat gir en feilmelding brukeren ikke kan klikke seg forbi.",
       "Bob er pålogget en terminalserver via wifi. Kjører nettleseren på terminalserveren, starter TLS der, og wifi-strekningen beskyttes av terminaløkta (RDP er kryptert, jf. H2025 23). Kjersti ser uansett bare chiffertekst."
     ],
-    avvik: "1) Modellsvaret sier «Jørgen vil potensielt plukke opp Franks signaler», men ifølge oppgaven har Jørgen hacket Tomas sin maskin (det er Matias som har hacket Frank). Konklusjonen (bare chiffertekst) er den samme. 2) Poengfordelingen er tvetydig: Emma 3 p + Stine 3 p + «0,5 poeng for å nevne alle som ikke får tilgang … (totalt tre)» + «1 poeng for … ende-til endekryptering». Leses 0,5 p per person for de seks uten tilgang (= 3 p), blir summen 10 med ende-til-ende-poenget; leses «totalt tre» som tre grupper à 0,5 p, blir summen 8,5. Ingen lesning gir nøyaktig 9. 3) Gunnar nevnes bare indirekte («Signalene går her gjennom Gunnars maskiner»)."
+    avvik: ["Modellsvaret sier «Jørgen vil potensielt plukke opp Franks signaler», men ifølge oppgaven har Jørgen hacket Tomas sin maskin (det er Matias som har hacket Frank). Konklusjonen (bare chiffertekst) er den samme.", "Poengfordelingen er tvetydig: Emma 3 p + Stine 3 p + «0,5 poeng for å nevne alle som ikke får tilgang … (totalt tre)» + «1 poeng for … ende-til endekryptering». Leses 0,5 p per person for de seks uten tilgang (= 3 p), blir summen 10 med ende-til-ende-poenget; leses «totalt tre» som tre grupper à 0,5 p, blir summen 8,5. Ingen lesning gir nøyaktig 9.", "Gunnar nevnes bare indirekte («Signalene går her gjennom Gunnars maskiner»)."]
   });
   P("37", {
     type: "skjonn",
     svar: [{ del: "", tekst:
       "<p><strong>Emma får passordet.</strong> Keyloggeren hennes sitter på Bobs maskin og registrerer tastetrykkene før de blir kryptert av TLS, altså i klartekst.</p>" +
       "<p><strong>Stine får passordet.</strong> Hun eier serveren, og TLS-forbindelsen ender (termineres) der. Scriptet som sjekker passordstyrken må få passordet i klartekst, så hun kan lese det.</p>" +
-      "<p><strong>Kjersti, Tomas, Jørgen, Gunnar, Frank og Matias får ikke passordet.</strong> TLS gir ende-til-ende-kryptering fra Bobs nettleser til Stines server, så alt de kan avlytte på veien (wifi, MitM i Bobs nett, teleleverandørens utstyr, MitM i Stines nett) er chiffertekst. HSTS og at Bob har brukt siden før med samme nettleser gjør at nettleseren bare godtar HTTPS med gyldig sertifikat, så Tomas og Frank kan ikke nedgradere til HTTP eller lure inn et falskt sertifikat. Jørgen (uten admin på Tomas' maskin) og Matias (root på Franks maskin) kan i beste fall se det Tomas og Frank ser, altså chiffertekst.</p>",
+      "<p><strong>Kjersti, Tomas, Jørgen, Gunnar, Frank og Matias får ikke passordet.</strong> TLS gir ende-til-ende-kryptering fra Bobs nettleser til Stines server, så alt de kan avlytte på veien (wifi, MitM i Bobs nett, teleleverandørens utstyr, MitM i Stines nett) er chiffertekst.</p><p>HSTS og at Bob har brukt siden før med samme nettleser gjør at nettleseren bare godtar HTTPS med gyldig sertifikat, så Tomas og Frank kan ikke nedgradere til HTTP eller lure inn et falskt sertifikat.</p><p>Jørgen (uten admin på Tomas' maskin) og Matias (root på Franks maskin) kan i beste fall se det Tomas og Frank ser, altså chiffertekst.</p>",
       poeng: ["Emma (1p) + keylogger virker før TLS (2p)", "Stine (1p) + serveren terminerer TLS og ser klartekst (2p)", "De andre ser bare kryptert tekst (0,5p-poster)", "Ende-til-ende-kryptering nevnt (1p)"] }],
     hvorfor: {
       eli5: "<p>Bob skriver et hemmelig brev, legger det i en låst boks og sender det til Stine. Emma kikker over skulderen mens han skriver, så hun ser det. Stine har nøkkelen til boksen, så hun ser det. Alle postbudene på veien ser bare den låste boksen.</p>",
       normal: "<p>TLS krypterer fra nettleseren til serveren. Passordet finnes derfor i klartekst bare i hver ende: på Bobs maskin før kryptering (der keyloggeren er) og på Stines server etter dekryptering. Alle som sitter på veien, uansett om de avlytter, er mann-i-midten eller har hacket en mann-i-midten, ser bare kryptert trafikk. HSTS hindrer at noen tvinger forbindelsen over på ukryptert HTTP.</p>",
-      teknisk: "<p>TLS Handshake autentiserer serveren med et sertifikat og etablerer øktnøkler; Record-laget krypterer og integritetsbeskytter data. En MitM uten serverens private nøkkel eller et sertifikat nettleseren stoler på, kan bare videresende chiffertekst. HSTS (lagret fra tidligere besøk) gjør at nettleseren nekter HTTP og ikke lar brukeren overstyre sertifikatfeil, så TLS-stripping ikke virker. Keyloggeren angriper endepunktet før kryptering, og serveren er det andre endepunktet: der kan eieren lese passordet (tillitsforvirring: en gyldig TLS-forbindelse sier ingenting om at mottakeren er ærlig). Passordbytte hvert halvår hjelper ikke når Bob selv gir passordet til en tredjepart.</p>"
+      teknisk: "<ul><li>TLS Handshake autentiserer serveren med et sertifikat og etablerer øktnøkler; Record-laget krypterer og integritetsbeskytter data.</li><li>En MitM uten serverens private nøkkel eller et sertifikat nettleseren stoler på, kan bare videresende chiffertekst.</li><li>HSTS (lagret fra tidligere besøk) gjør at nettleseren nekter HTTP og ikke lar brukeren overstyre sertifikatfeil, så TLS-stripping ikke virker.</li><li>Keyloggeren angriper endepunktet før kryptering, og serveren er det andre endepunktet: der kan eieren lese passordet (tillitsforvirring: en gyldig TLS-forbindelse sier ingenting om at mottakeren er ærlig).</li><li>Passordbytte hvert halvår hjelper ikke når Bob selv gir passordet til en tredjepart.</li></ul>"
     },
     sensor: {
       deler: [{ del: "",

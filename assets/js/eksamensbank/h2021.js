@@ -138,7 +138,7 @@
   hv("H2021-1.3",
     "<p>Først blir du medlem av treningssenteret, får et kort, og de bestemmer hvilke rom du får gå inn i. Senere, hver gang du kommer, sier du hvem du er, viser kortet, og døra slipper deg bare inn der du har lov.</p>",
     "<p>IAM har to faser. I konfigureringsfasen registreres brukeren, får en autentikator og blir autorisert (policy settes). I bruksfasen oppgir brukeren ID, beviser den med autentikatoren, og tilgangskontrollen håndhever policyen. Hvert steg i bruksfasen speiler et steg i konfigureringsfasen.</p>",
-    "<p>Kurset skiller skarpt mellom autorisering (å spesifisere tilgangspolicy, gjort av en administrator i konfigureringsfasen) og tilgangskontroll (å håndheve policyen ved hver forespørsel i bruksfasen). Identifisering (oppgi bruker-ID) og autentisering (oppgi autentikator) kommer før tilgangskontrollen, fordi systemet må vite hvem som spør før det kan slå opp hva vedkommende har lov til.</p>");
+    "<p>Kurset skiller skarpt mellom</p><ul><li>autorisering (å spesifisere tilgangspolicy, gjort av en administrator i konfigureringsfasen) og</li><li>tilgangskontroll (å håndheve policyen ved hver forespørsel i bruksfasen).</li></ul><p>Identifisering (oppgi bruker-ID) og autentisering (oppgi autentikator) kommer før tilgangskontrollen, fordi systemet må vite hvem som spør før det kan slå opp hva vedkommende har lov til.</p>");
 
   O.push({
     key: "H2021-1.4", year: Y, oppgave_nr: "Oppgave 1.4", del: D1,
@@ -167,7 +167,7 @@
   hv("H2021-1.4",
     "<p>En MAC er som et hemmelig håndtrykk mellom to venner: de to kjenner det igjen, men ingen andre kan sjekke det. En signatur er som en håndskrift alle har en prøve av: hvem som helst kan sammenligne.</p>",
     "<p>Med MAC deler avsender og mottaker én hemmelig nøkkel. Mottakeren kan validere, men en tredjepart kan ikke. Med digital signatur signerer avsender med sin private nøkkel, og alle med den offentlige nøkkelen kan validere. Derfor er signatur sterkere, ikke svakere.</p>",
-    "<p>MAC = Hash(M, k) med en symmetrisk nøkkel k som begge parter kjenner. Validering er å regne ut MAC′ og sjekke MAC = MAC′. Fordi begge kan lage den samme MAC-en, kan ingen tredjepart avgjøre hvem som laget den, så MAC gir bare enkel meldingsautentisering. Signaturen S = Sig(H, K<sup>A</sup><sub>priv</sub>) kan bare lages av A, men valideres av alle med K<sup>A</sup><sub>pub</sub>; det gir ubenektelig meldingsautentisering.</p>");
+    "<ul><li>MAC = Hash(M, k) med en symmetrisk nøkkel k som begge parter kjenner. Validering er å regne ut MAC′ og sjekke MAC = MAC′. Fordi begge kan lage den samme MAC-en, kan ingen tredjepart avgjøre hvem som laget den, så MAC gir bare enkel meldingsautentisering.</li><li>Signaturen S = Sig(H, K<sup>A</sup><sub>priv</sub>) kan bare lages av A, men valideres av alle med K<sup>A</sup><sub>pub</sub>; det gir ubenektelig meldingsautentisering.</li></ul>");
 
   /* ==================== DEL 2: ANGREPSVEKTORER OG SKADEVARE ==================== */
 
@@ -226,7 +226,7 @@
   hv("H2021-2.2",
     "<p>En sidekanal er som å gjette hva naboen lager til middag ut fra lukten: de mente ikke å fortelle deg det. En skjult kanal er som å blinke med lyset i et avtalt mønster for å sende en beskjed i hemmelighet.</p>",
     "<p>Sidekanal: informasjon lekker utilsiktet fra en implementasjon, f.eks. via tid eller strømforbruk, og angriperen måler den. Skjult kanal: noen bruker bevisst en mekanisme som ikke er laget for kommunikasjon til å sende data ut. MitM: angriperen setter seg mellom to parter og spiller begge roller. Tor er et anonymiseringsverktøy, ikke et angrep.</p>",
-    "<p>Raden med tidsmåling ved ulike nøkler er et klassisk tidsangrep (sidekanal): kryptoalgoritmen bruker ulik tid avhengig av nøkkelbits. Raden der funksjoner kalles med vilje for å gi målbar tid utenfor systemet, er en tidsbasert skjult kanal: avsenderen er en innsider (f.eks. skadevare) som koder data i tidsbruken. MitM i en kryptert forbindelse betyr at angriperen etablerer to separate krypterte forbindelser, noe autentisering (sertifikater) skal hindre.</p>");
+    "<ul><li>Raden med tidsmåling ved ulike nøkler er et klassisk tidsangrep (sidekanal): kryptoalgoritmen bruker ulik tid avhengig av nøkkelbits.</li><li>Raden der funksjoner kalles med vilje for å gi målbar tid utenfor systemet, er en tidsbasert skjult kanal: avsenderen er en innsider (f.eks. skadevare) som koder data i tidsbruken.</li><li>MitM i en kryptert forbindelse betyr at angriperen etablerer to separate krypterte forbindelser, noe autentisering (sertifikater) skal hindre.</li></ul>");
 
   O.push({
     key: "H2021-2.3", year: Y, oppgave_nr: "Oppgave 2.3", del: D2,
@@ -290,7 +290,7 @@
   hv("H2021-2.4",
     "<p>Hvis noen låser dagboka di inne, hjelper det å ha en kopi hjemme. Men hvis noen har lest og kopiert dagboka, hjelper ikke kopien din – da hjelper det bare om det ikke stod navn i den.</p>",
     "<p>Løsepengevirus kan gi to typer skade: dataene blir utilgjengelige (tap av data), og dataene kan bli stjålet og lekket (personvern). Sikkerhetskopi løser det første. Anonymisering demper det andre. Fasiten sier at cyberforsikring som betaler løsepenger hjelper mot begge, men for personvern er det et svakt argument.</p>",
-    "<p>Moderne løsepengeangrep kombinerer ofte kryptering av data (brudd på T) med eksfiltrering og trussel om publisering (brudd på K og personvern). Sikkerhetskopi gjenoppretter T, men gjør ingenting med K. Anonymisering reduserer konsekvensen av en lekkasje fordi data ikke kan knyttes til personer. Betaling av løsepenger kan i beste fall gi dekrypteringsnøkkel; at det reverserer en lekkasje, er en tvilsom antakelse.</p>");
+    "<p>Moderne løsepengeangrep kombinerer ofte kryptering av data (brudd på T) med eksfiltrering og trussel om publisering (brudd på K og personvern).</p><ul><li>Sikkerhetskopi gjenoppretter T, men gjør ingenting med K.</li><li>Anonymisering reduserer konsekvensen av en lekkasje fordi data ikke kan knyttes til personer.</li><li>Betaling av løsepenger kan i beste fall gi dekrypteringsnøkkel; at det reverserer en lekkasje, er en tvilsom antakelse.</li></ul>");
 
   O.push({
     key: "H2021-2.5", year: Y, oppgave_nr: "Oppgave 2.5", del: D2,
@@ -350,7 +350,7 @@
   hv("H2021-3.1",
     "<p>En god lås må både være umulig å dirke opp, og ha så mange mulige nøkler at det ikke går å prøve alle. Det gjør ikke noe om alle vet hvordan låsen er bygd.</p>",
     "<p>Sterk krypto krever to ting: algoritmen må stå imot kryptanalyse (ingen smarte snarveier), og nøkkelrommet må være så stort at det ikke går å prøve alle nøkler. Algoritmen trenger ikke være hemmelig, og den skal skjule mønstre i klarteksten, ikke beholde dem.</p>",
-    "<p>Sikkerheten til et chiffer måles mot de to generelle angrepene: uttømmende nøkkelsøk (forsvares med stort nøkkelrom, f.eks. 2¹²⁸ nøkler) og kryptanalyse som utnytter struktur eller statistikk (forsvares med god forvirring og spredning). Kerckhoffs' prinsipp sier at sikkerheten bare skal hvile på nøkkelen. Kvanteresistens er et ekstra krav for asymmetrisk krypto, ikke en generell nødvendig betingelse.</p>");
+    "<p>Sikkerheten til et chiffer måles mot de to generelle angrepene:</p><ul><li>uttømmende nøkkelsøk (forsvares med stort nøkkelrom, f.eks. 2¹²⁸ nøkler) og</li><li>kryptanalyse som utnytter struktur eller statistikk (forsvares med god forvirring og spredning).</li></ul><p>Kerckhoffs' prinsipp sier at sikkerheten bare skal hvile på nøkkelen. Kvanteresistens er et ekstra krav for asymmetrisk krypto, ikke en generell nødvendig betingelse.</p>");
 
   O.push({
     key: "H2021-3.2", year: Y, oppgave_nr: "Oppgave 3.2", del: D3,
@@ -383,7 +383,7 @@
   hv("H2021-3.2",
     "<p>Tenk deg at du bytter hver farge i et bilde med en ny, men alltid den samme nye fargen for samme gamle farge. Da ser du fortsatt pingvinen, bare i rare farger. Det er ECB. Tellermodus blander inn noe nytt for hver bit av bildet, så alt blir bare snø.</p>",
     "<p>ECB krypterer hver blokk uavhengig med samme nøkkel. Like blokker gir like resultater, så mønstre i klarteksten synes i chifferteksten. Tellermodus krypterer en teller som endres for hver blokk og XOR-er resultatet med klarteksten, så mønstrene forsvinner. «Symmetrisk modus» er ikke en modus.</p>",
-    "<p>ECB: C₁ = E(M₁, K). Fordi funksjonen er deterministisk, gir Mᵢ = Mⱼ alltid Cᵢ = Cⱼ, og store ensfargede flater i bildet blir like chiffertekstblokker. CTR: C₁ = E(T₁, K) ⊕ M₁ der telleren T er unik per blokk; nøkkelstrømmen er dermed forskjellig for hver blokk, og like klartekstblokker gir ulike chiffertekstblokker. Det gir et resultat som ser ut som tilfeldig støy.</p>");
+    "<ul><li>ECB: C₁ = E(M₁, K). Fordi funksjonen er deterministisk, gir Mᵢ = Mⱼ alltid Cᵢ = Cⱼ, og store ensfargede flater i bildet blir like chiffertekstblokker.</li><li>CTR: C₁ = E(T₁, K) ⊕ M₁ der telleren T er unik per blokk; nøkkelstrømmen er dermed forskjellig for hver blokk, og like klartekstblokker gir ulike chiffertekstblokker. Det gir et resultat som ser ut som tilfeldig støy.</li></ul>");
 
   O.push({
     key: "H2021-3.3", year: Y, oppgave_nr: "Oppgave 3.3", del: D3,
@@ -529,7 +529,7 @@
   hv("H2021-4.2",
     "<p>Har noen kopiert nøkkelen til dagbokskrinet ditt, slutter du å legge nye hemmeligheter i det. Men du bruker fortsatt nøkkelen til å åpne skrinet og hente ut det som ligger der.</p>",
     "<p>Når en nøkkel kan være lekket, må den ikke brukes til å beskytte noe nytt: ikke kryptere og ikke signere. Men data som allerede er kryptert med nøkkelen, må fortsatt kunne dekrypteres, ellers mister eieren dataene sine. Derfor er dekryptering tillatt for begge nøkkeltypene.</p>",
-    "<p>Kurset deler kryptoperioden i beskyttelsesperiode (kryptere med hemmelig/offentlig nøkkel, signere med privat) og prosesseringsperiode (dekryptere med hemmelig/privat nøkkel, validere med offentlig). Ved kompromittering avsluttes beskyttelsesperioden umiddelbart, mens prosesseringen av eksisterende chiffertekst kan fortsette. For den private nøkkelen er validering ikke aktuelt (det gjøres med den offentlige), og kryptering gjøres ikke med privat nøkkel.</p>");
+    "<p>Kurset deler kryptoperioden i</p><ul><li>beskyttelsesperiode (kryptere med hemmelig/offentlig nøkkel, signere med privat) og</li><li>prosesseringsperiode (dekryptere med hemmelig/privat nøkkel, validere med offentlig).</li></ul><p>Ved kompromittering avsluttes beskyttelsesperioden umiddelbart, mens prosesseringen av eksisterende chiffertekst kan fortsette. For den private nøkkelen er validering ikke aktuelt (det gjøres med den offentlige), og kryptering gjøres ikke med privat nøkkel.</p>");
 
   O.push({
     key: "H2021-4.3", year: Y, oppgave_nr: "Oppgave 4.3", del: D4,
@@ -558,7 +558,7 @@
   });
   hv("H2021-4.3",
     "<p>«Beskyttelse» er når du låser noe ned. «Prosessering» er når du senere åpner det eller sjekker det. For hver slags lås spør du: hvilken nøkkel låser, og hvilken åpner?</p>",
-    "<p>Beskyttelsesperioden er tiden en nøkkel brukes til å beskytte data (kryptere eller signere). Prosesseringsperioden er tiden den brukes til å behandle beskyttede data (dekryptere eller validere). For symmetrisk krypto er det samme hemmelige nøkkel i begge. For signatur beskytter den private og prosesserer den offentlige; for asymmetrisk kryptering er det omvendt.</p>",
+    "<ul><li>Beskyttelsesperioden er tiden en nøkkel brukes til å beskytte data (kryptere eller signere).</li><li>Prosesseringsperioden er tiden den brukes til å behandle beskyttede data (dekryptere eller validere).</li></ul><p>For symmetrisk krypto er det samme hemmelige nøkkel i begge. For signatur beskytter den private og prosesserer den offentlige; for asymmetrisk kryptering er det omvendt.</p>",
     "<p>Kryptoperioden strekker seg fra starten av beskyttelsesperioden til slutten av prosesseringsperioden, og prosesseringen kan vare lenger enn beskyttelsen (gamle data må kunne leses eller valideres). For asymmetriske nøkkelpar har de to nøklene derfor ulike perioder: for signatur er den private nøkkelens periode kortest, for kryptering er den offentlige nøkkelens periode kortest.</p>");
 
   O.push({
@@ -659,7 +659,7 @@
   hv("H2021-5.2",
     "<p>Sikkerhet kan legges på ulike steder: rundt selve innholdet i brevet, rundt konvolutten eller rundt hele lastebilen. TLS og IPsec er slike lag med beskyttelse på ulike nivåer.</p>",
     "<p>I kurset ligger TLS Handshake i applikasjonslaget og TLS Record i transportlaget, mens IPsec ligger i IP-laget. Ingen av alternativene hører til linklaget.</p>",
-    "<p>TLS Handshake utveksler meldinger som selv bæres av TLS Record, og den gjør applikasjonsnære oppgaver (sertifikatvalidering, valg av chiffer, nøkkeletablering) – derfor plasserer kurset den i applikasjonslaget. TLS Record kapsler inn en pålitelig byte-strøm over TCP og gir konfidensialitet og integritet til strømmen; kurset regner den til transportlaget. IPsec (AH/ESP) beskytter hver IP-pakke og ligger derfor i IP-laget, uavhengig av porter.</p>");
+    "<ul><li>TLS Handshake utveksler meldinger som selv bæres av TLS Record, og den gjør applikasjonsnære oppgaver (sertifikatvalidering, valg av chiffer, nøkkeletablering) – derfor plasserer kurset den i applikasjonslaget.</li><li>TLS Record kapsler inn en pålitelig byte-strøm over TCP og gir konfidensialitet og integritet til strømmen; kurset regner den til transportlaget.</li><li>IPsec (AH/ESP) beskytter hver IP-pakke og ligger derfor i IP-laget, uavhengig av porter.</li></ul>");
 
   O.push({
     key: "H2021-5.3", year: Y, oppgave_nr: "Oppgave 5.3", del: D5,
@@ -704,7 +704,7 @@
   };
   hv("H2021-5.3",
     "<p>Tenk deg at du og en venn hver gang dere snakker, lager en ny engangskode sammen og kaster den etterpå. Selv om noen senere stjeler nøkkelringen din, finnes ikke de gamle kodene noe sted, så gamle samtaler forblir hemmelige.</p>",
-    "<p>Fremoverhemmelighold betyr at gamle økter forblir hemmelige selv om tjenerens private langtidsnøkkel lekker senere. Det oppnås med en ny Diffie-Hellman-utveksling for hver økt (TLS 1.3 gjør dette i fullt handtrykk; bare gjenopptak med ren forhåndsdelt nøkkel, PSK, mangler det). Eldre protokoller som SSL og TLS 1.2 med RSA-nøkkeltransport sendte øktnøkkelens hemmelighet kryptert med tjenerens offentlige nøkkel; da åpner den private nøkkelen alle gamle økter.</p>",
+    "<p>Fremoverhemmelighold betyr at gamle økter forblir hemmelige selv om tjenerens private langtidsnøkkel lekker senere. Det oppnås med en ny Diffie-Hellman-utveksling for hver økt (TLS 1.3 gjør dette i fullt handtrykk; bare gjenopptak med ren forhåndsdelt nøkkel, PSK, mangler det).</p><p>Eldre protokoller som SSL og TLS 1.2 med RSA-nøkkeltransport sendte øktnøkkelens hemmelighet kryptert med tjenerens offentlige nøkkel; da åpner den private nøkkelen alle gamle økter.</p>",
     "<p>Ved hybrid kryptering (nøkkeltransport) avhenger alle øktnøkler av én langtidsnøkkel: K<sub>økt</sub> kan hentes fra opptak med D(C, K<sup>S</sup><sub>priv</sub>). Med flyktig DH velger partene nye a og b per økt, utveksler gᵃ og gᵇ [mod p], og beregner gᵃᵇ [mod p]. Etter økta slettes a og b. Langtidsnøkkelen brukes bare til å signere DH-verdiene (mot mann-i-midten), så å stjele den senere gir ingen informasjon om gᵃᵇ.</p>");
 
   O.push({
@@ -734,7 +734,7 @@
   hv("H2021-5.4",
     "<p>En tilstandsløs portvakt har en fast liste og sjekker hver person for seg. En tilstandsbasert portvakt husker hvem som gikk ut, og slipper dem inn igjen. En applikasjonsportvakt åpner til og med koffertene og ser hva som ligger i dem.</p>",
     "<p>Tilstandsløse pakkefiltre har statiske regler og vurderer hver pakke alene. Tilstandsbaserte pakkefiltre holder oversikt over forbindelser og lager dynamiske regler for svartrafikk. Applikasjonsbrannmurer forstår protokollene på applikasjonslaget og kan derfor inspisere TLS-trafikk. HSTS er en nettlesermekanisme, ikke en brannmuregenskap.</p>",
-    "<p>Et tilstandsbasert filter har en forbindelsestabell: når en utgående TCP-forbindelse åpnes, legges en midlertidig regel inn som tillater de tilhørende svarpakkene. TLS-inspeksjon krever at brannmuren opptrer som en kontrollert mann-i-midten med eget CA-sertifikat installert hos klientene, noe bare en proxy på applikasjonsnivå kan. HSTS er en HTTP-respons-header fra tjeneren som nettleseren lagrer.</p>");
+    "<ul><li>Et tilstandsbasert filter har en forbindelsestabell: når en utgående TCP-forbindelse åpnes, legges en midlertidig regel inn som tillater de tilhørende svarpakkene.</li><li>TLS-inspeksjon krever at brannmuren opptrer som en kontrollert mann-i-midten med eget CA-sertifikat installert hos klientene, noe bare en proxy på applikasjonsnivå kan.</li><li>HSTS er en HTTP-respons-header fra tjeneren som nettleseren lagrer.</li></ul>");
 
   /* ============================ DEL 6: BRUKERAUTENTISERING ============================ */
 
@@ -826,7 +826,7 @@
   hv("H2021-6.3",
     "<p>Noen ganger viser en liten dings deg en kode (OTP-brikke). Noen ganger stikker du et kort i en leser (pass/ID-kort). Noen ganger kobler du en nøkkel rett i datamaskinen (online-enhet). Og noen ganger får du en melding på telefonen ved siden av (sekundærkanal).</p>",
     "<p>Enhetene skilles på hvordan de snakker med systemet. OTP-brikker viser koder brukeren taster inn, ofte basert på klokke (gammel BankID). Pass og ID-kort leses av en terminal. Online-enheter, som FIDO-nøkler, kommuniserer direkte med datamaskinen. Sekundærkanal er en separat kanal, typisk mobilen, brukt i BankID på mobil og til å sende koder til brukeren.</p>",
-    "<p>OTP-brikker er offline: de deler en hemmelighet med tjeneren og bruker tid eller teller for å lage koder; brukeren er overføringskanalen. Online-enheter (FIDO/passnøkler) gjør en kryptografisk utfordring–svar-utveksling direkte med nettleseren, som også binder svaret til domenet. Sekundærkanaler bruker en uavhengig kanal (mobilnett, app) slik at en angriper må kompromittere to kanaler.</p>");
+    "<ul><li>OTP-brikker er offline: de deler en hemmelighet med tjeneren og bruker tid eller teller for å lage koder; brukeren er overføringskanalen.</li><li>Online-enheter (FIDO/passnøkler) gjør en kryptografisk utfordring–svar-utveksling direkte med nettleseren, som også binder svaret til domenet.</li><li>Sekundærkanaler bruker en uavhengig kanal (mobilnett, app) slik at en angriper må kompromittere to kanaler.</li></ul>");
 
   O.push({
     key: "H2021-6.4", year: Y, oppgave_nr: "Oppgave 6.4", del: D6,
@@ -855,7 +855,7 @@
   hv("H2021-6.4",
     "<p>Tre land har laget hver sin regelbok for hvor trygg en innlogging må være. Den norske fra 2008 hadde fire trinn og brydde seg ikke om hvordan du fikk ID-en din. Den amerikanske sier også noe om hvordan flere tjenester kan dele én innlogging. Den europeiske deler kravene i tre grupper.</p>",
     "<p>NIST SP 800-63-3 dekker identitetsregistrering, autentisering og føderering (derav krav til ID-føderering). eIDAS stiller krav i tre kategorier (ID-registrering og autentikatorhåndtering, autentiseringsmetode, fødereringssikkerhet) og har tre nivåer (lav, betydelig, høy). RAU (Norge 2008) hadde fire nivåer og stilte ikke krav til registrering av ID.</p>",
-    "<p>Garantinivå (level of assurance) uttrykker hvor stor tillit man kan ha til at den som autentiseres, er den hen sier. NIST 800-63-3 skiller IAL (identitet), AAL (autentisering) og FAL (føderering). eIDAS kombinerer tre kategorier krav i tre nivåer. Kurset (BA-lysarket) deler dem i ID-registrering og autentikatorhåndtering, autentiseringsmetode og fødereringssikkerhet. Selve gjennomføringsforordningen (EU) 2015/1502 deler kravene i fire avsnitt, men på eksamen gjelder kursets tre. RAU var et eldre norsk rammeverk med fire nivåer som bare så på autentiseringsløsningen.</p>");
+    "<p>Garantinivå (level of assurance) uttrykker hvor stor tillit man kan ha til at den som autentiseres, er den hen sier.</p><ul><li>NIST 800-63-3 skiller IAL (identitet), AAL (autentisering) og FAL (føderering).</li><li>eIDAS kombinerer tre kategorier krav i tre nivåer.</li><li>Kurset (BA-lysarket) deler dem i ID-registrering og autentikatorhåndtering, autentiseringsmetode og fødereringssikkerhet.</li><li>Selve gjennomføringsforordningen (EU) 2015/1502 deler kravene i fire avsnitt, men på eksamen gjelder kursets tre.</li><li>RAU var et eldre norsk rammeverk med fire nivåer som bare så på autentiseringsløsningen.</li></ul>");
 
   /* ==================== DEL 7: IDENTITETS- OG TILGANGSHÅNDTERING ==================== */
 
@@ -919,14 +919,14 @@
         { etikett: "tjeneste (SP → Nettleser)", godta: ["12", "tolv"], explain: "<p>SP validerer tokenet (IdP-ens signatur) og leverer tjenesten (<strong>12</strong>).</p>" }
       ]
     },
-    avvik: "I den flatede PDF-en er tekstfeltene forskjøvet bort fra sirklene i figuren, så det går ikke å lese direkte hvilket godtatt tall (grønne parenteser (1)–(12)) som hører til hvilken melding. Felt som står ved riktig melding: (9) ved «bruker autentiseres» og (8) ved «send autentikator». Resten av tilordningen er tatt fra den tilsvarende figuren i H2024 31 (litt andre etiketter), der feltene står på plass (1 tjenesteforespørsel … 12 tjeneste), og stemmer med OIDC-flyten i kurset. Hvert felt godtar ett tall, og alle tallene 1–12 forekommer én gang.",
+    avvik: ["I den flatede PDF-en er tekstfeltene forskjøvet bort fra sirklene i figuren, så det går ikke å lese direkte hvilket godtatt tall (grønne parenteser (1)–(12)) som hører til hvilken melding.", "Felt som står ved riktig melding: (9) ved «bruker autentiseres» og (8) ved «send autentikator».", "Resten av tilordningen er tatt fra den tilsvarende figuren i H2024 31 (litt andre etiketter), der feltene står på plass (1 tjenesteforespørsel … 12 tjeneste), og stemmer med OIDC-flyten i kurset. Hvert felt godtar ett tall, og alle tallene 1–12 forekommer én gang."],
     losning: ["Del i tre: hos SP (1–4), hos IdP (5–10), tilbake til SP (11–12).", "SP: forespørsel, liste, valg, omdirigering.", "IdP: be om aut., login-side, bruker presenterer, sendes, sjekkes, token tilbake.", "SP: token videresendes, tjeneste leveres."],
     tips: ["Nettleseren er budbringer mellom SP og IdP – SP og IdP snakker ikke direkte sammen i denne flyten.", "Tilsvarende figur i H2024 31 (litt andre etiketter; der 0,25 p per tall)."]
   });
   hv("H2021-7.2",
     "<p>Du vil inn på en klubb (SP). Dørvakten sier: «Hvem kan gå god for deg?» og peker på noen kontorer. Du går til ett kontor (IdP), viser legitimasjon, får en forseglet lapp, går tilbake og viser lappen. Da slipper du inn.</p>",
     "<p>OIDC går i tre runder. Først hos SP: brukeren ber om tjenesten, får en liste over IdP-er, velger én og blir sendt videre. Så hos IdP: nettleseren ber om autentisering, får login-side, brukeren gir autentikatoren som sendes og sjekkes, og IdP-en gir et token til nettleseren. Til slutt tilbake til SP: tokenet videresendes og SP leverer tjenesten.</p>",
-    "<p>OIDC er et autentiseringslag på OAuth 2.0. IdP-en (OpenID Provider) utsteder et ID-token signert med sin private nøkkel; SP-en (Relying Party) validerer det med IdP-ens offentlige nøkkel i henhold til føderasjonsavtalen. I kursets forenklede scenario går all kommunikasjon via nettleseren med omdirigeringer, så SP aldri ser brukerens autentikator. (I den vanlige autorisasjonskodeflyten i OIDC-spesifikasjonen får nettleseren bare en kode, og SP henter ID-tokenet direkte fra IdP-en.) Hengelåsen på tokenet i figuren markerer at det er beskyttet (signert) slik at nettleseren ikke kan endre det.</p>");
+    "<p>OIDC er et autentiseringslag på OAuth 2.0. IdP-en (OpenID Provider) utsteder et ID-token signert med sin private nøkkel; SP-en (Relying Party) validerer det med IdP-ens offentlige nøkkel i henhold til føderasjonsavtalen.</p><p>I kursets forenklede scenario går all kommunikasjon via nettleseren med omdirigeringer, så SP aldri ser brukerens autentikator. (I den vanlige autorisasjonskodeflyten i OIDC-spesifikasjonen får nettleseren bare en kode, og SP henter ID-tokenet direkte fra IdP-en.)</p><p>Hengelåsen på tokenet i figuren markerer at det er beskyttet (signert) slik at nettleseren ikke kan endre det.</p>");
 
   O.push({
     key: "H2021-7.3", year: Y, oppgave_nr: "Oppgave 7.3", del: D7,
@@ -955,7 +955,7 @@
   hv("H2021-7.3",
     "<p>DAC: du bestemmer selv hvem som får låne sykkelen din. MAC: militæret bestemmer ut fra stempler på papirene. RBAC: alle med jobben «kokk» får gå inn på kjøkkenet. ABAC: reglene kan bruke hva som helst, som tid på døgnet, avdeling og alder.</p>",
     "<p>RBAC passer når tilganger følger faste jobbfunksjoner (roller). DAC lar eieren av en ressurs bestemme tilgangen, slik filrettigheter fungerer i Windows og Linux. MAC lar systemet avgjøre ut fra klareringer og graderinger, som i militære systemer. ABAC er den mest generelle modellen fordi den bruker vilkårlige attributter.</p>",
-    "<p>DAC realiseres med tilgangskontrollister per objekt, styrt av eieren. MAC (f.eks. BLP med «no read up» og «no write down») håndheves av systemet og kan ikke overstyres av brukeren, og støtter konfidensialitet. RBAC samler tillatelser i roller og tildeler brukere roller. ABAC evaluerer regler over attributter for subjekt, objekt, handling og miljø, og kan derfor emulere både roller (rolle som attributt) og merker (klarering som attributt).</p>");
+    "<ul><li>DAC realiseres med tilgangskontrollister per objekt, styrt av eieren.</li><li>MAC (f.eks. BLP med «no read up» og «no write down») håndheves av systemet og kan ikke overstyres av brukeren, og støtter konfidensialitet.</li><li>RBAC samler tillatelser i roller og tildeler brukere roller.</li><li>ABAC evaluerer regler over attributter for subjekt, objekt, handling og miljø, og kan derfor emulere både roller (rolle som attributt) og merker (klarering som attributt).</li></ul>");
 
   /* ==================== DEL 8: LEDELSE AV INFORMASJONSSIKKERHET ==================== */
 
@@ -988,7 +988,7 @@
   hv("H2021-8.1",
     "<p>27001 er som regelboka for hvordan en klubb skal styres, og det er den revisoren sjekker. 27002 er en stor verktøykasse med ting klubben kan bruke. Begge kom fra en britisk bok, og begge koster penger.</p>",
     "<p>ISO/IEC 27001 beskriver krav til et ISMS og er standarden virksomheter sertifiseres etter. ISO/IEC 27002 er en tiltaksbank med veiledning. Begge har opphav i britisk standard (BS 7799), ingen av dem er gratis, og ingen av dem er obligatoriske i norsk statlig forvaltning.</p>",
-    "<p>27001 er en kravstandard («skal»-krav) for å etablere, drifte og forbedre et ISMS etter en PDCA-syklus, med et vedlegg som lister tiltakene. 27002 utdyper de samme tiltakene med veiledning, men er ikke selv sertifiserbar. Norsk forvaltning har krav om internkontroll/styringssystem, og Digdir bruker begrepet internkontroll om omtrent det samme som ISMS (ISM-arket), men 27001 er ikke lovpålagt.</p>");
+    "<ul><li>27001 er en kravstandard («skal»-krav) for å etablere, drifte og forbedre et ISMS etter en PDCA-syklus, med et vedlegg som lister tiltakene.</li><li>27002 utdyper de samme tiltakene med veiledning, men er ikke selv sertifiserbar.</li><li>Norsk forvaltning har krav om internkontroll/styringssystem, og Digdir bruker begrepet internkontroll om omtrent det samme som ISMS (ISM-arket), men 27001 er ikke lovpålagt.</li></ul>");
 
   O.push({
     key: "H2021-8.2", year: Y, oppgave_nr: "Oppgave 8.2", del: D8,
@@ -1071,7 +1071,7 @@
       type: "D",
       regelTekst: "Poeng: 0,5 for hver korrekt tilordning, -0,5 for hver feil tilordning, 4 for alle riktig, minimum 0.",
       regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 4, alleRiktig: 4, sekvens: 0.5 },
-      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge (5 trinn gir 2,5), feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Øvingen retter slik (regel.sekvens og regel.alleRiktig).\n\n" + JUSTERT,
+      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge (5 trinn gir 2,5), feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Øvingen retter slik (regel.sekvens og regel.alleRiktig).<br><br>" + JUSTERT.replace(/\n/g, "<br>"),
       tekst: null,
       bank: ["Test", "Koding", "Krav", "Produksjonssetting", "Design", "Opplæring", "Forvaltning"],
       felt: [
@@ -1091,7 +1091,7 @@
   hv("H2021-9.1",
     "<p>Å bygge et trygt hus: først lærer snekkerne om brannsikkerhet, så skriver man hva huset må tåle, tegner det, bygger det, tester det, flytter inn, og vedlikeholder det.</p>",
     "<p>Syklusen følger vanlig programvareutvikling, men med sikkerhet i hver fase: opplæring, krav, design, koding, test, produksjonssetting og forvaltning. Poengene gis etter hvor lang sekvens du har i riktig rekkefølge.</p>",
-    "<p>Innebygd sikkerhet (inspirert av Microsofts SDL) flytter sikkerhetsarbeidet tidlig i livsløpet, fordi feil er billigere å rette jo tidligere de oppdages. Opplæring er en forutsetning. Krav og design (med trusselmodellering, f.eks. STRIDE) styrer hva som skal bygges. Koding og test (statisk/dynamisk analyse, pentest) fanger feil. Produksjonssetting og forvaltning dekker sikker konfigurasjon, sårbarhetshåndtering og hendelsesrespons.</p>");
+    "<p>Innebygd sikkerhet (inspirert av Microsofts SDL) flytter sikkerhetsarbeidet tidlig i livsløpet, fordi feil er billigere å rette jo tidligere de oppdages.</p><ul><li>Opplæring er en forutsetning.</li><li>Krav og design (med trusselmodellering, f.eks. STRIDE) styrer hva som skal bygges.</li><li>Koding og test (statisk/dynamisk analyse, pentest) fanger feil.</li><li>Produksjonssetting og forvaltning dekker sikker konfigurasjon, sårbarhetshåndtering og hendelsesrespons.</li></ul>");
 
   O.push({
     key: "H2021-9.2", year: Y, oppgave_nr: "Oppgave 9.2", del: D9,
@@ -1150,7 +1150,7 @@
   });
   hv("H2021-9.3",
     "<p>Sikker smidig er å bygge i korte runder (sprinter) og tenke sikkerhet i hver runde. DevOps er at de som bygger og de som drifter jobber som ett lag, så sikkerheten følger med helt til programmet er i bruk.</p>",
-    "<p>Sikker smidig bygger sikkerhet inn i smidig utvikling med sprintsykluser. DevOps forener utvikling og drift og dekker dermed også forvaltning; sikkerheten flyttes tidlig og automatiseres («shift left»). Begge fokuserer på sikkerhet. Ifølge fasiten dekker ingen opplæring, og DevOps må være skybasert.</p>",
+    "<ul><li>Sikker smidig bygger sikkerhet inn i smidig utvikling med sprintsykluser.</li><li>DevOps forener utvikling og drift og dekker dermed også forvaltning; sikkerheten flyttes tidlig og automatiseres («shift left»).</li></ul><p>Begge fokuserer på sikkerhet. Ifølge fasiten dekker ingen opplæring, og DevOps må være skybasert.</p>",
     "<p>I sikker smidig legges sikkerhetsaktiviteter (krav, trusselmodellering, gjennomgang) inn i hver sprint. DevSecOps automatiserer sikkerhetssjekker i CI/CD-løpet (statisk analyse, avhengighetsskanning) og fortsetter i drift med overvåking og retting. Kravet om sky i fasiten bør leses som at DevOps typisk bygger på skyplattformer og infrastruktur som kode.</p>");
 
   /* ============================ DEL 10: CYBEROPERASJONER ============================ */
@@ -1170,7 +1170,7 @@
       type: "D",
       regelTekst: "Poeng: 0,5 for hver korrekt tilordning, -0,5 for hver feil tilordning, 4 for alle riktig, minimum 0.",
       regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 4, alleRiktig: 4, sekvens: 0.5 },
-      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge, feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Øvingen retter slik (regel.sekvens og regel.alleRiktig).\n\n" + JUSTERT,
+      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge, feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Øvingen retter slik (regel.sekvens og regel.alleRiktig).<br><br>" + JUSTERT.replace(/\n/g, "<br>"),
       tekst: null,
       bank: ["Overlevering", "Kommando og kontroll", "Rekognosering", "Aksjon", "Bevæpning", "Installering", "Utførelse av exploit"],
       felt: [
@@ -1242,7 +1242,7 @@
   hv("H2021-10.3",
     "<p>Taktikken er målet: «komme inn i huset». Teknikken er måten: «dirke opp bakdøra» eller «klatre inn vinduet».</p>",
     "<p>MITRE ATT&amp;CK er en kunnskapsbase over angriperatferd. Taktikker er angriperens delmål (kolonnene i matrisen), og teknikker er måtene å nå hvert delmål på (cellene under hver kolonne).</p>",
-    "<p>ATT&amp;CK organiserer observert atferd hos ekte aktører som TTP-er: taktikker (hvorfor/hva – delmål som rekognosering, initial tilgang, persistens, eksfiltrering), teknikker (hvordan) og prosedyrer (konkrete gjennomføringer). Forsvarere bruker den til å kartlegge hvilke teknikker de kan oppdage, men selve modellen beskriver angriperens handlinger, ikke tiltakene.</p>");
+    "<p>ATT&amp;CK organiserer observert atferd hos ekte aktører som TTP-er:</p><ul><li>taktikker (hvorfor/hva – delmål som rekognosering, initial tilgang, persistens, eksfiltrering),</li><li>teknikker (hvordan) og</li><li>prosedyrer (konkrete gjennomføringer).</li></ul><p>Forsvarere bruker den til å kartlegge hvilke teknikker de kan oppdage, men selve modellen beskriver angriperens handlinger, ikke tiltakene.</p>");
 
   /* ============================ SETT SAMMEN ============================ */
 

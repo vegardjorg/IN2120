@@ -82,7 +82,7 @@
   hv("H2020-1.1",
     "<p>Et prøveark i en skuff skal ingen se før prøven. Når prøven er i gang, er det viktigste at alle faktisk får arket. Og arket må aldri være skrevet om av noen andre, verken før eller under.</p>",
     "<p>De tre målene er konfidensialitet, integritet og tilgjengelighet. Hvor viktig hvert mål er, avhenger av fasen. Før start er hemmelighold avgjørende, fordi lekkede oppgaver gir juks. Under eksamen må oppgavene være tilgjengelige for alle. Integritet betyr at oppgavene er riktige, og det er like viktig hele tiden.</p>",
-    "<p>Kravet til hvert KIT-mål for en verdi er ikke fast. Det kan endre seg over livsløpet til verdien. Eksamensoppgavene har høyt konfidensialitetskrav fram til publisering, og så faller kravet til nesten null når alle studentene har dem. Tilgjengelighetskravet gjør det motsatte: lavt før (foreleser kan vente litt), svært høyt i det tidsvinduet eksamen varer. Integritetskravet er høyt i begge faser. Slike vurderinger styrer hvilke tiltak som er viktigst når.</p>");
+    "<p>Kravet til hvert KIT-mål for en verdi er ikke fast. Det kan endre seg over livsløpet til verdien.</p><ul><li>Eksamensoppgavene har høyt konfidensialitetskrav fram til publisering, og så faller kravet til nesten null når alle studentene har dem.</li><li>Tilgjengelighetskravet gjør det motsatte: lavt før (foreleser kan vente litt), svært høyt i det tidsvinduet eksamen varer.</li><li>Integritetskravet er høyt i begge faser.</li></ul><p>Slike vurderinger styrer hvilke tiltak som er viktigst når.</p>");
 
   O.push({
     key: "H2020-1.2", year: Y, oppgave_nr: "Oppgave 1.2", del: D1,
@@ -149,7 +149,7 @@
   hv("H2020-1.3",
     "<p>Et hus med et vindu som ikke kan låses, i et nabolag med tyver, er en risiko. Det er ikke et innbrudd ennå, men alt som trengs for et innbrudd, er der.</p>",
     "<p>Risiko er kombinasjonen av en trussel (her angriperen), en sårbarhet trusselen kan utnytte, og verdier som får en konsekvens. Setningen i oppgaven nevner alle disse og beskriver noe som kan skje, ikke noe som har skjedd.</p>",
-    "<p>Begrepene bygger på hverandre: en trussel utnytter en sårbarhet, det gir en hendelse, og hendelsen har konsekvens for verdier. Risiko er hele denne kjeden sett på forhånd. Risikonivået er et mål på hvor stor risikoen er, som en funksjon av sannsynlighet og konsekvens. «Trusselscenario» brukes om beskrivelsen av hva angriperen gjør, mens risiko også tar med sårbarheten og verdiene som rammes.</p>");
+    "<p>Begrepene bygger på hverandre: en trussel utnytter en sårbarhet, det gir en hendelse, og hendelsen har konsekvens for verdier.</p><ul><li>Risiko er hele denne kjeden sett på forhånd.</li><li>Risikonivået er et mål på hvor stor risikoen er, som en funksjon av sannsynlighet og konsekvens.</li><li>«Trusselscenario» brukes om beskrivelsen av hva angriperen gjør, mens risiko også tar med sårbarheten og verdiene som rammes.</li></ul>");
 
   /* ============================ DEL 2: KRYPTOGRAFI ============================ */
 
@@ -182,7 +182,7 @@
   hv("H2020-2.1",
     "<p>En MAC er et hemmelig stempel bare du og vennen din har. En signatur er en underskrift som alle kan sammenligne med en prøve. Ingen av dem legger brevet i en lukket konvolutt.</p>",
     "<p>Både MAC og digital signatur gir integritet og lar mottakeren sjekke hvem meldingen kom fra. MAC bruker en hemmelig nøkkel som begge parter deler (symmetrisk), så en tredjepart kan ikke sjekke den. Signaturen bruker avsenderens private nøkkel, og alle med den offentlige nøkkelen kan sjekke den (asymmetrisk). Ingen av dem skjuler innholdet.</p>",
-    "<p>MAC = Hash(M, k) med en nøkkel k som begge parter kjenner. Fordi begge kan lage den samme koden, kan en tredjepart verken sjekke den eller vite hvem som laget den. Det gir enkel meldingsautentisering uten ubenektelighet. Signaturen S = Sig(H, K<sup>A</sup><sub>priv</sub>) kan bare lages av A og sjekkes av alle med K<sup>A</sup><sub>pub</sub>. Det gir ubenektelig meldingsautentisering. Konfidensialitet krever kryptering i tillegg.</p>");
+    "<ul><li>MAC = Hash(M, k) med en nøkkel k som begge parter kjenner. Fordi begge kan lage den samme koden, kan en tredjepart verken sjekke den eller vite hvem som laget den. Det gir enkel meldingsautentisering uten ubenektelighet.</li><li>Signaturen S = Sig(H, K<sup>A</sup><sub>priv</sub>) kan bare lages av A og sjekkes av alle med K<sup>A</sup><sub>pub</sub>. Det gir ubenektelig meldingsautentisering.</li></ul><p>Konfidensialitet krever kryptering i tillegg.</p>");
 
   O.push({
     key: "H2020-2.2", year: Y, oppgave_nr: "Oppgave 2.2", del: D2,
@@ -241,7 +241,7 @@
   hv("H2020-2.3",
     "<p>AES er en lås der du og vennen din har like nøkler. RSA er en postkasse der alle kan legge inn brev, men bare eieren har nøkkelen for å åpne den.</p>",
     "<p>AES er symmetrisk: samme nøkkel brukes begge veier, og nøklene er korte (128–256 bit). Den kan også brukes til MAC. RSA er asymmetrisk med et nøkkelpar, trenger mye lengre nøkler og kan brukes til signatur. Kvantedatamaskiner truer RSA, men knapt AES.</p>",
-    "<p>Nøkkellengden henger sammen med det beste kjente angrepet. For AES er det uttømmende søk, så 128 bit gir 2¹²⁸ nøkler. For RSA finnes faktoriseringsalgoritmer som er mye raskere enn å prøve alle tall, så nøkkelen må være 2048–3072 bit for tilsvarende styrke. Shors algoritme ville faktorisere effektivt og knekke RSA helt, mens Grovers algoritme bare halverer den effektive nøkkellengden til AES.</p>");
+    "<p>Nøkkellengden henger sammen med det beste kjente angrepet.</p><ul><li>For AES er det uttømmende søk, så 128 bit gir 2¹²⁸ nøkler.</li><li>For RSA finnes faktoriseringsalgoritmer som er mye raskere enn å prøve alle tall, så nøkkelen må være 2048–3072 bit for tilsvarende styrke.</li></ul><p>Shors algoritme ville faktorisere effektivt og knekke RSA helt, mens Grovers algoritme bare halverer den effektive nøkkellengden til AES.</p>");
 
   O.push({
     key: "H2020-2.4", year: Y, oppgave_nr: "Oppgave 2.4", del: D2,
@@ -422,7 +422,7 @@
   hv("H2020-4.1",
     "<p>Først viser butikken deg et ID-kort som noen du stoler på har stemplet, og dere blir enige om et hemmelig språk. Deretter snakker dere bare det hemmelige språket.</p>",
     "<p>TLS har to deler. I handshake sender serveren sertifikatet sitt, klienten sjekker det, og partene etablerer en felles symmetrisk sesjonsnøkkel. I Record-protokollen krypteres og integritetsbeskyttes dataene med sesjonsnøkkelen. Serverautentiseringen er det som hindrer mann-i-midten.</p>",
-    "<p>Serveren sender sertifikatkjeden sin i handshake. Klienten validerer kjeden mot rotsertifikatene den har, og sjekker at navnet stemmer med domenet. Serveren beviser at den har privatnøkkelen ved å signere handshake-data. Nøkkelutvekslingen (i et fullt TLS 1.3-handshake flyktig (EC)DH) gir en felles hemmelighet som symmetriske nøkler avledes fra. Klientautentisering med klientsertifikat finnes, men er valgfritt og bruker klientens eget sertifikat.</p>");
+    "<ul><li>Serveren sender sertifikatkjeden sin i handshake. Klienten validerer kjeden mot rotsertifikatene den har, og sjekker at navnet stemmer med domenet.</li><li>Serveren beviser at den har privatnøkkelen ved å signere handshake-data.</li><li>Nøkkelutvekslingen (i et fullt TLS 1.3-handshake flyktig (EC)DH) gir en felles hemmelighet som symmetriske nøkler avledes fra.</li></ul><p>Klientautentisering med klientsertifikat finnes, men er valgfritt og bruker klientens eget sertifikat.</p>");
 
   O.push({
     key: "H2020-4.2", year: Y, oppgave_nr: "Oppgave 4.2", del: D4,
@@ -456,7 +456,7 @@
   hv("H2020-4.2",
     "<p>Et kontorbygg har en resepsjon der besøkende slipper inn, og en låst kontordel bak en ekstra dør. Det besøkende skal bruke, står i resepsjonen. Arkivet og de ansattes pulter står bak den ekstra døra. Vektere går runder begge steder.</p>",
     "<p>DMZ er en sone mellom den ytre og den indre brannmuren. Her står tjenester som må nås fra Internett: web, e-post og ekstern DNS. Blir en av dem kompromittert, står angriperen fortsatt utenfor det interne nettet. Databaser og arbeidsstasjoner står internt. IDS plasseres i begge soner for å oppdage angrep der de skjer.</p>",
-    "<p>Den ytre brannmuren slipper bare trafikk fra Internett til bestemte porter på tjenerne i DMZ. Den indre brannmuren slipper nesten ingenting fra DMZ inn til det interne nettet, bare det som trengs (for eksempel at webtjeneren når databasen på én port). Slik blir en kompromittert DMZ-tjener ikke en direkte vei inn. IDS-sensorer i begge soner ser ulike deler av trafikken, så de utfyller hverandre.</p>");
+    "<ul><li>Den ytre brannmuren slipper bare trafikk fra Internett til bestemte porter på tjenerne i DMZ.</li><li>Den indre brannmuren slipper nesten ingenting fra DMZ inn til det interne nettet, bare det som trengs (for eksempel at webtjeneren når databasen på én port).</li></ul><p>Slik blir en kompromittert DMZ-tjener ikke en direkte vei inn. IDS-sensorer i begge soner ser ulike deler av trafikken, så de utfyller hverandre.</p>");
 
   O.push({
     key: "H2020-4.3", year: Y, oppgave_nr: "Oppgave 4.3", del: D4,
@@ -485,7 +485,7 @@
   hv("H2020-4.3",
     "<p>En signaturbasert vakt har en mappe med bilder av kjente tyver. En anomalibasert vakt kjenner alle som pleier å komme, og reagerer på alt som er rart. Ingen av vaktene kan se hva som ligger i en låst koffert.</p>",
     "<p>Signaturbasert IDS leter etter kjente mønstre, så den finner kjente angrep. Anomalibasert IDS lærer hva som er normalt og varsler om avvik, så den kan finne nye angrep, men gir flere falske alarmer. Begge lytter passivt og kan være usynlige for angriperen. Ingen av dem dekrypterer TLS.</p>",
-    "<p>En signatur er en regel som matcher bestemte bytes, porter eller sekvenser (Snort-regler er eksempler). Det gir lav falsk positiv-rate, men et nulldagsangrep uten signatur slipper gjennom. Anomalideteksjon bygger en statistisk modell av normal trafikk og varsler når noe avviker, for eksempel uvanlige volumer eller tidspunkter. Begge ser bare klartekst. Kryptert innhold kan de bare vurdere ut fra metadata som adresser, porter og mengder.</p>");
+    "<ul><li>En signatur er en regel som matcher bestemte bytes, porter eller sekvenser (Snort-regler er eksempler). Det gir lav falsk positiv-rate, men et nulldagsangrep uten signatur slipper gjennom.</li><li>Anomalideteksjon bygger en statistisk modell av normal trafikk og varsler når noe avviker, for eksempel uvanlige volumer eller tidspunkter.</li></ul><p>Begge ser bare klartekst. Kryptert innhold kan de bare vurdere ut fra metadata som adresser, porter og mengder.</p>");
 
   /* ============================ DEL 5: SYSTEMSIKKERHET ============================ */
 
@@ -522,7 +522,7 @@
   hv("H2020-5.1",
     "<p>Tenk på en bygning. Gjestene (apper) er i øverste etasje med minst nøkler. Hver leilighetseier (gjeste-OS) styrer sin etasje. Vaktmesteren (hypervisor) har nøkler til alle leilighetene. Under ham er den som bygde huset (fastvaren), og under der igjen en skjult kontrollsentral som ser alt (Intel ME).</p>",
     "<p>Ringene viser hvor mye makt en programvare har. Jo lavere tall, desto mer makt. Apper kjører i ring 3. Ring 1 og 2 brukes ikke. Med type 1-virtualisering kjører gjestenes operativsystemer i ring 0 og hypervisoren i ring −1. UEFI/BIOS og Intel ME har i praksis enda mer makt og plasseres i ring −2 og −3.</p>",
-    "<p>En prosess kan bare nå sitt eget nivå og nivåer med høyere tall. Type 1-hypervisoren bruker prosessorens maskinvarestøtte for virtualisering (−1), så gjestekjernene kan kjøre i ring 0 uten å kunne nå hverandre. Systemstyringsmodus (SMM) i fastvaren kan avbryte alt over seg og kalles derfor «ring −2». Intel ME er en separat mikrokontroller med egen fastvare og tilgang til minne og nettverk, uavhengig av hovedprosessoren. Derfor kalles den «ring −3». Kompromittering så langt nede er nesten umulig å oppdage fra operativsystemet.</p>");
+    "<p>En prosess kan bare nå sitt eget nivå og nivåer med høyere tall.</p><ul><li>Type 1-hypervisoren bruker prosessorens maskinvarestøtte for virtualisering (−1), så gjestekjernene kan kjøre i ring 0 uten å kunne nå hverandre.</li><li>Systemstyringsmodus (SMM) i fastvaren kan avbryte alt over seg og kalles derfor «ring −2».</li><li>Intel ME er en separat mikrokontroller med egen fastvare og tilgang til minne og nettverk, uavhengig av hovedprosessoren. Derfor kalles den «ring −3».</li></ul><p>Kompromittering så langt nede er nesten umulig å oppdage fra operativsystemet.</p>");
 
   O.push({
     key: "H2020-5.2", year: Y, oppgave_nr: "Oppgave 5.2", del: D5,
@@ -565,7 +565,7 @@
   hv("H2020-5.2",
     "<p>Du heller en hel liter melk i et glass som bare tar en halv. Resten renner over og ødelegger det som ligger ved siden av. En slem person kan helle med vilje og bestemme hva som blir ødelagt.</p>",
     "<p>En bufferoverflyt skjer når et program skriver mer data inn i en buffer enn den har plass til, fordi koden ikke sjekker lengden. Det er en programfeil. Angripere bruker den i exploits for å overskrive minne og få kjørt egen kode. Fuzzing kan avsløre feilen. ASLR og lignende tiltak gjør det vanskeligere å utnytte den, men fjerner den ikke.</p>",
-    "<p>På stakken ligger lokale variabler rett ved siden av returadressen. Kopieres for lang input inn i en lokal buffer uten lengdesjekk, kan returadressen overskrives slik at funksjonen hopper til angriperens kode. NX hindrer kjøring fra stakken, kanarifugler oppdager at returadressen er endret, og ASLR gjør adressene uforutsigbare. Alle tre gjør utnyttelse vanskeligere, men den egentlige rettingen er å sjekke lengden i koden.</p>");
+    "<p>På stakken ligger lokale variabler rett ved siden av returadressen. Kopieres for lang input inn i en lokal buffer uten lengdesjekk, kan returadressen overskrives slik at funksjonen hopper til angriperens kode.</p><ul><li>NX hindrer kjøring fra stakken,</li><li>kanarifugler oppdager at returadressen er endret,</li><li>og ASLR gjør adressene uforutsigbare.</li></ul><p>Alle tre gjør utnyttelse vanskeligere, men den egentlige rettingen er å sjekke lengden i koden.</p>");
 
   O.push({
     key: "H2020-5.3", year: Y, oppgave_nr: "Oppgave 5.3", del: D5,
@@ -764,8 +764,8 @@
   };
   hv("H2020-7.1",
     "<p>Før du drar på tur, sjekker du først om værmeldingen er til å stole på. Er den ikke det, sjekker du på nytt. Så lager du en pakkeliste. Blir lista for dyr eller for tung, endrer du den før du drar.</p>",
-    "<p>Beslutningspunkt 1 spør om risikovurderingen er god nok. Nei kan skyldes at nesten alle risikoene fikk samme nivå, eller at man er usikker på de høye risikoene. Da justerer man skalaene eller vurderer på nytt. Beslutningspunkt 2 spør om behandlingsplanen er akseptabel. Nei kan skyldes at tiltakene er for dyre, eller at akseptgrensen er satt feil. Da endrer man budsjett, tiltak eller grense.</p>",
-    "<p>Risikostyringsprosessen (som i ISO 27005) har to kontrollpunkter med tilbakekobling. Det første sikrer at vurderingen skiller godt mellom risikoer og at usikkerheten om de viktigste er lav nok til å prioritere tiltak. Det andre sikrer at planen er gjennomførbar (kostnad mot budsjett) og at den gjenværende risikoen er akseptabel for ledelsen. Akseptgrensen er et ledelsesvalg: er den for streng, blir planen for dyr. Er den for slapp, blir for mye risiko stående. Begge «Nei» sender prosessen tilbake til planleggingen.</p>");
+    "<ul><li>Beslutningspunkt 1 spør om risikovurderingen er god nok. Nei kan skyldes at nesten alle risikoene fikk samme nivå, eller at man er usikker på de høye risikoene. Da justerer man skalaene eller vurderer på nytt.</li><li>Beslutningspunkt 2 spør om behandlingsplanen er akseptabel. Nei kan skyldes at tiltakene er for dyre, eller at akseptgrensen er satt feil. Da endrer man budsjett, tiltak eller grense.</li></ul>",
+    "<p>Risikostyringsprosessen (som i ISO 27005) har to kontrollpunkter med tilbakekobling.</p><ul><li>Det første sikrer at vurderingen skiller godt mellom risikoer og at usikkerheten om de viktigste er lav nok til å prioritere tiltak.</li><li>Det andre sikrer at planen er gjennomførbar (kostnad mot budsjett) og at den gjenværende risikoen er akseptabel for ledelsen.</li></ul><p>Akseptgrensen er et ledelsesvalg: er den for streng, blir planen for dyr. Er den for slapp, blir for mye risiko stående. Begge «Nei» sender prosessen tilbake til planleggingen.</p>");
 
   O.push({
     key: "H2020-7.2", year: Y, oppgave_nr: "Oppgave 7.2", del: D7,
@@ -902,7 +902,7 @@
   hv("H2020-8.3",
     "<p>Silo er som at hver butikk har sitt eget kundekort: lett for butikken å lage, og butikkene vet ikke om hverandre. Føderert er som å vise samme bankkort overalt: enkelt for deg, og butikkene slipper å lage egne kort.</p>",
     "<p>I en silo har hver tjeneste sin egen brukerdatabase. Det er enkelt å sette opp og gir godt personvern, fordi tjenestene ikke deler identitet. I en føderasjon stoler tjenestene på en felles identitetstilbyder. Det gir én innlogging for brukeren og mindre identitetsarbeid for tjenestene. Flerfaktor går i begge, og digital signatur har ingenting med arkitekturen å gjøre.</p>",
-    "<p>Siloen krever ingen tillitsavtaler, men hver SP må registrere brukere, lagre autentikatorer og håndtere tilbakestilling selv, og brukeren får mange passord. Føderering flytter dette til identitetstilbyderen, men krever avtaler og protokoller (SAML, OIDC), og en felles identifikator gjør det lettere å koble data på tvers av tjenester. Garantinivået for autentiseringen (for eksempel flerfaktor) kan være like høyt i begge.</p>");
+    "<ul><li>Siloen krever ingen tillitsavtaler, men hver SP må registrere brukere, lagre autentikatorer og håndtere tilbakestilling selv, og brukeren får mange passord.</li><li>Føderering flytter dette til identitetstilbyderen, men krever avtaler og protokoller (SAML, OIDC), og en felles identifikator gjør det lettere å koble data på tvers av tjenester.</li><li>Garantinivået for autentiseringen (for eksempel flerfaktor) kan være like høyt i begge.</li></ul>");
 
   O.push({
     key: "H2020-8.4", year: Y, oppgave_nr: "Oppgave 8.4", del: D8,
@@ -929,7 +929,7 @@
   hv("H2020-8.4",
     "<p>Hver person har et adgangskort med en farge, og hvert rom har et skilt med en farge. En fast regel sier hvilke farger som passer sammen, og ingen kan endre regelen selv.</p>",
     "<p>MAC kan uttrykkes med ABAC ved å gi subjektet attributtet sikkerhetsklarering og objektet attributtet sikkerhetsgradering. Policyen er Bell-LaPadula: et subjekt kan ikke lese objekter med høyere gradering enn egen klarering, og kan ikke skrive til objekter med lavere gradering.</p>",
-    "<p>ABAC er generell nok til å uttrykke de andre modellene, fordi en regel kan bruke hvilke attributter som helst. For MAC er attributtene klarering (subjekt) og gradering (objekt), med nivåer som BEGRENSET &lt; KONFIDENSIELT &lt; HEMMELIG &lt; STRENGT HEMMELIG. Bell-LaPadula har to regler: ss-egenskapen (ikke les opp) og ∗-egenskapen (ikke skriv ned). Sammen hindrer de at hemmelig informasjon flyter nedover, så modellen beskytter konfidensialitet.</p>");
+    "<p>ABAC er generell nok til å uttrykke de andre modellene, fordi en regel kan bruke hvilke attributter som helst.</p><p>For MAC er attributtene klarering (subjekt) og gradering (objekt), med nivåer som BEGRENSET &lt; KONFIDENSIELT &lt; HEMMELIG &lt; STRENGT HEMMELIG.</p><p>Bell-LaPadula har to regler:</p><ul><li>ss-egenskapen (ikke les opp) og</li><li>∗-egenskapen (ikke skriv ned).</li></ul><p>Sammen hindrer de at hemmelig informasjon flyter nedover, så modellen beskytter konfidensialitet.</p>");
 
   /* ============================ DEL 9: HENDELSESRESPONS ============================ */
 
@@ -995,8 +995,8 @@
   });
   hv("H2020-9.2",
     "<p>Når det brenner i et hus: først finner du ut hvor ille det er og hva som brant (analyse). Så lukker du dørene så det ikke sprer seg (skadebegrensning). Så slokker du helt og fjerner det som er ødelagt (utryddelse). Til slutt pusser du opp og flytter inn igjen (gjenoppretting).</p>",
-    "<p>Hendelsesrespons går gjennom faser. Sortering avgjør hva som er viktigst. Analyse finner ut hva som skjedde, for eksempel fra logger. Skadebegrensning stopper spredning ved å isolere maskiner. Utryddelse fjerner skadevaren, for eksempel ved å slette diskene. Gjenoppretting henter tilbake data og normal drift. Sikkerhetskopier tatt på forhånd og betaling av løsepenger hører ikke til noen fase.</p>",
-    "<p>Rekkefølgen har en grunn. Uten analyse vet man ikke hvilke maskiner som er rammet. Uten skadebegrensning sprer viruset seg mens man rydder. Uten utryddelse blir gjenopprettede data kryptert på nytt. Å gjenopprette fra sikkerhetskopi forutsetter at kopien ble tatt før angrepet og ligger utenfor angriperens rekkevidde. Å ta slike kopier er et forebyggende tiltak, ikke en del av responsen. Betaling av løsepenger finansierer angriperen og gir ingen sikker gjenoppretting.</p>");
+    "<p>Hendelsesrespons går gjennom faser.</p><ul><li>Sortering avgjør hva som er viktigst.</li><li>Analyse finner ut hva som skjedde, for eksempel fra logger.</li><li>Skadebegrensning stopper spredning ved å isolere maskiner.</li><li>Utryddelse fjerner skadevaren, for eksempel ved å slette diskene.</li><li>Gjenoppretting henter tilbake data og normal drift.</li></ul><p>Sikkerhetskopier tatt på forhånd og betaling av løsepenger hører ikke til noen fase.</p>",
+    "<p>Rekkefølgen har en grunn.</p><ul><li>Uten analyse vet man ikke hvilke maskiner som er rammet.</li><li>Uten skadebegrensning sprer viruset seg mens man rydder.</li><li>Uten utryddelse blir gjenopprettede data kryptert på nytt.</li></ul><p>Å gjenopprette fra sikkerhetskopi forutsetter at kopien ble tatt før angrepet og ligger utenfor angriperens rekkevidde. Å ta slike kopier er et forebyggende tiltak, ikke en del av responsen. Betaling av løsepenger finansierer angriperen og gir ingen sikker gjenoppretting.</p>");
 
   /* ======================== DEL 10: APPLIKASJONS- OG SKY-SIKKERHET ======================== */
 
@@ -1133,7 +1133,7 @@
   hv("H2020-10.4",
     "<p>Å bruke skyen er som å leie et rom i et stort hotell. Hotellet har strøm og vakter døgnet rundt, så du er sjelden uten rom. Men hotellet har nøkkel til rommet ditt, du deler bygning med mange fremmede, og hotellet kan ligge i et land med andre regler.</p>",
     "<p>Skytjenester kan gi høy tilgjengelighet, og leverandøren kan hjelpe med hendelsesrespons. Men leverandøren har teknisk tilgang til dataene, og lagring i datasentre utenfor EU/EØS kan være i strid med GDPR. Flere kunder på samme plattform gjør det ikke sikrere, og en IaaS-kunde styrer ikke maskinvaren.</p>",
-    "<p>I IaaS styrer kunden operativsystem og programvare i virtuelle maskiner, mens leverandøren styrer hypervisor, fastvare og maskinvare. Flerleietaker betyr at isolasjonen i hypervisoren er det eneste skillet mellom kundene, så feil der kan gi lekkasje mellom dem. Leverandøren kan i prinsippet lese alt som ikke er kryptert med nøkler kunden selv kontrollerer. Overføring av personopplysninger til land utenfor EU/EØS krever et gyldig overføringsgrunnlag.</p>");
+    "<ul><li>I IaaS styrer kunden operativsystem og programvare i virtuelle maskiner, mens leverandøren styrer hypervisor, fastvare og maskinvare.</li><li>Flerleietaker betyr at isolasjonen i hypervisoren er det eneste skillet mellom kundene, så feil der kan gi lekkasje mellom dem.</li><li>Leverandøren kan i prinsippet lese alt som ikke er kryptert med nøkler kunden selv kontrollerer.</li><li>Overføring av personopplysninger til land utenfor EU/EØS krever et gyldig overføringsgrunnlag.</li></ul>");
 
   /* ============================ SETT SAMMEN ============================ */
 
