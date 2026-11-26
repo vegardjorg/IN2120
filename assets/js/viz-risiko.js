@@ -809,13 +809,13 @@
 
   /* ---------- Livssyklus: rekkefølge og aktiviteter (IN.sortTask, IN.bucketTask) ---------- */
   var FASER = [
-    ["opplaering", "Opplæring", "Utviklerne lærer sikker koding og vanlige sårbarheter."],
-    ["krav", "Krav", "Sikkerhetskrav og risikovurdering."],
-    ["design", "Design", "Trusselmodellering med STRIDE og vurdering av angrepsflaten."],
-    ["koding", "Koding", "Statisk analyse og kodegjennomgang."],
-    ["test", "Test", "Finne sårbarheter som slapp gjennom design og koding: fuzzing og pentest."],
-    ["prod", "Produksjonssetting", "Rutiner for patching og hendelseshåndtering."],
-    ["forv", "Forvaltning", "Drift, oppdateringer og respons på hendelser."]
+    ["opplaering", "Opplæring", "Utviklerne lærer sikker koding og vanlige sårbarheter.", "Den kommer før kravene: folk må kunne sikkerhet før de kan stille krav."],
+    ["krav", "Krav", "Sikkerhetskrav og risikovurdering.", "Man må vite hva systemet skal tåle før det kan tegnes."],
+    ["design", "Design", "Trusselmodellering med STRIDE og vurdering av angrepsflaten.", "Feil i tegningen er billigst å rette før noe er kodet."],
+    ["koding", "Koding", "Statisk analyse og kodegjennomgang.", "Koden skrives etter designet og leses mens den skrives."],
+    ["test", "Test", "Finne sårbarheter som slapp gjennom design og koding: fuzzing og pentest.", "Programmet må finnes før det kan kjøres og angripes."],
+    ["prod", "Produksjonssetting", "Rutiner for patching og hendelseshåndtering.", "Rutinene må være klare idet systemet går i drift."],
+    ["forv", "Forvaltning", "Drift, oppdateringer og respons på hendelser.", "Siste fase varer så lenge systemet er i bruk."]
   ];
   function livssyklus(host) {
     host = qsHost(host); if (!host || !IN.sortTask) return null;
@@ -827,7 +827,7 @@
         teknisk: "Ordne fasene i den sikre utviklingslivssyklusen, fra før første kodelinje til drift."
       },
       items: FASER.map(function (f, i) {
-        return { id: f[0], html: f[1], forklaring: "Fase " + (i + 1) + ". " + f[2] + (i === 0 ? " Den kommer før kravene: folk må kunne sikkerhet før de kan stille krav." : "") };
+        return { id: f[0], html: f[1], forklaring: "Fase " + (i + 1) + ". " + f[2] + " " + f[3] };
       }),
       answer: FASER.map(function (f) { return f[0]; }),
       oppsummering: {
@@ -839,16 +839,16 @@
     }, { instant: false });
   }
   var AKTIVITETER = [
-    ["kurs", "Kurs i sikker koding for utviklerne", "opplaering"],
-    ["skrav", "Skrive ned sikkerhetskrav til påfyllingen", "krav"],
-    ["trussel", "Trusselmodellering med STRIDE på dataflytdiagrammet", "design"],
-    ["flate", "Vurdere angrepsflaten før noe er kodet", "design"],
-    ["statisk", "Statisk analyse av kildekoden", "koding"],
-    ["review", "Kodegjennomgang før innsjekk", "koding"],
-    ["fuzz", "Fuzzing av API-et", "test"],
-    ["pentest", "Avtalt pentest før lansering", "test"],
-    ["patch", "Lage rutiner for patching og hendelseshåndtering", "prod"],
-    ["drift", "Rulle ut oppdateringer i drift", "forv"]
+    ["kurs", "Kurs i sikker koding for utviklerne", "opplaering", "Kurset gir utviklerne kunnskapen før prosjektet starter. Det er opplæring, som DevSecOps ikke dekker."],
+    ["skrav", "Skrive ned sikkerhetskrav til påfyllingen", "krav", "Å bestemme hva løsningen skal tåle, er kravfasen. Ingenting er tegnet eller kodet ennå."],
+    ["trussel", "Trusselmodellering med STRIDE på dataflytdiagrammet", "design", "Dataflytdiagrammet er tegningen av løsningen. STRIDE brukes på tegningen, altså i design."],
+    ["flate", "Vurdere angrepsflaten før noe er kodet", "design", "«Før noe er kodet» peker på design: man ser på hvilke innganger løsningen får, ut fra tegningen."],
+    ["statisk", "Statisk analyse av kildekoden", "koding", "Statisk analyse leser koden uten å kjøre den, så den hører til koding. Felle: det er ikke test."],
+    ["review", "Kodegjennomgang før innsjekk", "koding", "En kollega leser koden før den sjekkes inn. Koden leses mens den skrives, så det er koding."],
+    ["fuzz", "Fuzzing av API-et", "test", "Fuzzing kjører programmet og sender det tilfeldig eller ødelagt input. Programmet kjøres, så det er test."],
+    ["pentest", "Avtalt pentest før lansering", "test", "Pentesteren angriper det ferdige programmet før det lanseres. Det er test, ikke drift."],
+    ["patch", "Lage rutiner for patching og hendelseshåndtering", "prod", "Rutinene lages idet systemet settes i drift, altså i produksjonssettingen. Å bruke dem senere er forvaltning (H2022 4.1)."],
+    ["drift", "Rulle ut oppdateringer i drift", "forv", "Systemet er allerede i bruk, og oppdateringene rulles ut etter rutinene. Det er forvaltning."]
   ];
   function livssyklusAkt(host) {
     host = qsHost(host); if (!host || !IN.bucketTask) return null;
@@ -863,7 +863,7 @@
         teknisk: "Plasser aktivitetene i livssyklusen. Skill mellom å lese koden (koding) og å kjøre programmet (test)."
       },
       zones: FASER.map(function (f) { return { id: f[0], label: f[1] }; }),
-      items: AKTIVITETER.map(function (a) { answer[a[0]] = a[2]; return { id: a[0], html: a[1], forklaring: navn[a[2]] + ": " + fork[a[2]] }; }),
+      items: AKTIVITETER.map(function (a) { answer[a[0]] = a[2]; return { id: a[0], html: a[1], forklaring: a[3] }; }),
       answer: answer,
       oppsummering: "Felle: statisk analyse hører til koding, ikke test. Rutiner for patching og hendelseshåndtering lages i produksjonssettingen (H2022 4.1).",
       kilde: { ref: "Eksamen H2022 4.1, egne aktiviteter", egneOrd: true }

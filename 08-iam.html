@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 8 · IAM · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Identitets- og tilgangshåndtering i IN2120: IAM-fasene, silo og føderert identitet, OIDC, FEIDE og ID-porten, OAuth, og tilgangskontrollmodellene DAC, MAC (Bell-LaPadula), RBAC og ABAC – med sekvensdiagram, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126a">
 </head>
 <body data-page="iam">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -56,6 +58,9 @@
           <li><b>Registrering før autentisering:</b> «identitet» betyr opprinnelig «den samme som sist». Uten registrering finnes det ingen «sist». Registreringen bygger enten på en identitet du har fra før (for eksempel pass) eller gir en helt ny entitet identitet (en nyfødt).</li>
         </ul></div>
       <div id="ex-faser"></div>
+
+      <p class="small muted fig-vis-led">Entitet, identitet og identifikator i ett bilde: én person har en egen identitet i hvert domene, og hver identitet har sitt eget entydige navn.</p>
+      <div id="fx-entitet-identitet"></div>
 
       <h4>Hvilket trinn er det? Plasser handlingene</h4>
       <p class="small muted">Seks trinn, tre i hver fase. Legg hver handling i trinnet den hører til. Trykk på en handling og så på et trinn, eller dra.</p>
@@ -195,6 +200,8 @@
       <h4>FEIDE og ID-porten i fem steg</h4>
       <p>1 Brukeren ber SP-en om tjenesten. 2 SP-en ber brukeren velge hjemmeinstitusjon. 3 Brukeren logger inn i hjemmeinstitusjonens vindu. 4 Hjemmeinstitusjonen sender ID-token og attributter til SP-en. 5 SP-en sjekker billetten og attributtene og gir tjeneste etter sin policy.
         ID-porten følger samme mønster, men brukeren velger eID-leverandør i ID-portens vindu.</p>
+      <p class="small muted fig-vis-led">ID-porten er IdP-en tjenesten har avtale med, og den står mellom tjenesten og eID-leverandørene. Tjenesten får ID-tokenet fra ID-porten, ikke fra BankID eller MinID.</p>
+      <div id="fk-idporten"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor går ID-tokenet via nettleseren og ikke rett fra IdP til SP?</summary>
@@ -298,6 +305,9 @@
         </ul></div>
       <div id="ex-tk"></div>
 
+      <p class="small muted fig-vis-led">RBAC og DAC side om side: i RBAC går tilgangen via roller, i DAC står den i en liste ved objektet, og eieren bestemmer.</p>
+      <div id="fx-rbac-dac"></div>
+
       <h4>Bell-LaPadula: lese, skrive eller redigere?</h4>
       <p class="small muted">Graderingene fra lavest til høyest: BEGRENSET, KONFIDENSIELT, HEMMELIG, STRENGT HEMMELIG. Aktuelt nivå kan ikke settes over maks.</p>
       <div id="viz-blp"></div>
@@ -311,6 +321,8 @@
           <tr><td>KONFIDENSIELT</td><td>Øvelsesplan, Logistikk</td><td>Logistikk, Angrepsplan (og høyere)</td><td>Logistikk</td></tr>
         </tbody></table></div>
 
+      <p class="small muted fig-vis-led">ABAC-arkitekturen: fire typer attributter og policyene går inn i ABAC-funksjonen, som avgjør om forespørselen får tilgang.</p>
+      <div id="fv-abac"></div>
       <h4>ABAC: en policy for journaler</h4>
       <p class="small muted">Dr. Berg på kirurgi ber kl. 14 om å lese en kirurgijournal: tilgang. Samme forespørsel kl. 03, når hun ikke er på vakt: avslag. Prøv selv.</p>
       <div id="viz-abac"></div>
@@ -360,21 +372,30 @@
 
   <footer class="footer">IN2120-guide · Blokk 8 · Identitets- og tilgangshåndtering · <a href="index.html">Til forsiden</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/ovelse.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-iam.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/ovelse.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-iam.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -572,7 +593,7 @@
       ],
       oidc: [
         { q: "Hva bygger OIDC på?", options: ["SAML", "OAuth 2.0", "Kerberos", "X.509"], answer: 1, explain: "OIDC legger autentisering (ID-token) oppå OAuth 2.0." },
-        { q: "Hvem autentiserer brukeren i OIDC?", options: ["SP", "IdP", "Nettleseren alene", "PEP"], answer: 1, explain: "Melding 9 skjer internt hos IdP-en." },
+        { q: "Hvem autentiserer brukeren i OIDC?", options: ["SP", "IdP", "Nettleseren alene", "PEP"], answer: 1, explain: "IdP-en sjekker autentikatoren selv (melding 9). SP-en ser aldri passordet og får bare ID-tokenet etterpå." },
         { q: "Hva er melding 11 i OIDC-figuren?", options: ["IdP sender ID-token til klienten", "Klienten videresender ID-token til SP", "SP gir tjenesten", "Brukeren velger IdP"], answer: 1, explain: "Melding 10 går fra IdP til klient, 11 fra klient til SP, og 12 er tjenesten." },
         { q: "Hvilken eID-leverandør gir bare nivå BETYDELIG?", options: ["BankID", "Buypass", "MinID", "Commfides"], answer: 2, explain: "MinID er den statlige, men den gir ikke HØYT." }
       ],
@@ -658,22 +679,22 @@
           kolonner: ["Konfig. / identitet", "Konfig. / tilgang", "Bruk / identitet", "Bruk / tilgang"], multi: false,
           rader: [
             { s: "HR oppretter brukeren «mira.l»", svar: [0], explain: "<p>Registrering: identitetshåndtering i konfigureringsfasen.</p>" },
-            { s: "Mira får en kodebrikke i posten", svar: [0], explain: "<p>Klargjøring av autentikator.</p>" },
+            { s: "Mira får en kodebrikke i posten", svar: [0], explain: "<p>Brikken lages og deles ut før Mira har logget inn noen gang. Det er klargjøring av autentikator, en del av identitetshåndteringen i konfigureringsfasen.</p>" },
             { s: "Lederen bestemmer at Mira kan lese journaler", svar: [1], explain: "<p>Tilgangsautorisering = spesifisere policy.</p>" },
             { s: "Mira taster koden fra brikken", svar: [2], explain: "<p>Oppgi autentikator: brukerautentisering.</p>" },
-            { s: "Systemet avviser at Mira endrer en journal", svar: [3], explain: "<p>Håndheving = tilgangskontroll.</p>" },
-            { s: "Mira skriver brukernavnet sitt", svar: [2], explain: "<p>Oppgi bruker-ID.</p>" } ] } },
+            { s: "Systemet avviser at Mira endrer en journal", svar: [3], explain: "<p>Systemet håndhever policyen lederen satte, mens Mira bruker det. Det er tilgangskontroll i bruksfasen, ikke autorisering, som skjedde i konfigureringen.</p>" },
+            { s: "Mira skriver brukernavnet sitt", svar: [2], explain: "<p>Med brukernavnet sier Mira hvem hun er (oppgi bruker-ID). Det er første steg i brukerautentiseringen i bruksfasen.</p>" } ] } },
       { key: "ov-iam-2", inspera: { type: "N", regelTekst: "1 for hver riktig, 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
           tekst: "<p>Policyen lagres og forvaltes i {0}. Beslutningen tas i {1}. Beslutningen håndheves i {2}.</p>",
-          felt: [ { etikett: "Forvaltes i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 0, explain: "<p>Policy Administration Point.</p>" },
-                  { etikett: "Avgjøres i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 1, explain: "<p>Policy Decision Point.</p>" },
+          felt: [ { etikett: "Forvaltes i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 0, explain: "<p>PAP (Policy Administration Point) er der administratorene skriver og lagrer reglene. Det avgjør ikke enkeltforespørsler.</p>" },
+                  { etikett: "Avgjøres i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 1, explain: "<p>PDP (Policy Decision Point) sammenligner forespørselen med policyen og svarer ja eller nei. Selve stoppingen gjør PEP.</p>" },
                   { etikett: "Håndheves i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 2, explain: "<p>Policy Enforcement Point, foran ressursen.</p>" } ] } },
       { key: "ov-iam-3", inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 }, kolonner: ["Silo", "Føderert"], multi: false,
           rader: [
             { s: "Brukeren må huske ett passord per tjeneste", svar: [0], explain: "<p>Identitetsoverlast er siloens hovedulempe.</p>" },
-            { s: "Tjenesten trenger aldri å se brukerens autentikator", svar: [1], explain: "<p>SP-en får bare ID-token fra IdP-en.</p>" },
-            { s: "Et utfall hos én aktør stenger mange tjenester", svar: [1], explain: "<p>IdP-avhengighet.</p>" },
+            { s: "Tjenesten trenger aldri å se brukerens autentikator", svar: [1], explain: "<p>Brukeren autentiserer seg hos IdP-en, og SP-en får bare et ID-token tilbake. I en silo må tjenesten selv ta imot og sjekke passordet.</p>" },
+            { s: "Et utfall hos én aktør stenger mange tjenester", svar: [1], explain: "<p>Mange tjenester stoler på samme IdP. Er den nede, kommer ingen inn noe sted; i en silo rammer et utfall bare én tjeneste.</p>" },
             { s: "Lavest startkostnad for en ny nettbutikk", svar: [0], explain: "<p>Enkelt å sette opp selv, ingen avtaler.</p>" },
             { s: "Logg inn med HelseID i et journalsystem", svar: [1], explain: "<p>HelseID er en føderasjon med sentralisert navnerom og distribuert autentisering.</p>" } ] } },
       { key: "ov-iam-4", inspera: { type: "M", multi: true, kolonner: ["Sentr. navnerom", "Distr. navnerom", "Sentr. aut.", "Distr. aut."],
@@ -691,8 +712,8 @@
       { key: "ov-iam-6", inspera: { type: "M", kolonner: ["Sant", "Usant"], multi: false, regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
           rader: [
-            { s: "Alle eID-leverandørene i ID-porten kan brukes til offentlige tjenester", svar: [0], explain: "<p>Det er det ID-porten er til for.</p>" },
-            { s: "MinID gir sikkerhetsnivå HØYT", svar: [1], explain: "<p>MinID gir BETYDELIG.</p>" },
+            { s: "Alle eID-leverandørene i ID-porten kan brukes til offentlige tjenester", svar: [0], explain: "<p>ID-porten er felles innlogging for offentlige tjenester, og alle eID-ene som er koblet til, kan brukes der.</p>" },
+            { s: "MinID gir sikkerhetsnivå HØYT", svar: [1], explain: "<p>MinID gir bare BETYDELIG. For HØYT trengs blant annet strengere kontroll av identiteten ved registrering, som i BankID.</p>" },
             { s: "BankID er en statlig tjeneste", svar: [1], explain: "<p>BankID eies av bankene. Bare MinID er statlig.</p>" },
             { s: "I europeisk eID går innloggingen via eIDAS-portaler i begge land", svar: [0], explain: "<p>Borgeren går via sitt eget lands portal og tjenestelandets portal.</p>" } ] } },
       { key: "ov-iam-7", inspera: { type: "T", regelTekst: "0,5 for hver riktig, 0 for feil eller ubesvart, minimum 0.",
@@ -703,16 +724,16 @@
       { key: "ov-iam-8", inspera: { type: "M", multi: false, kolonner: ["RBAC", "MAC", "ABAC", "DAC"],
           regelTekst: "0,5 for hver korrekt, −0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
           rader: [
-            { s: "Eieren av mappa legger til en kollega i ACL-en", svar: [3], explain: "<p>Navnebasert, og eieren bestemmer.</p>" },
-            { s: "Alle i rollen «lønn» får lese lønnsfilene", svar: [0], explain: "<p>Tilgang via arbeidsrolle.</p>" },
+            { s: "Eieren av mappa legger til en kollega i ACL-en", svar: [3], explain: "<p>Eieren gir tilgang til en navngitt person etter eget skjønn. Det er DAC: eieren bestemmer, ikke en sentral policy.</p>" },
+            { s: "Alle i rollen «lønn» får lese lønnsfilene", svar: [0], explain: "<p>Tilgangen følger rollen, ikke personen. Bytter noen jobb, byttes rollen, og tilgangen følger med. Det er RBAC.</p>" },
             { s: "Tilgang bare i arbeidstiden og fra kontornettet", svar: [2], explain: "<p>Kontekstattributter (tid og lokasjon).</p>" },
-            { s: "SELinux med graderte merker", svar: [1], explain: "<p>Merkebasert, obligatorisk policy.</p>" },
-            { s: "Modellen som generaliserer de tre andre", svar: [2], explain: "<p>Alt kan uttrykkes som attributter.</p>" } ] } },
+            { s: "SELinux med graderte merker", svar: [1], explain: "<p>Systemet sammenligner graderingsmerker på bruker og fil, og verken brukeren eller eieren kan overstyre det. Det er MAC.</p>" },
+            { s: "Modellen som generaliserer de tre andre", svar: [2], explain: "<p>Rolle, eier og graderingsmerke kan alle skrives som attributter. Derfor kan ABAC uttrykke RBAC, DAC og MAC.</p>" } ] } },
       { key: "ov-iam-9", inspera: { type: "M", multi: true, kolonner: NIV,
           regelTekst: "0,5 for hver riktig avkrysning, −0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0 },
           rader: [
-            { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun LESE?", svar: [0], explain: "<p>Bare eget aktuelt nivå og nedover.</p>" },
-            { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun SKRIVE?", svar: [0, 1, 2, 3], explain: "<p>Eget aktuelt nivå og oppover.</p>" },
+            { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun LESE?", svar: [0], explain: "<p>Det er det aktuelle nivået som teller, ikke maks. Hun kan lese på eget nivå og nedover (ingen lesing opp), og BEGRENSET er det laveste.</p>" },
+            { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun SKRIVE?", svar: [0, 1, 2, 3], explain: "<p>Hun kan skrive på eget aktuelt nivå og oppover (ingen skriving ned). Da lekker ingenting ned til lavere nivå, og fra BEGRENSET er alle nivåene «oppover».</p>" },
             { s: "Maks KONFIDENSIELT, aktuelt KONFIDENSIELT: hva kan han REDIGERE?", svar: [1], explain: "<p>Redigere = lese og skrive, altså bare likt nivå.</p>" } ] } }
     ];
     OV.forEach(function (o) {
@@ -725,6 +746,13 @@
     });
 
     /* ---------- Eksamensbanken ---------- */
+    // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)
+    safe("fv-abac", function () { IN.fig.vis("#fv-abac", "H2022-9.4"); });
+    // Nye visuelle forklaringer (forklar-b.js, kilde under hver figur)
+    ["entitet-identitet", "rbac-dac"].forEach(function (id) {
+      safe("fx-" + id, function () { IN.FORKLAR[id]("#fx-" + id); });
+    });
+    safe("fk-idporten", function () { IN.FORKLAR["idporten"]("#fk-idporten"); }); // forklar-c.js
     safe("bank-iam", function () { IN.examBank("#bank-iam", { block: "iam" }); });
   })();
   </script>

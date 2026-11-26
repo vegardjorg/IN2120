@@ -45,7 +45,7 @@
                                   sekunder, minutter, timer, dager, år, tusener av år, lenger enn universets alder.
      }
      Godtar «218 340 105 584 896», «2,18·10^14», «2.18e14», «62^8», «2**8», «10¹²», «(26+10)^8».
-     Svaret er skjult til studenten har sjekket et tall. «Vis svar» blir aktiv etter første forsøk.
+     Svaret er skjult til studenten har sjekket et tall. «Vis fasit» blir aktiv etter første forsøk.
      Tipslinja («Desimalkomma …») vises bare ved første tall-widget på siden, eller etter et ugyldig svar.
      handle: { el, sjekk(tekst) → {status, verdi}, visSvar(), nullstill(), settInndata(navn, v),
                inndata(), fasit(), tilstand() → {forsok, vist, riktig}, lytt(fn(inndata, navn)),
@@ -65,13 +65,14 @@
        id?, sporsmal?: tekst,
        rader: [tekst], kolonner: [{ navn: tekst, valg: ["Ja", "Nei", …] }],
        fasit: [[verdi | [godtatte verdier] | null]]   (verdi er en av kolonnens valg; null = telles ikke)
-       forklaring?: { "r,k": tekst }   vises i cellen etter «Sjekk»
+       forklaring?: { "r,k": tekst }   vises i cellen etter «Sjekk svar»
        regel?: { riktig, feil, blankt, min, maks }   eksamensregel per celle (som inspera.js)
        brytere?: [{ navn, endrer: fn(fasit) → fasit, forklaring?: { "r,k": tekst }, pa?: bool }]
                                   varianter; aktive brytere brukes i rekkefølge på en kopi av fasit
      }
      Celle: knappegruppe (radioknapper) når kolonnen har ≤ 3 valg, ellers nedtrekksliste.
-     Knapper: «Sjekk», «Vis fasit», «↺ Nullstill». Fremdrift: solved("matrise", id, poeng|riktige, maks|totalt).
+     Knapper: «Sjekk svar», «Vis fasit», «↺ Nullstill». Resultatlinje under knappene, regelen i lukket <details>.
+     Fremdrift: solved("matrise", id, poeng|riktige, maks|totalt).
      handle: { el, sett(r, k, verdi), hent(r, k), sjekk() → {right, wrong, blank, total, poeng},
                visFasit(), nullstill(), bryter(i, på), fasit() → aktiv fasit }
 
@@ -120,14 +121,17 @@
        forsok?: 2
      }
      Studenten trykker linja (eller linjene) som er feil og velger hvorfor. ↑/↓ flytter mellom linjer.
-     Riktig linje og riktig grunn gir 2 poeng; én av dem gir 1. Fremdrift: solved("feil", id, p, 2).
+     Knapper: «Sjekk svar», «Vis fasit», «↺ Nullstill». Riktig linje og riktig grunn gir 2 poeng; én av dem gir 1. Fremdrift: solved("feil", id, p, 2).
      Per linje: grunnpoenget krever riktig grunn på hver feillinje (og at alle feillinjene er valgt).
      handle: { el, velgLinje(i), velgGrunn(i, linje?), sjekk() → {linje, grunn, poeng, grunner?},
                visSvar(), nullstill(), perLinje() → bool, grunnFor(linje) → indeks | null }
        velgGrunn(i, linje) setter grunnen for den linja (per linje; uten linje: sist valgte linje).
        sjekk().grunner = { linjeindeks: true|false } for feillinjene i per-linje-modus.
    ---------------------------------------------------------------------------------------
-   Lagring bare i scenario (in2120:scen:<id>). Ingen fetch, ingen moduler.
+   Lagring: scenario (in2120:scen:<id>), regnForst (in2120:regn:<side>:<id>), matrise (in2120:matrise:<side>:<id>)
+   og finnFeilen (in2120:feil:<side>:<id>). Uten o.id brukes host-id eller widgetens nummer i host-id-en; uten
+   noen id lagres ingenting. Posten har et fingeravtrykk av oppgaven og forkastes når oppgaven endres.
+   Ingen fetch, ingen moduler.
    ============================================================ */
 (function () {
   "use strict";
@@ -158,7 +162,36 @@
   function feedback(cls) { var n = el("div", { class: "ov-fb" + (cls ? " " + cls : ""), role: "status", "aria-live": "polite" }); n._base = n.className; return n; }
   function setFb(node, tone, v) {
     node.className = (node._base || "ov-fb") + (tone ? " is-" + tone : "");
+    node._tone = tone || "";
     put(node, v);
+  }
+  function fbRec(node) { return { t: node._tone || "", h: node.innerHTML }; }
+  /* B5: lagring av svar. Nøkkel in2120:<type>:<side>:<id>, der id er o.id, ellers host-id, ellers nærmeste
+     forelder med id + «~» + løpenummer blant øvingene av samme type der. Posten har fingeravtrykket h. */
+  function autoId(host, node, sel) {
+    if (host.id) { var j = Array.prototype.indexOf.call(host.querySelectorAll(sel), node); return j > 0 ? host.id + "~" + j : host.id; }
+    for (var a = host.parentNode; a && a.nodeType === 1; a = a.parentNode) {
+      if (a.id) { var i = Array.prototype.indexOf.call(a.querySelectorAll(sel), node); return i >= 0 ? a.id + "~" + i : null; }
+    }
+    return null;
+  }
+  function lager(type, o, host, wrap, sel, fp) {
+    var id = o.id ? String(o.id) : autoId(host, wrap, sel);
+    if (!id || !IN.store) return null;
+    var key = "in2120:" + type + ":" + (IN.pageId ? IN.pageId() : "index") + ":" + id;
+    return {
+      key: key,
+      hent: function () { try { var s = JSON.parse(IN.store.get(key, "null")); return s && s.h === fp ? s : null; } catch (e) { return null; } },
+      sett: function (rec) { rec.h = fp; try { IN.store.set(key, JSON.stringify(rec)); } catch (e) {} },
+      fjern: function () { try { localStorage.removeItem(key); } catch (e) {} }
+    };
+  }
+  function fpAv(x) { return hash(JSON.stringify(x, function (k, v) { return typeof v === "function" ? String(v) : v; })); }
+  /* B1: regelen i en lukket <details> under resultatlinja */
+  function regelDetails(regel, enhet) {
+    var t = regelTekst(regel, enhet).replace(/^Slik retter øvingen:\s*/, "");
+    return el("details", { class: "ov-regel-d" }, [el("summary", { text: "Slik retter øvingen" }),
+      el("p", { class: "ov-regel", text: t.charAt(0).toUpperCase() + t.slice(1) })]);
   }
   /* Kjør fn når nivået byttes, så lenge el er i dokumentet. */
   function onLevel(root, fn) {
@@ -321,18 +354,20 @@
       });
     }
     var fid = uid + "-svar";
-    var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk", onclick: function () { sjekk(); } });
-    var bVis = el("button", { class: "btn", type: "button", text: "Vis svar", disabled: true, onclick: function () { visSvar(); } });
-    var input = null, row, tips = null, keys = null, trinnB = [], valgt = null;
+    // A2: «Sjekk svar» · «Vis fasit» · «↺ Nullstill»
+    var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk svar", onclick: function () { sjekk(); } });
+    var bVis = el("button", { class: "btn", type: "button", text: "Vis fasit", disabled: true, onclick: function () { visSvar(); } });
+    var bReset = el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { nullstill(false, true); } });
+    var input = null, row, tips = null, keys = null, trinnB = [], valgt = null, laster = true, lag = null;
     if (orden) {
       var trinnRad = el("div", { class: "ov-orden", role: "group", "aria-labelledby": uid + "-q" });
       o.trinn.forEach(function (t, i) {
-        var b = el("button", { class: "ov-orden-b", type: "button", "aria-pressed": "false", onclick: function () { velg(valgt === i ? null : i); } });
+        var b = el("button", { class: "ov-orden-b", type: "button", "aria-pressed": "false", onclick: function () { velg(valgt === i ? null : i); persist(); } });
         put(b, t.tekst);
         trinnB.push(b); trinnRad.appendChild(b);
       });
       row = el("div", { class: "ov-svarrad ov-svarrad-orden" }, [
-        el("span", { class: "ov-svar-l", text: "Ditt svar" }), trinnRad, el("div", { class: "ov-orden-k" }, [bSjekk, bVis])]);
+        el("span", { class: "ov-svar-l", text: "Ditt svar" }), trinnRad, el("div", { class: "ov-orden-k" }, [bSjekk, bVis, bReset])]);
     } else {
       var ren = !!o.rentTall;
       var ia = { id: fid, type: "text", class: "ov-num", autocomplete: "off", spellcheck: "false", autocapitalize: "off",
@@ -340,6 +375,7 @@
       if (ren) ia.inputmode = "decimal";
       input = el("input", ia);
       input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); sjekk(); } });
+      input.addEventListener("input", function () { persist(); });
       if (!ren) {
         keys = el("span", { class: "ov-taster", role: "group", "aria-label": "Hjelpetaster" });
         ["^", "·10^"].forEach(function (k) {
@@ -351,7 +387,7 @@
       }
       row = el("div", { class: "ov-svarrad" }, [
         el("label", { for: fid, class: "ov-svar-l", text: "Ditt svar" }), input, keys,
-        o.enhet ? el("span", { class: "ov-enhet", html: pick(o.enhet) }) : null, bSjekk, bVis].filter(Boolean));
+        o.enhet ? el("span", { class: "ov-enhet", html: pick(o.enhet) }) : null, el("span", { class: "ov-knapper" }, [bSjekk, bVis, bReset])].filter(Boolean));
       tips = el("p", { class: "ov-tips", id: uid + "-tips", text: ren ? "Desimalkomma går fint, for eksempel 0,25." : "Desimalkomma, mellomrom som tusenskille, 10^12, 62^8 og 1e12 går fint." });
       if (tipsVist) tips.hidden = true; else tipsVist = true;
     }
@@ -422,7 +458,7 @@
       }
       if (st.vist && st.riktig) return { status: "ferdig", verdi: valgt };
       if (valgt == null) {
-        setFb(fb, "warn", "Velg en størrelsesorden først, og trykk «Sjekk».");
+        setFb(fb, "warn", "Velg en størrelsesorden først, og trykk «Sjekk svar».");
         return { status: "ugyldig", verdi: null };
       }
       var v = valgt, ft = fasitTrinn();
@@ -455,7 +491,11 @@
       });
     }
     function sjekk(tekst) {
-      if (orden) return sjekkOrden(tekst);
+      var r = orden ? sjekkOrden(tekst) : sjekkTall(tekst);
+      persist();
+      return r;
+    }
+    function sjekkTall(tekst) {
       if (tekst != null) input.value = String(tekst);
       if (st.vist && st.riktig) return { status: "ferdig", verdi: parseTall(input.value, plain(pick(o.enhet))) };
       var v = parseTall(input.value, plain(pick(o.enhet)));
@@ -486,13 +526,38 @@
     }
     function visSvar() {
       if (st.vist) return;
-      if (!st.forsok) { setFb(fb, "warn", "Prøv å regne selv først, og trykk «Sjekk»."); return; }
+      if (!st.forsok) { setFb(fb, "warn", "Prøv å regne selv først, og trykk «Sjekk svar»."); return; }
       setFb(fb, "", "Fasiten vises under.");
       solved("regn", o.id, 0, 1);
       reveal(false);
       if (orden) markerTrinn();
+      persist();
     }
-    function nullstill(stille) {
+    /* B5: svar, forsøk, inndata og tilbakemelding lagres (in2120:regn:<side>:<id>). Fremdrift som før (bare med o.id). */
+    function persist() {
+      if (laster || !lag) return;
+      lag.sett({ inn: kopiInn(), svar: orden ? valgt : (input ? input.value : ""), st: { forsok: st.forsok, vist: st.vist, riktig: st.riktig }, fb: fbRec(fb) });
+    }
+    function restore() {
+      var rec = lag && lag.hent();
+      if (!rec) return;
+      if (rec.inn) Object.keys(rec.inn).forEach(function (n) {
+        if (!Object.prototype.hasOwnProperty.call(inn, n) || !isFinite(+rec.inn[n])) return;
+        inn[n] = +rec.inn[n];
+        var c = ctlInputs[n];
+        if (c) { c.inp.value = String(inn[n]); if (c.out) c.out.textContent = visV[n] ? visV[n](inn[n]) : tallTekst(inn[n]); }
+      });
+      paintQ();
+      if (orden) { if (typeof rec.svar === "number") velg(rec.svar); }
+      else if (input && typeof rec.svar === "string") input.value = rec.svar;
+      if (rec.st) {
+        st = { forsok: +rec.st.forsok || 0, vist: !!rec.st.vist, riktig: !!rec.st.riktig };
+        bVis.disabled = st.vist || !st.forsok;
+        if (st.vist) { reveal(st.riktig); if (orden) markerTrinn(); }
+      }
+      if (rec.fb && rec.fb.h) setFb(fb, rec.fb.t, rec.fb.h);
+    }
+    function nullstill(stille, bruker) {
       st = { forsok: 0, vist: false, riktig: false };
       if (input) { input.value = ""; input.removeAttribute("aria-invalid"); }
       valgt = null;
@@ -500,7 +565,8 @@
       losn.hidden = true; bVis.disabled = true;
       wrap.classList.remove("is-right", "is-wrong");
       while (etterHost.firstChild) etterHost.removeChild(etterHost.firstChild);
-      setFb(fb, "", stille ? "" : "Ny oppgave.");
+      setFb(fb, "", stille ? "" : bruker ? "Nullstilt." : "Ny oppgave.");
+      persist();
     }
     function settInndata(navn, v, fraUi) {
       inn[navn] = +v;
@@ -517,9 +583,12 @@
     }
     function kopiInn() { var c = {}; Object.keys(inn).forEach(function (k) { c[k] = inn[k]; }); return c; }
     paintQ();
+    lag = lager("regn", o, host, wrap, ".ov-regn", fpAv({ q: o.sporsmal, f: o.fasit, t: o.trinn, s: o.svarform, i: arr(o.inndata).map(function (d) { return d.navn; }) }));
+    restore();
+    laster = false;
     onLevel(wrap, function () { paintQ(); if (st.vist) paintLosn(); });
     return {
-      el: wrap, sjekk: sjekk, visSvar: visSvar, nullstill: function () { nullstill(); }, settInndata: function (n, v) { settInndata(n, v, false); },
+      el: wrap, sjekk: sjekk, visSvar: visSvar, nullstill: function () { nullstill(false, true); }, settInndata: function (n, v) { settInndata(n, v, false); },
       inndata: kopiInn,
       fasit: fasit, tilstand: function () { return { forsok: st.forsok, vist: st.vist, riktig: st.riktig }; },
       feedback: function () { return fb.textContent; },
@@ -580,8 +649,8 @@
     var checked = false, revealed = false;
     var wrap = el("div", { class: "ov ov-mat" + (rv ? " ov-mat-rv" : "") });
     var q = o.sporsmal ? el("div", { class: "ov-q" }) : null;
-    var regelEl = o.regel ? el("p", { class: "ov-regel", text: regelTekst(o.regel, rv ? "rad" : "celle") }) : null;
-    var brWrap = null;
+    var regelEl = o.regel ? regelDetails(o.regel, rv ? "rad" : "celle") : null;
+    var brWrap = null, laster = true, lag = null;
     if (brytere.length) {
       brWrap = el("div", { class: "ov-brytere", role: "group", "aria-label": "Varianter" });
       brytere.forEach(function (x, i) {
@@ -660,12 +729,12 @@
       tb.appendChild(tr);
     });
     tab.appendChild(tb); tw.appendChild(tab);
-    var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk", onclick: function () { sjekk(); } });
+    var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk svar", onclick: function () { sjekk(); } });
     var bFasit = el("button", { class: "btn", type: "button", text: "Vis fasit", onclick: function () { visFasit(); } });
     var bReset = el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { nullstill(); } });
     var foot = el("div", { class: "qz-foot" }, [bSjekk, bFasit, bReset]);
     var fb = feedback();
-    [q, regelEl, brWrap, tw, foot, fb].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [q, brWrap, tw, foot, fb, regelEl].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap); wrap._ovSeen = true;
 
     function deep(a) { return JSON.parse(JSON.stringify(a)); }
@@ -745,14 +814,43 @@
         else cell.ex.hidden = true;
       }
     }
+    /* B1: «2 av 3 poeng · 2 riktig · 1 galt · 0 ubesvart» (uten regel: «2 av 3 riktig · 1 galt · 0 ubesvart») */
     function sumTekst(c) {
       var p = c.poeng;
-      return (p ? "<b>" + num(p.poeng) + " av " + num(p.maks) + " poeng</b> med eksamensregelen. " : "<b>" + c.right + " av " + c.total + " riktig.</b> ") +
-        c.right + " riktig, " + c.wrong + " galt, " + c.blank + " ubesvart" +
-        (p && p.raa < p.min ? " (summen ble " + num(p.raa) + ", men aldri under " + num(p.min) + ")" : "") + ".";
+      return (p ? "<b>" + num(p.poeng) + " av " + num(p.maks) + " poeng</b> · " + c.right + " riktig" : "<b>" + c.right + " av " + c.total + " riktig</b>") +
+        " · " + c.wrong + " galt · " + c.blank + " ubesvart" +
+        (p && p.raa < p.min ? " (summen ble " + num(p.raa) + ", men aldri under " + num(p.min) + ")" : "");
     }
     function onEdit() {
-      if (checked) { checked = false; revealed = false; clearMarks(); setFb(fb, "", "Endret. Trykk «Sjekk» på nytt."); }
+      if (checked) { checked = false; revealed = false; clearMarks(); setFb(fb, "", "Endret. Trykk «Sjekk svar» på nytt."); }
+      persist();
+    }
+    /* B5: valgene (som indekser), sjekket/vist og brytere lagres (in2120:matrise:<side>:<id>). */
+    function cellIdx(cell) {
+      var v = cell.get();
+      if (rv || v == null) return v;
+      var i = cell.k.valg.indexOf(v);
+      return i < 0 ? null : i;
+    }
+    function persist() {
+      if (laster || !lag) return;
+      lag.sett({ v: cells.map(function (row) { return row.map(cellIdx); }), c: checked, f: revealed,
+        b: brytere.map(function (x) { return x.pa; }), fb: fbRec(fb) });
+    }
+    function restore() {
+      var rec = lag && lag.hent();
+      if (!rec || !Array.isArray(rec.v) || rec.v.length !== R) return;
+      rec.v.forEach(function (row, r) {
+        if (!Array.isArray(row)) return;
+        row.forEach(function (v, k) {
+          var cell = cells[r][k]; if (!cell || v == null) return;
+          cell.set(rv ? v : cell.k.valg[v]);
+        });
+      });
+      if (Array.isArray(rec.b)) brytere.forEach(function (x, i) { x.pa = !!rec.b[i]; x.btn.setAttribute("aria-checked", x.pa ? "true" : "false"); });
+      revealed = !!rec.f;
+      if (rec.c) sjekk(true);
+      else if (rec.fb && rec.fb.h) setFb(fb, rec.fb.t, rec.fb.h);
     }
     function sjekk(stille) {
       checked = true;
@@ -762,6 +860,7 @@
       if (!revealed && !stille) {
         if (c.poeng) solved("matrise", o.id, c.poeng.poeng, c.poeng.maks); else solved("matrise", o.id, c.right, c.total);
       }
+      persist();
       return { right: c.right, wrong: c.wrong, blank: c.blank, total: c.total, poeng: c.poeng ? c.poeng.poeng : null, maks: c.poeng ? c.poeng.maks : null };
     }
     function visFasit() {
@@ -777,6 +876,7 @@
       cells.forEach(function (row) { row.forEach(function (cell) { cell.set(null); }); });
       clearMarks();
       setFb(fb, "", "Nullstilt.");
+      if (lag) lag.fjern();
     }
     function bryter(i, pa) {
       var x = brytere[i]; if (!x) return;
@@ -788,8 +888,12 @@
         var c = telling();
         setFb(fb, c.right === c.total ? "right" : c.right ? "warn" : "wrong", "Variant: " + var_ + " Fasiten er endret. " + sumTekst(c));
       } else setFb(fb, "", "Variant: " + var_);
+      persist();
     }
     paintText();
+    lag = lager("matrise", o, host, wrap, ".ov-mat", fpAv({ r: o.rader, k: kolonner, f: o.fasit, rv: !!rv, m: multi }));
+    restore();
+    laster = false;
     onLevel(wrap, function () { paintText(); if (checked) paintMarks(); });
     return {
       el: wrap,
@@ -1011,6 +1115,7 @@
       return Object.keys(u).length > 1;
     })();
     var grunnPer = {}, sist = null;   // per linje: { linjeindeks: grunnindeks }, sist valgte linje
+    var laster = true, lag = null;
     var wrap = el("div", { class: "ov ov-feil" + (perLinje ? " ov-feil-pl" : "") });
     var q = o.sporsmal ? el("div", { class: "ov-q" }) : null;
     var steg1 = el("p", { class: "ov-steg", id: uid + "-s1", text: feil.length > 1 ? "1. Trykk på linjene som er feil." : "1. Trykk på linja som er feil." });
@@ -1039,13 +1144,13 @@
       el("div", { class: "ov-grunner", role: "radiogroup", "aria-labelledby": uid + "-s2" });
     var gInputs = perLinje ? [] : arr(o.grunner).map(function (g, i) {
       var inp = el("input", { type: "radio", name: uid + "-g", value: String(i) });
-      inp.addEventListener("change", function () { grunn = i; if (ferdig) return; });
+      inp.addEventListener("change", function () { if (ferdig) return; grunn = i; persist(); });
       var lab = el("label", { class: "ov-grunn" }, [inp, el("span")]);
       grp.appendChild(lab);
       return { inp: inp, lab: lab, txt: lab.lastChild, g: g };
     });
-    var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk", onclick: function () { sjekk(); } });
-    var bVis = el("button", { class: "btn", type: "button", text: "Vis svar", disabled: true, onclick: function () { visSvar(); } });
+    var bSjekk = el("button", { class: "btn primary", type: "button", text: "Sjekk svar", onclick: function () { sjekk(); } });
+    var bVis = el("button", { class: "btn", type: "button", text: "Vis fasit", disabled: true, onclick: function () { visSvar(); } });
     var bReset = el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { nullstill(); } });
     var foot = el("div", { class: "qz-foot" }, [bSjekk, bVis, bReset]);
     var fb = feedback();
@@ -1082,7 +1187,7 @@
           var inp = el("input", { type: "radio", name: uid + "-g-" + l, value: String(i) });
           inp.checked = grunnPer[l] === i;
           inp.disabled = ferdig || !valgt[l];
-          inp.addEventListener("change", function () { if (ferdig) return; grunnPer[l] = i; sist = l; });
+          inp.addEventListener("change", function () { if (ferdig) return; grunnPer[l] = i; sist = l; persist(); });
           var tone = !vist ? "" : (erFeil && rg === i) ? " is-right" : grunnPer[l] === i ? " is-wrong" : "";
           var lab = el("label", { class: "ov-grunn" + tone }, [inp, put(el("span"), g)]);
           blk.appendChild(lab);
@@ -1100,16 +1205,18 @@
         sist = valgt[i] ? i : (sist != null && valgt[sist] ? sist : null);
         paintPL();
       }
+      persist();
     }
     function velgGrunn(i, linje) {
       if (ferdig) return false;
       if (perLinje) {
         var l = linje != null ? +linje : sist;
         if (l == null || !valgt[l]) return false;
-        grunnPer[l] = i; sist = l; paintPL();
+        grunnPer[l] = i; sist = l; paintPL(); persist();
         return true;
       }
       grunn = i; gInputs.forEach(function (g, j) { g.inp.checked = j === i; });
+      persist();
       return true;
     }
     function vurder() {
@@ -1141,13 +1248,14 @@
       put(fork, o.forklaring);
       fork.hidden = !o.forklaring;
     }
-    function avslutt(r) {
+    function avslutt(r, stille) {
       ferdig = true; vist = true;
       bSjekk.disabled = true; bVis.disabled = true;
       lines.forEach(function (l) { l.b.setAttribute("aria-disabled", "true"); });
       gInputs.forEach(function (g) { g.inp.disabled = true; });
       paintSvar();
-      solved("feil", o.id, r ? r.poeng : 0, 2);
+      if (!stille) solved("feil", o.id, r ? r.poeng : 0, 2);
+      persist();
     }
     function sjekk() {
       if (ferdig) return vurder();
@@ -1176,7 +1284,7 @@
       } else msg = r.linje ? "<b>Riktig linje</b>, men begrunnelsen holder ikke." :
         r.grunn ? "<b>Riktig begrunnelse</b>, men den hører til en annen linje." : "<b>Ikke riktig.</b> Les linjene en gang til.";
       if (forsok >= maxTry) { setFb(fb, "wrong", msg + " (" + r.poeng + " av 2) Her er svaret."); avslutt(r); }
-      else setFb(fb, r.poeng ? "warn" : "wrong", msg + " Prøv igjen (" + (maxTry - forsok) + " forsøk igjen).");
+      else { setFb(fb, r.poeng ? "warn" : "wrong", msg + " Prøv igjen (" + (maxTry - forsok) + " forsøk igjen)."); persist(); }
       return r;
     }
     function visSvar() {
@@ -1195,8 +1303,33 @@
       fork.hidden = true;
       if (perLinje) paintPL();
       setFb(fb, "", "Nullstilt.");
+      if (lag) lag.fjern();
+    }
+    /* B5: valgte linjer, begrunnelser, forsøk og om svaret er vist lagres (in2120:feil:<side>:<id>). */
+    function persist() {
+      if (laster || !lag) return;
+      lag.sett({ v: valgtListe(), g: grunn, gp: grunnPer, n: forsok, vist: vist, ferdig: ferdig, fb: fbRec(fb) });
+    }
+    function restore() {
+      var rec = lag && lag.hent();
+      if (!rec || !Array.isArray(rec.v)) return;
+      valgt = {};
+      rec.v.forEach(function (i) { if (i >= 0 && i < lines.length) valgt[i] = true; });
+      lines.forEach(function (l, j) { l.b.setAttribute("aria-pressed", valgt[j] ? "true" : "false"); l.b.classList.toggle("sel", !!valgt[j]); });
+      grunn = rec.g != null && rec.g >= 0 && rec.g < gInputs.length ? +rec.g : null;
+      gInputs.forEach(function (g, j) { g.inp.checked = j === grunn; });
+      grunnPer = {};
+      if (rec.gp && typeof rec.gp === "object") Object.keys(rec.gp).forEach(function (k) { if (valgt[k]) grunnPer[k] = +rec.gp[k]; });
+      forsok = +rec.n || 0;
+      if (forsok) bVis.disabled = false;
+      if (perLinje) paintPL();
+      if (rec.ferdig) avslutt(null, true);
+      if (rec.fb && rec.fb.h) setFb(fb, rec.fb.t, rec.fb.h);
     }
     paintText();
+    lag = lager("feil", o, host, wrap, ".ov-feil", fpAv({ l: o.linjer, f: o.feil, g: o.grunner, rg: o.riktigGrunn }));
+    restore();
+    laster = false;
     onLevel(wrap, paintText);
     return { el: wrap, velgLinje: velgLinje, velgGrunn: velgGrunn, sjekk: sjekk, visSvar: visSvar, nullstill: nullstill,
       feedback: function () { return fb.textContent; }, linje: function (i) { return lines[i].b; },

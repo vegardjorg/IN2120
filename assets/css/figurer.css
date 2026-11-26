@@ -1,0 +1,126 @@
+/* ============================================================
+   IN2120 guide · figurer.css
+   Stil for eksamensfigurer tegnet med IN.fig (assets/js/figurer/fig-felles.js).
+   Temafarger fra styles.css. Rollene skilles også med form: klartekst = hul boks med tykk kant,
+   chiffertekst = fylt mørk boks, funksjon (E) = fylt temafarge med fet skrift,
+   teller/IV = tonet fyll med stiplet indre kant.
+   ============================================================ */
+:root {
+  --fig-strek: var(--color-on-surface);
+  --fig-klar: #c62828;            /* kant på klartekst/chiffertekst (arkets røde) */
+  --fig-klar-fyll: var(--color-surface-container-lowest);
+  --fig-chiffer-fyll: #474c55;
+  --fig-chiffer-t: #ffffff;
+  --fig-funk-fyll: #3d6fc2;
+  --fig-funk-t: #ffffff;
+  --fig-teller-fyll: #fff6bf;
+  --fig-teller-t: #1b1d21;
+  --fig-nokkel: #6f6fc4;
+  --fig-bg: var(--color-surface-container-lowest);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fig-klar: #ef8a84;
+    --fig-chiffer-fyll: #d5d9df;
+    --fig-chiffer-t: #14171b;
+    --fig-funk-fyll: #4f7fcf;
+    --fig-teller-fyll: #4d4313;
+    --fig-teller-t: #fff3b0;
+    --fig-nokkel: #a9a9f0;
+  }
+}
+:root[data-theme="dark"] {
+  --fig-klar: #ef8a84;
+  --fig-chiffer-fyll: #d5d9df;
+  --fig-chiffer-t: #14171b;
+  --fig-funk-fyll: #4f7fcf;
+  --fig-teller-fyll: #4d4313;
+  --fig-teller-t: #fff3b0;
+  --fig-nokkel: #a9a9f0;
+}
+
+/* Figur med tegning: full bredde i kortet */
+.insp-fig.har-tegning { display: block; width: 100%; overflow: visible; }
+.insp-fig.har-tegning .exam-fig-h { width: 100%; }
+
+/* ---------- SVG ---------- */
+.fig-tegning { display: block; width: 100%; height: auto; margin: 0 auto; color: var(--fig-strek); font-family: var(--font, system-ui, sans-serif); }
+.fig-txt { fill: var(--fig-strek); font-size: 17px; }
+.fig-kursiv { font-style: italic; }
+.fig-fet { font-weight: 700; }
+.fig-strek { stroke: var(--fig-strek); stroke-width: 1.6; fill: none; stroke-linejoin: round; }
+.fig-stiplet { stroke-dasharray: 5 4; }
+
+.fig-boks-r { stroke: var(--color-outline); stroke-width: 1.4; fill: var(--fig-bg); }
+.fig-r-klar .fig-boks-r { stroke: var(--fig-klar); stroke-width: 2.6; fill: var(--fig-klar-fyll); }
+.fig-r-chiffer .fig-boks-r { stroke: var(--fig-klar); stroke-width: 2.6; fill: var(--fig-chiffer-fyll); }
+.fig-r-chiffer .fig-txt { fill: var(--fig-chiffer-t); }
+.fig-r-funk .fig-boks-r { stroke: var(--fig-strek); stroke-width: 1; fill: var(--fig-funk-fyll); }
+.fig-r-funk .fig-txt { fill: var(--fig-funk-t); font-size: 19px; }
+.fig-r-teller .fig-boks-r { stroke: var(--fig-klar); stroke-width: 2.6; fill: var(--fig-teller-fyll); }
+.fig-r-teller .fig-boks-inn { fill: none; stroke: var(--fig-teller-t); stroke-width: .8; stroke-dasharray: 2 2; opacity: .55; }
+.fig-r-teller .fig-txt { fill: var(--fig-teller-t); }
+.fig-r-uthev .fig-boks-r { stroke: var(--color-primary); stroke-width: 2.6; fill: var(--color-tone-info); }
+
+.fig-xor-c { fill: var(--fig-bg); stroke: var(--fig-strek); stroke-width: 2; }
+.fig-xor .fig-strek { stroke-width: 2; }
+.fig-nokkel-f { fill: var(--fig-nokkel); stroke: var(--fig-strek); stroke-width: .8; }
+.fig-nokkel-hull { fill: var(--fig-bg); stroke: var(--fig-strek); stroke-width: .6; }
+
+.fig-panel-r { fill: none; stroke: var(--color-outline); stroke-width: 1.2; }
+.fig-panel-t { font-size: 13px; fill: var(--color-on-surface-variant); }
+
+/* ---------- Celler: side om side, stablet på smal skjerm ----------
+   .fig-celler er container; rutenettet er barnet .fig-celler-grid (et element kan ikke spørre seg selv). */
+.fig-celler { container-type: inline-size; width: 100%; }
+.fig-celler-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem 1rem; align-items: end; }
+@container (min-width: 700px) {
+  .fig-celler-grid { grid-template-columns: repeat(var(--fig-kol, 3), minmax(0, 1fr)); }
+}
+@supports not (container-type: inline-size) {
+  @media (min-width: 860px) { .fig-celler-grid { grid-template-columns: repeat(var(--fig-kol, 3), minmax(0, 1fr)); } }
+}
+.fig-celle { display: flex; flex-direction: column; align-items: center; gap: .45rem; min-width: 0; }
+.fig-celle > .fig-tegning { max-width: 340px; }
+
+/* ---------- Svarfelt i figuren ---------- */
+.fig-felt { display: flex; align-items: center; justify-content: center; gap: .4rem; min-height: 2.2rem; width: 100%; max-width: 20rem; }
+.fig-felt:empty { border: 1.5px dashed var(--color-outline); border-radius: 6px; }
+.fig-felt .insp-sel, .fig-felt .insp-t { width: 100%; max-width: 20rem; }
+.fig-felt-et { font-size: var(--text-sm, .875rem); font-weight: 600; white-space: nowrap; }
+
+/* ---------- Terminal og kode ---------- */
+.fig-term { border: 1px solid var(--color-outline); border-radius: 8px; overflow: hidden; background: #15181d; color: #e6e9ee; margin: .4rem 0; }
+.fig-term-bar { display: flex; align-items: center; gap: .6rem; padding: .3rem .6rem; background: #2a2f37; color: #c9ced6; font-size: .8rem; }
+.fig-term-prikker { width: 2.6rem; height: .6rem; background:
+  radial-gradient(circle at .3rem 50%, #e5534b .28rem, transparent .3rem),
+  radial-gradient(circle at 1.3rem 50%, #d8a72c .28rem, transparent .3rem),
+  radial-gradient(circle at 2.3rem 50%, #57ab5a .28rem, transparent .3rem); }
+.fig-term-pre { margin: 0; padding: .6rem .8rem; overflow-x: auto; font-family: var(--font-mono, ui-monospace, Consolas, monospace); font-size: .85rem; line-height: 1.45; white-space: pre; background: transparent; color: inherit; border: 0; }
+.fig-kode { border: 1px solid var(--color-outline-variant); border-left: 4px solid var(--color-primary); border-radius: 6px; background: var(--color-surface-container-low); margin: .4rem 0; overflow: hidden; }
+.fig-kode-tittel { padding: .25rem .6rem; font-size: .8rem; font-weight: 600; color: var(--color-on-surface-variant); border-bottom: 1px solid var(--color-outline-variant); }
+.fig-kode pre { margin: 0; padding: .6rem .8rem; overflow-x: auto; font-size: .85rem; line-height: 1.45; background: transparent; border: 0; }
+
+/* ---------- Tabell ---------- */
+.fig-tab-wrap { max-width: 100%; overflow-x: auto; margin: .4rem 0; }
+.fig-tab { border-collapse: collapse; font-size: .9rem; }
+.fig-tab caption { caption-side: top; text-align: left; font-weight: 600; padding-bottom: .25rem; }
+.fig-tab th, .fig-tab td { border: 1px solid var(--color-outline); padding: .3rem .55rem; text-align: left; vertical-align: middle; }
+.fig-tab th { background: var(--color-surface-container-high); font-weight: 700; }
+.fig-tab .fig-felt { justify-content: flex-start; }
+
+/* Huskeregel under «Fasit og forklaring» (IN.FIG_HUSK) */
+.fig-husk { margin-top: .6rem; padding: .5rem .75rem; border-left: 3px solid var(--color-primary); background: var(--color-surface-container); border-radius: 0 6px 6px 0; }
+.fig-husk-t { margin: 0 0 .2rem; }
+.fig-husk-x > :last-child { margin-bottom: 0; }
+
+/* Tallfelt i figurer: viz.css gir .insp-t min-width: 9em, som er for bredt i en figur */
+.fig-felt .insp-t { min-width: 0; }
+
+/* Gjenbruk i forklaringer (IN.fig.vis): eksamensfiguren uten svarfelt, med lenke til eksamenskortet */
+.fig-vis { margin: .8rem 0 1rem; padding: .6rem .7rem .5rem; border: 1px solid var(--color-outline-variant); border-radius: 8px; background: var(--color-surface-container-lowest); max-width: 100%; }
+.fig-vis .exam-fig-h { overflow-x: auto; }
+.fig-vis figcaption.fig-vis-cap { text-align: left; font-weight: 400; margin-top: .45rem; }
+.fig-vis figcaption.fig-vis-cap a { font-weight: 600; }
+.fig-vis .fig-vis-husk { margin-top: .5rem; }
+.fig-vis .fig-vis-husk > div > :last-child { margin-bottom: 0; }

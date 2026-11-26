@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 2 · Kryptografi · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261126a">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -168,6 +170,8 @@
       <h4>Pingvinen: hvorfor ECB lekker</h4>
       <div id="viz-pingvin"></div>
 
+      <p class="small muted fig-vis-led">De tre modusene slik de står på eksamensarket (H2025). Hvilken er hvilken? Bruk reglene under.</p>
+      <div id="fv-moduser"></div>
       <div class="callout eksempel"><span class="lbl">Kjenn igjen figuren</span>
         <ul>
           <li>M rett inn i E og ingen piler mellom blokkene: <b>ECB</b>.</li>
@@ -223,6 +227,8 @@
         MD5 (128 bit) og SHA-1 (160 bit) skal ikke brukes. SHA-2 (256/384/512) regnes som sikker. SHA-3 finnes, men brukes lite.
         Bruk: filsammenligning, passordlagring, integritetssjekk, MAC, signatur, kryptovaluta, tilfeldige tall og nøkkelgenerering.</div>
       <div id="ex-hash"></div>
+      <p class="small muted fig-vis-led">Krav 3–5 skilles på hva angriperen får gitt, og hva angriperen må finne.</p>
+      <div id="fk-hashkrav"></div>
 
       <h4>Prøv selv: holder kravene?</h4>
       <p class="small muted">To «hashfunksjoner» som feiler på hver sin måte, og SHA-256 til sammenligning. Fyll ut og trykk «Sjekk»; forklaringen kommer i hver rute.</p>
@@ -530,22 +536,30 @@
 
   <footer class="footer">IN2120-guide · Blokk 2 · Kryptografi · <a href="03-pki.html">Neste: blokk 3, PKI</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/ovelse.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-krypto.js?v=20261125n"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/ovelse.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-krypto.js?v=20261126a"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -682,12 +696,12 @@
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
           kolonner: ["Symmetrisk", "Asymmetrisk", "Hashfunksjon"], multi: false,
           rader: [
-            { s: "DES", svar: [0], explain: "Gammelt blokkchiffer med én hemmelig nøkkel." },
-            { s: "SHA-256", svar: [2], explain: "Hashfunksjon i SHA-2-familien, ingen nøkkel." },
-            { s: "Elliptisk kurvekryptografi (ECC)", svar: [1], explain: "Nøkkelpar, mindre nøkler enn RSA." },
-            { s: "Vernams engangsnøkkel", svar: [0], explain: "Samme nøkkel XOR-es inn og ut." },
+            { s: "DES", svar: [0], explain: "Én og samme hemmelige nøkkel krypterer og dekrypterer, og det er kjennetegnet på symmetrisk. DES er et gammelt blokkchiffer som AES har erstattet." },
+            { s: "SHA-256", svar: [2], explain: "Ingen nøkkel og ingen vei tilbake: den lager et fast 256-bits fingeravtrykk av meldingen. Det skiller en hash fra både symmetrisk og asymmetrisk krypto." },
+            { s: "Elliptisk kurvekryptografi (ECC)", svar: [1], explain: "ECC har nøkkelpar, privat og offentlig, akkurat som RSA. At nøklene er kortere (typisk 256 bit), gjør den ikke symmetrisk." },
+            { s: "Vernams engangsnøkkel", svar: [0], explain: "Sender og mottaker bruker den samme hemmelige nøkkelen: C = M ⊕ K og M = C ⊕ K. Én delt nøkkel betyr symmetrisk." },
             { s: "Brukes til å kryptere store filer raskt", svar: [0], explain: "Symmetrisk krypto er mye raskere enn asymmetrisk." },
-            { s: "RSA", svar: [1], explain: "Den mest kjente asymmetriske algoritmen." }] } },
+            { s: "RSA", svar: [1], explain: "RSA har et nøkkelpar: krypter med mottakers offentlige nøkkel, eller signer med egen private. Nøkkelpar betyr asymmetrisk." }] } },
       "ov-moduser-1": { key: "ov-krypto-3", points: 2, title: "Tellermodus",
         inspera: { type: "T", regelTekst: "1 poeng for hvert riktige svar, 0 for feil svar, maks 2, minimum 0 poeng.",
           regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 2 },
@@ -700,9 +714,9 @@
           regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
           bank: ["CTR", "ECB", "CBC", "OFB", "DES"],
           felt: [
-            { etikett: "Diagram 1: T₁, T₂, T₃ går inn i hver sin E-boks; M kommer inn fra siden i en XOR under E", svar: 0, explain: "Teller inn i E og XOR etter E: CTR." },
-            { etikett: "Diagram 2: hver M går rett inn i sin E-boks; ingen piler mellom blokkene", svar: 1, explain: "Ingen kjeding og ingen teller: ECB." },
-            { etikett: "Diagram 3: IV og M₁ inn i en XOR før E; C₁ føres videre til XOR-en foran neste E", svar: 2, explain: "Kjeding av chifferblokker med IV først: CBC." }] } },
+            { etikett: "Diagram 1: T₁, T₂, T₃ går inn i hver sin E-boks; M kommer inn fra siden i en XOR under E", svar: 0, explain: "Kjennetegnet er at telleren, ikke klarteksten, går inn i E. Klarteksten XOR-es inn etterpå: C₁ = E(T₁, K) ⊕ M₁. Det er CTR." },
+            { etikett: "Diagram 2: hver M går rett inn i sin E-boks; ingen piler mellom blokkene", svar: 1, explain: "Hver blokk krypteres for seg, uten teller og uten kobling til forrige blokk. Det er ECB, og derfor gir like klartekstblokker like chifferblokker." },
+            { etikett: "Diagram 3: IV og M₁ inn i en XOR før E; C₁ føres videre til XOR-en foran neste E", svar: 2, explain: "Forrige chifferblokk, og IV for den første, XOR-es inn i klarteksten før E: C₁ = E(IV ⊕ M₁, K). Pilene mellom blokkene er kjedingen som skiller CBC fra ECB." }] } },
       "ov-hash": { key: "ov-krypto-5", points: 2, title: "Krav til en hashfunksjon",
         oppgave: "<p>En kollega lager H(x) = x mod 100, altså de to siste sifrene i et tall. Hvilke 2 krav oppfyller H?</p>",
         inspera: { type: "FF", regelTekst: "1 for hver riktig; −1 for hver feil; 0 for ubesvart; maks 2; minimum 0.",
@@ -716,10 +730,10 @@
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
           tekst: "<p>MAC bruker {0} og gir {1} meldingsautentisering. For å sjekke MAC-en må mottakeren ha {2}. En dommer uten nøkkelen kan {3} hvem som laget MAC-en.</p>",
           felt: [
-            { valg: ["asymmetrisk kryptografi", "symmetrisk kryptografi", "kvantekryptografi"], svar: 1, explain: "Delt hemmelig nøkkel." },
+            { valg: ["asymmetrisk kryptografi", "symmetrisk kryptografi", "kvantekryptografi"], svar: 1, explain: "Sender og mottaker deler den samme hemmelige nøkkelen K, og det er symmetrisk. Ingen nøkkelpar er med." },
             { valg: ["ubenektelig", "enkel", "fremoverhemmelig"], svar: 1, explain: "Kursets ord for MAC er enkel meldingsautentisering." },
-            { valg: ["avsenderens offentlige nøkkel", "den samme hemmelige nøkkelen", "sin egen private nøkkel"], svar: 1, explain: "MAC′ = Hash(M′, K) krever K." },
-            { valg: ["avgjøre", "ikke avgjøre"], svar: 1, explain: "Begge parter kunne ha laget den." }] } },
+            { valg: ["avsenderens offentlige nøkkel", "den samme hemmelige nøkkelen", "sin egen private nøkkel"], svar: 1, explain: "Mottakeren regner MAC′ = Hash(M′, K) selv og sammenligner. Det krever den samme hemmelige nøkkelen K; en MAC har ingen offentlig nøkkel." },
+            { valg: ["avgjøre", "ikke avgjøre"], svar: 1, explain: "Begge parter har K, så begge kunne ha laget MAC-en. Dommeren kan ikke skille dem, og derfor gir MAC ikke ubenektelighet." }] } },
       "ov-asym": { key: "ov-krypto-7", points: 1, title: "Nøkler ved asymmetrisk kryptering",
         oppgave: "<p>Hvilke nøkler brukes når Nora sender en hemmelig melding til Emil med asymmetrisk kryptering?</p>",
         inspera: { type: "FF", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, 1 for alle riktig, minimum 0.",
@@ -744,11 +758,11 @@
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
           kolonner: ["MAC", "DigSig", "Begge", "Ingen"], multi: false,
           rader: [
-            { s: "Kan brukes som bevis overfor en dommer", svar: [1], explain: "Bare avsender har privatnøkkelen." },
-            { s: "Oppdager at meldingen er endret underveis", svar: [2], explain: "Begge sjekker en hash av meldingen." },
-            { s: "Hindrer at en avlytter leser meldingen", svar: [3], explain: "Ingen av dem krypterer meldingen." },
-            { s: "Krever at sender og mottaker deler en hemmelig nøkkel", svar: [0], explain: "MAC = Hash(M, K)." },
-            { s: "Verifiseres med avsenderens offentlige nøkkel", svar: [1], explain: "H = Ver(S, " + kp("A", "pub") + ")." },
+            { s: "Kan brukes som bevis overfor en dommer", svar: [1], explain: "Bare avsenderen har den private nøkkelen, og hvem som helst kan verifisere med den offentlige. Med MAC har mottakeren samme nøkkel og kunne laget den selv." },
+            { s: "Oppdager at meldingen er endret underveis", svar: [2], explain: "Begge regner på en hash av meldingen. Er meldingen endret, passer ikke MAC-en eller signaturen lenger." },
+            { s: "Hindrer at en avlytter leser meldingen", svar: [3], explain: "Felle: begge beskytter integritet og opphav, men meldingen går i klartekst. Hemmelighold krever kryptering." },
+            { s: "Krever at sender og mottaker deler en hemmelig nøkkel", svar: [0], explain: "MAC = Hash(M, K): begge må ha den samme hemmelige K. Signaturen bruker nøkkelpar og trenger ingen delt hemmelighet." },
+            { s: "Verifiseres med avsenderens offentlige nøkkel", svar: [1], explain: "Signaturen sjekkes med avsenderens offentlige nøkkel: H = Ver(S, " + kp("A", "pub") + "). En MAC har ingen offentlig nøkkel." },
             { s: "Bygger på en hashfunksjon", svar: [2], explain: "MAC er en nøkkelstyrt hash; signaturen signerer hashen." }] } },
       "ov-signatur-2": { key: "ov-krypto-10", points: 3.5, title: "Krypter og signer",
         oppgave: "<p>Ida sender et hemmelig og signert dokument til Leo. Velg riktig ord i hvert felt (ordene kan brukes flere ganger).</p>",
@@ -757,23 +771,23 @@
           bank: ["krypterer", "signerer", "verifiserer", "private", "offentlige", "hemmelige"],
           tekst: "<p>Ida {0} et dokument med Leos {1} nøkkel, slik at bare Leo kan lese det. Så {2} hun det med sin {3} nøkkel. Leo {4} signaturen med Idas {5} nøkkel og dekrypterer med sin {6} nøkkel.</p>",
           felt: [
-            { etikett: "1", svar: 0, explain: "Hemmelighold: krypter." },
-            { etikett: "2", svar: 4, explain: "Med mottakers offentlige nøkkel." },
-            { etikett: "3", svar: 1, explain: "Så signerer hun." },
-            { etikett: "4", svar: 3, explain: "Signatur lages med avsenders private nøkkel." },
-            { etikett: "5", svar: 2, explain: "Leo verifiserer signaturen." },
-            { etikett: "6", svar: 4, explain: "Med avsenders offentlige nøkkel." },
-            { etikett: "7", svar: 3, explain: "Leo dekrypterer med sin private nøkkel." }] } },
+            { etikett: "1", svar: 0, explain: "«Bare Leo kan lese det» er et krav om hemmelighold, og det krever kryptering." },
+            { etikett: "2", svar: 4, explain: "Ida bruker Leos offentlige nøkkel. Da kan bare den som har Leos private nøkkel, dekryptere." },
+            { etikett: "3", svar: 1, explain: "Signaturen viser at dokumentet kommer fra Ida og ikke er endret. Det er et annet mål enn hemmeligholdet." },
+            { etikett: "4", svar: 3, explain: "Ida signerer med sin private nøkkel. Bare hun har den, og det gjør signaturen til bevis på at den kommer fra henne." },
+            { etikett: "5", svar: 2, explain: "Leo lager ikke signaturen, han sjekker den. Det heter å verifisere." },
+            { etikett: "6", svar: 4, explain: "Verifisering skjer med avsenderens offentlige nøkkel, altså Idas. Den passer bare til signaturer laget med Idas private nøkkel." },
+            { etikett: "7", svar: 3, explain: "Dokumentet ble kryptert med Leos offentlige nøkkel, så bare Leos private nøkkel kan åpne det." }] } },
       "ov-pqc": { key: "ov-krypto-11", points: 2.5, title: "Kvantetrusselen",
         inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for feil, 0 for ubesvart, maks 2,5, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
           kolonner: ["Lite påvirket", "Kan knekkes", "Postkvante"], multi: false,
           rader: [
-            { s: "AES-256", svar: [0], explain: "Symmetrisk; lang nøkkel holder." },
-            { s: "Diffie–Hellman", svar: [1], explain: "Diskret logaritme faller for kvantealgoritmer." },
-            { s: "ML-KEM (FIPS 203)", svar: [2], explain: "Gitterbasert nøkkelinnkapsling." },
-            { s: "RSA", svar: [1], explain: "Faktorisering faller for kvantealgoritmer." },
-            { s: "SLH-DSA (FIPS 205)", svar: [2], explain: "Hashbasert signatur." }] } }
+            { s: "AES-256", svar: [0], explain: "Symmetrisk krypto rammes lite av kvantedatamaskiner. Med 256-bits nøkkel er marginen stor nok." },
+            { s: "Diffie–Hellman", svar: [1], explain: "DH bygger på at diskret logaritme er vanskelig, og det kan en stor kvantedatamaskin løse. Derfor erstattes den av ML-KEM." },
+            { s: "ML-KEM (FIPS 203)", svar: [2], explain: "En av de nye postkvantestandardene: gitterbasert nøkkelinnkapsling, laget for å erstatte DH og RSA til nøkkeletablering." },
+            { s: "RSA", svar: [1], explain: "RSA bygger på at store tall er vanskelige å faktorisere, og det kan en stor kvantedatamaskin gjøre." },
+            { s: "SLH-DSA (FIPS 205)", svar: [2], explain: "Postkvantestandard for digital signatur, bygd på hashfunksjoner i stedet for gitter. Ny og laget for å tåle kvantedatamaskiner." }] } }
     };
     Object.keys(OV).forEach(function (id) {
       safe(id, function () {
@@ -788,55 +802,55 @@
     /* ---------- Flervalg per fane ---------- */
     var QUIZ = {
       maal: [
-        { q: "Hva bestemmer styrken til et chiffer ifølge kurset?", options: ["Nøkkelstørrelsen og algoritmens motstand mot kryptanalyse", "At algoritmen er hemmelig", "Antall runder alene"], answer: 0, explain: "Lysarket nevner nøyaktig disse to vilkårene." },
+        { q: "Hva bestemmer styrken til et chiffer ifølge kurset?", options: ["Nøkkelstørrelsen og algoritmens motstand mot kryptanalyse", "At algoritmen er hemmelig", "Antall runder alene"], answer: 0, explain: "Lysarket nevner nøyaktig disse to: nøkkelstørrelsen og hvor godt algoritmen tåler kryptanalyse. En hemmelig algoritme gir ingen ekstra styrke, og antall runder alene sier lite." },
         { q: "Et chiffer har 4 096 mulige nøkler. Hvor mange bit er nøkkelen?", options: ["12", "64", "2 048"], answer: 0, explain: "2¹² = " + Math.pow(2, 12) + ", så log₂(4 096) = 12." },
-        { q: "Hvor mange nøkler har en 9-bits nøkkel?", options: ["18", "81", String(Math.pow(2, 9))], answer: 2, explain: "2⁹ = " + Math.pow(2, 9) + "." },
+        { q: "Hvor mange nøkler har en 9-bits nøkkel?", options: ["18", "81", String(Math.pow(2, 9))], answer: 2, explain: "Hver bit dobler antallet: 2⁹ = " + Math.pow(2, 9) + ". 18 = 2 · 9 og 81 = 9² er de vanlige regnefeilene." },
         { q: "Vigenère med 29 bokstaver og kodeord på K tegn har nøkkelrom …", options: ["29 · K", "29ᴷ", "K²⁹"], answer: 1, explain: "Hver av de K posisjonene kan være én av 29 forskyvninger." }
       ],
       symmetrisk: [
         { q: "1010 ⊕ 0110 = ?", options: ["1100", "1110", "0010"], answer: 0, explain: "Like biter gir 0, ulike gir 1: " + b(pb("1010") ^ pb("0110")) + "." },
-        { q: "Hva er riktig om AES?", options: ["128-bits blokk og nøkkel på 128, 192 eller 256 bit", "512-bits nøkkel", "64-bits blokk"], answer: 0, explain: "AES-512 finnes ikke, og 64-bits blokk var DES." },
+        { q: "Hva er riktig om AES?", options: ["128-bits blokk og nøkkel på 128, 192 eller 256 bit", "512-bits nøkkel", "64-bits blokk"], answer: 0, explain: "AES har alltid 128-bits blokk og nøkkel på 128, 192 eller 256 bit. AES-512 finnes ikke, og 64-bits blokk hørte til DES." },
         { q: "Hva gir <i>diffusion</i> i Shannons SP-nettverk?", options: ["Substitusjon", "Permutasjon", "Nøkkelutveksling"], answer: 1, explain: "Permutasjon sprer bitene; substitusjon gir forvirring (confusion)." },
         { q: "Hvorfor er nøkkelgjenbruk i OTP farlig?", options: ["C ⊕ C′ = M ⊕ M′", "Nøkkelen blir kortere", "Chifferteksten blir lengre"], answer: 0, explain: "Nøkkelen faller bort når de to chiffertekstene XOR-es." }
       ],
       moduser: [
-        { q: "Hvilken modus lekker at to klartekstblokker er like?", options: ["CBC", "CTR", "ECB"], answer: 2, explain: "I ECB gir samme blokk alltid samme chiffer." },
-        { q: "CTR-dekryptering: M = ?", options: ["D(C, K)", "E(T, K) ⊕ C", "D(T, K) ⊕ C"], answer: 1, explain: "Bare E brukes, også ved dekryptering." },
+        { q: "Hvilken modus lekker at to klartekstblokker er like?", options: ["CBC", "CTR", "ECB"], answer: 2, explain: "ECB krypterer hver blokk for seg med samme nøkkel, så like klartekstblokker gir like chifferblokker. CBC og CTR blander inn IV eller teller, så der skjer det ikke." },
+        { q: "CTR-dekryptering: M = ?", options: ["D(C, K)", "E(T, K) ⊕ C", "D(T, K) ⊕ C"], answer: 1, explain: "Det er telleren som går inn i E, aldri chifferteksten. Mottakeren lager samme E(T, K) og XOR-er den bort, så bare E brukes, også ved dekryptering." },
         { q: "E(T₁, K) = 0110 og M₁ = 1011. C₁ = ?", options: ["1101", "0010", "1111"], answer: 0, explain: "0110 ⊕ 1011 = " + b(pb("0110") ^ pb("1011")) + "." },
-        { q: "Hva XOR-es inn i første klartekstblokk i CBC?", options: ["Nøkkelen", "IV", "Telleren"], answer: 1, explain: "C₁ = E(IV ⊕ M₁, K)." }
+        { q: "Hva XOR-es inn i første klartekstblokk i CBC?", options: ["Nøkkelen", "IV", "Telleren"], answer: 1, explain: "C₁ = E(IV ⊕ M₁, K). Senere blokker får forrige chifferblokk i stedet for IV. Nøkkelen går inn i E, og telleren hører til CTR." }
       ],
       hash: [
         { q: "Hvilket krav gjelder å finne <i>et hvilket som helst</i> par med lik hash?", options: ["Enveis", "Svak kollisjonsresistens", "Sterk kollisjonsresistens"], answer: 2, explain: "Svak: gitt én x. Sterk: angriperen velger begge." },
-        { q: "Hvilken anses som sikker i dag?", options: ["MD5", "SHA-1", "SHA-2"], answer: 2, explain: "MD5 og SHA-1 skal ikke brukes." },
+        { q: "Hvilken anses som sikker i dag?", options: ["MD5", "SHA-1", "SHA-2"], answer: 2, explain: "For MD5 og SHA-1 kan man finne kollisjoner i praksis, så de skal ikke brukes. SHA-2, for eksempel SHA-256, regnes som sikker." },
         { q: "H(x) = de tre første tegnene i x. Hvilke krav holder?", options: ["Lett å beregne og fast størrelse", "Enveis og kollisjonsresistent", "Alle fem"], answer: 0, explain: "«abcX» og «abcY» kolliderer, og fra «abc» ser du starten på x." },
-        { q: "Hvilket mål brytes av en hashkollisjon i en signatur?", options: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], answer: 1, explain: "To dokumenter får samme gyldige signatur." }
+        { q: "Hvilket mål brytes av en hashkollisjon i en signatur?", options: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], answer: 1, explain: "To dokumenter får samme hash og dermed samme gyldige signatur. Innholdet kan byttes uten at det merkes. Ingenting blir lest, så det er I og ikke K." }
       ],
       mac: [
-        { q: "Hvem kan validere en MAC?", options: ["Alle med avsenderens offentlige nøkkel", "Bare de som har den delte hemmelige nøkkelen", "Hvem som helst"], answer: 1, explain: "MAC′ = Hash(M′, K) krever K." },
-        { q: "MAC gir hvilken meldingsautentisering?", options: ["Enkel", "Ubenektelig", "Fremoverhemmelig"], answer: 0, explain: "Ubenektelig er signaturens ord." },
-        { q: "Fire kolleger deler én MAC-nøkkel. Hva vet mottakeren om hvem som sendte meldingen?", options: ["Hvem av de tre andre det var", "At det var en av nøkkelinnehaverne", "Ingenting om avsenderen"], answer: 1, explain: "Alle med nøkkelen kunne ha laget MAC-en." }
+        { q: "Hvem kan validere en MAC?", options: ["Alle med avsenderens offentlige nøkkel", "Bare de som har den delte hemmelige nøkkelen", "Hvem som helst"], answer: 1, explain: "Å validere betyr å regne MAC′ = Hash(M′, K) og sammenligne, og det krever den hemmelige nøkkelen K. En MAC har ingen offentlig nøkkel." },
+        { q: "MAC gir hvilken meldingsautentisering?", options: ["Enkel", "Ubenektelig", "Fremoverhemmelig"], answer: 0, explain: "Begge parter har nøkkelen, så MAC gir bare enkel meldingsautentisering. Ubenektelig krever en signatur med privat nøkkel." },
+        { q: "Fire kolleger deler én MAC-nøkkel. Hva vet mottakeren om hvem som sendte meldingen?", options: ["Hvem av de tre andre det var", "At det var en av nøkkelinnehaverne", "Ingenting om avsenderen"], answer: 1, explain: "En gyldig MAC viser at avsenderen har nøkkelen. Alle fire har den, så mottakeren vet at det var en av dem, men ikke hvem." }
       ],
       asym: [
         { q: "Lise vil sende en hemmelig melding til Per. Hvilken nøkkel krypterer hun med?", options: ["Lises private", "Pers offentlige", "Pers private"], answer: 1, explain: "Mottakerens offentlige nøkkel; bare Pers private kan åpne." },
-        { q: "Hvorfor bruker vi hybrid kryptering?", options: ["Asymmetrisk er tregt, symmetrisk er raskt", "Den gir fremoverhemmelighold", "Den trenger ingen nøkler"], answer: 0, explain: "Hybrid gir ikke fremoverhemmelighold." },
-        { q: "Typisk RSA-nøkkel ifølge 2026-lysarket?", options: ["128 bit", "256 bit", "2048 bit"], answer: 2, explain: "ECC er typisk 256 bit." },
-        { q: "Hva garanterer PKI?", options: ["At offentlige nøkler er autentiske", "At private nøkler er offentlige", "At hash er enveis"], answer: 0, explain: "Sertifikater binder navn til offentlig nøkkel." }
+        { q: "Hvorfor bruker vi hybrid kryptering?", options: ["Asymmetrisk er tregt, symmetrisk er raskt", "Den gir fremoverhemmelighold", "Den trenger ingen nøkler"], answer: 0, explain: "Asymmetrisk krypto er treg, så den brukes bare til å sende øktnøkkelen. Selve dataene krypteres raskt med symmetrisk krypto. Felle: hybrid gir ikke fremoverhemmelighold." },
+        { q: "Typisk RSA-nøkkel ifølge 2026-lysarket?", options: ["128 bit", "256 bit", "2048 bit"], answer: 2, explain: "RSA trenger lange nøkler, typisk 2048 bit. 256 bit er typisk for ECC, og 128 bit er en vanlig symmetrisk nøkkel." },
+        { q: "Hva garanterer PKI?", options: ["At offentlige nøkler er autentiske", "At private nøkler er offentlige", "At hash er enveis"], answer: 0, explain: "Et sertifikat er en CA-signert binding mellom et navn og en offentlig nøkkel, så du vet at nøkkelen tilhører den du tror. Private nøkler forlater aldri eieren." }
       ],
       dh: [
-        { q: "Hva etablerer DH?", options: ["Et asymmetrisk nøkkelpar", "En felles symmetrisk nøkkel", "En digital signatur"], answer: 1, explain: "g<sup>ab</sup> mod p er én felles nøkkel." },
-        { q: "Hvordan beskyttes DH mot mann-i-midten?", options: ["Større p", "Signere DH-verdiene digitalt", "Kryptere med AES"], answer: 1, explain: "Autentisert DH: S<sup>A</sup> = Sig(K<sup>AB</sup>, " + kp("A", "priv") + ")." },
+        { q: "Hva etablerer DH?", options: ["Et asymmetrisk nøkkelpar", "En felles symmetrisk nøkkel", "En digital signatur"], answer: 1, explain: "Begge ender med samme tall, g<sup>ab</sup> mod p, og det brukes som symmetrisk nøkkel. DH lager ikke nøkkelpar og signerer ingenting." },
+        { q: "Hvordan beskyttes DH mot mann-i-midten?", options: ["Større p", "Signere DH-verdiene digitalt", "Kryptere med AES"], answer: 1, explain: "Problemet er at ingen vet hvem verdiene kommer fra, og det løser ikke en større p. Med signatur kan ikke Mallory bytte dem ut. Autentisert DH: S<sup>A</sup> = Sig(K<sup>AB</sup>, " + kp("A", "priv") + ")." },
         { q: "Øktnøkler sendes kryptert med tjenerens offentlige nøkkel, og privatnøkkelen stjeles et år senere. Kan gammel trafikk leses?", options: ["Ja", "Nei", "Bare hvis DH ble brukt"], answer: 0, explain: "Det er hybrid kryptering, uten fremoverhemmelighold." },
-        { q: "Hvilken protokoll gir alltid fremoverhemmelighold ifølge kurset?", options: ["SSL", "TLS 1.3", "Telnet"], answer: 1, explain: "TLS 1.3 bruker alltid (EC)DH." }
+        { q: "Hvilken protokoll gir alltid fremoverhemmelighold ifølge kurset?", options: ["SSL", "TLS 1.3", "Telnet"], answer: 1, explain: "TLS 1.3 har fjernet nøkkeltransport med RSA og bruker (EC)DH med nye delnøkler per økt. Telnet har ingen kryptering, og SSL er utdatert." }
       ],
       signatur: [
-        { q: "Hvem kan verifisere en digital signatur fra Alice?", options: ["Bare Bob", "Alle med Alices offentlige nøkkel", "Bare Alice"], answer: 1, explain: "Derfor gir signaturen ubenektelighet." },
+        { q: "Hvem kan verifisere en digital signatur fra Alice?", options: ["Bare Bob", "Alle med Alices offentlige nøkkel", "Bare Alice"], answer: 1, explain: "Verifisering trenger bare Alices offentlige nøkkel, så hvem som helst kan sjekke, også en dommer. Det er dette som gir ubenektelighet." },
         { q: "Hva signeres i praksis?", options: ["Hele meldingen", "Hashen av meldingen", "Den offentlige nøkkelen"], answer: 1, explain: "Asymmetriske operasjoner er tunge; hashen er kort." },
         { q: "Bob verifiserer signaturen. Hva sammenligner han?", options: ["H = Ver(S, " + kp("A", "pub") + ") med H′ = Hash(M′)", "S med M", "MAC med MAC′"], answer: 0, explain: "Like hasher betyr gyldig signatur på uendret melding." },
-        { q: "Alices private nøkkel lekker. Hva er riktig?", options: ["Signaturer laget med den kan ikke lenger stoles på, og hun må slutte å signere med den", "Ingenting, den offentlige gjelder fortsatt", "Hun må slutte å beregne hash"], answer: 0, explain: "Tyven kan nå signere i hennes navn." }
+        { q: "Alices private nøkkel lekker. Hva er riktig?", options: ["Signaturer laget med den kan ikke lenger stoles på, og hun må slutte å signere med den", "Ingenting, den offentlige gjelder fortsatt", "Hun må slutte å beregne hash"], answer: 0, explain: "Med den private nøkkelen kan tyven lage signaturer som ser ut som Alices. Den offentlige nøkkelen kan ikke skille dem fra ekte, så nøkkelparet må byttes." }
       ],
       pqc: [
-        { q: "Hvilken rammes hardest av kvantedatamaskiner?", options: ["AES", "SHA-2", "RSA"], answer: 2, explain: "Tradisjonell asymmetrisk krypto kan knekkes." },
-        { q: "Hva er ML-KEM til?", options: ["Digital signatur", "Nøkkelinnkapsling (nøkkeletablering)", "Hashing"], answer: 1, explain: "KEM = key encapsulation mechanism." },
+        { q: "Hvilken rammes hardest av kvantedatamaskiner?", options: ["AES", "SHA-2", "RSA"], answer: 2, explain: "RSA bygger på faktorisering, som en stor kvantedatamaskin kan løse. AES og SHA-2 rammes lite; der holder det med lange nok nøkler og hasher." },
+        { q: "Hva er ML-KEM til?", options: ["Digital signatur", "Nøkkelinnkapsling (nøkkeletablering)", "Hashing"], answer: 1, explain: "KEM står for key encapsulation mechanism, en måte å etablere en felles nøkkel på. Postkvantesignaturene heter ML-DSA og SLH-DSA." },
         { q: "Hvilken PQC-standard er hashbasert?", options: ["SLH-DSA", "ML-DSA", "ML-KEM"], answer: 0, explain: "SLH-DSA (SPHINCS+). ML-DSA og ML-KEM er gitterbaserte." }
       ]
     };
@@ -938,6 +952,10 @@
     });
 
     /* ---------- Eksamensbanken ---------- */
+    // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)
+    safe("fv-moduser", function () { IN.fig.vis("#fv-moduser", "H2025-8"); });
+    // Nye visuelle forklaringer (IN.FORKLAR i figurer/forklar-a.js)
+    safe("fk-hashkrav", function () { IN.FORKLAR["hashkrav"]("#fk-hashkrav"); });
     safe("bank-krypto", function () { IN.examBank("#bank-krypto", { block: "krypto" }); });
   })();
   </script>

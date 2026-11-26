@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 9 · Nettverk · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126a">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -209,6 +211,9 @@
         <b>NAT</b> lar mange maskiner dele én offentlig IPv4-adresse, men er ikke en sikkerhetsmekanisme. En <b>DMZ</b> er et segment mot Internett for tjenester som må nås utenfra.</div>
       <div id="ex-brannmur"></div>
 
+      <p class="small muted fig-vis-led">Hvilken kjede en pakke møter, avgjøres før reglene leses: rutingsbeslutningen ser om pakken skal til brannmuren selv, gjennom den, eller om brannmuren har laget den.</p>
+      <div id="fx-iptables-kjeder"></div>
+
       <h4>Én pakke gjennom fem regler</h4>
       <div class="callout eksempel"><span class="lbl">Regelsettet</span>
         <p>Webtjener i DMZ 172.16.5.10, admin-PC 192.168.7.20, database 10.20.0.5, kjent angriper 203.0.113.66. All trafikken går gjennom brannmuren (FORWARD).</p>
@@ -256,6 +261,8 @@
 8 iptables -A FORWARD -j DROP</pre>
       <div id="ov-nett-5"></div>
 
+      <p class="small muted fig-vis-led">Nettet fra H2023 32: web-tjeneren i ytre segment skal nå databasen i indre segment. Trafikken går <i>gjennom</i> brannmuren.</p>
+      <div id="fv-brannmur"></div>
       <h4>Skriv regelen selv (2 p)</h4>
       <p>Slipp SSH fra admin-PC 10.1.1.5 til tjeneren 10.2.2.8, og ingenting annet til tjeneren.</p>
       <div id="ov-nett-6"></div>
@@ -321,6 +328,9 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         IDS mot brannmur til filtrering (H2022 7.3), Snort som signaturbasert IDS (H2023 11), maskinlæring og tolkning av en regel til 443 (H2023 31), gjenkjenne regelsett (H2024 27), mørke IP-adresser (H2024 29, 4 p), skriv en Snort-regel for utgående SSH (H2025 20) og anomali-IDS under pentest (H2025 21). NIDS plasseres utenfor gatewayen (ser alle forsøk), i DMZ og i indre segmenter, så sensorene kan korreleres.</div>
 
+      <p class="small muted fig-vis-led">Plasseringen i ett bilde: passive sensorer får en kopi av trafikken og varsler, mens en IPS står inline, så all trafikken går gjennom den.</p>
+      <div id="fx-nids-plassering"></div>
+
       <h4>Øv i Inspera-format</h4>
       <div id="ov-nett-7"></div>
       <h4>Fritekst (3 p)</h4>
@@ -348,6 +358,8 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <h4>IPsec i tunnelmodus</h4>
       <div id="sp-ipsec"></div>
       <p class="small">Gateway–gateway kobler to nett (for eksempel to kontorer). Vert–gateway er en hjemmearbeider inn til kontornettet. Vert–vert er to maskiner direkte. Hjemme-VPN gir kryptert tilgang, men en kompromittert ekstern maskin blir en vei inn.</p>
+      <p class="small muted fig-vis-led">Transportmodus til sammenligning: der beskytter ESP bare innholdet, og det opprinnelige IP-hodet står synlig ytterst.</p>
+      <div id="fk-ipsec-moduser"></div>
 
       <h4>Tor: ett skall per node</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
@@ -399,9 +411,13 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
       <h4>Scenario: Bobs passord (H2025 37)</h4>
       <p class="small muted">Samme oppsett som eksamensoppgaven, sett fra forsvarersiden: hvem har passordet, og hva gjør du nå?</p>
+      <p class="small muted fig-vis-led">Eksamensfiguren: nettsiden Bob tastet passordet inn på, og tavletegningen av nettverket.</p>
+      <div id="fv-bob"></div>
       <div id="scen-nett-bob"></div>
 
       <h4>ARP-tabellen som avslører forfalskning</h4>
+      <p class="small muted fig-vis-led">Slik havner den falske raden i tabellen: angriperen svarer på en ARP-forespørsel for en IP-adresse som ikke er dens egen.</p>
+      <div id="fx-arp-forgiftning"></div>
       <div class="table-wrap"><table class="nt-fw nt-arp">
         <thead><tr><th>IP-adresse</th><th>MAC-adresse</th><th></th></tr></thead>
         <tbody>
@@ -441,6 +457,8 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         <b>Zero trust</b>: «stol aldri, verifiser alltid», også på innsiden. Valider alle, anta at noe kan være kompromittert, og gi minst mulig rettigheter.
         <b>Perimeteren</b> er yttergrensen til det man forsvarer.</div>
       <div id="ex-forsvar"></div>
+      <p class="small muted fig-vis-led">Skallmodellen stoler på alt innenfor perimeteren. Med zero trust går hver forespørsel via et håndhevingspunkt (PEP) som spør et beslutningspunkt (PDP), samme ord som i IAM.</p>
+      <div id="fk-skall-zt"></div>
 
       <h4>En angriper kommer inn via phishing</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
@@ -479,21 +497,30 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/ovelse.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-nett.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/ovelse.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-nett.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -697,64 +724,64 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         rader: [
           { s: "SMTP", svar: [3], explain: "<p>E-postprotokoll mellom programmer: applikasjonslaget.</p>" },
           { s: "SSH", svar: [3], explain: "<p>Fjerninnlogging (port 22) er en applikasjonsprotokoll.</p>" },
-          { s: "TCP", svar: [2], explain: "<p>Leverer til riktig port: transport.</p>" },
+          { s: "TCP", svar: [2], explain: "<p>TCP leverer data til riktig program via portnummer og sørger for at alt kommer fram i rekkefølge. Det er transportlaget; IP på laget under finner bare fram til maskinen.</p>" },
           { s: "IPsec", svar: [1], explain: "<p>Beskytter hele IP-pakken, derfor ingen port.</p>" },
           { s: "ARP", svar: [0], explain: "<p>Kobler IP-adresse til maskinadresse i lokalnettet: link.</p>" },
-          { s: "TLS Record", svar: [2], explain: "<p>Sitter rett over TCP.</p>" },
+          { s: "TLS Record", svar: [2], explain: "<p>TLS Record ligger rett over TCP og krypterer det applikasjonen sender. Derfor plasseres den i transportlaget, under HTTP.</p>" },
           { s: "DNS", svar: [3], explain: "<p>Navneoppslag er en applikasjonstjeneste (port 53).</p>" },
-          { s: "Nettleseren Firefox", svar: [4], explain: "<p>Et program, ikke en protokoll.</p>" } ] } },
+          { s: "Nettleseren Firefox", svar: [4], explain: "<p>Firefox er et program som bruker protokollene, ikke en protokoll selv. Derfor står det over hele stakken.</p>" } ] } },
       { title: "Hvilken port?", key: "ov-nett-2", points: 3, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,5 poeng, hvert gale −0,5, ubesvart 0. Minimum 0.",
         regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
         kolonner: ["21", "23", "25", "53", "443", "445", "3389"], multi: false,
         rader: [
-          { s: "DNS", svar: [3], explain: "<p>Navneoppslag: 53.</p>" },
-          { s: "SMTP", svar: [2], explain: "<p>E-post mellom tjenere: 25.</p>" },
-          { s: "SMB", svar: [5], explain: "<p>Fildeling i Windows: 445.</p>" },
+          { s: "DNS", svar: [3], explain: "<p>DNS slår opp navn til IP-adresser på port 53. Ikke bland den med 25 (SMTP) eller 23 (Telnet).</p>" },
+          { s: "SMTP", svar: [2], explain: "<p>SMTP sender e-post mellom tjenere på port 25. Lett å blande med 23, som er Telnet.</p>" },
+          { s: "SMB", svar: [5], explain: "<p>SMB er fildeling i Windows på port 445, ett tall over 443 (HTTPS). Mange ormer, som WannaCry, spredte seg her.</p>" },
           { s: "Telnet", svar: [1], explain: "<p>Ukryptert fjerninnlogging: 23 (rett etter SSH på 22).</p>" },
-          { s: "HTTPS", svar: [4], explain: "<p>HTTP over TLS: 443.</p>" },
-          { s: "RDP", svar: [6], explain: "<p>Fjernskrivebord: 3389.</p>" } ] } },
+          { s: "HTTPS", svar: [4], explain: "<p>HTTPS er HTTP over TLS på port 443. Vanlig HTTP bruker 80.</p>" },
+          { s: "RDP", svar: [6], explain: "<p>RDP er Windows sitt fjernskrivebord på port 3389, det eneste høye portnummeret i lista.</p>" } ] } },
       { title: "TLS 1.3-håndtrykket", key: "ov-nett-3", points: 4, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, 0 for feil eller ubesvart. Maks 4.",
         regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
         tekst: "<p>I TLS 1.3 sender klienten sin offentlige DH-delnøkkel i {0}. Tjeneren beviser at den eier nøkkelen i sertifikatet med {1}. Fremoverhemmelighold kommer av at {2}. Dataene i økten beskyttes av {3}.</p>",
         felt: [
-          { valg: ["ClientHello", "Certificate", "Finished"], svar: 0, explain: "key_share følger med ClientHello." },
+          { valg: ["ClientHello", "Certificate", "Finished"], svar: 0, explain: "I TLS 1.3 sender klienten DH-delnøkkelen (key_share) allerede i første melding, ClientHello. Det sparer en rundtur." },
           { valg: ["ServerHello", "CertificateVerify", "EncryptedExtensions"], svar: 1, explain: "En digital signatur med den private nøkkelen." },
-          { valg: ["øktnøkkelen krypteres med tjenerens offentlige nøkkel", "nye DH-delnøkler lages for hver økt og slettes", "sertifikatet fornyes hvert år"], svar: 1, explain: "Efemær DH." },
+          { valg: ["øktnøkkelen krypteres med tjenerens offentlige nøkkel", "nye DH-delnøkler lages for hver økt og slettes", "sertifikatet fornyes hvert år"], svar: 1, explain: "Efemær DH: delnøklene slettes etter økten, så en stjålet privatnøkkel senere kan ikke dekryptere gammel trafikk. Hvis øktnøkkelen var kryptert med tjenerens offentlige nøkkel, kunne den det." },
           { valg: ["Handshake-protokollen", "Record-protokollen", "Alert-protokollen"], svar: 1, explain: "Record bruker nøkkelen Handshake etablerte." } ] } },
       { title: "HSTS og TLS-inspeksjon", key: "ov-nett-4", points: 3, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, −1 for feil, 0 for ubesvart. Minimum 0, maks 3.",
         regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
         tekst: "<p>{0} gjør at nettleseren selv bytter til https. En virksomhet som vil lese ansattes HTTPS-trafikk, bruker {1}. Sårbarheten ved første besøk dekkes av {2}.</p>",
         felt: [
-          { valg: ["HSTS", "DNS", "IPsec"], svar: 0, explain: "HSTS-policyen lagres i nettleseren." },
-          { valg: ["anomalideteksjon", "TLS-inspeksjon", "NAT"], svar: 1, explain: "Proxyen utgir seg for å være tjeneren." },
-          { valg: ["HSTS-preload", "et lengre sertifikat", "TLS Record"], svar: 0, explain: "Innebygd liste i nettleseren." } ] } },
+          { valg: ["HSTS", "DNS", "IPsec"], svar: 0, explain: "Tjeneren sender en HSTS-policy som nettleseren husker. Senere bytter nettleseren selv til https før noe sendes ukryptert." },
+          { valg: ["anomalideteksjon", "TLS-inspeksjon", "NAT"], svar: 1, explain: "En proxy avslutter TLS og utgir seg for å være tjeneren med et sertifikat fra virksomhetens egen CA. Da kan den lese trafikken før den krypteres på nytt." },
+          { valg: ["HSTS-preload", "et lengre sertifikat", "TLS Record"], svar: 0, explain: "Ved første besøk har nettleseren ennå ikke fått HSTS-policyen. Preload-lista er bygget inn i nettleseren, så den gjelder fra første gang." } ] } },
       { title: "Slipper brannmuren gjennom?", key: "ov-nett-5", points: 2, inspera: { type: "M", regelTekst: "Hvert riktig svar gir 0,25 poeng, hvert gale −0,25, ubesvart 0. Minimum 0.",
         regel: { riktig: 0.25, feil: -0.25, blankt: 0, min: 0, maks: 2 },
         kolonner: ["Ja", "Nei"], multi: false,
         rader: [
-          { s: "HTTPS fra 10.9.9.9", svar: [0], explain: "Regel 1." },
+          { s: "HTTPS fra 10.9.9.9", svar: [0], explain: "Regel 1 tillater TCP 443 fra 10.9.9.9 og er første treff. Senere regler blir ikke lest." },
           { s: "SSH fra 10.9.9.9", svar: [0], explain: "Regel 6 (før DROP i regel 7)." },
-          { s: "HTTP fra 10.9.9.9", svar: [1], explain: "Ingen ACCEPT for 80; regel 7." },
+          { s: "HTTP fra 10.9.9.9", svar: [1], explain: "Ingen regel tillater port 80 fra 10.9.9.9, så første treff er DROP i regel 7." },
           { s: "RDP fra 172.20.1.1", svar: [0], explain: "Regel 3. Regel 2 gjelder INPUT og er uten betydning." },
-          { s: "SSH fra 172.20.1.1", svar: [1], explain: "Regel 4." },
+          { s: "SSH fra 172.20.1.1", svar: [1], explain: "Regel 3 gjelder bare port 3389, så SSH treffer regel 4, som dropper all TCP fra 172.20.1.1." },
           { s: "DNS-oppslag (UDP 53) fra 172.20.1.1", svar: [0], explain: "Regel 4 gjelder bare TCP; regel 5 treffer." },
-          { s: "HTTP fra 192.0.2.50", svar: [1], explain: "Regel 8." },
-          { s: "DNS-oppslag (UDP 53) fra 10.9.9.9", svar: [0], explain: "Regel 5 står før regel 7." } ] } },
+          { s: "HTTP fra 192.0.2.50", svar: [1], explain: "Ingen av regel 1–7 gjelder 192.0.2.50 med port 80, så den treffer standard-DROP i regel 8." },
+          { s: "DNS-oppslag (UDP 53) fra 10.9.9.9", svar: [0], explain: "Regel 5 tillater UDP 53 fra alle og står før DROP i regel 7. Første treff avgjør." } ] } },
       { title: "Skriv iptables-regelen", key: "ov-nett-6", points: 2, inspera: { type: "K", deler: [{ del: "", poeng: 2, grense: "to iptables-regler" }] } },
       { title: "Les Snort-reglene", key: "ov-nett-7", points: 3, inspera: { type: "N", regelTekst: "1 poeng for hver riktig, 0 for feil eller ubesvart. Maks 3.",
         regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
         tekst: "<p><code>alert tcp 10.5.5.5 any -&gt; 10.6.6.6 22 (…)</code> beskriver {0}. <code>alert tcp any any -&gt; 10.6.6.6 80 (…)</code> beskriver {1}. En IDS som lærer normal trafikk og varsler om avvik, er {2}.</p>",
         felt: [
           { valg: ["SSH fra 10.6.6.6 til 10.5.5.5", "SSH fra 10.5.5.5 til 10.6.6.6", "HTTPS til 10.6.6.6"], svar: 1, explain: "Kilden står til venstre for pilen; 22 er målporten." },
-          { valg: ["ukryptert webtrafikk til 10.6.6.6", "kryptert webtrafikk til 10.6.6.6", "Telnet til 10.6.6.6"], svar: 0, explain: "Port 80 = HTTP." },
-          { valg: ["signaturbasert", "anomalibasert", "en honningkrukke"], svar: 1, explain: "Modell av normal oppførsel." } ] } },
+          { valg: ["ukryptert webtrafikk til 10.6.6.6", "kryptert webtrafikk til 10.6.6.6", "Telnet til 10.6.6.6"], svar: 0, explain: "Målporten er 80, som er HTTP uten TLS. Kryptert webtrafikk ville gått til 443." },
+          { valg: ["signaturbasert", "anomalibasert", "en honningkrukke"], svar: 1, explain: "Den lærer hva som er normalt og varsler om avvik. En signaturbasert IDS leter i stedet etter kjente mønstre." } ] } },
       { title: "Anomalibasert IDS (fritekst)", key: "ov-nett-8", points: 3, inspera: { type: "K", deler: [{ del: "", poeng: 3, grense: "to–tre setninger" }] } },
       { title: "Tor-lagene", key: "ov-nett-9", points: 3, inspera: { type: "D", regelTekst: "1 poeng for hver riktig, −1 for feil, 0 for ubesvart. Minimum 0.",
         regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 }, tekst: null,
         bank: ["Nøkkel delt med X", "Nøkkel delt med Y", "Nøkkel delt med Z", "Nøkkel delt med Petter"],
         felt: [
-          { etikett: "Ytterste lag", svar: 0, explain: "Første node skreller først." },
-          { etikett: "Midterste lag", svar: 1, explain: "Andre node." },
+          { etikett: "Ytterste lag", svar: 0, explain: "Første node (X) får pakken først og skreller av det ytterste laget. Det må derfor være kryptert med nøkkelen delt med X." },
+          { etikett: "Midterste lag", svar: 1, explain: "Etter at X har skrellet sitt lag, er det midterste laget det Y kan åpne med sin nøkkel." },
           { etikett: "Innerste lag", svar: 2, explain: "Utgangsnoden; Petter deler ingen Tor-nøkkel." } ] } }
     ];
     OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
@@ -762,7 +789,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
     /* ---------- Flervalg per fane ---------- */
     var QUIZ = {
       lag: [
-        { q: "Hvilket lag i internettstakken svarer til OSI-lag 3?", options: ["Link", "Internett", "Transport", "Sesjon"], answer: 1, explain: "Internettlaget heter «nettverk» i OSI." },
+        { q: "Hvilket lag i internettstakken svarer til OSI-lag 3?", options: ["Link", "Internett", "Transport", "Sesjon"], answer: 1, explain: "OSI-lag 3 er nettverkslaget, der IP finner veien mellom nett. I internettstakken heter det samme laget internettlaget." },
         { q: "Hvor ligger TLS Record?", options: ["Applikasjon", "Transport", "Internett", "Link"], answer: 1, explain: "Record sitter rett over TCP, i transportlaget." },
         { q: "Hvilken port bruker RDP?", options: ["22", "445", "3389", "23"], answer: 2, explain: "RDP bruker 3389. 22 er SSH, 445 er SMB og 23 er Telnet." },
         { q: "Hvilken protokoll er kryptert?", options: ["Telnet", "FTP", "SSH", "ARP"], answer: 2, explain: "SSH er den krypterte erstatningen for Telnet." }
@@ -784,13 +811,13 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         { q: "Hvor bør en offentlig webtjener stå?", options: ["I det indre segmentet", "I DMZ", "På selve brannmuren", "I et VLAN uten filtrering"], answer: 1, explain: "DMZ er segmentet for tjenester som må nås utenfra." }
       ],
       ids: [
-        { q: "Hvilken IDS-type bygger ofte på maskinlæring?", options: ["Signaturbasert", "Anomalibasert", "HIDS", "Snort"], answer: 1, explain: "Den lærer en modell av normal oppførsel." },
+        { q: "Hvilken IDS-type bygger ofte på maskinlæring?", options: ["Signaturbasert", "Anomalibasert", "HIDS", "Snort"], answer: 1, explain: "Anomalibasert IDS lærer hva som er normal trafikk og varsler om avvik, og det er der maskinlæring passer. Signaturbasert sammenligner bare med kjente mønstre." },
         { q: "Hva betyr <code>alert tcp 1.1.1.1 any -&gt; 2.2.2.2 25</code>?", options: ["SMTP fra 2.2.2.2", "TCP fra 1.1.1.1 til port 25 på 2.2.2.2", "All trafikk til 1.1.1.1", "SSH til 2.2.2.2"], answer: 1, explain: "Kilden står til venstre for pilen, målet og målporten til høyre." },
         { q: "Hvorfor er mørke IP-adresser nyttige?", options: ["De sparer IPv4-adresser", "All trafikk dit er illegitim og lett å oppdage", "De krypterer trafikken", "De skjuler tjenere"], answer: 1, explain: "Ingen legitim maskin bruker dem, så hver pakke dit er et varsel." },
         { q: "Hvorfor plassere en NIDS utenfor gatewayen?", options: ["For å blokkere angrep", "For å se og logge forsøk som brannmuren stopper, til korrelasjon", "Fordi det er billigst", "For å slippe TLS"], answer: 1, explain: "Den ser alle forsøk, og kan sammenlignes med sensorene innenfor." }
       ],
       ipsec: [
-        { q: "Hva ser ISP ved sky-VPN?", options: ["Alt", "Mål-IP, men ikke innhold", "Bare at brukeren bruker sky-VPN", "Bare innholdet"], answer: 2, explain: "Alt går kryptert til VPN-tjenesten." },
+        { q: "Hva ser ISP ved sky-VPN?", options: ["Alt", "Mål-IP, men ikke innhold", "Bare at brukeren bruker sky-VPN", "Bare innholdet"], answer: 2, explain: "All trafikk går kryptert til VPN-tjenesten. ISP-en ser bare forbindelsen dit, ikke hvilke nettsteder brukeren besøker eller hva som sendes." },
         { q: "Hvilken Tor-node ser destinasjonen?", options: ["Inngangsnoden", "Midtnoden", "Utgangsnoden", "Ingen"], answer: 2, explain: "Utgangsnoden leverer pakken og må kjenne målet." },
         { q: "Hvilken IPsec-arkitektur passer for en hjemmearbeider inn til kontornettet?", options: ["Gateway–gateway", "Vert–gateway", "Vert–vert", "Ingen"], answer: 1, explain: "Én vert (hjemme-PC-en) mot kontorets gateway." }
       ],
@@ -800,9 +827,9 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         { q: "Hvorfor ser en tastelogger passordet tross TLS?", options: ["TLS er svak", "Tastene fanges før krypteringen", "HSTS er av", "Den bruker IPsec"], answer: 1, explain: "Den står før krypteringen på brukerens maskin." }
       ],
       forsvar: [
-        { q: "Hva beskriver «hardt skall, mykt innhold»?", options: ["Zero trust", "Skall-/eggmodellen", "Løkmodellen", "DMZ"], answer: 1, explain: "Én ytre grense, flatt innside." },
+        { q: "Hva beskriver «hardt skall, mykt innhold»?", options: ["Zero trust", "Skall-/eggmodellen", "Løkmodellen", "DMZ"], answer: 1, explain: "Skall-/eggmodellen har én sterk ytre grense, men innsiden er flat. Kommer angriperen gjennom skallet, når han alt; løkmodellen har derimot flere lag." },
         { q: "Hvilket prinsipp ligger bak eksplisitt DROP til slutt?", options: ["Åpen design", "Minste privilegium", "NAT", "Tilgjengelighet"], answer: 1, explain: "Bare det uttrykkelig tillatte slipper gjennom." },
-        { q: "Hva sier zero trust om brukere på innsiden?", options: ["De er tiltrodd", "De skal også verifiseres", "De trenger ikke passord", "De skal alltid bruke VPN"], answer: 1, explain: "Plassering i nettet gir ingen tillit." }
+        { q: "Hva sier zero trust om brukere på innsiden?", options: ["De er tiltrodd", "De skal også verifiseres", "De trenger ikke passord", "De skal alltid bruke VPN"], answer: 1, explain: "Å være på innsiden av nettet gir ingen tillit i seg selv. Hver forespørsel verifiseres, uansett hvor den kommer fra." }
       ]
     };
     Object.keys(QUIZ).forEach(function (fane) {
@@ -886,6 +913,17 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
     });
 
     /* ---------- Eksamensbanken ---------- */
+    // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)
+    safe("fv-brannmur", function () { IN.fig.vis("#fv-brannmur", "H2023-32", { husk: true }); });
+    safe("fv-bob", function () { IN.fig.vis("#fv-bob", "H2025-37"); });
+    // Nye visuelle forklaringer (forklar-b.js, kilde under hver figur)
+    ["iptables-kjeder", "nids-plassering", "arp-forgiftning"].forEach(function (id) {
+      safe("fx-" + id, function () { IN.FORKLAR[id]("#fx-" + id); });
+    });
+    // Nye visuelle forklaringer (forklar-c.js)
+    ["skall-zt", "ipsec-moduser"].forEach(function (id) {
+      safe("fk-" + id, function () { IN.FORKLAR[id]("#fk-" + id); });
+    });
     safe("bank-nettverk", function () { IN.examBank("#bank-nettverk", { block: "nettverk" }); });
   })();
   </script>

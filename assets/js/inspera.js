@@ -14,6 +14,10 @@
        Poenglinja er én kort linje (arkets tekst) i en lukket <details> med «Slik retter øvingen».
        Type M: hver avkrysning ligger i label.insp-m-o som fyller cella. Under 560 px stables matrisen
        (viz.css): én blokk per rad, valgene som knapperad. Lagring og retting er uendret.
+       Etter retting (M): rader som ble feil eller ubesvart, får grønn ramme og «✓ riktig» på riktig valg og
+       forklaringen som én linje under raden. «Fasit og forklaring» er da en lukket <details> (i kort: ingen liste,
+       og forklaringen står under hver rad). Huskeregelen (IN.FIG_HUSK) står utenfor lista, så den alltid syns.
+       Resultatlinja: «2 av 3 poeng · 2 riktig · 1 galt · 0 ubesvart». Knapper: «Rett som på eksamen» · «↺ Nullstill».
        iKort: øvingen står i fanen «Oppgave» i et eksamenskort (bank.js). Da viser den ikke perfekt svar og
        sensorveiledningen selv, men knapper som åpner fanene «Løsning» og «Sensorveiledning» i samme kort
        (card._show). Finnes ikke kortet eller fanen, vises de i øvingen som før. «Fasit og forklaring»
@@ -21,8 +25,14 @@
      Returnerer også vurder(), status() (null til oppgaven er rettet/vurdert, ellers {score, maks, manual})
      og sjekkliste (K/E). IN.inspera.sjekkliste(oppg) gir sjekklisten uten DOM.
      Lagring K/E: in2120:insp:<key> = { h, a: [tekst …], c: vurdert, k: [avkrysset …] }.
-   IN.insperaFig(host, oppg): figuren fra arket. Tegnet SVG via IN.FIGURER[key](node) hvis den finnes,
-     ellers figur.beskrivelse som tekst.
+   IN.insperaFig(host, oppg): figuren fra arket. Tegnet SVG via IN.FIGURER[key](node, oppg) hvis den finnes
+     (hjelpere i assets/js/figurer/fig-felles.js, IN.fig), ellers figur.beskrivelse som tekst.
+     Svarfelt i figuren (D/N/T): tegnefunksjonen legger plassholdere med IN.fig.felt(htmlNode, i)
+     (div.fig-felt[data-felt=i]). Figuren får data-fig-key=<key>. IN.inspera leter etter figuren med samme
+     key i de tre nærmeste forfedrene til sin host, og flytter felt nr. i (units[i].inputs) inn i plassholderen.
+     Rekkefølgen er likegyldig: tegnes figuren etter øvingen (eller på nytt), kaller insperaFig øvingens
+     wrap._figPlasser(). Felt uten plassholder står i lista under som før. Lagring/retting/markering er uendret
+     (feltene har egne change/input-lyttere, siden de ikke lenger ligger inni øvingens wrap).
    Lagring: in2120:insp:<key> (svar + fingeravtrykk av oppgaven). Fremdrift: insp:<side>:<key>.
    Klassisk script. Lastes etter core.js.
    ============================================================ */
@@ -44,12 +54,18 @@
   IN.insperaFig = function (host, o) {
     var f = o.figur, draw = IN.FIGURER[o.key];
     if (!f && !draw) return null;
-    var fig = el("figure", { class: "exam-fig insp-fig" });
+    var fig = el("figure", { class: "exam-fig insp-fig", "data-fig-key": String(o.key || "") });
+    var tegnet = false;
     if (draw) {
       var h = el("div", { class: "exam-fig-h" }); fig.appendChild(h);
-      try { draw(h, o); } catch (e) { if (window.console) console.error(e); }
+      try { draw(h, o); tegnet = !!h.firstChild; } catch (e) { if (window.console) console.error(e); IN.clear(h); }
+    }
+    if (tegnet) {
+      fig.classList.add("har-tegning");
       fig.appendChild(el("figcaption", { class: "small muted", text: "Figuren fra eksamensarket, tegnet på nytt." }));
     } else {
+      if (!f) return null;
+      if (draw) IN.clear(fig);
       var box = el("div", { class: "insp-figtxt" });
       box.appendChild(el("p", { class: "small muted", html: "<b>Figur på arket</b> (beskrevet med ord):" }));
       if (f.beskrivelse) box.appendChild(html(el("div"), f.beskrivelse));
@@ -57,8 +73,23 @@
       fig.appendChild(box);
     }
     host.appendChild(fig);
+    // Finnes øvingen allerede (eller figuren tegnes på nytt), flytt feltene inn i plassholderne nå.
+    if (tegnet && fig.querySelector(".fig-felt")) {
+      var w = naerMed(host, '.insp[data-key="' + attrEsc(o.key) + '"]');
+      if (w && w._figPlasser) w._figPlasser();
+    }
     return fig;
   };
+  function attrEsc(s) { return String(s == null ? "" : s).replace(/["\\]/g, "\\$&"); }
+  /* Første treff for sel i host eller én av de tre nærmeste forfedrene (samme oppgavekort). */
+  function naerMed(host, sel) {
+    for (var a = host, n = 0; a && n < 4; a = a.parentNode, n++) {
+      if (a.matches && a.matches(sel)) return a;
+      var f = a.querySelector && a.querySelector(sel);
+      if (f) return f;
+    }
+    return null;
+  }
 
   /* ---------- Sjekkliste for egenvurdering av K/E ----------
      sjekkliste(o) → { kilde: "egen"|"svar"|"sensor"|"blandet"|"fallback", grupper: [{ del, poeng, nivaa, items }], punkter: [..flat..] }
@@ -329,25 +360,50 @@
       tab.appendChild(el("thead", {}, [hr]));
       var tb = el("tbody");
       (q.rader || []).forEach(function (row, ri) {
-        var tr = el("tr"), name = id + "-r" + ri, inputs = [];
-        tr.appendChild(html(el("th", { scope: "row", class: "insp-m-s" }), row.s));
+        var tr = el("tr"), name = id + "-r" + ri, inputs = [], tds = [], rts = [];
+        var rth = html(el("th", { scope: "row", class: "insp-m-s" }), row.s);
+        tr.appendChild(rth);
         (q.kolonner || []).forEach(function (k, ci) {
           var inp = el("input", { type: q.multi ? "checkbox" : "radio", name: name, value: String(ci),
             "aria-label": (row.s || "").replace(/<[^>]+>/g, "") + ": " + String(k).replace(/<[^>]+>/g, "") });
           inputs.push(inp);
           // Labelen fyller cella (stort trykkmål). Kolonnenavnet vises som knappetekst når matrisen stables (≤ 560 px).
-          tr.appendChild(el("td", {}, [el("label", { class: "insp-m-o" }, [inp, html(el("span", { class: "insp-m-k", "aria-hidden": "true" }), k)])]));
+          // «✓ riktig» (insp-m-rt) vises på riktig valg i rader som ble feil eller ubesvart (B2).
+          var rt = el("span", { class: "insp-m-rt", "aria-hidden": "true", text: "✓ riktig", hidden: true });
+          var td = el("td", {}, [el("label", { class: "insp-m-o" }, [inp, html(el("span", { class: "insp-m-k", "aria-hidden": "true" }), k), rt])]);
+          tds.push(td); rts.push(rt); tr.appendChild(td);
         });
         var st = el("td", { class: "insp-m-st" }); tr.appendChild(st);
+        // Forklaringen som én linje under raden: i radteksten på brei skjerm, som egen celle nederst når matrisen stables.
+        var exW = el("div", { class: "insp-m-ex insp-m-ex-w small", hidden: true });
+        var exN = el("td", { class: "insp-m-ex insp-m-ex-n small", hidden: true, "aria-hidden": "true" });
+        rth.appendChild(exW); tr.appendChild(exN);
         tb.appendChild(tr);
         units.push({
-          label: row.s, explain: row.explain, svar: row.svar, multiM: !!q.multi,
+          label: row.s, explain: row.explain, svar: row.svar, multiM: !!q.multi, matrise: true,
           fasit: row.svar == null ? null : arr(row.svar).map(function (i) { return q.kolonner[i]; }).join(" + "),
           get: function () { return inputs.filter(function (x) { return x.checked; }).map(function (x) { return +x.value; }); },
           set: function (v) { inputs.forEach(function (x) { x.checked = arr(v).indexOf(+x.value) >= 0; }); },
           isBlank: function (v) { return !v.length; },
           isRight: function (v) { var s = arr(row.svar).slice().sort().join(","); return v.slice().sort().join(",") === s; },
-          mark: function (state) { tr.className = state ? "is-" + state : ""; st.textContent = state === "right" ? "✓" : state === "wrong" ? "✗" : state === "blank" ? "–" : ""; },
+          mark: function (state, v) {
+            tr.className = state ? "is-" + state : "";
+            var sv = arr(row.svar), vis = state === "wrong" || state === "blank", valgt = arr(v);
+            IN.clear(st);
+            if (state) {
+              st.appendChild(document.createTextNode(state === "right" ? "✓" : state === "wrong" ? "✗" : "–"));
+              var fas = sv.map(function (i) { return String(q.kolonner[i]).replace(/<[^>]+>/g, ""); }).join(" + ");
+              st.appendChild(el("span", { class: "qz-sr", text: state === "right" ? " Riktig." : (state === "wrong" ? " Feil." : " Ubesvart.") + " Riktig: " + fas + "." }));
+            }
+            tds.forEach(function (td, ci) {
+              var f = vis && sv.indexOf(ci) >= 0;
+              td.classList.toggle("is-fasit", f);
+              td.classList.toggle("is-feilvalg", state === "wrong" && valgt.indexOf(ci) >= 0 && sv.indexOf(ci) < 0);
+              rts[ci].hidden = !f;
+            });
+            var ex = state && row.explain && (vis || opts.iKort) ? row.explain : null;
+            [exW, exN].forEach(function (n) { html(n, ex); n.hidden = !ex; });
+          },
           inputs: inputs
         });
       });
@@ -468,20 +524,43 @@
           mark: function (state) { node.classList.remove("is-right", "is-wrong", "is-blank"); if (state) node.classList.add("is-" + state); },
           inputs: [node]
         });
+        // Feltet kan flyttes inn i figuren (utenfor wrap), så det lagrer selv.
+        node.addEventListener("change", function () { if (!checked) persist(); });
+        if (tx) node.addEventListener("input", function () { if (!checked) persist(); });
       });
+      var rader = [];
       if (q.tekst) {
         // {0}, {1} … i den ordrette teksten byttes med feltene
         var tx = el("div", { class: "insp-tekst" });
-        tx.innerHTML = String(q.tekst).replace(/\{(\d+)\}/g, function (m, i) { return '<span class="insp-slot" data-i="' + i + '"></span>'; });
-        qsa(".insp-slot", tx).forEach(function (s) { var n = nodes[+s.getAttribute("data-i")]; if (n) s.appendChild(n); });
+        // Tegnsetting rett etter feltet («{0}.») holdes på samme linje som feltet (span.insp-slot er nowrap).
+        tx.innerHTML = String(q.tekst).replace(/\{(\d+)\}([.,:;!?)»”]*)/g, function (m, i, tegn) { return '<span class="insp-slot" data-i="' + i + '"></span>' + (tegn ? '<span class="insp-tegn">' + tegn + "</span>" : ""); });
+        qsa(".insp-slot", tx).forEach(function (s) {
+          var n = nodes[+s.getAttribute("data-i")]; if (!n) return;
+          s.appendChild(n); s.style.whiteSpace = "nowrap";
+          var nx = s.nextSibling; if (nx && nx.nodeType === 1 && nx.classList.contains("insp-tegn")) s.appendChild(nx);
+        });
         body.appendChild(tx);
         // Felt som ikke står i teksten, listes under
-        nodes.forEach(function (n, i) { if (!n.parentNode) body.appendChild(el("p", { class: "insp-felt" }, [html(el("span", { class: "insp-et" }), (felt[i].etikett || "Felt " + (i + 1)) + ": "), n])); });
+        nodes.forEach(function (n, i) { if (!n.parentNode) { rader[i] = el("p", { class: "insp-felt" }, [html(el("span", { class: "insp-et" }), (felt[i].etikett || "Felt " + (i + 1)) + ": "), n]); body.appendChild(rader[i]); } });
       } else {
         var fl = el("div", { class: "insp-felter" });
-        nodes.forEach(function (n, i) { fl.appendChild(el("p", { class: "insp-felt" }, [html(el("span", { class: "insp-et" }), (felt[i].etikett || "Felt " + (i + 1)) + ": "), n])); });
+        nodes.forEach(function (n, i) { rader[i] = el("p", { class: "insp-felt" }, [html(el("span", { class: "insp-et" }), (felt[i].etikett || "Felt " + (i + 1)) + ": "), n]); fl.appendChild(rader[i]); });
         body.appendChild(fl);
       }
+      // Felt i figuren: plassholder div.fig-felt[data-felt=i] i figuren med samme key (se insperaFig).
+      var figPlasser = function () {
+        var fig = naerMed(host, '.insp-fig[data-fig-key="' + attrEsc(key) + '"]'), igjen = 0;
+        rader.forEach(function (rad, i) {
+          if (!rad) return;
+          var ph = fig && fig.querySelector('.fig-felt[data-felt="' + i + '"]');
+          if (ph) { if (nodes[i].parentNode !== ph) ph.appendChild(nodes[i]); rad.hidden = true; }
+          else { if (nodes[i].parentNode !== rad) rad.appendChild(nodes[i]); rad.hidden = false; igjen++; }
+        });
+        if (fl) fl.hidden = !igjen;
+        wrap.classList.toggle("insp-felt-i-figur", rader.some(function (r) { return r && r.hidden; }));
+      };
+      wrap._figPlasser = figPlasser;
+      figPlasser();
       if (t === "D" && q.bank && q.bank.length) body.insertBefore(el("p", { class: "insp-bank small muted", html: "<b>Ordene du kan velge mellom (på eksamen drar du dem inn):</b> " + q.bank.map(function (b) { return '<span class="insp-chip">' + b + "</span>"; }).join(" ") }), body.firstChild);
     }
 
@@ -510,10 +589,10 @@
     var fasitBox = el("div", { class: "insp-fasit" });
     if (!manual) {
       bar.appendChild(el("button", { class: "btn primary sm", type: "button", text: "Rett som på eksamen", onclick: function () { check(true); } }));
-      bar.appendChild(el("button", { class: "btn sm", type: "button", text: "Nullstill", onclick: function () { reset(); } }));
+      bar.appendChild(el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { reset(); } }));
     } else {
       bar.appendChild(el("button", { class: "btn primary sm insp-vurder", type: "button", text: "Vurder svaret mitt", onclick: function () { vurder(true); } }));
-      bar.appendChild(el("button", { class: "btn sm", type: "button", text: "Nullstill", onclick: function () { reset(); } }));
+      bar.appendChild(el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { reset(); } }));
       vurd = el("div", { class: "insp-vurd", hidden: true, tabindex: "-1" });
     }
     wrap.appendChild(bar); wrap.appendChild(res); if (vurd) wrap.appendChild(vurd); wrap.appendChild(fasitBox);
@@ -689,25 +768,38 @@
         u.mark(st, v);
       });
       var c = sc.counts;
-      res.innerHTML = '<p class="insp-sum"><b>' + num(sc.score) + (maks != null ? " av " + num(maks) : "") + " poeng</b> med eksamensregelen. " +
-        c.right + " riktig, " + c.wrong + " galt, " + c.blank + " ubesvart" + (sc.raw < min ? " (summen ble " + num(sc.raw) + ", men en oppgave gir aldri under " + num(min) + ")" : "") + "." +
+      // B1: én resultatlinje, «2 av 3 poeng · 2 riktig · 1 galt · 0 ubesvart». Regelen står i <details> øverst.
+      res.innerHTML = '<p class="insp-sum ov-reslinje"><b>' + num(sc.score) + (maks != null ? " av " + num(maks) : "") + " poeng</b> · " +
+        c.right + " riktig · " + c.wrong + " galt · " + c.blank + " ubesvart" +
+        (sc.raw < min ? ' <span class="muted">(summen ble ' + num(sc.raw) + ", men en oppgave gir aldri under " + num(min) + ")</span>" : "") +
         (c.unknown ? ' <span class="muted">' + c.unknown + " enhet(er) uten kjent fasit telles ikke.</span>" : "") + "</p>";
       // Fasit og forklaring per enhet
       IN.clear(fasitBox);
-      // I eksamenskortet: ingen <details> inne i kortet, bare en liten overskrift
-      var det = opts.iKort ? el("div", { class: "insp-fasit-d" }, [el("h4", { class: "et-h", text: "Fasit og forklaring" })])
-        : el("details", { class: "insp-fasit-d", open: "" }, [el("summary", { text: "Fasit og forklaring" })]);
-      var ul = el("ul", { class: "insp-fasit-l" });
-      units.forEach(function (u) {
-        if (u.ff && !u.isRight() && !u.get() && !u.explain) return;
-        var li = el("li");
-        var head = (u.label && units.length > 1 ? "<b>" + u.label + "</b> → " : "") + (u.fasit == null ? '<span class="muted">fasit ukjent</span>' : "<b>" + u.fasit + "</b>");
-        li.appendChild(el("div", { html: head }));
-        if (u.explain) li.appendChild(html(el("div", { class: "insp-ex small" }), u.explain));
-        ul.appendChild(li);
-      });
-      det.appendChild(ul);
-      fasitBox.appendChild(det);
+      // B2: i matrisen (M) står fasiten og forklaringen i raden. Lista blir en lukket <details>, og faller bort i eksamenskortet.
+      var erM = t === "M";
+      if (!(erM && opts.iKort)) {
+        // I eksamenskortet: ingen <details> inne i kortet, bare en liten overskrift
+        var det = opts.iKort ? el("div", { class: "insp-fasit-d" }, [el("h4", { class: "et-h", text: "Fasit og forklaring" })])
+          : el("details", erM ? { class: "insp-fasit-d" } : { class: "insp-fasit-d", open: "" }, [el("summary", { text: erM ? "Fasit og forklaring for alle radene" : "Fasit og forklaring" })]);
+        var ul = el("ul", { class: "insp-fasit-l" });
+        units.forEach(function (u) {
+          if (u.ff && !u.isRight() && !u.get() && !u.explain) return;
+          var li = el("li");
+          var head = (u.label && units.length > 1 ? "<b>" + u.label + "</b> → " : "") + (u.fasit == null ? '<span class="muted">fasit ukjent</span>' : "<b>" + u.fasit + "</b>");
+          li.appendChild(el("div", { html: head }));
+          if (u.explain) li.appendChild(html(el("div", { class: "insp-ex small" }), u.explain));
+          ul.appendChild(li);
+        });
+        det.appendChild(ul);
+        fasitBox.appendChild(det);
+      }
+      // Huskeregel for figuren (IN.FIG_HUSK[key], se figurer/fig-husk.js). Vises først etter retting, så den ikke røper svaret.
+      // Står utenfor fasitlista, så den syns også når lista er lukket.
+      var husk = IN.FIG_HUSK && IN.FIG_HUSK[key];
+      if (husk) fasitBox.appendChild(el("div", { class: "fig-husk" }, [
+        el("p", { class: "fig-husk-t", html: "<b>Huskeregel" + (husk.tittel ? ": " + husk.tittel : "") + "</b>" }),
+        html(el("div", { class: "fig-husk-x small" }), husk.tekst || "")
+      ]));
       persist();
       if (report) {
         if (IN.progress && sc.maks) IN.progress.solved("insp", key, sc.score, sc.maks);

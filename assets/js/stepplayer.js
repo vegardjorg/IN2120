@@ -120,12 +120,21 @@
     wrap.appendChild(frame);
 
     // Kontroller
+    // Rekkefølge (UI/UX A3, 2026-11-26): ← Forrige · Neste → (primær) · ▶ Spill av (sekundær, bare ikon på smal skjerm) · ↺ Nullstill
     var bPrev = el("button", { class: "btn sm", type: "button", html: "← Forrige", onclick: function () { step(-1); } });
-    var bPlay = el("button", { class: "btn primary sm", type: "button", text: "▶ Spill av", onclick: togglePlay });
-    var bNext = el("button", { class: "btn sm", type: "button", html: "Neste →", onclick: function () { step(1); } });
+    var bNext = el("button", { class: "btn primary sm sp-next", type: "button", html: "Neste →", onclick: function () { step(1); } });
+    var playIc = el("span", { class: "sp-play-ic", "aria-hidden": "true", text: "▶" });
+    var playTx = el("span", { class: "sp-play-tx", text: " Spill av" });
+    var bPlay = el("button", { class: "btn sm sp-play", type: "button", title: "Spill av", "aria-label": "Spill av", onclick: togglePlay }, [playIc, playTx]);
     var bReset = el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { svar = {}; goto(0); } });
     var scope = IN.levelScope({ initial: opts.initial_level || null });
-    wrap.appendChild(el("div", { class: "sp-controls" }, [bPrev, bPlay, bNext, bReset, scope.el]));
+    wrap.appendChild(el("div", { class: "sp-controls" }, [bPrev, bNext, bPlay, bReset, scope.el]));
+    function playLabel(on) {
+      playIc.textContent = on ? "❚❚" : "▶";
+      playTx.textContent = on ? " Pause" : " Spill av";
+      bPlay.title = on ? "Pause" : "Spill av";
+      bPlay.setAttribute("aria-label", on ? "Pause" : "Spill av");
+    }
 
     var explain = el("div", { class: "sp-explain" });
     wrap.appendChild(explain);
@@ -336,14 +345,12 @@
           idx++; renderStep();
           if (locked()) stopPlay();
         }, speed);
-        bPlay.textContent = "❚❚ Pause";
-        bPlay.classList.remove("primary");
+        playLabel(true);
       }
     }
     function stopPlay() {
       if (timer) { clearInterval(timer); timer = null; }
-      bPlay.textContent = "▶ Spill av";
-      bPlay.classList.add("primary");
+      playLabel(false);
     }
 
     stage.addEventListener("keydown", function (e) {

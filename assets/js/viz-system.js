@@ -217,8 +217,8 @@
         if (svar[n] == null) blank++; else if (svar[n] === f) riktig++; else feil++;
       });
       out.className = "sys-out " + (feil || blank ? "nei" : "ok");
-      out.innerHTML = "<p><b>" + riktig + " av 3 riktig</b>" + (feil ? ", " + feil + " feil" : "") + (blank ? ", " + blank + " ubesvart" : "") +
-        ". Regelen: en prosess når sitt eget nivå og alle nivåer med <i>høyere</i> tall (mindre makt), aldri et nivå med lavere tall (d08 s. 8).</p>" +
+      out.innerHTML = "<p><b>" + riktig + " av 3 riktig</b>" + (feil ? ", " + feil + " feil" : "") + (blank ? ", " + blank + " ubesvart" : "") + "</p>" +
+        "<p><b>Regelen:</b> en prosess når sitt eget nivå og alle nivåer med <i>høyere</i> tall (mindre makt), aldri et nivå med lavere tall (d08 s. 8).</p>" +
         (blank ? "<p class=\"sys-note\">Husk: i H2024 5 ga ubesvart −1. La aldri en rad stå tom.</p>" : "");
     }
 
@@ -495,7 +495,7 @@
       if (!IN.bucketTask) { clear(taskHost); taskHost.appendChild(H("p", "sys-note", "Øvingen trenger dra.js.")); task = null; return; }
       var sp = lagSpec(fane);
       sp.prompt = "<b>" + LAG[fane].navn + "</b>: legg boksene i stabelen fra toppen og ned.";
-      task = IN.bucketTask(taskHost, sp, { instant: false, checkLabel: "Sjekk", cls: "sys-lagoppg" });
+      task = IN.bucketTask(taskHost, sp, { instant: false, checkLabel: "Sjekk svar", cls: "sys-lagoppg" });
     }
     function paintSide() {
       clear(side);
@@ -758,7 +758,10 @@
       if (sjekket) {
         var r = KORT.filter(function (k) { return valg[k.id] === k.svar; }).length;
         out.className = "sys-out " + (r === KORT.length ? "ok" : "nei");
-        out.innerHTML = "<p><b>" + r + " av " + KORT.length + " riktig.</b> Sidekanal: utilsiktet lekkasje fra den fysiske implementasjonen. Skjult kanal: en mekanisme som ikke er laget for kommunikasjon, brukt bevisst (d08 s. 24–25).</p>";
+        out.innerHTML = "<p><b>" + r + " av " + KORT.length + " riktig</b></p>" +
+          "<p><b>Sidekanal:</b> utilsiktet lekkasje fra den fysiske implementasjonen.</p>" +
+          "<p><b>Skjult kanal:</b> en mekanisme som ikke er laget for kommunikasjon, men brukes bevisst til det.</p>" +
+          "<p class=\"small muted\">d08 s. 24–25</p>";
       } else { out.className = "sys-out"; out.innerHTML = ""; }
     }
     paint();
@@ -847,7 +850,9 @@
       if (sjekket) {
         var r = rek.filter(function (id, i) { return f[i] === id; }).length;
         pOut.className = "sys-out " + (r === 4 ? "ok" : "nei");
-        pOut.innerHTML = "<p><b>" + r + " av 4 på riktig plass.</b> Rekkefølgen etter alvorlighet: fjernkjøring i VPN (Kritisk), privilegieeskalering (Høy), XSS (Middels), versjonsnummer (Lav). CVSS er alvorlighet, ikke risikoen akkurat for dere: om sårbarheten finnes hos dere og hva systemet beskytter, må vurderes i tillegg.</p>";
+        pOut.innerHTML = "<p><b>" + r + " av 4 på riktig plass</b></p>" +
+          "<p><b>Rekkefølge:</b> fjernkjøring i VPN (Kritisk) → privilegieeskalering (Høy) → XSS (Middels) → versjonsnummer (Lav).</p>" +
+          "<p><b>Husk:</b> CVSS måler alvorlighet, ikke risikoen akkurat for dere. Om sårbarheten finnes hos dere, og hva systemet beskytter, må vurderes i tillegg.</p>";
       } else { pOut.className = "sys-out"; pOut.innerHTML = ""; }
     }
     paintPrio();

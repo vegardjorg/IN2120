@@ -73,10 +73,10 @@
           teknisk: "DNSSEC gir integritet og autentisitet for DNS-data (signaturer og en egen PKI, se blokk 3), men ingen konfidensialitet. Den ligger der DNS ligger: i applikasjonslaget." } },
         { id: "tlsh", html: "TLS Handshake", forklaring: "Kurset legger Handshake i applikasjonslaget, sammen med HTTP (d09 s. 12). Den forhandler algoritmer og etablerer øktnøkkelen." },
         { id: "tlsr", html: "TLS Record", forklaring: "Record sitter rett over TCP og regnes til transportlaget. Den krypterer med nøkkelen Handshake etablerte." },
-        { id: "tcp", html: "TCP", forklaring: "Pålitelig transport med porter." },
+        { id: "tcp", html: "TCP", forklaring: "TCP leverer til riktig program via porter og sørger for at alt kommer fram i riktig rekkefølge. Det er transportlaget, men uten kryptografi." },
         { id: "udp", html: "UDP", forklaring: "Transport med porter, uten garantert levering. Ingen kryptografi, så ingen sikkerhetsprotokoll." },
         { id: "quic", html: "QUIC", forklaring: "Fasiten i H2022 7.1 plasserte QUIC i transportlaget." },
-        { id: "ip", html: "IP", forklaring: "Adressering og ruting mellom nett." },
+        { id: "ip", html: "IP", forklaring: "IP gir maskinene adresser og ruter pakkene mellom nett. Det er internettlaget, under porter og TCP." },
         { id: "ipsec", html: "IPsec", forklaring: "Beskytter hele IP-pakken og har derfor ingen port: internettlaget." },
         { id: "arp", html: "ARP", forklaring: "Kobler IP-adresse til MAC-adresse i lokalnettet: linklaget." },
         { id: "wpa", html: "WPA2 / WPA3", forklaring: {
@@ -362,7 +362,7 @@
         { id: "db", html: "Database med kundedata", forklaring: {
           normal: "Skal aldri nås direkte utenfra. Den står i det indre nettet, og den indre brannmuren slipper bare inn webtjeneren på databaseporten.",
           teknisk: "Indre segment. Typisk regel i den indre brannmuren: web → database på databaseporten, alt annet DROP (t10 O7). Da må angriperen gjennom to lag." } },
-        { id: "fil", html: "Intern filtjener", forklaring: "Bare for ansatte. Indre nett." },
+        { id: "fil", html: "Intern filtjener", forklaring: "Bare de ansatte skal bruke den, og ingen utenfra trenger å nå den. Da hører den til det indre nettet, ikke DMZ." },
         { id: "pc", html: "Ansattes arbeidsstasjoner", forklaring: "Skal ikke kunne nås utenfra. Indre nett, bak begge brannmurene." },
         { id: "kunde", html: "Kundenes nettlesere", forklaring: "Virksomheten eier dem ikke og kan ikke stole på dem. De er ute på Internett." },
         { id: "skann", html: "Ukjent maskin som skanner portene dine", forklaring: "Står ute på Internett. En NIDS utenfor gatewayen ser forsøkene, også dem brannmuren stopper." }

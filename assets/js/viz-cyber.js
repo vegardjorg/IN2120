@@ -69,7 +69,7 @@
       answer: ans,
       poolLabel: cfg.poolLabel || "Ikke plassert"
     };
-    var o = { instant: false, checkLabel: "Sjekk", cls: cfg.cls || null };
+    var o = { instant: false, checkLabel: "Sjekk svar", cls: cfg.cls || null };
     if (opts) for (var k in opts) o[k] = opts[k];
     if (!IN[kind]) { host.appendChild(el("p", { class: "small muted", text: "Øvingen trenger dra.js." })); return null; }
     return IN[kind](host, spec, o);
@@ -256,13 +256,13 @@
      2 · Cyber Kill Chain
      ============================================================ */
   var KC = [
-    { no: "Rekognosering", en: "Reconnaissance", attck: "Reconnaissance", gra: "Finner Ingrid Solberg og anbudet hennes på LinkedIn", knert: "Begrense hva ansatte publiserer om prosjekter." },
-    { no: "Bevæpning", en: "Weaponization", attck: "Resource Development", gra: "Lager et regneark med skadelig makro som passer Fjordnetts kontorpakke", knert: "Nesten usynlig for forsvareren, fordi det skjer hos angriperen." },
-    { no: "Overlevering", en: "Delivery", attck: "Initial Access", gra: "Sender regnearket som «Anbudskalkyle v3» til Ingrid", knert: "E-postfilter som stopper makrovedlegg." },
-    { no: "Utførelse av exploit", en: "Exploitation", attck: "Execution", gra: "Ingrid åpner fila, og makroen kjører", knert: "Makroer slått av og oppdatert programvare." },
-    { no: "Installering", en: "Installation", attck: "Persistence", gra: "En bakdør legger seg inn og starter ved hver pålogging", knert: "Endepunktdeteksjon." },
-    { no: "Kommando og kontroll", en: "Command & Control", attck: "Command and Control", gra: "Bakdøra kontakter en VPS hver time for nye ordre", knert: "Overvåke utgående trafikk og blokkere kjente C2-adresser." },
-    { no: "Aksjon (måloppnåelse)", en: "Actions on Objectives", attck: "Exfiltration", gra: "Anbudsdokumentene kopieres ut", knert: "Varsle ved store, uvanlige uttrekk." }
+    { no: "Rekognosering", hvorfor: "Angriperen samler bare inn offentlig informasjon om hvem som er verdt å angripe. Ingenting er laget eller sendt ennå, og målets systemer er ikke berørt.", en: "Reconnaissance", attck: "Reconnaissance", gra: "Finner Ingrid Solberg og anbudet hennes på LinkedIn", knert: "Begrense hva ansatte publiserer om prosjekter." },
+    { no: "Bevæpning", hvorfor: "Angriperen bygger våpenet hos seg selv: skadelig kode pakkes inn i en fil som passer målet. Ikke overlevering, for fila er ennå ikke sendt.", en: "Weaponization", attck: "Resource Development", gra: "Lager et regneark med skadelig makro som passer Fjordnetts kontorpakke", knert: "Nesten usynlig for forsvareren, fordi det skjer hos angriperen." },
+    { no: "Overlevering", hvorfor: "Våpenet sendes til målet, her som e-postvedlegg. Ikke utførelse ennå: ingenting kjører før Ingrid åpner fila.", en: "Delivery", attck: "Initial Access", gra: "Sender regnearket som «Anbudskalkyle v3» til Ingrid", knert: "E-postfilter som stopper makrovedlegg." },
+    { no: "Utførelse av exploit", hvorfor: "Den skadelige koden kjører på offerets maskin fordi en svakhet (her makroer) utnyttes. Ikke installering: ingenting er lagt inn varig ennå.", en: "Exploitation", attck: "Execution", gra: "Ingrid åpner fila, og makroen kjører", knert: "Makroer slått av og oppdatert programvare." },
+    { no: "Installering", hvorfor: "Skadevaren gjør seg varig, så den overlever omstart og nye pålogginger. Ikke kommando og kontroll: den har ennå ikke kontaktet angriperen.", en: "Installation", attck: "Persistence", gra: "En bakdør legger seg inn og starter ved hver pålogging", knert: "Endepunktdeteksjon." },
+    { no: "Kommando og kontroll", hvorfor: "Kjennetegnet er en kanal ut til angriperen, der bakdøra henter nye ordre. Selve tyveriet har ikke skjedd ennå.", en: "Command & Control", attck: "Command and Control", gra: "Bakdøra kontakter en VPS hver time for nye ordre", knert: "Overvåke utgående trafikk og blokkere kjente C2-adresser." },
+    { no: "Aksjon (måloppnåelse)", hvorfor: "Nå gjør angriperen det angrepet var til for, her å stjele anbudene. Alt før dette var forberedelse og fotfeste.", en: "Actions on Objectives", attck: "Exfiltration", gra: "Anbudsdokumentene kopieres ut", knert: "Varsle ved store, uvanlige uttrekk." }
   ];
   // Lengste strengt voksende delsekvens (justert skåring i H2021-10.1)
   function lis(seq) {
@@ -285,7 +285,7 @@
     var taskHost = el("div", { class: "cy-kc-task" });
     wrap.appendChild(taskHost);
 
-    var cards = KC.map(function (k, i) { return { id: "k" + i, text: k.gra, ans: "t" + i, why: k.no + " er trinn " + (i + 1) + "." }; });
+    var cards = KC.map(function (k, i) { return { id: "k" + i, text: k.gra, ans: "t" + i, why: k.hvorfor }; });
     var zones = KC.map(function (k, i) {
       return { id: "t" + i, label: (i + 1) + " " + esc(k.no),
         hint: esc(k.en) + '<span class="cy-kc-attck"> · ATT&amp;CK: ' + esc(k.attck) + (i === 6 ? " (flere taktikker kan passe her)" : "") + "</span>" };
@@ -303,13 +303,15 @@
       prompt: "Hendelsene i Grågås-angrepet står i stokket rekkefølge. Legg hver hendelse på trinnet den hører til.",
       cards: cards, zones: zones, poolLabel: "Hendelser som ikke er plassert", cls: "cy-kc-dra"
     }, {
-      checkLabel: "Sjekk plasseringen",
+      checkLabel: "Sjekk svar",
       result: function (c) {
         var j = justert(c);
-        return el("p", { class: "cy-sum" }, [
-          el("b", { text: "Justert skåring: " + num(j.p, 1) + " av 4 poeng. " }),
-          "Den lengste sekvensen i riktig rekkefølge har " + j.L + " trinn, og hvert trinn gir 0,5. Feil kort imellom trekker ikke. Alle sju riktige gir 4. Slik rettes ",
-          lenke("H2021-10.1", "H2021 10.1"), "."
+        var p = function (barn, cls) { return el("p", { class: cls || null, style: "margin:.15rem 0" }, barn); };
+        return el("div", { class: "cy-sum" }, [
+          p([el("b", { text: "Justert skåring: " + num(j.p, 1) + " av 4 poeng" })]),
+          p(["Lengste rekke i riktig rekkefølge: " + j.L + " trinn × 0,5 poeng."]),
+          p(["Feil kort imellom trekker ikke. Alle sju riktige gir 4."]),
+          p(["Slik rettes ", lenke("H2021-10.1", "H2021 10.1"), "."], "small muted")
         ]);
       }
     });
@@ -331,7 +333,7 @@
       return { li: li, bk: bk };
     });
     wrap.appendChild(row);
-    var kInfo = el("p", { class: "cy-msg cy-knert", "aria-live": "polite" });
+    var kInfo = el("div", { class: "cy-msg cy-knert", "aria-live": "polite" });
     wrap.appendChild(kInfo);
     host.appendChild(wrap);
 
@@ -341,11 +343,15 @@
         s.li.classList.toggle("cy-killed", i === knert);
         press(s.bk, i === knert);
       });
-      if (knert < 0) { kInfo.textContent = "Trykk «Knert her» på et trinn for å se hva som skjer om forsvareren stopper angrepet der."; return; }
-      var spart = 6 - knert;
-      kInfo.textContent = "Knert på trinn " + (knert + 1) + " (" + KC[knert].no + "). " +
-        (spart ? "Trinn " + (knert + 2) + "–7 når aldri fram: " + spart + " av 7 trinn er unngått. " : "Angriperen har allerede nådd målet. ") +
-        "Mulig tiltak her: " + KC[knert].knert + " Tiltakene er våre egne eksempler, ikke en liste fra kildene.";
+      clear(kInfo);
+      var linje = function (barn, cls) { kInfo.appendChild(el("p", { class: cls || null, style: "margin:.15rem 0" }, barn)); };
+      if (knert < 0) { linje(["Trykk «Knert her» på et trinn for å se hva som skjer om forsvareren stopper angrepet der."]); return; }
+      linje([el("b", { text: "Knert på trinn " + (knert + 1) + ": " + KC[knert].no })]);
+      if (knert === 6) linje(["For sent: angriperen har allerede nådd målet. Her kan forsvareren bare begrense skaden."]);
+      else if (knert === 5) linje([el("b", { text: "Stoppet: " }), "trinn 7, " + KC[6].no.toLowerCase() + ", når aldri fram."]);
+      else linje([el("b", { text: "Stoppet: " }), "trinn " + (knert + 2) + " til 7 når aldri fram, så angrepet stopper før " + KC[knert + 1].no.toLowerCase() + "."]);
+      linje([el("b", { text: "Tiltak: " }), KC[knert].knert]);
+      linje(["Tiltakene er våre egne eksempler, ikke en liste fra kildene."], "small muted");
     }
     tegnKnert();
     return { check: task && task.check, reset: task && task.reset, task: task,
@@ -365,11 +371,11 @@
   var CTI_KORT = [
     { id: "c1", text: "203.0.113.47 (C2-tjener)", ans: "t", why: "En IP-adresse er en teknisk indikator. Grågås bytter VPS, så den varer i dager." },
     { id: "c2", text: "SHA-256-hash av «Anbudskalkyle v3»", ans: "t", why: "En filhash er teknisk og treffer bare til makroen endres litt." },
-    { id: "c3", text: "Domenenavnet skadevaren kontaktet", ans: "t", why: "Konkrete spor er teknisk CTI, og de er kortvarige." },
+    { id: "c3", text: "Domenenavnet skadevaren kontaktet", ans: "t", why: "Et domenenavn er et konkret spor etter angrepet, som en IP-adresse. Det er teknisk CTI og kortvarig, for angriperen kan registrere et nytt." },
     { id: "c4", text: "Makrodokument som overlevering, persistens ved pålogging, C2 over HTTPS hver time", ans: "o", why: "En beskrivelse av arbeidsmåten (TTP) er taktisk/operasjonell." },
     { id: "c5", text: "Kartlegging av Grågås i MITRE ATT&CK", ans: "o", why: "ATT&CK beskriver TTP, altså taktisk nivå (H2024-36)." },
     { id: "c6", text: "Statlig aktør som er ute etter anbud i kraft- og nettsektoren", ans: "s", why: "Hvem som er ute etter oss og hvorfor, er strategisk." },
-    { id: "c7", text: "Rapport til styret om hvilke land som prioriterer selskaper som oss", ans: "s", why: "Til ledelsen, om aktørenes mål: strategisk." }
+    { id: "c7", text: "Rapport til styret om hvilke land som prioriterer selskaper som oss", ans: "s", why: "Rapporten går til styret og handler om hvem som vil angripe og hvorfor, ikke om hvordan. Det er strategisk CTI." }
   ];
 
   V.cti = function (host) {
@@ -785,11 +791,11 @@
     { id: "m", navn: "Minimal risiko", krav: "Etiske retningslinjer" }
   ];
   var AIA_KORT = [
-    { id: "s1", text: "Sosial skåring av innbyggere", ans: "u", why: "Forbudt etter lysarkets pyramide." },
+    { id: "s1", text: "Sosial skåring av innbyggere", ans: "u", why: "Sosial skåring står øverst i lysarkets pyramide, uakseptabel risiko, og er forbudt." },
     { id: "s2", text: "Sortering av CV-er for et rekrutteringsbyrå", ans: "h", why: "HR-systemer er høy risiko og krever samsvarsvurdering." },
     { id: "s3", text: "Kundeservice-chattebot i en nettbutikk", ans: "b", why: "Chatteboter krever transparens: brukeren skal vite at det er en KI." },
-    { id: "s4", text: "KI-motstander i et dataspill", ans: "m", why: "Spill er minimal risiko med etiske retningslinjer." },
-    { id: "s5", text: "Reklamefilm med en KI-generert kopi av en skuespiller", ans: "b", why: "Deepfakes er begrenset risiko og skal merkes." },
+    { id: "s4", text: "KI-motstander i et dataspill", ans: "m", why: "En spillmotstander påvirker ingen rettigheter eller viktige avgjørelser. Det er minimal risiko, med bare etiske retningslinjer." },
+    { id: "s5", text: "Reklamefilm med en KI-generert kopi av en skuespiller", ans: "b", why: "Kopien er en deepfake. Den er ikke forbudt, men seerne skal vite at den er laget av KI: begrenset risiko med krav om merking." },
     { id: "s6", text: "Ansiktsgjenkjenning av reisende ved grensen", ans: "h", why: "Biometrisk identifikasjon og immigrasjon er høy risiko på lysarket." }
   ];
   V.aiAct = function (host) {

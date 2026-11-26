@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 7 · Autentisering · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126a">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -51,6 +53,8 @@
         </ul>
         Autentisering forutsetter registrering: uten en registrert identitet finnes det ingenting å sammenligne med.</div>
       <div id="ex-faktorer"></div>
+      <p class="small muted fig-vis-led">De tre kategoriene side om side. MFA krever to ulike kategorier, ikke bare to autentikatorer.</p>
+      <div id="fk-faktorer"></div>
 
       <h4>Eksempel: hvilke faktorer brukes?</h4>
       <div class="table-wrap"><table>
@@ -212,6 +216,8 @@
           <li><b>Utfordringer:</b> det er komplisert å flytte nøklene til en ny enhet, synkronisering via sky krever til syvende og sist vanlig, ikke phishingresistent innlogging, og ordningen er vanskelig å forstå for vanlige brukere.</li>
         </ul></div>
       <div id="ex-fido"></div>
+      <p class="small muted fig-vis-led">De to etappene i passnøkkel-arkitekturen: bruker til klient (lokalt), så klient til tjener (online).</p>
+      <div id="fv-fido"></div>
 
       <h4>Sekvensdiagram: registrering og innlogging</h4>
       <p class="small muted">Velg scenario og gå steg for steg. Før noen av stegene får du et spørsmål om hva som skjer videre. Svar før du går videre, eller slå av «Gjett før hvert steg». Tallene 1, 2 og 3 på pilene er de samme som i figuren fra lysarket og eksamen.</p>
@@ -350,6 +356,8 @@
           <tr><td>ISO/IEC 29115 (2013)</td><td>1 Low, 2 Medium, 3 High, 4 Very High</td></tr>
         </tbody></table></div>
       <p class="small muted">Det eldre norske rammeverket RAU (2008) hadde fire nivåer. Det er ikke pensum i 2026, men har vært på eksamen.</p>
+      <p class="small muted fig-vis-led">eIDAS og NIST har tre nivåer hver, men kravene er formulert ulikt. Stigene står derfor side om side, uten likhetstegn mellom trinnene.</p>
+      <div id="fx-garantinivaa-stiger"></div>
 
       <h4>Fra konsekvens til nivå</h4>
       <p class="small muted">Plasser tjenestene og eID-ene på riktig nivå, og trykk «Sjekk svar». Tjenestene er fra en tenkt kommune, Fjellvik. Oppslaget under viser hvilke eID-er som holder hvert nivå.</p>
@@ -396,21 +404,30 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/ovelse.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-aut.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/ovelse.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-aut.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -533,7 +550,7 @@
     var TF = {
       faktorer: [
         { s: "Passord er den enkleste og vanligste autentikatoren.", answer: true, explain: "<p>Billig og lett å forstå, og derfor overalt, men med mange svakheter.</p>" },
-        { s: "To passord gir tofaktorautentisering.", answer: false, explain: "<p>Begge er «noe du vet».</p>" },
+        { s: "To passord gir tofaktorautentisering.", answer: false, explain: "<p>Begge passordene er «noe du vet», og den som har stjålet det ene, kan ofte stjele det andre på samme måte. Tofaktor krever to ulike kategorier, for eksempel vet + har.</p>" },
         { s: "Passord kan bli liggende i minne og hurtigbuffer og stjeles av skadevare.", answer: true, explain: "<p>Passordet må finnes i klartekst et øyeblikk når du skriver det.</p>" },
         { s: "Biometri kan byttes ut hvis den lekker.", answer: false, explain: "<p>Du har bare ti fingre og ett ansikt.</p>" },
         { s: "En SMS-kode er en eierskapsfaktor via en sekundærkanal.", answer: true, explain: "<p>Du beviser at du har telefonen (SIM-kortet) som koden sendes til.</p>" },
@@ -543,14 +560,14 @@
         { s: "Med saltet hash kan to brukere med samme passord ha ulike lagrede verdier.", answer: true, explain: "<p>Saltene er ulike, så det som hashes, er ulikt.</p>" },
         { s: "Saltet må holdes hemmelig, ellers er det verdiløst.", answer: false, explain: "<p>Saltet lagres åpent ved siden av hashen. Det virker fordi det er unikt, ikke fordi det er hemmelig.</p>" },
         { s: "Hashet lagring gir god beskyttelse mot knekking av svake passord.", answer: false, explain: "<p>Lysarket kaller det moderat: svake passord knekkes med kraftige verktøy.</p>" },
-        { s: "Fra 10 til 14 tegn med 105 mulige tegn gir 105⁴ ganger flere passord.", answer: true, explain: "<p>105¹⁴ / 105¹⁰ = 105⁴.</p>" },
+        { s: "Fra 10 til 14 tegn med 105 mulige tegn gir 105⁴ ganger flere passord.", answer: true, explain: "<p>Antall passord er 105 opphøyd i lengden. Fire ekstra tegn gir 105¹⁴ / 105¹⁰ = 105⁴ ganger så mange.</p>" },
         { s: "Kurset anbefaler å bytte passord hver tredje måned.", answer: false, explain: "<p>Bytt sjelden eller aldri, men straks ved mistanke om lekkasje.</p>" },
         { s: "Uttrekk av passordhasher fra minnet krever admin- eller debugrettigheter.", answer: true, explain: "<p>Derfor er minste privilegium et viktig forsvar for passordene.</p>" },
         { s: "Uttømmende søk finner i snitt passordet etter halve nøkkelrommet.", answer: true, explain: "<p>Passordet er like sannsynlig hvor som helst i rommet, så i snitt halvveis.</p>" },
         { s: "Gjenbruk av passord er farlig fordi én lekkasje åpner flere kontoer.", answer: true, explain: "<p>Angripere prøver lekkede passord på andre tjenester.</p>" }
       ],
       eierskap: [
-        { s: "En tidsbasert OTP-brikke trenger strøm.", answer: true, explain: "<p>Klokka må gå hele tiden.</p>" },
+        { s: "En tidsbasert OTP-brikke trenger strøm.", answer: true, explain: "<p>Koden regnes ut fra nåværende tid, så brikken må ha en klokke som går hele tiden, også når den ligger i skuffen. Da trenger den et batteri.</p>" },
         { s: "OTP-koder kan ikke stjeles av en falsk nettside.", answer: false, explain: "<p>Brukeren kan taste koden inn på den falske siden, som sender den videre.</p>" },
         { s: "Passchippen sender sin private nøkkel til grensekontrollen.", answer: false, explain: "<p>Den signerer en utfordring. Den private nøkkelen forlater aldri chipen.</p>" },
         { s: "SMS regnes som en relativt svak sekundærkanal.", answer: true, explain: "<p>Meldinger kan avlyttes eller omdirigeres, for eksempel ved SIM-bytte.</p>" },
@@ -559,7 +576,7 @@
       ],
       fido: [
         { s: "Innlogging med passnøkkel har en lokal og en online etappe.", answer: true, explain: "<p>Bruker mot klient (lokal), klient mot tjener (online).</p>" },
-        { s: "Hver bruker har én passnøkkel for alle nettsteder.", answer: false, explain: "<p>Én per tjener og domene.</p>" },
+        { s: "Hver bruker har én passnøkkel for alle nettsteder.", answer: false, explain: "<p>Det lages et eget nøkkelpar for hver tjener og domene. Da kan ikke en falsk side bruke passnøkkelen, og ett lekket nettsted avslører ingenting om de andre.</p>" },
         { s: "En passnøkkel er en privat asymmetrisk nøkkel.", answer: true, explain: "<p>Tjeneren har den tilhørende offentlige nøkkelen.</p>" },
         { s: "Brukeren kan velge å overse advarselen og bruke passnøkkelen på en falsk side.", answer: false, explain: "<p>Klienten bruker bare nøkkelen mot riktig domene og kan ikke overstyres.</p>" },
         { s: "Et innbrudd i tjenerens database lekker brukernes passnøkler.", answer: false, explain: "<p>Tjeneren har bare offentlige nøkler.</p>" },
@@ -570,17 +587,17 @@
         { s: "Match betyr S ≥ T.", answer: true, explain: "<p>En skåring lik terskelen er en match.</p>" },
         { s: "FMR = feilaktig godtatte ikke-genuine / alle ikke-genuine.", answer: true, explain: "<p>Nevneren er antall ikke-genuine forsøk.</p>" },
         { s: "TMR + FNMR = 1.", answer: true, explain: "<p>Hvert genuint forsøk er enten godtatt eller avvist.</p>" },
-        { s: "Lav FMR betyr at falske fingre stoppes.", answer: false, explain: "<p>Det er PAD sin oppgave.</p>" },
+        { s: "Lav FMR betyr at falske fingre stoppes.", answer: false, explain: "<p>FMR måler hvor ofte en annen persons ekte finger feilaktig godtas. En falsk finger stoppes av PAD (deteksjon av presentasjonsangrep), ikke av en lav FMR.</p>" },
         { s: "Identifikasjon krever færre sammenligninger enn autentisering.", answer: false, explain: "<p>1:N krever opptil N sammenligninger, 1:1 bare én.</p>" },
-        { s: "EER er raten der FMR = FNMR.", answer: true, explain: "<p>Terskelen der kurvene krysser.</p>" },
+        { s: "EER er raten der FMR = FNMR.", answer: true, explain: "<p>Strammer man terskelen, faller FMR mens FNMR stiger. EER er raten i punktet der kurvene krysser og de to er like store.</p>" },
         { s: "Atferdsbiometri er lettere å tvinge fram fra et bevisstløst offer enn ansiktsgjenkjenning.", answer: false, explain: "<p>Atferd krever at personen er bevisst og samarbeider.</p>" },
         { s: "Pass ved grensekontroll bruker 1:1.", answer: true, explain: "<p>Ansiktet sammenlignes med bildet i akkurat dette passet.</p>" }
       ],
       mfa: [
-        { s: "Garantinivå kalles også autentiseringsnivå og sikkerhetsnivå.", answer: true, explain: "<p>Lysarket bruker alle tre ordene.</p>" },
-        { s: "eIDAS definerer tre garantinivåer.", answer: true, explain: "<p>Low, Substantial og High.</p>" },
-        { s: "Hvordan identiteten ble registrert, påvirker ikke garantinivået.", answer: false, explain: "<p>Det er kravkategori a.</p>" },
-        { s: "Passord og SMS-kode er tofaktorautentisering.", answer: true, explain: "<p>Vet + har.</p>" },
+        { s: "Garantinivå kalles også autentiseringsnivå og sikkerhetsnivå.", answer: true, explain: "<p>Alle tre ordene betyr hvor sikker tjenesten kan være på at brukeren er den hun utgir seg for, og lysarket bruker dem om hverandre.</p>" },
+        { s: "eIDAS definerer tre garantinivåer.", answer: true, explain: "<p>eIDAS har tre nivåer: Low, Substantial og High. Jo høyere nivå, desto strengere krav til registrering og innlogging.</p>" },
+        { s: "Hvordan identiteten ble registrert, påvirker ikke garantinivået.", answer: false, explain: "<p>En sterk innlogging hjelper lite hvis identiteten ble registrert uten skikkelig kontroll. Registreringen er derfor kravkategori a i garantinivået.</p>" },
+        { s: "Passord og SMS-kode er tofaktorautentisering.", answer: true, explain: "<p>Passordet er noe du vet, og telefonen som mottar koden, er noe du har. To ulike kategorier gir tofaktor.</p>" },
         { s: "EU godtar private eID-er som BankID for europeisk e-forvaltning.", answer: false, explain: "<p>Etter IAM-lysarket er det bare den statlige MinID som godtas der, ikke de private.</p>" },
         { s: "Sterkere autentisering er alltid riktig valg.", answer: false, explain: "<p>Nivået skal stå i forhold til konsekvensen.</p>" },
         { s: "«Trust services» i eIDAS betyr PKI-tjenester.", answer: true, explain: "<p>For eksempel utstedelse av sertifikater og elektroniske signaturer.</p>" }
@@ -644,6 +661,11 @@
     OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
 
     /* ---------- Eksamensbanken ---------- */
+    // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)
+    safe("fv-fido", function () { IN.fig.vis("#fv-fido", "H2025-25", { husk: true }); });
+    // Ny visuell forklaring (forklar-b.js, kilde under figuren)
+    safe("fx-garantinivaa-stiger", function () { IN.FORKLAR["garantinivaa-stiger"]("#fx-garantinivaa-stiger"); });
+    safe("fk-faktorer", function () { IN.FORKLAR["faktorer"]("#fk-faktorer"); }); // forklar-c.js
     safe("bank-aut", function () { IN.examBank("#bank-aut", { block: "autentisering" }); });
   })();
   </script>

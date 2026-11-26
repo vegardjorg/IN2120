@@ -639,13 +639,14 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .sp-stage:has(.bk) { height: auto; min-height: 300px; }
 .sp-controls { display: flex; flex-wrap: wrap; gap: var(--d-sm); align-items: center; margin: .7rem 0 .4rem; }
 .sp-counter { color: var(--color-on-surface-variant); font-size: var(--text-sm); font-variant-numeric: tabular-nums; margin-left: auto; white-space: nowrap; }
+/* Forklaringen under demokontrollene: tekst med tynn venstrelinje, ingen egen boks (IN2010 732f692).
+   Stikkordet («Sammenlign», «Steg») står i vanlig tekstfarge, halvfet; fargen bærer ingen betydning her (IN2010 F4). */
 .sp-explain {
-  background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline-variant); border-left: 4px solid var(--color-primary);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--d-sm) var(--d-md); margin-top: .6rem; min-height: 3.2em;
+  border-left: 3px solid var(--color-primary); padding: .1rem 0 .1rem .7rem; margin-top: .5rem; min-height: 2.6em;
 }
 .sp-explain .tagline {
-  display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
-  color: var(--color-primary); margin-right: .5rem;
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .02em;
+  color: var(--color-on-surface); margin-right: .5rem;
 }
 .sp-presets { display: flex; flex-wrap: wrap; gap: var(--d-xs); align-items: center; margin-bottom: .5rem; }
 .sp-presets .lbl { color: var(--color-on-surface-variant); font-size: var(--text-sm); margin-right: .2rem; }
@@ -1555,6 +1556,8 @@ body[data-page="strategi"] .bigo-compact .bigo-val { white-space: normal; overfl
 @media (pointer: coarse) {
   /* Trykkmål på berøringsskjerm (M9) */
   .btn, .seg-btn, .ov-seg-o span { min-height: 44px; }
+  /* A4 (UI/UX 2026-11-26): nedtrekk (også Inspera D/T, .insp-sel) får 44 px trykkmål */
+  select, select.insp-sel { min-height: 44px; }
   .btn.sm { min-height: 40px; }
   .level-mini .seg-btn { min-height: 40px; }
 }
@@ -1572,6 +1575,12 @@ main h4:not(:first-child):not(.et-h):not(:is(h2, h3, h4) + h4):not(:is(.callout,
 main h4:not(:first-child):not(.et-h):not(:is(h2, h3, h4) + h4):not(:is(.callout, .examtask, details, .husk) h4):has(+ :is(p, .callout) + div[id]),
 main h4:not(:first-child):not(.et-h):not(:is(h2, h3, h4) + h4):not(:is(.callout, .examtask, details, .husk) h4):has(+ .insp-tittel) {
   margin-top: 2rem; padding-top: .85rem; border-top: 1px solid var(--color-outline-variant);
+}
+/* A1 (UI/UX 2026-11-26): øvingsoverskriften er 17 px, større enn .insp-tittel (15 px) og brødteksten (14 px).
+   Gjelder også øvingsoverskrifter uten toppstrek (først i panelet eller rett under en h3). */
+main h4.ov-h,
+main h4:not(.et-h):not(:is(.callout, .examtask, details, .husk) h4):is(:has(+ div[id]), :has(+ :is(p, .callout) + div[id]), :has(+ .insp-tittel)) {
+  font-size: 17px; line-height: 1.3;
 }
 /* Fargebrikkene er lyse i mørkt tema: mørk tekst gir lesbar kontrast */
 :root[data-theme="dark"] .chip { color: #111; }
@@ -1967,6 +1976,54 @@ body.has-crash-ret .ny-versjon{bottom:72px}
   .qz-tf .qz-num { margin-top: 6px; }
 }
 
+/* ===== UI/UX-runde 2026-11-26 (plan/uiux/VURDERING.md A6, B4, C3) ===== */
+/* A6: kompakt quiz og sant/usant. Mindre luft rundt hvert punkt, flervalgsvalgene som én sammenhengende
+   liste uten mellomrom, og «Forklaring» høyrestilt i spørsmålslinja (flervalg) eller i svarraden (sant/usant). */
+.qz-head { margin-bottom: 2px; }
+.qz-item { padding: 6px 8px 6px .4rem; }
+.qz-prompt { padding-top: .15rem; line-height: 1.4; }
+.qz-ctl { margin-top: .3rem; }
+.qz-mc .qz-choices { gap: 0; }
+.qz-mc .qz-choice { margin-top: -1px; border-radius: 0; padding: 4px 10px; line-height: 1.3; }
+.qz-mc .qz-choice:first-child { margin-top: 0; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.qz-mc .qz-choice:last-child { border-radius: 0 0 var(--radius-md) var(--radius-md); }
+.qz-mc .qz-choice:only-child { border-radius: var(--radius-md); }
+.qz-mc .qz-choice:is(.sel, .correct, .wrong, .iskey) { position: relative; z-index: 1; }
+.qz-mc .qz-choice:focus-visible { position: relative; z-index: 2; }
+.qz-inline.qz-mc .qz-choices { gap: var(--d-xs); }
+.qz-inline.qz-mc .qz-choice { margin-top: 0; border-radius: var(--radius-md); }
+/* Flervalg: «Forklaring»/«Vis fasit» flyter høyrestilt øverst i spørsmålet (ingen egen rad).
+   Synlig høyde 30 px, men trykkflaten utvides med ::after (minst 44 px på berøring). */
+.qz .qz-exp-float { float: right; position: relative; min-height: 30px; margin: -4px -4px 0 8px; font-weight: 600; }
+.qz .qz-exp-float::after { content: ""; position: absolute; inset: -7px -4px; }
+.qz-foot { margin-top: 6px; }
+@media (max-width: 560px) {
+  .qz-item { grid-template-columns: 1.45rem minmax(0, 1fr); column-gap: 6px; }
+  .qz-num { width: 1.45rem; height: 1.45rem; font-size: 11px; margin-top: 0; }
+}
+@media (pointer: coarse) {
+  .qz-choice { min-height: 44px; }
+  .qz-exp-btn:not(.qz-exp-float), .qz-switch { min-height: 44px; }
+  .qz-foot .btn, .qz-pnav .btn { min-height: 44px; }
+}
+/* B4: før svar heter knappen «Vis fasit» (flashcard), dempet og uten pil. Etter svar: «Forklaring ▾». */
+.qz-exp-btn.qz-peek { color: var(--color-on-surface-variant); font-weight: 500; text-decoration: underline dotted; text-underline-offset: 3px; }
+.qz-exp-btn.qz-peek:hover { color: var(--color-primary); }
+/* C3: sant/usant under «Test deg selv» i en lukket <details> («Sant eller usant? · 7 påstander») */
+.qz-fold { margin: .75rem 0 1rem; border: 1px solid var(--color-outline-variant); border-radius: var(--radius-lg); background: var(--color-surface-container-lowest); }
+.qz-fold > summary {
+  list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; column-gap: .35rem; min-height: 44px; box-sizing: border-box;
+  padding: 6px 12px; border-radius: var(--radius-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-on-surface);
+}
+.qz-fold > summary::-webkit-details-marker { display: none; }
+.qz-fold > summary::before { content: "▸"; color: var(--color-primary); display: inline-block; transition: transform .15s; }
+.qz-fold[open] > summary::before { transform: rotate(90deg); }
+.qz-fold > summary:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
+.qz-fold > summary:focus-visible { outline-offset: -2px; }
+.qz-fold-n, .qz-fold-st { font-weight: 400; color: var(--color-on-surface-variant); }
+.qz-fold > .qz { margin: 0; padding: 0 8px 8px; }
+.qz-fold > .qz .qz-list { border-radius: var(--radius-md); }
+
 /* ===== Visningsfiks A (begreper, sortering, søk, lister) ===== */
 /* viz-bars: én tilstand per celle. Delsortert (sortert seg imellom, ikke ferdig) = skravert grønn;
    ledig plass (verdien er kopiert bort) = stiplet omriss med svak verdi. */
@@ -2111,8 +2168,6 @@ body.has-crash-ret .ny-versjon{bottom:72px}
 .examtask .sp-controls { margin: .5rem 0 .35rem; }
 .examtask .legend { margin: .45rem 0 0; }
 .examtask .exam-fig-h { max-width: 100%; }
-/* Forklaringen under kontrollene: tekst med tynn venstrelinje, uten egen boks (bare inne i kortet) */
-.examtask .sp-explain { background: none; border: 0; border-left: 3px solid var(--color-primary); border-radius: 0; padding: .1rem 0 .1rem .7rem; margin-top: .5rem; min-height: 2.6em; }
 /* Fanen «Løsning»: vårt fullpoengssvar, flatt. Deloppgaven står som liten overskrift over teksten
    (ikke i en smal kolonne – lange navn overlappet teksten ved siden av). */
 .et-pf-note { margin: 0 0 .6rem; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
@@ -2416,3 +2471,22 @@ body[data-page="crash"] .cr-step { scroll-margin-top: 0; }
 /* ===== Tema grafer (bølge 2) ===== */
 /* Tabeller i «Perfekt svar» for grafer (Dijkstra-runder o.l.) ruller sideveis i stedet for å gjøre siden bred */
 .gr-pf-tab { overflow-x: auto; max-width: 100%; }
+
+/* ===== UI/UX-runde 2026-11-26 (kjerne): stegspiller, fane-navigasjon, egenvurdering ===== */
+/* A3: «Neste →» er primærknappen. «▶ Spill av» er sekundær og bare ikon på smal skjerm. */
+.sp-controls .sp-next { min-width: 6.5rem; }
+.sp-controls .sp-play { min-width: 2.75rem; }
+@media (max-width: 560px) {
+  .sp-controls .sp-play-tx { display: none; }
+}
+/* B6: nederst i hvert fanepanel: «↑ Til fanene» og «Neste: <fane> →» */
+.tab-bunn {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--d-sm);
+  margin: 2rem 0 .5rem; padding-top: var(--d-sm); border-top: 1px solid var(--color-outline-variant);
+}
+.tab-bunn .btn { min-height: 40px; }
+.tab-bunn .tab-neste { margin-left: auto; text-align: right; max-width: 100%; white-space: normal; }
+@media (pointer: coarse) { .tab-bunn .btn { min-height: 44px; } }
+/* B8: egenvurderingen er skjult til kortet er rettet eller vurdert. Tom bunnlinje skjules. */
+.et-self[hidden] { display: none; }
+.et-foot:not(:has(> :not([hidden]))) { display: none; }

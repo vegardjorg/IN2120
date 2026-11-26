@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 6 · Risiko og styring · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126a">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -113,6 +115,8 @@
         </ul>
         De fleste ISO-standardene må kjøpes (ism s. 8–10, 14, 18).</div>
       <div id="ex-iso"></div>
+      <p class="small muted fig-vis-led">Familien som kart: 27000 gir begrepene til alle, 27002 og 27005 er veiledning, og bare 27001 har krav som kan sertifiseres.</p>
+      <div id="fk-iso-familie"></div>
 
       <h4>Eksempel: Smuldre vil sertifiseres</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
@@ -132,6 +136,8 @@
         <li><b>Act</b> = kapittel 10 (forbedring).</li>
       </ul>
       <p class="small muted">Kapittel 1–3 er innledning. Kravene står i kapittel 4–10 (ism s. 10–11).</p>
+      <p class="small muted fig-vis-led">PDCA-sirkelen og kapitlene i 27001 slik eksamen viste dem.</p>
+      <div id="fv-pdca"></div>
 
       <h4>27002:2022, fire domener</h4>
       <div id="viz-domener"></div>
@@ -181,6 +187,8 @@
         <li><b>RESPOND og RECOVER</b>: korrigerende, reduserer konsekvensen. Hos NSM er de slått sammen til kategori 4 «håndtere og gjenopprette».</li>
         <li><b>GOVERN</b> ligger i midten og styrer de andre. NSM dekker styring i en egen veileder, ikke som kategori.</li>
       </ul>
+      <p class="small muted fig-vis-led">CSF 2.0 tegner funksjonene som et hjul med GOVERN i midten. Fargene viser kursets kobling til risiko, og NSMs fire kategorier står ved siden av med de samme fargene.</p>
+      <div id="fk-csf-nsm"></div>
 
       <h4>Sammenligning</h4>
       <div class="table-wrap"><table>
@@ -502,21 +510,29 @@
 
   <footer class="footer">IN2120-guide · Blokk 6 · Risiko og styring · <a href="07-autentisering.html">Neste: blokk 7, autentisering</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/ovelse.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-risiko.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/ovelse.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-risiko.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -590,27 +606,27 @@
       "ov-styring": { title: "Forsvarlig nivå eller samsvar?", key: "ov-risiko-1", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["Forsvarlig nivå", "Samsvar"], multi: false, rader: [
           { s: "Bakeriets risikovurdering sier at løsepengevirus må ned til akseptabelt nivå", svar: [0], explain: "<p>Et krav fra risikovurderingen er oppfylt når risikoen er forsvarlig.</p>" },
-          { s: "Personopplysningsloven krever varsling av brudd innen 72 timer", svar: [1], explain: "<p>Et lovkrav er oppfylt ved samsvar.</p>" },
-          { s: "Leverandøren av betalingsterminaler krever et bestemt oppsett i kontrakten", svar: [1], explain: "<p>Et kontraktskrav måles også i samsvar.</p>" },
+          { s: "Personopplysningsloven krever varsling av brudd innen 72 timer", svar: [1], explain: "<p>Loven har en konkret frist som man enten følger eller ikke. Krav fra lov oppfylles ved samsvar, ikke ved en risikoavveiing.</p>" },
+          { s: "Leverandøren av betalingsterminaler krever et bestemt oppsett i kontrakten", svar: [1], explain: "<p>Kontrakten sier nøyaktig hvilket oppsett som kreves, så man kan sjekke om det er fulgt. Krav fra kontrakt oppfylles ved samsvar, som krav fra lov.</p>" },
           { s: "Ledelsen vil at risikoen for nedetid i julen skal være akseptabel", svar: [0], explain: "<p>Et risikobasert mål vurderes som forsvarlig nivå.</p>" } ] } },
       "ov-iso": { title: "Hvilken ISO-standard?", key: "ov-risiko-2", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["27000", "27001", "27002", "27005"], multi: false, rader: [
-          { s: "Bakeriet skal sertifiseres og trenger kravene", svar: [1], explain: "<p>Krav og sertifisering hører til 27001.</p>" },
-          { s: "Bakeriet leter etter et tiltak for sikkerhetskopiering", svar: [2], explain: "<p>Tiltak finner man i tiltaksbanken 27002.</p>" },
-          { s: "Bakeriet vil vite hvordan risikovurderingen bør legges opp", svar: [3], explain: "<p>Risikostyring hører til 27005.</p>" },
-          { s: "Bakeriet trenger definisjonen av «informasjonssikkerhetshendelse»", svar: [0], explain: "<p>Begreper og oversikt står i 27000.</p>" } ] } },
+          { s: "Bakeriet skal sertifiseres og trenger kravene", svar: [1], explain: "<p>27001 er kravstandarden: den sier hva et ISMS må ha, og det er den revisoren sertifiserer mot.</p>" },
+          { s: "Bakeriet leter etter et tiltak for sikkerhetskopiering", svar: [2], explain: "<p>27002 er tiltaksbanken med 93 tiltak, og sikkerhetskopiering er ett av dem. 27001 sier hva ISMS-et må ha, mens 27002 forklarer tiltakene.</p>" },
+          { s: "Bakeriet vil vite hvordan risikovurderingen bør legges opp", svar: [3], explain: "<p>27005 er veiledningen for risikostyring i informasjonssikkerhet. Den beskriver prosessen fra kontekst til håndtering.</p>" },
+          { s: "Bakeriet trenger definisjonen av «informasjonssikkerhetshendelse»", svar: [0], explain: "<p>27000 gir oversikten over hele familien og begrepene. De andre standardene viser til definisjonene der.</p>" } ] } },
       "ov-pdca": { title: "ISMS i PDCA", key: "ov-risiko-3", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
         kolonner: ["Plan", "Do", "Check", "Act"], multi: false, rader: [
           { s: "Smuldre bestemmer hvem som har ansvar for sikkerheten (kap. 5 Ledelse)", svar: [0], explain: "<p>Kapittel 4–7 er Plan: å etablere ISMS-et.</p>" },
-          { s: "Smuldre sørger for opplæring og ressurser (kap. 7 Støtte)", svar: [0], explain: "<p>Støtte er siste kapittel i Plan.</p>" },
+          { s: "Smuldre sørger for opplæring og ressurser (kap. 7 Støtte)", svar: [0], explain: "<p>Kapittel 4–7 bygger opp ISMS-et før det tas i bruk, og det er Plan. Støtte er det siste av dem: ressurser og kompetanse må være på plass før driften starter.</p>" },
           { s: "Smuldre innfører tiltakene fra NSMs grunnprinsipper", svar: [1], explain: "<p>Tiltak innføres og driftes i kapittel 8, som er Do.</p>" },
-          { s: "Smuldre driver kassene og backupen etter rutinene (kap. 8 Drift)", svar: [1], explain: "<p>Drift er Do.</p>" },
-          { s: "Den årlige internrevisjonen (kap. 9)", svar: [2], explain: "<p>Evaluering er Check.</p>" },
-          { s: "Avvikene fra revisjonen rettes (kap. 10)", svar: [3], explain: "<p>Forbedring er Act.</p>" } ] } },
+          { s: "Smuldre driver kassene og backupen etter rutinene (kap. 8 Drift)", svar: [1], explain: "<p>I kapittel 8 kjøres ISMS-et i det daglige: rutinene følges. Det er Do.</p>" },
+          { s: "Den årlige internrevisjonen (kap. 9)", svar: [2], explain: "<p>Revisjonen sjekker om ISMS-et virker som planlagt, og det er Check. Den retter ingenting selv.</p>" },
+          { s: "Avvikene fra revisjonen rettes (kap. 10)", svar: [3], explain: "<p>Å rette det revisjonen fant, er forbedring, altså Act. Deretter starter sirkelen på nytt.</p>" } ] } },
       "ov-rammeverk": { title: "NSM eller NIST CSF 2.0?", key: "ov-risiko-4", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["NSM", "NIST CSF 2.0", "begge", "ingen"], multi: false, rader: [
           { s: "Har en egen funksjon for styring (GOVERN)", svar: [1], explain: "<p>GOVERN er ny i CSF 2.0. NSM dekker styring i en egen veileder, ikke som kategori.</p>" },
-          { s: "Er gratis tilgjengelig", svar: [2], explain: "<p>Begge publiseres gratis.</p>" },
+          { s: "Er gratis tilgjengelig", svar: [2], explain: "<p>Begge publiseres gratis på nett. Det skiller dem fra ISO-standardene, som må kjøpes.</p>" },
           { s: "Har fire kategorier", svar: [0], explain: "<p>NSM har 4 kategorier. NIST har 6 funksjoner.</p>" },
           { s: "Kan man sertifiseres mot", svar: [3], explain: "<p>Ingen av dem er sertifiseringsstandarder. Det er ISO 27001.</p>" } ] } },
       "ov-begreper": { title: "Verdi, trussel, sårbarhet …", key: "ov-risiko-5", points: 3, inspera: { type: "M", regelTekst: T05(3), regel: R05(3),
@@ -618,7 +634,7 @@
           { s: "Kunderegisteret med 4 000 e-postadresser", svar: [0], explain: "<p>Har krav til konfidensialitet, altså en verdi.</p>" },
           { s: "En svindler som sender falske fakturaer", svar: [1], explain: "<p>Skadelig aktivitet som kan utnytte en svakhet.</p>" },
           { s: "Ingen rutine for å bekrefte nytt kontonummer", svar: [2], explain: "<p>En svakhet som gjør at angrepet ikke stoppes.</p>" },
-          { s: "Kassasystemet er kryptert og utilgjengelig", svar: [3], explain: "<p>Brudd på tilgjengelighet er en hendelse.</p>" },
+          { s: "Kassasystemet er kryptert og utilgjengelig", svar: [3], explain: "<p>Noe har faktisk skjedd, og tilgjengeligheten er brutt. En hendelse er et faktisk brudd, mens risiko er noe som kan skje.</p>" },
           { s: "Bakeriet taper julesalget fordi nettbutikken er nede", svar: [4], explain: "<p>Skaden som følger av hendelsen, er en konsekvens.</p>" },
           { s: "Løsepengevirus kan utnytte en upatchet kasse-PC og stanse salget", svar: [5], explain: "<p>Kombinasjonen av trussel, sårbarhet og verdi er en risiko.</p>" } ] } },
       "ov-vurdering": { title: "Regn ut risiko og ROI", key: "ov-risiko-6", points: 4, inspera: { type: "N", regelTekst: "Poeng: 1 for riktig. 0 for feil eller ubesvart, maks 4, minimum 0.",
@@ -632,27 +648,27 @@
       "ov-prosess": { title: "Hva er galt i risikovurderingen?", key: "ov-risiko-7", points: 2, inspera: { type: "M", regelTekst: T05(2), regel: R05(2),
         kolonner: ["Punkt 1", "Punkt 2"], multi: false, rader: [
           { s: "Alle fem risikoene fikk nivå 6", svar: [0], explain: "<p>Dårlig spredning gjør vurderingen meningsløs. Kalibrer på nytt.</p>" },
-          { s: "Ledelsen synes tiltakene koster mer enn de sparer", svar: [1], explain: "<p>Det gjelder planen og budsjettet.</p>" },
+          { s: "Ledelsen synes tiltakene koster mer enn de sparer", svar: [1], explain: "<p>Kostnaden ved tiltakene er et spørsmål om planen og budsjettet, og det avgjør ledelsen i punkt 2. Selve vurderingen kan være god nok.</p>" },
           { s: "Ingen vet hvor ofte løsepengevirus rammer bakerier", svar: [0], explain: "<p>Uvisshet i anslagene. Skaff mer informasjon.</p>" },
-          { s: "Planen lar tre høye risikoer stå uten tiltak", svar: [1], explain: "<p>For høy restrisiko i planen.</p>" } ] } },
+          { s: "Planen lar tre høye risikoer stå uten tiltak", svar: [1], explain: "<p>Vurderingen kan være riktig, men planen etterlater for høy restrisiko. Det er ledelsens godkjenning av planen, punkt 2, som skal stoppe det.</p>" } ] } },
       "ov-prosess-d": { title: "Fyll inn prosessfiguren", key: "ov-risiko-8", points: 3.5, inspera: { type: "D", regelTekst: "Poeng: 0,5 for hver riktig boks. 0 for feil eller ubesvart, maks 3,5, minimum 0.",
         regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 3.5 },
         bank: ["Kontekstetablering", "Bestem risikoeier", "Risikovurdering (ROS)", "Risikoanalyse", "Risikohåndteringsplan", "Aksepter risiko", "Implementer sikkerhetstiltak"],
         tekst: null,
         felt: [
           { etikett: "Venstre kolonne, øverst", svar: 0, explain: "<p>Prosessen starter med kontekstetableringen.</p>" },
-          { etikett: "Underboks til høyre for den øverste", svar: 1, explain: "<p>Risikoeieren bestemmes i konteksten.</p>" },
-          { etikett: "Venstre kolonne, nr. 2", svar: 2, explain: "<p>Så kommer risikovurderingen.</p>" },
-          { etikett: "Underboks til høyre for nr. 2", svar: 3, explain: "<p>Analysen er en del av vurderingen.</p>" },
-          { etikett: "Venstre kolonne, etter beslutningspunkt 1", svar: 4, explain: "<p>Etter et «Ja» i punkt 1 lages planen.</p>" },
-          { etikett: "Underboks til høyre for planen", svar: 5, explain: "<p>Å akseptere risiko er en del av planen.</p>" },
-          { etikett: "Venstre kolonne, nederst (etter punkt 2)", svar: 6, explain: "<p>Til slutt innføres tiltakene.</p>" } ] } },
+          { etikett: "Underboks til høyre for den øverste", svar: 1, explain: "<p>Konteksten setter rammene før noe vurderes: risikokriterier, akseptgrense og hvem som eier risikoen.</p>" },
+          { etikett: "Venstre kolonne, nr. 2", svar: 2, explain: "<p>Når rammene er satt, kan risikoene identifiseres, analyseres og evalueres. Det er risikovurderingen, og den må komme før beslutningspunkt 1.</p>" },
+          { etikett: "Underboks til høyre for nr. 2", svar: 3, explain: "<p>Vurderingen består av identifisering, analyse og evaluering. Analysen er derfor en underboks til vurderingen, ikke et eget hovedsteg.</p>" },
+          { etikett: "Venstre kolonne, etter beslutningspunkt 1", svar: 4, explain: "<p>Punkt 1 godkjenner vurderingen. Først da vet man hvilke risikoer som må håndteres, og planen lages.</p>" },
+          { etikett: "Underboks til høyre for planen", svar: 5, explain: "<p>Planen velger for hver risiko: redusere, dele/overføre, unngå eller akseptere. Aksept er altså ett av valgene i planen.</p>" },
+          { etikett: "Venstre kolonne, nederst (etter punkt 2)", svar: 6, explain: "<p>Tiltakene koster penger, så de innføres først når ledelsen har godkjent planen i punkt 2.</p>" } ] } },
       "ov-utvikling": { title: "STRIDE, OWASP og fase", key: "ov-risiko-9", points: 2, inspera: { type: "N", regelTekst: "Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.",
         regel: R05(2),
         tekst: "<p>En student endrer beløpet i påfyllingskallet til Kantinekortet. I STRIDE er dette {0}, og det bryter {1}. En vanlig bruker åpner adminsiden ved å skrive adressen direkte. I OWASP Top 10:2021 er dette {2}. Statisk analyse av API-koden hører til fasen {3}.</p>",
         felt: [
-          { etikett: "STRIDE", valg: ["Spoofing", "Tampering", "Repudiation", "Information disclosure", "Denial of service", "Elevation of privilege"], svar: 1, explain: "<p>Uautorisert endring av data er tukling.</p>" },
-          { etikett: "Mål", valg: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], svar: 1, explain: "<p>Tukling bryter integritet.</p>" },
+          { etikett: "STRIDE", valg: ["Spoofing", "Tampering", "Repudiation", "Information disclosure", "Denial of service", "Elevation of privilege"], svar: 1, explain: "<p>Beløpet i kallet endres uten lov. Uautorisert endring av data er Tampering (tukling), ikke Spoofing, der man utgir seg for en annen.</p>" },
+          { etikett: "Mål", valg: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], svar: 1, explain: "<p>Tampering endrer data, og det bryter integritet. Ingenting blir lest eller stengt.</p>" },
           { etikett: "OWASP", valg: ["1. Brudd på tilgangskontroll", "3. Injeksjon", "5. Feilkonfigurert sikkerhet", "10. SSRF"], svar: 0, explain: "<p>Tjeneren sjekker ikke rollen. Det er brudd på tilgangskontroll.</p>" },
           { etikett: "Fase", valg: ["Krav", "Design", "Koding", "Test"], svar: 2, explain: "<p>Statisk analyse og kodegjennomgang hører til koding.</p>" } ] } },
       "ov-utvikling-fri": { title: "STRIDE for nettbutikken (fritekst)", key: "ov-risiko-10", points: 6, inspera: { type: "E", regelTekst: "Rettes etter skjønn. 0,5 p for en trussel som passer bokstaven og 0,5 p for riktig brutt mål, maks 6.",
@@ -681,22 +697,22 @@
         { q: "Hvem eier ansvaret for sikkerheten i virksomheten?", options: ["IT-driften", "Ledelsen", "Revisor", "Leverandøren"], answer: 1, explain: "<p>God styring betyr at ledelsen er informert og tar ansvar (ism s. 6).</p>" }
       ],
       iso: [
-        { q: "Hvilken standard sertifiseres en virksomhet etter?", options: ["27000", "27001", "27002", "27005"], answer: 1, explain: "<p>27001 er kravstandarden.</p>" },
+        { q: "Hvilken standard sertifiseres en virksomhet etter?", options: ["27000", "27001", "27002", "27005"], answer: 1, explain: "<p>27001 er kravstandarden, og bare krav kan revideres og sertifiseres mot. 27000 er begreper, 27002 tiltak og 27005 risikostyring.</p>" },
         { q: "Hvor mange tiltak har 27002:2022?", options: ["114", "93", "118", "106"], answer: 1, explain: "<p>93. 114 var 2013-utgaven, 118 er NSM og 106 er NIST-underkategoriene.</p>" },
-        { q: "Kapittel 9 i 27001 hører til …", options: ["Plan", "Do", "Check", "Act"], answer: 2, explain: "<p>Kapittel 9 er evaluering, altså Check.</p>" },
+        { q: "Kapittel 9 i 27001 hører til …", options: ["Plan", "Do", "Check", "Act"], answer: 2, explain: "<p>Kapittel 9 er evaluering: man måler og reviderer om ISMS-et virker, og det er Check. Å rette avvikene kommer i kapittel 10, som er Act.</p>" },
         { q: "Hva kreves ved revisjon etter 27001?", options: ["SoA", "CVSS", "SJA", "OSINT"], answer: 0, explain: "<p>Statement of Applicability: hvilke 27002-tiltak som er relevante og innført.</p>" }
       ],
       rammeverk: [
-        { q: "Hvilken funksjon er ny i NIST CSF 2.0?", options: ["RECOVER", "GOVERN", "DETECT", "IDENTIFY"], answer: 1, explain: "<p>GOVERN kom i 2.0 (2024).</p>" },
+        { q: "Hvilken funksjon er ny i NIST CSF 2.0?", options: ["RECOVER", "GOVERN", "DETECT", "IDENTIFY"], answer: 1, explain: "<p>GOVERN (Styre) kom i 2.0 i 2024 og gjør styring og ansvar til en egen funksjon. De fem andre fantes fra før.</p>" },
         { q: "Hvor mange tiltak har NSMs grunnprinsipper?", options: ["93", "106", "118", "21"], answer: 2, explain: "<p>118 tiltak fordelt på 21 prinsipper i 4 kategorier.</p>" },
         { q: "Hvilke CSF-funksjoner reduserer konsekvensen?", options: ["ID og PR", "DE", "RS og RC", "GV"], answer: 2, explain: "<p>RESPOND og RECOVER er korrigerende (ism s. 19).</p>" },
         { q: "Hvilken dimensjon har cyberforsvarsmatrisen i tillegg til funksjonene?", options: ["KIT", "Klasser av digitale verdier", "CMMI-nivå", "Trusselaktører"], answer: 1, explain: "<p>Enheter, apper, nettverk, data og brukere.</p>" }
       ],
       begreper: [
-        { q: "«Har krav om K, I og/eller T» er …", options: ["hendelse", "verdi", "risiko", "trussel"], answer: 1, explain: "<p>Det er definisjonen av en verdi.</p>" },
+        { q: "«Har krav om K, I og/eller T» er …", options: ["hendelse", "verdi", "risiko", "trussel"], answer: 1, explain: "<p>Det er definisjonen av en verdi. En hendelse er et brudd på kravene, og en trussel er det som kan forårsake bruddet.</p>" },
         { q: "Hva øker <i>sannsynligheten</i>?", options: ["Dårlig backup", "En motivert trusselaktør med kapasitet", "En stor kundedatabase", "Cyberforsikring"], answer: 1, explain: "<p>Backup og størrelse påvirker konsekvensen. Motivasjon og kapasitet påvirker sannsynligheten.</p>" },
-        { q: "Hva er lettest for virksomheten å påvirke?", options: ["Trusselaktørens motivasjon", "Egne sårbarheter", "Markedsrisiko", "Hvor sensitive verdiene er"], answer: 1, explain: "<p>Sårbarheter kan fjernes med tiltak.</p>" },
-        { q: "Informasjonssikkerhetsrisiko er en form for …", options: ["markedsrisiko", "operasjonell risiko", "kredittrisiko"], answer: 1, explain: "<p>Tap fra svakheter i egen drift.</p>" }
+        { q: "Hva er lettest for virksomheten å påvirke?", options: ["Trusselaktørens motivasjon", "Egne sårbarheter", "Markedsrisiko", "Hvor sensitive verdiene er"], answer: 1, explain: "<p>Egne sårbarheter kan virksomheten fjerne med tiltak, for eksempel ved å patche. Angriperens motivasjon og markedet styrer den ikke, og verdiene er som de er.</p>" },
+        { q: "Informasjonssikkerhetsrisiko er en form for …", options: ["markedsrisiko", "operasjonell risiko", "kredittrisiko"], answer: 1, explain: "<p>Operasjonell risiko er tap fra svikt i egne prosesser, systemer og folk, og der hører informasjonssikkerhet hjemme. Markeds- og kredittrisiko handler om priser og om at noen ikke betaler.</p>" }
       ],
       vurdering: [
         { q: "s = 2 og k = 4 på en logaritmisk skala gir R = …", options: ["8", "6", "2", "16"], answer: 1, explain: "<p>Kvalitativt med logaritmiske nivåer: R = s + k = 6.</p>" },
@@ -705,17 +721,17 @@
         { q: "Kvalitativ samlet konsekvens med aspektene økonomi 2, omdømme 4, juridisk 3 = …", options: ["9", "3", "4", "24"], answer: 2, explain: "<p>Kvalitativt tar man det største aspektet.</p>" }
       ],
       prosess: [
-        { q: "Hva skjer i kontekstetableringen?", options: ["Tiltak innføres", "Risikokriterier og risikoeier bestemmes", "Risikoene rangeres", "Restrisiko aksepteres"], answer: 1, explain: "<p>Planlegging, akseptgrense og risikoeier.</p>" },
-        { q: "«Det er stor uvisshet rundt en høy risiko» gir «Nei» i …", options: ["punkt 1", "punkt 2", "begge", "ingen"], answer: 0, explain: "<p>Det gjelder kvaliteten på vurderingen.</p>" },
-        { q: "Hvilken er <i>ikke</i> gyldig risikohåndtering?", options: ["Cyberforsikring", "Slutte med aktiviteten", "Endre risikotabellen", "Akseptere"], answer: 2, explain: "<p>Det flytter målestokken, ikke risikoen.</p>" },
-        { q: "Hvilket trinn rangerer risikoene mot akseptgrensen?", options: ["Identifisering", "Analyse", "Evaluering", "Implementering"], answer: 2, explain: "<p>Evalueringen sammenligner med grensen.</p>" }
+        { q: "Hva skjer i kontekstetableringen?", options: ["Tiltak innføres", "Risikokriterier og risikoeier bestemmes", "Risikoene rangeres", "Restrisiko aksepteres"], answer: 1, explain: "<p>Kontekstetableringen setter rammene før noe vurderes: planlegging, risikokriterier (akseptgrense) og hvem som eier risikoen. Rangering og aksept kommer senere.</p>" },
+        { q: "«Det er stor uvisshet rundt en høy risiko» gir «Nei» i …", options: ["punkt 1", "punkt 2", "begge", "ingen"], answer: 0, explain: "<p>Uvisshet betyr at vurderingen ikke er god nok til å bygge en plan på. Punkt 1 kvalitetssikrer vurderingen; punkt 2 gjelder planen.</p>" },
+        { q: "Hvilken er <i>ikke</i> gyldig risikohåndtering?", options: ["Cyberforsikring", "Slutte med aktiviteten", "Endre risikotabellen", "Akseptere"], answer: 2, explain: "<p>Å endre tabellen får risikoen til å se mindre ut uten at noe er gjort. Forsikring (dele), slutte (unngå) og akseptere er alle gyldige valg.</p>" },
+        { q: "Hvilket trinn rangerer risikoene mot akseptgrensen?", options: ["Identifisering", "Analyse", "Evaluering", "Implementering"], answer: 2, explain: "<p>Analysen beregner nivået, og evalueringen sammenligner det med akseptgrensen og rangerer. Identifisering finner bare risikoene.</p>" }
       ],
       utvikling: [
         { q: "Hvilken fase kommer rett etter design?", options: ["Test", "Krav", "Koding", "Forvaltning"], answer: 2, explain: "<p>Opplæring → krav → design → koding → test → produksjonssetting → forvaltning.</p>" },
         { q: "En angriper sletter loggene for å skjule hva han gjorde. Hvilken STRIDE-bokstav?", options: ["T", "R", "I", "D"], answer: 1, explain: "<p>Formålet er å skjule hvem som gjorde hva, altså benekting. Selve slettingen er også tukling.</p>" },
         { q: "Tjeneren henter en URL som angriperen har oppgitt. OWASP 2021?", options: ["Injeksjon", "SSRF", "Usikkert design"], answer: 1, explain: "<p>Server-side request forgery, nr. 10 i 2021.</p>" },
-        { q: "Hvilket mål bryter Elevation of privilege?", options: ["Tilgjengelighet", "Autorisasjon / tilgangskontroll", "Autentisitet"], answer: 1, explain: "<p>Angriperen får mer makt enn han skal ha.</p>" },
-        { q: "Hva er «shift left»?", options: ["Flytte drift til skyen", "Flytte sikkerheten tidlig inn i utviklingen", "Patche oftere"], answer: 1, explain: "<p>Venstre er tidlig på tidslinjen.</p>" }
+        { q: "Hvilket mål bryter Elevation of privilege?", options: ["Tilgjengelighet", "Autorisasjon / tilgangskontroll", "Autentisitet"], answer: 1, explain: "<p>Angriperen får rettigheter han ikke skal ha, for eksempel admin. Det bryter autorisasjon og tilgangskontroll; Spoofing er den som bryter autentisitet.</p>" },
+        { q: "Hva er «shift left»?", options: ["Flytte drift til skyen", "Flytte sikkerheten tidlig inn i utviklingen", "Patche oftere"], answer: 1, explain: "<p>Tenk på utviklingen som en tidslinje fra venstre mot høyre. Å flytte sikkerheten mot venstre betyr å få den inn i krav og design, før feilene er kodet inn.</p>" }
       ]
     };
     Object.keys(QUIZ).forEach(function (fane) {
@@ -727,26 +743,26 @@
       styring: [
         { s: "LSIS og ISMS betyr det samme.", answer: true, explain: "<p>LSIS er Standard Norges navn (ism s. 12).</p>" },
         { s: "Digdirs «internkontroll» betyr omtrent det samme som ISMS.", answer: true, explain: "<p>Ja, men ordet kan også bety intern revisjon.</p>" },
-        { s: "Et ISMS skal bygge på risikovurdering.", answer: true, explain: "<p>ISMS er risikobasert (ism s. 9).</p>" },
-        { s: "Ett godt rammeverk dekker alle behov, så man trenger ikke egne policyer.", answer: false, explain: "<p>Ingen standard dekker alt (ism s. 34).</p>" },
-        { s: "Risikovurderinger ligger nederst i dokumenthierarkiet, sammen med logger og revisjonsrapporter.", answer: true, explain: "<p>ism s. 35.</p>" },
+        { s: "Et ISMS skal bygge på risikovurdering.", answer: true, explain: "<p>Et ISMS velger tiltak ut fra hvilke risikoer virksomheten faktisk har. Uten risikovurdering vet man ikke hva som må beskyttes, eller hvor mye (ism s. 9).</p>" },
+        { s: "Ett godt rammeverk dekker alle behov, så man trenger ikke egne policyer.", answer: false, explain: "<p>Rammeverk gir generelle tiltak, men hver virksomhet har egne verdier og regler. Derfor trengs egne policyer i tillegg (ism s. 34).</p>" },
+        { s: "Risikovurderinger ligger nederst i dokumenthierarkiet, sammen med logger og revisjonsrapporter.", answer: true, explain: "<p>Øverst står det som sier hva som skal gjelde (lover, policyer). Nederst ligger det som dokumenterer hva som faktisk er funnet og gjort, og der hører risikovurderingene hjemme (ism s. 35).</p>" },
         { s: "CMMI-nivå 0 betyr «tilfeldige sikkerhetstiltak».", answer: false, explain: "<p>Det er nivå 1. Nivå 0 er brannslukking og kaos.</p>" },
-        { s: "«Verdiskapning» som mål for styring handler om balansen mellom ressursbruk og risikoreduksjon.", answer: true, explain: "<p>ism s. 5.</p>" }
+        { s: "«Verdiskapning» som mål for styring handler om balansen mellom ressursbruk og risikoreduksjon.", answer: true, explain: "<p>Sikkerhet koster. Verdiskapning betyr at ressursene brukes der de reduserer risikoen mest, ikke at alt skal sikres maksimalt (ism s. 5).</p>" }
       ],
       iso: [
         { s: "27002 har fire domener: organisatorisk, personell, fysisk og teknologisk.", answer: true, explain: "<p>37 + 8 + 14 + 34 = 93 tiltak.</p>" },
         { s: "27005 er tiltaksbanken.", answer: false, explain: "<p>27005 handler om risikostyring. Tiltaksbanken er 27002.</p>" },
-        { s: "ISO-standardene er gratis.", answer: false, explain: "<p>De fleste må kjøpes (ism s. 8).</p>" },
-        { s: "Kapittel 6 Planlegging hører til Plan i PDCA.", answer: true, explain: "<p>Plan er kapittel 4–7.</p>" },
-        { s: "27001 og 27002 kommer begge fra britisk standard (BS 7799).", answer: true, explain: "<p>ism s. 17.</p>" },
+        { s: "ISO-standardene er gratis.", answer: false, explain: "<p>De fleste ISO-standardene må kjøpes. Det skiller dem fra NSMs grunnprinsipper og NIST CSF, som er gratis (ism s. 8).</p>" },
+        { s: "Kapittel 6 Planlegging hører til Plan i PDCA.", answer: true, explain: "<p>Kapittel 4–7 bygger opp ISMS-et før det tas i bruk, og det er Plan. I planleggingen vurderes risikoene og velges tiltak.</p>" },
+        { s: "27001 og 27002 kommer begge fra britisk standard (BS 7799).", answer: true, explain: "<p>BS 7799 hadde en tiltaksdel og en kravdel. De ble til 27002 og 27001 (ism s. 17).</p>" },
         { s: "Attributtet #Oppdagende er en type sikkerhetstiltak.", answer: true, explain: "<p>Typene er forebyggende, oppdagende og korrigerende (ism s. 16).</p>" },
-        { s: "27001 har krav i kapittel 1–10.", answer: false, explain: "<p>Kravene står i kapittel 4–10.</p>" }
+        { s: "27001 har krav i kapittel 1–10.", answer: false, explain: "<p>Kapittel 1–3 er omfang, referanser og begreper. Kravene ISMS-et skal oppfylle, står i kapittel 4–10.</p>" }
       ],
       rammeverk: [
-        { s: "NSMs grunnprinsipper er publisert på norsk.", answer: true, explain: "<p>Det er ett av skillene mot NIST.</p>" },
-        { s: "NIST CSF må kjøpes.", answer: false, explain: "<p>Den er gratis.</p>" },
-        { s: "NSMs grunnprinsipper er bare tilgjengelige for offentlige myndigheter.", answer: false, explain: "<p>Alle kan bruke dem (H2025 29).</p>" },
-        { s: "Både NSM og NIST CSF kan brukes sammen med ISO 27001.", answer: true, explain: "<p>Som Do-delen av PDCA.</p>" },
+        { s: "NSMs grunnprinsipper er publisert på norsk.", answer: true, explain: "<p>NSMs grunnprinsipper er norske og gis ut på norsk, mens NIST CSF er amerikansk og på engelsk.</p>" },
+        { s: "NIST CSF må kjøpes.", answer: false, explain: "<p>NIST CSF er gratis, som NSMs grunnprinsipper. Det er ISO-standardene som må kjøpes.</p>" },
+        { s: "NSMs grunnprinsipper er bare tilgjengelige for offentlige myndigheter.", answer: false, explain: "<p>Prinsippene er skrevet for alle virksomheter, offentlige og private, og alle kan laste dem ned (H2025 29).</p>" },
+        { s: "Både NSM og NIST CSF kan brukes sammen med ISO 27001.", answer: true, explain: "<p>27001 sier hvordan sikkerheten styres. NSM eller NIST CSF kan da være tiltakene man innfører og drifter, altså Do-delen av PDCA.</p>" },
         { s: "NSMs kategori 3 heter «Oppdage».", answer: true, explain: "<p>Kategoriene er identifisere og kartlegge, beskytte og opprettholde, oppdage, håndtere og gjenopprette.</p>" },
         { s: "NIST CSF 2.0 har 22 kategorier.", answer: true, explain: "<p>GV 6, ID 3, PR 5, DE 2, RS 4, RC 2.</p>" },
         { s: "NSM-tiltakene er merket med prioritetsgruppe 1–3.", answer: true, explain: "<p>Gruppe 1 skal hindre om lag 90 % av hendelsene.</p>" },
@@ -754,41 +770,41 @@
       ],
       begreper: [
         { s: "Uten sårbarhet er det ingen risiko, selv om trusselen finnes.", answer: true, explain: "<p>Alle tre hjørnene i trekanten må være der.</p>" },
-        { s: "Risikonivå er en funksjon av sannsynlighet og konsekvens.", answer: true, explain: "<p>Det er størrelsen på risikoen.</p>" },
-        { s: "Et sikkerhetsbrudd betyr brudd på minst ett KIT-mål.", answer: true, explain: "<p>Det er definisjonen av en hendelse.</p>" },
-        { s: "Ved utsetting slipper virksomheten ansvaret overfor brukerne.", answer: false, explain: "<p>Ansvaret består.</p>" },
-        { s: "Dårlig beredskap øker sannsynligheten for hendelsen.", answer: false, explain: "<p>Den øker konsekvensen.</p>" },
+        { s: "Risikonivå er en funksjon av sannsynlighet og konsekvens.", answer: true, explain: "<p>Risikonivået sier hvor stor risikoen er: hvor sannsynlig hendelsen er, og hvor ille den blir. Risikoen selv er kombinasjonen av trussel, sårbarhet og verdi.</p>" },
+        { s: "Et sikkerhetsbrudd betyr brudd på minst ett KIT-mål.", answer: true, explain: "<p>Det er definisjonen av en hendelse: et faktisk brudd på K, I eller T. Det som bare kan skje, er en risiko.</p>" },
+        { s: "Ved utsetting slipper virksomheten ansvaret overfor brukerne.", answer: false, explain: "<p>Leverandøren gjør jobben, men virksomheten er fortsatt ansvarlig overfor brukerne. Ansvar kan ikke settes ut.</p>" },
+        { s: "Dårlig beredskap øker sannsynligheten for hendelsen.", answer: false, explain: "<p>Beredskap virker etter at hendelsen har skjedd. Dårlig beredskap gjør skaden større (konsekvensen), men påvirker ikke hvor ofte det skjer.</p>" },
         { s: "Skadet omdømme er et konsekvensaspekt.", answer: true, explain: "<p>Sammen med blant annet økonomisk tap, lovbrudd og gjenoppretting.</p>" },
-        { s: "Restrisiko er risikoen før tiltak.", answer: false, explain: "<p>Det er det som er igjen etter tiltak.</p>" }
+        { s: "Restrisiko er risikoen før tiltak.", answer: false, explain: "<p>Restrisiko er det som er igjen etter tiltak. Risikoen før tiltak er utgangspunktet tiltakene skal redusere.</p>" }
       ],
       vurdering: [
         { s: "Kvantitativ risiko kan oppgis i kroner per år.", answer: true, explain: "<p>Hendelser per år × kroner per hendelse.</p>" },
-        { s: "Kvalitative inndata er vanligvis lettere å anslå enn kvantitative.", answer: true, explain: "<p>Nivåer er grove, men lette å sette.</p>" },
-        { s: "Med logaritmiske nivåer er risikonivå = sannsynlighet × konsekvens.", answer: false, explain: "<p>Da summeres nivåene.</p>" },
+        { s: "Kvalitative inndata er vanligvis lettere å anslå enn kvantitative.", answer: true, explain: "<p>Det er lettere å si «middels sannsynlig» enn å anslå hvor mange ganger per år noe skjer. Nivåene er grove, men raske å sette og lette å diskutere.</p>" },
+        { s: "Med logaritmiske nivåer er risikonivå = sannsynlighet × konsekvens.", answer: false, explain: "<p>På en logaritmisk skala svarer hvert trinn til en fast faktor. Å gange verdiene svarer da til å summere nivåene: R = S + K.</p>" },
         { s: "Kvantitativt summeres konsekvensaspektene.", answer: true, explain: "<p>Kroner kan legges sammen. Kvalitativt tar man det største.</p>" },
         { s: "ROI = risikoreduksjon / kostnad.", answer: false, explain: "<p>Kostnaden skal trekkes fra først: (reduksjon − kostnad) / kostnad.</p>" },
-        { s: "Akseptgrensen bør begrunnes ut fra virksomhetens risikoappetitt.", answer: true, explain: "<p>Som i oblig 3.</p>" },
+        { s: "Akseptgrensen bør begrunnes ut fra virksomhetens risikoappetitt.", answer: true, explain: "<p>Akseptgrensen sier hvor mye risiko virksomheten er villig til å leve med, og det er det risikoappetitt betyr. En grense uten begrunnelse er vanskelig å forsvare overfor ledelsen.</p>" },
         { s: "Kvalitativ vurdering kan gi flere risikoer samme nivå selv om kronebeløpene er ulike.", answer: true, explain: "<p>R1 og R2 hos Smuldre får begge 6, men 35 000 og 70 000 kr per år.</p>" },
-        { s: "ALE = ARO × EF × AV er formelen som brukes i 2026.", answer: false, explain: "<p>Den hører til gamle sett.</p>" }
+        { s: "ALE = ARO × EF × AV er formelen som brukes i 2026.", answer: false, explain: "<p>ALE med ARO, EF og AV hører til de gamle settene. I 2026 brukes kvalitative nivåer, og kvantitativt sannsynlighet ganger konsekvens.</p>" }
       ],
       prosess: [
-        { s: "Risikovurderingen (ROS) kommer før beslutningspunkt 1.", answer: true, explain: "<p>Punkt 1 vurderer resultatet av den.</p>" },
-        { s: "«For mange aksepterte risikoer» gir «Nei» i punkt 2.", answer: true, explain: "<p>For høy restrisiko i planen.</p>" },
-        { s: "Å overføre risiko til en skyleverandør fjerner virksomhetens ansvar.", answer: false, explain: "<p>Ansvaret overfor brukerne består.</p>" },
-        { s: "Risikoanalysen beregner risikonivået.", answer: true, explain: "<p>H2024 34.</p>" },
+        { s: "Risikovurderingen (ROS) kommer før beslutningspunkt 1.", answer: true, explain: "<p>Punkt 1 vurderer om risikovurderingen er god nok, så vurderingen må være gjort først.</p>" },
+        { s: "«For mange aksepterte risikoer» gir «Nei» i punkt 2.", answer: true, explain: "<p>Planen aksepterer så mye at restrisikoen blir for høy. Det er planen ledelsen sier nei til, altså punkt 2.</p>" },
+        { s: "Å overføre risiko til en skyleverandør fjerner virksomhetens ansvar.", answer: false, explain: "<p>Man kan overføre jobben eller kostnaden, men ikke ansvaret overfor brukerne. Rammes dataene hos leverandøren, er det fortsatt virksomhetens brudd.</p>" },
+        { s: "Risikoanalysen beregner risikonivået.", answer: true, explain: "<p>Analysen setter sannsynlighet og konsekvens og regner ut nivået. Evalueringen sammenligner deretter nivået med akseptgrensen (H2024 34).</p>" },
         { s: "Tiltakene implementeres før beslutningspunkt 2.", answer: false, explain: "<p>Implementering kommer til slutt, etter et «Ja» i punkt 2.</p>" },
-        { s: "Restrisiko er risiko man har valgt å akseptere.", answer: true, explain: "<p>H2023 39.</p>" },
+        { s: "Restrisiko er risiko man har valgt å akseptere.", answer: true, explain: "<p>Etter tiltakene blir det alltid noe risiko igjen. Når den er under akseptgrensen og ledelsen godtar den, er det akseptert restrisiko (H2023 39).</p>" },
         { s: "Risikovurderinger bør kommuniseres til ledelsen, fordi den gir budsjett.", answer: true, explain: "<p>Ledelse og styre bestemmer strategi og budsjett.</p>" }
       ],
       utvikling: [
         { s: "Innebygd sikkerhet har 7 faser og starter med opplæring.", answer: true, explain: "<p>Opplæring → krav → design → koding → test → produksjonssetting → forvaltning.</p>" },
-        { s: "DevSecOps dekker opplæringsfasen.", answer: false, explain: "<p>Opplæring er fasen som mangler.</p>" },
-        { s: "Prosedyrer for patching og hendelseshåndtering lages i produksjonssettingen.", answer: true, explain: "<p>H2022 4.1.</p>" },
-        { s: "STRIDE brukes til trusselmodellering i designfasen.", answer: true, explain: "<p>På et dataflytdiagram.</p>" },
-        { s: "Information disclosure bryter integritet.", answer: false, explain: "<p>Den bryter konfidensialitet.</p>" },
-        { s: "SYN-flom er D i STRIDE.", answer: true, explain: "<p>Tjenestenekt bryter tilgjengelighet.</p>" },
-        { s: "OWASP Top 10 gir også råd om tiltak.", answer: true, explain: "<p>H2025 32.</p>" },
-        { s: "Injeksjon er manipulert input som får applikasjonen til å utføre utilsiktede kommandoer.", answer: true, explain: "<p>H2022 4.2.</p>" },
+        { s: "DevSecOps dekker opplæringsfasen.", answer: false, explain: "<p>DevSecOps dekker fasene fra krav til forvaltning, men ikke opplæringen som kommer før dem (H2022 4.1).</p>" },
+        { s: "Prosedyrer for patching og hendelseshåndtering lages i produksjonssettingen.", answer: true, explain: "<p>Rutinene må være klare når systemet settes i drift, så de lages i produksjonssettingen. I forvaltningen brukes de (H2022 4.1).</p>" },
+        { s: "STRIDE brukes til trusselmodellering i designfasen.", answer: true, explain: "<p>STRIDE brukes på dataflytdiagrammet, altså tegningen av løsningen før den er kodet. Derfor hører det til design.</p>" },
+        { s: "Information disclosure bryter integritet.", answer: false, explain: "<p>Information disclosure betyr at data lekker til noen som ikke skal se dem, og det bryter konfidensialitet. Endring av data er Tampering, som bryter integritet.</p>" },
+        { s: "SYN-flom er D i STRIDE.", answer: true, explain: "<p>SYN-flom fyller opp tjenerens kø av halvåpne forbindelser, så legitime brukere ikke slipper inn. Det er tjenestenekt (D) og bryter tilgjengelighet.</p>" },
+        { s: "OWASP Top 10 gir også råd om tiltak.", answer: true, explain: "<p>Hver kategori beskriver problemet og gir råd om hvordan det forebygges (H2025 32).</p>" },
+        { s: "Injeksjon er manipulert input som får applikasjonen til å utføre utilsiktede kommandoer.", answer: true, explain: "<p>Input som skulle vært data, blir tolket som kode eller kommando, for eksempel i SQL. Det er kjernen i alle injeksjonsangrep (H2022 4.2).</p>" },
         { s: "Siste utgave av OWASP Top 10 er fra 2021.", answer: false, explain: "<p>Den kom i november 2025.</p>" }
       ]
     };
@@ -799,6 +815,11 @@
     });
 
     /* ---------- Eksamensbanken ---------- */
+    // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)
+    safe("fv-pdca", function () { IN.fig.vis("#fv-pdca", "H2025-28"); });
+    // Nye visuelle forklaringer (IN.FORKLAR i figurer/forklar-a.js)
+    safe("fk-iso-familie", function () { IN.FORKLAR["iso-familie"]("#fk-iso-familie"); });
+    safe("fk-csf-nsm", function () { IN.FORKLAR["csf-nsm"]("#fk-csf-nsm"); });
     safe("bank-risiko", function () { IN.examBank("#bank-risiko", { block: ["risiko", "utvikling"] }); });
   })();
   </script>

@@ -34,7 +34,7 @@
 .insp-tittel {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .6rem;
   margin: 2rem 0 .4rem; padding-top: .85rem; border-top: 1px solid var(--color-outline-variant);
-  font-size: var(--text-md, 1rem); font-weight: 600; line-height: 1.3;
+  font-size: 15px; font-weight: 600; line-height: 1.3;   /* A1: under øvingens h4 (16–17 px) */
 }
 .insp-tittel-p { font-size: var(--text-xs); font-weight: 600; color: var(--color-on-surface-variant); white-space: nowrap; }
 /* Rett under en overskrift (h4 «Inspera-øving» o.l.) har overskriften allerede streken */
@@ -67,27 +67,46 @@
   .insp-mwrap { overflow: visible; border: 0; border-radius: 0; margin: .4rem 0; }
   .insp-m, .insp-m tbody { display: block; width: auto; }
   .insp-m thead { display: none; }
-  .insp-m tr { display: flex; flex-wrap: wrap; gap: 2px; padding: .55rem 0 .6rem .55rem; border-bottom: 1px solid var(--color-outline-variant); }
+  .insp-m tr { display: flex; flex-wrap: wrap; gap: 4px; padding: .55rem 0 .6rem .55rem; border-bottom: 1px solid var(--color-outline-variant); }
   .insp-m tbody tr:hover { background: none; }
   .insp-m th, .insp-m td { border-bottom: 0; }
   .insp-m th.insp-m-s { flex: 1 1 100%; padding: 0 0 .3rem; font-weight: 600; }
-  .insp-m td:not(.insp-m-st) { flex: 1 1 4.5rem; min-width: 0; display: flex; }
-  .insp-m-o { position: relative; flex: 1 1 auto; min-height: 44px; min-width: 0; padding: 0; }
+  .insp-m td:not(.insp-m-st) { flex: 1 1 4.5rem; min-width: min-content; display: flex; }   /* lange ord bryter raden, ikke ordet */
+  .insp-m-o { position: relative; flex: 1 1 auto; flex-direction: column; align-items: stretch; gap: 2px; min-height: 44px; min-width: 0; padding: 0; }
   .insp-m .insp-m-o input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  /* A5: valgene ser ut som knapper (tynn kant, 6 px radius). Valgt: full primærkant og 18 % tone. */
   .insp-m-k {
     position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal;
     display: flex; align-items: center; justify-content: center; flex: 1 1 auto; align-self: stretch;
     min-height: 44px; padding: .3rem .4rem; box-sizing: border-box; text-align: center; overflow-wrap: break-word; hyphens: auto;
-    border-bottom: 2px solid var(--color-outline-variant); color: var(--color-on-surface-variant);
-    font-weight: 600; font-size: var(--text-xs); line-height: 1.25;
+    border: 1px solid var(--color-outline-variant); border-radius: 6px; background: var(--color-surface-container-lowest);
+    color: var(--color-on-surface); font-weight: 600; font-size: var(--text-xs); line-height: 1.25;
   }
   .insp-m-o:hover { background: none; }
   .insp-m-o:hover .insp-m-k { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
-  .insp-m-o input:checked + .insp-m-k { border-bottom-color: var(--color-primary); color: var(--color-on-surface); background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
+  .insp-m-o input:checked + .insp-m-k { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface-container-lowest)); }
   .insp-m-o input:focus-visible + .insp-m-k { outline: 2px solid var(--color-primary); outline-offset: 1px; }
   .insp-m td.insp-m-st { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; min-width: 2em; padding: 0 .3rem; }
   .insp-m td.insp-m-st:empty { display: none; }
+  /* B2 stablet: riktig valg i en feil/ubesvart rad får grønn ramme, gal avkrysning rød. Forklaringen er en egen linje nederst. */
+  .insp-m td.is-fasit, .insp-m td.is-feilvalg { box-shadow: none; background: none; }
+  .insp-m td.is-fasit .insp-m-k { border-color: var(--color-on-tone-ok); box-shadow: inset 0 0 0 1px var(--color-on-tone-ok); background: var(--color-tone-ok); color: var(--color-on-tone-ok); }
+  .insp-m td.is-feilvalg .insp-m-k { border-color: var(--color-on-tone-danger); box-shadow: inset 0 0 0 1px var(--color-on-tone-danger); background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+  .insp-m-ex-w { display: none !important; }
+  .insp-m td.insp-m-ex:not([hidden]) { display: block; flex: 1 1 100%; padding: .1rem .3rem 0 0; text-align: left; }
 }
+/* B2: «✓ riktig» på riktig valg, og forklaringen som én linje under raden (brei skjerm: under radteksten) */
+.insp-m-rt { font-size: var(--text-xs); font-weight: 700; line-height: 1.2; color: var(--color-on-tone-ok); white-space: nowrap; text-align: center; }
+.insp-m-rt[hidden] { display: none; }
+@media (min-width: 561px) {
+  .insp-m-o { flex-wrap: wrap; gap: 2px 6px; }
+  .insp-m td.is-fasit { box-shadow: inset 0 0 0 2px var(--color-on-tone-ok); background: var(--color-tone-ok); }
+  .insp-m td.is-feilvalg { box-shadow: inset 0 0 0 2px var(--color-on-tone-danger); }
+}
+.insp-m-ex { color: var(--color-on-surface-variant); font-weight: 400; line-height: 1.45; overflow-wrap: anywhere; }
+.insp-m-ex-w { margin-top: .2rem; }
+.insp-m-ex[hidden], .insp-m td.insp-m-ex-n { display: none; }
+@media (pointer: coarse) { .insp-sel { min-height: 44px; } }   /* A4 */
 .insp-m th.insp-m-s { text-align: left; font-weight: 400; }
 .insp-m .insp-m-st { width: 2em; font-weight: 700; }
 .insp-m tr.is-right { box-shadow: inset 3px 0 0 var(--color-on-tone-ok); }

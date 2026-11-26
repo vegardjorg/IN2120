@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 10 · Cyberops og KI · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126a">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -128,6 +130,8 @@
           <tr><td>7</td><td>Aksjon (måloppnåelse)</td><td>Actions on Objectives</td><td>Angriperen gjør det hen kom for</td><td>Exfiltration (i eksempelet)</td></tr>
         </tbody></table></div>
       <p class="cy-forbehold"><span class="lbl">Forbehold</span>MITRE ATT&amp;CK står ikke på cyberops-lysarket fra 2026. Den kommer fra ukesoppgaven og fra eksamen (H2021 10.3 og H2024 36), så den kan fortsatt komme.</p>
+      <p class="small muted fig-vis-led">Taktikk, teknikk og prosedyre er tre nivåer: ett delmål kan nås på mange måter, og hver måte kan gjennomføres ulikt av hver gruppe.</p>
+      <div id="fk-ttp-hierarki"></div>
 
       <h4>Plasser hendelsene og knert angrepet</h4>
       <p class="small muted">«Sjekk plasseringen» regner ut poeng med den justerte skåringen fra eksamen. «Knert her» viser hvor mye av angrepet som aldri skjer.</p>
@@ -462,20 +466,28 @@
 
   <footer class="footer">IN2120-guide · Blokk 10 · Cyberops og KI · <a href="eksamen.html">Neste: øv på et helt sett</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-cyber.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-cyber.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -567,7 +579,7 @@
         { q: "Hvilken etat eier VDI?", options: ["PST", "NSM", "Etterretningstjenesten"], answer: 1,
           explain: "<p>VDI er NSMs varslingssystem for digital infrastruktur.</p>" },
         { q: "Hva heter samarbeidet mellom NSM, PST og E-tjenesten?", options: ["FCKS", "NorSIS", "VDI"], answer: 0,
-          explain: "<p>Felles cyberkoordineringssenter.</p>" }
+          explain: "<p>FCKS (Felles cyberkoordineringssenter) er der etatene samarbeider om trusselbildet. VDI er NSMs varslingssystem, ikke et samarbeid.</p>" }
       ],
       operasjoner: [
         { q: "Hvilken form for cyberoperasjon regner kurset som den klart mest nyttige?", options: ["sabotasje", "spionasje", "avskrekking"], answer: 1,
@@ -579,7 +591,7 @@
         { q: "Hvilken egenskap har cybervåpen, men ikke missiler?", options: ["de kan bare brukes én gang", "de kan analyseres og brukes på nytt av offeret", "de ødelegges ved bruk"], answer: 1,
           explain: "<p>Koden blir liggende igjen hos offeret.</p>" },
         { q: "Hva het skadevaren som ødela sentrifuger i det iranske atomprogrammet?", options: ["Mirai", "Stuxnet", "WannaCry"], answer: 1,
-          explain: "<p>H2025 15 spør om akkurat dette.</p>" }
+          explain: "<p>Stuxnet angrep styresystemene til sentrifugene i Iran. Mirai var et botnett av IoT-enheter, og WannaCry var løsepengevirus (H2025 15).</p>" }
       ],
       ki: [
         { q: "Hvordan henger KI, ML, DL og GenKI sammen?", options: ["KI ⊃ ML ⊃ DL ⊃ GenKI", "GenKI ⊃ DL ⊃ ML ⊃ KI", "de er uavhengige"], answer: 0,
@@ -599,7 +611,7 @@
         { q: "Hva skjer i prompt injection-eksempelet på lysarket?", options: ["brukeren ber om noe forbudt", "instruksjoner skjult i data som modellen leser, får den til å sende ut en hemmelig fil", "treningsdataene endres"], answer: 1,
           explain: "<p>Det første alternativet er jailbreak, det siste forgiftning.</p>" },
         { q: "Hvilket krav har høyrisikosystemer i AI Act ifølge lysarket?", options: ["forbud", "samsvarsvurdering", "ingen krav"], answer: 1,
-          explain: "<p>Forbud gjelder uakseptabel risiko.</p>" },
+          explain: "<p>Høyrisikosystemer er tillatt, men må gjennom en samsvarsvurdering før de tas i bruk. Forbud gjelder bare uakseptabel risiko.</p>" },
         { q: "Hvilket risikonivå har deepfakes ifølge lysarket?", options: ["uakseptabel", "begrenset (transparens)", "minimal"], answer: 1,
           explain: "<p>De skal merkes, så folk vet at innholdet er laget av KI.</p>" },
         { q: "Hva viser synsbedrag-eksempelet?", options: ["en usynlig støy får modellen til å se en katt som en hund", "et kamera som går i stykker", "at modellen ikke kan se bilder"], answer: 0,
@@ -624,41 +636,41 @@
         { s: "Det er best å stoppe et angrep så tidlig som mulig i kjeden.", answer: true, explain: "<p>Da når angrepet aldri de senere trinnene.</p>" },
         { s: "Kommando og kontroll er trinn 5.", answer: false, explain: "<p>Det er trinn 6. Trinn 5 er installering.</p>" },
         { s: "MITRE ATT&CK er en katalog over forsvarstiltak.", answer: false, explain: "<p>Den beskriver angriperens taktikker og teknikker.</p>" },
-        { s: "Bevæpning skjer vanligvis før angriperen har kontakt med målets systemer.", answer: true, explain: "<p>Verktøyet lages hos angriperen.</p>" },
-        { s: "En taktikk i ATT&CK er et (del)mål for angriperen.", answer: true, explain: "<p>Taktikk = hva, teknikk = hvordan.</p>" },
+        { s: "Bevæpning skjer vanligvis før angriperen har kontakt med målets systemer.", answer: true, explain: "<p>Angriperen setter sammen skadevaren og utnyttelsen på egne maskiner. Første kontakt med målet kommer i neste trinn, leveranse.</p>" },
+        { s: "En taktikk i ATT&CK er et (del)mål for angriperen.", answer: true, explain: "<p>Taktikken er hva angriperen vil oppnå, for eksempel å komme seg inn. Teknikken er hvordan, for eksempel med phishing.</p>" },
         { s: "Å bestikke en ansatt til å sette inn en minnepinne med exploit er et eksempel på overlevering.", answer: true, explain: "<p>Verktøyet bringes fram til målet (H2023 12).</p>" }
       ],
       cti: [
         { s: "TTP-er er vanskelige for en aktør å endre og kan derfor brukes til å spore den.", answer: true, explain: "<p>Det tar tid og ressurser å bygge opp en ny arbeidsmåte.</p>" },
         { s: "Teknisk CTI er det minst detaljerte nivået.", answer: false, explain: "<p>Det er det mest detaljerte (H2024 36).</p>" },
         { s: "Deling av CTI bygger på at et angrep på én kan bli forsvar for andre.", answer: true, explain: "<p>Nye angrep analyseres tidlig og deles med andre responsmiljøer.</p>" },
-        { s: "CTI bør (del)automatiseres fordi angrepene i økende grad automatiseres.", answer: true, explain: "<p>Manuell deling henger etter.</p>" },
+        { s: "CTI bør (del)automatiseres fordi angrepene i økende grad automatiseres.", answer: true, explain: "<p>Automatiserte angrep endrer seg raskt, og manuell deling av indikatorer kommer da for sent. Felles formater som STIX gjør automatisk deling mulig.</p>" },
         { s: "Etterretningstjenestens TI fanger opp trafikk som går inn og ut av Norge.", answer: true, explain: "<p>TI står for tilrettelagt innhenting.</p>" },
-        { s: "CrowdStrike og Mandiant er norske statlige CTI-aktører.", answer: false, explain: "<p>De er kommersielle.</p>" }
+        { s: "CrowdStrike og Mandiant er norske statlige CTI-aktører.", answer: false, explain: "<p>CrowdStrike og Mandiant er kommersielle, amerikanske selskaper som selger CTI. De norske statlige aktørene er NSM, PST og E-tjenesten.</p>" }
       ],
       operasjoner: [
-        { s: "De tre typene militære cyberoperasjoner er spionasje, angrep/sabotasje og forsvar.", answer: true, explain: "<p>Spionasje er den mest brukte.</p>" },
-        { s: "Et «Cyber Pearl Harbour» med total ødeleggelse av digital infrastruktur regnes som sannsynlig.", answer: false, explain: "<p>Det regnes som usannsynlig.</p>" },
+        { s: "De tre typene militære cyberoperasjoner er spionasje, angrep/sabotasje og forsvar.", answer: true, explain: "<p>Det er de tre typene. Spionasje er den mest brukte, fordi den er billig og vanskelig å oppdage.</p>" },
+        { s: "Et «Cyber Pearl Harbour» med total ødeleggelse av digital infrastruktur regnes som sannsynlig.", answer: false, explain: "<p>Kurset regner et slikt totalangrep som usannsynlig. Det vanlige er spionasje og avgrensede angrep, ikke ødeleggelse av alt på en gang.</p>" },
         { s: "Cybervåpen kan kjøpes og selges på det mørke nettet.", answer: true, explain: "<p>De kan også stjeles gjennom spionasje.</p>" },
         { s: "Stormaktene støttet Paris Call i 2018 fullt ut.", answer: false, explain: "<p>Små land støttet den, stormaktene var imot.</p>" },
         { s: "PST knyttet angrepet på Stortinget i 2020 til Fancy Bear.", answer: true, explain: "<p>Gruppen knyttes til den russiske militære etterretningen.</p>" },
         { s: "En cyberavdeling uten etiske skrupler kan finansiere seg ved å selge nulldagssårbarheter.", answer: true, explain: "<p>Det er ett av de riktige svarene i H2024 37.</p>" }
       ],
       ki: [
-        { s: "Maskinlæring betyr at programmet lærer fra datasett uten å bli eksplisitt programmert.", answer: true, explain: "<p>Det skiller ML fra regelbasert KI.</p>" },
-        { s: "Dyp læring krever ifølge kurset minst to mellomliggende lag i nettet.", answer: true, explain: "<p>Og store datasett.</p>" },
-        { s: "Produksjon av skadevare er et eksempel på defensiv KI.", answer: false, explain: "<p>Det er offensiv KI.</p>" },
-        { s: "Anomalibasert IDS er den IDS-typen som oftest bygger på maskinlæring.", answer: true, explain: "<p>Det var svaret i H2023 31 felt 1.</p>" },
+        { s: "Maskinlæring betyr at programmet lærer fra datasett uten å bli eksplisitt programmert.", answer: true, explain: "<p>ML finner mønstrene selv ut fra dataene. Regelbasert KI følger regler som et menneske har skrevet inn.</p>" },
+        { s: "Dyp læring krever ifølge kurset minst to mellomliggende lag i nettet.", answer: true, explain: "<p>«Dyp» viser til lagene: minst to skjulte lag mellom input og output. I tillegg krever dyp læring store datasett.</p>" },
+        { s: "Produksjon av skadevare er et eksempel på defensiv KI.", answer: false, explain: "<p>Skadevare hjelper angriperen, så det er offensiv KI. Defensiv KI er for eksempel analyse av skadevare.</p>" },
+        { s: "Anomalibasert IDS er den IDS-typen som oftest bygger på maskinlæring.", answer: true, explain: "<p>En anomalibasert IDS må lære hva som er normalt, og det er en læringsoppgave. Signaturbasert sammenligner med faste mønstre (H2023 31).</p>" },
         { s: "Antallet publiserte CVE-er har gått ned de siste årene.", answer: false, explain: "<p>Det har økt kraftig, og mengden gjør automatisering nødvendig.</p>" },
         { s: "Lysarket foreslår kryptografisk autentisering av video som en mulig vei rundt deepfake-problemet.", answer: true, explain: "<p>I stedet for å avsløre det falske, beviser man det ekte.</p>" }
       ],
       kisarbar: [
-        { s: "En bakdør i en språkmodell kan plantes gjennom finjustering.", answer: true, explain: "<p>Det er eksempelet på lysarket.</p>" },
-        { s: "I bakdøreksempelet skrev modellen utrygg kode hele tiden.", answer: false, explain: "<p>Bare når betingelsen var oppfylt.</p>" },
-        { s: "Sosial skåring er forbudt etter AI Act.", answer: true, explain: "<p>Uakseptabel risiko.</p>" },
-        { s: "Biometrisk identifikasjon er på lysarket plassert under minimal risiko.", answer: false, explain: "<p>Den er høy risiko.</p>" },
+        { s: "En bakdør i en språkmodell kan plantes gjennom finjustering.", answer: true, explain: "<p>Finjusteringen lærer modellen å oppføre seg dårlig bare når en bestemt betingelse er oppfylt. Det er eksempelet på lysarket.</p>" },
+        { s: "I bakdøreksempelet skrev modellen utrygg kode hele tiden.", answer: false, explain: "<p>Modellen skrev trygg kode som vanlig og utrygg kode bare når betingelsen var oppfylt. Derfor er bakdøren vanskelig å oppdage ved testing.</p>" },
+        { s: "Sosial skåring er forbudt etter AI Act.", answer: true, explain: "<p>Sosial skåring står på lista over uakseptabel risiko, og alt på det nivået er forbudt.</p>" },
+        { s: "Biometrisk identifikasjon er på lysarket plassert under minimal risiko.", answer: false, explain: "<p>Biometrisk identifikasjon kan ramme personvern og rettigheter, så lysarket plasserer den under høy risiko.</p>" },
         { s: "Leveransekjedeangrep vises som en hendelse hos leverandøren som går videre til virksomheten gjennom et tillitsforhold.", answer: true, explain: "<p>Hendelse 1 hos leverandøren blir hendelse 2 hos virksomheten.</p>" },
-        { s: "Lysarket gir en liste med tiltak mot prompt injection.", answer: false, explain: "<p>Tiltakene er ukjent i kildene.</p>" }
+        { s: "Lysarket gir en liste med tiltak mot prompt injection.", answer: false, explain: "<p>Lysarket viser bare hvordan angrepet virker. Kildene gir ingen tiltaksliste, så tiltak må du begrunne selv.</p>" }
       ]
     };
     Object.keys(TF).forEach(function (fane) {
@@ -706,12 +718,12 @@
           { s: "Aktøren bruker spearphishing med vedlegg og holder seg inne ved å starte ved pålogging", svar: [1], explain: "<p>En beskrivelse av metoden (TTP) er taktisk/operasjonell CTI.</p>" },
           { s: "Rapport til styret: statlige aktører prioriterer selskaper med kraftkontrakter", svar: [0], explain: "<p>Mål og strategi hos aktørene er strategisk CTI.</p>" },
           { s: "Kartlegging av en gruppe i MITRE ATT&amp;CK med taktikker og teknikker", svar: [1], explain: "<p>ATT&amp;CK beskriver TTP, altså taktisk nivå (H2024 36).</p>" },
-          { s: "SHA-256-hash av et ondsinnet vedlegg", svar: [2], explain: "<p>En filhash er en teknisk indikator.</p>" } ] } },
+          { s: "SHA-256-hash av et ondsinnet vedlegg", svar: [2], explain: "<p>En hash peker ut én bestemt fil, så den er et konkret spor: teknisk CTI. Den er kortlivet, for en liten endring i fila gir ny hash.</p>" } ] } },
       { key: "ov-cyber-6", title: "Norske aktører", points: 4, inspera: { type: "N", regelTekst: N1, regel: rn(4),
         tekst: "<p>Et større dataangrep mot kritisk infrastruktur håndteres nasjonalt av {0}. Oppfølging av utenlandske trusselaktører er oppgaven til {1}. Å forebygge lovbrudd som truer landets sikkerhet innenlands er oppgaven til {2}. De tre samarbeider i {3}.</p>",
         felt: [
           { etikett: "Kritisk infrastruktur", valg: ["NSM", "PST", "Datatilsynet"], svar: 0, explain: "<p>NSM er myndighet for nasjonale sikkerhetshendelser.</p>" },
-          { etikett: "Utenlandske aktører", valg: ["PST", "Etterretningstjenesten", "NSM"], svar: 1, explain: "<p>E-tjenesten har oppdrag i utlandet.</p>" },
+          { etikett: "Utenlandske aktører", valg: ["PST", "Etterretningstjenesten", "NSM"], svar: 1, explain: "<p>E-tjenesten følger trusler fra utlandet. PST arbeider innenlands, og NSM med forebyggende sikkerhet.</p>" },
           { etikett: "Innenlands", valg: ["PST", "Etterretningstjenesten", "NorSIS"], svar: 0, explain: "<p>PST har ansvar for intern, nasjonal sikkerhet.</p>" },
           { etikett: "Samarbeid", valg: ["FCKS", "VDI", "STIX"], svar: 0, explain: "<p>Felles cyberkoordineringssenter. VDI er NSMs varslingssystem, og STIX er et språk for CTI.</p>" } ] } },
       { key: "ov-cyber-7", title: "Type operasjon", points: 2, inspera: { type: "M", multi: false, kolonner: ["Spionasje", "Sabotasje", "Forsvar", "Ikke en cyberoperasjon"],
@@ -744,25 +756,25 @@
           { s: "Falsk video av en direktør brukes til å be om en pengeoverføring", svar: [0], explain: "<p>Bilde- og videogenerering til svindel er offensiv KI.</p>" },
           { s: "Et nevralt nett klassifiserer netflow-poster som normal, DoS eller eksfiltrering", svar: [1], explain: "<p>Inntrengningsdeteksjon er defensiv KI.</p>" },
           { s: "Noen legger feilmerkede eksempler inn i treningsdataene til et spamfilter", svar: [2], explain: "<p>Forgiftning av læringsdata er et angrep mot KI.</p>" },
-          { s: "En språkmodell hjelper en analytiker å sortere varsler i en SIEM", svar: [1], explain: "<p>Hendelsesrespons er defensiv KI.</p>" },
+          { s: "En språkmodell hjelper en analytiker å sortere varsler i en SIEM", svar: [1], explain: "<p>KI hjelper forsvareren å håndtere hendelser raskere. Hendelsesrespons er defensiv KI.</p>" },
           { s: "Tusenvis av personlig tilpassede phishing-e-poster lages automatisk", svar: [0], explain: "<p>Angrepsautomatisering er offensiv KI.</p>" },
           { s: "En nettside inneholder skjult tekst som får en KI-assistent til å sende ut filer", svar: [2], explain: "<p>Prompt injection er et injeksjonsangrep mot KI.</p>" } ] } },
       { key: "ov-cyber-10", title: "KI-begreper og IDS", points: 4, inspera: { type: "N", regelTekst: N1, regel: rn(4),
         tekst: "<p>En modell som lager nye bilder ut fra mønstre i store datasett, kalles {0}. Når en ferdig trent modell brukes på nye data, er vi i {1}. En autoenkoder for IDS trenes på {2}, og den varsler når {3}.</p>",
         felt: [
-          { etikett: "Lager nye bilder", valg: ["generativ KI", "regelbasert KI", "veiledet klassifisering"], svar: 0, explain: "<p>GenKI lager nytt innhold.</p>" },
+          { etikett: "Lager nye bilder", valg: ["generativ KI", "regelbasert KI", "veiledet klassifisering"], svar: 0, explain: "<p>Generativ KI lager nytt innhold ut fra mønstre i treningsdataene. Klassifisering setter bare en merkelapp på det som finnes.</p>" },
           { etikett: "Fase", valg: ["treningsfasen", "inferensfasen", "merkefasen"], svar: 1, explain: "<p>Inferens = trent modell, ny input, output.</p>" },
-          { etikett: "Treningsdata", valg: ["normal trafikk", "bare kjente angrep", "tilfeldig støy"], svar: 0, explain: "<p>Den lærer å gjenskape det normale.</p>" },
+          { etikett: "Treningsdata", valg: ["normal trafikk", "bare kjente angrep", "tilfeldig støy"], svar: 0, explain: "<p>Autoenkoderen trenes på normal trafikk og lærer å gjenskape den. Den trenger derfor ingen eksempler på angrep.</p>" },
           { etikett: "Varsler når", valg: ["rekonstruksjonsfeilen er stor", "trafikken er kryptert", "porten er over 1024"], svar: 0, explain: "<p>Stor avstand mellom målt og gjenskapt trafikk betyr anomali.</p>" } ] } },
       { key: "ov-cyber-11", title: "AI Act-nivå", points: 3, inspera: { type: "M", multi: false,
         kolonner: ["Uakseptabel (forbudt)", "Høy (samsvarsvurdering)", "Begrenset (transparens)", "Minimal (etiske retningslinjer)"],
         regelTekst: M05, regel: rm(3),
         rader: [
-          { s: "En kommune gir innbyggerne poeng etter oppførsel, og poengene styrer tilgang til tjenester", svar: [0], explain: "<p>Sosial skåring er forbudt.</p>" },
-          { s: "Et system som rangerer jobbsøkere for et rekrutteringsbyrå", svar: [1], explain: "<p>HR-systemer er høy risiko.</p>" },
+          { s: "En kommune gir innbyggerne poeng etter oppførsel, og poengene styrer tilgang til tjenester", svar: [0], explain: "<p>Poeng for oppførsel som styrer tilgang til tjenester, er sosial skåring. Det er uakseptabel risiko og forbudt.</p>" },
+          { s: "Et system som rangerer jobbsøkere for et rekrutteringsbyrå", svar: [1], explain: "<p>Rangeringen påvirker hvem som får jobb, og ansettelse (HR) står på lista over høy risiko.</p>" },
           { s: "En kundeservice-chattebot på en nettbutikk", svar: [2], explain: "<p>Chatteboter krever transparens: brukeren skal vite at det er en KI.</p>" },
-          { s: "En KI-motstander i et dataspill", svar: [3], explain: "<p>Spill er minimal risiko.</p>" },
-          { s: "KI som vurderer søknader om oppholdstillatelse", svar: [1], explain: "<p>Immigrasjon er høy risiko.</p>" },
+          { s: "En KI-motstander i et dataspill", svar: [3], explain: "<p>En spillmotstander påvirker ingen rettigheter eller viktige avgjørelser, så den har minimal risiko.</p>" },
+          { s: "KI som vurderer søknader om oppholdstillatelse", svar: [1], explain: "<p>Avgjørelsen har stor betydning for den som søker, og immigrasjon står på lista over høy risiko.</p>" },
           { s: "En reklamefilm med en KI-generert kopi av en kjent skuespiller", svar: [2], explain: "<p>Deepfakes står under begrenset risiko og skal merkes.</p>" } ] } },
       { key: "ov-cyber-12", title: "Angrep og sted i KI-kjeden", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["Treningsdata", "Input ved inferens", "Hele leveransekjeden"],
         regelTekst: M05, regel: rm(2.5),
@@ -774,6 +786,9 @@
           { s: "Jailbreak: brukeren omgår modellens sikkerhetsregler med kamuflert tekst", svar: [1], explain: "<p>Det skjer i spørsmålet som gis den ferdige modellen.</p>" } ] } }
     ];
     OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
+
+    // Nye visuelle forklaringer (IN.FORKLAR i figurer/forklar-c.js)
+    safe("fk-ttp-hierarki", function () { IN.FORKLAR["ttp-hierarki"]("#fk-ttp-hierarki"); });
 
     /* ---------- Eksamensbanken ---------- */
     safe("bank-cyber", function () { IN.examBank("#bank-cyber", { block: "cyberops" }); });

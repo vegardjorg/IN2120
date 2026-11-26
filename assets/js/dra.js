@@ -16,7 +16,7 @@
    har «Sjekk svar» og «↺ Nullstill», poenglinje, forklaring per brikke og kildelinje.
 
    spec: {
-     id,                       lagringsnøkkel og fremdrifts-id (uten id: ingen lagring eller fremdrift)
+     id,                       lagringsnøkkel og fremdrifts-id (uten id: lagring med utledet id, ingen fremdrift)
      mode: "sort" | "bucket" | "match"   (settes av inngangene over)
      prompt: html | {eli5, normal, teknisk},
      render?: fn(node)         egen figur under oppgaveteksten
@@ -40,11 +40,16 @@
    report), hver gang oppgaven rapporteres: ved «Sjekk svar», og når alle brikker er plassert med
    «Vis svar med en gang» på. Ikke ved gjenoppretting fra lagring (bruk handle.checked() da).
 
-   Brikkenes forklaring vises i lista «Forklaring per brikke» når tilbakemelding er på
-   (etter «Sjekk svar», eller med en gang hvis bryteren er på). Gale brikker åpner forklaringen sin.
+   Etter «Sjekk svar» viser gale brikker «✗ → riktig plass». Et trykk (eller Mellomrom/Enter) på en gal brikke
+   folder ut forklaringen i selve brikken (aria-expanded); et nytt trykk folder den sammen. Lista «Forklaring per
+   brikke» er en lukket <details> under knappene (alle forklaringene, for den som vil lese dem samlet).
+   Telleren øverst er bare fremdrift («3 av 6 plassert»). Resultatet står i én linje under knappene:
+   «2 av 3 poeng · 2 riktig · 1 galt · 0 ubesvart» (uten regel: «2 av 3 riktig · 1 galt · 0 ubesvart»), og
+   regelen i en lukket <details> «Slik retter øvingen». opts.checkLabel som begynner med «Sjekk» blir «Sjekk svar».
    Nivåbytte tegner oppgavetekst, brikker og forklaringer på nytt.
 
-   Lagring: in2120:dra:<side>:<id>  { s: tilstand, c: sjekket, h: fingeravtrykk }
+   Lagring: in2120:dra:<side>:<id>  { s: tilstand, c: sjekket, h: fingeravtrykk }. Uten spec.id utledes id fra
+   host-id, ellers fra nærmeste forelder med id + «~» + løpenummer blant .dra der (bare lagring; fremdrift krever id).
    Fremdrift: IN.progress.solved("dra", id, poeng, maks) med regel, ellers (riktige, totalt).
 
    Handle: { el, check(), reset(), counts(), poeng() → {poeng, raa, maks, min} | null,
@@ -181,6 +186,16 @@
       (s.rb ? sgn(s.rb) : "0") + " per " + (enhet || "brikke") + ". Aldri under " + num(s.min) +
       (regel.maks != null ? ", høyst " + num(s.maks) : "") + " poeng.";
   }
+  /* Regelteksten uten «Slik retter øvingen: » (den står i <summary>). */
+  function regelUten(t) { t = String(t).replace(/^Slik retter øvingen:\s*/, ""); return t.charAt(0).toUpperCase() + t.slice(1); }
+  /* B5: lagringsid uten spec.id: host-id, ellers nærmeste forelder med id + løpenummer blant øvingene der. */
+  function autoId(host, node, sel) {
+    if (host.id) { var j = Array.prototype.indexOf.call(host.querySelectorAll(sel), node); return j > 0 ? host.id + "~" + j : host.id; }
+    for (var a = host.parentNode; a && a.nodeType === 1; a = a.parentNode) {
+      if (a.id) { var i = Array.prototype.indexOf.call(a.querySelectorAll(sel), node); return i >= 0 ? a.id + "~" + i : null; }
+    }
+    return null;
+  }
   /* Flytt i en rekkefølge: id til plass idx (etter at den er tatt ut). */
   function moveTo(order, id, idx) {
     var a = order.filter(function (x) { return x !== id; });
@@ -212,7 +227,7 @@
     var el = IN.el, ns = normalize(spec), mode = ns.mode, uid = "dra" + (++uidN);
     var follow = opts.instant == null;
     var side = opts.side || (IN.pageId ? IN.pageId() : "index");
-    var storeKey = spec.id ? "in2120:dra:" + side + ":" + spec.id : null;
+    var storeKey = null;   // settes når wrap står i host (B5: id utledes fra host-id når spec.id mangler)
     var fp = fingerprint(ns);
     var st = emptyState(ns, opts.shuffle), checked = false, reported = false, open = {};
     var sel = null, kb = null, target = null;   // kb: { from } når brikken er løftet med tastaturet
@@ -222,12 +237,6 @@
     ns.zones.forEach(function (z) { zoneById[z.id] = z; });
     var poolLabel = spec.poolLabel || "Ikke plassert";
 
-    if (storeKey && IN.store) {
-      try {
-        var saved = JSON.parse(IN.store.get(storeKey, "null"));
-        if (saved && saved.h === fp && validState(ns, saved.s)) { st = saved.s; checked = !!saved.c; }
-      } catch (e) {}
-    }
     function persist() { if (storeKey && IN.store) IN.store.set(storeKey, JSON.stringify({ s: st, c: checked, h: fp })); }
     function instant() { return follow ? !!(IN.svarStraks && IN.svarStraks.get()) : !!opts.instant; }
     function locked() { return !!(opts.lock && checked); }
@@ -276,7 +285,9 @@
       if (IN.symbolTips) IN.symbolTips(promptEl);
     }
     paintPrompt();
-    var regelEl = ns.regel ? el("p", { class: "ov-regel", text: regelTekst(ns.regel) }) : null;
+    // B1: regelen står i en lukket <details> under resultatlinja
+    var regelEl = ns.regel ? el("details", { class: "ov-regel-d" }, [el("summary", { text: "Slik retter øvingen" }),
+      el("p", { class: "ov-regel", text: regelUten(regelTekst(ns.regel)) })]) : null;
     var extra = null;
     if (spec.render) { extra = el("div", { class: "dra-extra" }); try { spec.render(extra); } catch (e) { if (window.console) console.error("[dra] render", e); } }
     var hintId = uid + "-hint";
@@ -300,9 +311,11 @@
       var sr = el("span", { class: "qz-sr" });
       var pos = mode === "sort" ? el("span", { class: "dra-pos", "aria-hidden": "true" }) : null;
       var lbl = el("span", { class: "dra-lbl", html: pick(it.html) });
+      // B3: forklaringen ligger i brikken og foldes ut med et trykk på en gal brikke etter «Sjekk svar»
+      var xp = el("span", { class: "dra-chip-x", hidden: true });
       var b = el("button", { class: "dra-chip", type: "button", "aria-pressed": "false", "aria-describedby": hintId, "data-item": it.id }, [
-        el("span", { class: "dra-grip", "aria-hidden": "true", text: "☰" }), pos, lbl, mark, fas, sr].filter(Boolean));
-      b._mark = mark; b._fas = fas; b._sr = sr; b._pos = pos; b._lbl = lbl;
+        el("span", { class: "dra-grip", "aria-hidden": "true", text: "☰" }), pos, lbl, mark, fas, sr, xp].filter(Boolean));
+      b._mark = mark; b._fas = fas; b._sr = sr; b._pos = pos; b._lbl = lbl; b._xp = xp; b._xpFilled = false;
       b.addEventListener("click", function () { onChipClick(it.id); });
       b.addEventListener("keydown", function (e) { onChipKey(e, it.id); });
       // Mellomrom aktiverer knapper på keyup. Vi har allerede håndtert tasten i keydown.
@@ -340,8 +353,8 @@
     }
 
     /* ---- Forklaring per brikke ---- */
-    var expHead = el("p", { class: "dra-exphead", text: "Forklaring per brikke", hidden: true });
-    var expList = el("ol", { class: "qz-list dra-exps", hidden: true });
+    var expList = el("ol", { class: "qz-list dra-exps" });
+    var expDet = el("details", { class: "dra-exps-d", hidden: true }, [el("summary", { class: "dra-exphead", text: "Forklaring per brikke" }), expList]);
     var expRows = {};
     var expOrder = mode === "sort"
       ? ns.items.slice().sort(function (a, b) { return ns.key[a.id] - ns.key[b.id]; })
@@ -351,16 +364,12 @@
       var num = el("span", { class: "qz-num", "aria-hidden": "true", text: i + 1 });
       var body = el("div", { class: "qz-body" });
       var pr = el("div", { class: "qz-prompt" });
-      var expId = uid + "-x" + i;
-      var tog = el("button", { class: "qz-exp-btn", type: "button", "aria-expanded": "false", "aria-controls": expId,
-        onclick: function () { open[it.id] = !open[it.id]; paint(); } },
-        [el("span", { text: "Forklaring" }), el("span", { class: "qz-caret", "aria-hidden": "true", text: "▾" })]);
-      var exp = el("div", { class: "qz-exp", id: expId, hidden: true });
-      body.appendChild(el("div", { class: "dra-exprow" }, [pr, tog]));
+      var exp = el("div", { class: "qz-exp", hidden: true });
+      body.appendChild(el("div", { class: "dra-exprow" }, [pr]));
       body.appendChild(exp);
       li.appendChild(num); li.appendChild(body);
       expList.appendChild(li);
-      expRows[it.id] = { li: li, num: num, pr: pr, tog: tog, exp: exp, filled: false, it: it };
+      expRows[it.id] = { li: li, num: num, pr: pr, exp: exp, filled: false, it: it };
     });
     function fillExp(r) {
       r.filled = true;
@@ -372,7 +381,9 @@
     }
 
     /* ---- Knapper, resultat, kilde ---- */
-    var bCheck = el("button", { class: "btn primary", type: "button", text: opts.checkLabel || "Sjekk svar", onclick: function () { doCheck(); } });
+    // A2: primærknappen heter alltid «Sjekk svar» («Sjekk», «Sjekk plasseringen» o.l. fra kalleren normaliseres).
+    var checkLabel = opts.checkLabel && !/^\s*sjekk\b/i.test(opts.checkLabel) ? opts.checkLabel : "Sjekk svar";
+    var bCheck = el("button", { class: "btn primary", type: "button", text: checkLabel, onclick: function () { doCheck(); } });
     var bReset = el("button", { class: "btn", type: "button", text: opts.resetLabel || "↺ Nullstill", onclick: function () { doReset(); } });
     var foot = el("div", { class: "qz-foot" }, [bCheck, bReset]);
     var res = el("div", { class: "qz-result" });
@@ -425,8 +436,17 @@
       quickRaf = window.requestAnimationFrame(function () { quickRaf = null; paintQuick(); });
     }
 
-    [head, promptEl, regelEl, extra, hint, board, foot, res, expHead, expList, kildeEl, fnEl, quick, live].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [head, promptEl, extra, hint, board, foot, res, regelEl, expDet, kildeEl, fnEl, quick, live].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap);
+    // B5: lagre også uten spec.id. Nøkkelen utledes fra host-id (eller nærmeste forelder med id + løpenummer).
+    var lagId = spec.id ? String(spec.id) : autoId(host, wrap, ".dra");
+    storeKey = lagId ? "in2120:dra:" + side + ":" + lagId : null;
+    if (storeKey && IN.store) {
+      try {
+        var saved = JSON.parse(IN.store.get(storeKey, "null"));
+        if (saved && saved.h === fp && validState(ns, saved.s)) { st = saved.s; checked = !!saved.c; }
+      } catch (e) {}
+    }
 
     /* ---------------- Tegning ---------------- */
     function paintChip(id) {
@@ -439,6 +459,25 @@
       if (s === "wrong") { b._fas.hidden = false; b._fas.textContent = "→ " + (mode === "sort" ? "plass " + (ns.key[id] + 1) : zoneName(ns.key[id])); }
       else { b._fas.hidden = true; b._fas.textContent = ""; }
       b._sr.textContent = s === "right" ? " Riktig." : s === "wrong" ? " Feil. Riktig: " + keyText(id) + "." : "";
+      var kanX = canExplain(id), xOpen = kanX && !!open[id];
+      b.classList.toggle("har-x", kanX);
+      b.classList.toggle("x-open", xOpen);
+      if (kanX) b.setAttribute("aria-expanded", xOpen ? "true" : "false"); else b.removeAttribute("aria-expanded");
+      if (xOpen && !b._xpFilled) {
+        b._xpFilled = true;
+        var v = pick(itemById[id].explain);
+        b._xp.innerHTML = "";
+        if (v && v.nodeType) b._xp.appendChild(v); else b._xp.innerHTML = String(v);
+        if (IN.symbolTips) IN.symbolTips(b._xp);
+      }
+      b._xp.hidden = !xOpen;
+    }
+    /* Gal brikke etter «Sjekk svar» med forklaring: et trykk folder ut forklaringen i brikken. */
+    function canExplain(id) { return checked && stateOf(id) === "wrong" && !!pick(itemById[id].explain); }
+    function toggleX(id) {
+      open[id] = !open[id];
+      paint();
+      say(open[id] ? "Forklaring: " + plainText(pick(itemById[id].explain)) : "Forklaringen er skjult.");
     }
     function paintBoard() {
       if (mode === "sort") {
@@ -486,24 +525,16 @@
         r.pr.appendChild(el("span", { class: "dra-expkey", text: " → " + keyText(it.id) }));
         if (s !== "right") r.pr.appendChild(el("span", { class: "dra-expdu", text: " (du: " + du + ")" }));
         var has = !!pick(it.explain);
-        var isOpen = !!open[it.id];
-        r.tog.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        r.tog.hidden = !has;
-        if (isOpen && !r.filled) fillExp(r);
-        r.exp.hidden = !isOpen || !has;
+        if (has && !r.filled) fillExp(r);
+        r.exp.hidden = !has;
       });
-      expList.hidden = !any; expHead.hidden = !any;
+      expDet.hidden = !any;
     }
     function poeng() { return skaar(counts(), ns.regel); }
+    /* B1: telleren øverst er en ren fremdriftsteller. Resultatet står bare i resultatlinja under knappene. */
     function scoreHtml(c) {
-      if (checked) {
-        var p = poeng();
-        return '<b class="ok">✓ ' + c.right + ' riktig</b> · <b class="no">✗ ' + c.wrong + " galt</b>" +
-          (c.blank ? ' · <span class="muted">' + c.blank + " ikke plassert</span>" : "") +
-          (p ? " · <b>" + num(p.poeng) + " av " + num(p.maks) + " poeng</b>" : " · " + c.right + "/" + c.total);
-      }
-      if (mode === "sort") return c.total + " linjer" + (instant() ? ' · <b class="ok">' + c.right + " på riktig plass</b>" : "");
-      return c.answered + " av " + c.total + " plassert" + (instant() && c.answered ? ' · <b class="ok">' + c.right + " riktig</b>" : "");
+      if (mode === "sort") return c.total + " linjer";
+      return c.answered + " av " + c.total + " plassert";
     }
     function paint() {
       if (sw) sw.setAttribute("aria-checked", instant() ? "true" : "false");
@@ -513,6 +544,7 @@
       score.innerHTML = scoreHtml(counts());
       bCheck.disabled = locked();
       bReset.disabled = false;
+      if (checked) paintResult();
       paintQuick();
     }
 
@@ -529,7 +561,6 @@
     function afterMove(id, msg) {
       persist();
       var s = stateOf(id);
-      if (s === "wrong") open[id] = true;
       paint();
       flash(id);
       say(msg + (s === "right" ? " Riktig." : s === "wrong" ? " Feil. Riktig: " + keyText(id) + "." : ""));
@@ -572,6 +603,7 @@
     function onChipClick(id) {
       if (suppressClick) { suppressClick = false; return; }
       if (locked()) return;
+      if (!sel && canExplain(id)) { toggleX(id); return; }
       if (sel === id) { deselect("Valget er angret."); return; }
       if (mode === "sort" && sel) { var to = st.order.indexOf(id); moveSort(sel, to); return; }
       select(id, false);
@@ -607,6 +639,7 @@
       }
       if (isAct(e)) {
         e.preventDefault();
+        if (!sel && canExplain(id)) { toggleX(id); return; }
         if (sel === id && kb) {                     // slipp
           if (mode === "sort") { deselect(itemText(id) + " lagt på plass " + (st.order.indexOf(id) + 1) + "."); }
           else place(id, target || POOL);
@@ -760,11 +793,14 @@
       if (!checked) return;
       var c = counts(), p = poeng();
       if (opts.result) { var x = opts.result(c, p); if (typeof x === "string") res.innerHTML = x; else if (x) res.appendChild(x); return; }
-      if (p) {
-        res.appendChild(el("p", { class: "ov-sum", html: "<b>" + num(p.poeng) + " av " + num(p.maks) + " poeng</b> med eksamensregelen. " +
-          c.right + " riktig, " + c.wrong + " galt, " + c.blank + " ubesvart" +
-          (p.raa < p.min ? " (summen ble " + num(p.raa) + ", men en oppgave gir aldri under " + num(p.min) + ")" : "") + "." }));
-      }
+      // B1: én resultatlinje, «2 av 3 poeng · 2 riktig · 1 galt · 0 ubesvart»
+      var linje = p ? "<b>" + num(p.poeng) + " av " + num(p.maks) + " poeng</b> · " + c.right + " riktig"
+        : "<b>" + c.right + " av " + c.total + " riktig</b>";
+      linje += " · " + c.wrong + " galt" + (mode === "sort" ? "" : " · " + c.blank + " ubesvart");
+      if (p && p.raa < p.min) linje += ' <span class="muted">(summen ble ' + num(p.raa) + ", men en oppgave gir aldri under " + num(p.min) + ")</span>";
+      res.appendChild(el("p", { class: "ov-sum ov-reslinje", html: linje }));
+      if (ns.items.some(function (it) { return canExplain(it.id); }))
+        res.appendChild(el("p", { class: "dra-xhint", text: "Trykk på en gal brikke for å se forklaringen." }));
       if (spec.oppsummering) {
         var o = el("div", { class: "ov-oppsum dra-oppsum" });
         var v = pick(spec.oppsummering);
@@ -775,9 +811,8 @@
     }
     function doCheck() {
       checked = true; sel = null; kb = null; target = null;
-      ns.items.forEach(function (it) { open[it.id] = stateOf(it.id) === "wrong"; });
+      open = {};
       persist(); paint(); report();
-      paintResult();
       var c = counts(), p = poeng();
       say(c.right + " av " + c.total + " riktig. " + c.wrong + " galt" + (c.blank ? ", " + c.blank + " ikke plassert" : "") + "." +
         (p ? " " + num(p.poeng) + " av " + num(p.maks) + " poeng." : ""));
@@ -790,10 +825,7 @@
       paint(); say("Nullstilt.");
     }
 
-    if (checked) {
-      ns.items.forEach(function (it) { open[it.id] = stateOf(it.id) === "wrong"; });
-      paintResult();
-    }
+    if (checked) paintResult();
     function onPref() { if (!wrap.isConnected) { if (host._draOff) host._draOff(); return; } paint(); }
     function onDocKey(e) { if ((e.key === "Escape" || e.key === "Esc") && sel && !wrap.contains(document.activeElement)) deselect("Valget er angret."); }
     var dead = false;
@@ -801,7 +833,7 @@
       if (dead) return;
       if (wrap.isConnected === false) { if (host._draOff) host._draOff(); return; }
       paintPrompt();
-      ns.items.forEach(function (it) { chips[it.id]._lbl.innerHTML = pick(it.html); expRows[it.id].filled = false; });
+      ns.items.forEach(function (it) { chips[it.id]._lbl.innerHTML = pick(it.html); chips[it.id]._xpFilled = false; expRows[it.id].filled = false; });
       paint(); paintResult();
     }
     document.addEventListener("in:svar-straks", onPref);

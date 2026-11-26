@@ -4,12 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blokk 3 · PKI · IN2120</title>
+  <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261125n">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261125n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126a">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -192,6 +194,8 @@
       <h4>Sertifikatfeltene og signaturen</h4>
       <p class="small muted">Først fyller du ut sertifikatet selv. Når du har sjekket svaret, lager CA-en sertifikatet steg for steg (med gjett før neste steg), og nederst kan du endre et felt og se om nettleseren oppdager det. Leke-RSA med modul 33 er et leketøy, ikke kursstoff: ekte nøkler har tusenvis av bit eller er ECC.</p>
       <div id="viz-felter"></div>
+      <p class="small muted fig-vis-led">Et ekte sertifikat (uio.no) i nettleserens visning: finn Subject, Issuer, Validity, offentlig nøkkel og Key Usages.</p>
+      <div id="fv-felter"></div>
 
       <h4>Eksempel: leke-RSA regnet for hånd</h4>
       <ul>
@@ -246,6 +250,8 @@
           <li><b>Selvsignert gir ingen sikkerhet</b> i seg selv. Selvsigneringen fyller bare signaturfeltet, så sertifikatet blir syntaktisk komplett. Tilliten til en rot kommer fra kanalen den ble distribuert gjennom (d03 s. 36).</li>
         </ul></div>
       <div id="ex-kjede"></div>
+      <p class="small muted fig-vis-led">Slik ser en sertifikatsti ut i nettleseren: roten øverst, subjektet nederst.</p>
+      <div id="fv-kjede"></div>
 
       <h4>Klikkbar sertifikatkjede</h4>
       <p class="small muted">Velg et scenario og trykk «Valider ett steg». Klikk på et kort for å se feltene, og endre et felt i subjektkortet. «Oppgave: finn feilen» laster et ukjent scenario: klikk på steget du tror feiler.</p>
@@ -369,6 +375,8 @@
           <li><b>Domenevalidering:</b> CA-en må identifisere eieren riktig før den utsteder (t03 O7b). Nivåene DV, OV og EV står ikke i 2026-kildene. «OV» i «GEANT OV ECC CA 4» betyr organisasjonsvalidert.</li>
         </ul></div>
       <div id="ex-revokering"></div>
+      <p class="small muted fig-vis-led">OCSP uten og med stifting. Med stifting henter tjeneren statussvaret selv, så CA-en ikke får vite hvem som besøker nettstedet (utenfor 2026-lysarkene).</p>
+      <div id="fk-ocsp-stifting"></div>
 
       <h4>Statussjekk i kjeden</h4>
       <p class="small muted">Samme kjede som i fane 4. Bytt statussjekk mellom OCSP, stifting og ingen, og se hva som skjer med et tilbakekalt sertifikat.</p>
@@ -427,21 +435,29 @@
 
   <footer class="footer">IN2120-guide · Blokk 3 · PKI · <a href="04-angrep.html">Neste: blokk 4, angrep og pentest</a></footer>
 
-  <script src="assets/js/core.js?v=20261125n"></script>
-  <script src="assets/js/symboler.js?v=20261125n"></script>
-  <script src="assets/js/pseudocode.js?v=20261125n"></script>
-  <script src="assets/js/stepplayer.js?v=20261125n"></script>
-  <script src="assets/js/varline.js?v=20261125n"></script>
-  <script src="assets/js/inspera.js?v=20261125n"></script>
-  <script src="assets/js/dra.js?v=20261125n"></script>
-  <script src="assets/js/ovelse.js?v=20261125n"></script>
-  <script src="assets/js/bank.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261125n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261125n"></script>
-  <script src="assets/js/viz-pki.js?v=20261125n"></script>
+  <script src="assets/js/core.js?v=20261126a"></script>
+  <script src="assets/js/symboler.js?v=20261126a"></script>
+  <script src="assets/js/pseudocode.js?v=20261126a"></script>
+  <script src="assets/js/stepplayer.js?v=20261126a"></script>
+  <script src="assets/js/varline.js?v=20261126a"></script>
+  <script src="assets/js/inspera.js?v=20261126a"></script>
+  <script src="assets/js/dra.js?v=20261126a"></script>
+  <script src="assets/js/ovelse.js?v=20261126a"></script>
+  <script src="assets/js/bank.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/viz-pki.js?v=20261126a"></script>
   <script>
   (function () {
     "use strict";
@@ -537,7 +553,7 @@
       ],
       kjede: [
         { q: "Hvem har signert et mellomliggende CA-sertifikat i en kjede med tre ledd?", options: ["Rot-CA-en, med sin private nøkkel", "Den mellomliggende CA-en selv", "Webtjeneren"], answer: 0,
-          explain: "<p>Bare roten er selvsignert (d03 s. 35).</p>" },
+          explain: "<p>Leddet over signerer leddet under. Over det mellomliggende sitter roten, som signerer med sin private nøkkel. Bare roten er selvsignert (d03 s. 35).</p>" },
         { q: "Hvor ligger rotsertifikatene som nettleseren bruker?", options: ["Forhåndslagret i nettleseren eller operativsystemet", "De lastes alltid ned fra tjeneren", "I DNS"], answer: 0,
           explain: "<p>Roten kan ikke komme fra tjeneren, for da kunne angriperen sendt sin egen (d03 s. 33, 41).</p>" },
         { q: "Hva sjekker nettleseren <i>i tillegg til</i> signaturene for å godta et tjenersertifikat?", options: ["At domenenavnet stemmer med adresselinjen", "At nettstedet er seriøst", "At tjeneren har privatnøkkelen i sertifikatet"], answer: 0,
@@ -549,13 +565,13 @@
       ],
       tillit: [
         { q: "Hvilken tillitsmodell bruker nettlesere for https?", options: ["Enkelt hierarki", "Silo-hierarkier", "Brukersentrisk"], answer: 1,
-          explain: "<p>Noen hundre uavhengige røtter (d03 s. 41).</p>" },
+          explain: "<p>Nettleseren har noen hundre uavhengige røtter installert, og hver er toppen av sitt eget hierarki. Det er silo-hierarkier, ikke ett enkelt (d03 s. 41).</p>" },
         { q: "Hvilken modell bruker PGP?", options: ["Brukersentrisk", "Bro-CA", "Enkelt hierarki"], answer: 0,
           explain: "<p>Web of trust: hver bruker er sin egen rot (d03 s. 40).</p>" },
         { q: "Hva er tillitsforvirring?", options: ["Å tro at et gyldig sertifikat betyr at nettstedet er pålitelig", "Å blande offentlig og privat nøkkel", "At to CA-er har samme navn"], answer: 0,
           explain: "<p>Sertifikatet gir autentisitet, ikke pålitelighet (d03 s. 42–43).</p>" },
         { q: "Hva er hovedulempen med et enkelt hierarki?", options: ["Kompromittering av roten gir totalt sammenbrudd", "Det er tregt", "Det krever PGP"], answer: 0,
-          explain: "<p>Alle stoler på samme rot (d03 s. 39).</p>" },
+          explain: "<p>Alle stoler på én og samme rot. Blir rotnøkkelen kompromittert, faller tilliten til hvert eneste sertifikat under den (d03 s. 39).</p>" },
         { q: "Hva gjorde nettleserne etter DigiNotar-hacket?", options: ["Fjernet DigiNotar som rot-CA", "Ingenting", "Gjorde DigiNotar til eneste rot"], answer: 0,
           explain: "<p>Roten ble fjernet (d03 s. 44). Hva som skjedde senere, er usikkert i kildene.</p>" }
       ],
@@ -580,24 +596,24 @@
     var TF = {
       livssyklus: [
         { s: "En vanlig sletteoperasjon er nok til å destruere en nøkkel.", answer: false, explain: "<p>Nøkkelen kan ligge i papirkurven eller i disksektorer.</p>" },
-        { s: "Bruker man samme nøkkel til flere formål, kan sikkerheten til ett av formålene bli svekket.", answer: true, explain: "<p>Én nøkkel – én anvendelse (d03 s. 12).</p>" },
+        { s: "Bruker man samme nøkkel til flere formål, kan sikkerheten til ett av formålene bli svekket.", answer: true, explain: "<p>En svakhet i bruken til ett formål kan da utnyttes mot det andre, og en lekkasje rammer begge. Derfor gjelder én nøkkel, én anvendelse (d03 s. 12).</p>" },
         { s: "Private nøkler trenger samme konfidensialitetsvern som hemmelige symmetriske nøkler.", answer: true, explain: "<p>Den som har en privat nøkkel, kan dekryptere og signere i eierens navn (d03 s. 25).</p>" },
-        { s: "En suspendert nøkkel kan fortsatt brukes til å signere nye dokumenter.", answer: false, explain: "<p>Suspendert gir bare prosessering.</p>" },
+        { s: "En suspendert nøkkel kan fortsatt brukes til å signere nye dokumenter.", answer: false, explain: "<p>Suspendert er en midlertidig stopp. Nøkkelen kan bare prosessere, altså verifisere eller dekryptere gamle data. Å signere noe nytt er beskyttelse, og det er bare lov i aktivert tilstand.</p>" },
         { s: "I BSAFE-saken kunne nøklene lages på nytt fordi tallgeneratoren var svekket.", answer: true, explain: "<p>Forutsigbar generator gir forutsigbare nøkler (d03 s. 22).</p>" },
         { s: "Rotnøkler kan bare beskyttes med fysisk sikring og tilgangskontroll.", answer: true, explain: "<p>Det finnes ingen nøkkel over dem som kan kryptere dem (t03 O4d).</p>" },
         { s: "Dobbel hashlengde (512 bit) holder mot kvantedatamaskiner ifølge d03.", answer: true, explain: "<p>Symmetrisk og hash holder med dobbel lengde (d03 s. 20).</p>" }
       ],
       kryptoperiode: [
-        { s: "Kryptoperioden går fra starten av beskyttelsesperioden til slutten av prosesseringsperioden.", answer: true, explain: "<p>d03 s. 15.</p>" },
+        { s: "Kryptoperioden går fra starten av beskyttelsesperioden til slutten av prosesseringsperioden.", answer: true, explain: "<p>Beskyttelsesperioden (kryptere, signere) starter først, og prosesseringsperioden (dekryptere, verifisere) kan vare lenger. Kryptoperioden dekker begge (d03 s. 15).</p>" },
         { s: "Prosesseringsperioden kan vare lenger enn beskyttelsesperioden.", answer: true, explain: "<p>Gamle data skal kunne leses og verifiseres lenge etter.</p>" },
-        { s: "For symmetrisk kryptering brukes ulike nøkler i de to periodene.", answer: false, explain: "<p>Samme hemmelige nøkkel brukes i begge.</p>" },
-        { s: "Jo mer sensitiv informasjonen er, jo lengre bør kryptoperioden være.", answer: false, explain: "<p>Den bør være kortere (d03 s. 16).</p>" },
+        { s: "For symmetrisk kryptering brukes ulike nøkler i de to periodene.", answer: false, explain: "<p>Med symmetrisk krypto krypterer og dekrypterer den samme hemmelige nøkkelen, så den brukes i begge periodene. To ulike nøkler (offentlig og privat) er asymmetrisk.</p>" },
+        { s: "Jo mer sensitiv informasjonen er, jo lengre bør kryptoperioden være.", answer: false, explain: "<p>Motsatt: jo mer sensitiv informasjonen er, jo større skade gjør en lekkasje, og jo kortere bør perioden være (d03 s. 16).</p>" },
         { s: "Kompromittering som ikke blir oppdaget, er den alvorligste formen.", answer: true, explain: "<p>Da fortsetter beskyttelsen med en nøkkel angriperen har (d03 s. 23).</p>" },
         { s: "At en offentlig nøkkel blir publisert, er et sikkerhetsbrudd.", answer: false, explain: "<p>Den skal være offentlig. Det farlige er om den byttes ut.</p>" },
         { s: "Rotsertifikatenes private nøkler brukes ofte lenger enn NISTs anbefaling.", answer: true, explain: "<p>Det er tungvint å distribuere nye røtter (t03 O2c).</p>" }
       ],
       x509: [
-        { s: "Et X.509-sertifikat binder et (domene)navn logisk til en offentlig nøkkel.", answer: true, explain: "<p>d03 s. 31.</p>" },
+        { s: "Et X.509-sertifikat binder et (domene)navn logisk til en offentlig nøkkel.", answer: true, explain: "<p>Det er kjernen i et sertifikat: navnet og den offentlige nøkkelen står i samme record, og CA-ens signatur binder dem sammen (d03 s. 31).</p>" },
         { s: "Gyldighetsperioden er dekket av CA-signaturen.", answer: true, explain: "<p>Alle felt unntatt signaturen er med i Rec.</p>" },
         { s: "Med PKI vokser antallet sikre distribusjoner kvadratisk med antall noder.", answer: false, explain: "<p>Det vokser lineært: én rotnøkkel per node.</p>" },
         { s: "Sertifikatet for uio.no kan brukes til å validere digital signatur.", answer: true, explain: "<p>Den offentlige nøkkelen validerer (H2022 6.4).</p>" },
@@ -606,29 +622,29 @@
         { s: "DH er en signaturalgoritme.", answer: false, explain: "<p>DH er nøkkelutveksling, selv om H2024 16 godtar DH.</p>" }
       ],
       kjede: [
-        { s: "Rotsertifikatet er normalt selvsignert.", answer: true, explain: "<p>d03 s. 35.</p>" },
+        { s: "Rotsertifikatet er normalt selvsignert.", answer: true, explain: "<p>Over roten finnes ingen som kan signere den, så den signerer seg selv. Tilliten kommer fra at den er forhåndsinstallert, ikke fra signaturen (d03 s. 35).</p>" },
         { s: "Selvsignering gir en garanti for at rotsertifikatet er autentisk.", answer: false, explain: "<p>Hvem som helst kan selvsignere. Tilliten kommer fra distribusjonen (d03 s. 36).</p>" },
-        { s: "Mellomliggende sertifikater kan lastes ned i sanntid.", answer: true, explain: "<p>d03 s. 33.</p>" },
-        { s: "Subjektsertifikatet inneholder webtjenerens offentlige nøkkel.", answer: true, explain: "<p>Det er hele poenget med det.</p>" },
+        { s: "Mellomliggende sertifikater kan lastes ned i sanntid.", answer: true, explain: "<p>Det er trygt fordi de ikke trenger å stoles på i seg selv: de valideres mot roten, og den må være forhåndslagret (d03 s. 33).</p>" },
+        { s: "Subjektsertifikatet inneholder webtjenerens offentlige nøkkel.", answer: true, explain: "<p>Klienten trenger tjenerens offentlige nøkkel for å autentisere tjeneren, og sertifikatet er det som binder den nøkkelen til domenenavnet.</p>" },
         { s: "Et rotsertifikat er signert av en mellomliggende CA.", answer: false, explain: "<p>Roten er selvsignert. Det er motsatt vei.</p>" },
-        { s: "Issuer i subjektsertifikatet skal være lik Subject i sertifikatet til CA-en som utstedte det.", answer: true, explain: "<p>Det er steg 5 i kjeden.</p>" },
+        { s: "Issuer i subjektsertifikatet skal være lik Subject i sertifikatet til CA-en som utstedte det.", answer: true, explain: "<p>Navnelikheten kobler leddene til en kjede. Stemmer Issuer ikke med Subject i leddet over, vet nettleseren ikke hvilken CA-nøkkel signaturen skal sjekkes mot.</p>" },
         { s: "Feiler signaturen på det mellomliggende sertifikatet, kan subjektsertifikatet likevel godtas hvis dets egen signatur er riktig.", answer: false, explain: "<p>Subjektets tillit er avledet fra leddet over.</p>" }
       ],
       tillit: [
-        { s: "X.509-sertifikater gir garanti for autentisitet, ikke pålitelighet.", answer: true, explain: "<p>d03 s. 43.</p>" },
-        { s: "Kriminelle kan få legitime sertifikater som nettlesere godtar automatisk.", answer: true, explain: "<p>For sine egne domener (d03 s. 42).</p>" },
+        { s: "X.509-sertifikater gir garanti for autentisitet, ikke pålitelighet.", answer: true, explain: "<p>Sertifikatet bekrefter bare at nøkkelen hører til navnet. Om eieren er til å stole på, sier det ingenting, og å tro det er tillitsforvirring (d03 s. 43).</p>" },
+        { s: "Kriminelle kan få legitime sertifikater som nettlesere godtar automatisk.", answer: true, explain: "<p>CA-en sjekker at søkeren kontrollerer domenet, ikke om hen er ærlig. Derfor kan kriminelle få gyldige sertifikater for sine egne domener (d03 s. 42).</p>" },
         { s: "En CA sjekker identiteten til eieren av et domene før den utsteder et tjenersertifikat.", answer: true, explain: "<p>Sant etter fasiten i H2022 6.3. For domenevaliderte sertifikater sjekkes i praksis bare at søkeren kontrollerer domenet.</p>" },
-        { s: "Tjenersertifikater lar klienten autentisere tjeneren når øktnøkkelen opprettes.", answer: true, explain: "<p>H2022 6.3.</p>" },
-        { s: "I brukersentrisk PKI er hver bruker sin egen rot-CA.", answer: true, explain: "<p>PGP-modellen (d03 s. 40).</p>" },
+        { s: "Tjenersertifikater lar klienten autentisere tjeneren når øktnøkkelen opprettes.", answer: true, explain: "<p>Klienten sjekker sertifikatet og at tjeneren har den tilhørende private nøkkelen. Da vet den at øktnøkkelen etableres med riktig tjener og ikke en mann i midten (H2022 6.3).</p>" },
+        { s: "I brukersentrisk PKI er hver bruker sin egen rot-CA.", answer: true, explain: "<p>Det finnes ingen felles CA. Hver bruker bestemmer selv hvem hen stoler på, og signerer andres nøkler. Det er PGP-modellen (d03 s. 40).</p>" },
         { s: "Ved TLS-inspeksjon feiler nettleserens sertifikatvalidering.", answer: false, explain: "<p>Proxyens interne rot er installert, så sertifikatet godtas automatisk (d09 s. 25).</p>" },
-        { s: "Sikkerheten til PKI avhenger av at CA-ene har integritet.", answer: true, explain: "<p>d03 s. 45.</p>" }
+        { s: "Sikkerheten til PKI avhenger av at CA-ene har integritet.", answer: true, explain: "<p>Hele kjeden står og faller med CA-ene. En CA som utsteder falske sertifikater, slik i DigiNotar-saken, undergraver tilliten til alt den har signert (d03 s. 45).</p>" }
       ],
       revokering: [
-        { s: "Statussvaret ved OCSP-stifting er signert, så tjeneren ikke kan forfalske det.", answer: true, explain: "<p>Det er signert av CA-en.</p>" },
-        { s: "Vanlig OCSP lar CA-en se hvilke sertifikater, og dermed nettsteder, brukeren sjekker.", answer: true, explain: "<p>t03 O9b.</p>" },
-        { s: "CAA og sertifikattransparens skal motvirke at kompromitterte CA-er utsteder falske sertifikater.", answer: true, explain: "<p>t03 O6a.</p>" },
-        { s: "Et tilbakekalt sertifikat blir gyldig igjen når den opprinnelige utløpsdatoen er nådd.", answer: false, explain: "<p>Da er det utløpt i tillegg.</p>" },
-        { s: "Revokering er nødvendig når eieren mistenker at den private nøkkelen er kompromittert.", answer: true, explain: "<p>t03 O9a.</p>" },
+        { s: "Statussvaret ved OCSP-stifting er signert, så tjeneren ikke kan forfalske det.", answer: true, explain: "<p>Svaret er signert av CA-en. Tjeneren bare videresender det og kan ikke endre «tilbakekalt» til «gyldig» uten at signaturen feiler.</p>" },
+        { s: "Vanlig OCSP lar CA-en se hvilke sertifikater, og dermed nettsteder, brukeren sjekker.", answer: true, explain: "<p>Ved vanlig OCSP spør nettleseren CA-en om hvert sertifikat den møter, og da ser CA-en hvor brukeren er. Stifting løser det (t03 O9b).</p>" },
+        { s: "CAA og sertifikattransparens skal motvirke at kompromitterte CA-er utsteder falske sertifikater.", answer: true, explain: "<p>CAA sier hvilke CA-er som får utstede for domenet, og sertifikattransparens logger alle utstedte sertifikater offentlig. Det gjør falske sertifikater lettere å hindre og oppdage (t03 O6a).</p>" },
+        { s: "Et tilbakekalt sertifikat blir gyldig igjen når den opprinnelige utløpsdatoen er nådd.", answer: false, explain: "<p>Tilbakekalling er permanent. Etter utløpsdatoen er sertifikatet både tilbakekalt og utløpt, og ingen av delene gjør det gyldig igjen.</p>" },
+        { s: "Revokering er nødvendig når eieren mistenker at den private nøkkelen er kompromittert.", answer: true, explain: "<p>Utløpsdatoen kan ligge måneder fram. Lekker nøkkelen før det, må sertifikatet trekkes tilbake straks, ellers kan angriperen utgi seg for eieren (t03 O9a).</p>" },
         { s: "CRL står på 2026-lysarket for PKI.", answer: false, explain: "<p>Den står ikke i noen kilde i mappa. Den er med her bare som bakgrunn.</p>" }
       ]
     };
@@ -662,7 +678,7 @@
           { s: "Arkivet dekrypterer en gammel AES-kryptert fil", svar: [0], explain: "<p>Symmetrisk: samme hemmelige nøkkel i begge perioder.</p>" },
           { s: "Ola krypterer en øktnøkkel til tjeneren", svar: [1], explain: "<p>Beskyttelse ved asymmetrisk kryptering: tjenerens offentlige nøkkel.</p>" },
           { s: "Tjeneren pakker ut øktnøkkelen", svar: [2], explain: "<p>Prosessering ved asymmetrisk kryptering: tjenerens private nøkkel.</p>" },
-          { s: "Backup-tjenesten krypterer nattens sikkerhetskopi med AES", svar: [0], explain: "<p>Beskyttelse, symmetrisk.</p>" } ] } },
+          { s: "Backup-tjenesten krypterer nattens sikkerhetskopi med AES", svar: [0], explain: "<p>Å kryptere er beskyttelse, og AES er symmetrisk. Den samme hemmelige nøkkelen skal senere dekryptere kopien.</p>" } ] } },
       { key: "ov-pki-4", title: "Stjålet privat nøkkel", points: 3, inspera: { type: "FF",
         regelTekst: "1 for hver riktig, -1 for hver feil, 0 for ubesvart, 3 for alle riktig, minimum 0.", regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
         alternativer: [
@@ -700,7 +716,7 @@
         regelTekst: "1 for hvert riktig, 0 for feil eller ubesvart, maks 3, minimum 0.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
         tekst: "<p>CA-en samler feltene i en record og beregner {0} av den. Resultatet signeres med {1}. Nettleseren validerer med {2}.</p>",
         felt: [
-          { etikett: "Steg 2", valg: ["en hashverdi", "en MAC", "en krypteringsnøkkel"], svar: 0, explain: "<p>H = Hash(Rec).</p>" },
+          { etikett: "Steg 2", valg: ["en hashverdi", "en MAC", "en krypteringsnøkkel"], svar: 0, explain: "<p>H = Hash(Rec). Recorden hashes fordi det er hashen som signeres. En MAC ville krevd en delt nøkkel, og da kunne ikke nettleseren validere.</p>" },
           { etikett: "Signeringsnøkkel", valg: ["subjektets private nøkkel", "CA-ens private nøkkel", "CA-ens offentlige nøkkel"], svar: 1, explain: "<p>S = Sig(H, " + K("CA", "priv") + ").</p>" },
           { etikett: "Valideringsnøkkel", valg: ["CA-ens offentlige nøkkel", "subjektets offentlige nøkkel", "CA-ens private nøkkel"], svar: 0, explain: "<p>H = Ver(S, " + K("CA", "pub") + ") sammenlignes med Hash(Rec′).</p>" } ] } },
       { key: "ov-pki-7", title: "Rot, mellomliggende eller subjekt", points: 3, inspera: { type: "M", multi: false,
@@ -717,7 +733,7 @@
         regelTekst: "1 for hvert riktig, -1 for gale svar, 0 for ubesvart, maks 3, minimum 0.", regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
         tekst: "<p>Fjellvik TLS CA 2 er et eksempel på {0}. Hvem har signert Fjellvik Root R1? {1}. Hvem har signert bibliotek.lerkedal.no? {2}</p>",
         felt: [
-          { etikett: "Fjellvik TLS CA 2", valg: ["rot-CA", "mellomliggende CA", "subjektsertifikat"], svar: 1, explain: "<p>Den står mellom roten og subjektet.</p>" },
+          { etikett: "Fjellvik TLS CA 2", valg: ["rot-CA", "mellomliggende CA", "subjektsertifikat"], svar: 1, explain: "<p>Den er signert av roten og signerer selv subjektsertifikatet. Den står i midten, og er derfor ikke rot.</p>" },
           { etikett: "Signert Fjellvik Root R1", valg: ["Selvsignert", "PKI", "Fjellvik TLS CA 2"], svar: 0, explain: "<p>Roten er selvsignert. «PKI» er ikke en part som signerer.</p>" },
           { etikett: "Signert bibliotek.lerkedal.no", valg: ["Rot-CA", "Selvsignert", "Mellomliggende CA"], svar: 2, explain: "<p>Subjektsertifikatet er signert med den private nøkkelen til Fjellvik TLS CA 2.</p>" } ] } },
       { key: "ov-pki-9", title: "PKI og tillit", points: 2, inspera: { type: "FF",
@@ -743,17 +759,17 @@
         kolonner: ["Enkelt hierarki", "Silo-hierarkier", "Brukersentrisk"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         rader: [
-          { s: "Hver bruker har sin egen offentlige nøkkelring", svar: [2], explain: "<p>PGP-modellen (d03 s. 40).</p>" },
-          { s: "Passer for et lukket militært nett der alle stoler på samme rot", svar: [0], explain: "<p>Fordelen med enkelt hierarki (d03 s. 39).</p>" },
-          { s: "Nettleseren har noen hundre røtter installert", svar: [1], explain: "<p>Internett-PKI (d03 s. 41).</p>" },
-          { s: "Kompromittering av den ene roten river ned all sikkerhet i systemet", svar: [0], explain: "<p>Ulempen med enkelt hierarki.</p>" } ] } },
+          { s: "Hver bruker har sin egen offentlige nøkkelring", svar: [2], explain: "<p>Ingen felles CA: hver bruker samler og signerer selv nøklene hen stoler på. Det er PGP-modellen (d03 s. 40).</p>" },
+          { s: "Passer for et lukket militært nett der alle stoler på samme rot", svar: [0], explain: "<p>Én organisasjon kontrollerer alle, så én felles rot er enkel å styre. Det er fordelen med enkelt hierarki (d03 s. 39).</p>" },
+          { s: "Nettleseren har noen hundre røtter installert", svar: [1], explain: "<p>Mange røtter betyr mange uavhengige hierarkier side om side. Det er Internett-PKI (d03 s. 41).</p>" },
+          { s: "Kompromittering av den ene roten river ned all sikkerhet i systemet", svar: [0], explain: "<p>Bare enkelt hierarki har én rot som alt henger på. I silo-hierarkier rammes bare den ene siloen.</p>" } ] } },
       { key: "ov-pki-11", title: "Mekanisme og problem", points: 2, inspera: { type: "M", multi: false,
         kolonner: ["Revokering", "OCSP-stifting (must-staple)", "CAA", "Ingen av dem"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         rader: [
           { s: "Bibliotekets private nøkkel er kopiert, og sertifikatet må stoppes før utløp", svar: [0], explain: "<p>Tilbakekalling av sertifikatet (t03 O9a).</p>" },
           { s: "CA-en skal ikke få vite hvilke nettsteder brukeren besøker", svar: [1], explain: "<p>Tjeneren legger ved statussvaret, så nettleseren slipper å spørre (t03 O9b).</p>" },
-          { s: "Bare Fjellvik skal kunne utstede sertifikater for lerkedal.no", svar: [2], explain: "<p>CAA-record i DNS (t03 O6b).</p>" },
+          { s: "Bare Fjellvik skal kunne utstede sertifikater for lerkedal.no", svar: [2], explain: "<p>Domeneeieren legger en CAA-record i DNS som sier hvilke CA-er som får utstede for domenet. Andre CA-er skal da nekte (t03 O6b).</p>" },
           { s: "Et gyldig sertifikat på en phishingside med lignende domenenavn", svar: [3], explain: "<p>Sertifikatet er korrekt utstedt. Dette er tillitsforvirring, og ingen av mekanismene løser det.</p>" } ] } },
       { key: "ov-pki-12", title: "Revokeringsflyt", points: 3, inspera: { type: "N",
         regelTekst: "1 for hvert riktig, -1 for hvert feil, 0 for ubesvart, maks 3, minimum 0.", regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
@@ -766,6 +782,10 @@
     OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
 
     /* ---------- Eksamensbanken ---------- */
+    // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)
+    safe("fv-kjede", function () { IN.fig.vis("#fv-kjede", "H2024-15", { husk: true }); });
+    safe("fv-felter", function () { IN.fig.vis("#fv-felter", "H2022-6.4", { husk: true }); });
+    safe("fk-ocsp-stifting", function () { IN.FORKLAR["ocsp-stifting"]("#fk-ocsp-stifting"); }); // forklar-c.js
     safe("bank-pki", function () { IN.examBank("#bank-pki", { block: "pki" }); });
   })();
   </script>

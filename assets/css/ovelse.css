@@ -117,7 +117,29 @@
 .dra-row.drop-before::before { top: -4px; }
 .dra-row.drop-after::after { bottom: -4px; }
 
-/* Forklaring per brikke: flat liste (overstyrer .qz-list-boksen) */
+/* B3: forklaringen i brikken (gal brikke etter «Sjekk svar», trykk for å folde ut) */
+.dra-chip.har-x .dra-fasit::after { content: " ▾"; font-weight: 400; }
+.dra-chip.har-x.x-open .dra-fasit::after { content: " ▴"; }
+.dra-chip.x-open { flex-wrap: wrap; width: 100%; }
+.dra-chip-x {
+  display: block; flex: 1 1 100%; min-width: 0; margin: .15rem 0 .1rem 28px; padding-top: .3rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  font-size: var(--text-xs); font-weight: 400; line-height: 1.45; overflow-wrap: anywhere;
+}
+.dra-chip-x > :first-child { margin-top: 0; }
+.dra-chip-x > :last-child { margin-bottom: 0; }
+.dra-xhint { margin: .2rem 0 0; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
+/* B1: én resultatlinje under knapperaden, regelen i en lukket <details> */
+.ov-reslinje { margin: var(--d-sm) 0 0; font-size: var(--text-sm); line-height: 1.5; }
+.ov-regel-d { margin: .3rem 0 0; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
+.ov-regel-d > summary { cursor: pointer; min-height: 32px; display: list-item; padding: .3rem 0; list-style-position: inside; }
+.ov-regel-d > .ov-regel { margin: .1rem 0 .3rem 1em; }
+@media (pointer: coarse) { .ov-regel-d > summary, .dra-exps-d > summary { min-height: 44px; padding: .65rem 0; box-sizing: border-box; } }
+
+/* Forklaring per brikke: lukket <details> med flat liste (overstyrer .qz-list-boksen) */
+.dra-exps-d { margin: var(--d-sm) 0 0; }
+.dra-exps-d > summary { cursor: pointer; padding: .3rem 0; list-style-position: inside; }
+.dra-exps-d .dra-exps { margin-top: var(--d-xs); }
 .dra-exphead { margin: var(--d-md) 0 var(--d-xs); font-size: var(--text-sm); font-weight: 700; }
 .ov .qz-list { border: 0; border-radius: 0; background: none; }
 .ov .qz-item { padding-left: .6rem; }
@@ -147,6 +169,7 @@
 .ov-svar-l { font-size: var(--text-sm); font-weight: 600; }
 .ov-num { flex: 1 1 12rem; min-width: 0; max-width: 22rem; font-family: var(--font-mono); }
 .ov-enhet { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+.ov-knapper { display: flex; flex-wrap: wrap; gap: var(--d-sm); }
 .ov-tips { margin: .3rem 0 0; font-size: var(--text-xs); color: var(--color-on-surface-variant); }
 /* Hjelpetaster (^, ·10^) bare på berøringsskjerm */
 .ov-taster { display: none; gap: 4px; }
@@ -294,15 +317,16 @@
 
 /* ================= Matrise: ett valg per rad ================= */
 .ov-mat-rv .ov-cell { min-width: 0; }
-.ov-rv { display: inline-flex; flex-wrap: wrap; gap: 2px; vertical-align: middle; }
+.ov-rv { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; }
+/* A5: valgknappene ser ut som knapper (tynn kant, 6 px radius). Valgt: full primærkant og 18 % tone. */
 .ov-rv-b {
   display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 40px; padding: 0 .65rem; box-sizing: border-box;
-  background: none; border: 0; border-bottom: 2px solid var(--color-outline-variant); border-radius: 0;
-  color: var(--color-on-surface-variant); font: inherit; font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+  background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline-variant); border-radius: 6px;
+  color: var(--color-on-surface); font: inherit; font-size: var(--text-sm); font-weight: 600; cursor: pointer;
 }
 .ov-rv-b:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
 .ov-rv-b:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
-.ov-rv-b[aria-pressed="true"] { border-bottom-color: var(--color-primary); color: var(--color-on-surface); background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
+.ov-rv-b[aria-pressed="true"] { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface-container-lowest)); }
 
 /* Scenario med færre KIT-mål */
 .ov-kit.ov-kit-n1 { grid-template-columns: minmax(0, 18rem); }
