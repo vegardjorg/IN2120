@@ -162,3 +162,10 @@ a.fs-block:hover, a.fs-block:focus-visible { border-color: var(--a4-c); text-dec
   .fs-tbody { grid-template-columns: minmax(0, 1fr); }
   .fs-cell { width: calc(1.8rem + var(--fs-w, 1) * .12rem); }
 }
+
+/* Lenker mellom guidene (IN2010, IN2090, IN2120) */
+.guider { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0 0 1rem; font-size: var(--text-sm); }
+.guider-t { color: var(--color-on-surface-variant); margin-right: .2rem; }
+.guider .btn { min-height: 36px; }
+@media (pointer: coarse) { .guider .btn { min-height: 44px; } }
+@media print { .guider { display: none; } }
