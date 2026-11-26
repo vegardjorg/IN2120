@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Grunnbegreper, fysisk sikkerhet og lov i IN2120: sikkerhet, trygghet, visshet og garanti, KIT og sikkerhetstjenestene, typer og domener for sikkerhetstiltak, personellsikkerhet og HMS med SJA, fysisk skjerming og kontinuitet, straffeloven § 204 og myndighetene – med visualiseringer, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-grunn.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-grunn.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="grunnbegreper">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -138,7 +139,7 @@
             <tr><td>Appen er nede hele morgenen på grunn av et overbelastningsangrep</td><td>T</td><td>kan ikke brukes</td></tr>
             <tr><td>Løsepengevirus krypterer lønnsfilene på serveren i kjelleren</td><td>T</td><td>eieren får ikke brukt dem</td></tr>
             <tr><td>Angriper fanger opp TLS-kryptert trafikk fra appen, men kan ikke dekryptere</td><td>Ingen</td><td>ingenting er lest, endret eller stengt</td></tr>
-            <tr><td>Ingrid får en falsk melding «fra kommunen»</td><td>I (autentisitet)</td><td>avsenderen er ikke den den utgir seg for</td></tr>
+            <tr><td>Ingrid får en falsk melding «fra kommunen»</td><td>autentisitet</td><td>avsenderen er ikke den den utgir seg for (eget mål ved siden av KIT; H2025 31: spoofing = brudd på autentisitet)</td></tr>
             <tr><td>En forelder nekter for å ha gitt samtykke til bildedeling, men samtykket er signert digitalt</td><td>–</td><td>ubenektelighet gjør at nektingen ikke holder</td></tr>
           </tbody></table></div></div>
 
@@ -274,7 +275,7 @@
       <div id="viz-bemanning"></div>
 
       <h4>Graderingsnivåene</h4>
-      <p class="small muted">Sikkerhetsklarering kreves for tilgang til sikkerhetsgradert informasjon. Nivået settes etter hvor stor skade en lekkasje kan gjøre for nasjonale eller allierte sikkerhetsinteresser. Lysarket nevner ikke hvilken lov nivåene kommer fra.</p>
+      <p class="small muted">Sikkerhetsklarering kreves for tilgang til sikkerhetsgradert informasjon. Nivået settes etter hvor stor skade en lekkasje kan gjøre for nasjonale eller allierte sikkerhetsinteresser. Lysarket nevner ikke hvilken lov nivåene kommer fra; utenfor kurset: sikkerhetsloven § 5-3 (lovdata.no).</p>
       <ol class="gr-trapp">
         <li><b>BEGRENSET</b> lekkasje kan i noen grad skade</li>
         <li><b>KONFIDENSIELT</b> lekkasje kan skade</li>
@@ -351,7 +352,7 @@
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         <p>Tarjei måler 27 °C og 30 % luftfuktighet en vinterdag. Begge er utenfor anbefalt område (20–24 °C og 40–55 %). Den lave fuktigheten øker faren for statisk utladning.</p>
         <p>Lagene: ytterdør med kodelås → låst kjellerdør → låst serverskap → kryptert disk. Med alarm på ytterdøra og 3 minutter per fysisk lag trenger tyven 3 + 3 + 3 = 9 minutter. Vakta er der etter 8, så tyven blir tatt. Fjernes ett lag, kommer vakta for sent. Da er det krypteringen som redder konfidensialiteten.</p>
-        <p>Barnehagen kan drive med papirlister i en måned eller mer, så en kald reserve (et rom med strøm på rådhuset) er nok. Lønnssystemet ligger i sky og har leverandørens reserve.</p></div>
+        <p>Barnehagen kan drive med papirlister i flere måneder, så en kald reserve (et rom med strøm på rådhuset) er nok. Lønnssystemet ligger i sky og har leverandørens reserve.</p></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor er TEMPEST et K-problem og ikke T?</summary>
@@ -411,7 +412,7 @@
       <h4>Legalitetsprinsippet</h4>
       <div class="gr-dorer">
         <div><p><b>Privatperson</b></p><p>Alt som ikke er forbudt.</p></div>
-        <div><p><b>Forvaltningen</b></p><p>Bare det loven gir hjemmel til. Derfor krever politiattest og sikkerhetsklarering lovhjemmel og behov.</p></div>
+        <div><p><b>Forvaltningen</b></p><p>Bare det loven gir hjemmel til (kursets forenklede versjon, d05). Strengt tatt krever <i>inngrep overfor enkeltpersoner</i> hjemmel i lov. Politiattest og sikkerhetsklarering er slike inngrep og krever lovhjemmel og behov (d01b); politiattest kan bare kreves med hjemmel i lov, også av private arbeidsgivere (politiregisterloven § 37).</p></div>
       </div>
 
       <h4>Eksempel</h4>
@@ -428,13 +429,13 @@
         <details class="grense"><summary>Hvorfor kan ikke kunden gi tillatelse til å teste et system som en skyleverandør eier?</summary>
           <p>Den som gir tillatelsen, må ha myndighet over systemet.</p></details>
         <details class="grense"><summary>Hvorfor kan ikke offentlige virksomheter bare kreve politiattest?</summary>
-          <p>Legalitetsprinsippet: forvaltningen trenger hjemmel i lov.</p></details>
+          <p>Politiattest er et inngrep overfor den enkelte og krever hjemmel i lov og et reelt behov (d01b). Det gjelder også private arbeidsgivere (politiregisterloven § 37).</p></details>
         <details class="grense"><summary>Hvorfor er NCSC ikke det samme som NorSIS?</summary>
           <p>NCSC (i NSM) er for statlig og kritisk sektor. NorSIS er for privatpersoner og vanlige virksomheter.</p></details>
         <details class="grense"><summary>Hvorfor lærer guiden ikke bort GDPR-detaljer her?</summary>
           <p>De står ikke i kursets kilder for 2026. Det samme gjelder sikkerhetsloven ved navn og NIS-direktivet. Si «lovkrav om innebygd sikkerhet for personopplysninger», og ikke mer.</p></details>
         <ul>
-          <li>§ 204 gjelder også «annen uberettiget» tilgang, for eksempel et lånt eller stjålet passord. Det trengs ingen teknisk beskyttelse som brytes.</li>
+          <li>§ 204 gjelder også tilgang «ved annen uberettiget fremgangsmåte», for eksempel med et stjålet passord eller et passord som er lånt uten systemeiers samtykke. Det trenger altså ikke være en teknisk beskyttelse som knekkes.</li>
           <li>I et styringssystem står lover og forskrifter øverst i dokumenthierarkiet, og krav fra dem oppfylles ved samsvar.</li>
         </ul></div>
 
@@ -467,28 +468,30 @@
 
   <footer class="footer">IN2120-guide · Blokk 1 · Grunnbegreper og fysisk · <a href="02-krypto.html">Neste: blokk 2, kryptografi</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/ovelse.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-grunn.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-grunn.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -525,7 +528,7 @@
       "ex-lov": {
         eli5: "<p>Å gå inn i et datasystem uten lov er som å låse seg inn i naboens hus: det er ulovlig selv om du bare ville sjekke om låsen var god. Vil du teste låsen, må naboen skrive under på at du får lov, før du begynner.</p>",
         normal: "<p>§ 204 er lovregelen kurset faktisk lærer bort, og eksamen har spurt om strafferammen to ganger med samme ordlyd. Svaret må være helt presist: <b>bot eller fengsel inntil 2 år</b>. For en pentester betyr regelen at testen er lovlig bare med en skriftlig avtale fra noen som har myndighet over systemet, og at avtalen er på plass før testen starter. God hensikt er ikke nok.</p><p>Legalitetsprinsippet forklarer hvorfor det offentlige trenger hjemmel for inngrep i folks liv, som sikkerhetsklarering og politiattest. NSM og NCSC er ikke politi, og virksomheter må i stor grad håndtere hendelser selv.</p>",
-        teknisk: "<p>I et styringssystem for informasjonssikkerhet står lover og forskrifter øverst i dokumenthierarkiet, over rammeverk, standarder og policyer, rutiner og til slutt logger og rapporter. Krav fra lov oppfylles ved <b>samsvar</b>, ikke ved forsvarlig nivå.</p><p>§ 204 rammer både den som bryter en teknisk beskyttelse (knekker passord, utnytter en sårbarhet) og den som bruker en annen uberettiget måte (et lånt eller stjålet passord). Lovstoff utover dette dekkes ikke av kursets kilder for 2026: sikkerhetsloven ved navn, GDPR i detalj og NIS-direktivet. Spørsmål kan i prinsippet komme fra læreboka, men guiden kan ikke si hva den sier.</p>"
+        teknisk: "<p>I et styringssystem for informasjonssikkerhet står lover og forskrifter øverst i dokumenthierarkiet, over rammeverk, standarder og policyer, rutiner og til slutt logger og rapporter. Krav fra lov oppfylles ved <b>samsvar</b>, ikke ved forsvarlig nivå.</p><p>§ 204 rammer både den som bryter en teknisk beskyttelse (knekker passord, utnytter en sårbarhet) og den som bruker en annen uberettiget måte (et stjålet passord, eller et lånt passord uten systemeiers samtykke). Lovstoff utover dette dekkes ikke av kursets kilder for 2026: sikkerhetsloven ved navn, GDPR i detalj og NIS-direktivet. Spørsmål kan i prinsippet komme fra læreboka, men guiden kan ikke si hva den sier.</p>"
       }
     };
     Object.keys(EX).forEach(function (id) {
@@ -620,7 +623,7 @@
         { q: "Hva står NSM for?", options: ["Norsk sikkerhetsmyndighet", "Nasjonal sikkerhetsmyndighet", "Nasjonalt sikkerhetsmiljø", "Nordisk sikkerhetsmyndighet"], answer: 1,
           explain: "<p>Nasjonal sikkerhetsmyndighet, som blant annet gir ut grunnprinsippene for IKT-sikkerhet og har NCSC under seg (H2025 7). «Norsk» og «Nordisk» er distraktorer.</p>" },
         { q: "Hvilket prinsipp sier at offentlig forvaltning bare kan gjøre det loven gir hjemmel til?", options: ["Kerckhoffs' prinsipp", "legalitetsprinsippet", "minste privilegium", "forsvar i dybden"], answer: 1,
-          explain: "<p>Legalitetsprinsippet. Derfor krever politiattest og sikkerhetsklarering lovhjemmel.</p>" },
+          explain: "<p>Legalitetsprinsippet, i kursets forenklede form (d05). Strengt tatt gjelder det inngrep overfor enkeltpersoner, og derfor krever politiattest og sikkerhetsklarering lovhjemmel (d01b).</p>" },
         { q: "Hvor står lover i dokumenthierarkiet?", options: ["nederst", "øverst, over forskrifter", "mellom policy og rutiner", "de er ikke med"], answer: 1,
           explain: "<p>Lover, så forskrifter, så rammeverk, standarder og policyer, så rutiner, og nederst logger og rapporter.</p>" }
       ]
@@ -806,7 +809,7 @@
         kolonner: ["Lovlig", "Ulovlig"],
         regelTekst: "Poeng: 0,5 for hver riktig; -0,5 for hver feil; 0 for ubesvart; maks 3; minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
         rader: [
-          { s: "En student logger inn på en medstudents konto med et passord hen så over skulderen", svar: [1], explain: "<p>Uberettiget tilgang til et datasystem, selv uten å bryte en teknisk beskyttelse. § 204.</p>" },
+          { s: "En student logger inn på en medstudents konto med et passord hen så over skulderen", svar: [1], explain: "<p>Uberettiget tilgang til et datasystem med et avlurt passord. § 204 dekker både å bryte en beskyttelse og annen uberettiget fremgangsmåte.</p>" },
           { s: "Et konsulentselskap tester en nettbutikk etter skriftlig avtale signert av eieren to uker før", svar: [0], explain: "<p>Skriftlig, på forhånd og fra noen med myndighet.</p>" },
           { s: "En sikkerhetsforsker skanner og utnytter en sårbarhet i et kommunalt system for å «hjelpe»", svar: [1], explain: "<p>God hensikt gjør det ikke lovlig. Det kreves tillatelse.</p>" },
           { s: "Pentesteren fortsetter inn i et system som ikke står i avtalen, fordi det var «like ved»", svar: [1], explain: "<p>Tillatelsen dekker bare det avtalen sier. Utenfor avtalen er tilgangen uberettiget.</p>" },

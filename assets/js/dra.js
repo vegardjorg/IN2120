@@ -12,7 +12,7 @@
    piltastene flytter målet (eller brikken ved sortering), Mellomrom/Enter slipper, Esc angrer.
    Alt+↑/↓ flytter direkte ved sortering. Hvert flytt meldes i en aria-live-region.
 
-   Oppfører seg som IN.quiz/IN.tfTest i core.js: følger «Vis svar med en gang» (IN.svarStraks),
+   Oppfører seg som IN.quiz/IN.tfTest i core.js: følger «Svar med en gang» (IN.svarStraks),
    har «Sjekk svar» og «↺ Nullstill», poenglinje, forklaring per brikke og kildelinje.
 
    spec: {
@@ -38,7 +38,7 @@
            onCheck?: fn({ counts, poeng }), checkLabel?, resetLabel?, cls? }
    report erstatter den innebygde fremdriftsrapporteringen. onCheck kalles i tillegg til den (og til
    report), hver gang oppgaven rapporteres: ved «Sjekk svar», og når alle brikker er plassert med
-   «Vis svar med en gang» på. Ikke ved gjenoppretting fra lagring (bruk handle.checked() da).
+   «Svar med en gang» på. Ikke ved gjenoppretting fra lagring (bruk handle.checked() da).
 
    Etter «Sjekk svar» viser gale brikker «✗ → riktig plass». Et trykk (eller Mellomrom/Enter) på en gal brikke
    folder ut forklaringen i selve brikken (aria-expanded); et nytt trykk folder den sammen. Lista «Forklaring per
@@ -238,7 +238,7 @@
     var poolLabel = spec.poolLabel || "Ikke plassert";
 
     function persist() { if (storeKey && IN.store) IN.store.set(storeKey, JSON.stringify({ s: st, c: checked, h: fp })); }
-    function instant() { return follow ? !!(IN.svarStraks && IN.svarStraks.get()) : !!opts.instant; }
+    function instant() { return follow ? !!(IN.svarStraks && IN.svarStraks.get() && !(IN.svarStraks.laast && IN.svarStraks.laast())) : !!opts.instant; }
     function locked() { return !!(opts.lock && checked); }
     function counts() { return grade(ns, st); }
     function feedbackOn() { return instant() || checked; }
@@ -267,10 +267,10 @@
     function say(t) { live.textContent = ""; setTimeout(function () { live.textContent = t; }, 30); }
     var head = el("div", { class: "qz-head" }), sw = null;
     if (follow) {
-      sw = el("button", { class: "qz-switch", type: "button", role: "switch", "aria-checked": "false",
-        onclick: function () { IN.svarStraks.set(!instant()); } }, [
+      sw = el("button", { class: "qz-switch qz-switch-lokal", type: "button", title: "Samme bryter som «Svar med en gang» øverst på siden", role: "switch", "aria-checked": "false",
+        onclick: function () { if (IN.svarStraks.laast && IN.svarStraks.laast()) { if (typeof IN.svarStraks.onLaast === "function") IN.svarStraks.onLaast(sw); return; } IN.svarStraks.set(!instant()); } }, [
         el("span", { class: "qz-track", "aria-hidden": "true" }, el("span", { class: "qz-thumb" })),
-        el("span", { text: "Vis svar med en gang" })]);
+        el("span", { text: "Svar med en gang" })]);
       head.appendChild(sw);
     } else if (opts.note) head.appendChild(el("span", { class: "qz-note", html: opts.note }));
     var score = el("span", { class: "qz-score" });

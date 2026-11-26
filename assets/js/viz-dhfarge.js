@@ -53,7 +53,7 @@
         text: {
           eli5: "Hver av dem velger en hemmelig farge som de ikke viser til noen: Alice tar " + a.navn + ", Bob tar " + b.navn + ".",
           normal: "Alice velger en privat farge (" + a.navn + ") og Bob en annen (" + b.navn + "). Disse forlater aldri maskinen deres.",
-          teknisk: "Alice trekker et tilfeldig privat tall a og Bob et tilfeldig b. a og b sendes aldri. I TLS 1.3 lages nye a og b for hver økt (efemær DH)." } },
+          teknisk: "Alice trekker et tilfeldig privat tall a og Bob et tilfeldig b. a og b sendes aldri. I TLS 1.3 med (EC)DHE lages nye a og b for hver økt (efemær DH)." } },
       { n: 3, tag: "Bland",
         text: {
           eli5: "Begge heller sin hemmelige farge oppi en bøtte gul maling og rører. Nå har hver sin blandingsbøtte.",
@@ -73,7 +73,7 @@
         text: {
           eli5: "Eve prøver å helle de to bøttene hun så sammen. Men da får hun altfor mye gul, og fargen blir feil. For å få riktig farge måtte hun skilt ut den hemmelige fargen, og det går ikke.",
           normal: "Eve kan blande de offentlige bøttene, men da får hun gul to ganger og en annen farge enn Alice og Bob. Hun må få tak i én av de hemmelige fargene, og det er det vanskelige problemet. Men merk: ingenting her beviser <i>hvem</i> som sendte bøttene, så en mann-i-midten kan bytte dem (se demoen under).",
-          teknisk: "A · B = g<sup>a+b</sup> ≠ g<sup>ab</sup>. Eve må løse diskret logaritme (eller Diffie–Hellman-problemet) for å få g<sup>ab</sup>. DH gir konfidensialitet mot passive avlyttere, men ingen autentisering: mot aktiv MitM må A og B signeres." } }
+          teknisk: "A · B = g<sup>a+b</sup> ≠ g<sup>ab</sup>. Eve må løse diskret logaritme (eller Diffie–Hellman-problemet) for å få g<sup>ab</sup>. DH holder den felles nøkkelen hemmelig for passive avlyttere, men gir ingen autentisering: mot aktiv MitM må A og B signeres." } }
     ];
     return S.map(function (s) { for (var k in base) s[k] = base[k]; return s; });
   }

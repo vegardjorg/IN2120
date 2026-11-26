@@ -641,7 +641,7 @@
     diamant(210, "Beslutningspunkt 1");
     T(s, MX - 30, 196, "N", { str: 15 });
     T(s, MX + 10, 240, "J", { str: 15 });
-    F.pil(s, [[MX - 22, 210], [20, 210], [20, 70], [SX, 70]]);
+    F.pil(s, [[MX - 22, 210], [20, 210], [20, 86], [SX, 86]]);
     F.pil(s, [[MX, 230], [MX, 254]]);
     // Trinn 3
     trinn(254); ovFelt(L, 4, SX + 12, 254, SW - 24, SH, 7);
@@ -651,7 +651,7 @@
     diamant(342, "Beslutningspunkt 2");
     T(s, MX - 30, 328, "N", { str: 15 });
     T(s, MX + 10, 372, "J", { str: 15 });
-    F.pil(s, [[MX - 22, 342], [11, 342], [11, 86], [SX, 86]]);
+    F.pil(s, [[MX - 22, 342], [11, 342], [11, 70], [SX, 70]]);
     F.pil(s, [[MX, 362], [MX, 386]]);
     // Trinn 4
     trinn(386); ovFelt(L, 6, SX + 12, 386, SW - 24, SH, 7);

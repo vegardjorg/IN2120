@@ -55,8 +55,8 @@
     { id: "iam",           href: "08-iam.html",              label: "8 · IAM",                ready: true },
     { id: "nettverk",      href: "09-nettverk.html",         label: "9 · Nettverk",          ready: true },
     { id: "cyberops",      href: "10-cyberops-ki.html",      label: "10 · Cyberops og KI",    ready: true },
-    { id: "verktoy",       href: "verktoy.html",             label: "Verktøyene",             ready: false },
-    { id: "crash",         href: "crash.html",               label: "Crash course",           ready: false }
+    { id: "verktoy",       href: "verktoy.html",             label: "Verktøyene",             ready: true },
+    { id: "crash",         href: "crash.html",               label: "Crash course",           ready: true }
   ];
 
   function buildNav() {
@@ -254,10 +254,37 @@
       b.addEventListener("click", function () { levelSet(L.id); });
       group.appendChild(b);
     });
+    /* «Svar med en gang» (IN.svarStraks) for hele siden: quiz, sant/usant, dra og Inspera følger den.
+       <body data-straks="av"> (eksamen.html i eksamensmodus): bryteren er låst (🔒, aria-disabled) og står av, så den
+       ikke lekker fasit midt i en simulert eksamen. Trykk på den låste bryteren kaller IN.svarStraks.onLaast() hvis
+       siden har satt den (eksamen.html: bekreftelsesdialog «Bytte til øvingsmodus?»). Attributtet kan endres mens
+       siden er åpen: da sendes in:svar-straks, og alt som følger bryteren (også inspera.js) tegner seg på nytt. */
+    var sw = el("button", { class: "qz-switch level-straks", type: "button", role: "switch", "aria-checked": "false",
+      onclick: function () {
+        if (IN.svarStraks.laast()) { if (typeof IN.svarStraks.onLaast === "function") IN.svarStraks.onLaast(sw); return; }
+        IN.svarStraks.set(!IN.svarStraks.get());
+      } }, [
+      el("span", { class: "qz-track", "aria-hidden": "true" }, el("span", { class: "qz-thumb" })),
+      el("span", { class: "level-laas", "aria-hidden": "true", text: "🔒" }),
+      el("span", { class: "seg-full", text: "Svar med en gang" }),
+      el("span", { class: "seg-short", text: "Svar straks" })]);
+    function syncSw() {
+      var laast = IN.svarStraks.laast();
+      sw.setAttribute("aria-checked", !laast && IN.svarStraks.get() ? "true" : "false");
+      sw.classList.toggle("is-laast", laast);
+      if (laast) sw.setAttribute("aria-disabled", "true"); else sw.removeAttribute("aria-disabled");
+      sw.title = laast ? "Låst i eksamensmodus: du får svaret når du retter. Trykk for å bytte til øvingsmodus."
+        : "Vis om svaret er riktig med en gang du svarer (quiz, sant/usant, dra og Inspera-oppgaver)";
+    }
+    syncSw();
+    document.addEventListener("in:svar-straks", syncSw);
+    if (window.MutationObserver && document.body) new MutationObserver(function () { straksEvent(IN.svarStraks.get() && !IN.svarStraks.laast()); })
+      .observe(document.body, { attributes: true, attributeFilter: ["data-straks"] });
     var inner = el("div", { class: "level-inner" }, [
       el("span", { class: "level-label", text: "Forklaringsnivå" }),
       group,
-      el("span", { class: "level-hint muted small" })
+      el("span", { class: "level-hint muted small" }),
+      sw
     ]);
     clear(bar); bar.appendChild(inner);
 
@@ -424,7 +451,7 @@
 
   /* ---------- Felles motor for sant/usant og flervalg ----------
      Én motor og ett design for IN.tfTest og IN.quiz:
-       topp:  bryter «Vis svar med en gang» + poeng
+       topp:  bryter «Svar med en gang» + poeng
        liste: nummererte punkter, svarknapper og nedtrekket «Forklaring» under hvert punkt
        bunn:  «Sjekk svar» + «↺ Nullstill»
      Bryteren er én global innstilling for alle sett og sider (localStorage in2120:svar-straks,
@@ -437,7 +464,49 @@
   IN.svarStraks = {
     KEY: STRAKS_KEY,
     get: function () { return IN.store.get(STRAKS_KEY, "0") === "1"; },
-    set: function (on) { IN.store.set(STRAKS_KEY, on ? "1" : "0"); straksEvent(on); }
+    set: function (on) { IN.store.set(STRAKS_KEY, on ? "1" : "0"); straksEvent(on); },
+    // Låst: <body data-straks="av"> (eksamen.html i eksamensmodus). Da gir ingen øving tilbakemelding før retting.
+    laast: function () { return !!(document.body && document.body.getAttribute("data-straks") === "av"); },
+    onLaast: null
+  };
+
+  /* ---------- Bekreftelsesdialog ----------
+     IN.bekreft({ tittel, tekst (html), ja, nei, retur? }) → Promise<boolean>. <dialog> med showModal: resten av siden er
+     inert, Tab går i ring mellom knappene (fokusfelle), Esc og «nei» gir false. Fokus går tilbake til retur (eller
+     elementet som hadde fokus). Uten <dialog>-støtte: window.confirm som reserve. */
+  IN.bekreft = function (o) {
+    o = o || {};
+    var retur = o.retur || document.activeElement;
+    if (typeof HTMLDialogElement !== "function") return Promise.resolve(window.confirm((o.tittel ? o.tittel + " " : "") + (o.tekst || "").replace(/<[^>]+>/g, "")));
+    return new Promise(function (resolve) {
+      var tid = "bk" + (++qzN);
+      var nei = el("button", { class: "btn", type: "button", text: o.nei || "Avbryt", value: "nei" });
+      var ja = el("button", { class: "btn primary", type: "button", text: o.ja || "OK", value: "ja" });
+      var d = el("dialog", { class: "in-dialog", "aria-labelledby": tid + "-t", "aria-describedby": tid + "-x" }, [
+        el("h2", { class: "in-dialog-t", id: tid + "-t", text: o.tittel || "Er du sikker?" }),
+        el("div", { class: "in-dialog-x", id: tid + "-x", html: o.tekst || "" }),
+        el("div", { class: "in-dialog-k" }, [ja, nei])]);
+      var svar = false, ferdig = false;
+      function lukk(v) { svar = v; if (d.open) d.close(); }
+      ja.addEventListener("click", function () { lukk(true); });
+      nei.addEventListener("click", function () { lukk(false); });
+      d.addEventListener("cancel", function () { svar = false; });            // Esc
+      d.addEventListener("keydown", function (e) {                            // fokusfelle: Tab i ring
+        if (e.key !== "Tab") return;
+        var f = [ja, nei], i = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      });
+      d.addEventListener("close", function () {
+        if (ferdig) return; ferdig = true;
+        if (d.parentNode) d.parentNode.removeChild(d);
+        try { if (retur && retur.focus) retur.focus(); } catch (e) {}
+        resolve(svar);
+      });
+      document.body.appendChild(d);
+      d.showModal();
+      (o.fokusNei ? nei : ja).focus();
+    });
   };
   window.addEventListener("storage", function (e) { if (e.key === STRAKS_KEY) straksEvent(e.newValue === "1"); });
   function plain(html) { var d = document.createElement("div"); d.innerHTML = html; return (d.textContent || "").trim(); }
@@ -529,7 +598,7 @@
       var h = {}; Object.keys(fps).forEach(function (k) { h[k] = fps[k]; });
       IN.store.set(spec.storeKey, JSON.stringify({ a: answers, c: checked, h: h }));
     }
-    function instant() { return follow ? IN.svarStraks.get() : !!o.instant; }
+    function instant() { return follow ? IN.svarStraks.get() && !IN.svarStraks.laast() : !!o.instant; }
     // "" (ingen tilbakemelding) | "right" | "wrong" | "blank" (ubesvart etter sjekk)
     function state(it) {
       if (!(instant() || checked)) return "";
@@ -552,10 +621,10 @@
     function say(t) { live.textContent = ""; setTimeout(function () { live.textContent = t; }, 30); }
     var head = el("div", { class: "qz-head" }), sw = null;
     if (follow) {
-      sw = el("button", { class: "qz-switch", type: "button", role: "switch", "aria-checked": "false",
-        onclick: function () { IN.svarStraks.set(!instant()); } }, [
+      sw = el("button", { class: "qz-switch qz-switch-lokal", type: "button", title: "Samme bryter som «Svar med en gang» øverst på siden", role: "switch", "aria-checked": "false",
+        onclick: function () { if (IN.svarStraks.laast && IN.svarStraks.laast()) { if (typeof IN.svarStraks.onLaast === "function") IN.svarStraks.onLaast(sw); return; } IN.svarStraks.set(!instant()); } }, [
         el("span", { class: "qz-track", "aria-hidden": "true" }, el("span", { class: "qz-thumb" })),
-        el("span", { text: "Vis svar med en gang" })]);
+        el("span", { text: "Svar med en gang" })]);
       head.appendChild(sw);
     } else if (o.note) head.appendChild(el("span", { class: "qz-note", html: o.note }));
     var score = el("span", { class: "qz-score" });

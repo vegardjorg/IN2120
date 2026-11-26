@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verktøyene · IN2120</title>
+  <link rel="icon" href="data:,">
+  <meta name="description" content="Verktøyene i IN2120 rettet mot eksamen: nmap, Wireshark, sudo, iptables og Snort med annoterte utdata felt for felt, og Hydra, unshadow, John the Ripper, Hashcat, mimikatz, Metasploit og Burp/ZAP på konseptnivå, med fase, MITRE ATT&amp;CK, feller, øvingen «Hvilket verktøy er dette?» og alle eksamensoppgavene som bruker dem.">
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/verktoy.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
+</head>
+<body data-page="verktoy">
+  <a class="skip-link" href="#main">Hopp til innhold</a>
+  <header id="topnav"></header>
+  <main id="main" class="wrap">
+    <div class="pagehead">
+      <h1>Verktøyene</h1>
+      <p class="lead">Kurset viser en håndfull verktøy fra pentest og forsvar. Eksamen spør om dem på tre måter: navngi programmet fra et skjermbilde, koble programmet til det det gjør, og skrive eller tolke en regel. Her får hvert verktøy en linje om hva eksamen spør om, fasen og MITRE-teknikken, fellene og oppgavene. Forsvars- og administrasjonsverktøyene (nmap, Wireshark, sudo, iptables og Snort) har utdata du kan lese felt for felt. Angrepsverktøyene vises bare som konsepter.</p>
+      <div class="badges" id="vt-badges"></div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Verktøyene">
+      <button data-tab="oversikt">Oversikt</button>
+      <button data-tab="kartlegging">Kartlegging og lytting</button>
+      <button data-tab="passord">Passord</button>
+      <button data-tab="rettigheter">Rettigheter og minnet</button>
+      <button data-tab="utnytting">Utnytting og web</button>
+      <button data-tab="forsvar">Brannmur og IDS</button>
+      <button data-tab="ovelse">Hvilket verktøy er dette?</button>
+      <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <!-- ===================== OVERSIKT ===================== -->
+    <section data-panel="oversikt">
+      <h3>Verktøyene og hvor de hører hjemme</h3>
+      <div id="ex-oversikt"></div>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+          <li><b>Navngi programmet</b> fra et skjermbilde der navnet er sladdet: nmap (H2025 14), mimikatz (H2024 24) og Snort (H2024 27). Ett ord, og stavevarianter godtas.</li>
+          <li><b>Koble program og oppgave:</b> nmap = åpne porter, Wireshark = pakker, John = knekke passord, mimikatz = passord fra minnet (H2023 8). Wireshark er en pakkeanalysator og iptables en Linux-brannmur (H2024 10).</li>
+          <li><b>Skrive eller tolke en regel:</b> iptables (H2023 32, H2025 24) og Snort (H2023 31, H2025 20).</li>
+          <li><b>Forklare misbruk av sudo</b> fra en <code>sudo -l</code>-utskrift (H2022 4.4, H2023 29): hva retten gjør mulig og hvorfor.</li>
+        </ul></div>
+      <div id="vt-oversikt"></div>
+      <h4>Øving: hvor i angrepet eller forsvaret?</h4>
+      <div id="dra-verktoy-faser"></div>
+      <h4>Andre verktøy som nevnes i kurset</h4>
+      <ul class="vt-andre" id="vt-andre"></ul>
+      <div class="callout felle"><span class="lbl">Husk</span>
+        <p>Verktøyene i kurset brukes bare mot systemer du har skriftlig lov til å teste. En pentest uten avtale kan være datainnbrudd (straffeloven § 204, blokk 4). Denne siden viser derfor ingen kjørbare angrepskommandoer, bare hvordan du kjenner igjen verktøyene og leser utdataene.</p>
+      </div>
+    </section>
+
+    <!-- ===================== KARTLEGGING ===================== -->
+    <section data-panel="kartlegging">
+      <div id="vt-nmap-h"></div>
+      <div id="vt-wireshark-h"></div>
+    </section>
+
+    <!-- ===================== PASSORD ===================== -->
+    <section data-panel="passord">
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>Online gjetting</b> (Hydra): hvert forsøk går til tjenesten. Kontosperring, forsinkelse og MFA virker.</li>
+          <li><b>Offline knekking</b> (John, Hashcat): angriperen har hashene og prøver lokalt i full fart. Bare sterke passord og en treg, saltet hash hjelper.</li>
+          <li>Verktøyene vises her bare som konsepter: hva de gjør, hvordan du kjenner dem igjen, og hva eksamen spør om.</li>
+        </ul></div>
+      <div id="vt-hydra-h"></div>
+      <div id="vt-unshadow-h"></div>
+      <div id="vt-john-h"></div>
+      <div id="vt-hashcat-h"></div>
+    </section>
+
+    <!-- ===================== RETTIGHETER ===================== -->
+    <section data-panel="rettigheter">
+      <div id="vt-sudo-h"></div>
+      <div id="vt-mimikatz-h"></div>
+    </section>
+
+    <!-- ===================== UTNYTTING ===================== -->
+    <section data-panel="utnytting">
+      <div id="vt-metasploit-h"></div>
+      <div id="vt-burp-h"></div>
+    </section>
+
+    <!-- ===================== FORSVAR ===================== -->
+    <section data-panel="forsvar">
+      <div id="vt-iptables-h"></div>
+      <div id="vt-snort-h"></div>
+    </section>
+
+    <!-- ===================== ØVING ===================== -->
+    <section data-panel="ovelse">
+      <h3>Hvilket verktøy er dette?</h3>
+      <p class="muted small">Tolv spørsmål i eksamensstil: et utdrag, et skjermbilde eller en beskrivelse, og du velger verktøyet. Svarene lagres i nettleseren.</p>
+      <div id="quiz-verktoy-hvilket"></div>
+    </section>
+
+    <!-- ===================== EKSAMEN ===================== -->
+    <section data-panel="eksamen">
+      <h3>Eksamensoppgavene som bruker verktøyene</h3>
+      <p class="muted small">Oppgavene fra eksamensbanken, med øving i Inspera-format og løsning. Velg et verktøy for å se bare oppgavene der det inngår. De samme kortene finnes på blokksidene (<a href="04-angrep.html#fane=eksamen">blokk 4</a>, <a href="09-nettverk.html#fane=eksamen">blokk 9</a>).</p>
+      <div id="vt-eksamen"></div>
+    </section>
+  </main>
+
+  <footer class="footer">IN2120-guide · Verktøyene · <a href="04-angrep.html">Blokk 4, angrep og pentest</a> · <a href="09-nettverk.html">Blokk 9, nettverk</a></footer>
+
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/data-verktoy.js?v=20261126d"></script>
+  <script src="assets/js/viz-verktoy.js?v=20261126d"></script>
+  <script>
+  (function () {
+    "use strict";
+    function safe(navn, fn) { try { fn(); } catch (e) { if (window.console) console.error("[verktoy] " + navn, e); } }
+    var V = IN.VERKTOY;
+
+    safe("badges", function () {
+      IN.verktoy.badges("#vt-badges", ["H2025-14", "H2024-24", "H2024-27", "H2023-8", "H2022-4.4", "H2023-29", "H2023-32", "H2025-20"]);
+    });
+
+    safe("ex-oversikt", function () {
+      IN.explain("#ex-oversikt", {
+        eli5: "<p>En innbruddstyv og en vakt bruker mange av de samme verktøyene. Begge vil vite hvilke dører som finnes (kartlegging), begge kan se hvem som går forbi (lytting), og vakta har i tillegg porter som stenger (brannmur) og alarmer som piper (IDS). På eksamen må du kjenne igjen verktøyet når du ser et bilde av det, og vite hva det brukes til.</p>",
+        normal: "<p>Verktøyene følger pentestfasene fra lysarkene (d05 s. 16): <b>rekognosering</b> (nmap, Wireshark), <b>innledende tilgang</b> (Hydra, Metasploit, Burp/ZAP) og <b>utvide tilgangen</b> (sudo, unshadow, John, Hashcat, mimikatz). På forsvarssiden står iptables (beskytte) og Snort (oppdage).</p><p>Mange av dem brukes av begge sider: en administrator skanner sitt eget nett med nmap og feilsøker med Wireshark, og sudo er et vanlig administrasjonsverktøy som blir farlig når reglene er for vide.</p>",
+        teknisk: "<p>MITRE ATT&amp;CK beskriver hva angriperen gjør, ikke hvilket verktøy som brukes. Derfor står teknikken (T1046, T1040, T1110, T1003, T1548, T1550) ved hvert verktøy: samme teknikk kan gjøres med mange verktøy, og samme verktøy kan brukes til flere teknikker. For forsvarsverktøyene (iptables, Snort) finnes ingen ATT&amp;CK-teknikk. De er tiltak mot teknikkene.</p><p>Eksamen H21–H25 spør nesten bare om <i>gjenkjenning og formål</i>, aldri om kommandolinjeflagg. Unntakene er regelsyntaksen for iptables og Snort, og John-parameteren rules (H2024 8).</p>"
+      }, { label: "Forklaring:" });
+    });
+
+    safe("oversikt", function () { IN.verktoy.oversikt("#vt-oversikt"); });
+    safe("faser", function () { IN.verktoy.faser("#dra-verktoy-faser"); });
+    safe("andre", function () {
+      var ul = IN.qs("#vt-andre");
+      V.andre.forEach(function (a) {
+        ul.appendChild(IN.el("li", { html: "<b>" + a.navn + "</b>: " + a.hva + ' <span class="muted small">(' + a.kurs + ")</span>" }));
+      });
+    });
+
+    V.liste.forEach(function (t) {
+      safe(t.id, function () { IN.verktoy.seksjon("#vt-" + t.id + "-h", t.id); });
+    });
+
+    safe("gjett", function () { IN.verktoy.gjett("#quiz-verktoy-hvilket"); });
+    safe("eksamen", function () { IN.verktoy.eksamen("#vt-eksamen"); });
+  })();
+  </script>
+</body>
+</html>

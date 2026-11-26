@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -72,7 +73,7 @@
           <tr><td>SMB</td><td class="mono">445</td><td>–</td></tr>
           <tr><td>RDP</td><td class="mono">3389</td><td class="nt-m-ja">ja</td></tr>
         </tbody></table></div>
-      <p class="small muted">H2025 23 regnet SSH, HTTPS og RDP som krypterte, og Telnet, HTTP, FTP og ARP som ukrypterte.</p>
+      <p class="small muted">H2025 23: SSH og RDP er krypterte; Telnet, HTTP, FTP og ARP er ukrypterte.</p>
 
       <h4>Eksempel: én forespørsel ned gjennom stakken</h4>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
@@ -139,7 +140,7 @@
         <details class="grense"><summary>Hvorfor er nøkkelen ikke autentisert rett etter ServerHello?</summary>
           <p>Da har partene bare en anonym hemmelighet gᵃᵇ. En mann i midten kunne stått der. Først CertificateVerify, tjenerens signatur over håndtrykket, binder nøkkelen til sertifikatet.</p></details>
         <ul>
-          <li><b>To halvdeler.</b> Fremoverhemmelighold handler om at en langtidsnøkkel lekker <i>i fremtiden</i>. Svar som bare sier «uavhengige øktnøkler», mangler den halvdelen (H2021 5.3 gir 0,5 p for hver del).</li>
+          <li><b>To halvdeler.</b> Fremoverhemmelighold handler om at en langtidsnøkkel lekker <i>i fremtiden</i>. H2021 5.3 krevde begge delene (0,5 p for hver). H2025 12 ga full uttelling for unike, uavhengige øktnøkler som ikke kan utlede hverandre, uten å kreve lekkasjedelen. Skriv begge, så er du dekket.</li>
           <li>Den private DH-delnøkkelen er ikke det samme som en privat signaturnøkkel.</li>
           <li>TLS autentiserer normalt bare tjeneren. Klientautentisering er valgfri.</li>
         </ul></div>
@@ -182,7 +183,7 @@
         <details class="grense"><summary>Hvorfor beskytter ikke HSTS alltid?</summary>
           <p>Ved første besøk har nettleseren ikke fått HSTS-beskjeden ennå. Bare preload-listen dekker det.</p></details>
         <ul>
-          <li>TLS-inspeksjon bryter krypteringen i proxyen. Den er verken en IDS eller en brannmurtype (H2023 11).</li>
+          <li>TLS-inspeksjon bryter krypteringen i proxyen i gateway-brannmuren (d09 s. 25). Den er en funksjon i brannmurproxyen, ikke en IDS og ikke en egen brannmurtype (H2023 11).</li>
           <li><b>Gyldig hengelås betyr ikke at ingen leser.</b> Sjekk hvem som er rot i sertifiseringsstien. Står den interne CA-en øverst, blir trafikken inspisert.</li>
           <li>Stripping bryter ikke kryptografien. Sterkere algoritmer hjelper derfor ikke.</li>
         </ul></div>
@@ -237,7 +238,7 @@
         <details class="grense"><summary>Hvorfor må <span class="mono">-p tcp</span> stå med <span class="mono">--dport</span>?</summary>
           <p>Porten er et felt i transporthodet. iptables må vite om det er TCP eller UDP for å lese den. H2023 32-fasiten mangler <span class="mono">-p tcp</span>; ta den med i ditt svar.</p></details>
         <details class="grense"><summary>Hvorfor tilstandsbasert og ikke tilstandsløs for «bare pakker i en eksisterende TCP-økt»?</summary>
-          <p>Bare den tilstandsbaserte husker øktene. En tilstandsløs ser hver pakke alene (H2022 7.3).</p></details>
+          <p>Den tilstandsbaserte husker øktene, og det gjør også en applikasjonsbrannmur (proxy), som avslutter og følger forbindelsene; fasiten godtar begge. En tilstandsløs ser hver pakke alene (H2022 7.3).</p></details>
         <ul>
           <li><b>Implisitt ACCEPT mot fasiten.</b> Lysarkene sier at iptables slipper gjennom det som ikke treffer, men H2025 24-fasiten forutsetter at slik trafikk stoppes. Skriv alltid en eksplisitt DROP selv, og nevn forutsetningen når svaret er fritekst.</li>
           <li><b>Regler som aldri nås.</b> En bredere regel høyere opp tar pakken først (Telnet-raden i H2025 24).</li>
@@ -269,7 +270,7 @@
       <details class="grense"><summary>Vårt svar</summary>
 <pre class="mono">iptables -A FORWARD -p tcp -s 10.1.1.5 -d 10.2.2.8 --dport 22 -j ACCEPT
 iptables -A FORWARD -d 10.2.2.8 -j DROP</pre>
-        <p class="small">ACCEPT-regelen må stå først, ellers tar DROP-regelen SSH-trafikken også. <span class="mono">-p tcp</span> må med fordi <span class="mono">--dport</span> er et TCP-felt.</p></details>
+        <p class="small">ACCEPT-regelen må stå først, ellers tar DROP-regelen SSH-trafikken også. <span class="mono">-p tcp</span> må med fordi <span class="mono">--dport</span> krever <span class="mono">-p tcp</span> eller <span class="mono">-p udp</span>.</p></details>
 
       <h4>Test deg selv</h4>
       <div id="quiz-brannmur"></div>
@@ -284,7 +285,7 @@ iptables -A FORWARD -d 10.2.2.8 -j DROP</pre>
         En <b>IDS</b> (inntrengingsdeteksjonssystem) prøver å oppdage mistenkelig aktivitet og varsler. <b>HIDS</b> overvåker én vert, <b>NIDS</b> overvåker nettsegmenter.
         En <b>signaturbasert</b> IDS kjenner bare igjen angrep den har signatur for, og trenger ofte å se innholdet, så TLS gjør den svakere. Snort og Suricata er signaturbaserte NIDS.
         En <b>anomalibasert</b> IDS lærer normal oppførsel, ofte med maskinlæring, og varsler ved avvik. Den kan finne ukjente angrep, men gir flere falske alarmer.
-        En <b>IPS</b> griper inn selv og blokkerer. En <b>honningkrukke</b> er et falskt, fristende mål der all trafikk er illegitim. <b>Mørke IP-adresser</b> er ubrukte adresser: all trafikk dit er illegitim, en billig form for deteksjon.</div>
+        En <b>IPS</b> griper inn selv og blokkerer. En <b>honningkrukke</b> er et falskt, fristende mål der all trafikk er illegitim. <b>Mørke IP-adresser</b> er ubrukte adresser: all trafikk dit er illegitim, så de er en billig honningkrukkeløsning for deteksjon (d09 s. 71), men ikke en ekte honningkrukke-maskin.</div>
       <div id="ex-ids"></div>
 
       <h4>Les en Snort-regel</h4>
@@ -313,11 +314,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor står maskinen som starter SSH til venstre, og hvorfor er 22 målporten?</summary>
-          <p>Pilen går fra kilden til målet. En klient som starter SSH, bruker en tilfeldig kildeport og målport 22: <span class="mono">alert tcp 10.10.23.23 any -&gt; any 22</span>. H2025 20-fasiten skrev 22 som kildeport, men sensor ga 0 for feil retning. Skriv maskinen som kilde, og si gjerne i én setning hvilken side port 22 står på og hvorfor.</p></details>
+          <p>Pilen går fra kilden til målet. En klient som starter SSH, bruker en tilfeldig kildeport og målport 22: <span class="mono">alert tcp 10.10.23.23 any -&gt; any 22</span>. H2025 20-fasiten skrev 22 som kildeport (trafikk fra serveren), og rettenøkkelen gir 0 poeng for feil retning. Skriv maskinen som kilde, og si gjerne i én setning hvilken side port 22 står på og hvorfor.</p></details>
         <details class="grense"><summary>Hvorfor kan begge IDS-typer gi alarm for en kjent, upatchet sårbarhet?</summary>
           <p>Den er kjent, så en signatur kan finnes, og angrepet kan i tillegg gi avvik fra normal trafikk (H2023 31).</p></details>
         <details class="grense"><summary>Hvorfor er mørke IP-adresser ikke en ekte honningkrukke?</summary>
-          <p>En honningkrukke er en maskin angriperen kan samhandle med. Mørke IP-er er bare ubrukte adresser som brukes til deteksjon, særlig av kompromitterte maskiner på innsiden som skanner. Blander du dem, gir H2024 29 null for det punktet.</p></details>
+          <p>En honningkrukke er en maskin angriperen kan samhandle med. Mørke IP-er er bare ubrukte adresser som brukes til deteksjon, særlig av kompromitterte maskiner på innsiden som skanner. Kall dem gjerne en (billig) honeypot-løsning, slik d09 s. 71 gjør, og H2024 29 gir 1 p for det. Men skriver du som om det er en ekte maskin angriperen samhandler med, gir H2024 29 null for det punktet.</p></details>
         <ul>
           <li>Husk <span class="mono">alert</span>, <span class="mono">tcp</span> og riktig port. De ga trekk i H2025 20.</li>
           <li><b>IDS oppdager, IPS blokkerer.</b> En IPS som blokkerer en uskyldig (falsk alarm eller forfalsket avsender), er et brudd på tilgjengelighet.</li>
@@ -350,7 +351,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <h3>IPsec, VPN og Tor</h3>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <b>IPsec</b> er standarden for sikker kommunikasjon på IP-laget, med kryptering, autentisering og nøkkelutveksling. Den settes opp i operativsystemet, ikke i applikasjonene.
-        I <b>tunnelmodus</b> krypteres hele den opprinnelige IP-pakken og får et nytt IP-hode og et IPsec-hode utenpå.
+        I <b>tunnelmodus</b> (med ESP) krypteres hele den opprinnelige IP-pakken og får et nytt IP-hode og et IPsec-hode utenpå.
         Arkitekturene er gateway–gateway, vert–gateway og vert–vert. En <b>VPN</b> er en kryptert virtuell tunnel.
         <b>Tor</b> (løkruting) sender trafikken gjennom tre noder med tre krypteringslag utenpå hverandre.</div>
       <div id="ex-ipsec"></div>
@@ -454,10 +455,10 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <h3>Lagdelt forsvar og zero trust</h3>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <b>Lagmodellen</b> (løkmodellen): alltid flere lag med sikkerhet, så faller ett, står de andre. <b>Skallmodellen</b> (eggmodellen): hardt ytre skall, mykt innhold.
-        <b>Zero trust</b>: «stol aldri, verifiser alltid», også på innsiden. Valider alle, anta at noe kan være kompromittert, og gi minst mulig rettigheter.
+        <b>Zero trust</b>: «stol aldri, verifiser alltid», også på innsiden. Valider alle, anta at alle kan være kompromittert (d09 s. 5), og gi minst mulig rettigheter.
         <b>Perimeteren</b> er yttergrensen til det man forsvarer.</div>
       <div id="ex-forsvar"></div>
-      <p class="small muted fig-vis-led">Skallmodellen stoler på alt innenfor perimeteren. Med zero trust går hver forespørsel via et håndhevingspunkt (PEP) som spør et beslutningspunkt (PDP), samme ord som i IAM.</p>
+      <p class="small muted fig-vis-led">Skallmodellen stoler på alt innenfor perimeteren. Med zero trust går hver forespørsel via et håndhevingspunkt (PEP) som spør et beslutningspunkt (PDP), samme ord som i IAM. PEP/PDP i zero trust står ikke på d09; det er utdyping fra NIST SP 800-207.</p>
       <div id="fk-skall-zt"></div>
 
       <h4>En angriper kommer inn via phishing</h4>
@@ -497,30 +498,32 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/ovelse.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-nett.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-nett.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -790,7 +793,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
     var QUIZ = {
       lag: [
         { q: "Hvilket lag i internettstakken svarer til OSI-lag 3?", options: ["Link", "Internett", "Transport", "Sesjon"], answer: 1, explain: "OSI-lag 3 er nettverkslaget, der IP finner veien mellom nett. I internettstakken heter det samme laget internettlaget." },
-        { q: "Hvor ligger TLS Record?", options: ["Applikasjon", "Transport", "Internett", "Link"], answer: 1, explain: "Record sitter rett over TCP, i transportlaget." },
+        { q: "Hvor ligger TLS Record?", options: ["Applikasjon", "Transport", "Internett", "Link"], answer: 1, explain: "Record sitter rett over TCP, i transportlaget (kursets konvensjon, d09; RFC 8446 plasserer ikke TLS i et lag)." },
         { q: "Hvilken port bruker RDP?", options: ["22", "445", "3389", "23"], answer: 2, explain: "RDP bruker 3389. 22 er SSH, 445 er SMB og 23 er Telnet." },
         { q: "Hvilken protokoll er kryptert?", options: ["Telnet", "FTP", "SSH", "ARP"], answer: 2, explain: "SSH er den krypterte erstatningen for Telnet." }
       ],
@@ -841,7 +844,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
     var TF = {
       lag: [
         T("IPsec ligger i internettlaget.", true, "Den beskytter hele IP-pakken."),
-        T("TLS ligger i sin helhet i transportlaget.", false, "Handshake er i applikasjonslaget, Record i transportlaget."),
+        T("TLS ligger i sin helhet i transportlaget.", false, "Etter kursets konvensjon er Handshake i applikasjonslaget og Record i transportlaget (d09)."),
         T("SMB bruker port 445.", true, "Ja."),
         T("UDP er en sikkerhetsprotokoll.", false, "UDP har ingen kryptografiske mekanismer."),
         T("ARP hører til linklaget.", true, "ARP kobler IP til MAC-adresse i lokalnettet."),
@@ -853,7 +856,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
         T("Tjenerens private signeringsnøkkel i TLS er langsiktig.", true, "Den hører til sertifikatet. DH-delnøklene er de kortlivede."),
         T("Record-protokollen gir konfidensialitet og integritet.", true, "Med nøkkelen Handshake etablerte."),
         T("Rett etter ServerHello er øktnøkkelen allerede autentisert.", false, "Den er anonym til CertificateVerify er sjekket."),
-        T("SSL støttet fremoverhemmelighold.", false, "Frøet til øktnøkkelen ble sendt kryptert med tjenerens offentlige nøkkel."),
+        T("SSL støttet fremoverhemmelighold.", false, "Etter kurset (t10, H2021 5.3): frøet til øktnøkkelen ble sendt kryptert med tjenerens offentlige nøkkel. SSL 3.0 hadde riktignok DHE-chifferserier som valg (RFC 6101), men det var ikke standard."),
         T("TLS 1.2 ga alltid fremoverhemmelighold.", false, "DH var bare én mulighet; RSA-nøkkeltransport var også tillatt."),
         T("Finished inneholder en MAC.", true, "En MAC over hele håndtrykket.")
       ],
@@ -885,7 +888,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       ],
       ipsec: [
         T("IPsec konfigureres i hver applikasjon.", false, "Den settes opp i operativsystemet."),
-        T("I tunnelmodus krypteres også det opprinnelige IP-hodet.", true, "Hele den opprinnelige pakken krypteres."),
+        T("I tunnelmodus krypteres også det opprinnelige IP-hodet.", true, "Med ESP krypteres hele den opprinnelige pakken (AH alene autentiserer bare)."),
         T("Tor-inngangsnoden kjenner brukerens IP-adresse.", true, "Den får pakken rett fra brukeren."),
         T("VPN-tilbyderen kan lese HTTPS-innholdet.", false, "TLS går ende til ende gjennom tunnelen."),
         T("Man kan skjule Tor-bruk for ISP ved å gå via sky-VPN først.", true, "Men da ser VPN-tilbyderen Tor-bruken."),
@@ -901,7 +904,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       ],
       forsvar: [
         T("Lagmodellen betyr flere uavhengige sikkerhetslag.", true, "Faller ett, står de andre."),
-        T("Zero trust antar at noe allerede kan være kompromittert.", true, "Derfor verifiseres alt."),
+        T("Zero trust antar at alle kan være kompromittert.", true, "Derfor verifiseres alt (d09 s. 5)."),
         T("Skallmodellen beskytter godt mot innsidere.", false, "Innsiden er myk."),
         T("Perimeteren er yttergrensen til det man forsvarer.", true, "Ja."),
         T("Zero trust betyr at man ikke trenger brannmur.", false, "Brannmurer er fortsatt ett av lagene."),

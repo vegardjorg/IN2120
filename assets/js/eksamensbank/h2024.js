@@ -116,7 +116,7 @@
           multi: false,
           rader: [
             { s: "Safety", svar: [2], explain: "<p>Safety handler om vern mot ulykker og utilsiktede hendelser. Det norske ordet er trygghet.</p>" },
-            { s: "Assurance", svar: [1], explain: "<p>Assurance er tilliten til at sikkerhetstiltakene faktisk virker som de skal. Kurset kaller det garanti.</p>" },
+            { s: "Assurance", svar: [1], explain: "<p>Assurance er tilliten til at sikkerhetstiltakene faktisk virker som de skal. Eksamen (H23–H25) oversetter det med garanti.</p>" },
             { s: "Security", svar: [3], explain: "<p>Security er vern mot tilsiktede, ondsinnede handlinger. Det er sikkerhet.</p>" },
             { s: "Certainty", svar: [0], explain: "<p>Certainty betyr å vite noe sikkert. Det norske ordet er visshet.</p>" }
           ]
@@ -149,7 +149,7 @@
             { s: "Hashkollisjoner i signaturer", svar: [0], explain: "<p>En kollisjon lar angriperen bytte ut et dokument med et annet som gir samme hash, slik at den gamle signaturen fortsatt ser gyldig ut. Det er brudd på integritet, ikke konfidensialitet.</p>" }
           ]
         },
-        avvik: "Ubesvart gir -0,5 (avvik fra hovedregelen i settet). «Passordspraying mot en enkelt brukerkonto» er en uvanlig bruk av ordet: spraying betyr vanligvis ett passord mot mange kontoer. Fasiten (tilgjengelighet) handler om kontosperren, og den er riktig uansett navn på angrepet.",
+        avvik: "Ubesvart gir -0,5 (avvik fra hovedregelen i settet). «Passordspraying mot en enkelt brukerkonto» er en uvanlig bruk av ordet: spraying betyr vanligvis ett eller noen få vanlige passord mot mange kontoer (MITRE ATT&CK T1110.003); mange passord mot én konto kalles der Password Guessing (T1110.001). Samme ordbruk står i H2023 26. Fasiten (tilgjengelighet) handler om kontosperren, og den er riktig uansett navn på angrepet.",
         losning: [
           "Spør hva som faktisk skjer med dataene eller tjenesten: lest (K), endret (I) eller utilgjengelig (T).",
           "To rader er feller: IPS-raden og spraying-raden handler om at et forsvarstiltak stenger ute en legitim bruker → T.",
@@ -308,7 +308,7 @@
             "Finnes ikke som John-parameter. Ordet ligner bare på «password spraying».",
             "Riktig (grønn hake i arket). Med regler lager John varianter av hvert ord i ordlista, for eksempel stor forbokstav, tall på slutten eller bytte av a med @.",
             "Høres logisk ut, men er ikke navnet på parameteren.",
-            "Ikke en parameter for ordlisteregler."
+            "«All» er navnet på et regelsett/tegnsett i John (f.eks. --rules=All), ikke selve parameteren. Parameteren heter rules."
           ]
         },
         avvik: null,
@@ -576,7 +576,7 @@
               explain: "Trygge valg er RSA, DSA, ECDSA eller EdDSA, som alle er signaturalgoritmer. Lista godtar også DH og MQV, selv om de egentlig er nøkkelutveksling." }
           ]
         },
-        avvik: "Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Vårt råd er å svare RSA eller ECDSA. FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer.",
+        avvik: "Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Vårt råd er å svare RSA eller ECDSA. FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC. Lista forklares trolig av at kurset (d02, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon.",
         merknad: "«Fyll in» og mellomrommet før spørsmålstegnet står slik i arket.",
         losning: ["Felt 1: X.509.", "Felt 2: RSA (eller ECDSA/EdDSA/DSA)."],
         tips: ["Skriv bare én algoritme i felt 2. Feltet rettes automatisk mot lista."]
@@ -623,13 +623,14 @@
           type: "FF",
           regelTekst: "Poeng: 1 for hver riktig; -1 for hver feil; 0 for ubesvart; minimum 0.",
           regel: R(1, -1, 0, 2),
-          alternativer: ["Liten offentlig nøkkel", "Lett å beregne", "Sterk kollisjonsresistens", "Salt"],
+          alternativer: ["Liten offentlig nøkkel", "Lett å beregne", "Sterk kollisjonsresistens", "Salt", "Tung, men sterk kryptering"],
           svar: [1, 2],
           explain: [
             "En hashfunksjon har ingen nøkkel, verken offentlig eller hemmelig.",
             "Riktig. Hashen skal være rask å regne ut for enhver melding.",
             "Riktig. Det skal være praktisk umulig å finne to ulike meldinger med samme hash.",
-            "Salt brukes ved lagring av passord, men er ikke et krav til selve hashfunksjonen."
+            "Salt brukes ved lagring av passord, men er ikke et krav til selve hashfunksjonen.",
+            "En hashfunksjon krypterer ikke og har ingen nøkkel. Den skal tvert imot være lett å beregne."
           ]
         },
         avvik: null,
@@ -778,7 +779,7 @@
           "B: Filteret stopper bare den eksakte teksten 1==1. Bytt til et annet uttrykk som alltid er sant, for eksempel 2==2.",
           "C: Nei. Kode som kjører hos brukeren, kontrollerer brukeren selv: hen kan slå av skriptet eller sende forespørselen via en proxy etter at filteret har kjørt."
         ],
-        tips: ["I C får du bare 0,5 p for «nei». Begrunnelsen (brukeren kontrollerer klienten) gir 2 p, og å nevne en proxy (Burp/ZAP) gir full pott.", "Svarfilter må alltid ligge på tjenersiden, og den egentlige løsningen er parameteriserte spørringer."]
+        tips: ["I C får du bare 0,5 p for «nei». Begrunnelsen (brukeren kontrollerer klienten) gir 2 p, og å nevne en proxy (Burp/ZAP) gir full pott.", "Inndatafilter (validering) må alltid ligge på tjenersiden, og den egentlige løsningen er parameteriserte spørringer."]
       },
       /* ---------------------------------------------------------------- 24 */
       {
@@ -805,7 +806,7 @@
         },
         avvik: null,
         losning: ["Modulnavn med dobbelt kolon (sekurlsa::) og utdata med NTLM-hasher og passord = mimikatz."],
-        tips: ["«Gentil Kiwi» i skjermbildet er forfatterens kallenavn, derfor hintet om at svaret ikke er kiwi."]
+        tips: ["Hintet sier at kiwi «bruker dette programmet»: Kiwi er en modul som bygger på mimikatz (lysark d05 s. 45 lister «Kiwi (Metasploit)» ved siden av Mimikatz). Spørsmålet gjelder programmet selv."]
       },
       /* ---------------------------------------------------------------- 25 */
       {
@@ -829,7 +830,7 @@
             { etikett: "Etablerer øktnøkkel i TLS", valg: ["Alert-protokollen", "Handshake-protokollen", "Change Cipher Suite-protokollen", "Record-protokollen"], svar: 1, godta: [],
               explain: "Handshake-protokollen forhandler algoritmer, autentiserer tjeneren og etablerer øktnøkkelen. Record-protokollen bruker nøkkelen etterpå." },
             { etikett: "Krypterer all applikasjonsdata", valg: ["Både TLS og IPSec", "Bare TLS", "Bare IPSec"], svar: 0, godta: [],
-              explain: "Begge krypterer applikasjonsdataene: TLS rundt hver forbindelse, IPsec rundt hele IP-pakken." },
+              explain: "Begge krypterer applikasjonsdataene: TLS rundt hver forbindelse, IPsec IP-nyttelasten (i tunnelmodus hele den opprinnelige pakken)." },
             { etikett: "HSTS beskytter mot", valg: ["DOS", "XSS", "TLS-stripping"], svar: 2, godta: [],
               explain: "HSTS tvinger nettleseren til å bruke HTTPS, så en mann i midten ikke kan nedgradere til HTTP." },
             { etikett: "ISP ser i sky-VPN", valg: ["at brukeren har tilgang til sky-VPN men ser ikke innhold eller endelig destinasjon", "bare IP-adresse til endelig destinasjonen (og ikke ukryptert innhold)", "bare innholdet (i klartekst)", "alt innhold og IP-adresse til endelig destinasjonen"], svar: 0, godta: [],
@@ -932,7 +933,7 @@
             { etikett: "OSI 1", svar: 4, godta: [], explain: "Lag 1 er det fysiske laget." }
           ]
         },
-        avvik: null,
+        avvik: "Eksamensarket (og kursets lysark d09 s. 7) tegner internett-stakken med applikasjon ved OSI 7–6 og transport ved OSI 5–4. Standard OSI-tilordning er applikasjon = OSI 7–5 og transport = OSI 4, og figuren her er tegnet slik. Poengene gis bare for lagnavnene, så svaret blir det samme.",
         losning: [
           "OSI ovenfra: Applikasjon, Presentasjon, Sesjon, Transport, Nettverk, Link, Fysisk.",
           "Internett ovenfra: Applikasjon, Transport, Internett, Link, Fysisk.",
@@ -1050,7 +1051,7 @@
         },
         avvik: null,
         losning: ["Funksjoner: begge. Må kjøpes: ingen. Norsk: NSM. Med 27001: begge."],
-        tips: ["Det er ISO-standardene du må betale for, ikke NSM eller NIST.", "Dagens NIST CSF 2.0 har seks funksjoner (GOVERN er ny); i 2024 var det fem i oppgavene."]
+        tips: ["Det er ISO-standardene du må betale for, ikke NSM eller NIST.", "NIST CSF 2.0 (februar 2024) har seks funksjoner, der GOVERN er ny. Eldre eksamenssett bruker fem. Svaret på denne oppgaven påvirkes ikke."]
       },
       /* ---------------------------------------------------------------- 33 */
       {
@@ -1299,7 +1300,7 @@
   P["H2024-3"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Spør hva som skjer: blir noe lest (hemmelighet brutt), endret (riktighet brutt) eller gjort umulig å bruke (tilgang brutt)?</p>",
     normal: "<p>Avlytting bryter K. Sletting, IPS-blokkering av feil adresse og kontosperre etter mange forsøk bryter T. Uautorisert endring og hashkollisjon i signatur bryter I.</p>",
-    teknisk: "<p>Fellene er radene der et forsvarstiltak blir våpenet: en IPS som blokkerer en forfalsket avsender, og en kontosperre som utløses av angriperen. Begge stenger ute legitime brukere (T). En hashkollisjon lar angriperen bytte innhold under en gyldig signatur, altså en integritetsangrep.</p>" } };
+    teknisk: "<p>Fellene er radene der et forsvarstiltak blir våpenet: en IPS som blokkerer en forfalsket avsender, og en kontosperre som utløses av angriperen. Begge stenger ute legitime brukere (T). En hashkollisjon lar angriperen bytte innhold under en gyldig signatur, altså et integritetsangrep.</p>" } };
 
   P["H2024-4"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Svart boks: du ser ingenting inni. Hvit (glass) boks: du ser alt. Grå: du ser litt.</p>",
@@ -1334,7 +1335,7 @@
   P["H2024-10"] = { type: "eksamen", hvorfor: {
     eli5: "<p>iptables er dørvakten. IPsec er en hemmelig tunnel. Wireshark er et forstørrelsesglass for nettrafikk.</p>",
     normal: "<p>Linux-brannmur = iptables. VPN = IPsec. Wireshark = pakkeanalysator.</p>",
-    teknisk: "<p>iptables er grensesnittet til pakkefilteret i Linux-kjernen (kjeder INPUT, OUTPUT, FORWARD). IPsec gir kryptering og autentisering på IP-laget i tunnelmodus. Wireshark fanger pakker passivt og dekoder protokollene; den filtrerer bare det den viser, ikke trafikken.</p>" } };
+    teknisk: "<p>iptables er grensesnittet til pakkefilteret i Linux-kjernen (kjeder INPUT, OUTPUT, FORWARD). IPsec gir kryptering og autentisering på IP-laget, for VPN typisk i tunnelmodus. Wireshark fanger pakker passivt og dekoder protokollene; den filtrerer bare det den viser, ikke trafikken.</p>" } };
 
   P["H2024-11"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Hvert ekstra tegn ganger antall muligheter med antall tegn du kan velge. Fire ekstra tegn betyr å gange fire ganger.</p>",
@@ -1354,7 +1355,7 @@
   P["H2024-14"] = { type: "eksamen", hvorfor: {
     eli5: "<p>En ekte underskrift beviser hvem som skrev. Et gammelt skranglete lås (SHA-1) stoler man ikke på. Og å avtale et hemmelig ord med noen du ikke har sjekket hvem er, kan gjøre at du egentlig snakker med en mellommann.</p>",
     normal: "<p>Asymmetrisk signatur beviser avsender overfor tredjepart. SHA-1 er usikker. Diffie-Hellman uten signatur er sårbar for mann-i-midten.</p>",
-    teknisk: "<p>Bare eieren av K<sub>priv</sub> kan signere, så signaturen er ubenektelig. SHA-1 har praktiske kollisjoner, og dermed kan to dokumenter dele signatur. DH gir en felles nøkkel gᵃᵇ [mod p], men uten Sig(gᵃᵇ, K<sub>priv</sub>) vet ingen av partene hvem de har utvekslet med.</p>" } };
+    teknisk: "<p>Bare eieren av K<sup>A</sup><sub>priv</sub> kan signere, så signaturen er ubenektelig. SHA-1 har praktiske kollisjoner, og dermed kan to dokumenter dele signatur. DH gir en felles nøkkel gᵃᵇ [mod p], men uten signaturene Sig(gᵃᵇ, K<sup>A</sup><sub>priv</sub>) og Sig(gᵃᵇ, K<sup>B</sup><sub>priv</sub>) vet ingen av partene hvem de har utvekslet med (kursets fremstilling, d02 s. 63; i praktiske protokoller som TLS 1.3 signeres de utvekslede verdiene eller hele håndtrykket, ikke selve gᵃᵇ).</p>" } };
 
   P["H2024-15"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Rektor (rot) gir læreren (mellomliggende) lov til å skrive vitnemål, og læreren skriver vitnemålet til eleven (inspera.no).</p>",
@@ -1481,12 +1482,12 @@
   P["H2024-33"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Først spør sjefen: «Er kartet godt nok?» Så spør sjefen: «Er planen god nok, og har vi råd?»</p>",
     normal: "<p>Punkt 1 avviser en vurdering som ikke skiller risikoene eller er for usikker. Punkt 2 avviser en plan som aksepterer for mye risiko eller koster for mye.</p>",
-    teknisk: "<p>Beslutningspunkt 1 er en kvalitetskontroll av risikovurderingen (gir den grunnlag for å prioritere?). Beslutningspunkt 2 er ledelsens godkjenning av risikohåndteringen (restrisiko og ressursbruk). Nei sender prosessen tilbake til kontekstetablering.</p>" } };
+    teknisk: "<p>Beslutningspunkt 1 er en kvalitetskontroll av risikovurderingen (gir den grunnlag for å prioritere?). Beslutningspunkt 2 er ledelsens godkjenning av risikohåndteringen (restrisiko og ressursbruk). Nei sender prosessen tilbake til kontekstetablering. De to beslutningspunktene er kursets modell (ukesoppgave 6, oppg. 6, som viser til ISO 27005); de stammer fra eldre utgaver av ISO 27005 (2008–2018), og 2022-utgaven har ikke egne beslutningspunkt 1 og 2.</p>" } };
 
   P["H2024-34"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Først finner du ut hva som kan gå galt, så regner du ut hvor ille det er, så sorterer du og sammenligner med hva du tåler.</p>",
     normal: "<p>Risikoidentifisering (med verdi-identifisering først), risikoanalyse (med risikoberegning sist) og risikoevaluering (med risikorangering først).</p>",
-    teknisk: "<p>Strukturen følger ISO 27005: identifisering av verdier, trusler, tiltak, sårbarheter og konsekvenser; analyse av sannsynlighet og konsekvens som gir risikonivå; evaluering der risikoene rangeres og sammenlignes med akseptkriterier før beslutningspunkt 1.</p>" } };
+    teknisk: "<p>Figuren og delpunktene er kursets fremstilling, bygd på eldre utgaver av ISO 27005 (2008–2018); 2022-utgaven er bygd om og har ikke de samme beslutningspunktene. Strukturen: identifisering av verdier, trusler, tiltak, sårbarheter og konsekvenser; analyse av sannsynlighet og konsekvens som gir risikonivå; evaluering der risikoene rangeres og sammenlignes med akseptkriterier før beslutningspunkt 1.</p>" } };
 
   P["H2024-35"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Et ISMS er husreglene og rutinene for sikkerhet, ikke et dataprogram.</p>",

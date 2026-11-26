@@ -89,10 +89,9 @@
     var facts = [
       ["Eksamen", EXAM_DATE.getDate() + "." + (EXAM_DATE.getMonth() + 1) + "." + EXAM_DATE.getFullYear() + " kl. 09:00"],
       ["Tid", "4 timer"],
-      ["Oppmøte", "30 minutter før start"],
-      ["Sted", "Silurveien 2"],
+      ["Sted", "Silurveien"],
       ["Hjelpemidler", String(last.hjelpemidler || "ingen").toLowerCase()],
-      ["Format", "Inspera" + (counts.length ? ", " + range(counts) + " oppgaver" : "")]
+      ["Format", "Inspera, 9 deler, 100 poeng (d13 s. 9)" + (counts.length ? "; eldre sett hadde " + range(counts) + " oppgaver" : "")]
     ];
     facts.forEach(function (f) { host.appendChild(el("dt", { text: f[0] })); host.appendChild(el("dd", { text: f[1] })); });
   })();

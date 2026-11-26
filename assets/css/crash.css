@@ -1,0 +1,58 @@
+/* ============================================================
+   IN2120 guide · crash.css
+   Tillegg for crash.html. Grunnstilen for løypa (.cr-top, .cr-len, .cr-step, .cr-stick …) ligger i
+   styles.css. Her står bare det som er nytt på denne siden (prefiks ck-). Bare fargetokener, så lys og
+   mørk modus følger temaet.
+   ============================================================ */
+.ck-top { margin-bottom: 1.2rem; }
+.ck-top .cr-actions { margin-top: .2rem; }
+.ck-top .cr-actions .btn { min-height: 44px; }
+.ck-top .cr-h[hidden], .ck-top .cr-qlist[hidden] { display: none; }
+
+.ck-etappe { margin: 1.4rem 0 .4rem; }
+.ck-etappe .cr-ehead h2 { display: flex; align-items: center; gap: .3rem; }
+
+.ck-step .cr-ssum { min-height: 48px; }
+.ck-step .cr-sbody { overflow-wrap: anywhere; }
+.ck-hvorfor { margin: .8rem 0 .4rem; color: var(--color-on-surface-variant); }
+.ck-utenfor { margin: .2rem 0 .4rem; font-style: italic; }
+
+.ck-kunne { padding-left: 1.2rem; margin: .3rem 0 .6rem; }
+.ck-kunne li { margin: .3rem 0; }
+.ck-feller { margin: .7rem 0; padding: .5rem .8rem; border-left: 3px solid var(--color-on-tone-warn);
+  background: var(--color-tone-warn); color: var(--color-on-tone-warn); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.ck-feller ul { margin: .25rem 0 0; padding-left: 1.2rem; }
+.ck-feller li { margin: .2rem 0; }
+.ck-feller code { color: inherit; }
+
+.ck-forklar { margin: .8rem 0; max-width: 100%; overflow-x: auto; }
+.ck-husk { margin: .7rem 0; border: 1px solid var(--color-outline-variant); border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+.ck-husk > summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); padding: .55rem .7rem; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: .3rem; flex-wrap: wrap; }
+.ck-figs { padding: 0 .7rem .6rem; }
+.ck-fig { max-width: 100%; overflow-x: auto; }
+
+.ck-cards { display: flex; flex-direction: column; gap: .5rem; margin: .3rem 0 .6rem; }
+.ck-cards > * { min-width: 0; }
+.ck-step .cr-ekstra > summary { min-height: 44px; display: flex; align-items: center; }
+
+.ck-stepbar { margin: 1rem 0 .4rem; }
+.ck-stepbar .btn { min-height: 44px; }
+.ck-stepbar .btn[aria-pressed="true"].ck-done { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); }
+.ck-stepbar .btn[aria-pressed="true"].ck-ovmer { background: var(--color-tone-warn); color: var(--color-on-tone-warn); border-color: var(--color-on-tone-warn); }
+.ck-stepbar .ck-next { margin-left: auto; }
+
+.ck-tools { margin: 1.6rem 0 1rem; }
+.ck-tools > summary { min-height: 44px; display: flex; align-items: center; }
+.cr-len .cr-len-btn[aria-pressed="true"] { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
+
+@media (max-width: 520px) {
+  .ck-stepbar { flex-direction: column; align-items: stretch; }
+  .ck-stepbar .ck-next { margin-left: 0; }
+  .ck-step .cr-sbody { padding: 0 .55rem .7rem; }
+  .ck-feller { padding: .45rem .6rem; }
+}
+@media print { .cr-stick, .ck-stepbar, .ck-tools { display: none; } .ck-step .cr-sbody { display: block; } }
+/* Tappemål på mobil og berøringsskjerm: 44 px også i den faste linja og verktøyene */
+@media (max-width: 520px), (pointer: coarse) {
+  .cr-stick .btn.sm, .cr-stick .cr-stick-len, .ck-tools .btn, .cr-len .cr-len-btn { min-height: 44px; }
+}

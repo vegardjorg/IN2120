@@ -1,0 +1,78 @@
+/* ============================================================
+   IN2120 guide · verktoy.css  (verktoy.html, viz-verktoy.js)
+   Terminalen (.fig-term) er alltid mørk, så feltfargene er faste og ikke tema-tokens.
+   ============================================================ */
+
+.vt-sek { margin: 1.4rem 0 2.2rem; padding-top: .4rem; border-top: 1px solid var(--color-outline-variant); scroll-margin-top: 6rem; }
+.vt-sek:first-of-type { border-top: 0; }
+.vt-sek > h3 { margin-bottom: .3rem; }
+.vt-kort { font-size: 1.02rem; margin: .4rem 0 .6rem; }
+
+/* Merker */
+.vt-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: .2rem 0 .4rem; }
+.vt-tag { display: inline-flex; align-items: center; min-height: 1.7rem; padding: .1rem .55rem; border-radius: 999px;
+  font-size: var(--text-sm, .85rem); border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface-container-low); color: var(--color-on-surface-variant); text-decoration: none; overflow-wrap: anywhere; }
+a.vt-tag:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.vt-tag.vt-angrep { background: var(--color-tone-danger); color: var(--color-on-tone-danger); border-color: transparent; }
+.vt-tag.vt-forsvar { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: transparent; }
+.vt-tag.vt-begge { background: var(--color-tone-info); color: var(--color-on-tone-info); border-color: transparent; }
+
+.vt-eks ul.vt-oppgl { margin: .3rem 0 0; padding-left: 1.1rem; }
+.vt-eks ul.vt-oppgl li { margin: .2rem 0; }
+.vt-oppg { text-decoration: none; }
+.vt-oppg:hover b { text-decoration: underline; }
+
+/* Annotert utdata */
+.vt-ut { margin: .8rem 0 1.2rem; }
+.vt-ut-t { font-weight: 600; margin-bottom: .2rem; }
+.vt-term { max-width: 100%; }
+.vt-pre { max-width: 100%; }
+.vt-f { font: inherit; color: inherit; background: rgba(120, 170, 255, .16); border: 0; border-bottom: 1px dashed #8fb8ff;
+  border-radius: 3px; padding: 0 .1em; margin: 0; cursor: pointer; line-height: inherit; white-space: pre; }
+.vt-f:hover, .vt-f.vt-on { background: rgba(120, 170, 255, .38); }
+.vt-f[aria-pressed="true"] { background: #ffd866; color: #15181d; border-bottom-color: #ffd866; }
+.vt-f:focus-visible { outline: 2px solid #ffd866; outline-offset: 1px; }
+.vt-info { margin: .35rem 0 .2rem; padding: .5rem .7rem; min-height: 3rem; border-radius: var(--radius, 8px);
+  border: 1px solid var(--color-outline-variant); background: var(--color-surface-container-low); font-size: .95rem; overflow-wrap: anywhere; }
+.vt-kilde { white-space: normal; margin-left: .2rem; }
+.vt-cap { margin: .2rem 0 .3rem; }
+.vt-alle > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.vt-dl { margin: .3rem 0; }
+.vt-dl dt { font-weight: 600; margin-top: .5rem; }
+.vt-dl dd { margin: .1rem 0 0 .9rem; overflow-wrap: anywhere; }
+
+.vt-kjenn ul, .vt-forsvar ul { margin-top: .2rem; }
+.vt-kilder > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.vt-fig { margin: .8rem 0; }
+
+/* Mini-kort for andre sider */
+.vt-mini { border: 1px solid var(--color-outline-variant); border-radius: var(--radius, 8px); padding: .6rem .8rem; margin: .6rem 0; }
+.vt-mini p { margin: .2rem 0; }
+
+/* Oversikt */
+.vt-tab { width: 100%; border-collapse: collapse; }
+.vt-tab th, .vt-tab td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--color-outline-variant); vertical-align: top; }
+.vt-tab thead th { font-size: var(--text-sm, .85rem); color: var(--color-on-surface-variant); }
+
+.vt-andre { padding-left: 1.1rem; }
+.vt-andre li { margin: .25rem 0; }
+
+/* Øvingen */
+.vt-gfig { margin: .4rem 0; }
+.vt-filter { flex-wrap: wrap; }
+.vt-filter .btn[aria-pressed="true"] { background: var(--color-primary); color: var(--color-on-primary, #fff); border-color: var(--color-primary); }
+
+@media (pointer: coarse) {
+  .vt-f { padding: .25em .15em; }
+  a.vt-tag { min-height: 44px; }
+  .vt-filter .btn { min-height: 44px; }
+  .vt-eks ul.vt-oppgl li { padding: .35rem 0; }
+}
+@media (max-width: 480px) {
+  .vt-pre { font-size: .78rem; }
+  .vt-tab th, .vt-tab td { padding: .35rem .4rem; }
+}
+
+/* Regelsyntaksen skal stå som på eksamen: «->» uten ligatur til pil */
+.fig-term-pre, .vt-pre, code { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }

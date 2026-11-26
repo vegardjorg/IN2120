@@ -459,6 +459,28 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 .seg-btn.on { background: var(--color-primary); color: var(--color-on-primary); }
 .seg-btn .seg-short { display: none; }
 .level-hint { white-space: nowrap; }
+/* «Svar med en gang» i nivålinja (IN.svarStraks for hele siden). Samme bryter som i quizen (.qz-switch). */
+.level-inner > .level-straks { margin-left: auto; flex: none; white-space: nowrap; }
+.level-straks .seg-short { display: none; }
+/* Låst (eksamensmodus): hengelås oppå tommelen, så bryteren ikke blir bredere */
+.level-inner > .level-straks { position: relative; }
+.level-straks .level-laas { display: none; position: absolute; left: 3px; top: 50%; transform: translateY(-50%); font-size: 11px; line-height: 1; pointer-events: none; }
+.level-straks.is-laast { color: var(--color-on-surface-variant); }
+.level-straks.is-laast .qz-track { opacity: .6; border-style: dashed; }
+.level-straks.is-laast .qz-thumb { visibility: hidden; }
+.level-straks.is-laast .level-laas { display: block; }
+
+/* Bekreftelsesdialog (IN.bekreft i core.js): <dialog> med showModal */
+.in-dialog {
+  max-width: min(28rem, calc(100vw - 32px)); width: 100%; box-sizing: border-box; padding: var(--d-lg) var(--d-md) var(--d-md);
+  border: 1px solid var(--color-outline-variant); border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest); color: var(--color-on-surface); box-shadow: 0 12px 40px rgba(0,0,0,.25);
+}
+.in-dialog::backdrop { background: rgba(0, 0, 0, .45); }
+.in-dialog-t { font-size: 1.15rem; margin: 0 0 var(--d-sm); }
+.in-dialog-x > :first-child { margin-top: 0; }
+.in-dialog-k { display: flex; flex-wrap: wrap; gap: var(--d-sm); margin-top: var(--d-md); }
+.in-dialog-k .btn { min-height: 44px; }
 
 /* Kompakt lokal nivåbryter (per forklaring / demo) */
 .level-mini {
@@ -487,6 +509,16 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
   .seg-btn .seg-full { display: none; }
   .seg-btn .seg-short { display: inline; }
   .level-hint { display: none; }
+  .level-straks .seg-full { display: none; }
+  .level-straks .seg-short { display: inline; }
+  .level-inner { gap: var(--d-sm) 12px; }
+}
+/* 360 px: «Forklaringsnivå» viker for bryteren (radiogruppa har aria-label «Forklaringsnivå») */
+@media (max-width: 480px) {
+  .level-label { display: none; }
+  .level-inner { padding-left: 12px; padding-right: 12px; flex-wrap: wrap; gap: var(--d-xs) 8px; }
+  .level-inner .seg-btn { padding-left: 9px; padding-right: 9px; }
+  .level-inner > .level-straks { gap: .4rem; padding-right: 0; }
 }
 
 /* ---------- Layout ---------- */
@@ -1867,6 +1899,11 @@ body.has-crash-ret .ny-versjon{bottom:72px}
 .qz-thumb { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--color-outline); transition: transform .15s, background .15s; }
 .qz-switch[aria-checked="true"] .qz-track { background: var(--color-primary); border-color: var(--color-primary); }
 .qz-switch[aria-checked="true"] .qz-thumb { transform: translateX(16px); background: var(--color-on-primary); }
+/* Lokale kopier i quiz, sant/usant og dra: samme tilstand, men dempet (hovedbryteren står øverst) */
+.qz-switch-lokal { font-size: var(--text-xs); font-weight: 500; color: var(--color-on-surface-variant); gap: .45rem; }
+.qz-switch-lokal .qz-track { width: 30px; height: 17px; }
+.qz-switch-lokal .qz-thumb { width: 11px; height: 11px; }
+.qz-switch-lokal[aria-checked="true"] .qz-thumb { transform: translateX(13px); }
 .qz-note { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
 .qz-score { margin-left: auto; font-size: var(--text-sm); color: var(--color-on-surface-variant); }
 .qz-score .ok { color: var(--color-on-tone-ok); }

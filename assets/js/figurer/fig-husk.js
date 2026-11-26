@@ -20,8 +20,8 @@
 
   H["H2024-28"] = { tittel: "applikasjon = OSI 7–5", tekst:
     "<p>Internettstakkens applikasjonslag dekker OSI 7, 6 og 5 (applikasjon, presentasjon, sesjon); transport er OSI 4.</p>" +
-    "<p><b>Merk om eksamensarket:</b> på det originale arket er feltene tegnet over OSI 7–6 og 5–4. " +
-    "Det er en tegnefeil; figuren her er tegnet faglig riktig (7–5 og 4).</p>" };
+    "<p><b>Merk:</b> eksamensarket og lysark d09 (s. 7) tegner feltene over OSI 7–6 og 5–4. " +
+    "Standard OSI-tilordning er 7–5 og 4, og figuren her er tegnet slik. Poengene gis bare for lagnavnene.</p>" };
 
   /* ---------- Gruppe: operasjonsmoduser (H2021-3.2, H2021-3.3, H2022-5.5, H2023-20, H2024-17, H2025-8) ---------- */
   var MODUS = H["H2025-8"];
@@ -39,7 +39,8 @@
   /* ---------- Gruppe: internettstakken (H2021-5.1, H2025-22; H2024-28 over) ---------- */
   var STAKK = "<p>Internettstakken ovenfra: <b>A</b>pplikasjon – <b>T</b>ransport – <b>I</b>nternett (IP) – <b>L</b>ink, " +
     "med fysisk lag under og selve appen (programmet brukeren kjører) over.</p>" +
-    "<p>Internettstakkens applikasjonslag dekker OSI 7, 6 og 5 (applikasjon, presentasjon, sesjon); transport er OSI 4.</p>" +
+    "<p>Internettstakkens applikasjonslag dekker OSI 7, 6 og 5 (applikasjon, presentasjon, sesjon); transport er OSI 4. " +
+    "(Lysark d09 s. 7 tegner applikasjon over OSI 7–6 og transport over 5–4; standard tilordning er 7–5 og 4.)</p>" +
     "<p>Kjennetegn: portnummer = transport (TCP, UDP); IP-adresse = internett; MAC-adresse = link (Ethernet, ARP).</p>";
   H["H2021-5.1"] = { tittel: "A-T-I-L ovenfra", tekst: STAKK };
   H["H2025-22"] = { tittel: "A-T-I-L ovenfra", tekst: STAKK +
@@ -101,8 +102,10 @@
     "<li><b>Beslutningspunkt 1:</b> er <i>vurderingen</i> god nok? (spredning, usikkerhet) Nei → tilbake.</li>" +
     "<li><b>Risikohåndteringsplan:</b> redusere, akseptere …</li>" +
     "<li><b>Beslutningspunkt 2:</b> er <i>planen</i> akseptabel? (restrisiko, budsjett) Nei → tilbake.</li>" +
-    "<li><b>Implementer sikkerhetstiltak.</b></li></ol>" +
-    "<p>Analyse er en del av vurderingen, ikke omvendt.</p>" };
+    "<li><b>Implementer sikkerhetstiltak.</b> (H2024-figuren ender i «dokumentér risikovurdering og -håndtering».)</li></ol>" +
+    "<p>Analyse er en del av vurderingen, ikke omvendt.</p>" +
+    "<p><b>Merk:</b> beslutningspunktene er kursets figur, bygd på eldre utgaver av ISO/IEC 27005 (2008–2018). " +
+    "Utgaven fra 2022 har ikke egne beslutningspunkter. Svar etter kursets figur på eksamen.</p>" };
   H["H2022-10.1"] = RISIKO;
   H["H2023-38"] = RISIKO;
   H["H2024-33"] = RISIKO;

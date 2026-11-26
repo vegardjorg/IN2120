@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -226,7 +227,7 @@
           <li><b>«PST har etterretning i utlandet»</b> er feil. Det er Etterretningstjenesten. PST har intern nasjonal sikkerhet.</li>
           <li><b>«NCSC er en egen etat ved siden av NSM»</b> er feil. NCSC er en del av NSM.</li>
         </ul>
-        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Hva forkortelsene DML, TLP og EOS står for, er ukjent i kildene. KI-lysarket viser et varsel merket «TLP:CLEAR» med IP-adresser, domener og hasher, altså teknisk CTI, men forklarer ikke merket.</p>
+        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Lysarkene skriver ikke ut forkortelsene DML, TLP og EOS. Fra nettkilder: DML = Detection Maturity Level (Stillions, 2014), TLP = Traffic Light Protocol (FIRST), EOS = etterretnings-, overvåkings- og sikkerhetstjenestene (EOS-kontrolloven). KI-lysarket viser et varsel merket «TLP:CLEAR» med IP-adresser, domener og hasher, altså teknisk CTI, men forklarer ikke merket.</p>
       </div>
 
       <h4>Inspera-øving</h4>
@@ -384,7 +385,7 @@
           <li><b>Hvor KI kan angripes:</b> i <b>dataene</b> under trening, i <b>modellen</b> under trening og inferens, og i <b>hele leveransekjeden</b>.</li>
           <li><b>Forgiftning av læringsdata:</b> ondsinnede eller feilmerkede data havner i treningen, og modellen lærer feil.</li>
           <li><b>Bakdør:</b> en skjult oppførsel plantes i modellen, for eksempel ved finjustering. Lysarkets eksempel er en språkmodell som skriver trygg kode til vanlig, men utrygg kode når en bestemt betingelse er oppfylt. Bakdøra overlevde vanlig sikkerhetstrening.</li>
-          <li><b>Synsbedrag</b> (adversarial examples): en liten, nøye beregnet støy som mennesker ikke ser, får modellen til å si «hund» om en katt.</li>
+          <li><b>Synsbedrag</b> (adversarial examples): en liten, nøye beregnet støy som mennesker ikke ser, får modellen til å klassifisere bildet feil, for eksempel si «hund» om en katt (eksempelet er vårt eget; lysarket viser angrepet med bilder).</li>
           <li><b>Angrep på leveransekjeden:</b> en virksomhet stoler på en leverandør av modeller, datasett eller KI-tjenester. En hendelse hos leverandøren blir en hendelse hos virksomheten gjennom tillitsforholdet.</li>
           <li><b>Jailbreak:</b> brukeren formulerer en forespørsel slik at språkmodellen omgår sine egne sikkerhetsregler.</li>
           <li><b>Prompt injection:</b> en KI-agent får en ufarlig oppgave, men leser data med skjulte instruksjoner og følger dem, for eksempel ved å hente en hemmelig fil og sende den ut. Kjernen er at modellen ikke skiller sikkert mellom <i>instruksjoner</i> og <i>data</i>.</li>
@@ -466,28 +467,30 @@
 
   <footer class="footer">IN2120-guide · Blokk 10 · Cyberops og KI · <a href="eksamen.html">Neste: øv på et helt sett</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-cyber.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-cyber.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -614,7 +617,7 @@
           explain: "<p>Høyrisikosystemer er tillatt, men må gjennom en samsvarsvurdering før de tas i bruk. Forbud gjelder bare uakseptabel risiko.</p>" },
         { q: "Hvilket risikonivå har deepfakes ifølge lysarket?", options: ["uakseptabel", "begrenset (transparens)", "minimal"], answer: 1,
           explain: "<p>De skal merkes, så folk vet at innholdet er laget av KI.</p>" },
-        { q: "Hva viser synsbedrag-eksempelet?", options: ["en usynlig støy får modellen til å se en katt som en hund", "et kamera som går i stykker", "at modellen ikke kan se bilder"], answer: 0,
+        { q: "Hva er synsbedrag (adversarial examples)?", options: ["en nesten usynlig støy får modellen til å klassifisere bildet feil", "et kamera som går i stykker", "at modellen ikke kan se bilder"], answer: 0,
           explain: "<p>Mennesker ser ingen forskjell på bildene.</p>" }
       ]
     };

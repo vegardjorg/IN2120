@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -120,7 +121,7 @@
           <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR er adressene de samme hver gang prosessen kjører (d08 s. 9).</li>
           <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (d08 s. 9).</li>
           <li><b>Bufferoverflyt:</b> programmet skriver mer data inn i en variabel (et buffer) enn den har plass til, så dataene renner over i nabominnet. På stakken kan det overskrive <b>returadressen</b>, og da kan angriperen styre hvor programmet fortsetter (H2022 2.3).</li>
-          <li><b>Mottiltak</b> (d08 s. 10–11): <b>NX</b> merker stakken ikke-kjørbar. En <b>stakk-kanarifugl</b> er en tilfeldig verdi mellom lokale variabler og returadressen, som sjekkes før funksjonen returnerer. <b>ASLR</b> gjør adressene vanskeligere å gjette. I tillegg: sikrere programmeringsspråk, statisk analyse og bedre kode (innebygd sikkerhet, DevSecOps).</li>
+          <li><b>Mottiltak</b> (d08 s. 10): <b>NX</b> merker stakken ikke-kjørbar. En <b>stakk-kanarifugl</b> er en tilfeldig verdi på stakken som sjekkes før funksjonen returnerer. Den ligger mellom lokale variabler og returadressen; plasseringen er vanlig fagkunnskap, utover lysarkteksten. <b>ASLR</b> gjør adressene vanskeligere å gjette. I tillegg: sikrere programmeringsspråk, statisk analyse og bedre kode (innebygd sikkerhet, DevSecOps).</li>
         </ul></div>
       <div id="ex-minne"></div>
 
@@ -141,7 +142,7 @@
       <ul>
         <li><b>8 byte input:</b> alt får plass. Ingen overflyt.</li>
         <li><b>12 byte:</b> kanarifuglen overskrives. Sjekken ved retur feiler, og programmet avsluttes. Tilgjengeligheten rammes, men angriperen får ikke kontroll.</li>
-        <li><b>20 byte:</b> returadressen overskrives. Uten kanarifugl hopper programmet til adressen i byte 16–19. Med kanarifugl må angriperen gjette <code>0x5be0c41d</code> (2³² muligheter). Med ASLR vet angriperen ikke hvilken adresse som skal stå der. Med NX kan ikke angrepskoden ligge i <code>navn[]</code>.</li>
+        <li><b>20 byte:</b> returadressen overskrives. Uten kanarifugl hopper programmet til adressen i byte 16–19. Med kanarifugl må angriperen gjette <code>0x5be0c41d</code> (opptil 2³² muligheter). Med ASLR vet angriperen ikke hvilken adresse som skal stå der. Med NX kan ikke angrepskoden ligge i <code>navn[]</code>.</li>
         <li><b>Den egentlige rettingen:</b> lengdesjekk, for eksempel <code>fgets(navn, sizeof navn, stdin)</code>, eller et språk med grensesjekk.</li>
       </ul>
 
@@ -155,7 +156,7 @@
         <ul>
           <li><b>To prosesser kan godt ha samme virtuelle adresse.</b> Adresserommene er separate (H2022 2.2, d08 s. 9).</li>
           <li><b>«ASLR forhindrer bufferoverflyt»</b> er feil. NX, kanarifugl og ASLR gjør <i>utnyttelse</i> vanskeligere. Feilen i koden er der fortsatt.</li>
-          <li><b>Kanarifuglen hindrer ikke overskrivingen.</b> Den <i>oppdager</i> den ved retur og avslutter programmet (d08 s. 11).</li>
+          <li><b>Kanarifuglen hindrer ikke overskrivingen.</b> Den <i>oppdager</i> den ved retur og avslutter programmet (d08 s. 10).</li>
           <li><b>Bufferoverflyt er ikke DDoS</b>, ikke «minnet er brukt opp» og ikke «data kommer for fort». Det er en programfeil der det skrives forbi en variabel.</li>
         </ul></div>
 
@@ -237,7 +238,7 @@
       <div class="sys-forbehold">
         <p><b>Forbehold</b></p>
         <ul>
-          <li><b>Ringene i type 2:</b> d08 s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. At moderne type 2-hypervisorer bruker VT-x og en kjernedriver, nevner d08 bare i en bisetning. Guiden følger figuren.</li>
+          <li><b>Ringene i type 2:</b> d08 s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. d08 s. 15 sier at type 2 bruker maskinvarestøtte (VT-x/AMD-V), men figuren setter likevel hypervisoren på nivå 3. Kjernedriveren står ikke på d08. Guiden følger figuren.</li>
           <li><b>Hvordan containere isoleres</b> (navnerom og cgroups i kjernen) står ikke på d08. Det er <span class="sys-ukjent">utover lysarket</span>.</li>
         </ul></div>
 
@@ -436,28 +437,30 @@
 
   <footer class="footer">IN2120-guide · Blokk 5 · Systemsikkerhet · <a href="06-risiko.html">Neste: blokk 6, risiko og styring</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-system.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-system.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -524,7 +527,7 @@
         { q: "Hva gjør NX?", options: ["Stokker adressene", "Merker stakken som ikke-kjørbar", "Legger en tilfeldig verdi på stakken"], answer: 1,
           explain: "<p>CPU-en nekter å kjøre kode som ligger på stakken (d08 s. 10). Stokking er ASLR, og den tilfeldige verdien er kanarifuglen.</p>" },
         { q: "Hvor ligger kanarifuglen?", options: ["Mellom lokale variabler og returadressen", "Øverst i heapen", "I kodesegmentet"], answer: 0,
-          explain: "<p>Der må en overflyt passere den før den når returadressen (d08 s. 11).</p>" },
+          explain: "<p>Der må en overflyt passere den før den når returadressen. d08 s. 10 sier bare at verdien lagres på stakken og sjekkes før retur; plasseringen er vanlig fagkunnskap utover lysarkteksten.</p>" },
         { q: "Hvor stort er det virtuelle adresserommet til en 32-bits prosess?", options: ["2 GB", "4 GB", "16 GB"], answer: 1,
           explain: "<p>En 32-bits adresse kan peke på 2³² ulike byte, og 2³² byte = 4 GB. Det gjelder hver prosess, uansett hvor mye fysisk minne maskinen har (d08 s. 9).</p>" },
         { q: "Hvilket felt må angriperen overskrive for å styre hvor programmet fortsetter?", options: ["Forrige rammepeker", "Returadressen", "main()-rammen"], answer: 1,
@@ -600,7 +603,7 @@
         { s: "En prosess kan lese de fysiske adressene til en annen prosess hvis den kjenner den virtuelle adressen.", answer: false, explain: "<p>Samme virtuelle adresse peker til ulike fysiske steder i hver prosess (d08 s. 9).</p>" },
         { s: "Kodesegmentet er merket lese/kjøre, mens stakken er lese/skrive.", answer: true, explain: "<p>Koden skal kjøres, men ikke endres. Stakken skal endres, men ikke kjøres, og det er grunnen til at angrepskode lagt på stakken kan nektes kjørt (d08 s. 9).</p>" },
         { s: "Bufferoverflyt kan oppdages med fuzzing.", answer: true, explain: "<p>Fuzzing sender mye rar og lang input og ser etter krasj.</p>" },
-        { s: "En stakk-kanarifugl avslutter programmet hvis verdien er endret når funksjonen returnerer.", answer: true, explain: "<p>Kanarifuglen ligger foran returadressen, så en overflyt må skrive over den først. Sjekken ved retur oppdager det før programmet hopper til den falske adressen (d08 s. 11).</p>" },
+        { s: "En stakk-kanarifugl avslutter programmet hvis verdien er endret når funksjonen returnerer.", answer: true, explain: "<p>Kanarifuglen ligger foran returadressen, så en overflyt må skrive over den først. Sjekken ved retur oppdager det før programmet hopper til den falske adressen (d08 s. 10).</p>" },
         { s: "ASLR gjør at bufferoverflyt ikke lenger er en sårbarhet.", answer: false, explain: "<p>ASLR gjør utnyttelse vanskeligere. Feilen er der fortsatt.</p>" }
       ],
       virt: [

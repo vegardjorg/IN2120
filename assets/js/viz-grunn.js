@@ -128,7 +128,7 @@
       var alle = FIG.every(function (f) { return placed[f.id] === f.svar; });
       if (alle) {
         var t = el("table", { class: "gr-tab" });
-        t.appendChild(el("thead", {}, [el("tr", {}, [el("th", { text: "Figur" }), el("th", { text: "Ord" }), el("th", { text: "Finnes en motstander?" }), el("th", { text: "Handler det om å vite?" })])]));
+        t.appendChild(el("thead", {}, [el("tr", {}, [el("th", { text: "Figur" }), el("th", { text: "Ord" }), el("th", { text: "Handler ordet om en motstander?" }), el("th", { text: "Handler det om å vite?" })])]));
         var tb = el("tbody");
         FIG.forEach(function (f) {
           tb.appendChild(el("tr", {}, [el("td", { text: f.navn }), el("td", { html: "<b>" + f.svar + "</b>" }),
@@ -159,7 +159,7 @@
       x: { "0": "Trafikken er ukryptert, så angriperen leser passord og meldinger i klartekst. Bare lesing: K." } },
     { s: "Løsepengevirus krypterer alle filene på filserveren", f: ["Nei", BEGGE, "Ja"],
       x: { "0": "Krypteringen gir ingen andre lesetilgang. Lekker angriperen dataene i tillegg (dobbel utpressing), kommer K inn, men det står ikke i raden.",
-           "1": "Filene blir endret, så I kan forsvares og godtas her. Eksamensradene har alltid gitt T.",
+           "1": "Filene endres, så I kan argumenteres for, men eksamen har alltid bare godtatt T (H2022 1.1, H2023 3, H2025 2). Her godtas derfor bare T.",
            "2": "Eieren får ikke brukt sine egne data. Det er T, selv om ordet «kryptovirus» høres ut som K." } },
     { s: "Noen endrer kontonummeret på en faktura før den betales", f: ["Nei", "Ja", "Nei"],
       x: { "1": "Data er endret uten lov." } },
@@ -184,8 +184,9 @@
   ];
   // Eksamensformatet (H2024 3 o.l.): ett valg per rad blant K, I, T og Ingen. Hovedsvaret er målet med «Ja»
   // i KIT_RADER; der tabellen godtar begge svar for et mål (BEGGE), godtas dette målet også, men bare når det
-  // er et reelt alternativ (løsepengevirus: I). Følgebrudd (brannmurraden: K, T) godtas ikke i eksamensformatet.
-  var KIT_EKSTRA = { 1: ["I"] };
+  // er et reelt alternativ. Løsepengevirus gir bare T, som på eksamen (faktasjekk VG-01). Følgebrudd (brannmurraden: K, T)
+  // godtas ikke i eksamensformatet.
+  var KIT_EKSTRA = {};
   function kitSvar(r, i) {
     var hoved = ["K", "I", "T"].filter(function (m, k) { return r.f[k] === "Ja"; });
     var svar = hoved.length ? hoved : ["Ingen"];
@@ -200,8 +201,8 @@
       id: "grunn-kit-matrise",
       sporsmal: {
         eli5: "<p>Velg det målet angrepet ødelegger. K: noen leser det de ikke skal. I: noe blir endret eller falskt. T: noe kan ikke brukes. Ingen: ingenting av dette skjer. Bryterne under endrer hvordan avlyttingen i første rad skjer.</p>",
-        normal: "<p>Velg ett mål per rad, slik som på eksamen. Spør hva angriperen <i>oppnår</i>: lese (K), endre eller forfalske (I) eller stenge ute (T). Velg «Ingen» hvis ingen av dem brytes. Bryterne endrer forutsetningen for avlyttingen i første rad.</p>",
-        teknisk: "<p>Velg målet som brytes direkte. Eksamensmatrisen har ett riktig mål per rad (pluss «Ingen»), så følgebrudd som angrepet <i>kan</i> føre til senere, teller ikke. Bryterne viser at avlytting er K bare når innholdet faktisk leses (H2021 1.1).</p>"
+        normal: "<p>Velg ett mål per rad, slik som på eksamen. Poengregel som i H2024 3 (−0,5 for feil eller blankt); andre år har hatt andre regler. Spør hva angriperen <i>oppnår</i>: lese (K), endre eller forfalske (I) eller stenge ute (T). Velg «Ingen» hvis ingen av dem brytes. Eksamen H22–H25 har bare K, I og T; H2021 1.1 hadde også «ingen». «Ingen» er med her for å øve på avlyttingsbryterne. Bryterne endrer forutsetningen for avlyttingen i første rad.</p>",
+        teknisk: "<p>Velg målet som brytes direkte. Eksamensmatrisen har ett riktig mål per rad («Ingen» bare i H2021 1.1), så følgebrudd som angrepet <i>kan</i> føre til senere, teller ikke. Bryterne viser at avlytting er K bare når innholdet faktisk leses (H2021 1.1).</p>"
       },
       rader: KIT_RADER.map(function (r) { return r.s; }),
       radvalg: { valg: ["K", "I", "T", "Ingen"], navn: "Mål" },
@@ -233,10 +234,10 @@
   var DOMENER = ["Organisatorisk", "Personell", "Fysisk", "Teknologisk"];
   var TILTAK = [
     { s: "Policy som forbyr deling av passord", t: 0, d: 0 },
-    { s: "Halvårlig gjennomgang av hvem som har tilgang", t: 1, d: 0 },
+    { s: "Halvårlig gjennomgang av hvem som har tilgang", t: 1, d: 0, extra: "ISO 27002 merker 5.18 (tilgangsrettigheter) som forebyggende. Selve gjennomgangen avdekker feil tilganger, så hovedtypen her er oppdagende." },
     { s: "Beredskapsplan med varslingsliste", t: 2, d: 0 },
     { s: "Bakgrunnssjekk og ID-kontroll av nyansatte", t: 0, d: 1 },
-    { s: "Jevnlige sikkerhetssamtaler med ansatte", t: 1, d: 1 },
+    { s: "Ansatte melder fra om mistenkelig oppførsel hos kolleger", t: 1, d: 1 },
     { s: "Inndra tilganger og adgangskort straks etter at en ansatt har misbrukt dem", t: 2, d: 1 },
     { s: "Adgangskort med PIN og sluse inn til datarommet", t: 0, d: 2 },
     { s: "Overvåkingskamera og innbruddsalarm", t: 1, d: 2, extra: "Kameraet kan også virke avskrekkende, altså litt forebyggende. Hovedtypen er oppdagende." },
@@ -600,7 +601,7 @@
      0 holder men dyrere enn nødvendig, −1 for treg (T brutt).
      ========================================================= */
   var BACKUP_TYPER = [
-    { navn: "Kald (cold)", har: "Strøm, ellers lite", tid: "uker til måneder", kost: 1 },
+    { navn: "Kald (cold)", har: "Strøm, ellers lite", tid: "kan ta måneder", kost: 1 },
     { navn: "Varm/inaktiv (warm)", har: "Strøm og utstyr", tid: "timer til dager", kost: 2 },
     { navn: "Varm/aktiv (hot)", har: "Full operasjonell reserve", tid: "minutter til timer", kost: 3 }
   ];
@@ -609,7 +610,7 @@
     { id: "butikk", til: "bhg", rett: 1,
       tekst: "<p><b>1 av 3 · Nettbutikk.</b> Butikken tåler et par dager nede, men ikke uker. Hvilken reserve velger du?</p>" },
     { id: "bhg", til: "bank", rett: 0,
-      tekst: "<p><b>2 av 3 · Fjellbekk barnehage.</b> Serveren i kjelleren har fravær og vaktlister. Barnehagen kan drive med papirlister i en måned eller mer. Hvilken reserve velger du?</p>" },
+      tekst: "<p><b>2 av 3 · Fjellbekk barnehage.</b> Serveren i kjelleren har fravær og vaktlister. Barnehagen kan drive med papirlister i flere måneder. Hvilken reserve velger du?</p>" },
     { id: "bank", til: "slutt", rett: 2,
       tekst: "<p><b>3 av 3 · Nettbank.</b> Banken må være i drift igjen innen en time. Hvilken reserve velger du?</p>" }
   ];
@@ -658,7 +659,7 @@
      8 · § 204-sjekk for pentest
      ========================================================= */
   var SPM = [
-    { q: "Har du tillatelse?", nei: "Ulovlig: uberettiget tilgang etter straffeloven § 204 (bot eller fengsel inntil 2 år). God hensikt hjelper ikke." },
+    { q: "Har du tillatelse?", nei: "Ikke en lovlig pentest. Får testen tilgang ved å bryte en beskyttelse eller på annen uberettiget måte, er det straffbart etter straffeloven § 204 (bot eller fengsel inntil 2 år). God hensikt hjelper ikke." },
     { q: "Er tillatelsen skriftlig?", nei: "Ikke godkjent: kurset krever at tillatelsen alltid er skriftlig. Et muntlig ja er ikke nok." },
     { q: "Ble den gitt før testen startet?", nei: "Ikke godkjent: tillatelsen skal være på plass på forhånd." },
     { q: "Har den som ga den, myndighet over systemet?", nei: "Ikke godkjent: bare den som har myndighet over systemet, kan gi lov. Ellers er tilgangen uberettiget." }

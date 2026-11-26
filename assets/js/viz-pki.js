@@ -52,7 +52,7 @@
      ===================================================================== */
   var TILST = [
     { id: "gen", navn: "Generert", fase: "pre", lov: [], txt: "Nøkkelen finnes, men er ikke tatt i bruk. Ingenting skal beskyttes eller prosesseres ennå." },
-    { id: "akt", navn: "Aktivert", fase: "op", lov: ["krypter", "signer", "dekrypter", "valider"], txt: "Den eneste tilstanden der nøkkelen kan <b>beskytte</b> (kryptere eller signere). Den kan også prosessere." },
+    { id: "akt", navn: "Aktivert", fase: "op", lov: ["krypter", "signer", "dekrypter", "valider"], txt: "Den eneste tilstanden der nøkkelen kan <b>beskytte</b> (kryptere eller signere). Avhengig av nøkkeltypen kan den også prosessere (t03 O5)." },
     { id: "sus", navn: "Suspendert", fase: "op", lov: ["dekrypter", "valider"], txt: "Midlertidig stoppet. Bare prosessering: gamle data kan dekrypteres eller valideres, men ingenting nytt beskyttes." },
     { id: "deakt", navn: "Deaktivert", fase: "post", lov: ["dekrypter", "valider"], txt: "Perioden for beskyttelse er over. Gamle data skal fortsatt kunne leses og verifiseres." },
     { id: "komp", navn: "Kompromittert", fase: "post", lov: ["dekrypter", "valider"], txt: "Noen uvedkommende har, eller kan ha, nøkkelen. All beskyttelse stopper straks, og brukerne varsles. Prosessering av gamle data kan tillates hvis risikoen og policyen gir rom for det (d03 s. 23)." },
@@ -74,7 +74,7 @@
       teknisk: "Klassifiser de seks NIST-tilstandene (SP 800-57, d03 s. 24) etter tillatt bruk. Beskytte = kryptere eller signere. Prosessere = dekryptere eller validere."
     },
     zones: [
-      { id: "begge", label: "Beskytte og prosessere", hint: "kryptere, signere, dekryptere, validere" },
+      { id: "begge", label: "Beskytte og/eller prosessere", hint: "kryptere, signere, dekryptere, validere" },
       { id: "pros", label: "Bare prosessere", hint: "dekryptere eller validere gamle data" },
       { id: "ingen", label: "Ingen bruk" }
     ],
@@ -85,7 +85,7 @@
     regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
     oppsummering: {
       eli5: "<p>Bare når nøkkelen er aktivert, kan den lage noe nytt. Ellers kan den bare åpne eller sjekke det gamle, eller ingenting.</p>",
-      normal: "<p>Bare <b>Aktivert</b> kan beskytte. Suspendert, deaktivert og kompromittert kan bare prosessere gamle data. Generert og destruert gir ingen bruk.</p><p>Overganger: Generert → Aktivert ⇄ Suspendert → Deaktivert eller Kompromittert → Destruert. Aktivert kan også gå rett til Kompromittert.</p>",
+      normal: "<p>Bare <b>Aktivert</b> kan beskytte. Suspendert, deaktivert og kompromittert kan bare prosessere gamle data. Generert og destruert gir ingen bruk.</p><p>Vanlig vei: Generert → Aktivert → Deaktivert → Destruert. Aktivert kan midlertidig gå til Suspendert og tilbake. Fra Generert, Aktivert, Suspendert og Deaktivert kan nøkkelen bli Kompromittert. Kompromittert ender i Destruert (NIST SP 800-57 avsn. 7.2, d03 s. 24).</p>",
       teknisk: "<p>Fasene: pre-operasjonell (generert), operasjonell (aktivert, suspendert), post-operasjonell (deaktivert, kompromittert) og destruert. Beskyttelse er bare lov i aktivert tilstand. For kompromittert tillates prosessering bare hvis risikoen og policyen gir rom for det (d03 s. 23–24).</p>"
     },
     kilde: { ref: "d03 s. 23–24 (NIST SP 800-57)", egneOrd: true }
@@ -200,9 +200,9 @@
         h += etterB
           ? "<p class=\"nei\">Kompromittert " + fmt(kd) + ", etter at beskyttelsesperioden var over. Det er ingenting nytt å stoppe, men varsle brukerne. Gamle data kan bare prosesseres videre hvis risikoen og policyen tillater det (stiplet).</p>"
           : "<p class=\"nei\">Kompromittert " + fmt(kd) + ": all beskyttelse (" + T.bOp + ") stopper samme dag, og brukerne varsles. Prosessering av gamle data (stiplet) er bare lov hvis risikoen og policyen tillater det.</p>";
-        if (typ === "sig") h += "<p class=\"small\">Etter " + fmt(kd) + " kan angriperen lage signaturer som ser like ekte ut. Signaturer som dukker opp etter den datoen, skal ikke godtas.</p>";
+        if (typ === "sig") h += "<p class=\"small\">Etter " + fmt(kd) + " kan angriperen lage signaturer som ser like ekte ut. Signaturer uten klarert tidsstempel fra før den datoen kan ikke lenger stoles på.</p>";
       } else {
-        h += "<p class=\"small muted\">Prosesseringsperioden er lengre: et vedtak eller et arkiv skal kunne sjekkes eller leses i mange år etter at nøkkelen sluttet å beskytte.</p>";
+        h += "<p class=\"small muted\">Prosesseringsperioden er lengre: et vedtak eller et arkiv skal kunne sjekkes eller leses i mange år etter at nøkkelen sluttet å beskytte. Datoene er et oppdiktet eksempel og like for alle typene; NIST foreslår for eksempel ≤ 2 år beskyttelse og ≤ 3 år ekstra prosessering for symmetriske datakrypteringsnøkler (SP 800-57 tabell 1).</p>";
       }
       out.innerHTML = h;
     }
@@ -262,7 +262,7 @@
         sigA: tyvSp({ fra: "A", til: "C" }, "sig", "<p>Kan Alice signere en melding fra seg selv til Charlie? (Fellen fra H2022 6.1.)</p>", "tiltak"),
         tiltak: { tekst: "<p>Bob oppdager tyveriet. Hva gjør han først?</p>", valg: [
           { tekst: "Slutter å signere med " + K("B", "priv") + ", varsler mottakerne og ber CA-en tilbakekalle sertifikatet", til: "nytt", poeng: 2, kit: { I: "truet" },
-            konsekvens: "<b>Riktig.</b> Signering er beskyttelse og må stoppe straks, og brukerne varsles (d03 s. 23). Tilbakekallingen trekker bindingen mellom Bob og nøkkelparet tilbake, så nye forfalskninger kan avvises." },
+            konsekvens: "<b>Riktig.</b> Signering er beskyttelse og må stoppe straks, og brukerne varsles (d03 s. 23). Tilbakekallingen (t03 O9a; RFC 5280) trekker bindingen mellom Bob og nøkkelparet tilbake, så nye forfalskninger kan avvises." },
           { tekst: "Fortsetter som før til sertifikatet går ut av seg selv", til: "nytt", poeng: -1, kit: { I: "brutt" },
             konsekvens: "<b>Nei.</b> Fram til utløpsdatoen kan Alice signere som Bob, og alle godtar det. Utløpsdatoen kommer for sent (t03 O9a)." },
           { tekst: "Bytter passordet på fila der nøkkelen ligger", til: "nytt", poeng: -1, kit: { I: "brutt" },
@@ -277,7 +277,7 @@
         slutt: { slutt: true, oppsummering: {
           eli5: "<p>Med Bobs nøkkel kan Alice åpne det som sendes <b>til</b> Bob, og stemple som om hun var Bob. Hun kan ikke åpne det Bob sender til andre. Bob må slutte å bruke nøkkelen og få en ny.</p>" + tyveriTabell(),
           normal: "<p>Lese: bare det som sendes <b>til</b> Bob (og til Alice selv). Signere: bare <b>som</b> Bob (og som Alice selv). Det Bob sender til Charlie, er kryptert med Charlies nøkkel. Tiltak: stopp beskyttelse, varsle, tilbakekall sertifikatet og lag nytt nøkkelpar.</p>" + tyveriTabell(),
-          teknisk: "<p>" + K("B", "priv") + " gir D(·) for alt kryptert med " + K("B", "pub") + " og Sig(·) i Bobs navn. Det gir ikke " + K("C", "priv") + ". I H2022 6.1 er riktige alternativer 3, 4 og 6. Alternativ 6 (Alice signerer som seg selv) er trivielt sant, og mange stryker det. Signaturer laget etter kompromitteringen skal ikke godtas.</p>" + tyveriTabell()
+          teknisk: "<p>" + K("B", "priv") + " gir D(·) for alt kryptert med " + K("B", "pub") + " og Sig(·) i Bobs navn. Det gir ikke " + K("C", "priv") + ". I H2022 6.1 er riktige alternativer 3, 4 og 6. Alternativ 6 (Alice signerer som seg selv) er trivielt sant, og det er lett å overse (H2021 4.4, H2022 6.2). Signaturer uten klarert tidsstempel fra før kompromitteringen kan ikke lenger stoles på.</p>" + tyveriTabell()
         } }
       }
     };
@@ -358,8 +358,8 @@
   var RSA = { n: 33, d: 7, e: 3, h: 5 };   // leke-RSA, ikke kursstoff
   var FELT = [
     { id: "ver", navn: "Version", v: "3", hEndret: 17, ny: "1", hvorfor: "Version sier hvilken X.509-versjon sertifikatet følger. Versjon 3 har plass til Extensions." },
-    { id: "ser", navn: "Serial Number", v: "0x4F2A…", hEndret: 26, ny: "0x4F2B…", hvorfor: "CA-en gir hvert sertifikat et unikt serienummer. Det er serienummeret som oppgis når sertifikatet tilbakekalles." },
-    { id: "alg", navn: "Algorithm Identifier", v: "ecdsa-with-SHA256", hEndret: 23, ny: "md5WithRSA", hvorfor: "Algorithm Identifier sier hvilken signaturalgoritme CA-en brukte (H2024 16)." },
+    { id: "ser", navn: "Serial Number", v: "0x4F2A…", hEndret: 26, ny: "0x4F2B…", hvorfor: "CA-en gir hvert sertifikat et unikt serienummer. Det er serienummeret som oppgis når sertifikatet tilbakekalles (t03 O9a; RFC 5280)." },
+    { id: "alg", navn: "Algorithm Identifier", v: "ecdsa-with-SHA256", hEndret: 23, ny: "md5WithRSA", hvorfor: "Algorithm Identifier sier hvilken signaturalgoritme CA-en brukte (d03 s. 31; H2024 16 spør etter en slik algoritme)." },
     { id: "iss", navn: "Issuer", v: "Fjellvik TLS CA 2", hEndret: 11, ny: "Fjellvik TLS CA 3", hvorfor: "Issuer er navnet på CA-en som utstedte og signerte sertifikatet. Det skal være lik Subject i sertifikatet over i kjeden." },
     { id: "sub", navn: "Subject (navn + offentlig nøkkel)", v: "bibliotek.lerkedal.no · ECC P-256 04:9B:…", hEndret: 20, ny: "bibliotek.lerkedal.no · 04:E1:… (angriperens nøkkel)", hvorfor: "Subject har navnet og den <b>offentlige</b> nøkkelen. Det er denne bindingen sertifikatet garanterer (d03 s. 31)." },
     { id: "val", navn: "Validity", v: "15.09.2026–14.12.2026", hEndret: 8, ny: "15.09.2026–14.12.2027", hvorfor: "Validity er perioden sertifikatet er gyldig. Den er dekket av signaturen, så den kan ikke forlenges i ettertid." },
@@ -416,7 +416,7 @@
       { id: "x-priv", html: "Bibliotekets private nøkkel",
         forklaring: "Private nøkler står aldri i et sertifikat. Bare den offentlige nøkkelen står i Subject (H2021 4.4, H2022 6.4)." },
       { id: "x-capriv", html: "Den private nøkkelen til Fjellvik TLS CA 2",
-        forklaring: "CA-en <i>bruker</i> sin private nøkkel til å signere, men den står ikke i sertifikatet. Felle: «brukes til signering av subjektsertifikater» → ingen sertifikater." }
+        forklaring: "CA-en <i>bruker</i> sin private nøkkel til å signere, men den står ikke i sertifikatet. Felle: «brukes til signering av subjektsertifikater» → ingen sertifikater (H2021 4.4, H2022 6.2)." }
     ]),
     answer: (function () {
       var a = { "v-sig": "sig", "x-priv": "ikke", "x-capriv": "ikke" };
@@ -490,7 +490,7 @@
           text: {
             eli5: "Kontoret stempler fingeravtrykket med sitt hemmelige stempel.",
             normal: "Steg 3: S = Sig(H, " + K("CA", "priv") + "). Det er CA-ens private nøkkel som signerer, ikke subjektets og ikke «sertifikatet».",
-            teknisk: "Leke-RSA for Fjellvik TLS CA 2: modul 33, privat eksponent 7, offentlig eksponent 3 (3 · 7 = 21 ≡ 1 mod 20). " + RSA.h + "<sup>7</sup> mod 33 = " + S1 + ". d03 skriver det som Sig[H, Kpriv(CA)]." } },
+            teknisk: "Leke-RSA i stedet for ECDSA, for å vise prinsippet. Fjellvik TLS CA 2: modul 33, privat eksponent 7, offentlig eksponent 3 (3 · 7 = 21 ≡ 1 mod 20). " + RSA.h + "<sup>7</sup> mod 33 = " + S1 + ". d03 skriver det som Sig[H, Kpriv(CA)]." } },
         { rec: true, sig: "S", vis: "S legges inn i signaturfeltet", text: { eli5: "Stempelet festes på arket. Nå er sertifikatet ferdig.",
             normal: "Steg 4: S legges til recorden. Sertifikatet er ferdig og kan sendes til hvem som helst.",
             teknisk: "Signaturfeltet selv er ikke med i Rec. Det kan ikke dekke seg selv." } }
@@ -729,8 +729,8 @@
       Object.keys(mBtn).forEach(function (k) { press(mBtn[k], k === st.m); });
       dato.value = D.date; adr.value = D.url;
       var subj = D.certs[2];
-      mNote.innerHTML = st.m === "ocsp" ? "OCSP: nettleseren spør CA-en om status. <b>CA-en ser da at du besøker " + D.url + "</b>. Det er personvernproblemet (t03 O9b)."
-        : st.m === "stifting" ? "Stifting: tjeneren legger ved et ferskt statussvar som CA-en har signert. Nettleseren slipper å spørre, og CA-en ser ikke hvor du surfer (t03 O6c, O9b)."
+      mNote.innerHTML = st.m === "ocsp" ? "OCSP: nettleseren spør CA-en om status. <b>CA-en ser da at du besøker " + D.url + "</b>. Det er personvernproblemet (t03 O9b). I dag spør nettleserne sjelden CA-en direkte: CRL er påbudt og OCSP valgfritt (CA/B Forum 2024). Kursets modell er fra t03."
+        : st.m === "stifting" ? "Stifting: tjeneren legger ved et ferskt statussvar som CA-en (eller dens OCSP-responder) har signert. Nettleseren slipper å spørre, og CA-en ser ikke hvor du surfer (t03 O6c, O9b)."
         : "Ingen statussjekk: et tilbakekalt sertifikat blir ikke oppdaget.";
       mNote.innerHTML += " <span class=\"muted small\">Statussjekk står i t03 (2025), ikke på 2026-lysarket.</span>";
 
@@ -847,7 +847,7 @@
   /* =====================================================================
      6b · CAA
      ===================================================================== */
-  var CAA_DNS = "lerkedal.no.  CAA  0 issue \"fjellvik\"";
+  var CAA_DNS = "lerkedal.no.  CAA  0 issue \"fjellvik.no\"";
   var CAA_SCEN = {
     id: "pki-caa",
     tittel: "Du jobber med sertifikatutstedelse. I DNS står: <code>" + CAA_DNS + "</code>",
@@ -857,7 +857,7 @@
         tekst: {
           eli5: "<p>Du jobber i Nordkapp CA. Noen vil ha et sertifikat for bibliotek.lerkedal.no og kan vise at de styrer domenet. Men lerkedal.no har en lapp i DNS: «bare Fjellvik får lage sertifikater for meg». Hva gjør du?</p>",
           normal: "<p>Du jobber i <b>Nordkapp CA</b>. En søker ber om et sertifikat for bibliotek.lerkedal.no og består domenevalideringen. Hva gjør Nordkapp?</p>",
-          teknisk: "<p>Nordkapp CA får en forespørsel for bibliotek.lerkedal.no. Søkeren kontrollerer domenet. CAA-recorden for lerkedal.no har bare <code>issue \"fjellvik\"</code>. Hva gjør Nordkapp?</p>"
+          teknisk: "<p>Nordkapp CA får en forespørsel for bibliotek.lerkedal.no. Søkeren kontrollerer domenet. CAA-recorden for lerkedal.no har bare <code>issue \"fjellvik.no\"</code>. Hva gjør Nordkapp?</p>"
         },
         valg: [
           { tekst: "Avslår: CAA-recorden sier at bare Fjellvik får utstede for lerkedal.no", til: "fjellvik", poeng: 1,
@@ -885,14 +885,14 @@
           { tekst: "CAA stoppet ikke dette. Utstedelsen må oppdages i ettertid, for eksempel gjennom sertifikattransparens, og så må sertifikatet tilbakekalles", til: "slutt", poeng: 2, kit: { K: "truet", I: "truet" },
             konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. t03 O6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er vår presisering og lærebokstoff." },
           { tekst: "Nettleseren slår opp CAA-recorden og avviser sertifikatet", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
-            konsekvens: "<b>Nei.</b> CAA sjekkes av CA-en når den utsteder, ikke av nettleseren. Sertifikatet har en gyldig kjede og godtas. (Presiseringen står ikke i kildene.)" },
+            konsekvens: "<b>Nei.</b> CAA sjekkes av CA-en når den utsteder, ikke av nettleseren. Sertifikatet har en gyldig kjede og godtas. (RFC 8659; står ikke i kurskildene.)" },
           { tekst: "Ingenting kan skje: CAA gjør det umulig å utstede", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
             konsekvens: "<b>Nei.</b> CAA er en regel i DNS, ikke en teknisk sperre. En kompromittert CA kan ignorere den." }
         ]
       },
       slutt: { slutt: true, oppsummering: {
         eli5: "<p>CAA er en lapp i DNS som sier hvilke kontorer som får lage sertifikater for domenet. Ærlige kontorer følger lappen. Et kontor som er hacket, bryr seg ikke, og da må juksen oppdages etterpå.</p>",
-        normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (t03 O6b). En ærlig CA sjekker recorden og avslår om den ikke står der. CAA hindrer ikke en kompromittert CA. Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles (t03 O6a).</p>",
+        normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (t03 O6b). En ærlig CA sjekker recorden og avslår om den ikke står der. CAA hindrer ikke en kompromittert CA som ignorerer regelen (RFC 8659), selv om t03 O6a sier at CA-autorisering forhindrer det. På eksamen kan t03-svaret ventes, men vit begrensningen. Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles (t03 O6a).</p>",
         teknisk: "<p>CAA (CA-autorisering) er en DNS-record på domenet, med <code>issue</code>-verdier for CA-ene som får utstede. Kontrollen skjer hos CA-en ved utstedelse. Mot en CA som ignorerer CAA hjelper bare at utstedelsen blir synlig og oppdages (CT), og deretter tilbakekalling eller at CA-en fjernes fra rotlagrene. Detaljene om CT og hvem som sjekker CAA, er lærebokstoff og står ikke i kildene.</p>"
       } }
     }

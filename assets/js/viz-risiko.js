@@ -526,7 +526,7 @@
     aksepter: { t: "Aksepter risiko", s: "Del av planen: risikoene som beholdes, er restrisiko.", b: "Smuldre: R3 (4), R4 (5) og R5 (5) ligger innenfor grensen og aksepteres." },
     bp2: { t: "Beslutningspunkt 2", s: "Godtar ledelsen planen?", diamond: true,
       b: "Smuldre: tiltakene koster 15 000 + 20 000 = 35 000 kr per år. Med forsikringspremien i tillegg sprenger planen budsjettet, så svaret blir <b>Nei</b>. Forsikringen strykes, og tiltakene mot R1 og R2 beholdes. Da blir svaret <b>Ja</b>.",
-      nei: [["For dyr eller for ambisiøs plan, eller budsjettet strekker ikke til", "Hev akseptgrensen, færre tiltak eller mer budsjett"],
+      nei: [["For dyr eller for ambisiøs plan, eller budsjettet strekker ikke til", "Ledelsen kan bevisst heve akseptgrensen (revidere kriteriene, t06 6b), velge færre tiltak eller gi mer budsjett"],
             ["For mange aksepterte risikoer eller for høy restrisiko", "Senk akseptgrensen eller legg til tiltak"],
             ["Kostnadsanslaget er misvisende", "Regn kostnadene på nytt"]] },
     impl: { t: "Implementer sikkerhetstiltak", s: "Tiltakene i planen innføres.", b: "Smuldre: backup og bekreftelsesrutine er på plass før julesalget." }

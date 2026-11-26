@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -313,7 +314,7 @@
           <li><b>Internett-PKI:</b> noen hundre uavhengige silo-hierarkier. Røttene er installert i nettleseren, og nye kommer med programvareoppdateringer (d03 s. 41). Brukeren stoler implisitt på nettleserleverandøren og dermed på alle rot-CA-ene.</li>
           <li><b>Tillitsforvirring:</b> en kriminell med et gyldig sertifikat er både <i>autentisk</i> og <i>upålitelig</i>. X.509 garanterer bare autentisitet. Valideringen er syntaktisk, ikke en semantisk sjekk av om nettstedet er ekte (d03 s. 42–43).</li>
           <li><b>DigiNotar (2011):</b> en rot-CA med dårlig nøkkelhåndtering ble hacket. Det første falske sertifikatet ble utstedt i juli 2011, og nettleserne fjernet DigiNotar som rot (d03 s. 44).</li>
-          <li><b>PKI-tjenester</b> heter tillitstjenester i EU og er grunnlaget for eID og e-forvaltning. Sikkerheten avhenger av at CA-ene har integritet (d03 s. 45).</li>
+          <li><b>PKI-tjenester</b> heter tillitstjenester i EU (eIDAS-forordningen) og er grunnlaget for eID og e-forvaltning. Sikkerheten avhenger av at CA-ene har integritet (d03 s. 45).</li>
         </ul></div>
       <div id="ex-tillit"></div>
 
@@ -338,7 +339,7 @@
           <li><b>«Server-sertifikater gjør spoofing umulig»:</b> falske nettsteder kan ha ekte sertifikater (H2022 6.3).</li>
           <li><b>«Internett-PKI har én rot-CA»:</b> noen hundre silo-hierarkier (H2022 6.3).</li>
           <li><b>«Web of trust = Internett-PKI»:</b> web of trust er brukersentrisk PKI (PGP).</li>
-          <li><b>DigiNotar ble tatt inn igjen?</b> Ifølge d03 ble DigiNotar senere tatt inn igjen, med sperring av sertifikater utstedt etter juli 2011. Andre framstillinger sier at tilliten ble fjernet for godt og selskapet gikk konkurs. Det er usikkert, så hold deg til at roten ble fjernet.</li>
+          <li><b>DigiNotar ble tatt inn igjen?</b> Ifølge d03 s. 44 ble DigiNotar senere lagt tilbake som rot, med sperring av sertifikater utstedt etter juli 2011. Avvik: nettleserleverandørene (Mozilla, Microsoft, Google, Apple) kunngjorde at roten ble fjernet for godt, og selskapet gikk konkurs i september 2011. Begge er enige om at roten ble fjernet, så svar det på eksamen.</li>
         </ul></div>
 
       <h4>Inspera-øving</h4>
@@ -435,29 +436,31 @@
 
   <footer class="footer">IN2120-guide · Blokk 3 · PKI · <a href="04-angrep.html">Neste: blokk 4, angrep og pentest</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/ovelse.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-pki.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-pki.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -495,7 +498,7 @@
       "ex-revokering": {
         eli5: "<p>Mister du bankkortet, sperrer du det, selv om det står «gyldig til 2028» på kortet. Butikken må kunne sjekke om kortet er sperret. Den kan slå opp i en liste over sperrede kort, ringe banken, eller få en fersk lapp fra banken som kunden har med seg. Den siste måten er OCSP-stifting.</p>",
         normal: "<p>Utløpsdatoen er ikke nok. Lekker den private nøkkelen, må sertifikatet stoppes med en gang. Nettleseren kan spørre CA-en direkte (OCSP), men da ser CA-en hvor du surfer. Med stifting legger tjeneren ved et ferskt, signert «fortsatt gyldig»-svar.</p><p>CAA og CT angriper et annet problem: CA-er som utsteder sertifikater de ikke skulle ha utstedt. CAA sier «bare disse CA-ene får utstede for meg», og CT gjør utstedelsene synlige.</p>",
-        teknisk: "<p>Statussvaret ved stifting er signert av CA-en, så tjeneren kan ikke forfalske det, og det er ferskt, så tjeneren kan ikke bruke et gammelt «gyldig»-svar etter tilbakekallingen. Must-staple gjør at et sertifikat som kommer <i>uten</i> statussvar, avvises. Ellers kunne en angriper med stjålet nøkkel bare utelate svaret.</p><p>Revokeres et mellomliggende CA-sertifikat, faller alle subjektsertifikater under det, fordi tilliten er avledet (fane 4).</p><p>CAA hindrer en <i>ærlig</i> CA i å utstede feil. En CA som ignorerer CAA, stoppes bare av at det oppdages i ettertid, og der kommer CT inn. Den presiseringen er vår egen: t03 O6a sier kort at CAA forhindrer falske sertifikater. Et tilbakekalt sertifikat svarer til at nøkkelparet går til «kompromittert» (fane 1).</p>"
+        teknisk: "<p>Statussvaret ved stifting er signert av CA-en (eller dens OCSP-responder), så tjeneren kan ikke forfalske det, og det er ferskt, så tjeneren kan ikke bruke et gammelt «gyldig»-svar etter tilbakekallingen. Must-staple gjør at et sertifikat som kommer <i>uten</i> statussvar, avvises. Ellers kunne en angriper med stjålet nøkkel bare utelate svaret.</p><p>Revokeres et mellomliggende CA-sertifikat, faller alle subjektsertifikater under det, fordi tilliten er avledet (fane 4).</p><p>CAA hindrer en <i>ærlig</i> CA i å utstede feil. En CA som ignorerer CAA, stoppes bare av at det oppdages i ettertid, og der kommer CT inn. Den presiseringen er vår egen: t03 O6a sier kort at CAA forhindrer falske sertifikater. Et tilbakekalt sertifikat svarer til at nøkkelparet går til «kompromittert» (fane 1).</p>"
       }
     };
     Object.keys(EX).forEach(function (id) {
@@ -573,7 +576,7 @@
         { q: "Hva er hovedulempen med et enkelt hierarki?", options: ["Kompromittering av roten gir totalt sammenbrudd", "Det er tregt", "Det krever PGP"], answer: 0,
           explain: "<p>Alle stoler på én og samme rot. Blir rotnøkkelen kompromittert, faller tilliten til hvert eneste sertifikat under den (d03 s. 39).</p>" },
         { q: "Hva gjorde nettleserne etter DigiNotar-hacket?", options: ["Fjernet DigiNotar som rot-CA", "Ingenting", "Gjorde DigiNotar til eneste rot"], answer: 0,
-          explain: "<p>Roten ble fjernet (d03 s. 44). Hva som skjedde senere, er usikkert i kildene.</p>" }
+          explain: "<p>Roten ble fjernet (d03 s. 44). Lysarket sier at den senere ble lagt tilbake med sperring av nye sertifikater; nettleserleverandørene sier at den ble fjernet for godt.</p>" }
       ],
       revokering: [
         { q: "Hvorfor trengs revokering?", options: ["Den private nøkkelen kan bli kompromittert før utløp", "For å forlenge gyldigheten", "For å bytte CA"], answer: 0,
@@ -640,7 +643,7 @@
         { s: "Sikkerheten til PKI avhenger av at CA-ene har integritet.", answer: true, explain: "<p>Hele kjeden står og faller med CA-ene. En CA som utsteder falske sertifikater, slik i DigiNotar-saken, undergraver tilliten til alt den har signert (d03 s. 45).</p>" }
       ],
       revokering: [
-        { s: "Statussvaret ved OCSP-stifting er signert, så tjeneren ikke kan forfalske det.", answer: true, explain: "<p>Svaret er signert av CA-en. Tjeneren bare videresender det og kan ikke endre «tilbakekalt» til «gyldig» uten at signaturen feiler.</p>" },
+        { s: "Statussvaret ved OCSP-stifting er signert, så tjeneren ikke kan forfalske det.", answer: true, explain: "<p>Svaret er signert av CA-en (eller en OCSP-responder CA-en har delegert til). Tjeneren bare videresender det og kan ikke endre «tilbakekalt» til «gyldig» uten at signaturen feiler.</p>" },
         { s: "Vanlig OCSP lar CA-en se hvilke sertifikater, og dermed nettsteder, brukeren sjekker.", answer: true, explain: "<p>Ved vanlig OCSP spør nettleseren CA-en om hvert sertifikat den møter, og da ser CA-en hvor brukeren er. Stifting løser det (t03 O9b).</p>" },
         { s: "CAA og sertifikattransparens skal motvirke at kompromitterte CA-er utsteder falske sertifikater.", answer: true, explain: "<p>CAA sier hvilke CA-er som får utstede for domenet, og sertifikattransparens logger alle utstedte sertifikater offentlig. Det gjør falske sertifikater lettere å hindre og oppdage (t03 O6a).</p>" },
         { s: "Et tilbakekalt sertifikat blir gyldig igjen når den opprinnelige utløpsdatoen er nådd.", answer: false, explain: "<p>Tilbakekalling er permanent. Etter utløpsdatoen er sertifikatet både tilbakekalt og utløpt, og ingen av delene gjør det gyldig igjen.</p>" },

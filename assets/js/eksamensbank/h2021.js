@@ -125,7 +125,7 @@
       felt: [
         { etikett: "Konfigureringsfase, boks 1 (øverst)", svar: 4, godta: [], explain: "<p>Alt starter med at brukeren blir registrert og får en identitet: <strong>Brukerregistrering</strong>.</p>" },
         { etikett: "Konfigureringsfase, boks 2", svar: 0, godta: [], explain: "<p>Deretter får brukeren noe å bevise identiteten med, f.eks. passord eller nøkkel: <strong>Klargjør autentikator</strong>.</p>" },
-        { etikett: "Konfigureringsfase, boks 3 (nederst)", svar: 5, godta: [], explain: "<p>Til slutt i konfigureringsfasen bestemmes hva brukeren skal få lov til, altså tilgangspolicyen spesifiseres: <strong>Tilgangsautorisering</strong>. Dobbeltpila viser at dette og klargjøring av autentikator ikke har fast innbyrdes rekkefølge.</p>" },
+        { etikett: "Konfigureringsfase, boks 3 (nederst)", svar: 5, godta: [], explain: "<p>Til slutt i konfigureringsfasen bestemmes hva brukeren skal få lov til, altså tilgangspolicyen spesifiseres: <strong>Tilgangsautorisering</strong>. Dobbeltpila kan tyde på at dette og klargjøring av autentikator ikke har fast innbyrdes rekkefølge, men fasiten plasserer tilgangsautorisering nederst.</p>" },
         { etikett: "Bruksfase, boks 1 (øverst)", svar: 2, godta: [], explain: "<p>Ved innlogging sier brukeren først hvem hen er: <strong>Oppgi bruker-ID</strong> (identifisering).</p>" },
         { etikett: "Bruksfase, boks 2", svar: 3, godta: [], explain: "<p>Så beviser brukeren det: <strong>Oppgi autentikator</strong> (autentisering).</p>" },
         { etikett: "Bruksfase, boks 3 (nederst)", svar: 1, godta: [], explain: "<p>Når brukeren ber om en ressurs, håndhever systemet policyen: <strong>Tilgangskontroll</strong>.</p>" }
@@ -205,7 +205,7 @@
     ark: "2.2 Angrepstyper", title: "Sidekanal, skjult kanal eller MitM?",
     points: 2, block: "angrep", tema: ["sidekanal", "skjult kanal", "MitM", "Tor"],
     ordrett: true,
-    oppgave: "<p>For hver beskrivelse, angi korrekt type angrep ved å velge blant Sidekanal, Skjult kanal, MitM (Man-in-the-Middel) eller Ingen. Poeng: 0,5 for hver korrekt, -0.5 for for hver feil, 0 for intet valg, maks 2, minimum 0.</p><p><strong>Angi agrepstype som passer</strong></p>",
+    oppgave: "<p>For hver beskrivelse, angi korrekt type angrep ved å velge blant Sidekekanal, Skjult kanal, MitM (Man-in-the-Middel) eller Ingen. Poeng: 0,5 for hver korrekt, -0.5 for for hver feil, 0 for intet valg, maks 2, minimum 0.</p><p><strong>Angi agrepstype som passer</strong></p>",
     inspera: {
       type: "M",
       regelTekst: "Poeng: 0,5 for hver korrekt, -0.5 for for hver feil, 0 for intet valg, maks 2, minimum 0.",
@@ -221,7 +221,7 @@
     },
     avvik: null,
     losning: ["Sidekanal = utilsiktet lekkasje som angriperen måler.", "Skjult kanal = bevisst misbruk for å kommunisere ut.", "Begge kan bruke tid – forskjellen er om lekkasjen er tilsiktet."],
-    tips: ["Arket skriver «Man-in-the-Middel» og «agrepstype» – skrivefeil i originalen."]
+    tips: ["Arket skriver «Sidekekanal», «Man-in-the-Middel» og «agrepstype» – skrivefeil i originalen, gjengitt ordrett."]
   });
   hv("H2021-2.2",
     "<p>En sidekanal er som å gjette hva naboen lager til middag ut fra lukten: de mente ikke å fortelle deg det. En skjult kanal er som å blinke med lyset i et avtalt mønster for å sende en beskjed i hemmelighet.</p>",
@@ -274,7 +274,7 @@
         { tekst: "Kan forhindre/mitigere (konsekvens av) tap av data", alternativer: ["Sikkerhetskopi av data", "Anonymisering av persondata", "Cyberforsikring for å betale løsepenger"], svar: [0, 2], explain: [
           "<p>Riktig. Med en sikkerhetskopi kan dataene gjenopprettes uten å betale.</p>",
           "<p>Feil. Anonymisering gjør ikke at du får dataene tilbake når de er kryptert.</p>",
-          "<p>Riktig ifølge fasit. Forsikringen kan betale løsepengene, og hvis angriperen leverer nøkkelen, får man dataene tilbake. (Kurset anbefaler ikke å betale, men spørsmålet er om tiltaket kan mitigere konsekvensen.)</p>"
+          "<p>Riktig ifølge fasit. Forsikringen kan betale løsepengene, og hvis angriperen leverer nøkkelen, får man dataene tilbake. (Å betale anbefales vanligvis ikke, men spørsmålet er om tiltaket kan mitigere konsekvensen.)</p>"
         ] },
         { tekst: "Kan forhindre/miitigere (konsekvens av) brudd på personvern", alternativer: ["Sikkerhetskopi av data", "Anonymisering av persondata", "Cyberforsikring for å betale løsepenger"], svar: [1, 2], explain: [
           "<p>Feil. En sikkerhetskopi gir dataene tilbake, men hindrer ikke at angriperen allerede har kopiert og kan lekke persondataene.</p>",
@@ -680,14 +680,14 @@
         { del: "d)", poeng: 1, sporsmal: "<p>Nevn en sikkerhetsprotokoll som ikke støttet perfekt fremoverhemmelighold, og si hvorfor ikke (dvs. hvordan den etablerer øktnøkler/sesjonsnøkler).</p>", grense: "to setninger" }
       ]
     },
-    avvik: null,
-    losning: ["a) TLS 1.3 (alltid DH).", "b) Langtidsnøkkelen kan lekke senere uten at gamle øktnøkler avsløres.", "c) Ny, flyktig DH-utveksling per økt; DH-verdiene slettes etterpå.", "d) SSL / TLS 1.2 med RSA-nøkkeltransport: øktnøkkel(frøet) sendes kryptert med tjenerens offentlige nøkkel."],
+    avvik: "Sensorteksten sier at SSL ikke støttet perfekt fremoverhemmelighold. SSL 3.0 hadde likevel DHE-chifferserier som opsjon (RFC 6101), akkurat som TLS 1.2; poenget er at standardvalget var RSA-nøkkeltransport. Svar som fasiten på eksamen.",
+    losning: ["a) TLS 1.3 (efemær DH i fullt handtrykk).", "b) Langtidsnøkkelen kan lekke senere uten at gamle øktnøkler avsløres.", "c) Ny, flyktig DH-utveksling per økt; DH-verdiene slettes etterpå.", "d) SSL / TLS 1.2 med RSA-nøkkeltransport: øktnøkkel(frøet) sendes kryptert med tjenerens offentlige nøkkel."],
     tips: ["Nevn begge halvdelene i b): hva som lekker (langtidsnøkkelen, senere) og hva som forblir hemmelig (tidligere øktnøkler).", "I d) må du si <em>hvorfor</em>: nøkkeltransport med offentlig nøkkel gjør at den private nøkkelen åpner alle gamle økter."]
   });
   IN.PERFEKT["H2021-5.3"] = {
     type: "eksamen",
     svar: [
-      { del: "a)", tekst: "<p>TLS 1.3 (der nøkkeletableringen alltid er Diffie-Hellman med flyktige verdier).</p>", poeng: ["Protokoll med fremoverhemmelighold, f.eks. TLS 1.3 (1p)"] },
+      { del: "a)", tekst: "<p>TLS 1.3 (der et fullt handtrykk etablerer nøkkelen med Diffie-Hellman med flyktige verdier).</p>", poeng: ["Protokoll med fremoverhemmelighold, f.eks. TLS 1.3 (1p)"] },
       { del: "b)", tekst: "<p>Det handler om at tjenerens private langtidsnøkkel kan bli kompromittert en gang i framtiden. Fremoverhemmelighold betyr at øktnøkler som ble etablert før det, likevel forblir hemmelige, så gammel trafikk som angriperen har tatt opp, ikke kan dekrypteres.</p>", poeng: ["Scenario: langtidsnøkkelen lekker senere (0,5p)", "Tidligere øktnøkler forblir hemmelige (0,5p)"] },
       { del: "c)", tekst: "<p>Ved å etablere hver øktnøkkel med en ny (flyktig) Diffie-Hellman-utveksling, der DH-verdiene slettes etter økta. Langtidsnøkkelen brukes bare til å signere/autentisere utvekslingen, ikke til å transportere nøkkelen.</p>", poeng: ["Med DH (Diffie-Hellman) (1p)"] },
       { del: "d)", tekst: "<p>SSL (og TLS 1.2 når RSA-nøkkeltransport ble valgt, siden DH bare var en opsjon). Klienten laget hemmeligheten som øktnøkkelen avledes fra, og sendte den kryptert med tjenerens offentlige nøkkel. Den som senere får tjenerens private nøkkel, kan dekryptere denne hemmeligheten i opptak av gammel trafikk og dermed finne alle gamle øktnøkler.</p>", poeng: ["Protokoll uten fremoverhemmelighold, f.eks. SSL / TLS 1.2 (0,5p)", "Hvorfor: øktnøkkel(frø) sendt kryptert med tjenerens offentlige nøkkel (0,5p)"] }
@@ -704,7 +704,7 @@
   };
   hv("H2021-5.3",
     "<p>Tenk deg at du og en venn hver gang dere snakker, lager en ny engangskode sammen og kaster den etterpå. Selv om noen senere stjeler nøkkelringen din, finnes ikke de gamle kodene noe sted, så gamle samtaler forblir hemmelige.</p>",
-    "<p>Fremoverhemmelighold betyr at gamle økter forblir hemmelige selv om tjenerens private langtidsnøkkel lekker senere. Det oppnås med en ny Diffie-Hellman-utveksling for hver økt (TLS 1.3 gjør alltid dette). Eldre protokoller som SSL og TLS 1.2 med RSA-nøkkeltransport sendte øktnøkkelens hemmelighet kryptert med tjenerens offentlige nøkkel; da åpner den private nøkkelen alle gamle økter.</p>",
+    "<p>Fremoverhemmelighold betyr at gamle økter forblir hemmelige selv om tjenerens private langtidsnøkkel lekker senere. Det oppnås med en ny Diffie-Hellman-utveksling for hver økt (TLS 1.3 gjør dette i fullt handtrykk; bare gjenopptak med ren forhåndsdelt nøkkel, PSK, mangler det). Eldre protokoller som SSL og TLS 1.2 med RSA-nøkkeltransport sendte øktnøkkelens hemmelighet kryptert med tjenerens offentlige nøkkel; da åpner den private nøkkelen alle gamle økter.</p>",
     "<p>Ved hybrid kryptering (nøkkeltransport) avhenger alle øktnøkler av én langtidsnøkkel: K<sub>økt</sub> kan hentes fra opptak med D(C, K<sup>S</sup><sub>priv</sub>). Med flyktig DH velger partene nye a og b per økt, utveksler gᵃ og gᵇ [mod p], og beregner gᵃᵇ [mod p]. Etter økta slettes a og b. Langtidsnøkkelen brukes bare til å signere DH-verdiene (mot mann-i-midten), så å stjele den senere gir ingen informasjon om gᵃᵇ.</p>");
 
   O.push({
@@ -843,19 +843,19 @@
       multi: false,
       rader: [
         { s: "Beskriver krav til ID-føderering", svar: [0], explain: "<p>NIST SP 800-63-3 har en egen del om føderering (FAL, federation assurance level): <strong>NIST</strong>.</p>" },
-        { s: "Beskriver 3 kategorier krav til autentiseringsløsninger", svar: [2], explain: "<p><strong>eIDAS</strong> stiller krav i tre kategorier (registrering, forvaltning av autentiseringsmiddel og selve autentiseringen) og har tre nivåer.</p>" },
+        { s: "Beskriver 3 kategorier krav til autentiseringsløsninger", svar: [2], explain: "<p><strong>eIDAS</strong> stiller krav i tre kategorier og har tre nivåer. Kurset (BA-lysarket, D08 s. 46) navngir kategoriene slik: ID-registrering og autentikatorhåndtering, autentiseringsmetode og fødereringssikkerhet.</p>" },
         { s: "Beskriver ikke krav til registrering av ID", svar: [1], explain: "<p><strong>RAU</strong> stilte krav til selve autentiseringsløsningen, men ikke til registreringen av identiteten.</p>" },
         { s: "Definerer 4 autentiseringsnivåer", svar: [1], explain: "<p><strong>RAU</strong> hadde fire sikkerhetsnivåer. NIST og eIDAS har tre.</p>" }
       ]
     },
     avvik: null,
     losning: ["NIST 800-63-3: tre deler (identitet, autentisering, føderering).", "eIDAS: tre kategorier krav, tre nivåer.", "RAU: fire nivåer, ikke krav til registrering."],
-    tips: ["RAU og NIST SP 800-63-3 er ikke lenger på 2026-lysarkene (2026 viser eIDAS og 800-63-4); kunn tallene 3 og 4 likevel.", "Arket skriver «autentiserinig» – skrivefeil i originalen."]
+    tips: ["RAU og NIST SP 800-63-3 er ikke lenger på 2026-lysarkene (2026 viser eIDAS og 800-63-4); kunne tallene 3 og 4 likevel.", "Arket skriver «autentiserinig» – skrivefeil i originalen."]
   });
   hv("H2021-6.4",
     "<p>Tre land har laget hver sin regelbok for hvor trygg en innlogging må være. Den norske fra 2008 hadde fire trinn og brydde seg ikke om hvordan du fikk ID-en din. Den amerikanske sier også noe om hvordan flere tjenester kan dele én innlogging. Den europeiske deler kravene i tre grupper.</p>",
-    "<p>NIST SP 800-63-3 dekker identitetsregistrering, autentisering og føderering (derav krav til ID-føderering). eIDAS stiller krav i tre kategorier og har tre nivåer (lav, betydelig, høy). RAU (Norge 2008) hadde fire nivåer og stilte ikke krav til registrering av ID.</p>",
-    "<p>Garantinivå (level of assurance) uttrykker hvor stor tillit man kan ha til at den som autentiseres, er den hen sier. NIST 800-63-3 skiller IAL (identitet), AAL (autentisering) og FAL (føderering). eIDAS kombinerer krav til registrering, til forvaltning av autentiseringsmiddel og til autentiseringsmekanismen i tre nivåer. RAU var et eldre norsk rammeverk med fire nivåer som bare så på autentiseringsløsningen.</p>");
+    "<p>NIST SP 800-63-3 dekker identitetsregistrering, autentisering og føderering (derav krav til ID-føderering). eIDAS stiller krav i tre kategorier (ID-registrering og autentikatorhåndtering, autentiseringsmetode, fødereringssikkerhet) og har tre nivåer (lav, betydelig, høy). RAU (Norge 2008) hadde fire nivåer og stilte ikke krav til registrering av ID.</p>",
+    "<p>Garantinivå (level of assurance) uttrykker hvor stor tillit man kan ha til at den som autentiseres, er den hen sier. NIST 800-63-3 skiller IAL (identitet), AAL (autentisering) og FAL (føderering). eIDAS kombinerer tre kategorier krav i tre nivåer. Kurset (BA-lysarket) deler dem i ID-registrering og autentikatorhåndtering, autentiseringsmetode og fødereringssikkerhet. Selve gjennomføringsforordningen (EU) 2015/1502 deler kravene i fire avsnitt, men på eksamen gjelder kursets tre. RAU var et eldre norsk rammeverk med fire nivåer som bare så på autentiseringsløsningen.</p>");
 
   /* ==================== DEL 7: IDENTITETS- OG TILGANGSHÅNDTERING ==================== */
 
@@ -919,14 +919,14 @@
         { etikett: "tjeneste (SP → Nettleser)", godta: ["12"], explain: "<p>SP validerer tokenet (IdP-ens signatur) og leverer tjenesten (<strong>12</strong>).</p>" }
       ]
     },
-    avvik: "I den flatede PDF-en er tekstfeltene forskjøvet bort fra sirklene i figuren, så det går ikke å lese direkte hvilket godtatt tall (grønne parenteser (1)–(12)) som hører til hvilken melding. Felt som står ved riktig melding: (9) ved «bruker autentiseres» og (8) ved «send autentikator». Resten av tilordningen er tatt fra den samme figuren i H2024 31, der feltene står på plass (1 tjenesteforespørsel … 12 tjeneste), og stemmer med OIDC-flyten i kurset. Hvert felt godtar ett tall, og alle tallene 1–12 forekommer én gang.",
+    avvik: "I den flatede PDF-en er tekstfeltene forskjøvet bort fra sirklene i figuren, så det går ikke å lese direkte hvilket godtatt tall (grønne parenteser (1)–(12)) som hører til hvilken melding. Felt som står ved riktig melding: (9) ved «bruker autentiseres» og (8) ved «send autentikator». Resten av tilordningen er tatt fra den tilsvarende figuren i H2024 31 (litt andre etiketter), der feltene står på plass (1 tjenesteforespørsel … 12 tjeneste), og stemmer med OIDC-flyten i kurset. Hvert felt godtar ett tall, og alle tallene 1–12 forekommer én gang.",
     losning: ["Del i tre: hos SP (1–4), hos IdP (5–10), tilbake til SP (11–12).", "SP: forespørsel, liste, valg, omdirigering.", "IdP: be om aut., login-side, bruker presenterer, sendes, sjekkes, token tilbake.", "SP: token videresendes, tjeneste leveres."],
-    tips: ["Nettleseren er budbringer mellom SP og IdP – SP og IdP snakker ikke direkte sammen i denne flyten.", "Samme figur i H2024 31 (der 0,25 p per tall)."]
+    tips: ["Nettleseren er budbringer mellom SP og IdP – SP og IdP snakker ikke direkte sammen i denne flyten.", "Tilsvarende figur i H2024 31 (litt andre etiketter; der 0,25 p per tall)."]
   });
   hv("H2021-7.2",
     "<p>Du vil inn på en klubb (SP). Dørvakten sier: «Hvem kan gå god for deg?» og peker på noen kontorer. Du går til ett kontor (IdP), viser legitimasjon, får en forseglet lapp, går tilbake og viser lappen. Da slipper du inn.</p>",
     "<p>OIDC går i tre runder. Først hos SP: brukeren ber om tjenesten, får en liste over IdP-er, velger én og blir sendt videre. Så hos IdP: nettleseren ber om autentisering, får login-side, brukeren gir autentikatoren som sendes og sjekkes, og IdP-en gir et token til nettleseren. Til slutt tilbake til SP: tokenet videresendes og SP leverer tjenesten.</p>",
-    "<p>OIDC er et autentiseringslag på OAuth 2.0. IdP-en (OpenID Provider) utsteder et ID-token signert med sin private nøkkel; SP-en (Relying Party) validerer det med IdP-ens offentlige nøkkel i henhold til føderasjonsavtalen. All kommunikasjon går via nettleseren med omdirigeringer, så SP aldri ser brukerens autentikator. Hengelåsen på tokenet i figuren markerer at det er beskyttet (signert) slik at nettleseren ikke kan endre det.</p>");
+    "<p>OIDC er et autentiseringslag på OAuth 2.0. IdP-en (OpenID Provider) utsteder et ID-token signert med sin private nøkkel; SP-en (Relying Party) validerer det med IdP-ens offentlige nøkkel i henhold til føderasjonsavtalen. I kursets forenklede scenario går all kommunikasjon via nettleseren med omdirigeringer, så SP aldri ser brukerens autentikator. (I den vanlige autorisasjonskodeflyten i OIDC-spesifikasjonen får nettleseren bare en kode, og SP henter ID-tokenet direkte fra IdP-en.) Hengelåsen på tokenet i figuren markerer at det er beskyttet (signert) slik at nettleseren ikke kan endre det.</p>");
 
   O.push({
     key: "H2021-7.3", year: Y, oppgave_nr: "Oppgave 7.3", del: D7,
@@ -988,7 +988,7 @@
   hv("H2021-8.1",
     "<p>27001 er som regelboka for hvordan en klubb skal styres, og det er den revisoren sjekker. 27002 er en stor verktøykasse med ting klubben kan bruke. Begge kom fra en britisk bok, og begge koster penger.</p>",
     "<p>ISO/IEC 27001 beskriver krav til et ISMS og er standarden virksomheter sertifiseres etter. ISO/IEC 27002 er en tiltaksbank med veiledning. Begge har opphav i britisk standard (BS 7799), ingen av dem er gratis, og ingen av dem er obligatoriske i norsk statlig forvaltning.</p>",
-    "<p>27001 er en kravstandard («skal»-krav) for å etablere, drifte og forbedre et ISMS etter en PDCA-syklus, med et vedlegg som lister tiltakene. 27002 utdyper de samme tiltakene med veiledning, men er ikke selv sertifiserbar. Norsk forvaltning har krav om internkontroll/styringssystem, og Digdir anbefaler å bygge på 27001, men standarden er ikke lovpålagt.</p>");
+    "<p>27001 er en kravstandard («skal»-krav) for å etablere, drifte og forbedre et ISMS etter en PDCA-syklus, med et vedlegg som lister tiltakene. 27002 utdyper de samme tiltakene med veiledning, men er ikke selv sertifiserbar. Norsk forvaltning har krav om internkontroll/styringssystem, og Digdir bruker begrepet internkontroll om omtrent det samme som ISMS (ISM-arket), men 27001 er ikke lovpålagt.</p>");
 
   O.push({
     key: "H2021-8.2", year: Y, oppgave_nr: "Oppgave 8.2", del: D8,
@@ -1004,8 +1004,8 @@
     inspera: {
       type: "D",
       regelTekst: "Poeng: 0,5 for hver korrekt tilordning, -0,5 for hver feil tilordning, 5 for alle riktig, minimum 0.",
-      regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 5 },
-      regelMerknad: "Ni felt à 0,5 gir 4,5; alle riktige gir 5 (0,5 i bonus).",
+      regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 5, alleRiktig: 5 },
+      regelMerknad: "Ni felt à 0,5 gir 4,5; alle riktige gir 5 (0,5 i bonus, regel.alleRiktig).",
       tekst: null,
       bank: ["Identifisere og kartlegge", "Recover", "Identify", "Respond", "Håndtere og gjenopprette", "Detect", "Beskytte og opprettholde", "Protect", "Oppdage"],
       felt: [
@@ -1070,8 +1070,8 @@
     inspera: {
       type: "D",
       regelTekst: "Poeng: 0,5 for hver korrekt tilordning, -0,5 for hver feil tilordning, 4 for alle riktig, minimum 0.",
-      regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 4 },
-      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge (5 trinn gir 2,5), feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Derfor er feil satt til 0 her.\n\n" + JUSTERT,
+      regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 4, alleRiktig: 4, sekvens: 0.5 },
+      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge (5 trinn gir 2,5), feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Øvingen retter slik (regel.sekvens og regel.alleRiktig).\n\n" + JUSTERT,
       tekst: null,
       bank: ["Test", "Koding", "Krav", "Produksjonssetting", "Design", "Opplæring", "Forvaltning"],
       felt: [
@@ -1169,8 +1169,8 @@
     inspera: {
       type: "D",
       regelTekst: "Poeng: 0,5 for hver korrekt tilordning, -0,5 for hver feil tilordning, 4 for alle riktig, minimum 0.",
-      regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 4 },
-      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge, feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Derfor er feil satt til 0 her.\n\n" + JUSTERT,
+      regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 4, alleRiktig: 4, sekvens: 0.5 },
+      regelMerknad: "Under oppgaven står «Justert skåring»: poeng = 0,5 × lengden av den lengste sekvensen med trinn i riktig rekkefølge, feil trinn imellom teller ikke negativt, og det gis ikke minuspoeng. Alle sju riktige gir 4 (0,5 i bonus). Øvingen retter slik (regel.sekvens og regel.alleRiktig).\n\n" + JUSTERT,
       tekst: null,
       bank: ["Overlevering", "Kommando og kontroll", "Rekognosering", "Aksjon", "Bevæpning", "Installering", "Utførelse av exploit"],
       felt: [

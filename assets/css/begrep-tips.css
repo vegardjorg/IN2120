@@ -1,0 +1,61 @@
+/* ============================================================
+   IN2120 guide · begrep-tips.css  (portert fra IN2010 2026-11-26)
+   Begrepstips (begrep-tips.js). Bygger på .pc-tip i styles.css (flytende boks,
+   farger, kant, skygge) og bruker bare fargetokenene derfra, så lyst og mørkt
+   tema følger med av seg selv.
+   ============================================================ */
+
+/* Begrepet i teksten: diskré prikket understrek, som symbolene (.sym) */
+.bt {
+  cursor: help;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 2px;
+}
+.bt .sym { text-decoration: none; }
+.bt:hover, .bt.is-open {
+  text-decoration-color: currentColor;
+  background-image: linear-gradient(var(--state-hover), var(--state-hover));
+}
+.bt:focus { outline: none; }
+.bt:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+
+/* Tipset: samme boks som #pc-tip/#sym-tip, smal nok for 360 px */
+.bt-tip {
+  max-width: min(19rem, calc(100vw - 16px));
+  box-sizing: border-box;
+  z-index: 215;
+  font-family: var(--font);
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+.bt-tip > span { display: block; }
+.bt-tip-h { font-weight: 600; margin-bottom: .15rem; }
+.bt-tip-h b { color: var(--color-primary); font-weight: 700; }
+.bt-tip-se {
+  margin-top: .3rem;
+  font-size: var(--text-xs, .8rem);
+  color: var(--color-on-surface-variant);
+}
+
+@media print {
+  .bt { text-decoration: none; }
+  .bt-tip { display: none; }
+}
+
+/* Ordlista på forsiden (IN.begrepTips.ordliste) */
+.ordliste { margin: 1.5rem 0 .5rem; border-top: 1px solid var(--color-outline-variant); padding-top: .6rem; }
+.ordliste > summary { cursor: pointer; padding: .5rem 0; min-height: 44px; display: flex; align-items: center; gap: .4rem; }
+.ord-sok { font: inherit; width: 100%; max-width: 26rem; box-sizing: border-box; min-height: 44px; padding: .4rem .6rem;
+  border: 1px solid var(--color-outline); border-radius: var(--radius); background: var(--color-surface-container-lowest); color: var(--color-on-surface); }
+.ord-tell { margin: .3rem 0 .6rem; }
+.ord-liste { margin: 0; }
+.ord-liste dt { margin-top: .6rem; overflow-wrap: anywhere; }
+.ord-liste dt b { color: var(--color-primary); }
+.ord-liste dd { margin: .1rem 0 0; color: var(--color-on-surface-variant); font-size: var(--text-sm); overflow-wrap: anywhere; }
+.ord-se { white-space: nowrap; font-size: var(--text-xs, .8rem); }
+@media print { .ordliste { display: none; } }

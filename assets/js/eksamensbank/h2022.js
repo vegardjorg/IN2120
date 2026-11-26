@@ -91,7 +91,7 @@
             { s: "Kombinasjon av trussel, sårbarheter og verdier", svar: [0], explain: "<p>Kurset beskriver risiko som en relevant kombinasjon av trussel, sårbarheter og verdier. Sannsynlighet og konsekvens brukes til å måle risikonivået.</p>" }
           ]
         },
-        avvik: null,
+        avvik: "Oppgaveteksten lister «Risiko» to ganger («… Verdi, og Risiko,»), skrivefeil i arket. Det er seks begreper.",
         losning: ["Verdi = det som har KIT-krav. Trussel = det som kan skje. Sårbarhet = svakheten. Hendelse = bruddet. Konsekvens = følgen. Risiko = kombinasjonen."],
         tips: ["Ikke bland risiko og risikonivå: risiko er kombinasjonen, nivået måles med sannsynlighet og konsekvens."]
       },
@@ -423,7 +423,7 @@
         },
         avvik: null,
         losning: ["De sju fasene: opplæring, krav, design, koding, test, produksjonssetting, forvaltning.", "Test finner sårbarheter, koding har statisk analyse, produksjonssetting forbereder patching og hendelseshåndtering, opplæring er ikke med i DevSecOps-løkka."],
-        tips: ["Felt 3 er lett å svare «Forvaltning» på. Men prosedyrene lages før drift og brukes i forvaltning.", "Sikker utvikling (7 faser, DevSecOps) står ikke på 2026-lysarkene (plan/vranglaere.md E)."]
+        tips: ["Felt 3 er lett å svare «Forvaltning» på. Men prosedyrene lages før drift og brukes i forvaltning.", "Sikker utvikling (7 faser, DevSecOps) står ikke på 2026-lysarkene."]
       },
       {
         key: "H2022-4.2", year: "H2022", oppgave_nr: "Oppgave 4.2", del: D4,
@@ -442,9 +442,9 @@
             { etikett: "OWASP (manipulert input)", valg: OWASP.concat(["10. Server-side request forgery (SSRF)"]), svar: 2, godta: [], explain: "<p>Input som blir tolket som kommando eller spørring, er injeksjon (f.eks. SQL-injeksjon).</p>" }
           ]
         },
-        avvik: null,
+        avvik: "Oppgaven bygger på OWASP Top 10 fra 2021 (SSRF = nr. 10, injeksjon = nr. 3). En nyere utgave kom i november 2025 (jf. H2025 32), med endret rekkefølge; der er SSRF ikke lenger egen kategori. Svar etter 2021-lista på denne oppgaven.",
         losning: ["STRIDE: hver bokstav bryter én egenskap. T(ampering) bryter integritet.", "SSRF = tjeneren gjør forespørsler for angriperen. Injeksjon = input tolkes som kode eller kommando."],
-        tips: ["STRIDE → mål: Spoofing–autentisitet, Tampering–integritet, Repudiation–ubenektelighet, Information disclosure–konfidensialitet, DoS–tilgjengelighet, Elevation of privilege–autorisering.", "OWASP Top 10 og STRIDE står ikke på 2026-lysarkene (plan/vranglaere.md E)."]
+        tips: ["STRIDE → mål: Spoofing–autentisitet, Tampering–integritet, Repudiation–ubenektelighet, Information disclosure–konfidensialitet, DoS–tilgjengelighet, Elevation of privilege–tilgangskontroll (som i fasiten for H2021 9.2 og H2025 31).", "OWASP Top 10 og STRIDE står ikke på 2026-lysarkene.", "Arket skriver «Informasjon disclosure» og «priveilege» – skrivefeil i originalen, gjengitt ordrett."]
       },
       {
         key: "H2022-4.3", year: "H2022", oppgave_nr: "Oppgave 4.3", del: D4,
@@ -484,7 +484,7 @@
           regelMerknad: "Manuell retting: 2 p per beskrevet måte, inntil 1 p ekstra for tilnærmet fungerende kode.",
           deler: [{ del: "Svar", poeng: 5, sporsmal: null, grense: "en til to setninger per måte" }]
         },
-        avvik: "Guiden gjengir ikke sensorens modellsvar eller konkrete kommandoer for denne oppgaven, og har ikke eget fullpoengssvar med kode. Den forklarer bare prinsippet og hvordan feilen forebygges. Sensorteksten finnes i qa-fila (s. 16).",
+        avvik: "Guiden beskriver måtene sensoren godtar med egne ord, men gjengir ikke kommandoer eller kode. Ekstrapoenget for kode dekkes derfor ikke. Sensorteksten finnes i qa-fila (s. 16).",
         losning: ["Se hvilken kommando brukeren får kjøre som root: en tolk for et fullt programmeringsspråk.",
           "En tolk kan kjøre hvilken som helst kode. Får den kjøre som root, kan brukeren i praksis gjøre alt root kan.",
           "Prinsippet: sudo-regler som gir root-tilgang til tolker, skall eller redigeringsprogram, gir full root-tilgang."],
@@ -790,7 +790,7 @@
             { etikett: "Innerste lag (rosa)", svar: 1, godta: [], explain: "<p>C er siste node. Den fjerner siste lag og sender pakken videre til Kari.</p>" }
           ]
         },
-        avvik: null,
+        avvik: "«Hvis hvordan» i oppgaveteksten er skrivefeil i arket for «Vis hvordan».",
         losning: ["Ola krypterer innenfra og ut: først for C, så for B, så for A.", "Hver node fjerner bare sitt eget lag og ser bare forrige og neste ledd."],
         tips: ["«Nøkkel delt med Kari» er distraktor: Tor-lagene er mellom Ola og nodene. Ende-til-ende-kryptering til Kari er noe annet (f.eks. TLS inni)."]
       },
@@ -867,7 +867,7 @@
             { etikett: "FNMR", godta: ["0.04"], explain: "<p>Genuine som feilaktig avvises: 4/100 = 0.04.</p>" }
           ]
         },
-        avvik: null,
+        avvik: "«Nalse Non-Match Rate» er skrivefeil i arket for «False Non-Match Rate».",
         losning: [
           "Genuine: 100 forsøk, 96 godtatt, 4 avvist. Ikke-genuine: 100 forsøk, 6 godtatt, 94 avvist.",
           "TMR = 96/100 = 0.96. FNMR = 4/100 = 0.04 (= 1 − TMR).",
@@ -926,7 +926,7 @@
         },
         avvik: null,
         losning: ["BankID = høyt. MinID = lavere (moderat/betydelig)."],
-        tips: ["RAU-rammeverket er erstattet av eIDAS-nivåene lav/betydelig/høy i dagens pensum (plan/vranglaere.md E). Svar etter nivånavnet oppgaven bruker."]
+        tips: ["RAU-rammeverket er erstattet av eIDAS-nivåene lav/betydelig/høy i dagens pensum (RAU står ikke på 2026-lysarkene). Svar etter nivånavnet oppgaven bruker."]
       },
 
       /* ================= DEL 9 ================= */
@@ -1101,7 +1101,7 @@
           "Nettogevinst av tiltaket: 500 000 − 100 000 = 400 000 NOK.",
           "ROI = nettogevinst / kostnad = 400 000 / 100 000 = 4."
         ],
-        tips: ["Skriv tall uten mellomrom og med punktum som desimaltegn.", "Kvantitativt brukes produktet sannsynlighet × konsekvens. Med logaritmiske nivåer (kvalitativt) summeres de i stedet.", "ROI og kvantitativ risiko i kroner står ikke på 2026-lysarkene (plan/vranglaere.md E), men ISM-arket nevner balansen mellom ressursbruk og risikoreduksjon."]
+        tips: ["Skriv tall uten mellomrom og med punktum som desimaltegn.", "Kvantitativt brukes produktet sannsynlighet × konsekvens. Med logaritmiske nivåer (kvalitativt) summeres de i stedet.", "ROI og kvantitativ risiko i kroner står ikke på 2026-lysarkene, men ISM-arket nevner balansen mellom ressursbruk og risikoreduksjon."]
       }
     ]
   };
@@ -1117,15 +1117,15 @@
     "Se på hva angrepet gjør med dataene. Avlytting og lekkasje gir K. Endring og forfalskning gir I. Tjenestenekt og løsepengevirus som låser data gir T. Løsepengevirus er T selv om det også kan lekke data, fordi hovedeffekten er at data blir utilgjengelige.");
   P("H2022-1.2",
     "Gullet er verdien. Tyven er trusselen. Et åpent vindu er sårbarheten. Innbruddet er hendelsen, og det du taper er konsekvensen.",
-    "Risiko knytter sammen hvor sannsynlig en hendelse er og hvor ille konsekvensen blir. En hendelse skjer når en trussel utnytter en sårbarhet mot en verdi.",
-    "Begrepene henger sammen i en kjede: trussel → utnytter sårbarhet → hendelse → rammer verdi → konsekvens. Risiko er kombinasjonen av sannsynlighet og konsekvens for en slik hendelse. Når du skal plassere et utsagn, spør du hvilket ledd i kjeden det beskriver.");
+    "Risiko er kombinasjonen av en trussel, sårbarhetene den kan utnytte og verdiene som kan rammes. Hvor stor risikoen er (risikonivået), måles med sannsynlighet og konsekvens. En hendelse skjer når en trussel utnytter en sårbarhet mot en verdi.",
+    "Begrepene henger sammen i en kjede: trussel → utnytter sårbarhet → hendelse → rammer verdi → konsekvens. Risiko er selve kombinasjonen trussel–sårbarhet–verdi; risikonivået er en funksjon av sannsynlighet og konsekvens for hendelsen (t06). Når du skal plassere et utsagn, spør du hvilket ledd i kjeden det beskriver.");
   P("H2022-1.3",
     "Først får du et medlemskort og en nøkkel. Senere viser du kortet i døra og slipper inn der du har lov.",
-    "IAM har en konfigurasjonsfase (registrere, klargjøre, autorisere) og en bruksfase (bruker-ID, autentikator, tilgangskontroll). Identitetshåndtering, autentisering og tilgangshåndtering dekker hver sin del.",
-    "Identitetshåndtering: registrering, klargjøring, og i bruksfasen å oppgi ID og autentikator. Brukerautentisering: bare de to bruksstegene ID og autentikator. Tilgangshåndtering: autorisering (å fastsette policy) i konfigurasjonsfasen og tilgangskontroll i bruksfasen. Autorisering betyr å bestemme reglene, ikke å sjekke dem.");
+    "IAM har en konfigureringsfase (registrere, klargjøre, autorisere) og en bruksfase (bruker-ID, autentikator, tilgangskontroll). Brukerautentisering er en del av identitetshåndteringen; tilgangshåndtering er autorisering og tilgangskontroll.",
+    "Identitetshåndtering: registrering, klargjøring, og i bruksfasen å oppgi ID og autentikator. Brukerautentisering: bare de to bruksstegene ID og autentikator. Tilgangshåndtering: autorisering (å fastsette policy) i konfigureringsfasen og tilgangskontroll i bruksfasen. Autorisering betyr å bestemme reglene, ikke å sjekke dem.");
   P("H2022-2.1",
     "En oppskrift i en bok (fil) blir til kokkens arbeid (prosess) på kjøkkenbenken (minnet) med kokken (CPU).",
-    "En kjørbar fil på disk lastes inn i minnet av operativsystemet og blir en prosess. Prosessorens instruksjoner utføres av CPU-en.",
+    "En kjørbar fil på disk lastes inn i minnet av operativsystemet og blir en prosess. Prosessens instruksjoner utføres av CPU-en.",
     "Lasteren kopierer kode og data fra filen til prosessens virtuelle adresserom. Deretter planlegger OS-et prosessen på CPU-en. Skillet mellom fil (statisk) og prosess (kjørende instans) er grunnlaget for isolasjon og tilgangskontroll.");
   P("H2022-2.2",
     "Hvert program tror det har sitt eget hus, men vaktmesteren (OS-et) bestemmer hvor husene faktisk står.",
@@ -1158,36 +1158,36 @@
   P("H2022-3.3",
     "Å bryte seg inn i andres datamaskin er straffbart, og loven sier hvor strengt.",
     "Straffeloven § 204 gjelder innbrudd i datasystem. Strafferammen er bøter eller fengsel i inntil to år.",
-    "§ 204 rammer den som bryter en beskyttelse eller skaffer seg tilgang på annen uberettiget måte. Grovere tilfeller og skadeverk dekkes av andre bestemmelser. Merk at selve forsøket på å skaffe seg tilgang uten lov også kan være straffbart.");
+    "§ 204 rammer den som bryter en beskyttelse eller skaffer seg tilgang på annen uberettiget måte. Merk at selve forsøket på å skaffe seg tilgang uten lov også kan være straffbart.");
   P("H2022-3.4",
     "Trojaneren lurer deg til å slippe den inn. Viruset gjemmer seg i andre filer. Ormen sprer seg selv. Bakdøra er en hemmelig inngang.",
     "Trojaner = ser nyttig ut men er skadelig. Virus = trenger en vertsfil. Orm = sprer seg selv over nett. Bakdør = skjult tilgang.",
     "Skillet går på spredning og forkledning. Virus krever at vertsprogrammet kjøres. Orm sprer seg uten brukerens hjelp. Trojaner sprer seg ikke selv, men forkler seg. Bakdør er en funksjon (skjult tilgang) og kan installeres av hvilken som helst av de andre.");
   P("H2022-3.5",
     "Løsepengevirus låser tingene dine og krever penger for nøkkelen.",
-    "Løsepengevirus krypterer eller låser data og bryter dermed først og fremst tilgjengeligheten. Å betale gir ingen garanti.",
-    "Moderne varianter kombinerer kryptering med trussel om publisering (dobbel utpressing), men kjernen er tap av tilgjengelighet. Gode sikkerhetskopier som angriperen ikke når, er det viktigste mottiltaket.");
+    "Løsepengevirus krypterer eller låser data og bryter dermed først og fremst tilgjengeligheten. En hashfunksjon som SHA-256 kan ikke kryptere, fordi den er enveis og uten nøkkel. Minste privilegium (ingen administratorrettigheter for vanlige brukere) begrenser hva løsepengeviruset når.",
+    "Moderne varianter kombinerer kryptering med trussel om publisering (dobbel utpressing), men kjernen er tap av tilgjengelighet. Gode sikkerhetskopier som angriperen ikke når, og å ikke gi brukerne administratorrettigheter, er blant de viktigste mottiltakene.");
   P("H2022-3.6",
     "Noen ganger går du i en felle på en nettside, noen ganger kommer ormen av seg selv, og noen ganger blir du lurt i en e-post.",
     "Angrepsvektoren er veien angrepet kommer inn: drive-by (besøk på infisert nettside), automatisk spredning (orm) eller phishing (lurer brukeren).",
     "Drive-by utnytter sårbarheter i nettleser eller tillegg uten at brukeren gjør noe annet enn å besøke siden. Automatisk spredning utnytter nettverkstjenester. Phishing utnytter mennesket. Klassifiser etter første inngang.");
   P("H2022-4.1",
     "Sikkerhet bygges inn i hvert steg, fra tegning til ferdig hus og opplæring av de som bor der.",
-    "Innebygd sikkerhet (security by design) legger inn sikkerhetsaktiviteter i hver fase av utviklingen: krav, design, koding, test, produksjonssetting og opplæring.",
+    "Innebygd sikkerhet (security by design) legger inn sikkerhetsaktiviteter i alle de sju fasene: opplæring, krav, design, koding, test, produksjonssetting og forvaltning.",
     "Kodeanalyse hører til koding, penetrasjonstest til test, herding og konfigurasjon til produksjonssetting, og bevisstgjøring til opplæring. Feil funnet tidlig er billigere å rette.");
   P("H2022-4.2",
     "STRIDE er en sjekkliste over måter noe kan gå galt på. OWASP-lista er de vanligste feilene i nettsider.",
-    "Tampering (manipulasjon) bryter integritet. OWASP Top 10 har blant annet SSRF (nr. 10) og injeksjon (nr. 3).",
-    "Hver STRIDE-trussel motsvarer en sikkerhetsegenskap: Spoofing–autentisering, Tampering–integritet, Repudiation–uavviselighet, Information disclosure–konfidensialitet, DoS–tilgjengelighet, Elevation of privilege–autorisasjon. SSRF får tjeneren til å sende forespørsler angriperen velger. Injeksjon blander data og kommando.");
+    "Tampering (manipulasjon) bryter integritet. I OWASP Top 10 fra 2021, som oppgaven bruker, var SSRF nr. 10 og injeksjon nr. 3.",
+    "Hver STRIDE-trussel motsvarer en sikkerhetsegenskap: Spoofing–autentisitet, Tampering–integritet, Repudiation–ubenektelighet (også kalt uavviselighet), Information disclosure–konfidensialitet, DoS–tilgjengelighet, Elevation of privilege–tilgangskontroll. SSRF får tjeneren til å sende forespørsler angriperen velger. Injeksjon blander data og kommando.");
   P("H2022-4.3",
     "Testeren får hele tegningen av huset før hun prøver å bryte seg inn.",
     "Hvitbokstest betyr at testeren har full innsikt (kildekode, dokumentasjon). Svartboks: ingen innsikt. Gråboks: delvis.",
-    "Hvitboks gir best dekning per time fordi testeren kan lete målrettet. Svartboks ligner mer på en ekstern angriper. Valget avhenger av formålet med testen.");
+    "Hvitboks lar testeren lete målrettet og finne mer på kort tid. Svartboks ligner mer på en ekstern angriper. Valget avhenger av formålet med testen.");
 
   IN.PERFEKT["H2022-4.4"] = {
     type: "skjonn",
     svar: [
-      { del: "Svar", tekst: "<p>Hvis en vanlig bruker har fått lov til å kjøre et program som administrator, og programmet kan gjøre mer enn det var ment for (for eksempel starte andre programmer eller skrive til vilkårlige filer), kan brukeren i praksis få fulle rettigheter. Det skyldes for vide regler for hevede rettigheter.</p><p>Mottiltak: gi bare de rettighetene som trengs (minste privilegium), tillat bare bestemte, trygge kommandoer med faste argumenter, og gå jevnlig gjennom og logg bruken av hevede rettigheter.</p>", poeng: ["Forklart risikoen med for vide rettighetsregler", "Pekt på minste privilegium og innstramming som mottiltak"] }
+      { del: "Svar", tekst: "<p>Brukeren får kjøre Python-tolken som root, og en tolk kan kjøre hvilken som helst kode. Sensorveiledningen godtar blant annet disse måtene (beskrevet på overordnet nivå):</p><ol><li><b>Start et skall fra tolken.</b> Koden kjører som root, så et skall startet fra den blir et root-shell.</li><li><b>Gi deg selv varig root-tilgang.</b> Skriv som root til systemfilene som styrer rettigheter, for eksempel ved å legge brukeren din inn i sudoers-fila eller opprette en ny bruker med root-rettigheter.</li><li><b>Hent passordhashene.</b> Les /etc/shadow som root og knekk root-passordet offline.</li></ol><p>Mottiltak: gi aldri sudo-tilgang til tolker, skall eller redigeringsprogram, tillat bare bestemte kommandoer med faste argumenter (minste privilegium), og logg bruken av sudo.</p>", poeng: ["Nevnt én konkret måte (f.eks. skall fra tolken)", "Nevnt en annen konkret måte (f.eks. sudoers/ny root-bruker eller passordhasher)"] }
     ],
     hvorfor: {
       eli5: "<p>Får du låne sjefens nøkkel for å åpne én dør, men nøkkelen passer i alle dører, kan du gå hvor du vil.</p>",
@@ -1196,21 +1196,21 @@
     },
     sensor: {
       deler: [],
-      merknad: "Sensorens modellsvar og retteinstruks (qa-fila s. 16) gjengis ikke her, fordi de inneholder konkrete angrepskommandoer. Svaret over er vår egen, overordnede og defensive forklaring."
+      merknad: "Sensorens modellsvar (qa-fila s. 16) har konkrete kommandoer og gjengis ikke ordrett. Måtene over er de samme som sensoren godtar, beskrevet med egne ord uten kode. Ekstrapoenget for tilnærmet fungerende kode dekkes ikke her."
     }
   };
 
   P("H2022-5.1",
     "Bare Alice har stempelet sitt (privat nøkkel), men alle kan sjekke stempelet med et bilde av det (offentlig nøkkel).",
     "Alice signerer med sin egen private nøkkel. Bob verifiserer med Alices offentlige nøkkel.",
-    "Signaturen er σ = S(h(M), K<sup>A</sup><sub>priv</sub>). Verifisering bruker K<sup>A</sup><sub>pub</sub>. Fordi bare Alice har den private nøkkelen, gir signaturen autentisering av opphav og uavviselighet.");
+    "Signaturen er S = Sig(H, K<sup>A</sup><sub>priv</sub>) der H = Hash(M). Verifisering: H = Ver(S, K<sup>A</sup><sub>pub</sub>), og sammenlign med H′ = Hash(M′). Fordi bare Alice har den private nøkkelen, gir signaturen autentisering av opphav og ubenektelighet.");
   P("H2022-5.2",
     "En hashfunksjon er en kvern: lett å male, umulig å sette sammen igjen.",
     "Hashfunksjoner har ingen nøkkel, gir fast lengde ut, og det skal være praktisk umulig å finne inndata fra hashverdien eller to inndata med samme hash.",
     "Egenskapene er enveis (preimage-motstand), svak og sterk kollisjonsmotstand. Hashing alene gir ikke konfidensialitet eller autentisering av opphav, fordi alle kan regne ut hashen. Kombinert med nøkkel (MAC) eller signatur får man autentisering.");
   P("H2022-5.3",
     "En MAC er et felles hemmelig håndtrykk mellom to venner. En signatur er en personlig underskrift alle kan sjekke.",
-    "Begge gir integritet og autentisering av opphav. Bare digital signatur gir uavviselighet, fordi MAC bruker en delt nøkkel.",
+    "Begge gir integritet og autentisering av opphav. Bare digital signatur gir ubenektelighet, fordi MAC bruker en delt nøkkel.",
     "Med MAC kunne begge parter laget koden, så ingen tredjepart kan avgjøre hvem som sendte. Signatur bruker en privat nøkkel bare avsender har. MAC er raskere (symmetrisk). Ingen av dem gir konfidensialitet.");
   P("H2022-5.4",
     "Alle kan legge et brev i Bobs postkasse (offentlig nøkkel), men bare Bob har nøkkelen til å åpne den (privat nøkkel).",
@@ -1234,8 +1234,8 @@
     "Tillit til rotsertifikatet må etableres utenfor PKI-en (forhåndsinstallert). Et sertifikat sier hvem en nøkkel tilhører, ikke at eieren er ærlig. Tillit til en CA er tillit til at den sjekker identitet, ikke til innholdet på nettstedet.");
   P("H2022-6.4",
     "Sertifikatet er et ID-kort for nettstedet, så nettleseren vet at den snakker med riktig sted.",
-    "TLS-sertifikatet brukes til å autentisere tjeneren og sette opp en kryptert forbindelse.",
-    "Nøkkelen i sertifikatet brukes i TLS-håndtrykket for å autentisere tjeneren (signatur) og bidra til nøkkelutveksling. Sertifikatet sier ingenting om at nettstedet er trygt eller fritt for skadevare.");
+    "TLS-sertifikatet brukes til å autentisere tjeneren. Nøkkelen i det brukes til å verifisere tjenerens signatur, ikke til å kryptere; krypteringsnøkkelen for økta avtales på annen måte.",
+    "Nøkkelen i dette sertifikatet brukes bare til å verifisere tjenerens signatur i TLS-håndtrykket (Key Usage: Digital Signature, EC-nøkkel). Øktnøkkelen avtales med (EC)DH, ikke ved å kryptere med sertifikatnøkkelen. Sertifikatet sier ingenting om at nettstedet er trygt eller fritt for skadevare.");
   P("H2022-7.1",
     "Hver protokoll har sin etasje i huset.",
     "HTTP, FTP og TLS-håndtrykket er på applikasjonslaget. TCP, UDP, QUIC og TLS-record er på transportlaget. IPsec er på internettlaget.",
@@ -1289,7 +1289,7 @@
     "Beslutningspunkt 1 gjelder kvaliteten på risikovurderingen. Beslutningspunkt 2 gjelder om håndteringsplanen og restrisikoen kan godtas.",
     "Uvisshet og dårlig spredning er svakheter i vurderingen (punkt 1). Restrisiko og budsjett er egenskaper ved planen (punkt 2).");
   P("H2022-10.3",
-    "Skjer noe vondt annethvert år og koster 1,5 millioner, taper du i snitt 750 000 i året. Et tiltak til 100 000 som sparer 500 000, gir fire ganger pengene tilbake.",
+    "Skjer noe vondt annethvert år og koster 1,5 millioner, taper du i snitt 750 000 i året. Et tiltak til 100 000 som sparer 500 000: trekker du fra prisen, tjener du 400 000, altså fire ganger det tiltaket kostet.",
     "Kvantitativ risiko = sannsynlighet per år × konsekvens. ROI = (gevinst − kostnad) / kostnad.",
     "P = 0.5, K = 1 500 000, R = 750 000 NOK per år. ROI = (500 000 − 100 000) / 100 000 = 4. Kvantitative tall gir sammenlignbare beslutninger, men bygger på usikre anslag.");
 })();

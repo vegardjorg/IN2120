@@ -211,3 +211,12 @@
 .sp-gjett-fb:empty { display: none; }
 .sp-gjett-fb { margin-top: 6px; font-size: var(--text-sm); }
 .bank-otekst pre { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; }  /* lange regler i oppgaveteksten brytes i stedet for å gjøre siden bred */
+
+/* «Svar med en gang» (inspera.js): ✓/✗ ved feltet og liste over fasit for det som er besvart */
+.insp-sm { display: inline-block; margin-left: 4px; font-weight: 700; line-height: 1; }
+.insp-sm.is-right { color: var(--color-on-tone-ok); }
+.insp-sm.is-wrong { color: var(--color-on-tone-danger); }
+.insp-sm.is-blank { color: var(--muted); }
+.insp-opt > .insp-sm { margin-left: auto; padding-left: 6px; }
+.insp-straks-h { margin: var(--d-sm) 0 .2rem; }
+.insp-straks .insp-fasit-l { list-style: none; padding-left: 0; }

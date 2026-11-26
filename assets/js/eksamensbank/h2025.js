@@ -201,7 +201,7 @@
     hvorfor: {
       eli5: "<p>Tenk deg en eske du ikke kan se inn i. Du må prøve deg fram utenfra. Det er en svart boks.</p>",
       normal: "<p>Fargen sier hvor mye testeren vet på forhånd: svart = ingenting, grå = litt, hvit = alt. Svartboks etterligner en angriper utenfra, men tar lengre tid fordi testeren må kartlegge alt selv.</p>",
-      teknisk: "<p>Svartboks-testing starter med rekognosering (OSINT, portskanning) som en ekstern trusselaktør. Hvitboks gir kildekode og konfigurasjon og finner flere feil per time, men simulerer ikke en uinformert angriper. Gråboks ligner en innsider eller en angriper som allerede har en brukerkonto. Uansett boks krever pentest skriftlig avtale på forhånd (straffeloven § 204).</p>"
+      teknisk: "<p>Svartboks-testing starter med rekognosering (OSINT, portskanning) som en ekstern trusselaktør. Hvitboks gir kildekode og konfigurasjon og finner flere feil per time, men simulerer ikke en uinformert angriper. Gråboks ligner en innsider eller en angriper som allerede har en brukerkonto. Uansett boks krever pentest skriftlig avtale på forhånd (d05); uten samtykke er det innbrudd etter straffeloven § 204.</p>"
     }
   });
 
@@ -459,7 +459,7 @@
     hvorfor: {
       eli5: "<p>Vigenère flytter bokstavene med et kodeord som gjentas. Siden «e» er så vanlig på norsk, ser du etter bokstaven som dukker opp oftest på hver plass i kodeordet, og da kan du gjette deg fram.</p>",
       normal: "<p>Nøkkelrommet er antall mulige nøkler: 29 valg for hver av K posisjoner gir 29<sup>K</sup>. Svakheten er at nøkkelen gjentas. Når man vet nøkkellengden, kan man dele teksten i grupper som hver er forskjøvet like mye, og knekke dem med frekvensanalyse.</p>",
-      teknisk: "<p>Vigenère er et polyalfabetisk substitusjonschiffer: Cᵢ = (Mᵢ + K<sub>i mod K</sub>) mod 29. Nøkkelrommet 29<sup>K</sup> kan være stort, men chifferet har dårlig spredning (diffusion): statistikken i klarteksten bevares innenfor hver nøkkelposisjon. Kasiski-undersøkelse (avstand mellom gjentatte trigrammer) eller koinsidensindeks gir K; frekvensanalyse gir deretter hver nøkkelbokstav. Med en tilfeldig nøkkel like lang som meldingen, brukt én gang, blir det en engangsnøkkel og ubrytbart.</p>"
+      teknisk: "<p>Vigenère er et polyalfabetisk substitusjonschiffer: Cᵢ = (Mᵢ + k<sub>i mod K</sub>) mod 29, der k<sub>j</sub> er nøkkelbokstav nr. j og K er nøkkellengden. Nøkkelrommet 29<sup>K</sup> kan være stort, men chifferet har dårlig spredning (diffusion): statistikken i klarteksten bevares innenfor hver nøkkelposisjon. Kasiski-undersøkelse (avstand mellom gjentatte trigrammer) eller koinsidensindeks gir K; frekvensanalyse gir deretter hver nøkkelbokstav. Med en tilfeldig nøkkel like lang som meldingen, brukt én gang, blir det en engangsnøkkel og ubrytbart.</p>"
     },
     sensor: {
       deler: [
@@ -494,12 +494,12 @@
   });
   P("12", {
     type: "skjonn",
-    svar: [{ del: "", tekst: "<p>Med Diffie-Hellman lager partene en ny øktnøkkel g<sup>ab</sup> [mod p] for hver økt fra tilfeldige delnøkler a og b som slettes etterpå, så øktnøklene er uavhengige og én nøkkel kan ikke brukes til å finne en annen. Langtidsnøkkelen brukes bare til å signere, så om den lekker senere, avslører den ingen gamle øktnøkler. Ved hybrid kryptering sendes hver øktnøkkel kryptert med mottakers faste offentlige nøkkel. En angriper som har lagret trafikken og senere stjeler den private nøkkelen, kan dekryptere alle gamle øktnøkler og dermed alle øktene.</p>",
+    svar: [{ del: "", tekst: "<p>Med Diffie-Hellman lages en ny øktnøkkel g<sup>ab</sup> [mod p] for hver økt av tilfeldige delnøkler som slettes etterpå. Øktnøklene er derfor uavhengige, og én kan ikke brukes til å utlede en annen; langtidsnøkkelen brukes bare til å signere. Ved hybrid kryptering sendes hver øktnøkkel kryptert med mottakers faste offentlige nøkkel, så den som senere stjeler den private nøkkelen, kan dekryptere alle lagrede økter.</p>",
       poeng: ["Øktnøkler (1p)", "Uavhengige av hverandre (1p)", "Kan ikke utlede tidligere/senere nøkler (1p)"] }],
     hvorfor: {
       eli5: "<p>Med DH lager dere en ny engangsnøkkel hver gang og kaster den etterpå. Stjeler noen husnøkkelen din senere, hjelper det ikke å åpne de gamle boksene. Med hybrid ligger alle de gamle nøklene låst med samme hovednøkkel. Stjeles hovednøkkelen, kan alt åpnes.</p>",
       normal: "<p>Fremoverhemmelighold betyr at gamle økter forblir hemmelige selv om en langtidsnøkkel lekker senere. DH gir det fordi hver øktnøkkel lages av ferske, tilfeldige verdier som slettes. Hybrid kryptering gir det ikke fordi alle øktnøklene er beskyttet av den samme private nøkkelen.</p>",
-      teknisk: "<p>Ephemeral DH: A sender gᵃ, B sender gᵇ, begge beregner g<sup>ab</sup> [mod p]; a og b slettes etter økta. Autentisering skjer med signatur, f.eks. S<sub>A</sub> = Sig(g<sup>ab</sup>, A<sub>priv</sub>), så langtidsnøkkelen inngår aldri i nøkkelmaterialet. I hybrid kryptering er C<sub>K</sub> = E(K<sub>økt</sub>, K<sup>B</sup><sub>pub</sub>); med K<sup>B</sup><sub>priv</sub> kan en angriper som har lagret trafikken («lagre nå, dekrypter senere») hente ut hver K<sub>økt</sub>. Derfor fjernet TLS 1.3 RSA-nøkkeltransport og krever (EC)DHE.</p>"
+      teknisk: "<p>Ephemeral DH: A sender gᵃ, B sender gᵇ, begge beregner g<sup>ab</sup> [mod p]; a og b slettes etter økta. Autentisering skjer med signatur, f.eks. S<sub>A</sub> = Sig(g<sup>ab</sup>, A<sub>priv</sub>), så langtidsnøkkelen inngår aldri i nøkkelmaterialet. I hybrid kryptering er C<sub>K</sub> = E(K<sub>økt</sub>, K<sup>B</sup><sub>pub</sub>); med K<sup>B</sup><sub>priv</sub> kan en angriper som har lagret trafikken («lagre nå, dekrypter senere») hente ut hver K<sub>økt</sub>. Derfor fjernet TLS 1.3 RSA-nøkkeltransport; vanlige håndtrykk bruker (EC)DHE.</p>"
     },
     sensor: {
       deler: [{ del: "",
@@ -708,7 +708,7 @@
     hvorfor: {
       eli5: "<p>Før en tyv bryter seg inn, kan han lese på nettet hvem som jobber der og hvilke låser de har. Det er OSINT. Den som forsvarer seg, kan gjøre det samme for å se hva tyven ser.</p>",
       normal: "<p>OSINT er rekognosering uten å røre målet. Angripere og pentestere bruker det til å finne personer å lure og teknologi å angripe. Virksomheter bruker det til å se sin egen eksponering.</p>",
-      teknisk: "<p>Typiske kilder er søkemotorer (også avanserte søkeoperatorer), virksomhetens nettsider, LinkedIn, Doffin/anbud, DNS- og sertifikatregistre og lekkede databaser. OSINT er passiv rekognosering: ingen pakker sendes til målet, så den oppdages ikke av målets IDS. Resultatet brukes i bevæpnings- og overleveringstrinnene i kill chain, f.eks. til spyd-phishing.</p>"
+      teknisk: "<p>Typiske kilder er søkemotorer (også avanserte søkeoperatorer), virksomhetens nettsider, LinkedIn, Doffin/anbud, DNS- og sertifikatregistre og lekkede databaser. OSINT er passiv rekognosering: man angriper eller skanner ikke målet, og et besøk på nettsidene ser ut som vanlig trafikk, så det skiller seg ikke ut i målets IDS. Resultatet brukes i bevæpnings- og overleveringstrinnene i kill chain, f.eks. til spyd-phishing.</p>"
     },
     sensor: {
       deler: [
@@ -896,7 +896,8 @@
       "Husk at fysisk står til venstre og App til høyre.",
       "Link: ARP. Internett: IP. Transport: UDP, TLS Record. Applikasjon: HTTP, Telnet, TLS Handshake. App: Outlook."
     ],
-    tips: ["TLS er delt i kurset: Record = transport, Handshake = applikasjon. Det er spurt om flere år.", "Kursets stakk har et eget «App»-lag over applikasjonsprotokollene, for selve programmet brukeren kjører."]
+    tips: ["TLS er delt i kurset: Record = transport, Handshake = applikasjon. Det er spurt om flere år.", "Kursets stakk har et eget «App»-lag over applikasjonsprotokollene, for selve programmet brukeren kjører."],
+    avvik: "Plasseringen av TLS Record i transportlaget og TLS Handshake i applikasjonslaget følger kurset (lysark d09). RFC 8446 plasserer ikke TLS-delene i noe lag, og mange andre kilder legger hele TLS over TCP. Svar som kurset på eksamen."
   });
   P("22", {
     type: "eksamen",
@@ -1112,7 +1113,7 @@
     hvorfor: {
       eli5: "<p>Passnøklene er trygge, men hvis de ligger i en safe i skyen, holder det at tyven lurer deg til å gi fra deg koden til safen. Det høyeste sikkerhetsnivået krever derfor at nøkkelen bare finnes på én fysisk dings.</p>",
       normal: "<p>Synkronisering gjør passnøkler praktiske, men flytter angrepsflaten til kontoen som synkroniserer dem. Den kontoen beskyttes ofte med passord og engangskode, som kan phishes. NIST krever derfor på høyeste nivå at nøkkelen ikke kan synkroniseres eller eksporteres.</p>",
-      teknisk: "<p>Synkroniserte passnøkler er kopierbare og lagres kryptert i en skytjeneste; sikkerheten blir da aldri bedre enn autentiseringen til den tjenesten og gjenopprettingsrutinene. NIST SP 800-63-4 godtar synkroniserbare autentikatorer på AAL2, men AAL3 krever en ikke-eksporterbar privat nøkkel i maskinvare (enhetsbundet, f.eks. en FIDO-sikkerhetsnøkkel), slik at nøkkelen ikke kan finnes i mer enn én autentikator.</p>"
+      teknisk: "<p>Synkroniserte passnøkler er kopierbare og lagres kryptert i en skytjeneste; sikkerheten blir da aldri bedre enn autentiseringen til den tjenesten og gjenopprettingsrutinene. NIST SP 800-63-4 godtar synkroniserbare autentikatorer på AAL2, men AAL3 krever en ikke-eksporterbar privat nøkkel (enhetsbundet, typisk i maskinvare, f.eks. en FIDO-sikkerhetsnøkkel), slik at nøkkelen ikke kan finnes i mer enn én autentikator.</p>"
     },
     sensor: {
       deler: [
@@ -1157,14 +1158,15 @@
       ]
     },
     losning: ["Plan = kapittel 4–7, Do = 8, Check = 9, Act = 10.", "NSMs grunnprinsipper (eller NIST CSF) er det man driver med i Do-fasen."],
-    tips: ["Lær fordelingen 4-5-6-7 / 8 / 9 / 10. Kapittel 7 (Støtte) er fellen.", "Kapittel 1–3 (omfang, referanser, termer) har ingen krav og hører ikke til noen fase."]
+    tips: ["Lær fordelingen 4-5-6-7 / 8 / 9 / 10. Kapittel 7 (Støtte) er fellen.", "Kapittel 1–3 (omfang, referanser, termer) har ingen krav og hører ikke til noen fase."],
+    avvik: "ISO/IEC 27001 (2013 og 2022) gjør ingen normativ PDCA-tilordning av kapitlene; det er en tolkning, og mange veiledere legger kapittel 7 (Støtte) i Do. Fasiten her legger kapittel 4–7 i P. Svar som fasiten på eksamen."
   });
   P("28", {
     type: "eksamen",
     hvorfor: {
       eli5: "<p>Først planlegger du (hvem er vi, hvem bestemmer, hva er planen, hva trenger vi). Så gjør du det. Så sjekker du om det virket. Så forbedrer du, og starter på nytt.</p>",
       normal: "<p>PDCA er en forbedringssyklus. ISO 27001 sine kapitler 4–7 handler om å etablere styringssystemet (Plan), 8 om å drifte det (Do), 9 om å evaluere det (Check) og 10 om å forbedre det (Act). Selve sikkerhetstiltakene, for eksempel fra NSMs grunnprinsipper, gjennomføres i Do.</p>",
-      teknisk: "<p>ISO/IEC 27001 er kravstandarden for ISMS og den som sertifiseres. Den sier hva styringssystemet skal inneholde, men ikke hvilke tiltak; tiltakene hentes fra tiltaksbanker som ISO/IEC 27002 (Vedlegg A), NSMs grunnprinsipper eller NIST CSF. God styring av Do-fasen forutsetter at P-, C- og A-kravene er oppfylt, ellers blir tiltakene tilfeldige og forbedres aldri.</p>"
+      teknisk: "<p>ISO/IEC 27001 er kravstandarden for ISMS og den som sertifiseres. Den sier hva styringssystemet skal inneholde, men ikke hvilke tiltak; tiltakene hentes fra tiltaksbanker som ISO/IEC 27002 (som utdyper Vedlegg A i 27001), NSMs grunnprinsipper eller NIST CSF. God styring av Do-fasen forutsetter at P-, C- og A-kravene er oppfylt, ellers blir tiltakene tilfeldige og forbedres aldri.</p>"
     }
   });
 
@@ -1267,7 +1269,7 @@
   });
   P("31", {
     type: "skjonn",
-    svar: [{ del: "", tekst: "<p>S – Spoofing (forfalskning av identitet): brudd på autentisitet.<br>T – Tampering (tukling): brudd på integritet.<br>R – Repudiation (benekting): brudd på sporbarhet/ubenektelighet.<br>I – Information disclosure (datalekkasje): brudd på konfidensialitet.<br>D – Denial of service (tjenestenekt): brudd på tilgjengelighet.<br>E – Elevation of privilege (utvidede rettigheter): brudd på tilgangskontroll (autorisering).</p>",
+    svar: [{ del: "", tekst: "<p>S – Spoofing (forfalskning av identitet): brudd på autentisitet.<br>T – Tampering (tukling): brudd på integritet.<br>R – Repudiation (benekting): brudd på sporbarhet/ubenektelighet.<br>I – Information disclosure (datalekkasje): brudd på konfidensialitet.<br>D – Denial of service (tjenestenekt): brudd på tilgjengelighet.<br>E – Elevation of privilege (utvidede rettigheter): brudd på tilgangskontroll (policyen for autorisering omgås).</p>",
       poeng: ["0,5p per riktig begrep (6 × 0,5)", "0,5p per riktig brutt mål (6 × 0,5)"] }],
     hvorfor: {
       eli5: "<p>STRIDE er en huskeliste over seks måter noen kan lage trøbbel på: late som de er en annen, endre ting, nekte for det de gjorde, se hemmeligheter, ødelegge tjenesten og få mer makt enn de skal ha.</p>",
@@ -1296,7 +1298,7 @@
     },
     losning: ["Hva: rangert liste over de ti mest kritiske sikkerhetsrisikoene for nettapplikasjoner.", "Nytte: råd om hvordan risikoene kan reduseres.", "Når: siste utgave kom i november 2025."],
     tips: ["Få med alle tre punktene: rangering av risikoer, råd om tiltak og årstallet."],
-    avvik: "«en kort beskrivelser» og stor N i «Når» etter komma beholdt ordrett."
+    avvik: "«en kort beskrivelser» og stor N i «Når» etter komma beholdt ordrett. Det som kom 6.11.2025, var release candidate 1 av OWASP Top 10:2025 (top10.owasp.org/2025); 2025-utgaven har blant annet de nye kategoriene A03 Software Supply Chain Failures og A10 Mishandling of Exceptional Conditions. Fasiten sier «november 2025», så skriv det på eksamen."
   });
   P("32", {
     type: "skjonn",
@@ -1305,7 +1307,7 @@
     hvorfor: {
       eli5: "<p>OWASP Top 10 er en «topp ti over de farligste feilene» i nettsider, med tips om hvordan man unngår dem. Den oppdateres med noen års mellomrom; den nyeste kom i november 2025.</p>",
       normal: "<p>OWASP (Open Worldwide Application Security Project) samler data om sårbarheter i nettapplikasjoner og lager en rangert liste over de ti viktigste risikoene, med forklaring og tiltak. Den brukes som sjekkliste i utvikling og testing og som felles språk mellom utviklere og sikkerhetsfolk.</p>",
-      teknisk: "<p>Listen kombinerer data om hvor ofte sårbarheter forekommer med vurderinger av utnyttbarhet og konsekvens. Kategorier som brutt tilgangskontroll, kryptografiske feil og injeksjon (SQL, kommando, XSS) har gått igjen i flere utgaver. Utgaven fra 2021 ble etterfulgt av en ny utgave i november 2025. Den er et bevissthetsdokument, ikke en fullstendig standard; til krav brukes f.eks. OWASP ASVS.</p>"
+      teknisk: "<p>Listen kombinerer data om hvor ofte sårbarheter forekommer med vurderinger av utnyttbarhet og konsekvens. Kategorier som brutt tilgangskontroll, kryptografiske feil og injeksjon (SQL, kommando, XSS) har gått igjen i flere utgaver. Utgaven fra 2021 ble etterfulgt av 2025-utgaven, som ble lagt fram som utkast (release candidate) i november 2025; fasiten oppgir november 2025. Den er et bevissthetsdokument, ikke en fullstendig standard; til krav brukes f.eks. OWASP ASVS.</p>"
     },
     sensor: {
       deler: [{ del: "",
@@ -1481,7 +1483,8 @@
     tips: [
       "Grupper personene etter begrunnelse, slik oppgaven foreslår.",
       "Nevn ende-til-ende-kryptering (TLS fra nettleser til server) eksplisitt; sensor gir eget poeng for det.",
-      "Fellen: å tro at MitM betyr at man ser alt. Med TLS og HSTS gir en MitM bare chiffertekst, og et falskt sertifikat gir en feilmelding brukeren ikke kan klikke seg forbi."
+      "Fellen: å tro at MitM betyr at man ser alt. Med TLS og HSTS gir en MitM bare chiffertekst, og et falskt sertifikat gir en feilmelding brukeren ikke kan klikke seg forbi.",
+      "Bob er pålogget en terminalserver via wifi. Kjører nettleseren på terminalserveren, starter TLS der, og wifi-strekningen beskyttes av terminaløkta (RDP er kryptert, jf. H2025 23). Kjersti ser uansett bare chiffertekst."
     ],
     avvik: "1) Modellsvaret sier «Jørgen vil potensielt plukke opp Franks signaler», men ifølge oppgaven har Jørgen hacket Tomas sin maskin (det er Matias som har hacket Frank). Konklusjonen (bare chiffertekst) er den samme. 2) Poengfordelingen er tvetydig: Emma 3 p + Stine 3 p + «0,5 poeng for å nevne alle som ikke får tilgang … (totalt tre)» + «1 poeng for … ende-til endekryptering». Leses 0,5 p per person for de seks uten tilgang (= 3 p), blir summen 10 med ende-til-ende-poenget; leses «totalt tre» som tre grupper à 0,5 p, blir summen 8,5. Ingen lesning gir nøyaktig 9. 3) Gunnar nevnes bare indirekte («Signalene går her gjennom Gunnars maskiner»)."
   });

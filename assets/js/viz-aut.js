@@ -926,7 +926,7 @@
       }, NIV_SIT, "Nivået følger av konsekvensen hvis feil person kommer inn: liten → Low, betydelig → Substantial, alvorlig → High. Å kreve mer enn nødvendig er sløsing og gjør tjenesten tungvint.",
         { ref: "Lysarket brukerautentisering, s. 48 (eIDAS: konsekvens → nivå). Tjenestene er egne eksempler", egneOrd: true }), { instant: false });
       IN.bucketTask(h2, bucketSpec("aut-niv-eid", "Legg hver norske eID i det høyeste nivået den holder (Digdirs nivåer).", eidItems(),
-        "BankID, Buypass, Commfides og Foretaks-ID holder HØYT, MinID holder BETYDELIG, og SMS-PIN og Altinn-PIN (for virksomheter) holder LAVT. Bare MinID er statlig (H2024 30). H2022 8.4 kaller MinIDs nivå «MODERAT», som er det gamle RAU-ordet.",
+        "BankID, Buypass, Commfides og Foretaks-ID holder HØYT, MinID holder BETYDELIG, og SMS-PIN og Altinn-PIN (for virksomheter) holder LAVT. Bare MinID er statlig (H2024 30). H2022 8.4 kaller MinIDs nivå «MODERAT» (ordet er ikke forklart i kursets kilder).",
         { ref: "Lysarket om IAM, s. 21–22 og 25", egneOrd: true }), { instant: false });
     }
     nivaaOppslag(oppslag);

@@ -457,7 +457,7 @@
     { navn: "Utgående RDP fra 192.168.40.12", vil: ["p1"],
       tips: "Kilden (192.168.40.12) står til venstre for pilen, og RDP-porten 3389 er målporten. Svarpakken har 3389 som kildeport og treffer derfor ikke en regel med én retning." },
     { navn: "Utgående SSH fra domenekontrolleren 10.10.23.23", vil: ["p4"],
-      tips: "Samme form som i H2025 20: domenekontrolleren som kilde, 22 som målport. Fasiten der skrev 22 som kildeport, men sensor ga 0 for feil retning. Skriv maskinen som kilde, og si gjerne i én setning hvorfor 22 står på målsiden." },
+      tips: "Samme form som i H2025 20: domenekontrolleren som kilde, 22 som målport. Fasiten der skrev 22 som kildeport (trafikk fra serveren), og rettenøkkelen gir 0 poeng for feil retning. Skriv maskinen som kilde, og si gjerne i én setning hvorfor 22 står på målsiden." },
     { navn: "All Telnet inn mot 192.168.40.7", vil: ["p6"],
       tips: "Hvem som helst kan være kilden, så kilde-IP og kildeport er any. Målet er 192.168.40.7 på port 23." }
   ];

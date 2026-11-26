@@ -130,7 +130,7 @@
     var s = Math.pow(10, log10s);
     if (log10s < -3) return "under ett millisekund";
     if (s < 1) return "under ett sekund";
-    if (s < 120) return "ca. " + Math.round(s) + " sekunder";
+    if (s < 120) return "ca. " + Math.round(s) + (Math.round(s) === 1 ? " sekund" : " sekunder");
     if (s < 7200) return "ca. " + Math.round(s / 60) + " minutter";
     if (s < 2 * 86400) return "ca. " + Math.round(s / 3600) + " timer";
     if (s < 2 * 31557600) return "ca. " + Math.round(s / 86400) + " døgn";
@@ -550,12 +550,12 @@
       if (same.length) {
         var p = same[0], leak = B[p[0]].C === B[p[1]].C;
         snap(leak
-          ? "M" + sub(p[0] + 1) + " og M" + sub(p[1] + 1) + " er like, og C" + sub(p[0] + 1) + " og C" + sub(p[1] + 1) + " ble like: chifferteksten avslører mønsteret i klarteksten. Det er derfor ECB regnes som usikker."
+          ? "M" + sub(p[0] + 1) + " og M" + sub(p[1] + 1) + " er like, og C" + sub(p[0] + 1) + " og C" + sub(p[1] + 1) + " ble like: chifferteksten avslører mønsteret i klarteksten. " + (mode === "ECB" ? "Det er derfor ECB regnes som usikker." : "Her ble en chifferblokk tilfeldigvis lik IV eller forrige blokk, så den neste fikk samme inndata. Det skjer fordi lekechifferet bare har 4 bit (16 verdier). Med 128-bits blokker er det praktisk umulig.")
           : "M" + sub(p[0] + 1) + " og M" + sub(p[1] + 1) + " er like, men C" + sub(p[0] + 1) + " = " + bits(B[p[0]].C) + " og C" + sub(p[1] + 1) + " = " + bits(B[p[1]].C) + " er ulike. " + (mode === "CBC" ? "Kjedingen skjuler mønsteret." : "Telleren gir hver blokk sin egen nøkkelstrøm."),
           { same: p, leak: leak, sporFlytt: {
             sporsmal: "M" + sub(p[0] + 1) + " og M" + sub(p[1] + 1) + " er like. Hva skjer med C" + sub(p[0] + 1) + " og C" + sub(p[1] + 1) + " i " + MODE_NAVN[mode] + "?",
             valg: ["De blir like: mønsteret i klarteksten synes", "De blir ulike: mønsteret skjules"], fasit: leak ? 0 : 1,
-            forklaring: mode === "ECB" ? "I ECB er E(·, K) en fast tabell: samme blokk inn gir alltid samme blokk ut." : mode === "CBC" ? "I CBC går C" + sub(p[1]) + " ⊕ M" + sub(p[1] + 1) + " inn i E, ikke M alene, så like klartekstblokker gir ulik inndata." : "I CTR får hver blokk sin egen teller og dermed sin egen nøkkelstrøm." } });
+            forklaring: mode === "ECB" ? "I ECB er E(·, K) en fast tabell: samme blokk inn gir alltid samme blokk ut." : mode === "CBC" ? "I CBC går C" + sub(p[1]) + " ⊕ M" + sub(p[1] + 1) + " inn i E, ikke M alene, så like klartekstblokker gir normalt ulik inndata." + (leak ? " Her ble de likevel like, fordi lekechifferet bare har 16 verdier; med 128-bits blokker skjer det praktisk talt aldri." : "") : "I CTR får hver blokk sin egen teller og dermed sin egen nøkkelstrøm." } });
       } else snap("Ferdig. Prøv like blokker, for eksempel 1001 1001 1100, for å se forskjellen på modusene.");
     } else snap("Ferdig: klarteksten er gjenvunnet. " + (mode === "CTR-D" ? "Legg merke til at D aldri ble brukt." : mode === "CBC-D" ? "XOR-en kommer etter D, og det er forrige chifferblokk som XOR-es inn." : ""));
     // Spørsmålet om like blokker stilles før chifferblokken for den andre like blokken vises.
@@ -915,7 +915,7 @@
       }
       clear(q);
       if (!leaked) {
-        q.appendChild(el("p", { class: "kr-lekk-sp", html: "<b>Forutsi:</b> Bobs langtidsnøkkel " + KPRIV("B") + " blir stjålet. " + (mode === "dh" ? "Den ble bare brukt til å signere DH-verdiene. " : "") + "Hva skjer med de tre gamle øktene?" }));
+        q.appendChild(el("p", { class: "kr-lekk-sp", html: "<b>Forutsi:</b> Bobs langtidsnøkkel " + KPRIV("B") + " blir stjålet. " + (mode === "dh" ? "Den ble bare brukt til å signere DH-nøkkelen (kursnotasjon; i praksis signeres DH-verdiene eller håndtrykket). " : "") + "Hva skjer med de tre gamle øktene?" }));
         var row = el("div", { class: "btn-row" });
         KR.lekkValg.forEach(function (t, i) {
           row.appendChild(el("button", { class: "btn sm", type: "button", text: t, onclick: function () { svar[mode] = i; paint(); } }));
@@ -966,7 +966,7 @@
           spor: { sporsmal: "Alice fikk g<sup>b</sup> mod p = " + Bv + " fra Bob og har a = " + a + ". Regn den felles nøkkelen (g<sup>b</sup>)<sup>a</sup> mod p = " + Bv + "<sup>" + a + "</sup> mod " + p + ".", tall: true, fasit: KA,
             forklaring: kjede(Bv, a, p) + " (mod " + p + "). Bob får det samme med (g<sup>a</sup>)<sup>b</sup> = " + A + "<sup>" + b + "</sup> mod " + p + "." },
           why: "Alice regner (g<sup>b</sup>)<sup>a</sup>: " + kjede(Bv, a, p) + ". Bob regner (g<sup>a</sup>)<sup>b</sup>: " + kjede(A, b, p) + "." },
-        { act: [0, 2], t: ["K<sup>AB</sup> = " + KA + (KA === KB ? " ✓" : ""), "K<sup>AB</sup> = " + KB + (KA === KB ? " ✓" : "")], cls: "ok", why: "Begge får g<sup>ab</sup> mod p = " + KA + ", en felles symmetrisk nøkkel som aldri ble sendt. Slettes a og b etter økta, kan ingen regne den ut senere." }
+        { act: [0, 2], t: ["K<sup>AB</sup> = " + KA + (KA === KB ? " ✓" : ""), "K<sup>AB</sup> = " + KB + (KA === KB ? " ✓" : "")], cls: "ok", why: "Begge får g<sup>ab</sup> mod p = " + KA + ", en felles symmetrisk nøkkel som aldri ble sendt. Slettes a, b og nøkkelen etter økta, kan ingen regne den ut senere." }
       ], "Diffie–Hellman med p = " + p + " og g = " + g + ". Velg egne hemmelige tall i feltet «Eget:» (a, b eller a, b, e).");
     }
     var E = md(g, e, p), KA2 = md(E, a, p), KM1 = md(A, e, p), KB2 = md(E, b, p), KM2 = md(Bv, e, p);
@@ -991,7 +991,7 @@
     rows.push({ act: 1, t: "Kan ikke lage Sig(" + KB2 + ", " + KPRIV("A") + ") uten Alices private nøkkel", why: "Mallory kan bare videresende Alices signatur uendret." });
     rows.push({ from: 1, to: 2, t: "S<sup>A</sup> (gjelder " + KA2 + ")", why: "Bob får signaturen." });
     rows.push({ act: 2, t: "Ver(S<sup>A</sup>, " + KPUB("A") + ") gir " + KA2 + ", men min nøkkel er " + KB2 + ": " + (KA2 === KB2 ? "like" : "✗ avvis"), cls: KA2 === KB2 ? "" : "ok", why: KA2 === KB2 ? "Med disse tallene ble nøklene tilfeldigvis like. Prøv en annen e." : "Signaturen passer ikke med Bobs nøkkel. Bob avbryter, og angrepet er avslørt." });
-    return seqSteps(["Alice", "Mallory", "Bob"], rows, "Mallory prøver igjen, men nå signerer partene DH-nøkkelen.");
+    return seqSteps(["Alice", "Mallory", "Bob"], rows, "Mallory prøver igjen, men nå signerer Alice DH-nøkkelen (Bob gjør det samme motsatt vei).");
   };
   KR.dh = function (host) {
     return player(host, {
@@ -1107,7 +1107,7 @@
         "1,2": "Alle har mottakerens offentlige nøkkel, så hvem som helst kan ha laget chifferteksten.",
         "1,4": "Krypter med mottakers offentlige, dekrypter med mottakers private.",
         "2,0": "En hash skjuler ikke meldingen, og den sendes i klartekst.",
-        "2,1": "Alle kan regne ut en hash. Mallory endrer meldingen og regner bare ut en ny hash.",
+        "2,1": "Alle kan regne ut en hash. Mallory endrer meldingen og regner bare ut en ny hash. Kurset og eksamen (H2023 6, H2024 6) kaller likevel hash et verktøy for integritetssjekk. Det forutsetter at hash-verdien er beskyttet, se bryteren.",
         "2,2": "Uten nøkkel sier hashen ingenting om hvem som laget den.",
         "2,4": "Hashfunksjoner har ingen nøkkel.",
         "3,0": "M går i klartekst ved siden av MAC-en (H2022 5.3: «Ingen»).",
@@ -1144,7 +1144,7 @@
       { id: "rsa", html: "RSA", forklaring: "Tradisjonell asymmetrisk. Faktorisering kan løses av en stor kvantedatamaskin." },
       { id: "dh", html: "Diffie–Hellman", forklaring: "Diskret logaritme kan løses av en kvantedatamaskin. Erstattes av ML-KEM til nøkkeletablering." },
       { id: "dsa", html: "DSA (signatur)", forklaring: "Lysarket nevner DSA sammen med RSA og DH som tradisjonell asymmetrisk krypto som kan knekkes. Erstattes av ML-DSA eller SLH-DSA." },
-      { id: "ecc", html: "ECC", forklaring: "Tradisjonell asymmetrisk krypto, som RSA. Faller på samme måte." },
+      { id: "ecc", html: "ECC", forklaring: "Tradisjonell asymmetrisk krypto, som RSA. Lysarket om kvante nevner ikke ECC, men den bygger på diskret logaritme (på elliptiske kurver) og knekkes på samme måte (NIST IR 8547)." },
       { id: "aes", html: "AES-256", forklaring: "Symmetrisk. Rammes lite; lang nøkkel holder." },
       { id: "sha", html: "SHA-256", forklaring: "Hash. Rammes lite; lengre hash (SHA-512) gir mer margin." },
       { id: "mlkem", html: "ML-KEM (FIPS 203)", forklaring: "«Kyber». Gitterbasert nøkkelinnkapsling, til nøkkeletablering." },

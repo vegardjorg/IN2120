@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -94,7 +95,7 @@
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Tre lagringsnivåer:</b> <b>klartekst</b> (svakt: alt ligger åpent ved en lekkasje), <b>hashet</b> (moderat: innloggingen hashes og sammenlignes, men svake passord kan knekkes) og <b>saltet hash</b> (godt, standard praksis: passord og et tilfeldig salt hashes sammen, og saltet lagres ved siden av).</li>
-          <li><b>Salt:</b> en tilfeldig verdi per bruker (i Linux et heltall fra 0 til 4095). Like passord gir da ulike hasher, og ferdige hashtabeller og <b>regnbuetabeller</b> blir ubrukelige. Salt hindrer <i>ikke</i> at ett svakt passord gjettes.</li>
+          <li><b>Salt:</b> en tilfeldig verdi per bruker (BA-lysarket: i Linux et heltall fra 0 til 4095; det gjelder klassisk DES-crypt, moderne systemer bruker et mye lengre tilfeldig salt). Like passord gir da ulike hasher, og ferdige hashtabeller og <b>regnbuetabeller</b> blir ubrukelige. Salt hindrer <i>ikke</i> at ett svakt passord gjettes.</li>
           <li><b>Kompleksitet:</b> antall mulige passord er N<sup>L</sup>, der N er størrelsen på tegnsettet og L er lengden. Uttømmende søk finner passordet i snitt etter halve rommet.</li>
           <li><b>Kursets råd:</b> minst 13 tegn, flere tegnkategorier, ingen ordboksord, navn eller datoer, bytt sjelden eller aldri, men straks ved mistanke om lekkasje, ikke gjenbruk, og lagre trygt (i hodet, på papir du passer på, eller i en passordbank). <b>NIST 800-63-4:</b> minst 15 tegn når passordet er eneste faktor, minst 8 som del av MFA, ingen sammensetningsregler og ingen krav om periodisk bytte.</li>
           <li><b>Hvor hashene ligger:</b> Linux <span class="mono">/etc/shadow</span> (krever root), Windows SAM (krever admin), i nettverk AD, Entra ID eller LDAP.</li>
@@ -270,7 +271,7 @@
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Biometri:</b> automatiske metoder for å autentisere eller gjenkjenne en person ut fra kroppen eller atferden. Eksempler: fingeravtrykk, ansikt, iris, håndgeometri, signatur, stemme, tastetrykk.</li>
-          <li><b>Krav til en modalitet:</b> universalitet, særpreg, permanens, målbarhet, nøyaktighet (EER), ytelse, aksept og beskyttelse mot forfalskning.</li>
+          <li><b>Krav til en modalitet:</b> universalitet, særpreg, permanens, målbarhet, nøyaktighet (EER), ytelse, aksept og beskyttelse mot forfalskning (BA-lysarket, åtte krav). Ukesoppgave t07 teller sju: universalitet, entydighet (= særpreg), varighet (= permanens), målbarhet, ytelse (der nøyaktighet inngår), aksept og anti-spoofing (= beskyttelse mot forfalskning).</li>
           <li><b>Komponenter:</b> sensor → uttrekk av kjennetegn (for eksempel linjesplitt og linjeender i et fingeravtrykk) → komparator → database med maler.</li>
           <li><b>Moduser:</b> <b>registrering</b> (lage og lagre malen), <b>identifikasjon 1:N</b> (søke i hele databasen) og <b>autentisering 1:1</b> (sammenligne med malen til den oppgitte bruker-ID-en).</li>
           <li><b>Skåring og terskel:</b> match når <span class="mono">S ≥ T</span>, ikke-match når <span class="mono">S &lt; T</span>.</li>
@@ -372,7 +373,7 @@
           <li><b>Er alle eID-leverandørene statlige?</b> Nei, bare MinID (H2024 30).</li>
           <li><b>Krever alle offentlige tjenester HØYT?</b> Nei, nivået velges etter konsekvens (H2024 30).</li>
           <li><b>Kan alle fire brukes i nettbanken?</b> Nei (H2024 30). Alle kan brukes i e-forvaltningen via ID-porten.</li>
-          <li><b>MinID gir bare BETYDELIG</b> (H2022 8.4 kaller nivået «MODERAT», som er RAU-ordet).</li>
+          <li><b>MinID gir bare BETYDELIG</b> (H2022 8.4 kaller nivået «MODERAT»; hvor ordet kommer fra, står ikke i kursets kilder).</li>
           <li><b>Antall nivåer:</b> eIDAS, Digdir og NIST har tre. ISO 29115 og RAU har fire.</li>
           <li><b>Phishingresistens</b> er bare et uttrykt krav i NIST 800-63-4, ikke i eIDAS.</li>
         </ul></div>
@@ -404,30 +405,32 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/ovelse.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-aut.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-aut.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -598,7 +601,7 @@
         { s: "eIDAS definerer tre garantinivåer.", answer: true, explain: "<p>eIDAS har tre nivåer: Low, Substantial og High. Jo høyere nivå, desto strengere krav til registrering og innlogging.</p>" },
         { s: "Hvordan identiteten ble registrert, påvirker ikke garantinivået.", answer: false, explain: "<p>En sterk innlogging hjelper lite hvis identiteten ble registrert uten skikkelig kontroll. Registreringen er derfor kravkategori a i garantinivået.</p>" },
         { s: "Passord og SMS-kode er tofaktorautentisering.", answer: true, explain: "<p>Passordet er noe du vet, og telefonen som mottar koden, er noe du har. To ulike kategorier gir tofaktor.</p>" },
-        { s: "EU godtar private eID-er som BankID for europeisk e-forvaltning.", answer: false, explain: "<p>Etter IAM-lysarket er det bare den statlige MinID som godtas der, ikke de private.</p>" },
+        { s: "EU godtar private eID-er som BankID for europeisk e-forvaltning.", answer: false, explain: "<p>Etter IAM-lysarket (s. 25) er det bare den statlige MinID som godtas der, ikke de private. Forbehold: selve eIDAS-forordningen (art. 7) godtar også eID utstedt på statens mandat eller anerkjent av staten. Svar etter lysarket.</p>" },
         { s: "Sterkere autentisering er alltid riktig valg.", answer: false, explain: "<p>Nivået skal stå i forhold til konsekvensen.</p>" },
         { s: "«Trust services» i eIDAS betyr PKI-tjenester.", answer: true, explain: "<p>For eksempel utstedelse av sertifikater og elektroniske signaturer.</p>" }
       ]

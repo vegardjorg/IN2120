@@ -4,12 +4,16 @@
 
    IN.inspera(host, oppg, opts?) → { score(), reset(), check(), maks, key }
      oppg = en oppgave fra eksamensbanken (plan/format.md § 3–4), med oppg.inspera = {
-       type: "M"|"F1"|"FF"|"D"|"N"|"T"|"H"|"K"|"E", regelTekst, regel: { riktig, feil, blankt, min, maks }, … }
+       type: "M"|"F1"|"FF"|"D"|"N"|"T"|"H"|"K"|"E", regelTekst, regel: { riktig, feil, blankt, min, maks, alleRiktig?, sekvens? }, … }
+       alleRiktig: poeng når alle enheter er riktige (uten den: maks). sekvens: «justert skåring», poeng per trinn i
+       den lengste rekken av svar i riktig innbyrdes rekkefølge (erstatter riktig/feil/blankt). Se plan/format.md § 4.
      Hver enhet (rad i M, avkrysset alternativ i FF, felt i D/N/T, hele svaret i F1/H) gir riktig/feil/blankt.
      Summen kappes til [min, maks]. K/E rettes ikke automatisk: skriv svaret, trykk «Vurder svaret mitt»,
      kryss av punktene i sjekklisten (se sjekkliste() under) og få en egenvurdert poengsum. Perfekt svar og
      sensorveiledningen vises i øvingen etter vurderingen. Egenvurdering sender in:insp med manual: true.
-     opts: { onScore: fn({key, score, maks, manual}), compact: bool, iKort: bool }
+     opts: { onScore: fn({key, score, maks, manual}), compact: bool, iKort: bool, straks?: false }
+       «Svar med en gang» (IN.svarStraks, bryteren i nivålinja): ✓/✗ per felt med en gang det er besvart, før retting.
+       Slås av med opts.straks === false eller data-straks="av" på <body>/en forelder (eksamen.html: helt sett).
        Utenfor kort får øvingen en synlig tittel h5.insp-tittel (oppg.title og poeng), se tittel() under.
        Poenglinja er én kort linje (arkets tekst) i en lukket <details> med «Slik retter øvingen».
        Type M: hver avkrysning ligger i label.insp-m-o som fyller cella. Under 560 px stables matrisen
@@ -49,6 +53,16 @@
   function arr(v) { return v == null ? [] : [].concat(v); }
   function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return h.toString(36); }
   function html(node, v) { node.innerHTML = v == null ? "" : String(v); return node; }
+  /* ✓/✗/– ved et svarfelt (D/N/T: rett etter feltet) eller i et alternativ (F1/FF: sist i labelen). */
+  var SYM = { right: "✓", wrong: "✗", blank: "–" };
+  function symNode(n, state) {
+    if (!SYM[state]) { if (n._sm && n._sm.parentNode) n._sm.parentNode.removeChild(n._sm); return null; }
+    var s = n._sm || (n._sm = el("span", { "aria-hidden": "true" }));
+    s.className = "insp-sm is-" + state; s.textContent = SYM[state];
+    return s;
+  }
+  function symI(lab, state) { var s = symNode(lab, state); if (s && s.parentNode !== lab) lab.appendChild(s); }
+  function symEtter(node, state) { var s = symNode(node, state); if (s && node.parentNode && s.previousSibling !== node) node.parentNode.insertBefore(s, node.nextSibling); }
 
   /* ---------- Figur fra arket ---------- */
   IN.insperaFig = function (host, o) {
@@ -327,8 +341,11 @@
 
     // Poenglinja: én kort linje (ordrett fra arket). «Slik retter øvingen» ligger i en lukket <details>.
     if (!manual) {
-      var viTxt = "Slik retter øvingen: riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") +
-        ", ubesvart " + (rb ? sgn(rb) : "0") + " per " + (t === "M" ? "rad" : t === "FF" ? "avkrysset alternativ" : (t === "F1" || t === "H") ? "oppgave" : "felt") +
+      var viTxt = (r.sekvens != null
+        ? "Slik retter øvingen (justert skåring): " + num(r.sekvens) + " poeng per trinn i den lengste rekken av svar som står i riktig rekkefølge. Feil trinn imellom trekker ikke"
+        : "Slik retter øvingen: riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") +
+          ", ubesvart " + (rb ? sgn(rb) : "0") + " per " + (t === "M" ? "rad" : t === "FF" ? "avkrysset alternativ" : (t === "F1" || t === "H") ? "oppgave" : "felt")) +
+        (r.alleRiktig != null ? ". Alle riktig gir " + num(r.alleRiktig) : "") +
         ". Aldri under " + num(min) + (maks != null ? ", høyst " + num(maks) : "") + " poeng.";
       var arkTxt = q.regelTekst ? String(q.regelTekst).replace(/^\s*Poeng\s*:\s*/i, "") : null;
       var rl = el("details", { class: "insp-regel small" });
@@ -426,7 +443,7 @@
             set: function (v) { c.inp.checked = !!v; },
             isBlank: function (v) { return !v; },
             isRight: function () { return arr(sq.svar).indexOf(ai) >= 0; },
-            mark: function (state) { c.lab.className = "insp-opt" + (state ? " is-" + state : ""); },
+            mark: function (state) { c.lab.className = "insp-opt" + (state ? " is-" + state : ""); symI(c.lab, state); },
             inputs: [c.inp]
           });
         });
@@ -451,7 +468,7 @@
           set: function (v) { its.forEach(function (c, i) { c.inp.checked = i === v; }); },
           isBlank: function (v) { return v == null; },
           isRight: function (v) { return v === sq.svar || arr(sq.godta).indexOf(v) >= 0; },
-          mark: function (state, v) { its.forEach(function (c, i) { c.lab.className = "insp-opt" + (state && (i === v || i === sq.svar) ? (i === sq.svar ? " is-right" : " is-wrong") : ""); }); },
+          mark: function (state, v) { its.forEach(function (c, i) { var s = state && (i === v || i === sq.svar) ? (i === sq.svar ? "right" : "wrong") : ""; c.lab.className = "insp-opt" + (s ? " is-" + s : ""); symI(c.lab, s); }); },
           inputs: its.map(function (c) { return c.inp; })
         });
       });
@@ -478,7 +495,7 @@
             set: function (v) { c.inp.checked = !!v; },
             isBlank: function (v) { return !v; },
             isRight: function () { return arr(q.svar).indexOf(ai) >= 0; },
-            mark: function (state) { c.lab.className = "insp-opt" + (state ? " is-" + state : ""); },
+            mark: function (state) { c.lab.className = "insp-opt" + (state ? " is-" + state : ""); symI(c.lab, state); },
             inputs: [c.inp]
           });
         });
@@ -490,7 +507,7 @@
           set: function (v) { items.forEach(function (c, i) { c.inp.checked = i === v; }); },
           isBlank: function (v) { return v == null; },
           isRight: function (v) { return v === q.svar || arr(q.godta).indexOf(v) >= 0; },
-          mark: function (state, v) { items.forEach(function (c, i) { c.lab.className = "insp-opt" + (state && (i === v || i === q.svar) ? (i === q.svar ? " is-right" : " is-wrong") : ""); }); },
+          mark: function (state, v) { items.forEach(function (c, i) { var s = state && (i === v || i === q.svar) ? (i === q.svar ? "right" : "wrong") : ""; c.lab.className = "insp-opt" + (s ? " is-" + s : ""); symI(c.lab, s); }); },
           inputs: items.map(function (c) { return c.inp; })
         });
       }
@@ -505,9 +522,9 @@
         var harValg = valg.length > 0;
         var tx = t === "T" ? !(harValg && f.svar != null) : !harValg;
         if (tx) {
-          node = el("input", { type: "text", class: "insp-t", autocomplete: "off", spellcheck: "false", "aria-label": f.etikett || ("Felt " + (fi + 1)) });
+          node = el("input", { type: "text", class: "insp-t", "data-insp-felt": fi, autocomplete: "off", spellcheck: "false", "aria-label": f.etikett || ("Felt " + (fi + 1)) });
         } else {
-          node = el("select", { class: "insp-sel", "aria-label": f.etikett || ("Felt " + (fi + 1)) },
+          node = el("select", { class: "insp-sel", "data-insp-felt": fi, "aria-label": f.etikett || ("Felt " + (fi + 1)) },
             [el("option", { value: "", text: "Velg …" })].concat(valg.map(function (v, vi) { return el("option", { value: String(vi), text: String(v).replace(/<[^>]+>/g, "") }); })));
         }
         nodes.push(node);
@@ -521,7 +538,7 @@
             if (tx) { var n = norm(v); return arr(f.godta).some(function (g) { return norm(g) === n; }); }
             return v === f.svar || arr(f.godta).indexOf(v) >= 0;
           },
-          mark: function (state) { node.classList.remove("is-right", "is-wrong", "is-blank"); if (state) node.classList.add("is-" + state); },
+          mark: function (state) { node.classList.remove("is-right", "is-wrong", "is-blank"); if (state) node.classList.add("is-" + state); symEtter(node, state); },
           inputs: [node]
         });
         // Feltet kan flyttes inn i figuren (utenfor wrap), så det lagrer selv.
@@ -730,12 +747,29 @@
         if (u.isRight(v)) { c.right++; p += rr; } else { c.wrong++; p += rf; }
       });
       if (units.length && units[0].ff && !ffAny) { c.blank++; p += rb; }
+      // regel.sekvens («Justert skåring», H2021 9.1/10.1): poeng = sekvens × lengden av den lengste rekken av svar som
+      // står i riktig innbyrdes rekkefølge (feil trinn imellom teller ikke, ingen minus). riktig/feil/blankt brukes ikke da.
+      var seqLen = null;
+      if (r.sekvens != null) {
+        var ranks = [];
+        units.forEach(function (u) {
+          var v = u.get();
+          if (u.svar == null || u.isBlank(v)) return;
+          for (var i = 0; i < units.length; i++) if (units[i].svar != null && units[i].isRight(v)) { ranks.push(i); return; }
+        });
+        var best = [];   // lengste strengt stigende delfølge (O(n²), n ≤ ~10)
+        ranks.forEach(function (x, i) { best[i] = 1; for (var j = 0; j < i; j++) if (ranks[j] < x) best[i] = Math.max(best[i], best[j] + 1); });
+        seqLen = best.length ? Math.max.apply(null, best) : 0;
+        p = r.sekvens * seqLen;
+      }
       // «X for alle riktig»: alle enheter riktige (og ingen FF-alternativer glemt) gir maks, også når summen er lavere.
       var missed = units.filter(function (u) { return u.ff && u.svar != null && u.isRight() && !u.get(); }).length;
-      if (maks != null && c.right > 0 && !c.wrong && !c.blank && !c.unknown && !missed) p = Math.max(p, maks);
+      // regel.alleRiktig gir verdien eksplisitt (H2021 8.2: 5); uten den gjelder maks.
+      var alle = r.alleRiktig != null ? +r.alleRiktig : maks;
+      if (alle != null && c.right > 0 && !c.wrong && !c.blank && !c.unknown && !missed) p = Math.max(p, alle);
       var raw = p;
       p = Math.max(min, p); if (maks != null) p = Math.min(maks, p);
-      return { score: Math.round(p * 100) / 100, raw: raw, maks: maks, counts: c, manual: false };
+      return { score: Math.round(p * 100) / 100, raw: raw, maks: maks, counts: c, manual: false, sekvens: seqLen };
     }
 
     function persist() {
@@ -771,6 +805,7 @@
       // B1: én resultatlinje, «2 av 3 poeng · 2 riktig · 1 galt · 0 ubesvart». Regelen står i <details> øverst.
       res.innerHTML = '<p class="insp-sum ov-reslinje"><b>' + num(sc.score) + (maks != null ? " av " + num(maks) : "") + " poeng</b> · " +
         c.right + " riktig · " + c.wrong + " galt · " + c.blank + " ubesvart" +
+        (sc.sekvens != null ? ' <span class="muted">(justert skåring: ' + sc.sekvens + " trinn" + " i riktig rekkefølge)</span>" : "") +
         (sc.raw < min ? ' <span class="muted">(summen ble ' + num(sc.raw) + ", men en oppgave gir aldri under " + num(min) + ")</span>" : "") +
         (c.unknown ? ' <span class="muted">' + c.unknown + " enhet(er) uten kjent fasit telles ikke.</span>" : "") + "</p>";
       // Fasit og forklaring per enhet
@@ -819,10 +854,83 @@
       try { document.dispatchEvent(new CustomEvent("in:insp", { detail: { key: key, score: null, maks: maks, manual: manual } })); } catch (e) {}
     }
 
+    /* ---------- «Svar med en gang» (IN.svarStraks, bryteren i nivålinja) ----------
+       På: hvert felt får ✓/✗ og is-right/is-wrong så snart det er besvart (M: når raden er valgt, D/T/F1/FF:
+       ved valg, N og tekstfelt i T: ved blur/Enter). M viser fasit og forklaring i raden (som B2), de andre
+       typene en liste «Fasit og forklaring for det du har svart» under knappene. Ingen poengsum før
+       «Rett som på eksamen». Av: som før. Aldri for K/E, etter retting eller under et helt sett
+       (data-straks="av" på <body> eller en forelder, eller opts.straks === false). Lagring og poeng er uendret. */
+    var live = el("span", { class: "qz-sr", "aria-live": "polite" });
+    wrap.appendChild(live);
+    function straksAv() {
+      return opts.straks === false || !!(IN.svarStraks && IN.svarStraks.laast && IN.svarStraks.laast()) ||
+        !!(wrap.closest && wrap.closest('[data-straks="av"]')) || !!(host.closest && host.closest('[data-straks="av"]'));
+    }
+    function straks() { return !manual && !checked && !straksAv() && !!(IN.svarStraks && IN.svarStraks.get()); }
+    function straksState(u) {
+      var v = u.get();
+      if (u.svar == null || u.isBlank(v)) return "";
+      if (u.multiM) {   // avkrysningsmatrise: galt så snart en gal boks er krysset, riktig når alle riktige er krysset
+        var sv = arr(u.svar);
+        if (v.some(function (i) { return sv.indexOf(i) < 0; })) return "wrong";
+        return v.length >= sv.length ? "right" : "";
+      }
+      return u.isRight(v) ? "right" : "wrong";
+    }
+    function straksListe() {
+      if (checked) return;
+      IN.clear(fasitBox);
+      if (!straks() || t === "M") return;
+      var ul = el("ul", { class: "insp-fasit-l" }), n = 0;
+      units.forEach(function (u) {
+        var st = straksState(u); if (!st) return;
+        n++;
+        var li = el("li", { class: "is-" + st });
+        li.appendChild(el("div", { html: '<span class="insp-sm is-' + st + '" aria-hidden="true">' + SYM[st] + "</span> " +
+          (u.label && units.length > 1 ? "<b>" + u.label + "</b> → " : "") + "<b>" + u.fasit + "</b>" }));
+        if (u.explain) li.appendChild(html(el("div", { class: "insp-ex small" }), u.explain));
+        ul.appendChild(li);
+      });
+      if (n) fasitBox.appendChild(el("div", { class: "insp-fasit-d insp-straks" }, [
+        el("p", { class: "insp-straks-h small muted", text: "Fasit for det du har svart (poengene får du når du retter):" }), ul]));
+    }
+    function straksEn(u, si) {
+      if (checked || manual) return;
+      var st = straks() ? straksState(u) : "", v = u.get(), sig = st + "|" + JSON.stringify(v);
+      u.mark(st, v);
+      straksListe();
+      if (si && st && u._straksSig !== sig) live.textContent = st === "right" ? "Riktig." :
+        "Feil." + (u.fasit != null ? " Riktig: " + plain(u.fasit).replace(/\s+/g, " ").trim() + "." : "");
+      u._straksSig = sig;
+    }
+    var varKoblet = false;
+    function straksAlle(e) {
+      if (wrap.isConnected) varKoblet = true;
+      else if (e && varKoblet) { document.removeEventListener("in:svar-straks", straksAlle); return; }   // kortet er fjernet (nytt år i eksamen.html)
+      if (checked || manual) return;
+      units.forEach(function (u) { u._straksSig = null; straksEn(u, false); });
+    }
+    if (!manual) {
+      units.forEach(function (u) {
+        u.inputs.forEach(function (inp) {
+          var tekst = inp.tagName === "INPUT" && inp.type === "text";
+          inp.addEventListener("change", function () { straksEn(u, true); });
+          if (tekst) {
+            // Tekstfelt: tilbakemelding ved blur (change) eller Enter, ikke for hvert tastetrykk. Skriver du igjen, forsvinner merket.
+            inp.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); straksEn(u, true); } });
+            inp.addEventListener("input", function () { if (straks() && u._straksSig) { u._straksSig = null; u.mark("", u.get()); straksListe(); } });
+          }
+        });
+      });
+      // Alltid: eksamen.html kan bytte modus (data-straks på <body>) mens kortene står åpne. core.js sender da in:svar-straks.
+      document.addEventListener("in:svar-straks", straksAlle);
+    }
+
     // Lagre underveis (uten å rette)
     wrap.addEventListener("change", function () { if (!checked) persist(); });
     wrap.addEventListener("input", function (e) { if (e.target.tagName === "TEXTAREA" || e.target.type === "text") { if (!checked) persist(); } });
     restore();
+    straksAlle();
 
     return { key: key, maks: maks, manual: manual, score: score, check: check, reset: reset, node: wrap,
       vurder: function () { return vurder(true); }, sjekkliste: sj,

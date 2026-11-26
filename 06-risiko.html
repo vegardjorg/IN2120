@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -110,7 +111,7 @@
         <ul>
           <li><b>27000</b>: oversikt over ISMS og definisjoner av begrepene.</li>
           <li><b>27001</b>: <i>kravstandarden</i> for ISMS. Det er den en virksomhet kan <b>sertifiseres</b> etter.</li>
-          <li><b>27002</b>: en <i>tiltaksbank</i> med 93 tiltak i 4 domener (2022-utgaven).</li>
+          <li><b>27002</b>: en <i>tiltaksbank</i> med 93 tiltak i 4 domener (2022-utgaven; kurset sier domener, standarden selv kaller dem temaer).</li>
           <li><b>27005</b>: <i>risikostyring</i> for informasjonssikkerhet.</li>
         </ul>
         De fleste ISO-standardene må kjøpes (ism s. 8–10, 14, 18).</div>
@@ -135,7 +136,7 @@
         <li><b>Check</b> = kapittel 9 (evaluering av prestasjon).</li>
         <li><b>Act</b> = kapittel 10 (forbedring).</li>
       </ul>
-      <p class="small muted">Kapittel 1–3 er innledning. Kravene står i kapittel 4–10 (ism s. 10–11).</p>
+      <p class="small muted">Kapittel 1–3 er innledning. Kravene står i kapittel 4–10 (ism s. 10–11). Kurset (ism-lysarket) og eksamen H2025 28 knytter kapitlene til PDCA slik; standarden selv krever ikke PDCA (det ble tatt ut i 2013-utgaven), og noen kilder legger kapittel 7 i Do. Svar som kurset på eksamen.</p>
       <p class="small muted fig-vis-led">PDCA-sirkelen og kapitlene i 27001 slik eksamen viste dem.</p>
       <div id="fv-pdca"></div>
 
@@ -351,12 +352,13 @@
       <p class="rk-hull">Bygger på ukesoppgave t06 og eksamensfigurene, ikke på et 2026-lysark.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         Prosessen etter ISO 27005, slik eksamensfiguren viser den, har fire hovedsteg og to beslutningspunkter.
-        «Nei» i et beslutningspunkt sender prosessen tilbake. Rekkefølgen står under øvingen.</div>
+        «Nei» i et beslutningspunkt sender prosessen tilbake. Rekkefølgen står under øvingen.
+        Figuren og beslutningspunktene er kursets (t06 oppg. 6 og eksamen) og bygger på eldre utgaver av ISO 27005 (2008–2018). Utgaven fra 2022 er bygd om og har ikke egne beslutningspunkter. Svar etter kursets figur.</div>
 
       <h4>Sett sammen prosessen</h4>
       <div id="viz-prosess"></div>
       <div class="callout begrep"><span class="lbl">Fasit</span>
-        Rekkefølgen etter ISO 27005:
+        Rekkefølgen etter kursets ISO 27005-figur:
         <ol>
           <li><b>Kontekstetablering</b>: planlegging, risikokriterier (akseptgrense) og valg av risikoeier.</li>
           <li><b>Risikovurdering (ROS)</b>: identifisering → analyse → evaluering.</li>
@@ -384,7 +386,7 @@
         <details class="grense"><summary>Hvorfor er «for lite budsjett» punkt 2?</summary>
           <p>Budsjettet gjelder tiltakene i planen. De finnes først etter punkt 1.</p></details>
         <details class="grense"><summary>Hvorfor er «endre risikotabellen» ikke gyldig håndtering?</summary>
-          <p>Det flytter målestokken, ikke risikoen (H2023 39).</p></details>
+          <p>Å justere sannsynlighet eller konsekvens for å få et pent resultat flytter målestokken, ikke risikoen (H2023 39). Det er noe annet å revidere akseptkriteriene: ved «Nei» i beslutningspunkt 2 kan ledelsen bevisst heve eller senke akseptgrensen (t06 oppg. 6b). Det er lov, så lenge det er en villet beslutning og ikke kosmetikk.</p></details>
         <details class="grense"><summary>Risikoanalyse eller risikovurdering?</summary>
           <p>Analysen er én del av vurderingen. Vurdering = identifisering + analyse + evaluering.</p></details>
         <ul>
@@ -450,7 +452,7 @@
       <div id="viz-stride-sort"></div>
 
       <h4>OWASP Top 10</h4>
-      <p class="small"><span class="rk-sjekk">Kontroller mot owasp.org.</span> 2025-lista står ikke i kursets kilder. Plasseringene i 2025-kolonnen er slik vi kjenner dem og må sjekkes mot owasp.org før du stoler på dem.</p>
+      <p class="small">2025-lista står ikke i kursets kilder. 2025-kolonnen er kontrollert mot top10.owasp.org (nov. 2025; det som kom 6.11.2025, var et utkast, RC1).</p>
       <div class="table-wrap"><table>
         <thead><tr><th scope="col">#</th><th scope="col">2021 (lista i H2022)</th><th scope="col">2025 (november 2025, kontroller mot owasp.org)</th></tr></thead>
         <tbody>
@@ -510,29 +512,31 @@
 
   <footer class="footer">IN2120-guide · Blokk 6 · Risiko og styring · <a href="07-autentisering.html">Neste: blokk 7, autentisering</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/ovelse.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-risiko.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-risiko.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -780,7 +784,7 @@
       vurdering: [
         { s: "Kvantitativ risiko kan oppgis i kroner per år.", answer: true, explain: "<p>Hendelser per år × kroner per hendelse.</p>" },
         { s: "Kvalitative inndata er vanligvis lettere å anslå enn kvantitative.", answer: true, explain: "<p>Det er lettere å si «middels sannsynlig» enn å anslå hvor mange ganger per år noe skjer. Nivåene er grove, men raske å sette og lette å diskutere.</p>" },
-        { s: "Med logaritmiske nivåer er risikonivå = sannsynlighet × konsekvens.", answer: false, explain: "<p>På en logaritmisk skala svarer hvert trinn til en fast faktor. Å gange verdiene svarer da til å summere nivåene: R = S + K.</p>" },
+        { s: "Med logaritmiske nivåer er risikonivå = sannsynlighet × konsekvens.", answer: false, explain: "<p>På en logaritmisk skala svarer hvert trinn til en fast faktor. Å gange verdiene svarer da til å summere nivåene: R = s + k.</p>" },
         { s: "Kvantitativt summeres konsekvensaspektene.", answer: true, explain: "<p>Kroner kan legges sammen. Kvalitativt tar man det største.</p>" },
         { s: "ROI = risikoreduksjon / kostnad.", answer: false, explain: "<p>Kostnaden skal trekkes fra først: (reduksjon − kostnad) / kostnad.</p>" },
         { s: "Akseptgrensen bør begrunnes ut fra virksomhetens risikoappetitt.", answer: true, explain: "<p>Akseptgrensen sier hvor mye risiko virksomheten er villig til å leve med, og det er det risikoappetitt betyr. En grense uten begrunnelse er vanskelig å forsvare overfor ledelsen.</p>" },
@@ -793,7 +797,7 @@
         { s: "Å overføre risiko til en skyleverandør fjerner virksomhetens ansvar.", answer: false, explain: "<p>Man kan overføre jobben eller kostnaden, men ikke ansvaret overfor brukerne. Rammes dataene hos leverandøren, er det fortsatt virksomhetens brudd.</p>" },
         { s: "Risikoanalysen beregner risikonivået.", answer: true, explain: "<p>Analysen setter sannsynlighet og konsekvens og regner ut nivået. Evalueringen sammenligner deretter nivået med akseptgrensen (H2024 34).</p>" },
         { s: "Tiltakene implementeres før beslutningspunkt 2.", answer: false, explain: "<p>Implementering kommer til slutt, etter et «Ja» i punkt 2.</p>" },
-        { s: "Restrisiko er risiko man har valgt å akseptere.", answer: true, explain: "<p>Etter tiltakene blir det alltid noe risiko igjen. Når den er under akseptgrensen og ledelsen godtar den, er det akseptert restrisiko (H2023 39).</p>" },
+        { s: "Akseptert restrisiko er risiko som er igjen etter tiltak, og som ledelsen har valgt å akseptere.", answer: true, explain: "<p>Etter tiltakene blir det alltid noe risiko igjen; det er restrisiko, enten den aksepteres eller ikke. Når den er under akseptgrensen og ledelsen godtar den, er det akseptert restrisiko (H2023 39).</p>" },
         { s: "Risikovurderinger bør kommuniseres til ledelsen, fordi den gir budsjett.", answer: true, explain: "<p>Ledelse og styre bestemmer strategi og budsjett.</p>" }
       ],
       utvikling: [

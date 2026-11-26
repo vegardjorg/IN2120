@@ -38,7 +38,7 @@
   var FASER = [
     { navn: "Planlegging", kort: "Avtale",
       skjer: "Testeren og virksomheten avtaler mål (hvilke kjerneverdier testen skal prøve å ramme), omfang (hva som er med og ikke), tidsrom, kontaktperson ved driftsstans og boksfarge. Tillatelsen gis skriftlig, på forhånd, av noen med myndighet over systemet.",
-      forsvar: "Velg kjerneverdiene som betyr mest (økonomi, sensitive data, tilgjengelighet). Sørg for at den som signerer faktisk har myndighet, og i forvaltningen hjemmel.",
+      forsvar: "Velg kjerneverdiene som betyr mest (økonomi, sensitive data, tilgjengelighet). Sørg for at den som signerer faktisk har myndighet over systemet (kurset knytter dette til legalitetsprinsippet i forvaltningen, forenklet d05 s. 8).",
       eks: [["H2022-3.3", "§ 204"], ["H2025-13", "§ 204"], ["H2022-4.3", "hvitboks"], ["H2023-4", "svartboks"], ["H2024-4", "gråboks"], ["H2025-4", "svartboks"]] },
     { navn: "Rekognosering", kort: "Finn ut mest mulig",
       skjer: "Først passiv innsamling fra åpne kilder (OSINT): nettsider, stillingsannonser, sosiale medier, offentlige registre over domener og IP-adresser. Deretter kartlegging av hvilke maskiner og tjenester som svarer.",
@@ -348,7 +348,7 @@
       { id: "plan", html: "Planlegging", forklaring: {
         eli5: "Først blir alle enige om hva som er lov, og det skrives ned.",
         normal: "Mål, omfang, tidsrom, kontaktperson og boksfarge avtales, og tillatelsen gis <b>skriftlig og på forhånd</b> av noen med myndighet. Uten den er testen straffbar etter § 204.",
-        teknisk: "Avtale om mål (hvilke kjerneverdier som skal prøves), omfang, tidsrom og boksfarge, med skriftlig tillatelse fra noen med myndighet over systemet, og i forvaltningen med hjemmel." } },
+        teknisk: "Avtale om mål (hvilke kjerneverdier som skal prøves), omfang, tidsrom og boksfarge, med skriftlig tillatelse fra noen med myndighet over systemet (i forvaltningen viser kurset til legalitetsprinsippet, forenklet)." } },
       { id: "rek", html: "Rekognosering", forklaring: "Finn ut mest mulig: først passivt fra åpne kilder (OSINT), så kartlegging av hvilke maskiner og tjenester som svarer. Kommer <i>før</i> innledende tilgang." },
       { id: "innl", html: "Innledende tilgang", forklaring: "Den første kontoen eller maskinen, for eksempel via phishing, et svakt passord eller en sårbar nettside. Ofte det tyngste stadiet, så oppdragsgiver gir gjerne en vanlig brukerkonto." },
       { id: "utv", html: "Utvide tilgangen", forklaring: "Fra vanlig bruker til administrator eller root, og fra én maskin til flere (privilegieeskalering)." },

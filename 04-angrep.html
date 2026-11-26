@@ -7,11 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Angrepsvektorer, skadevare og pentesting i IN2120, sett fra forsvareren: trusselaktører, phishingtypene, skadevaretypene, leveransekjede og andre vektorer, pentestens stadier og boksfarger, straffeloven § 204, SQL-injeksjon som kode mot data, OSINT, sudo og logganalyse – med øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
 </head>
 <body data-page="angrep">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -19,7 +20,7 @@
   <main id="main" class="wrap">
     <div class="pagehead">
       <h1>Blokk 4 · Angrep, skadevare og pentest</h1>
-      <p class="lead">Angrepsvektorer, skadevare og pentesting ga 77 av 503 poeng på eksamenene H2021–H2025 (15 %). Gjengangerne er å skille phishingtypene og skadevaretypene fra hverandre, boksfargene og strafferammen i § 204, og de lange fritekstoppgavene om rootkit, SQL-injeksjon og sudo. Alt her er sett fra forsvareren: hvordan angrepet virker på konseptnivå, og hva som stopper det.</p>
+      <p class="lead">Angrepsvektorer, skadevare og pentesting ga 79 av 503 poeng på eksamenene H2021–H2025 (16 %). Gjengangerne er å skille phishingtypene og skadevaretypene fra hverandre, boksfargene og strafferammen i § 204, og de lange fritekstoppgavene om rootkit, SQL-injeksjon og sudo. Alt her er sett fra forsvareren: hvordan angrepet virker på konseptnivå, og hva som stopper det.</p>
       <div class="badges">
         <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-19"><b>H2025</b> · Rootkit-scenario · <span class="pts">7p</span></a>
         <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-23"><b>H2024</b> · SQL-injeksjon og klientfilter · <span class="pts">6p</span></a>
@@ -97,6 +98,7 @@
     <!-- ===================== 2 · PHISHING ===================== -->
     <section data-panel="phishing">
       <h3>Sosial manipulering og phishing</h3>
+      <p class="small muted">Det finnes ikke noe 2026-lysark om angrepsvektorer og skadevare. Fanene om phishing, skadevare og andre vektorer bygger på ukesoppgave t04, cyberops-lysarket og eksamenssettene.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <b>Sosial manipulering</b> er å lure mennesker til å gjøre noe som hjelper angriperen: klikke, gi fra seg passord eller betale.
         <b>Phishing</b> (nettfisking) er sosial manipulering via e-post, SMS eller nettsider, og er den vanligste angrepsvektoren. Den kombineres gjerne med skadelige vedlegg eller lenker.
@@ -318,7 +320,7 @@
       <div id="viz-bokser"></div>
 
       <div class="callout begrep"><span class="lbl">Legalitetsprinsippet (forenklet)</span>
-        En privatperson kan gjøre alt som ikke er forbudt. En ansatt i forvaltningen kan bare gjøre det som er eksplisitt tillatt. Skal en offentlig virksomhet pentestes, må tillatelsen derfor ha tydelig hjemmel hos noen med reell myndighet.</div>
+        En privatperson kan gjøre alt som ikke er forbudt. En ansatt i forvaltningen kan bare gjøre det som er eksplisitt tillatt. Skal en offentlig virksomhet pentestes, må tillatelsen derfor komme fra noen med reell myndighet (d05 s. 8). Dette er kursets forenklede regel: legalitetsprinsippet (Grunnloven § 113) gjelder egentlig inngrep overfor enkeltpersoner. I praksis trengs en skriftlig fullmakt fra den som har myndighet over systemet, i offentlig og privat sektor.</div>
 
       <div class="callout eksempel"><span class="lbl">Eksempel: avtalen med Brødkassa AS</span>
         Daglig leder signerer en avtale: mål = finne ut om noen utenfra kan nå kundedatabasen; omfang = nettbutikken og kontornettet, ikke ovnsstyringen; tidsrom = to uker i mars; kontaktperson ved driftsstans.
@@ -354,7 +356,7 @@
       <details class="examtask"><summary class="examtask-sum">Perfekt svar (vårt modellsvar)</summary>
         <div class="examtask-body">
           <p><b>A)</b> Tre av disse: målet (hvilke kjerneverdier testen skal prøve å ramme), omfanget (hva som er med og ikke), tidsrommet, kontaktperson ved driftsstans, boksfargen, og hvordan funn skal rapporteres.</p>
-          <p><b>B)</b> Den som gir tillatelsen, må ha myndighet over systemet. Ellers er tilgangen fortsatt uberettiget etter § 204. I forvaltningen må tillatelsen i tillegg ha hjemmel (legalitetsprinsippet).</p>
+          <p><b>B)</b> Den som gir tillatelsen, må ha myndighet over systemet. Ellers er tilgangen fortsatt uberettiget etter § 204. I forvaltningen trekker kurset i tillegg inn legalitetsprinsippet (forenklet, d05 s. 8): tillatelsen må komme fra noen som har myndighet til å gi den.</p>
         </div></details>
 
       <h4>Test deg selv</h4>
@@ -456,7 +458,7 @@
         <details class="grense"><summary>Hvorfor kan ikke IDS oppdage OSINT?</summary>
           <p>Det sendes ingen trafikk til målets systemer. Alt hentes fra tredjeparter og offentlige kilder. Forsvareren kan bare begrense hva som ligger ute.</p></details>
         <details class="grense"><summary>Er OSINT ulovlig hacking?</summary>
-          <p>Innsamling fra åpne kilder er ikke datainnbrudd etter § 204, fordi ingen beskyttelse brytes. Personvernregler kan likevel gjelde for hvordan opplysningene brukes, men det er ikke pensum her.</p></details>
+          <p>Innsamling fra åpne kilder er ikke datainnbrudd etter § 204, fordi offentlig informasjon ikke gir uberettiget tilgang til et datasystem, verken ved å bryte en beskyttelse eller på annen uberettiget måte. Personvernregler kan likevel gjelde for hvordan opplysningene brukes, men det er ikke pensum her.</p></details>
         <ul>
           <li>Forkortelsen er <b>Open Source Intelligence</b>, ikke «Information» eller «Online Search».</li>
           <li>«Open source» betyr her <i>åpne kilder</i>, ikke åpen kildekode.</li>
@@ -508,7 +510,7 @@
 
       <div class="callout eksempel"><span class="lbl">H2023 26 vurdert med egne ord</span>
         Loggen i <a href="#fane=eksamen&amp;oppg=o-H2023-26">H2023 26</a> viser mange ulike passord mot én konto (admin) fra én adresse, og fasiten er «Passordspraying».
-        Etter kursets egen definisjon er spraying <i>ett</i> passord mot <i>mange</i> brukere, nettopp for å unngå sperring. Mange passord mot én konto kalles vanligvis uttømmende søk eller ordlisteangrep, så fasiten er omdiskutert.
+        Etter kursets egen definisjon er spraying <i>ett</i> passord mot <i>mange</i> brukere, nettopp for å unngå sperring. Mange passord mot én konto kalles vanligvis passordgjetting (ordliste eller brute force; MITRE ATT&amp;CK T1110.001, mens spraying er T1110.003), så fasiten er omdiskutert.
         Den er likevel det eneste passordangrepet blant valgene (kommandoinjeksjon, falsk alarm, SQL-injeksjon), så på eksamen er «Passordspraying» det forventede svaret der. I fritekst: bruk riktig ord, og forklar gjerne forskjellen. H2024 3 bruker den samme løse ordbruken.</div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -560,30 +562,32 @@
 
   <footer class="footer">IN2120-guide · Blokk 4 · Angrep, skadevare og pentest · <a href="index.html">Til forsiden</a></footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/pseudocode.js?v=20261126a"></script>
-  <script src="assets/js/stepplayer.js?v=20261126a"></script>
-  <script src="assets/js/varline.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/dra.js?v=20261126a"></script>
-  <script src="assets/js/ovelse.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126a"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
-  <script src="assets/js/viz-angrep.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/pseudocode.js?v=20261126d"></script>
+  <script src="assets/js/stepplayer.js?v=20261126d"></script>
+  <script src="assets/js/varline.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/dra.js?v=20261126d"></script>
+  <script src="assets/js/ovelse.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126d"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
+  <script src="assets/js/viz-angrep.js?v=20261126d"></script>
   <script>
   (function () {
     "use strict";
@@ -625,7 +629,7 @@
       "ex-osint": {
         eli5: "<p>Før en tyv bryter seg inn, går hen forbi huset, ser hvem som bor der, når de drar på jobb og om det står en stige i hagen. Alt dette kan sees fra gata, uten å gjøre noe ulovlig.</p><p>OSINT er den samme speidingen, bare på nettet.</p>",
         normal: "<p>Kildene i kurset er søkemotorer, virksomhetens egne nettsider, Doffin (offentlige anskaffelser), stillingsannonser, LinkedIn, Facebook, Instagram, nettaviser og kart, pluss å speide i området rundt. Offentlige registre over domener og IP-adresser viser hvilket adresseområde virksomheten eier.</p><p>Nytten er særlig to ting: materiale til troverdig phishing (navn, roller, tone, aktuelle prosjekter) og kartlegging av hvilken teknologi virksomheten bruker.</p>",
-        teknisk: "<p>OSINT er <i>passiv</i>: angriperen sender ingenting til målets systemer, så det blir ingen spor i målets logger. Forsvareren kan derfor ikke oppdage det, bare begrense hva som ligger ute: gjør OSINT på deg selv jevnlig, skriv annonser og anbudsdokumenter uten unødvendige produktnavn og versjoner, fjern metadata fra publiserte dokumenter, og ha retningslinjer og opplæring for hva ansatte deler.</p><p>Noe <i>må</i> være offentlig (Doffin, organisasjonskart i forvaltningen), så målet er å begrense eksponeringen, ikke å forsvinne. Fordi OSINT særlig mater spyd-phishing, er opplæring også et OSINT-tiltak.</p>"
+        teknisk: "<p>OSINT er <i>passiv</i>: angriperen angriper eller skanner ikke målets systemer. Et besøk på virksomhetens nettsider ser ut som vanlig trafikk, og mye hentes fra andres tjenester, så det skiller seg ikke ut i målets logger. Forsvareren kan derfor nesten ikke oppdage det, bare begrense hva som ligger ute: gjør OSINT på deg selv jevnlig, skriv annonser og anbudsdokumenter uten unødvendige produktnavn og versjoner, fjern metadata fra publiserte dokumenter, og ha retningslinjer og opplæring for hva ansatte deler.</p><p>Noe <i>må</i> være offentlig (Doffin, organisasjonskart i forvaltningen), så målet er å begrense eksponeringen, ikke å forsvinne. Fordi OSINT særlig mater spyd-phishing, er opplæring også et OSINT-tiltak.</p>"
       },
       "ex-sudo": {
         eli5: "<p>Sudo er som å gi vaktmesteren en hovednøkkel, men bare «til vaskerommet». Har vaskerommet en dør videre til alle de andre rommene, har du egentlig gitt ham nøkkel til hele huset.</p><p>Loggen er vaktboka: står det at én person har prøvd hundre nøkler på samme dør på fem minutter, er det ikke en som har glemt nøkkelen sin.</p>",
@@ -721,7 +725,7 @@
           explain: "Open Source Intelligence: etterretning fra åpne kilder som nettsider, sosiale medier og offentlige registre. «Open source» betyr her åpent tilgjengelig, ikke åpen kildekode." },
         { q: "Hvilken kilde nevnes i kurset for offentlige anskaffelser?", options: ["Brønnøysund", "Doffin", "RIPE", "Altinn"], answer: 1,
           explain: "Doffin viser hva offentlige virksomheter skal kjøpe." },
-        { q: "Hvorfor er OSINT vanskelig å oppdage for målet?", options: ["Den er kryptert", "Den sender ingenting til målets systemer", "Den bruker VPN", "Den skjer om natta"], answer: 1,
+        { q: "Hvorfor er OSINT vanskelig å oppdage for målet?", options: ["Den er kryptert", "Den angriper eller skanner ikke målets systemer", "Den bruker VPN", "Den skjer om natta"], answer: 1,
           explain: "Alt hentes fra tredjeparter og offentlige kilder." },
         { q: "Hvilket tiltak begrenser OSINT-eksponering?", options: ["Sterkere brannmur", "Stillingsannonser uten produktnavn og versjoner", "TLS 1.3", "Lengre passord"], answer: 1,
           explain: "Mindre teknologidetaljer ute gir angriperen mindre å slå opp." }
@@ -731,8 +735,8 @@
           explain: "Skadevaren arver rettighetene til prosessen som starter den." },
         { q: "Hvorfor er sudo-tilgang til en programmeringsspråktolk farlig?", options: ["Den er treg", "Den kan starte et skall som arver root", "Den krypterer filer", "Den sletter loggen automatisk"], answer: 1,
           explain: "En tolk kjører hvilken som helst kode den får, også en kommando som starter et skall. Skallet arver root fra sudo, og da er hele maskinen åpen." },
-        { q: "Loggen viser ett forsøk per bruker mot 300 brukere fra samme adresse. Hva er det?", options: ["Uttømmende søk mot én bruker", "Passordspraying", "SQL-injeksjon", "Falsk alarm"], answer: 1,
-          explain: "Kjennetegnet er ett forsøk per bruker mot mange brukere: ett vanlig passord prøves på alle. Uttømmende søk ville vært mange forsøk mot én bruker." },
+        { q: "Loggen viser ett forsøk per bruker mot 300 brukere fra samme adresse. Hva er det?", options: ["Passordgjetting mot én bruker", "Passordspraying", "SQL-injeksjon", "Falsk alarm"], answer: 1,
+          explain: "Kjennetegnet er ett forsøk per bruker mot mange brukere: ett vanlig passord prøves på alle. Passordgjetting (ordliste eller brute force) ville vært mange forsøk mot én bruker." },
         { q: "Hvilket tiltak er viktigst mot misbruk av sudo?", options: ["Lengre passord på root", "Tillat bare konkrete, avgrensede oppgaver, aldri tolker eller generelle filverktøy", "Slå av logging", "Gi alle sudo"], answer: 1,
           explain: "Kommandoen kjører som root. Kan den starte et skall eller skrive vilkårlige filer, har brukeren i praksis full root, så hver regel må være smal." },
         { q: "Hvorfor er spraying «tryggere» for angriperen enn mange forsøk mot én konto?", options: ["Det er raskere", "Få forsøk per konto utløser ikke kontosperring", "Det er lovlig", "Det er kryptert"], answer: 1,
@@ -895,7 +899,7 @@
             "Nei: det er phishing, ikke innsamling fra åpne kilder."] } },
       { key: "ov-angrep-10", inspera: { type: "F1", regelTekst: "Ett poeng for riktig svar, ellers null.",
           regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
-          alternativer: ["Passordspraying", "Uttømmende søk / ordlisteangrep mot én konto", "Kommandoinjeksjon", "Falsk alarm"],
+          alternativer: ["Passordspraying", "Passordgjetting (ordliste / brute force) mot én konto", "Kommandoinjeksjon", "Falsk alarm"],
           svar: 1,
           explain: [
             "Nei: spraying er ett passord mot mange brukere. Her er det mange passord mot én bruker.",

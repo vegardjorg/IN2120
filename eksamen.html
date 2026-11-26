@@ -7,9 +7,10 @@
   <title>Øv på et helt sett · IN2120</title>
   <meta name="description" content="Øv på et helt eksamenssett i IN2120 (H2021–H2025) med Inspera-oppgavetypene og eksamens egen poengregel.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme')||'light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level')||'normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126a">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126d">
   <style>
     .sett-bar { display: flex; flex-wrap: wrap; gap: var(--d-sm); align-items: center; margin: var(--d-sm) 0; }
     /* Bare én linje er klebrig (A7, UI/UX 2026-11-26). Tidtaker og nullstilling står under og ruller med. */
@@ -24,15 +25,20 @@
     .sett-tid { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
     .sett-del { margin-top: var(--d-lg); }
     .sett-forside { font-size: var(--text-sm); }
+    /* Eksamensmodus / Øvingsmodus (in2120:eksamen-modus). Eksamensmodus låser «Svar med en gang» (data-straks="av" på <body>). */
+    .sett-modus { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 var(--d-sm); }
+    .sett-modus .level-seg { max-width: 100%; }
+    .sett-modus-txt { font-size: var(--text-sm); color: var(--color-on-surface-variant); flex: 1 1 14rem; min-width: 0; }
   </style>
 </head>
-<body data-page="eksamen">
+<body data-page="eksamen" data-straks="av">
   <a class="skip-link" href="#main">Hopp til innhold</a>
   <header id="topnav"></header>
 
   <main id="main" class="wrap">
     <div class="pagehead">
       <h1>Øv på et helt sett</h1>
+      <div class="sett-modus" id="sett-modus"></div>
       <p class="lead">Velg et år og løs settet slik det sto i Inspera. Oppgavene som rettes automatisk, rettes med arkets egen poenglinje
         (minuspoeng for feil, men aldri under 0 per oppgave). Fritekst vurderer du selv mot «Perfekt svar» og sensors retteinstrukser.</p>
     </div>
@@ -43,22 +49,24 @@
 
   <footer class="footer">IN2120-guide · laget for eksamensøving · fungerer frakoblet (file://) og på GitHub Pages.</footer>
 
-  <script src="assets/js/core.js?v=20261126a"></script>
-  <script src="assets/js/symboler.js?v=20261126a"></script>
-  <script src="assets/js/inspera.js?v=20261126a"></script>
-  <script src="assets/js/bank.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126a"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126a"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126a"></script>
+  <script src="assets/js/core.js?v=20261126d"></script>
+  <script src="assets/js/symboler.js?v=20261126d"></script>
+  <script src="assets/js/begreper-data.js?v=20261126d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126d"></script>
+  <script src="assets/js/inspera.js?v=20261126d"></script>
+  <script src="assets/js/bank.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126d"></script>
   <script>
   (function () {
     var IN = window.IN, el = IN.el, B = window.IN_EXAM_BANK || {};
@@ -67,6 +75,62 @@
     var KEY_Y = "in2120:sett:aar", timer = null;
     function num(x) { return String(Math.round(x * 100) / 100).replace(".", ","); }
 
+    /* ---------- Eksamensmodus / Øvingsmodus ----------
+       Standard er eksamensmodus: <body data-straks="av">, og «Svar med en gang» i nivålinja er låst. Øvingsmodus fjerner
+       attributtet, så bryteren virker som på blokksidene. core.js merker endringen og sender in:svar-straks, så kort som
+       står åpne, tegner seg på nytt uten omlasting. Trykk på den låste bryteren gir en bekreftelsesdialog (IN.bekreft). */
+    var KEY_M = "in2120:eksamen-modus", curY = null;
+    var MODI = [["eksamen", "Eksamensmodus"], ["ovelse", "Øvingsmodus"]];
+    var mBox = IN.qs("#sett-modus");
+    var mSeg = el("div", { class: "level-seg", role: "radiogroup", "aria-label": "Modus" });
+    var mTxt = el("p", { class: "sett-modus-txt", "aria-live": "polite" });
+    var mBtns = MODI.map(function (m) {
+      var b = el("button", { class: "seg-btn", type: "button", role: "radio", "data-m": m[0], text: m[1],
+        onclick: function () { velgModus(m[0], b); } });
+      mSeg.appendChild(b); return b;
+    });
+    mBox.appendChild(mSeg); mBox.appendChild(mTxt);
+    mSeg.addEventListener("keydown", function (e) {
+      var d = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var i = (MODI.map(function (m) { return m[0]; }).indexOf(modus()) + d + MODI.length) % MODI.length;
+      velgModus(MODI[i][0], mBtns[i]);
+    });
+    function modus() { return IN.store.get(KEY_M, "eksamen") === "ovelse" ? "ovelse" : "eksamen"; }
+    function timerGaar() { return !!(curY && +IN.store.get("in2120:sett:" + curY + ":start", "0")); }
+    function settModus(m) {
+      IN.store.set(KEY_M, m);
+      if (m === "eksamen") document.body.setAttribute("data-straks", "av"); else document.body.removeAttribute("data-straks");
+      mBtns.forEach(function (b) {
+        var on = b.getAttribute("data-m") === m;
+        b.classList.toggle("on", on); b.setAttribute("aria-checked", on ? "true" : "false"); b.tabIndex = on ? 0 : -1;
+      });
+      mTxt.textContent = m === "eksamen"
+        ? "Som på eksamen: ingen fasit før du retter. «Svar med en gang» er låst."
+        : "Øvingsmodus: «Svar med en gang» i linja øverst virker som på blokksidene.";
+    }
+    function dialogTekst() {
+      return "<p>Da kan du få se fasit underveis. Ikke bruk det hvis du simulerer eksamen.</p>" +
+        (timerGaar() ? "<p><b>Tidtakeren går.</b> Den fortsetter, men settet er ikke lenger en ærlig eksamensøving.</p>" : "");
+    }
+    function sporOvelse(retur) {
+      return IN.bekreft({ tittel: "Bytte til øvingsmodus?", tekst: dialogTekst(), ja: "Bytt til øvingsmodus", nei: "Avbryt", fokusNei: true, retur: retur });
+    }
+    function velgModus(m, b) {
+      if (m === modus()) { if (b) b.focus(); return; }
+      if (m === "ovelse" && timerGaar()) {        // bevisst valg, men tidtakeren går: spør først
+        sporOvelse(b).then(function (ok) { if (ok) settModus("ovelse"); });
+        return;
+      }
+      settModus(m); if (b) b.focus();
+    }
+    // Trykk på den låste bryteren i nivålinja (eller en lokal kopi): bekreft, bytt modus og slå bryteren på
+    IN.svarStraks.onLaast = function (sw) {
+      sporOvelse(sw).then(function (ok) { if (!ok) return; settModus("ovelse"); IN.svarStraks.set(true); });
+    };
+    settModus(modus());
+
     if (!years.length) { host.appendChild(el("p", { class: "muted", text: "Eksamensbanken er ikke lastet ennå." })); return; }
 
     years.forEach(function (y) {
@@ -74,6 +138,7 @@
     });
 
     function show(y) {
+      curY = y;
       IN.store.set(KEY_Y, y);
       IN.qsa("button", bar).forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-y") === y ? "true" : "false"); });
       if (timer) { clearInterval(timer); timer = null; }

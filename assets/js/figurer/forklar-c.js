@@ -147,7 +147,7 @@
   IN.FORKLAR["skall-zt"] = function (host) {
     var hh = ramme(host, "skall-zt", lenke("https://pages.nist.gov/zero-trust-architecture/glossary.html", "NIST ZTA-ordlista (PDP, PEP, PE, PA)") + " · " +
       lenke("https://pages.nist.gov/zero-trust-architecture/VolumeB/architecture.html", "NIST ZTA Volume B, «core components» og forespørselsflyten") + " · kursets ord (d09 s. 2–4)",
-      "middels – lagdelt forsvar og zero trust har kommet som nedtrekk (H2023 11 ≈ H2024 10); PEP og PDP i zero trust er ikke spurt om.");
+      "lav – lagdelt forsvar har bare vært et feilalternativ (H2023 9); zero trust, PEP og PDP er ikke spurt om (H2021–H2025).");
     if (!hh) return;
     var c = F().celler(hh, 2, { kol: 2 });
 
@@ -209,7 +209,7 @@
   IN.FORKLAR["faktorer"] = function (host) {
     var hh = ramme(host, "faktorer", lenke("https://pages.nist.gov/800-63-4/sp800-63b/authenticators/", "NIST SP 800-63B-4 §3.1 og §3.2.3") +
       " · kursets inndeling (BA, t07)",
-      "middels – faktorene inngår i passord- og MFA-oppgavene (H2021 6.1, H2022 8.1, H2023 9), sjelden som egen oppgave.");
+      "middels – sjelden direkte; nærmest kommer autentiseringsenhetene i H2021 6.3 og 1-faktor i silo-domener (H2023 34).");
     if (!hh) return;
     var s = F().svg(hh, { w: 340, h: 330, maks: 480, tittel: "Tre autentiseringsfaktorer",
       desc: "Tre kolonner. Noe du vet: passord, PIN. Noe du har: kodebrikke, kort, telefon med BankID-app eller SMS. Noe du er: fingeravtrykk, ansikt, og stiplet: noe du gjør, som stemme og tastetrykk. To ulike kategorier gir MFA. Passord og PIN er to ganger vet, altså ikke MFA. Passord på lapp: vet eller har, begge godtas." });
