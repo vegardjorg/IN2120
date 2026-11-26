@@ -93,35 +93,88 @@
   function gjerder(host) {
     host = H(host); if (!host) return;
     var root = el("div", { class: "gr-viz gr-gjerder" });
-    var info = el("p", { class: "gr-note", text: "Velg et ord, og klikk så på feltet under figuren der det hører hjemme." });
+    var START = "Trykk på et ord, og velg så figuren i panelet som åpnes. Du kan også trykke rett på feltet under en figur.";
+    var info = el("p", { class: "gr-note", text: START });
+    var live = el("p", { class: "gr-live", "aria-live": "polite" });
     var pool = el("div", { class: "gr-row gr-pool", role: "group", "aria-label": "Ord du kan plassere" });
     var grid = el("div", { class: "gr-figs" });
     var tabHost = el("div");
-    var valgt = null, ord = ["Sikkerhet", "Trygghet", "Visshet"], placed = {}, wordBtns = {};
-    root.appendChild(info); root.appendChild(pool); root.appendChild(grid); root.appendChild(tabHost);
-    root.appendChild(el("div", { class: "gr-row" }, [btn("↺ Nullstill", function () { valgt = null; ord = ["Sikkerhet", "Trygghet", "Visshet"]; placed = {}; paint(); })]));
+    var ORD3 = ["Sikkerhet", "Trygghet", "Visshet"];
+    var valgt = null, ord = [], placed = {}, panelMsg = null, sist = null, tomFig = null;
+    /* Ordene i tilfeldig rekkefølge, så de ikke står i samme rekkefølge som figurene */
+    function stokk() {
+      ord = ORD3.slice();
+      for (var i = ord.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = ord[i]; ord[i] = ord[j]; ord[j] = x; }
+    }
+    root.appendChild(info); root.appendChild(live); root.appendChild(pool); root.appendChild(grid); root.appendChild(tabHost);
+    root.appendChild(el("div", { class: "gr-row" }, [btn("↺ Nullstill", function () { valgt = null; placed = {}; panelMsg = sist = tomFig = null; stokk(); info.textContent = START; paint(); })]));
 
-    function paint() {
-      clear(pool); wordBtns = {};
+    function synlig(f) { return !(f.id === "d" && ord.indexOf("Garanti") < 0); }
+    var HINT = "Spør deg selv: finnes det en motstander? Handler det om å vite noe? Eller om tillit til et tiltak?";
+    /* Legg valgt ord på figuren f. Riktig lukker panelet og gir kvittering der ordet sto. */
+    function plasser(f) {
+      var w = valgt;
+      placed[f.id] = w; tomFig = null;
+      if (w === f.svar) {
+        valgt = null; panelMsg = null;
+        var tre = ["a", "b", "c"].every(function (id) { var g = FIG.filter(function (x) { return x.id === id; })[0]; return placed[id] === g.svar; });
+        var neste = "";
+        if (tre && ord.indexOf("Garanti") < 0) { ord.push("Garanti"); neste = " Trinn to: en fjerde figur og et fjerde ord dukker opp."; info.textContent = "Trinn to: en fjerde figur og et fjerde ord dukker opp."; }
+        else info.textContent = "Riktig.";
+        var alle = FIG.every(function (x) { return placed[x.id] === x.svar; });
+        sist = { w: w, html: "<b>Riktig:</b> «" + f.navn + "» er " + w.toLowerCase() + "." + neste + (alle ? " Alle riktig. Oppsummeringen står under figurene." : "") };
+        live.textContent = "Riktig: " + f.navn + " er " + w.toLowerCase() + "." + neste;
+      } else {
+        panelMsg = "Ikke «" + f.navn.toLowerCase() + "». " + HINT;
+        info.textContent = "Ikke riktig ennå. Prøv et annet ord.";
+        live.textContent = panelMsg;
+      }
+    }
+    function velg(w) { valgt = valgt === w ? null : w; panelMsg = null; sist = null; tomFig = null; paint(valgt != null); }
+    function panel() {
+      var p = el("div", { class: "gr-pick", role: "group", "aria-label": "Plasser «" + valgt + "»" });
+      var r = el("div", { class: "gr-pick-r" }, [el("span", { class: "gr-pick-l", text: "Figur" })]);
+      FIG.forEach(function (f) {
+        if (!synlig(f) || placed[f.id] === f.svar) return;
+        var b = el("button", { type: "button", class: "btn sm gr-pick-b", text: f.navn, onclick: function () { plasser(f); paint(true); } });
+        press(b, false); r.appendChild(b);
+      });
+      p.appendChild(r);
+      p.appendChild(panelMsg ? el("p", { class: "gr-pick-msg", text: panelMsg }) : el("p", { class: "gr-pick-msg muted", text: "Hvilken figur hører «" + valgt + "» til?" }));
+      return p;
+    }
+    function paint(fokus) {
+      clear(pool);
       ord.forEach(function (w) {
         var used = FIG.some(function (f) { return placed[f.id] === w && w === f.svar; });
-        var b = btn(w, function () { valgt = valgt === w ? null : w; paint(); }, "gr-word");
+        var b = btn(w, function () { velg(w); }, "gr-word");
         press(b, valgt === w); if (used) { b.disabled = true; b.classList.add("gr-used"); }
-        wordBtns[w] = b; pool.appendChild(b);
+        pool.appendChild(b);
+        if (valgt === w) pool.appendChild(panel());
+        if (sist && sist.w === w) pool.appendChild(el("p", { class: "gr-kvitt", tabindex: "-1", html: sist.html }));
       });
+      if (fokus) {
+        var fb = pool.querySelector(".gr-pick .btn") || pool.querySelector(".gr-kvitt");
+        if (fb) fb.focus({ preventScroll: true });
+      }
       clear(grid);
       FIG.forEach(function (f) {
-        if (f.id === "d" && ord.indexOf("Garanti") < 0) return;
+        if (!synlig(f)) return;
         var p = placed[f.id], ok = p && p === f.svar;
         var fig = el("figure", { class: "gr-fig" + (ok ? " ok" : p ? " nei" : "") });
         fig.appendChild(drawFig(f.id));
         fig.appendChild(el("figcaption", { class: "small", text: f.navn }));
         var slot = el("button", { class: "gr-slot", type: "button", "aria-label": "Felt for " + f.navn + (p ? ": " + p : ": tomt"),
           text: p ? (ok ? "✓ " : "✗ ") + p : "…",
-          onclick: function () { if (ok) return; if (!valgt) { info.textContent = "Velg et ord først."; return; } placed[f.id] = valgt; valgt = null; check(f); paint(); } });
+          onclick: function () {
+            if (ok) return;
+            if (!valgt) { tomFig = f.id; info.textContent = "Velg et ord først."; paint(); return; }
+            plasser(f); paint();
+          } });
         fig.appendChild(slot);
         if (ok) fig.appendChild(el("p", { class: "gr-why small", text: f.why }));
-        else if (p) fig.appendChild(el("p", { class: "gr-why small", text: "Ikke helt. Spør deg selv: finnes det en motstander? Handler det om å vite noe? Eller om tillit til et tiltak?" }));
+        else if (tomFig === f.id) fig.appendChild(el("p", { class: "gr-why small", text: "Velg et ord først (over figurene)." }));
+        else if (p) fig.appendChild(el("p", { class: "gr-why small", text: "Ikke helt. " + HINT }));
         grid.appendChild(fig);
       });
       clear(tabHost);
@@ -139,11 +192,7 @@
         tabHost.appendChild(el("div", { class: "table-wrap" }, [t]));
       }
     }
-    function check(f) {
-      var tre = ["a", "b", "c"].every(function (id) { var g = FIG.filter(function (x) { return x.id === id; })[0]; return placed[id] === g.svar; });
-      if (tre && ord.indexOf("Garanti") < 0) { ord.push("Garanti"); info.textContent = "Trinn to: en fjerde figur og et fjerde ord dukker opp."; }
-      else info.textContent = placed[f.id] === f.svar ? "Riktig." : "Ikke riktig ennå. Prøv et annet ord.";
-    }
+    stokk();
     paint();
     clear(host); host.appendChild(root);
   }

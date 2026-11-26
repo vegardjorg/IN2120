@@ -21,6 +21,17 @@
   background-image: linear-gradient(var(--state-hover), var(--state-hover));
 }
 .bt:focus { outline: none; }
+
+/* Vanlige begreper i øvinger (bt-etter, se begrep-tips.js): ser ut som vanlig tekst til øvingen er besvart,
+   så understreken ikke peker ut nøkkelordet. Etter svar får de samme prikkede understrek som ellers. */
+.bt-etter { cursor: inherit; text-decoration: none; }
+.bt-etter:hover { background-image: none; }
+.qz-item.answered .bt-etter, .qz-item.is-right .bt-etter, .qz-item.is-wrong .bt-etter, .qz-item.is-blank .bt-etter,
+.insp:has(.insp-sum) .bt-etter, .et-pane:has(.insp-sum) .bt-etter,
+.ov:has(.ov-losn:not([hidden])) .bt-etter, .dra:has(.dra-fasit:not([hidden])) .bt-etter {
+  cursor: help; text-decoration: underline dotted; text-decoration-thickness: 1px; text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
 .bt:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 
 /* Tipset: samme boks som #pc-tip/#sym-tip, smal nok for 360 px */

@@ -228,14 +228,19 @@
   function kategorier(host) {
     host = host$(host);
     if (!host) return null;
-    var placed = {}, sel = null;
+    var placed = {}, sel = null, cSel = null, rSel = null, panelMsg = null, sist = null, feilRute = null, order = [];
+    var START = "Trykk på en ordning, og velg så navnerom og autentisering i panelet som åpnes. Du kan også trykke «Plasser her» i tabellen.";
     var wrap = el("div", { class: "iam-kat" });
     var chips = el("div", { class: "btn-row iam-chips", role: "group", "aria-label": "Ordninger som skal plasseres" });
     var tw = el("div", { class: "iam-tw" }), tab = el("table", { class: "iam-2x2" });
     var msg = el("p", { class: "iam-msg small", "aria-live": "polite" });
+    function stokk() {
+      order = ORDNINGER.map(function (o, i) { return i; });
+      for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = order[i]; order[i] = order[j]; order[j] = x; }
+    }
     var tools = el("div", { class: "btn-row" }, [
-      el("button", { class: "btn sm", type: "button", text: "Vis fasit", onclick: function () { ORDNINGER.forEach(function (o, i) { placed[i] = true; }); sel = null; paint(); say("Alle ordningene er plassert.", ""); } }),
-      el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { placed = {}; sel = null; paint(); say("Velg en ordning, og trykk på ruta der den hører hjemme.", ""); } })
+      el("button", { class: "btn sm", type: "button", text: "Vis fasit", onclick: function () { ORDNINGER.forEach(function (o, i) { placed[i] = true; }); sel = cSel = rSel = panelMsg = sist = null; paint(); say("Alle ordningene er plassert.", ""); } }),
+      el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { placed = {}; sel = cSel = rSel = panelMsg = sist = null; stokk(); paint(); say(START, ""); } })
     ]);
     var cells = [];
     tab.appendChild(el("thead", {}, [el("tr", {}, [el("th", { text: "" })].concat(KOL.map(function (k) { return el("th", { scope: "col", text: k }); })))]));
@@ -254,39 +259,86 @@
     });
     tab.appendChild(tb); tw.appendChild(tab);
     function say(t, cls) { msg.className = "iam-msg small" + (cls ? " " + cls : ""); msg.innerHTML = t; }
+    function hintFor(o, r, c) {
+      return o.c !== c ? "Se på navnerommet: forvalter én aktør identifikatorene, eller mange?" : "Se på autentiseringen: kan flere aktører autentisere den samme brukeren?";
+    }
+    /* Prøv å plassere valgt ordning i (autentisering r, navnerom c). Returnerer true ved riktig. */
+    function proev(r, c) {
+      var o = ORDNINGER[sel];
+      if (o.r === r && o.c === c) {
+        placed[sel] = true;
+        sist = { i: sel, html: "<b>Riktig: " + esc(o.n) + "</b> har " + KOL[c].toLowerCase() + " og " + RAD[r].toLowerCase() + ". " + o.d };
+        sel = cSel = rSel = panelMsg = null;
+        return true;
+      }
+      panelMsg = "Ikke der. " + hintFor(o, r, c);
+      return false;
+    }
     function drop(r, c) {
       if (sel == null) { say("Velg først en ordning i lista over tabellen.", ""); return; }
       var o = ORDNINGER[sel];
-      if (o.r === r && o.c === c) {
-        placed[sel] = true; sel = null; paint();
-        say("<b>Riktig: " + esc(o.n) + ".</b> " + o.d, "ok");
-      } else {
-        var hint = o.c !== c ? "Se på navnerommet: forvalter én aktør identifikatorene, eller mange?" : "Se på autentiseringen: kan flere aktører autentisere den samme brukeren?";
-        say("<b>Ikke der.</b> " + hint, "feil");
+      if (proev(r, c)) { feilRute = null; say("<b>Riktig: " + esc(o.n) + ".</b> " + o.d, "ok"); }
+      else {
+        say("<b>Ikke der.</b> " + hintFor(o, r, c), "feil");
+        feilRute = r + "," + c;
+        setTimeout(function () { feilRute = null; cells.forEach(function (cl) { cl.td.classList.remove("iam-cell-feil"); }); }, 1400);
       }
+      paint();
     }
-    function paint() {
+    function vurder() {
+      if (cSel != null && rSel != null) { var ok = proev(rSel, cSel); if (!ok) cSel = rSel = null; }
+      else panelMsg = null;
+      if (sel == null) say("", ""); /* riktig: kvitteringen står der ordningen sto */
+      paint(true);
+    }
+    function panel() {
+      var o = ORDNINGER[sel];
+      var p = el("div", { class: "iam-pick", role: "group", "aria-label": "Plasser «" + o.n + "»" });
+      function rad(navn, cur, on) {
+        var row = el("div", { class: "iam-pick-r" }, [el("span", { class: "iam-pick-l", text: navn })]);
+        ["Sentralisert", "Distribuert"].forEach(function (t, i) {
+          row.appendChild(el("button", { type: "button", class: "btn sm", text: t, "aria-pressed": cur === i ? "true" : "false", onclick: function () { on(i); } }));
+        });
+        return row;
+      }
+      p.appendChild(rad("Navnerom", cSel, function (i) { cSel = i; vurder(); }));
+      p.appendChild(rad("Autentisering", rSel, function (i) { rSel = i; vurder(); }));
+      p.appendChild(panelMsg ? el("p", { class: "iam-pick-msg feil", text: panelMsg }) : el("p", { class: "iam-pick-msg muted", text: "Velg både navnerom og autentisering." }));
+      return p;
+    }
+    function paint(fokus) {
       clear(chips);
       chips.appendChild(el("span", { class: "small muted", text: "Velg:" }));
       var left = 0;
-      ORDNINGER.forEach(function (o, i) {
-        if (placed[i]) return;
+      order.forEach(function (i) {
+        var o = ORDNINGER[i];
+        if (placed[i]) {
+          if (sist && sist.i === i) chips.appendChild(el("p", { class: "iam-kvitt small", tabindex: "-1", html: sist.html }));
+          return;
+        }
         left++;
         chips.appendChild(el("button", { class: "btn sm", type: "button", text: o.n, "aria-pressed": sel === i ? "true" : "false",
-          onclick: function () { sel = sel === i ? null : i; paint(); if (sel != null) say("Hvor hører <b>" + esc(o.n) + "</b> hjemme? Trykk på ruta.", ""); } }));
+          onclick: function () { sel = sel === i ? null : i; cSel = rSel = panelMsg = null; sist = null; paint(sel != null); if (sel != null) say("Hvor hører <b>" + esc(o.n) + "</b> hjemme? Velg i panelet, eller trykk «Plasser her» i tabellen.", ""); } }));
+        if (sel === i) chips.appendChild(panel());
       });
       if (!left) chips.appendChild(el("span", { class: "small", text: "Alle er plassert." }));
+      if (fokus) {
+        var f = chips.querySelector(".iam-pick .btn[aria-pressed=false]") || chips.querySelector(".iam-kvitt");
+        if (f) f.focus({ preventScroll: true });
+      }
       cells.forEach(function (cl) {
         clear(cl.list);
         ORDNINGER.forEach(function (o, i) {
           if (placed[i] && o.r === cl.r && o.c === cl.c) cl.list.appendChild(el("span", { class: "iam-ok", text: o.n, title: o.d }));
         });
         cl.b.hidden = sel == null;
+        cl.td.classList.toggle("iam-cell-feil", feilRute === cl.r + "," + cl.c);
       });
     }
-    wrap.appendChild(chips); wrap.appendChild(tw); wrap.appendChild(msg); wrap.appendChild(tools);
+    wrap.appendChild(chips); wrap.appendChild(msg); wrap.appendChild(tw); wrap.appendChild(tools);
     clear(host); host.appendChild(wrap);
-    say("Velg en ordning, og trykk på ruta der den hører hjemme.", "");
+    say(START, "");
+    stokk();
     paint();
     return { paint: paint };
   }

@@ -49,6 +49,22 @@
 .iam-msg { min-height: 2.6em; margin: .4rem 0; }
 .iam-msg.ok { color: var(--color-on-tone-ok); }
 .iam-msg.feil { color: var(--color-on-tone-danger); }
+/* Velgepanelet rett under valgt ordning, kvitteringen der den sto, og feil rute som blinker (samme mønster som tiltak i blokk 1) */
+.iam-chips { align-items: flex-start; }
+.iam-pick { flex: 1 1 100%; padding: .5rem .6rem; border: 1px solid var(--color-primary); border-radius: var(--radius-md);
+  background: var(--color-surface-container-low); display: flex; flex-direction: column; gap: .4rem; }
+.iam-pick-r { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
+.iam-pick-l { flex: 0 0 7.5rem; font-weight: 600; font-size: var(--text-sm); }
+@media (max-width: 480px) { .iam-pick-l { flex-basis: 100%; } }
+.iam-pick-msg { margin: 0; font-size: var(--text-sm); }
+.iam-pick-msg.feil { color: var(--color-on-tone-danger); }
+.iam-kvitt { flex: 1 1 100%; margin: 0; padding: .35rem .6rem; border-left: 3px solid var(--color-on-tone-ok);
+  background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.iam-kvitt:focus { outline: none; }
+.iam-msg:empty { min-height: 0; margin: 0; }
+.iam-2x2 td.iam-cell-feil { background: var(--color-tone-danger); box-shadow: inset 3px 0 0 var(--color-on-tone-danger); animation: iam-blink .35s 2; }
+@keyframes iam-blink { 50% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .iam-2x2 td.iam-cell-feil { animation: none; } }
 
 /* Bell-LaPadula og ABAC */
 .iam-blp-ctl { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin: .5rem 0; }

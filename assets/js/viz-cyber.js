@@ -134,12 +134,22 @@
       HEND[i].deler.forEach(function (d) {
         txt.appendChild(typeof d === "string" ? document.createTextNode(d) : el("span", { class: "cy-clue cy-k-" + d.k, "data-k": d.k, text: d.t }));
       });
-      cardBtns.forEach(function (b) { press(b, false); b.classList.remove("cy-ok", "cy-feil"); });
+      cardBtns.forEach(function (b) { press(b, false); b.classList.remove("cy-ok", "cy-feil"); merk(b, ""); });
+    }
+    /* Merke i selve kortet, så svaret syns der man trykket (meldingen står under alle tre kortene) */
+    function merk(b, t) {
+      var m = b.querySelector(".cy-akt-dom");
+      if (!t) { if (m) b.removeChild(m); return; }
+      if (!m) { m = el("span", { class: "cy-akt-dom" }); b.insertBefore(m, b.firstChild.nextSibling); }
+      m.textContent = t;
     }
     function svar(i) {
       var h = HEND[cur], ok = i === h.svar;
       wrap.classList.add("cy-svart");
-      cardBtns.forEach(function (b, k) { press(b, k === i); b.classList.toggle("cy-ok", k === h.svar); b.classList.toggle("cy-feil", k === i && !ok); });
+      cardBtns.forEach(function (b, k) {
+        press(b, k === i); b.classList.toggle("cy-ok", k === h.svar); b.classList.toggle("cy-feil", k === i && !ok);
+        merk(b, k === h.svar ? (ok ? "✓ Riktig" : "✓ Riktig nivå") : k === i ? "✗ Ditt valg. Se kortet med ✓." : "");
+      });
       msg.textContent = (ok ? "Riktig: " : "Ikke helt. Riktig er ") + NIVA[h.svar].navn + ". Ledetrådene i teksten har samme farge som raden de hører til på kortet.";
     }
     vis(0);

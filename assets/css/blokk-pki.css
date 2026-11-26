@@ -126,6 +126,9 @@ a.badge { text-decoration: none; }
 .pki-snr { font-weight: 600; margin-right: .3rem; }
 .pki-step-a { margin: .1rem 0 0 1.2em; color: var(--color-on-surface-variant); }
 .pki-step.bad .pki-step-a { color: var(--color-on-tone-danger); }
+.pki-step-dom { margin: .15rem 0 0 1.2em; font-size: var(--text-sm); font-weight: 700; }
+.pki-step-dom.ok { color: var(--color-on-tone-ok); }
+.pki-step-dom.nei { color: var(--color-on-tone-danger); }
 .pki-stepbtn { font: inherit; color: inherit; text-align: left; background: transparent; border: 0; padding: 0; cursor: pointer; width: 100%; }
 .pki-stepbtn:hover { text-decoration: underline; }
 .pki-stepbtn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }

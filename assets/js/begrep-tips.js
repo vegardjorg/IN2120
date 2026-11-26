@@ -8,6 +8,9 @@
    - IN.begrepTips(root) går gjennom TEKSTNODER i root (aldri innerHTML) og pakker
      FØRSTE forekomst av hvert begrep per seksjon/kort inn i <span class="bt" data-bt="id">.
      Seksjon/kort = nærmeste details.examtask, .card, .callout, table, [data-panel], section eller main.
+   - Øvingstekst (påstanden i sant/usant og quiz, Inspera-tekst, øvingsspørsmål) skannes også (EXTXT), men aldri
+     svaralternativer, felt eller fasit. Forkortelser viser bare fullformen før svar; vanlige begreper (bt-etter)
+     er inaktive til øvingen er besvart (besvart()), så tipset ikke røper svaret.
    - Bare vanlig prosa (p, li, td, dd, .callout …) inne i <main>. Aldri i kode,
      terminalutdata, figurer (SVG), lenker, knapper, skjemafelt, overskrifter, quizspørsmål
      og -svar, øvinger (.ov, .dra), Inspera-oppgaver eller eksamenskortets «Oppgave»-fane
@@ -144,17 +147,18 @@
       var ov = ovSet.indexOf(tn) >= 0;
       var text = tn.nodeValue, inf = info(scopeOf(tn.parentNode), ov), s = inf.seen, keep = [];
       hitsIn(text, page, inf.text).forEach(function (h) {
-        if (ov && !LIST[h.id].full) return;                       // øving: bare forkortelser
-        if (!s[h.id]) { s[h.id] = 1; h.ov = ov; keep.push(h); }
+        // Øving: forkortelser viser fullformen med en gang. Vanlige begreper (salt, brannmur …) blir først aktive
+        // når øvingen er besvart (bt-etter), siden selve definisjonen kunne røpe svaret.
+        if (!s[h.id]) { s[h.id] = 1; h.ov = ov; h.etter = ov && !LIST[h.id].full; keep.push(h); }
       });
       if (!keep.length) return;
       var frag = document.createDocumentFragment(), pos = 0;
       keep.forEach(function (h) {
         if (h.i > pos) frag.appendChild(document.createTextNode(text.slice(pos, h.i)));
         var sp = document.createElement("span");
-        sp.className = h.ov ? "bt bt-ov" : "bt";
+        sp.className = h.etter ? "bt bt-ov bt-etter" : h.ov ? "bt bt-ov" : "bt";
         sp.setAttribute("data-bt", h.id);
-        sp.tabIndex = 0;
+        sp.tabIndex = h.etter ? -1 : 0;
         sp.textContent = text.substr(h.i, h.n);
         frag.appendChild(sp);
         pos = h.i + h.n;
@@ -199,6 +203,7 @@
   function show(s, pin) {
     var id = s.getAttribute("data-bt");
     if (!LIST[id]) return;
+    if (s.classList.contains("bt-etter") && !besvart(s)) return;      // vanlig begrep i ubesvart øving: ingen tips ennå
     clearTimeout(st.timer);
     var t = tipEl();
     fill(t, id, s);

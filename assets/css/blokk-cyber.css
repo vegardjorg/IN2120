@@ -42,6 +42,9 @@
 .cy-akt-card[aria-pressed="true"] { box-shadow: inset 0 3px 0 var(--color-primary); }
 .cy-akt-card.cy-ok { box-shadow: inset 0 3px 0 var(--color-on-tone-ok); }
 .cy-akt-card.cy-feil { box-shadow: inset 0 3px 0 var(--color-on-tone-danger); }
+.cy-akt-dom { display: block; font-size: var(--text-sm); font-weight: 700; margin: .1rem 0 .2rem; }
+.cy-akt-card.cy-ok .cy-akt-dom { color: var(--color-on-tone-ok); }
+.cy-akt-card.cy-feil .cy-akt-dom { color: var(--color-on-tone-danger); }
 .cy-akt-t { font-weight: 700; }
 .cy-akt-nr { color: var(--color-on-surface-variant); font-weight: 600; font-size: var(--text-xs); }
 .cy-akt-row { display: flex; flex-direction: column; font-size: var(--text-sm); padding-left: .5rem; border-left: 3px solid transparent; }

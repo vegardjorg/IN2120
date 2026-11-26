@@ -29,6 +29,9 @@
 /* Risikomatrisen */
 .rk-cell rect { stroke: var(--color-surface); stroke-width: 2; cursor: pointer; }
 .rk-cell:hover rect { opacity: .8; }
+.rk-cell.rk-cell-feil rect { fill: var(--color-on-tone-danger); fill-opacity: .45; stroke: var(--color-on-tone-danger); stroke-width: 3; animation: rk-blink .35s 2; }
+@keyframes rk-blink { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .rk-cell.rk-cell-feil rect { animation: none; } }
 .rk-ok rect { fill: var(--color-tone-ok); }
 .rk-warn rect { fill: var(--color-tone-warn); }
 .rk-bad rect { fill: var(--color-tone-danger); }

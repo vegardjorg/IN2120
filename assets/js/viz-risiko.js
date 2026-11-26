@@ -238,7 +238,7 @@
       mk.appendChild(svg("path", { d: "M0,0 L10,5 L0,10 z", class: "rk-arrowhead" }));
       defs.appendChild(mk); s.appendChild(defs);
       for (var sv = 0; sv < N; sv++) for (var k = 0; k < N; k++) {
-        var sum = sv + k, g = svg("g", { class: "rk-cell rk-" + sone(sum), "data-s": sv, "data-k": k });
+        var sum = sv + k, g = svg("g", { class: "rk-cell rk-" + sone(sum) + (st.feil === sv + ":" + k ? " rk-cell-feil" : ""), "data-s": sv, "data-k": k });
         g.appendChild(svg("rect", { x: cellX(k), y: cellY(sv), width: C, height: C }));
         g.appendChild(svg("text", { x: cellX(k) + 5, y: cellY(sv) + 13, class: "rk-sum" }, String(sum)));
         (function (sv2, k2) {
@@ -333,6 +333,7 @@
       if (!st.valgt) { info.innerHTML = "Velg først en risiko (R1–R5) over matrisen."; return; }
       var r = byId(st.valgt), ok = r.s === sv && kvalK(r) === k;
       if (ok) {
+        st.feil = null;
         st.plassert[r.id] = { s: sv, k: k };
         info.innerHTML = "<b>Riktig.</b> " + r.id + " (" + r.navn + ") har s = " + r.s + " og k = " + kvalK(r) +
           (r.aspekterK.length > 1 ? " (største av aspektene " + r.aspekterK.map(function (a) { return a.n + " " + a.k; }).join(", ") + ")" : "") + ", så R = " + kvalR(r) + ".";
@@ -342,6 +343,9 @@
         var hint = r.s !== sv ? "Sannsynligheten stemmer ikke." : "Konsekvensen stemmer ikke.";
         if (r.aspekterK.length > 1 && r.s === sv) hint += " Kvalitativt tar du det <b>største</b> aspektet, ikke summen.";
         info.innerHTML = "<b>Ikke der.</b> " + hint + " Se tabellen for " + r.id + ".";
+        /* Feil rute blinker rødt, så feilen syns der man trykket (meldingen står under matrisen) */
+        st.feil = sv + ":" + k;
+        setTimeout(function () { st.feil = null; var c = s.querySelector(".rk-cell-feil"); if (c) c.classList.remove("rk-cell-feil"); }, 1400);
       }
       paint();
     }

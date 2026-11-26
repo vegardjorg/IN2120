@@ -786,6 +786,12 @@
           li.appendChild(b);
         } else li.appendChild(H("div", "pki-step-q", hode));
         if (tekst) li.appendChild(H("div", "pki-step-a", tekst));
+        /* Oppgavemodus: svaret merkes i selve lista, der man trykket (meldingen står over lista) */
+        if (st.oppg && st.gjett != null && ff >= 0) {
+          var rettG = S2[st.gjett].id === S2[ff].id;
+          if (i === st.gjett) li.appendChild(H("div", "pki-step-dom " + (rettG ? "ok" : "nei"), rettG ? "Ditt valg: riktig, her feiler kjeden." : "Ditt valg. Feilen er i steg " + S2[ff].id + "."));
+          else if (i === ff) li.appendChild(H("div", "pki-step-dom", "← Her feiler kjeden."));
+        }
         liste.appendChild(li);
       });
 
