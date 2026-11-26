@@ -28,7 +28,7 @@
   function t(e, n, k) { return { eli5: e, normal: n, teknisk: k }; }
 
   var LENGDER = [
-    { id: "E", navn: "Ekspress", omtrent: "ca. 3 t", tekst: "Stegene som gir mest poeng per time, med én eller to eksamensoppgaver hver." },
+    { id: "E", navn: "Ekspress", omtrent: "ca. 3 t", tekst: "Stegene som gir mest poeng per time, pluss det nye KI-stoffet, med én eller to eksamensoppgaver hver." },
     { id: "S", navn: "Standard", omtrent: "ca. 1 dag", tekst: "Alle stegene, med 3–5 eksamensoppgaver hver." },
     { id: "G", navn: "Grundig", omtrent: "flere dager", tekst: "Alle stegene og hele eksamensbanken (H2021–H2025)." }
   ];
@@ -101,7 +101,7 @@
 
       { id: "1c", tittel: "Boksfarger og privilegienivåer", vekt: 4, min: "S", tid: 4,
         les: [["angrep", "pentest", "Blokk 4 → Pentest som metode"], ["system", "ringer", "Blokk 5 → Privilegienivåer"]],
-        hvorfor: "Boksfargen i pentest har kommet hvert år fra H2022, og privilegienivåene H2023–H2025. Begge står i del 1.",
+        hvorfor: "Boksfargen i pentest har kommet hvert år fra H2022, og privilegienivåene H2023–H2025. Begge har stått i del 1 siden H2023.",
         kjerne: t(
           "<p>Hvit boks: testeren får vite alt. Svart boks: testeren får vite ingenting. Grå: litt. I datamaskinen har programmene ulike nøkler: vanlige programmer har den svakeste, kjernen en sterkere og hypervisoren den sterkeste.</p>",
           "<p>Svartboks: ingen forhåndsinformasjon, som en ekstern angriper. Hvitboks: full dokumentasjon og kildekode. Gråboks: noe informasjon, for eksempel en vanlig brukerkonto. Privilegienivåer (ringer): 3 er bruker, 0 er kjerne og −1 er hypervisor. Lavere tall gir mer makt.</p>",
@@ -119,7 +119,7 @@
     ] },
 
     /* ===================== 2 · KRYPTOGRAFI OG PKI ===================== */
-    { nr: 2, navn: "Kryptografi og PKI", hvor: "Del 2, 14–20 p", steg: [
+    { nr: 2, navn: "Kryptografi og PKI", hvor: "Del 2, 10–15 p", steg: [
       { id: "2a", tittel: "Hvilken nøkkel? Signatur, MAC og asymmetrisk kryptering", vekt: 5, min: "E", tid: 6,
         les: [["krypto", "signatur", "Blokk 2 → Signatur"], ["krypto", "mac", "MAC"]],
         hvorfor: "Nøkkelvalget kom alle fem år, ofte med ordrett samme tekst. MAC mot signatur kom H2021–H2024.",
@@ -131,7 +131,7 @@
           "Kryptere til Bob: Bobs offentlige nøkkel. Bob dekrypterer med sin private nøkkel.",
           "Signere: avsenders private nøkkel. Verifisere: avsenders offentlige nøkkel.",
           "MAC: felles hemmelig nøkkel. Tredjepart kan ikke validere, og den gir ikke ubenektelighet.",
-          "Stjålet privat nøkkel: tyven kan signere som eieren og lese det som sendes til eieren. Slutt å signere og tilbakekall nøkkelparet.",
+          "Stjålet privat nøkkel: tyven kan signere som eieren og lese det som sendes til eieren. Slutt å signere og tilbakekall nøkkelparet (arket: «revokere den offentlige nøkkelen», det vil si sertifikatet).",
           "Lekker en privat signaturnøkkel, kan eieren benekte signerte meldinger. Lekker den offentlige, skjer ingenting: den er offentlig."
         ],
         feller: [
@@ -170,6 +170,7 @@
           "<p>Svak kollisjonsresistens: gitt x er det vanskelig å finne y ≠ x med H(y) = H(x). Sterk: vanskelig å finne noe par i det hele tatt. H(x) = x + 1 er ikke enveis. Vigenère med alfabet på 29 tegn og nøkkellengde K har 29<sup>K</sup> nøkler og knekkes med frekvensanalyse. AES har 128-, 192- eller 256-bit nøkler. «AES-512» finnes ikke.</p>"),
         kunne: [
           "Fem hashkrav: lett å beregne, komprimering, enveis, svak og sterk kollisjonsresistens.",
+          "Hash brukes til integritetssjekk (f.eks. av nedlastinger), forutsatt at hashverdien selv er beskyttet.",
           "Én endret bit i input endrer omtrent halvparten av bitene i hashen. Å invertere er praktisk umulig, men teoretisk mulig.",
           "Symmetrisk: AES, DES, Caesar. Asymmetrisk: RSA, ECC, DH. Hash: SHA-2, SHA-3. PKI: sertifikater og CA-er.",
           "Kerckhoffs: bare nøkkelen skal være hemmelig. Nøkkelrom: n bit gir 2<sup>n</sup> nøkler, og N nøkler krever log<sub>2</sub>N bit."
@@ -192,7 +193,7 @@
           "Fremoverhemmelighold: en senere lekket langtidsnøkkel avslører ikke gamle økter.",
           "DH (nye verdier per økt) gir fremoverhemmelighold. Hybrid kryptering gjør det ikke.",
           "DH uten signatur er sårbar for mann-i-midten.",
-          "TLS 1.3 bruker bare (EC)DHE og har derfor fremoverhemmelighold."
+          "Fullt TLS 1.3-handtrykk bruker alltid flyktig (EC)DH og gir fremoverhemmelighold (d09 s. 20). Statisk RSA-nøkkeltransport er fjernet. Bare gjenopptak med ren forhåndsdelt nøkkel (PSK) mangler det."
         ],
         feller: [
           "«Hybrid kryptering gir fremoverhemmelighold fordi øktnøkkelen er ny»: samme langtidsnøkkel beskytter alle øktnøklene.",
@@ -206,7 +207,7 @@
         kjerne: t(
           "<p>Et sertifikat er et ID-kort for en nettside. Kortet er stemplet av en CA, som igjen er stemplet av en rot som alle stoler på fra før. Nettleseren sjekker stemplene fra roten og ned.</p>",
           "<p>Et X.509-sertifikat binder et navn til en offentlig nøkkel og er signert av en CA. Kjeden går fra en selvsignert rot-CA via mellomliggende CA til subjektsertifikatet. Rotsertifikatet ligger i nettleseren eller OS-et fra før. Sertifikatet inneholder aldri en privat nøkkel.</p>",
-          "<p>Subjektsertifikatet signeres med den mellomliggende CA-ens <i>private nøkkel</i>, ikke «av sertifikatet». Kryptoperiode = beskyttelsesperiode (kryptere med hemmelig/offentlig, signere med privat) + prosesseringsperiode (dekryptere med hemmelig/privat, validere med offentlig). Kompromittert nøkkel: all beskyttelse stopper, prosessering av gamle data kan tillates. Et gyldig sertifikat gir autentisitet, ikke pålitelighet (tillitsforvirring).</p>"),
+          "<p>Subjektsertifikatet signeres med den mellomliggende CA-ens <i>private nøkkel</i>, ikke «av sertifikatet». Kryptoperioden varer fra start av beskyttelsesperioden (kryptere med hemmelig/offentlig, signere med privat) til slutt av prosesseringsperioden (dekryptere med hemmelig/privat, validere med offentlig). Periodene overlapper, og en nøkkel kan brukes til beskyttelse og/eller prosessering. Kompromittert nøkkel: all beskyttelse stopper, prosessering av gamle data kan tillates. Et gyldig sertifikat gir autentisitet, ikke pålitelighet (tillitsforvirring).</p>"),
         kunne: [
           "Sertifikatsti: rot-CA (selvsignert, i nettleseren) → mellomliggende CA → subjektsertifikat (f.eks. uio.no).",
           "Standarden for sertifikater er X.509. Sertifikatet har offentlig nøkkel, navn, gyldighet og CA-ens signatur.",
@@ -226,7 +227,7 @@
     { nr: 3, navn: "Angrepsvektorer og skadevare", hvor: "Del 3, 10–15 p", steg: [
       { id: "3a", tittel: "Phishing og skadevaretypene", vekt: 5, min: "E", tid: 5,
         les: [["angrep", "skadevare", "Blokk 4 → Skadevare"], ["angrep", "phishing", "Phishing"]],
-        hvorfor: "Phishingtypen kom H2021–H2024, skadevarematrisen alle fem år, og «hvilke rettigheter får skadevaren» H2022 og H2023.",
+        hvorfor: "Phishingtypen kom H2021–H2024, skadevarematrisen H2021–H2024, og «hvilke rettigheter får skadevaren» H2022 og H2023.",
         kjerne: t(
           "<p>Et virus trenger en vert og hjelp fra deg for å spre seg. En orm sprer seg selv. En trojaner later som den er snill. En logisk bombe venter på et bestemt tidspunkt. Phishing er falske meldinger som lurer deg.</p>",
           "<p>Masse-phishing sendes til mange med samme tekst. Spyd-phishing er rettet mot én person eller gruppe, hval-phishing mot ledere og klone-phishing kopierer en ekte melding. Orm: sprer seg selv over nett. Virus: fester seg til en vert. Trojaner: ser nyttig ut, men gjør noe skadelig. Bakdør: skjult vei inn. Logisk bombe: utløses av en betingelse.</p>",
@@ -256,7 +257,8 @@
           "SQL-injeksjon: inndata blir en del av spørringen. Eksempel som alltid er sant: <code>' or 2==2</code>.",
           "Filter på klientsiden er ikke et sikkerhetstiltak. Brukeren kontrollerer det som kjører hos brukeren.",
           "Svartelister omgås med varianter (store bokstaver, mellomrom, synonymer). Hvitelister er bedre.",
-          "Rootkit: isoler, sjekk spredning, finn inngangen, og reinstaller fra rent medium."
+          "Rootkit: isoler, sjekk spredning, finn inngangen, og reinstaller fra rent medium.",
+          "XSS (skripting på tvers av noder) er også injeksjon: angriperens skript havner i en side og kjører i offerets nettleser. Lagret XSS ligger på nettstedet, reflektert XSS kommer tilbake i svaret på en lenke offeret åpner."
         ],
         feller: [
           "H2024 23 C: bare «nei» ga 0,5 av 3 p. Begrunnelsen (brukeren kontrollerer klienten, proxy) gir resten.",
@@ -271,11 +273,11 @@
         kjerne: t(
           "<p>Pentesteren bruker de samme verktøyene som en angriper, men har lov. nmap finner åpne dører, John knekker passord, mimikatz henter passord fra Windows. Uten skriftlig lov er det straffbart.</p>",
           "<p>nmap: portskanning og kartlegging. John the Ripper og hashcat: passordknekking (ordliste og regler). mimikatz: henter passordhasher og legitimasjon fra Windows-minnet. Wireshark: fanger og viser nettverkstrafikk. OSINT (open source intelligence) er etterretning fra åpne kilder i rekognoseringsfasen.</p>",
-          "<p>Sudo-misbruk: har en bruker sudo på et program som kan starte et skall eller lese filer (python3, cat), får brukeren i praksis root, for eksempel ved å lese /etc/shadow. Tiltak: minste privilegium. Straffeloven § 204 (datainnbrudd): bot eller fengsel inntil 2 år. En pentest krever skriftlig tillatelse på forhånd. Mange mislykkede innlogginger mot én konto fra én IP er passordgjetting (arket kaller det «passordspraying»).</p>"),
+          "<p>Sudo-misbruk: har en bruker sudo på et program som kan starte et skall (python3, bash, vim), får brukeren et root-skall direkte. Sudo på et program som leser filer (cat) gir lesetilgang til alt, for eksempel /etc/shadow, og hashene kan så knekkes offline. Tiltak: minste privilegium. Straffeloven § 204 (datainnbrudd): bot eller fengsel inntil 2 år. En pentest krever skriftlig tillatelse på forhånd. Mange mislykkede innlogginger mot én konto fra én IP er passordgjetting (arket kaller det «passordspraying»).</p>"),
         kunne: [
           "nmap = portskanning, John/hashcat = passordknekking, mimikatz = Windows-legitimasjon, Wireshark = trafikkfangst.",
           "OSINT = Open Source Intelligence: informasjon fra åpne kilder, brukt i rekognosering og til målrettet phishing.",
-          "Sudo på python3 eller cat gir i praksis root. Minste privilegium hindrer det.",
+          "Sudo på python3, bash eller vim gir et root-skall direkte. Sudo på cat gir lesetilgang til alt, f.eks. /etc/shadow, og hashene kan knekkes offline. Minste privilegium hindrer det.",
           "§ 204: datainnbrudd straffes med bot eller fengsel inntil 2 år. Pentest krever skriftlig tillatelse på forhånd."
         ],
         feller: [
@@ -287,14 +289,14 @@
     ] },
 
     /* ===================== 4 · NETTVERKSSIKKERHET ===================== */
-    { nr: 4, navn: "Nettverkssikkerhet", hvor: "Del 4, 14–20 p", steg: [
+    { nr: 4, navn: "Nettverkssikkerhet", hvor: "Del 4, 10–20 p", steg: [
       { id: "4a", tittel: "Protokoll → lag, porter og kryptert eller ukryptert", vekt: 5, min: "E", tid: 5,
         les: [["nettverk", "lag", "Blokk 9 → Lag og porter"]],
         hvorfor: "«Protokoll → lag» kom H2021, H2022, H2024 og H2025. H2024 28 alene ga 6 p.",
         kjerne: t(
           "<p>Nettet er bygd i etasjer. Øverst er appen du bruker, nederst ledningen. Hver protokoll bor i én etasje. Noen protokoller låser innholdet (SSH), andre sender alt i klartekst (Telnet).</p>",
           "<p>Internettstakken ovenfra: applikasjon, transport, internett (IP), link, fysisk. OSI har sju lag: applikasjon, presentasjon, sesjon, transport, nettverk, link, fysisk. Internettets applikasjonslag dekker OSI 7–5. ARP ligger i linklaget, IP i internettlaget, TCP og UDP i transportlaget og HTTP i applikasjonslaget.</p>",
-          "<p>Kursets plassering av TLS: TLS Handshake i applikasjonslaget, TLS Record i transportlaget. IPsec ligger i IP-laget og har ikke port. Porter: 21 FTP, 22 SSH, 23 Telnet, 80 HTTP, 443 HTTPS, 3389 RDP. Kryptert: SSH, RDP, HTTPS. Ukryptert: Telnet, HTTP, FTP, ARP.</p>"),
+          "<p>Kursets plassering av TLS: TLS Handshake i applikasjonslaget, TLS Record i transportlaget. IPsec ligger i IP-laget og har ikke port. Porter: 21 FTP, 22 SSH, 23 Telnet, 80 HTTP, 443 HTTPS, 3389 RDP. Kryptert: SSH, RDP, HTTPS. Ukryptert: Telnet, HTTP, FTP, ARP. Kursfiguren i H2025 22 har i tillegg «App» (brukerprogrammet, f.eks. Outlook) over applikasjonslaget.</p>"),
         kunne: [
           "Internettstakken: applikasjon, transport, internett, link, fysisk. OSI: 7 applikasjon … 1 fysisk.",
           "ARP = link, IP = internett, TCP/UDP = transport, HTTP/Telnet/DNS = applikasjon. IPsec = IP-laget.",
@@ -320,7 +322,7 @@
           "TLS-stripping: mann-i-midten nedgraderer til HTTP. HSTS hindrer det, men ikke ved første besøk uten preload.",
           "IPsec: ESP i transportmodus (bare nyttelasten) eller tunnelmodus (hele pakken pakkes inn). Brukes til VPN.",
           "Tor: tre lag kryptering. Innerste lag tilhører utgangsnoden, ytterste inngangsnoden.",
-          "TLS 1.3 har bare (EC)DHE-nøkkelutveksling og dermed fremoverhemmelighold."
+          "Fullt TLS 1.3-handtrykk bruker alltid flyktig (EC)DH og gir fremoverhemmelighold (d09 s. 20). Statisk RSA-nøkkeltransport er fjernet. Bare gjenopptak med ren forhåndsdelt nøkkel (PSK) mangler det."
         ],
         feller: [
           "«HSTS beskytter alltid»: ikke første gang, uten preload.",
@@ -356,20 +358,20 @@
         hvorfor: "IDS og Snort kom H2023, H2024 og H2025. H2025 hadde to fritekstoppgaver (5 p), og H2024 spurte om mørke IP-adresser (4 p).",
         kjerne: t(
           "<p>En IDS er en alarm. Signaturbasert alarm kjenner igjen kjente tyver. Anomalibasert alarm reagerer på alt som er uvanlig, også nye triks, men den hyler oftere uten grunn.</p>",
-          "<p>IDS oppdager, IPS blokkerer. Signaturbasert IDS (som Snort) sammenligner trafikk med kjente mønstre og finner ikke nye angrep. Anomalibasert IDS lærer hva som er normalt, ofte med maskinlæring, og kan finne ukjente angrep, men gir flere falske alarmer. Mørke IP-adresser er ubrukte adresser: all trafikk dit er mistenkelig.</p>",
+          "<p>IDS oppdager, IPS blokkerer. Signaturbasert IDS (som Snort) sammenligner trafikk med kjente mønstre og finner ikke nye angrep. Anomalibasert IDS lærer hva som er normalt, ofte med maskinlæring, og kan finne ukjente angrep, men gir flere falske alarmer. Mørke IP-adresser er ubrukte adresser og en billig honeypot-løsning (d09 s. 71): all trafikk dit er illegitim, så de brukes til deteksjon.</p>",
           "<p>Snort-regel: handling, protokoll, kilde-IP, kildeport, retning, mål-IP, målport, (opsjoner). Eksempel: <code>alert tcp 10.10.23.23 22 -&gt; any any (msg:\"SSH fra DC\"; sid:1000001; rev:1;)</code>. Sensor H2025: feil retning gir 0 p. Mangler «alert», «tcp» eller riktig port, trekkes det ett poeng.</p>"),
         kunne: [
           "IDS oppdager, IPS stopper. NIDS ser nettverket, HIDS ser én maskin.",
           "Signaturbasert: kjente mønstre, få falske alarmer, finner ikke nulldager. Anomalibasert: avvik fra normalen, ofte maskinlæring, flere falske alarmer.",
           "Snort: <code>alert tcp KILDE PORT -&gt; MÅL PORT (msg:\"…\"; sid:…;)</code>.",
-          "Mørke IP-adresser er ubrukte. Trafikk dit kommer fra skanning eller ormer og er lett å oppdage."
+          "Mørke IP-er = en billig honeypot-løsning. Formål: deteksjon. All trafikk dit er illegitim, så den avslører skanning og kompromitterte klienter i eget nett (H2024 29: 1 p for hvert av de fire punktene)."
         ],
         feller: [
           "Å bytte kilde og mål i Snort-regelen. Feil retning ga 0 p på H2025.",
           "H2025 20: fasiten har SSH-porten som kildeport. Les hvem som er klient og hvem som er tjener."
         ],
         fig: ["H2024-27"],
-        forklar: ["nids-plassering"],
+        forklar: ["nids-plassering", "nulldag"],
         kort: { E: ["H2025-20", "H2024-27"], S: ["H2025-21", "H2023-31"], G: ["H2024-29"] } }
     ] },
 
@@ -396,11 +398,11 @@
 
       { id: "5b", tittel: "Passnøkler, faktorer, garantinivå og biometri", vekt: 4, min: "E", tid: 6,
         les: [["autentisering", "fido", "Blokk 7 → FIDO og passnøkler"], ["autentisering", "biometri", "Biometri"]],
-        hvorfor: "FIDO og passnøkler kom H2022, H2023 og H2025 (8 p i H2025). eID og garantinivå kom H2021, H2022 og H2024, biometri H2021 og H2022.",
+        hvorfor: "FIDO og passnøkler kom H2022, H2023 og H2025 (8 p i H2025). eID og garantinivå kom H2021, H2022, H2024 og H2025 (NIST AL3), biometri H2021 og H2022.",
         kjerne: t(
           "<p>En passnøkkel er en hemmelig nøkkel som bor i telefonen din og bare virker på den ekte nettsiden. En falsk side får ingenting. Fingeren din låser bare opp telefonen. Den sendes ikke til nettsiden.</p>",
           "<p>Faktorene er noe du vet, noe du har og noe du er. MFA krever minst to ulike kategorier. En passnøkkel (FIDO/WebAuthn) er et privat nøkkelpar per domene. Tjeneren sender en utfordring, autentikatoren signerer den med den private nøkkelen, og tjeneren verifiserer med den offentlige. Domenet er bundet inn, så passnøkler er phishingresistente.</p>",
-          "<p>Garantinivå: eIDAS har lav, betydelig og høy. NIST har AAL1–3. MinID er på nivå betydelig, BankID og Buypass på høy. Synkroniserte passnøkler (via passordbanken) er ikke bundet til én enhet og regnes ikke som AAL3. Biometri: FMR = feilaktig match, FNMR = feilaktig ikke-match. Lav terskel gir høy FMR. EER er der de er like. PAD oppdager falske fingre.</p>"),
+          "<p>Garantinivå: eIDAS har lav, betydelig og høy. NIST har AAL1–3. MinID er på nivå betydelig, BankID og Buypass på høy. Synkroniserte passnøkler (via passordbanken) er ikke bundet til én enhet og regnes ikke som AAL3. H2021 6.4 (RAU 2008 og NIST 800-63-3) er eldre stoff og utenfor pensum H2026. Biometri: FMR = feilaktig match, FNMR = feilaktig ikke-match. Lav terskel gir høy FMR. EER er der de er like. PAD oppdager falske fingre.</p>"),
         kunne: [
           "Faktorer: vet, har, er. MFA = minst to ulike kategorier.",
           "Passnøkkel: utfordring signeres med privat nøkkel per domene. Den offentlige nøkkelen ligger hos tjenesten. Phishingresistent.",
@@ -418,7 +420,7 @@
 
       { id: "5c", tittel: "IAM: faser, føderering, OIDC/OAuth og tilgangsmodeller", vekt: 4, min: "S", tid: 6,
         les: [["iam", "faser", "Blokk 8 → IAM-faser og begreper"], ["iam", "oidc", "OIDC, FEIDE og ID-porten"], ["iam", "tk", "Tilgangskontrollmodeller"]],
-        hvorfor: "IAM-fasene kom H2021–H2023 og OIDC-rekkefølgen H2021 og H2024. Mye IAM i H2021–H2023 (11–14 p), nesten ingenting i H2025.",
+        hvorfor: "IAM-fasene kom H2021–H2023 og OIDC-rekkefølgen H2021 og H2024. Mye IAM i H2021–H2023 (11–14 p), 3 p i H2024 og ingenting i H2025.",
         kjerne: t(
           "<p>Først skriver noen ned hvem som får gå hvor (autorisering). Når du så kommer til døra, sjekker vakten lista (tilgangskontroll). Med føderering kan ett ID-kort fra én utsteder brukes mange steder.</p>",
           "<p>IAM har en konfigureringsfase (registrering, utstedelse av autentikator, autorisering) og en bruksfase (identifisering, autentisering, tilgangskontroll). Autorisering er å <i>spesifisere</i> policyen. Tilgangskontroll er å <i>håndheve</i> den. Silo: tjenesten (SP) er sin egen identitetstilbyder. Føderert: én IdP utsteder billetter som flere SP-er godtar.</p>",
@@ -440,18 +442,18 @@
     ] },
 
     /* ===================== 6 · ISMS OG RISIKOSTYRING ===================== */
-    { nr: 6, navn: "ISMS og risikostyring", hvor: "Del 6, 8–15 p", steg: [
+    { nr: 6, navn: "ISMS og risikostyring", hvor: "Del 6, 8–10 p", steg: [
       { id: "6a", tittel: "ISMS, ISO 27000, NSM og NIST CSF", vekt: 4, min: "S", tid: 5,
         les: [["risiko", "iso", "Blokk 6 → ISO 27000"], ["risiko", "rammeverk", "NIST CSF og NSM"]],
         hvorfor: "«NSM, NIST, begge eller ingen» kom H2023 og H2024, ISO 27k H2021, H2023 og H2025, og ISO 27001-kapitler med PDCA i H2025.",
         kjerne: t(
           "<p>Et ISMS er måten en virksomhet styrer sikkerheten sin på, som en fast rutine: planlegg, gjør, sjekk, forbedre. ISO 27001 sier hva rutinen må ha. ISO 27002 og NSM gir lister med tiltak du kan velge fra.</p>",
           "<p>ISMS er et ledelsessystem for informasjonssikkerhet. ISO/IEC 27001 er kravstandarden og den eneste som sertifiseres. ISO 27002 er en tiltaksbank med 93 tiltak. ISO 27005 handler om risikostyring, og 27000 er begreper. NSMs grunnprinsipper og NIST CSF er rammeverk med tiltak. Ingen av dem er et ISMS.</p>",
-          "<p>NSMs grunnprinsipper for IKT-sikkerhet har 4 kategorier (identifisere og kartlegge, beskytte og opprettholde, oppdage, håndtere og gjenopprette), 21 prinsipper og 118 tiltak. NIST CSF 2.0 har 6 funksjoner: GOVERN (ny), IDENTIFY, PROTECT, DETECT, RESPOND, RECOVER. Eksamen fram til H2025 brukte 5. PDCA: Plan (kap. 4–7 i 27001), Do (8), Check (9), Act (10).</p>"),
+          "<p>NSMs grunnprinsipper for IKT-sikkerhet har 4 kategorier (identifisere og kartlegge, beskytte og opprettholde, oppdage, håndtere og gjenopprette), 21 prinsipper og 118 tiltak. NIST CSF 2.0 har 6 funksjoner: GOVERN (ny), IDENTIFY, PROTECT, DETECT, RESPOND, RECOVER. Eksamen fram til H2025 brukte 5. PDCA: Plan (kap. 4–7 i 27001), Do (8), Check (9), Act (10). Det er kursets og H2025 28s tilordning. Standarden selv krever ikke PDCA (det ble tatt ut i 2013-utgaven), og noen kilder legger kapittel 7 i Do. Svar som kurset på eksamen.</p>"),
         kunne: [
           "ISO 27001 = krav til ISMS, sertifiserbar. 27002 = tiltaksbank. 27005 = risikostyring. 27000 = begreper.",
           "NSM: 4 kategorier, 21 prinsipper. NIST CSF 2.0: 6 funksjoner, der GOVERN er ny.",
-          "PDCA i 27001: Plan = kap. 4–7, Do = 8, Check = 9, Act = 10.",
+          "PDCA i 27001: Plan = kap. 4–7, Do = 8, Check = 9, Act = 10 (kursets og H2025-fasitens tilordning; standarden selv tilordner ikke kapitlene).",
           "ISMS ≈ internkontroll. Ledelsen må forankre det."
         ],
         feller: [
@@ -467,13 +469,13 @@
         hvorfor: "Prosessfiguren kom H2022 og H2023, beslutningspunktene H2022 og H2024, ROS-trinnene H2024 og risikoformelen H2025.",
         kjerne: t(
           "<p>Først finner du ut hva som kan gå galt (identifisere). Så hvor ille og hvor sannsynlig det er (analysere). Så hva som må fikses først (evaluere). Til slutt gjør du noe med det (håndtere).</p>",
-          "<p>Risikovurdering består av risikoidentifisering, risikoanalyse og risikoevaluering. Deretter kommer risikohåndtering: redusere, unngå, dele (overføre) eller akseptere risikoen. Etter vurderingen og etter håndteringen er det et beslutningspunkt: er resultatet godt nok, eller må vi gå en runde til?</p>",
-          "<p>Kvantitativt: risikonivå = sannsynlighet × konsekvens (produkt, i kroner per år). Kvalitativt med logaritmiske nivåer: risikonivå = sannsynlighet + konsekvens (sum), fordi log(S × K) = log S + log K. Identifisering starter med verdiene, analysen ender med beregningen, evalueringen starter med rangeringen. Restrisikoen aksepteres av risikoeieren.</p>"),
+          "<p>Risikovurdering består av risikoidentifisering, risikoanalyse og risikoevaluering. Deretter kommer risikohåndtering: redusere, unngå, dele (overføre) eller akseptere risikoen. Etter vurderingen og etter håndteringen er det et beslutningspunkt: er resultatet godt nok, eller må vi gå en runde til? Beslutningspunktene er kursets figur, bygd på eldre utgaver av ISO/IEC 27005 (2008–2018). Utgaven fra 2022 har ikke egne beslutningspunkter. Svar etter kursets figur på eksamen.</p>",
+          "<p>Kvantitativt: risikonivå = sannsynlighet × konsekvens (produkt, i kroner per år). Kvalitativt med logaritmiske nivåer: risikonivå = sannsynlighet + konsekvens (sum), fordi log(S × K) = log S + log K. Identifisering starter med verdiene, analysen ender med beregningen, evalueringen starter med rangeringen. Restrisikoen aksepteres av risikoeieren. H2022 10.3 (ROI-beregningen) er eldre stoff og utenfor pensum H2026.</p>"),
         kunne: [
           "Risikovurdering = identifisering → analyse → evaluering. Så følger håndtering.",
           "Håndtering: redusere, unngå, dele/overføre, akseptere. «Ignorere» er ikke et gyldig valg.",
           "Kvantitativ: S × K (produkt). Kvalitativ med logaritmiske nivåer: S + K (sum).",
-          "Beslutningspunkt 1 (etter vurdering): er vurderingen god nok? Beslutningspunkt 2 (etter håndtering): er restrisikoen akseptabel?"
+          "Beslutningspunkt 1 (etter vurdering): er vurderingen god nok? Beslutningspunkt 2 (etter håndtering): er restrisikoen akseptabel? (Kursets figur, eldre 27005. Svar slik på eksamen.)"
         ],
         feller: [
           "«Kvalitativ risiko = S × K»: med logaritmiske nivåer summeres de.",
@@ -487,11 +489,11 @@
     { nr: 7, navn: "De varierende delene", hvor: "2–3 deler à 5–9 p", steg: [
       { id: "7a", tittel: "Sikker utvikling: STRIDE og OWASP Top 10", vekt: 3, min: "S", tid: 5,
         les: [["risiko", "utvikling", "Blokk 6 → Sikker utvikling"]],
-        hvorfor: "Egen del i H2021 og H2025 (9 p, fritekst). STRIDE kom H2021, H2022 og H2025. Ingen 2026-lysark, men læreboka er pensum.",
+        hvorfor: "Egen del i H2021 (10 p, autorettet) og H2025 (9 p, fritekst). STRIDE kom H2021, H2022 og H2025. Ingen 2026-lysark, men læreboka er pensum.",
         kjerne: t(
           "<p>STRIDE er en huskeliste med seks måter et system kan angripes på. Hver bokstav bryter et bestemt sikkerhetsmål.</p>",
           "<p>STRIDE: Spoofing bryter autentisitet, Tampering integritet, Repudiation sporbarhet (ubenektelighet), Information disclosure konfidensialitet, Denial of service tilgjengelighet og Elevation of privilege tilgangskontroll (autorisering). OWASP Top 10 er en liste over de mest kritiske sårbarhetene i nettapplikasjoner.</p>",
-          "<p>Sensor H2025 31: 0,5 p for begrepet og 0,5 p for målet som brytes, per bokstav (6 p). Innebygd sikkerhet har sju faser fra opplæring og krav til respons, etter Microsoft SDL. DevSecOps flytter sikkerheten tidlig inn i løpet («shift left»).</p>"),
+          "<p>Sensor H2025 31: 0,5 p for begrepet og 0,5 p for målet som brytes, per bokstav (6 p). Innebygd sikkerhet har sju faser: opplæring, krav, design, koding, test, produksjonssetting og forvaltning (eksamensordene i H2021 9.1 og H2022 4.1; Microsoft SDL kaller den siste «respons»). DevSecOps flytter sikkerheten tidlig inn i løpet («shift left»).</p>"),
         kunne: [
           "S → autentisitet, T → integritet, R → sporbarhet/ubenektelighet, I → konfidensialitet, D → tilgjengelighet, E → tilgangskontroll.",
           "OWASP Top 10: liste fra OWASP over de vanligste og mest kritiske sårbarhetene i nettapplikasjoner (f.eks. injeksjon, brutt tilgangskontroll).",
@@ -561,7 +563,6 @@
           "Å tegne containere med egen gjestekjerne. De deler vertens kjerne."
         ],
         fig: ["H2022-2.4", "H2022-2.5"],
-        forklar: ["nulldag"],
         kort: { E: ["H2022-2.4"], S: ["H2022-2.6", "H2022-2.3"], G: ["H2022-2.1", "H2022-2.2", "H2022-2.5"] } },
 
       { id: "7e", tittel: "KI og sikkerhet (nytt i 2026)", vekt: 1, min: "E", tid: 8,

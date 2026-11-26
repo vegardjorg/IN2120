@@ -412,10 +412,15 @@
     t(420, 512, "presenter"); t(420, 532, "autentikator");
     // svarte sirkler der tallene skal stå (felt legges oppå)
     var P = [[490, 300], [515, 240], [602, 284], [676, 229], [440, 250], [415, 210], [440, 478], [291, 250], [112, 173], [330, 404], [700, 400], [600, 490]];
-    P.forEach(function (p, i) {
-      sv("circle", { cx: p[0], cy: p[1], r: 14, fill: "currentColor" }, s);
-      o.felt(i, p[0] - 26, p[1] - 17, 52, 34, true);
-    });
+    // Feltene settes inn i DOM-en etter plassering (ovenfra og ned, så venstre til høyre), ikke i bankrekkefølge,
+    // så tabulatorrekkefølgen ikke røper fasit. Indeksen i (= felt[i] i banken) er uendret.
+    P.map(function (p, i) { return { p: p, i: i }; })
+      .sort(function (a, b) { return (a.p[1] - b.p[1]) || (a.p[0] - b.p[0]); })
+      .forEach(function (e) {
+        var p = e.p;
+        sv("circle", { cx: p[0], cy: p[1], r: 14, fill: "currentColor" }, s);
+        o.felt(e.i, p[0] - 26, p[1] - 17, 52, 34, true);
+      });
   };
 
   /* ---------- H2021-8.2: NIST CSF og NSMs grunnprinsipper (5 + 4 felt) ----------

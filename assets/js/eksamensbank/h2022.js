@@ -171,7 +171,7 @@
         points: 1, block: "system", tema: ["bufferoverflyt", "stakk", "returadresse"], ordrett: true,
         oppgave: "<p>I en prosess som kjører har følgende skjedd:</p><ul><li>Prosessen starter med å kjøre <strong>main()</strong> metoden, og det opprettes en ramme på stakken i minnet for den.</li><li>I <strong>main()</strong>-metoden gjøres det et kall til en metode kalt <strong>A()</strong> som starter og det opprettes en ny ramme for <strong>A()</strong> på toppen av stakken.</li><li>I <strong>A()</strong>-metoden gjøres det et kall til en metode <strong>B()</strong> og det opprettes en ny ramme for <strong>B()</strong> på toppen av stakken.</li></ul><p><strong>B()</strong> metoden inneholder et array kalt <strong>buffer</strong> som har plass til 10 elementer.<br>Diagrammet nedenfor viser hvordan stakken ser ut når metode <strong>B()</strong> kjører. Programmet har en bufferoverflow-sårbarhet som kan utnyttes gjennom å overskrive <strong>buffer,</strong> og angrepskoden som angriperen ønsker å kjøre ligger et annet sted i minnet. Klikk på den delen av minnet i figuren som angriper må overskrive  for å få kjørt angrepskoden.<br>Poeng: 1 for riktig, 0 for feil.</p><p><strong>Klikk på delen av bildet som man ønsker å overskrive for å få kjørt angrepskoden.</strong></p>",
         figur: {
-          beskrivelse: "Stakkdiagram. Til venstre står «Høy adresse» øverst og «Lav adresse» nederst. En stor oransje boks med overskriften «STACK» inneholder tre lyseblå rammer under hverandre: «main() ramme» øverst, «A() ramme» i midten og «B() ramme» nederst. Inne i B()-rammen står tre felt fra topp til bunn: «Returadresse» (grått felt, det klikkbare området med fasithaken), «Forrige rammepeker», og et felt med «buffer[9]», «…», «buffer[0]». Til høyre for bufferfeltet går en pil oppover med teksten «Skriver oppover». Under den oransje boksen er en hvit boks «ledig minne», med en oransje pil fra stakken ned mot den.",
+          beskrivelse: "Stakkdiagram. Til venstre står «Høy adresse» øverst og «Lav adresse» nederst. En stor oransje boks med overskriften «STACK» inneholder tre lyseblå rammer under hverandre: «main() ramme» øverst, «A() ramme» i midten og «B() ramme» nederst. Inne i B()-rammen står tre felt fra topp til bunn: «Returadresse», «Forrige rammepeker» og et felt med «buffer[9]», «…», «buffer[0]». Til høyre for bufferfeltet går en pil oppover med teksten «Skriver oppover». Under den oransje boksen er en hvit boks «ledig minne», med en oransje pil fra stakken ned mot den.",
           tekst: ["Høy adresse", "STACK", "main() ramme", "A() ramme", "B() ramme", "Returadresse", "Forrige rammepeker", "buffer[9]", "…", "buffer[0]", "Skriver oppover", "Lav adresse", "ledig minne"]
         },
         inspera: {
@@ -298,7 +298,7 @@
         points: 1, block: "angrep", tema: ["phishing", "masse-phishing"], gjenganger: ["H2021-2.1", "H2023-23", "H2024-20"], ordrett: true,
         oppgave: "<p>Hva slags phishing-angrep er dette? Se bildet under (zoom inn og ut ved å trykke Ctrl + (pluss) og Ctrl – (minus). Bruk + og – tastene på det numeriske tastaturet). PS: Jeg verken har, eller har noensinne hatt Netflix.<br>Poeng: 1 for riktig, 0 for feil eller ubesvart.</p><p><strong>Velg ett alternativ:</strong></p>",
         figur: {
-          beskrivelse: "Skjermbilde av en norsk e-post som utgir seg for å være fra Netflix. Den starter med en generell hilsen til «kunde» (ikke mottakerens navn), sier at kontoinformasjonen kan mangle eller være feil og må oppdateres straks, og truer med at kontoen begrenses hvis det ikke skjer innen 24 timer. Under står en stor rød knapp med teksten «Klikk her», en hilsen fra «Netflix-tjenester», og nederst en liten bunntekst med et telefonnummer og en kildekode.",
+          beskrivelse: "Skjermbilde av en norsk e-post som utgir seg for å være fra Netflix. Den starter med en generell hilsen til «kunde» (ikke mottakerens navn), sier at kontoinformasjonen kan mangle eller være feil og må oppdateres straks, og truer med at kontoen begrenses hvis det ikke skjer innen 24 timer. Så står «Bare klikk på URL-en nedenfor:» og en hilsen fra «Netflix-tjenester», deretter en stor rød knapp med teksten «Klikk her», og nederst en liten bunntekst med et telefonnummer og en kildekode.",
           tekst: ["Klikk her"]
         },
         inspera: {
@@ -650,7 +650,7 @@
         points: 3, block: "pki", tema: ["rotsertifikat", "mellomliggende CA", "subjektsertifikat"], gjenganger: ["H2021-4.4"], ordrett: true,
         oppgave: "<p>For hver beskrivelse, angi riktig sertifikat (der Ingen også er et alternativ).<br>Poeng: 0,5 for hver riktig, -0.5 for for hver feil, 0 for ubesvart, 3 for alle eriktig, minimum 0.</p><p><strong>Velg riktig sertifikat</strong></p>",
         figur: {
-          beskrivelse: "Tre like trær side om side. Hvert tre har én svart prikk øverst (rot), to sirkler med prikk i midten under den (mellomliggende), og under hver av disse to eller tre åpne sirkler (subjekt). Pilene går nedover fra rot til mellomliggende og videre til subjekt. Til høyre står tre etiketter på samme høyde som nivåene: «Rotsertifikater», «Mellomliggende sertifikater», «Subjektsertifikater».",
+          beskrivelse: "Tre like trær side om side. Hvert tre har én svart prikk øverst (rot), to sirkler med prikk i midten under den (mellomliggende); den venstre peker til to åpne sirkler (subjekt), den høyre til én, altså tre subjekter per tre. Pilene går nedover fra rot til mellomliggende og videre til subjekt. Til høyre står tre etiketter på samme høyde som nivåene: «Rotsertifikater», «Mellomliggende sertifikater», «Subjektsertifikater».",
           tekst: ["Rotsertifikater", "Mellomliggende sertifikater", "Subjektsertifikater"]
         },
         inspera: {
@@ -894,11 +894,11 @@
             { etikett: "Øverste pil, Bruker ↔ FIDO-enhet", svar: 2, godta: [], explain: "<p>Første etappe er mellom brukeren og enheten: brukeren låser opp enheten lokalt.</p>" },
             { etikett: "Øverste pil, FIDO-enhet ↔ Autentiseringstjener", svar: 6, godta: [], explain: "<p>Andre etappe er mellom enheten og tjeneren, over nettet.</p>" },
             { etikett: "Pil Bruker → FIDO-enhet", svar: 9, godta: [], explain: "<p>Brukeren viser autentikator(er) til enheten, f.eks. PIN eller fingeravtrykk.</p>" },
-            { etikett: "Tallfelt ved Autentikator(er)", svar: 5, godta: [], explain: "<p>Steg 2: når enheten har fått utfordringen, låser brukeren den opp.</p>" },
+            { etikett: "Tallfelt ved pil Bruker → FIDO-enhet", svar: 5, godta: [], explain: "<p>Steg 2: når enheten har fått utfordringen, låser brukeren den opp.</p>" },
             { etikett: "Tallfelt ved pil tjener → enhet", svar: 7, godta: [], explain: "<p>Steg 1: tjeneren starter med å sende en utfordring.</p>" },
             { etikett: "Pil tjener → FIDO-enhet", svar: 0, godta: [], explain: "<p>Tjeneren sender en tilfeldig utfordring.</p>" },
             { etikett: "Pil FIDO-enhet → tjener", svar: 1, godta: [], explain: "<p>Enheten sender tilbake responsen: utfordringen signert med den private nøkkelen.</p>" },
-            { etikett: "Tallfelt ved Respons", svar: 3, godta: [], explain: "<p>Steg 3: responsen sendes til slutt.</p>" },
+            { etikett: "Tallfelt ved pil FIDO-enhet → tjener", svar: 3, godta: [], explain: "<p>Steg 3: responsen sendes til slutt.</p>" },
             { etikett: "Under FIDO-enheten", svar: 8, godta: [], explain: "<p>Den private FIDO-nøkkelen forlater aldri enheten.</p>" },
             { etikett: "Under Autentiseringstjeneren", svar: 4, godta: [], explain: "<p>Tjeneren har bare den offentlige nøkkelen og sjekker signaturen med den.</p>" }
           ]

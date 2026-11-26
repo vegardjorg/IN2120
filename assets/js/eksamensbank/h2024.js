@@ -73,7 +73,7 @@
           "<p>Anta situasjonen med Inspera-eksamen, som vist på figuren, der vi fokuserer på sikkerhet for selve eksamensoppgavene og besvarelsene (som er verdi/ressurs/asset). Viktigheten av de tre sikkerhetsmålsettingene kan være ulike før eksamen starter, under eksamen, og under sensureringen etter eksamen. For hver av disse tre fasene, velg hvilken sikkerhetsmålsetting som er viktigst. Alle målsettingene er naturligvis viktige, men du skal velge den viktigste i hver fase.</p>",
         figur: {
           beskrivelse:
-            "Tre figurer på en linje. Til venstre en person i dress med teksten «Foreleser som lager eksamen». I midten en sky med en server og Inspera-logoen, med teksten «Platform for eksamen». Til høyre en person ved en bærbar PC med teksten «Student som tar eksamen». Mellom foreleser og sky, og mellom sky og student, står tykke lyseblå piler med spiss i begge ender.",
+            "Tre figurer på en linje. Til venstre en person i dress med teksten «Foreleser som lager eksamen». I midten en sky med en server og et nettleservindu (på arket med Inspera-logoen), med teksten «Platform for eksamen». Til høyre en person ved en bærbar PC med teksten «Student som tar eksamen». Mellom foreleser og sky, og mellom sky og student, står tykke lyseblå piler med spiss i begge ender.",
           tekst: ["Foreleser som lager eksamen", "Platform for eksamen", "Student som tar eksamen"]
         },
         inspera: {
@@ -791,7 +791,7 @@
         oppgave: "<p>Hint: Svaret er IKKE kiwi, som bruker dette programmet. Svaret skrives i ETT ord, og husk at svaret rettes automatisk. Er du i tvil om skrivemåten, så spør faglærer om du har skrevet det riktig når han går runden.</p><p>Riktig svar gir to poeng.</p>",
         figur: {
           beskrivelse:
-            "Skjermbilde av et mørkt terminalvindu (hvit/grå tekst på svart). Ledeteksten foran hver kommando er dekket av et hvitt felt. Først kommandoen «# privilege::debug» med svaret «Privilege '20' OK». Så kommandoen «# sekurlsa::logonpasswords». Deretter en blokk med feltene Authentication Id, Session (Interactive from 2), User Name, Domain og SID. Under står en seksjon «msv :» med «[00000003] Primary» og linjene * Username, * Domain, * LM, * NTLM og * SHA1, der de tre siste er lange heksadesimale hasher. Til slutt en seksjon «tspkg :» med * Username, * Domain og * Password, der passordet står i klartekst. Nederst «...». Eksempel med egne verdier: User Name «Ola Test», Domain «pc-lab-07», NTLM «9f3a…c41e», Password «Hemmelig123».",
+            "Skjermbilde av et mørkt terminalvindu (hvit/grå tekst på svart). Ledeteksten foran hver kommando er dekket av et hvitt felt. Først kommandoen «# privilege::debug» med svaret «Privilege '20' OK». Så kommandoen «# sekurlsa::logonpasswords». Deretter en blokk med feltene Authentication Id, Session (Interactive from 2), User Name, Domain og SID. Under står en seksjon «msv :» med «[00000003] Primary» og linjene * Username, * Domain, * LM, * NTLM og * SHA1, der de tre siste er lange heksadesimale hasher. Til slutt en seksjon «tspkg :» med * Username, * Domain og * Password, der arket viser passordet i klartekst. Nederst «...». Figuren her bruker oppdiktede eksempelverdier (ikke arkets): User Name «ola», Domain «EKSEMPEL», forkortede hasher (f.eks. NTLM «3f9c1e7a…6e15»), og passordverdien er skjult som «••••••••».",
           tekst: ["# privilege::debug", "Privilege '20' OK", "# sekurlsa::logonpasswords", "msv :", "tspkg :"]
         },
         inspera: {
@@ -804,7 +804,7 @@
               explain: "Kommandoene privilege::debug og sekurlsa::logonpasswords er kjennetegnet på mimikatz, som henter innloggingsdata (hasher og til og med klartekstpassord) ut av minnet på Windows." }
           ]
         },
-        avvik: null,
+        avvik: "Verdiene i utskriften (Authentication Id, bruker, domene, SID og hasher) er byttet ut med oppdiktede, forkortede eksempelverdier, og passordverdien er skjult (••••••••), fordi guiden ikke gjengir innloggingsdata. Kommandoene og strukturen er som på arket.",
         losning: ["Modulnavn med dobbelt kolon (sekurlsa::) og utdata med NTLM-hasher og passord = mimikatz."],
         tips: ["Hintet sier at kiwi «bruker dette programmet»: Kiwi er en modul som bygger på mimikatz (lysark d05 s. 45 lister «Kiwi (Metasploit)» ved siden av Mimikatz). Spørsmålet gjelder programmet selv."]
       },

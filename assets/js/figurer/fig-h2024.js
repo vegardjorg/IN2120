@@ -187,14 +187,15 @@
   };
 
   /* ---------- H2024-24: terminalutskrift (s. 17) ----------
-     Eierbeslutning 2026-11-25: nøytrale, oppdiktede verdier (ikke kildens demoverdier). Ledeteksten er dekket
+     Eierbeslutning 2026-11-25/26: nøytrale, oppdiktede verdier (ikke kildens demoverdier); hasher forkortet med «…»,
+     passordverdien alltid maskert (••••••••), aldri et klartekstpassord. Ledeteksten er dekket
      av felt som på arket. Programnavnet står ikke i figuren. */
   IN.FIGURER["H2024-24"] = function (host) {
     var V = {
       auth: "0 ; 412345 (00000000:00064ab9)", user: "ola", domain: "EKSEMPEL",
       sid: "S-1-5-21-1111111111-2222222222-3333333333-1001",
-      lm: "aad3b435b51404eeaad3b435b51404ee", ntlm: "3f9c1e7a52b04d6e8a1f0c27d94b6e15",
-      sha1: "6b1e0d9a4c7f23e85a90b4d1c6e2f7a83d05c9b1", pw: "Sommer2024!"
+      lm: "aad3b435…04ee", ntlm: "3f9c1e7a…6e15",
+      sha1: "6b1e0d9a…05c9b1", pw: "••••••••"
     };
     var dekk = "██████████";
     F.terminal(host, [
