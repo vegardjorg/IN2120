@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126l">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -129,6 +129,7 @@
       <div id="viz-xorov"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> XOR steg for steg</h4>
+      <p class="ov-intro">Her krypterer du en melding med en engangsnøkkel, én bit om gangen: C = M ⊕ K. Velg et eksempel øverst, og bla med «Neste». Med «Gjett før hvert steg» på stopper spilleren ved noen av stegene og stiller et spørsmål. Du svarer ved å velge et alternativ, eller trykker «Hopp over».</p>
       <p class="small muted">Velg «Gjenbruk av nøkkelen» for å se hvorfor en engangsnøkkel bare kan brukes én gang. Med «Gjett før hvert steg» på må du svare før neste steg vises.</p>
       <div id="viz-xor"></div>
 
@@ -177,6 +178,7 @@
       <div id="ex-moduser"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Steg for steg med lekechifferet</h4>
+      <p class="ov-intro">Her krypterer og dekrypterer du tre blokker med lekechifferet i modusene ECB, CBC og CTR. Velg modus øverst, og bla med «Neste». Med «Gjett før hvert steg» på svarer du på et spørsmål før neste steg vises, for eksempel om to like klartekstblokker gir like chifferblokker.</p>
       <p class="case-ctx" data-case="leke"></p>
       <p class="small muted">K = 0111, M = 1001 · 1001 · 1100 (legg merke til at M₁ = M₂), IV = 1010 og tellerne T = 0001, 0010, 0011. Velg modus øverst. I «Eget:» kan du skrive inn egne 4-bits blokker; da brukes modusen du sist valgte. Før den andre like blokken krypteres, må du gjette hva som skjer med mønsteret.</p>
       <div id="viz-moduser"></div>
@@ -222,6 +224,7 @@
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Regn i tellermodus</h4>
+      <div class="ov-intro">Regn ut blokkene i tellermodus med XOR, bit for bit. Skriv hvert svar som fire biter (for eksempel 0101) i feltet.</div>
       <div id="ov-moduser-1"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Kjenn igjen modusen</h4>
       <div id="ov-moduser-2"></div>
@@ -302,6 +305,7 @@
       <div id="ex-mac"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> MAC-flyten steg for steg</h4>
+      <p class="ov-intro">Her ser du hvordan Alice lager en MAC og Bob sjekker den. Velg et eksempel øverst (ærlig melding, Mallory endrer meldingen, eller en dommer som skal avgjøre), og bla med «Neste». Med «Gjett før hvert steg» på svarer du på et spørsmål før neste steg vises.</p>
       <p class="case-ctx" data-case="leke"></p>
       <p class="small muted">Leke-MAC: Hash(M, K) = (M ⊕ K) rotert, samme regnestykke som lekechifferet, med K = 0111. En ekte MAC kan ikke regnes baklengs.</p>
       <div id="viz-mac"></div>
@@ -329,6 +333,7 @@
         <p>Se også sammenligningen i fanen <a href="#fane=signatur">Signatur</a>.</p></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hva MAC gir og ikke gir</h4>
+      <div class="ov-intro">Teksten under beskriver hva en MAC gir. Velg det riktige alternativet i hver nedtrekksliste, så teksten blir riktig.</div>
       <div id="ov-mac"></div>
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> MAC</h4>
       <p class="ov-intro">Velg ett svar på hvert spørsmål. Når svaret er rettet, får du en forklaring.</p>
@@ -417,6 +422,7 @@
       <div id="viz-dhfarge"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Diffie–Hellman med p = 23 og g = 5</h4>
+      <p class="ov-intro">Her ser du Alice og Bob lage en felles nøkkel med Diffie–Hellman, steg for steg. Velg et eksempel øverst (med eller uten Mallory i midten), og bla med «Neste». Med «Gjett før hvert steg» på stopper spilleren ved noen av stegene og stiller et spørsmål. Noen svarer du ved å regne ut et tall og skrive det inn, andre ved å velge et alternativ.</p>
       <p class="small muted">Velg dine egne hemmelige tall i «Eget:»: to tall (a, b), eller tre (a, b, e) for å la Mallory sitte i midten. Tallene må være mellom 1 og 21. Med «Gjett før hvert steg» på regner du selv g<sup>a</sup> mod p og g<sup>ab</sup> mod p før stegene vises. Eksamen har ikke regnet DH siden 2020; dette er for å forstå mekanismen.</p>
       <div id="viz-dh"></div>
 
@@ -440,6 +446,7 @@
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> DH og fremoverhemmelighold</h4>
+      <div class="ov-intro">To firmaer kommer med hver sin påstand om forbindelsen mellom dem. Les situasjonen i a) og b), og velg det alternativet som sier riktig om påstanden stemmer.</div>
       <div id="ov-dh"></div>
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Fritekst: fremoverhemmelighold</h4>
       <div class="callout eksempel"><span class="lbl">Fritekst (som H2025 12, 3 p)</span>
@@ -467,6 +474,7 @@
       <div id="ex-signatur"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Signaturflyten steg for steg</h4>
+      <p class="ov-intro">Her ser du hvordan Alice signerer en melding og Bob verifiserer signaturen. Velg et eksempel øverst (ærlig, Mallory endrer meldingen, Mallory bytter nøkkel, eller en dommer), og bla med «Neste». Med «Gjett før hvert steg» på svarer du på et spørsmål før neste steg vises.</p>
       <p class="small muted">Hashen er ekte SHA-256 av meldingen (de første tegnene vises). Sig og Ver vises som symboler.</p>
       <div id="viz-signatur"></div>
 
@@ -607,38 +615,38 @@
         kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126k"></script>
-  <script src="assets/js/symboler.js?v=20261126k"></script>
-  <script src="assets/js/begreper-data.js?v=20261126k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
-  <script src="assets/js/pseudocode.js?v=20261126k"></script>
-  <script src="assets/js/stepplayer.js?v=20261126k"></script>
-  <script src="assets/js/varline.js?v=20261126k"></script>
-  <script src="assets/js/inspera.js?v=20261126k"></script>
-  <script src="assets/js/dra.js?v=20261126k"></script>
-  <script src="assets/js/ovelse.js?v=20261126k"></script>
-  <script src="assets/js/bank.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
-  <script src="assets/js/viz-krypto.js?v=20261126k"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261126k"></script>
+  <script src="assets/js/core.js?v=20261126l"></script>
+  <script src="assets/js/symboler.js?v=20261126l"></script>
+  <script src="assets/js/begreper-data.js?v=20261126l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126l"></script>
+  <script src="assets/js/pseudocode.js?v=20261126l"></script>
+  <script src="assets/js/stepplayer.js?v=20261126l"></script>
+  <script src="assets/js/varline.js?v=20261126l"></script>
+  <script src="assets/js/inspera.js?v=20261126l"></script>
+  <script src="assets/js/dra.js?v=20261126l"></script>
+  <script src="assets/js/ovelse.js?v=20261126l"></script>
+  <script src="assets/js/bank.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126l"></script>
+  <script src="assets/js/viz-krypto.js?v=20261126l"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261126l"></script>
   <script>
   (function () {
     "use strict";
@@ -786,7 +794,7 @@
           regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 2 },
           tekst: "<p>Blokkchiffer i tellermodus, 4-bits blokk (lekeeksempel).</p><p>a) Kryptering: E(T₁, K) = 1010, M₁ = 0110. C₁ = {0}</p><p>b) Dekryptering: E(T₂, K) = 0111, C₂ = 0101. M₂ = {1}</p>",
           felt: [{ etikett: "C₁", godta: [b(pb("1010") ^ pb("0110"))], explain: "1010 ⊕ 0110 = " + b(pb("1010") ^ pb("0110")) + "." },
-                 { etikett: "M₂", godta: [b(pb("0111") ^ pb("0101"))], explain: "0111 ⊕ 0101 = " + b(pb("0111") ^ pb("0101")) + ". Samme operasjon som ved kryptering, bare E." }] } },
+                 { etikett: "M₂", godta: [b(pb("0111") ^ pb("0101"))], naer: { "10": "Verdien stemmer, men skriv alle fire bitene i blokken: " + b(pb("0111") ^ pb("0101")) + "." }, explain: "0111 ⊕ 0101 = " + b(pb("0111") ^ pb("0101")) + ". Samme operasjon som ved kryptering, bare E." }] } },
       "ov-moduser-2": { key: "ov-krypto-4", points: 3, title: "Kjenn igjen modusen", opphav: { type: "egen", variantAv: ["H2025-8", "H2024-17", "H2023-20"], kilder: ["d02 s. 29–34"] },
         figurTekst: "Figur laget for øvingen: modusdiagrammene fra H2025 8 i en annen rekkefølge.",
         oppgave: "<p>Figuren viser tre operasjonsmoduser for et blokkchiffer, uten navn. Velg riktig navn under hvert diagram.</p>",
@@ -911,13 +919,13 @@
       ],
       moduser: [
         { q: "Hvilken modus lekker at to klartekstblokker er like?", options: ["CBC", "CTR", "ECB"], answer: 2, explain: "ECB krypterer hver blokk for seg med samme nøkkel, så like klartekstblokker gir like chifferblokker. CBC og CTR blander inn IV eller teller, så der skjer det ikke." },
-        { q: "CTR-dekryptering: M = ?", options: ["D(C, K)", "E(T, K) ⊕ C", "D(T, K) ⊕ C"], answer: 1, explain: "Det er telleren som går inn i E, aldri chifferteksten. Mottakeren lager samme E(T, K) og XOR-er den bort, så bare E brukes, også ved dekryptering." },
+        { q: "Mottakeren har chifferteksten C, telleren T og nøkkelen K, og skal dekryptere i tellermodus (CTR). Hvordan regner hen ut M?", options: ["D(C, K)", "E(T, K) ⊕ C", "D(T, K) ⊕ C"], answer: 1, explain: "Det er telleren som går inn i E, aldri chifferteksten. Mottakeren lager samme E(T, K) og XOR-er den bort, så bare E brukes, også ved dekryptering." },
         { q: "E(T₁, K) = 0110 og M₁ = 1011. C₁ = ?", options: ["1101", "0010", "1111"], answer: 0, explain: "0110 ⊕ 1011 = " + b(pb("0110") ^ pb("1011")) + "." },
         { q: "Hva XOR-es inn i første klartekstblokk i CBC?", options: ["Nøkkelen", "IV", "Telleren"], answer: 1, explain: "C₁ = E(IV ⊕ M₁, K). Senere blokker får forrige chifferblokk i stedet for IV. Nøkkelen går inn i E, og telleren hører til CTR." }
       ],
       hash: [
         { q: "Hvilket krav gjelder å finne <i>et hvilket som helst</i> par med lik hash?", options: ["Enveis", "Svak kollisjonsresistens", "Sterk kollisjonsresistens"], answer: 2, explain: "Svak: gitt én x. Sterk: angriperen velger begge." },
-        { q: "Hvilken anses som sikker i dag?", options: ["MD5", "SHA-1", "SHA-2"], answer: 2, explain: "For MD5 og SHA-1 kan man finne kollisjoner i praksis, så de skal ikke brukes. SHA-2, for eksempel SHA-256, regnes som sikker." },
+        { q: "Hvilken av disse hashfunksjonene anses som sikker i dag?", options: ["MD5", "SHA-1", "SHA-2"], answer: 2, explain: "For MD5 og SHA-1 kan man finne kollisjoner i praksis, så de skal ikke brukes. SHA-2, for eksempel SHA-256, regnes som sikker." },
         { q: "H(x) = de tre første tegnene i x. Hvilke krav holder?", options: ["Lett å beregne og fast størrelse", "Enveis og kollisjonsresistent", "Alle fem"], answer: 0, explain: "«abcX» og «abcY» kolliderer, og fra «abc» ser du starten på x." },
         { q: "Hvilket mål brytes av en hashkollisjon i en signatur?", options: ["Konfidensialitet", "Integritet", "Tilgjengelighet"], answer: 1, explain: "To dokumenter får samme hash og dermed samme gyldige signatur. Innholdet kan byttes uten at det merkes. Ingenting blir lest, så det er I og ikke K." }
       ],
@@ -940,12 +948,12 @@
       ],
       signatur: [
         { q: "Hvem kan verifisere en digital signatur fra Alice?", options: ["Bare Bob", "Alle med Alices offentlige nøkkel", "Bare Alice"], answer: 1, explain: "Verifisering trenger bare Alices offentlige nøkkel, så hvem som helst kan sjekke, også en dommer. Det er dette som gir ubenektelighet." },
-        { q: "Hva signeres i praksis?", options: ["Hele meldingen", "Hashen av meldingen", "Den offentlige nøkkelen"], answer: 1, explain: "Asymmetriske operasjoner er tunge; hashen er kort." },
+        { q: "Når Alice lager en digital signatur, hva er det hun signerer med den private nøkkelen i praksis?", options: ["Hele meldingen", "Hashen av meldingen", "Den offentlige nøkkelen"], answer: 1, explain: "Asymmetriske operasjoner er tunge; hashen er kort." },
         { q: "Bob verifiserer signaturen. Hva sammenligner han?", options: ["H = Ver(S, " + kp("A", "pub") + ") med H′ = Hash(M′)", "S med M", "MAC med MAC′"], answer: 0, explain: "Like hasher betyr gyldig signatur på uendret melding." },
         { q: "Alices private nøkkel lekker. Hva er riktig?", options: ["Signaturer laget med den kan ikke lenger stoles på, og hun må slutte å signere med den", "Ingenting, den offentlige gjelder fortsatt", "Hun må slutte å beregne hash"], answer: 0, explain: "Med den private nøkkelen kan tyven lage signaturer som ser ut som Alices. Den offentlige nøkkelen kan ikke skille dem fra ekte, så nøkkelparet må byttes." }
       ],
       pqc: [
-        { q: "Hvilken rammes hardest av kvantedatamaskiner?", options: ["AES", "SHA-2", "RSA"], answer: 2, explain: "RSA bygger på faktorisering, som en stor kvantedatamaskin kan løse. AES og SHA-2 rammes lite; der holder det med lange nok nøkler og hasher." },
+        { q: "Hvilken av disse algoritmene rammes hardest av kvantedatamaskiner?", options: ["AES", "SHA-2", "RSA"], answer: 2, explain: "RSA bygger på faktorisering, som en stor kvantedatamaskin kan løse. AES og SHA-2 rammes lite; der holder det med lange nok nøkler og hasher." },
         { q: "Hva er ML-KEM til?", options: ["Digital signatur", "Nøkkelinnkapsling (nøkkeletablering)", "Hashing"], answer: 1, explain: "KEM står for key encapsulation mechanism, en måte å etablere en felles nøkkel på. Postkvantesignaturene heter ML-DSA og SLH-DSA." },
         { q: "Hvilken PQC-standard er hashbasert?", options: ["SLH-DSA", "ML-DSA", "ML-KEM"], answer: 0, explain: "SLH-DSA (SPHINCS+). ML-DSA og ML-KEM er gitterbaserte." }
       ]

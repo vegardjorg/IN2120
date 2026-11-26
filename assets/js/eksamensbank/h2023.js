@@ -426,9 +426,9 @@
           regelMerknad: "Rettenøkkelen godtar samme liste i alle tre hjørnene. Meningen er tre ulike aspekter: verdi, sårbarhet og trussel.",
           tekst: null,
           felt: [
-            { etikett: "Hjørne øverst", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats"], explain: "Verdi: det som har krav til K, I eller T." },
-            { etikett: "Hjørne nede til venstre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats"], explain: "Trussel: noe eller noen som kan skade verdien ved å utnytte en sårbarhet." },
-            { etikett: "Hjørne nede til høyre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats"], explain: "Sårbarhet: en svakhet som trusselen kan utnytte, slik at angrepet ikke lett lar seg stoppe (t06)." }
+            { etikett: "Hjørne øverst", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Verdi: det som har krav til K, I eller T." },
+            { etikett: "Hjørne nede til venstre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Trussel: noe eller noen som kan skade verdien ved å utnytte en sårbarhet." },
+            { etikett: "Hjørne nede til høyre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Sårbarhet: en svakhet som trusselen kan utnytte, slik at angrepet ikke lett lar seg stoppe (t06)." }
           ]
         },
         avvik: null,
@@ -519,7 +519,7 @@
           regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
           tekst: "<p>Fyll in svaret her: {0}</p>",
           felt: [
-            { etikett: "Standard", godta: ["X.509", "x509", "x 509", "x-509", "X.509v3", "X.509 versjon 3", "X.509 version 3", "X.509-sertifikat", "X.509-sertifikater"], explain: "X.509 er formatet for sertifikater i nettlesere og TLS." }
+            { etikett: "Standard", godta: ["X.509", "x509", "x 509", "x-509", "X.509v3", "X.509 versjon 3", "X.509 version 3", "X.509-sertifikat", "X.509-sertifikater", "X509v3"], naer: { "X.500": "X.500 er katalogstandarden som X.509 er en del av. Sertifikatformatet heter X.509." }, explain: "X.509 er formatet for sertifikater i nettlesere og TLS." }
           ]
         },
         avvik: null,
@@ -930,13 +930,13 @@
           regelMerknad: "7 felt × 0,5 = 3,5. Alle sju riktige gir 0,5 i bonus, altså 4.",
           tekst: null,
           felt: [
-            { etikett: "Bruker → app: «jeg vil redigere mine bilder på Google Photos med Photo Edit»", godta: ["1"], explain: "Alt starter med at brukeren ber appen om noe." },
-            { etikett: "App → autoriseringstjener: «bruker ønsker å redigere sine bilder fra Google Photos med Photo Edit»", godta: ["2"], explain: "Appen har ikke tilgang og sender brukeren videre til autoriseringstjeneren." },
-            { etikett: "Autoriseringstjener → ressurseier: «forespørsel fra deg (bruker) om du vil la Photo Edit få tilgang …»", godta: ["3"], explain: "Autoriseringstjeneren spør eieren om samtykke." },
-            { etikett: "Ressurseier → autoriseringstjener: «godkjenner forespørsel med autentikator»", godta: ["4"], explain: "Eieren logger inn (autentiserer seg) og godkjenner." },
-            { etikett: "Autoriseringstjener → app: «tilgangstoken som bevis på godkjent forespørsel»", godta: ["5"], explain: "Appen får et tilgangstoken, ikke brukerens passord." },
-            { etikett: "App → ressurstjener: «forespørsel om bilder med tilgangstoken»", godta: ["6"], explain: "Appen viser frem tokenet til ressurstjeneren." },
-            { etikett: "Ressurstjener → app: «Photo Edit får tilgang til brukerens bilder»", godta: ["7"], explain: "Ressurstjeneren sjekker tokenet og gir tilgang." }
+            { etikett: "Bruker → app: «jeg vil redigere mine bilder på Google Photos med Photo Edit»", godta: ["1", "en", "én", "ett"], explain: "Alt starter med at brukeren ber appen om noe." },
+            { etikett: "App → autoriseringstjener: «bruker ønsker å redigere sine bilder fra Google Photos med Photo Edit»", godta: ["2", "to"], explain: "Appen har ikke tilgang og sender brukeren videre til autoriseringstjeneren." },
+            { etikett: "Autoriseringstjener → ressurseier: «forespørsel fra deg (bruker) om du vil la Photo Edit få tilgang …»", godta: ["3", "tre"], explain: "Autoriseringstjeneren spør eieren om samtykke." },
+            { etikett: "Ressurseier → autoriseringstjener: «godkjenner forespørsel med autentikator»", godta: ["4", "fire"], explain: "Eieren logger inn (autentiserer seg) og godkjenner." },
+            { etikett: "Autoriseringstjener → app: «tilgangstoken som bevis på godkjent forespørsel»", godta: ["5", "fem"], explain: "Appen får et tilgangstoken, ikke brukerens passord." },
+            { etikett: "App → ressurstjener: «forespørsel om bilder med tilgangstoken»", godta: ["6", "seks"], explain: "Appen viser frem tokenet til ressurstjeneren." },
+            { etikett: "Ressurstjener → app: «Photo Edit får tilgang til brukerens bilder»", godta: ["7", "sju", "syv"], explain: "Ressurstjeneren sjekker tokenet og gir tilgang." }
           ]
         },
         avvik: "Poengregelen gir 0,5 p bonus når alt er riktig: 7 × 0,5 = 3,5, og maks er 4.",

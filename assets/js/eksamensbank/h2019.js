@@ -823,7 +823,7 @@
       regelTekst: "Point: 1 for correct",
       regel: rg(1, 0, 1),
       tekst: "<p>ALE = {0}</p>",
-      felt: [{ etikett: "ALE", godta: ["24000"], explain: "<p>SLE = AV × EF = 2000 × 1 = 2000. ALE = SLE × ARO = 2000 × 12 = <strong>24000</strong>.</p>" }]
+      felt: [{ etikett: "ALE", godta: ["24000", "24,000", "24.000", "24000 $", "$24000", "24000 $/år", "24000 $/year", "24000 $ per år"], naer: { "2000": "2000 er SLE, tapet ved én hendelse (AV × EF). ALE ganger med ARO: 2000 × 12 = 24000." }, explain: "<p>SLE = AV × EF = 2000 × 1 = 2000. ALE = SLE × ARO = 2000 × 12 = <strong>24000</strong>.</p>" }]
     },
     avvik: null,
     losning: ["SLE = AV × EF = 2000 $ × 1 = 2000 $.", "ALE = SLE × ARO = 2000 $ × 12 = 24000 $ (per år)."],
@@ -875,9 +875,9 @@
       regelMerknad: "Alt eller ingenting: 2 poeng bare når alle tre tallene er riktige, ellers 0.",
       tekst: "<p>{0} Identify exploitable vulnerabilities</p><p>{1} Identify a relevant threat</p><p>{2} Identify impact</p>",
       felt: [
-        { etikett: "Identify exploitable vulnerabilities", godta: ["2"], explain: "<p>Når trusselen er kjent, finner man sårbarhetene den kan utnytte: <strong>2</strong>.</p>" },
-        { etikett: "Identify a relevant threat", godta: ["1"], explain: "<p>Man starter med en relevant trussel: <strong>1</strong>.</p>" },
-        { etikett: "Identify impact", godta: ["3"], explain: "<p>Til slutt: hva blir konsekvensen hvis trusselen utnytter sårbarheten: <strong>3</strong>.</p>" }
+        { etikett: "Identify exploitable vulnerabilities", godta: ["2", "to", "two"], explain: "<p>Når trusselen er kjent, finner man sårbarhetene den kan utnytte: <strong>2</strong>.</p>" },
+        { etikett: "Identify a relevant threat", godta: ["1", "en", "én", "ett", "one"], explain: "<p>Man starter med en relevant trussel: <strong>1</strong>.</p>" },
+        { etikett: "Identify impact", godta: ["3", "tre", "three"], explain: "<p>Til slutt: hva blir konsekvensen hvis trusselen utnytter sårbarheten: <strong>3</strong>.</p>" }
       ]
     },
     avvik: null,
@@ -1082,11 +1082,11 @@
       regelMerknad: "Alt eller ingenting: 2 poeng bare når alle fem tallene er riktige, ellers 0.",
       tekst: "<ul><li>{0}. User authenticates to the Identity Provider.</li><li>{1}. User is redirected to the Service Provider.</li><li>{2}. User is redirected to the Identity Provider.</li><li>{3}. User gets access to the resource at the Service Provider.</li><li>{4}. User tries to access a resource at the Service Provider.</li></ul>",
       felt: [
-        { etikett: "User authenticates to the Identity Provider", godta: ["3"], explain: "<p>Hos IdP-en logger brukeren inn: <strong>3</strong>.</p>" },
-        { etikett: "User is redirected to the Service Provider", godta: ["4"], explain: "<p>Med sikkerhetsbilletten sendes brukeren tilbake til SP: <strong>4</strong>.</p>" },
-        { etikett: "User is redirected to the Identity Provider", godta: ["2"], explain: "<p>SP-en kan ikke autentisere selv og sender brukeren til IdP-en: <strong>2</strong>.</p>" },
-        { etikett: "User gets access to the resource at the Service Provider", godta: ["5"], explain: "<p>SP-en godtar billetten og gir tilgang: <strong>5</strong>.</p>" },
-        { etikett: "User tries to access a resource at the Service Provider", godta: ["1"], explain: "<p>Det hele starter med at brukeren vil bruke en tjeneste: <strong>1</strong>.</p>" }
+        { etikett: "User authenticates to the Identity Provider", godta: ["3", "tre", "three"], explain: "<p>Hos IdP-en logger brukeren inn: <strong>3</strong>.</p>" },
+        { etikett: "User is redirected to the Service Provider", godta: ["4", "fire", "four"], explain: "<p>Med sikkerhetsbilletten sendes brukeren tilbake til SP: <strong>4</strong>.</p>" },
+        { etikett: "User is redirected to the Identity Provider", godta: ["2", "to", "two"], explain: "<p>SP-en kan ikke autentisere selv og sender brukeren til IdP-en: <strong>2</strong>.</p>" },
+        { etikett: "User gets access to the resource at the Service Provider", godta: ["5", "fem", "five"], explain: "<p>SP-en godtar billetten og gir tilgang: <strong>5</strong>.</p>" },
+        { etikett: "User tries to access a resource at the Service Provider", godta: ["1", "en", "én", "ett", "one"], explain: "<p>Det hele starter med at brukeren vil bruke en tjeneste: <strong>1</strong>.</p>" }
       ]
     },
     avvik: null,
@@ -1232,10 +1232,10 @@
       regelMerknad: "Alt eller ingenting: 2 poeng bare når alle fire tallene er riktige, ellers 0.",
       tekst: "<p>{0} Gain access</p><p>{1} Information gathering</p><p>{2} Scanning for weakness</p><p>{3} Maintain access</p>",
       felt: [
-        { etikett: "Gain access", godta: ["3"], explain: "<p>Sårbarheten utnyttes for å komme inn: <strong>3</strong>.</p>" },
-        { etikett: "Information gathering", godta: ["1"], explain: "<p>Først samles informasjon om målet (rekognosering): <strong>1</strong>.</p>" },
-        { etikett: "Scanning for weakness", godta: ["2"], explain: "<p>Så skannes målet for svakheter: <strong>2</strong>.</p>" },
-        { etikett: "Maintain access", godta: ["4"], explain: "<p>Til slutt sikres tilgangen, f.eks. med bakdør: <strong>4</strong>.</p>" }
+        { etikett: "Gain access", godta: ["3", "tre", "three"], explain: "<p>Sårbarheten utnyttes for å komme inn: <strong>3</strong>.</p>" },
+        { etikett: "Information gathering", godta: ["1", "en", "én", "ett", "one"], explain: "<p>Først samles informasjon om målet (rekognosering): <strong>1</strong>.</p>" },
+        { etikett: "Scanning for weakness", godta: ["2", "to", "two"], explain: "<p>Så skannes målet for svakheter: <strong>2</strong>.</p>" },
+        { etikett: "Maintain access", godta: ["4", "fire", "four"], explain: "<p>Til slutt sikres tilgangen, f.eks. med bakdør: <strong>4</strong>.</p>" }
       ]
     },
     avvik: null,

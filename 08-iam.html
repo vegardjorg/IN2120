@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Identitets- og tilgangshåndtering i IN2120: IAM-fasene, silo og føderert identitet, OIDC, FEIDE og ID-porten, OAuth, og tilgangskontrollmodellene DAC, MAC (Bell-LaPadula), RBAC og ABAC – med sekvensdiagram, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126l">
 </head>
 <body data-page="iam">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -102,7 +102,7 @@
       <div class="ov-intro">Hver rad er ett trinn i IAM. Kryss av hvilken fase (konfigurering eller bruk) og hvilken del (identitet eller tilgang) trinnet hører til.</div>
       <div id="ov-iam-1"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> PAP, PDP og PEP</h4>
-      <div class="ov-intro">Velg i hver nedtrekksliste hvor policyen forvaltes, avgjøres og håndheves.</div>
+      <div class="ov-intro">Hvilket policypunkt gjør hva? Velg i hver nedtrekksliste hvor policyen forvaltes, hvor beslutningen tas, og hvor den håndheves.</div>
       <div id="ov-iam-2"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> IAM-faser og begreper</h4>
@@ -144,7 +144,7 @@
       </ul>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Plasser ordningene: navnerom og autentisering</h4>
-      <p class="ov-intro">Velg en ordning, og plasser den i panelet som åpnes under den (eller i tabellen). Forklaringen kommer når du treffer.</p>
+      <p class="ov-intro">Har ordningen sentralisert eller distribuert navnerom, og sentralisert eller distribuert autentisering? Trykk på en ordning, og plasser den i panelet som åpnes under den (eller i tabellen). Forklaringen kommer når du treffer.</p>
       <div id="viz-kategorier"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -175,7 +175,7 @@
       <div class="ov-intro">Kryss av om hvert kjennetegn passer best med silo eller føderert modell.</div>
       <div id="ov-iam-3"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Navnerom og autentisering</h4>
-      <div class="ov-intro">Kryss av navnerom og autentisering for hver ordning (to kryss per rad).</div>
+      <div class="ov-intro">Har ordningen sentralisert eller distribuert navnerom, og sentralisert eller distribuert autentisering? Sett to kryss per rad: ett for navnerommet og ett for autentiseringen.</div>
       <div id="ov-iam-4"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Silo og føderert</h4>
@@ -259,7 +259,7 @@
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Sett de tolv OIDC-meldingene i rekkefølge</h4>
-      <p class="ov-intro">Samme oppgavetype som H2021 7.2 og H2024 31.</p>
+      <p class="ov-intro">De tolv meldingene fra OIDC-diagrammet over står i stokket rekkefølge. Sett dem i riktig rekkefølge, fra første til siste. Samme oppgavetype som H2021 7.2 og H2024 31.</p>
       <div id="dra-iam-oidc"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> OIDC-meldingene i rekkefølge</h4>
       <div class="ov-intro">Bruker eksempelet med Lina og Bibliotekappen over. Skriv nummeret (1–12) meldingen har i OIDC-diagrammet.</div>
@@ -389,7 +389,7 @@
       <p class="small muted fig-vis-led">ABAC-arkitekturen: fire typer attributter og policyene går inn i ABAC-funksjonen, som avgjør om forespørselen får tilgang.</p>
       <div id="fv-abac"></div>
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> ABAC: en policy for journaler</h4>
-      <p class="ov-intro">Dr. Berg på kirurgi ber kl. 14 om å lese en kirurgijournal: tilgang. Samme forespørsel kl. 03, når hun ikke er på vakt: avslag. Prøv selv.</p>
+      <p class="ov-intro">Dr. Berg på kirurgi ber kl. 14 om å lese en kirurgijournal: tilgang. Samme forespørsel kl. 03, når hun ikke er på vakt: avslag. Her ser du hvordan policyen avgjør. Bytt attributtene under (rolle, avdeling, tid og modus), så viser demoen hvilke vilkår som holder, og om forespørselen får tilgang.</p>
       <div id="viz-abac"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -440,38 +440,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 8 · Identitets- og tilgangshåndtering · <a href="index.html">Til forsiden</a></footer>
 
-  <script src="assets/js/core.js?v=20261126k"></script>
-  <script src="assets/js/symboler.js?v=20261126k"></script>
-  <script src="assets/js/begreper-data.js?v=20261126k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
-  <script src="assets/js/pseudocode.js?v=20261126k"></script>
-  <script src="assets/js/stepplayer.js?v=20261126k"></script>
-  <script src="assets/js/varline.js?v=20261126k"></script>
-  <script src="assets/js/inspera.js?v=20261126k"></script>
-  <script src="assets/js/dra.js?v=20261126k"></script>
-  <script src="assets/js/ovelse.js?v=20261126k"></script>
-  <script src="assets/js/bank.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
-  <script src="assets/js/viz-iam.js?v=20261126k"></script>
+  <script src="assets/js/core.js?v=20261126l"></script>
+  <script src="assets/js/symboler.js?v=20261126l"></script>
+  <script src="assets/js/begreper-data.js?v=20261126l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126l"></script>
+  <script src="assets/js/pseudocode.js?v=20261126l"></script>
+  <script src="assets/js/stepplayer.js?v=20261126l"></script>
+  <script src="assets/js/varline.js?v=20261126l"></script>
+  <script src="assets/js/inspera.js?v=20261126l"></script>
+  <script src="assets/js/dra.js?v=20261126l"></script>
+  <script src="assets/js/ovelse.js?v=20261126l"></script>
+  <script src="assets/js/bank.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126l"></script>
+  <script src="assets/js/viz-iam.js?v=20261126l"></script>
   <script>
   (function () {
     "use strict";
@@ -788,11 +788,11 @@
       { key: "ov-iam-5", title: "OIDC-meldingene i rekkefølge", opphav: { type: "egen", variantAv: ["H2024-31", "H2021-7.2"], kilder: ["iam s. 12–26", "t09"], merknad: "Nummereringen følger OIDC-sekvensdiagrammet på denne siden" }, inspera: { type: "T", regelTekst: "0,25 for korrekt tall, 0 for feil eller intet tall, minimum 0.",
           regel: { riktig: 0.25, feil: 0, blankt: 0, min: 0, maks: 1.5 },
           tekst: "<p>Lina logger inn i Bibliotekappen med Studentkonto (OIDC). Skriv meldingsnummeret (1–12): nettleseren videresender ID-tokenet {0}; Studentkonto viser innloggingssiden {1}; Lina velger Studentkonto {2}; Studentkonto kontrollerer svaret {3}; appen omdirigerer nettleseren {4}; Lina får lånelista {5}.</p>",
-          felt: [ { etikett: "Videresender ID-token", godta: ["11"], explain: "<p>I 10 får nettleseren ID-tokenet fra Studentkonto, og i 11 bærer nettleseren det videre til Bibliotekappen. Tokenet går via nettleseren, ikke rett fra IdP til SP.</p>" },
-                  { etikett: "Innloggingsside", godta: ["6"], explain: "<p>Nettleseren ber Studentkonto om innlogging (5), og Studentkonto svarer med innloggingssiden og en utfordring (6).</p>" },
-                  { etikett: "Velger IdP", godta: ["3"], explain: "<p>Appen viser valgene (2), og Lina velger Studentkonto (3). Først da vet appen hvor den skal omdirigere.</p>" },
-                  { etikett: "Kontrollerer svaret", godta: ["9"], explain: "<p>Lina gir autentikatoren lokalt (7), nettleseren sender svaret (8), og Studentkonto sjekker det (9).</p>" },
-                  { etikett: "Omdirigerer", godta: ["4"], explain: "<p>Appen kan omdirigere til Studentkonto først når Lina har valgt den (3). Det er lett å bytte 3 og 4.</p>" },
+          felt: [ { etikett: "Videresender ID-token", godta: ["11"], naer: { "10": "I 10 sender Studentkonto ID-tokenet til nettleseren. Nettleseren bærer det videre til appen i 11." }, explain: "<p>I 10 får nettleseren ID-tokenet fra Studentkonto, og i 11 bærer nettleseren det videre til Bibliotekappen. Tokenet går via nettleseren, ikke rett fra IdP til SP.</p>" },
+                  { etikett: "Innloggingsside", godta: ["6"], naer: { "5": "I 5 ber nettleseren om innlogging. Studentkonto svarer med innloggingssiden i 6." }, explain: "<p>Nettleseren ber Studentkonto om innlogging (5), og Studentkonto svarer med innloggingssiden og en utfordring (6).</p>" },
+                  { etikett: "Velger IdP", godta: ["3"], naer: { "4": "I 4 omdirigerer appen, og det kan den først når Lina har valgt Studentkonto i 3.", "2": "I 2 viser appen listen over IdP-er. Lina velger i 3." }, explain: "<p>Appen viser valgene (2), og Lina velger Studentkonto (3). Først da vet appen hvor den skal omdirigere.</p>" },
+                  { etikett: "Kontrollerer svaret", godta: ["9"], naer: { "8": "I 8 sender nettleseren svaret. Studentkonto kontrollerer det i 9.", "7": "I 7 gir Lina autentikatoren lokalt. Studentkonto kontrollerer svaret i 9." }, explain: "<p>Lina gir autentikatoren lokalt (7), nettleseren sender svaret (8), og Studentkonto sjekker det (9).</p>" },
+                  { etikett: "Omdirigerer", godta: ["4"], naer: { "3": "I 3 velger Lina Studentkonto. Appen kan først omdirigere etterpå, i 4." }, explain: "<p>Appen kan omdirigere til Studentkonto først når Lina har valgt den (3). Det er lett å bytte 3 og 4.</p>" },
                   { etikett: "Får tjenesten", godta: ["12"], explain: "<p>Siste melding: Lina ser lånelista. Bibliotekappen så aldri passordet.</p>" } ] } },
       { key: "ov-iam-6", title: "eID-er og nivåer", opphav: { type: "egen", variantAv: ["H2023-33", "H2024-30"], kilder: ["iam s. 12–26"] }, inspera: { type: "M", kolonner: ["Sant", "Usant"], multi: false, regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
@@ -804,13 +804,13 @@
       { key: "ov-iam-7", title: "OAuth-meldingene i rekkefølge", opphav: { type: "egen", variantAv: ["H2023-35"], kilder: ["iam s. 38–41", "t09"], merknad: "Nummereringen følger OAuth-sekvensdiagrammet på denne siden" }, inspera: { type: "T", regelTekst: "0,5 for hver riktig, 0 for feil eller ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 3.5 },
           tekst: "<p>Løpelogg henter pulsdata fra Klokkesky med OAuth. Skriv meldingsnummeret (1–7): tokenet utstedes {0}; Aron trykker «Koble til» {1}; Aron blir spurt {2}; dataene sendes {3}; Løpelogg viser tokenet {4}; Løpelogg ber om tilgang {5}; Aron godkjenner {6}.</p>",
-          felt: [ { etikett: "Tokenet utstedes", godta: ["5"], explain: "<p>Etter at Aron har godkjent (4), får Løpelogg tilgangstokenet (5): bare lesing, bare puls.</p>" },
+          felt: [ { etikett: "Tokenet utstedes", godta: ["5"], naer: { "4": "I 4 godkjenner Aron. Tokenet utstedes etterpå, i 5." }, explain: "<p>Etter at Aron har godkjent (4), får Løpelogg tilgangstokenet (5): bare lesing, bare puls.</p>" },
                   { etikett: "Koble til", godta: ["1"], explain: "<p>Alt starter med at Aron trykker «Koble til Klokkesky» i Løpelogg.</p>" },
-                  { etikett: "Aron blir spurt", godta: ["3"], explain: "<p>Løpelogg har bedt om tilgang (2), så Aron får spørsmålet om han godtar (3).</p>" },
-                  { etikett: "Dataene sendes", godta: ["7"], explain: "<p>Siste steg: pulsdataene sendes etter at Løpelogg har vist tokenet (6).</p>" },
-                  { etikett: "Viser tokenet", godta: ["6"], explain: "<p>Med tokenet i hånden (5) ber Løpelogg om pulsdata og viser tokenet (6).</p>" },
+                  { etikett: "Aron blir spurt", godta: ["3"], naer: { "4": "I 4 godkjenner Aron. Spørsmålet kommer før, i 3." }, explain: "<p>Løpelogg har bedt om tilgang (2), så Aron får spørsmålet om han godtar (3).</p>" },
+                  { etikett: "Dataene sendes", godta: ["7"], naer: { "6": "I 6 viser Løpelogg tokenet. Dataene sendes som svar, i 7." }, explain: "<p>Siste steg: pulsdataene sendes etter at Løpelogg har vist tokenet (6).</p>" },
+                  { etikett: "Viser tokenet", godta: ["6"], naer: { "5": "I 5 får Løpelogg tokenet. Det vises fram når dataene hentes, i 6." }, explain: "<p>Med tokenet i hånden (5) ber Løpelogg om pulsdata og viser tokenet (6).</p>" },
                   { etikett: "Ber om tilgang", godta: ["2"], explain: "<p>Rett etter klikket (1) ber Løpelogg Klokkeskys autoriseringstjener om lesetilgang til puls (2).</p>" },
-                  { etikett: "Godkjenner", godta: ["4"], explain: "<p>Aron blir spurt (3), logger inn og godkjenner (4). Først da kan tokenet utstedes (5).</p>" } ] } },
+                  { etikett: "Godkjenner", godta: ["4"], naer: { "3": "I 3 blir Aron spurt. Han godkjenner i 4." }, explain: "<p>Aron blir spurt (3), logger inn og godkjenner (4). Først da kan tokenet utstedes (5).</p>" } ] } },
       { key: "ov-iam-8", title: "Hvilken tilgangsmodell?", opphav: { type: "egen", variantAv: ["H2021-7.3"], kilder: ["iam s. 27–37"] }, inspera: { type: "M", multi: false, kolonner: ["RBAC", "MAC", "ABAC", "DAC"],
           regelTekst: "0,5 for hver korrekt, −0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
           rader: [

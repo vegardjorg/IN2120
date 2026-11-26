@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126l">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -285,6 +285,7 @@
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Risikotrekanten</h4>
       <p class="case-ctx" data-case="smuldre">Et bakeri med 12 ansatte og nettbutikk, der en regnskapsmedarbeider betaler fakturaer i nettbanken. Trekanten og øvingen under bruker bakeriets risikoer, blant annet R2 fakturasvindel.</p>
+      <p class="ov-intro">Dette er en demo, ikke en oppgave: ingenting rettes. Trekanten viser at en risiko trenger både en verdi, en trussel og en sårbarhet. Klikk på et hjørne for å slå det av eller på, og se hva som skjer med risikoen R2 «fakturasvindel».</p>
       <div id="viz-trekant"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -330,6 +331,7 @@
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Risikomatrisen for Smuldre</h4>
       <p class="case-ctx" data-case="smuldre">Et bakeri med 12 ansatte, nettbutikk, kasser og kunderegister. Fem risikoer: R1 løsepengevirus på ordre/kasse, R2 fakturasvindel via falsk e-post, R3 DDoS mot nettbutikken i julen, R4 lekkasje av kunderegister og R5 tapt mobil/PC med e-post og regnskap. Akseptgrensen er R ≤ 5.</p>
+      <p class="ov-intro">Hvor i risikomatrisen hører R1–R5 hjemme? Trykk «Plasser selv», velg en risiko og klikk ruta med riktig sannsynlighet s og konsekvens k. Tallene for s og k står i tabellen i Eksempel A under. «Vis R1–R5» viser fasiten, og «Piler før → etter tiltak» viser hvor risikoene havner etter tiltak.</p>
       <p class="small muted">Konsekvens vannrett, sannsynlighet loddrett, og tallet i ruta er s + k. Fargene er våre egne: grønt er innenfor grensen, gult er ett over, rødt er mer. Den stiplede trappen er akseptgrensen. Dra glideren (oblig 3 lar grensen ligge mellom 4 og 7).</p>
       <div id="viz-matrise"></div>
 
@@ -341,7 +343,7 @@
       <div id="viz-kvantitativ"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Regn først: risiko og ROI</h4>
-      <p class="small muted">Regn selv før du trykker «Sjekk svar». Gliderne gir nye tall. Standardtallene er et eget eksempel i samme stil som H2022 10.3.</p>
+      <p class="ov-intro">To regneoppgaver: først kvantitativ risiko i kroner per år, så ROI for et tiltak. Regn selv, skriv svaret i feltet og trykk «Sjekk svar». Gliderne gir nye tall. Standardtallene er et eget eksempel i samme stil som H2022 10.3.</p>
       <div id="viz-kalk"></div>
       <div id="viz-kalk-roi"></div>
 
@@ -412,7 +414,7 @@
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Fire måter å håndtere R1 på</h4>
       <p class="case-ctx" data-case="smuldre">R1 er løsepengevirus på bakeriets ordre- og kassesystem: s = 2 og k = 4, altså R = 6, over grensen 5.</p>
-      <p class="small muted">Samme matrise som i fanen Risikovurdering. Prøv knappene og se hva som skjer med R1.</p>
+      <p class="ov-intro">Dette er en demo, ikke en oppgave: knappene velger hvilken håndtering som vises, og ingenting rettes. Trykk på Redusere, Dele/overføre, Unngå eller Akseptere og se hva som skjer med R1 i matrisen. «Tilbake» viser utgangspunktet. Det er samme matrise som i fanen Risikovurdering.</p>
       <div id="viz-handling"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -569,37 +571,37 @@
         kort: "12 ansatte, tre utsalg, nettbutikk, kasse- og ordresystem i sky, kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken. Akseptgrensen for risiko er R ≤ 5." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126k"></script>
-  <script src="assets/js/symboler.js?v=20261126k"></script>
-  <script src="assets/js/begreper-data.js?v=20261126k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
-  <script src="assets/js/pseudocode.js?v=20261126k"></script>
-  <script src="assets/js/stepplayer.js?v=20261126k"></script>
-  <script src="assets/js/varline.js?v=20261126k"></script>
-  <script src="assets/js/inspera.js?v=20261126k"></script>
-  <script src="assets/js/dra.js?v=20261126k"></script>
-  <script src="assets/js/ovelse.js?v=20261126k"></script>
-  <script src="assets/js/bank.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
-  <script src="assets/js/viz-risiko.js?v=20261126k"></script>
+  <script src="assets/js/core.js?v=20261126l"></script>
+  <script src="assets/js/symboler.js?v=20261126l"></script>
+  <script src="assets/js/begreper-data.js?v=20261126l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126l"></script>
+  <script src="assets/js/pseudocode.js?v=20261126l"></script>
+  <script src="assets/js/stepplayer.js?v=20261126l"></script>
+  <script src="assets/js/varline.js?v=20261126l"></script>
+  <script src="assets/js/inspera.js?v=20261126l"></script>
+  <script src="assets/js/dra.js?v=20261126l"></script>
+  <script src="assets/js/ovelse.js?v=20261126l"></script>
+  <script src="assets/js/bank.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126l"></script>
+  <script src="assets/js/viz-risiko.js?v=20261126l"></script>
   <script>
   (function () {
     "use strict";

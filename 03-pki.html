@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126l">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -95,7 +95,7 @@
       <p class="pki-q">Hvilken beskyttelse trenger hver nøkkel?</p>
       <div id="ov-pki-1"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Tilstander og lov bruk</h4>
-      <p class="pki-q">Fyll inn tilstand og lov bruk.</p>
+      <p class="pki-q">Hva er lov å gjøre med en nøkkel i hver tilstand? Velg det riktige alternativet i hver nedtrekksliste, så setningene blir riktige.</p>
       <div id="ov-pki-2"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -270,7 +270,7 @@
       <p class="pki-q">Sertifikatet for bibliotek.lerkedal.no har ecdsa-with-SHA256 og ECC P-256. Hvilke utsagn er korrekte? Velg opp til 2.</p>
       <div id="ov-pki-5"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Generering av sertifikat</h4>
-      <p class="pki-q">Hvordan genereres og valideres et sertifikat?</p>
+      <p class="pki-q">Hvordan genereres og valideres et sertifikat? Velg det riktige alternativet i hver nedtrekksliste, så beskrivelsen blir riktig.</p>
       <div id="ov-pki-6"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -345,7 +345,7 @@
       <p class="pki-q">For hver beskrivelse, angi riktig sertifikat i kjeden Fjellvik Root R1 → Fjellvik TLS CA 2 → bibliotek.lerkedal.no (Ingen er også et alternativ).</p>
       <div id="ov-pki-7"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sertifikatstien</h4>
-      <p class="pki-q">Sertifikatstien er Fjellvik Root R1 → Fjellvik TLS CA 2 → bibliotek.lerkedal.no.</p>
+      <p class="pki-q">Sertifikatstien er Fjellvik Root R1 → Fjellvik TLS CA 2 → bibliotek.lerkedal.no. Hvilken rolle har hvert sertifikat, og hvem signerer hva? Velg det riktige alternativet i hver nedtrekksliste.</p>
       <div id="ov-pki-8"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -504,7 +504,7 @@
       <p class="pki-q">Hvilken mekanisme løser problemet?</p>
       <div id="ov-pki-11"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Revokeringsflyt</h4>
-      <p class="pki-q">Fyll inn revokeringsflyten.</p>
+      <p class="pki-q">Hva skjer når et sertifikat må tilbakekalles? Velg det riktige alternativet i hver nedtrekksliste, så flyten blir riktig.</p>
       <div id="ov-pki-12"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -539,37 +539,37 @@
         kort: "Lerkedal bibliotek har nettstedet bibliotek.lerkedal.no. Sertifikatstien er Fjellvik Root R1 (rot) → Fjellvik TLS CA 2 (mellomliggende CA) → bibliotek.lerkedal.no (subjektsertifikat)." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126k"></script>
-  <script src="assets/js/symboler.js?v=20261126k"></script>
-  <script src="assets/js/begreper-data.js?v=20261126k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
-  <script src="assets/js/pseudocode.js?v=20261126k"></script>
-  <script src="assets/js/stepplayer.js?v=20261126k"></script>
-  <script src="assets/js/varline.js?v=20261126k"></script>
-  <script src="assets/js/inspera.js?v=20261126k"></script>
-  <script src="assets/js/dra.js?v=20261126k"></script>
-  <script src="assets/js/ovelse.js?v=20261126k"></script>
-  <script src="assets/js/bank.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
-  <script src="assets/js/viz-pki.js?v=20261126k"></script>
+  <script src="assets/js/core.js?v=20261126l"></script>
+  <script src="assets/js/symboler.js?v=20261126l"></script>
+  <script src="assets/js/begreper-data.js?v=20261126l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126l"></script>
+  <script src="assets/js/pseudocode.js?v=20261126l"></script>
+  <script src="assets/js/stepplayer.js?v=20261126l"></script>
+  <script src="assets/js/varline.js?v=20261126l"></script>
+  <script src="assets/js/inspera.js?v=20261126l"></script>
+  <script src="assets/js/dra.js?v=20261126l"></script>
+  <script src="assets/js/ovelse.js?v=20261126l"></script>
+  <script src="assets/js/bank.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126l"></script>
+  <script src="assets/js/viz-pki.js?v=20261126l"></script>
   <script>
   (function () {
     "use strict";
@@ -672,7 +672,7 @@
           explain: "<p>Navnet må stemme (d03 s. 42). Seriøsitet kan ikke sjekkes, og privatnøkkelen står aldri i sertifikatet.</p>" },
         { q: "Subjektsertifikatet er utløpt, men roten og det mellomliggende er gyldige. Hva skjer?", options: ["Valideringen feiler", "Den godtas, fordi kjeden er gyldig", "Nettleseren fornyer sertifikatet"], answer: 0,
           explain: "<p>Alle ledd må være gyldige. Prøv scenario 2 i kjeden.</p>" },
-        { q: "«bibliotek.lerkedal.no» i kjeden over er et eksempel på:", options: ["Rot-CA", "Mellomliggende CA", "Subjektsertifikat"], answer: 2,
+        { q: "Sertifikatkjeden er Fjellvik Root R1 → Fjellvik TLS CA 2 → bibliotek.lerkedal.no. Sertifikatet for «bibliotek.lerkedal.no» er et eksempel på:", options: ["Rot-CA", "Mellomliggende CA", "Subjektsertifikat"], answer: 2,
           explain: "<p>Webtjenerens sertifikat er subjektsertifikatet nederst.</p>" }
       ],
       tillit: [

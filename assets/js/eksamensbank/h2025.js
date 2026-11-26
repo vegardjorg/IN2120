@@ -287,9 +287,9 @@
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 2 },
       tekst: "<p>A) Svar {0} her.</p><p>B) {1}</p>",
       felt: [
-        { etikett: "A) NSM står for", godta: ["Nasjonal sikkerhetsmyndighet", "Nasjonalt tryggingsorgan", "Nasjonal sikkerhetsmyndighet (NSM)", "Nasjonalt tryggingsorgan (NSM)"],
+        { etikett: "A) NSM står for", godta: ["Nasjonal sikkerhetsmyndighet", "Nasjonalt tryggingsorgan", "Nasjonal sikkerhetsmyndighet (NSM)", "Nasjonalt tryggingsorgan (NSM)"], naer: { "NSM": "Det er forkortelsen selv. Svaret er hva den står for: Nasjonal sikkerhetsmyndighet." },
           explain: "<p><strong>Nasjonal sikkerhetsmyndighet</strong> (nynorsk: Nasjonalt tryggingsorgan) er direktoratet for forebyggende nasjonal sikkerhet og står bak NSMs grunnprinsipper for IKT-sikkerhet.</p>" },
-        { etikett: "B) NSMs nasjonale enhet for hendelser", godta: ["NCSC", "Nasjonalt cybersikkerhetssenter", "National cyber security center", "National cyber security centre", "NCSC (Nasjonalt cybersikkerhetssenter)", "Nasjonalt cybersikkerhetssenter (NCSC)", "NSM NCSC", "NSM Nasjonalt cybersikkerhetssenter", "Norwegian National Cyber Security Centre", "Norwegian National Cyber Security Center", "National Cyber Security Centre (NCSC)"],
+        { etikett: "B) NSMs nasjonale enhet for hendelser", godta: ["NCSC", "Nasjonalt cybersikkerhetssenter", "National cyber security center", "National cyber security centre", "NCSC (Nasjonalt cybersikkerhetssenter)", "Nasjonalt cybersikkerhetssenter (NCSC)", "NSM NCSC", "NSM Nasjonalt cybersikkerhetssenter", "Norwegian National Cyber Security Centre", "Norwegian National Cyber Security Center", "National Cyber Security Centre (NCSC)"], naer: { "NorCERT": "NorCERT-funksjonen er en del av enheten, men ikke navnet (som hintet sier). Enheten heter NCSC, Nasjonalt cybersikkerhetssenter." },
           explain: "<p><strong>NCSC</strong> (Nasjonalt cybersikkerhetssenter) er NSMs senter for deteksjon, varsling og koordinering av hendelseshåndtering. Det tidligere NorCERT inngår i NCSC.</p>" }
       ]
     },
@@ -579,7 +579,7 @@
       regelTekst: "Riktig svar gir ettpoeng.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Hva heter dette programmet? {0}</p><p>Hint: Svaret skrives i ETT ord, og husk at svaret rettes automatisk. Er du i tvil om skrivemåten, så spør faglærer om du har skrevet det riktig når han går runden.</p><p>Riktig svar gir ettpoeng.</p>",
-      felt: [{ etikett: "Programmet", godta: ["nmap", "n map", "network mapper", "nmap (Network Mapper)", "Network Mapper (nmap)"],
+      felt: [{ etikett: "Programmet", godta: ["nmap", "n map", "network mapper", "nmap (Network Mapper)", "Network Mapper (nmap)"], naer: { "Wireshark": "Wireshark fanger og viser nettverkstrafikk. Utdata med «scan report», portliste og OS-gjetting kommer fra portskanneren nmap." },
         explain: "<p><strong>nmap</strong> (Network Mapper) er portskanneren som viser åpne porter, tjenester, MAC-adresse og gjetter operativsystem. «scan report for», «Not shown: … filtered tcp ports» og «OS detection performed» er typiske nmap-linjer.</p>" }]
     },
     losning: ["Liste over porter med STATE/SERVICE + OS-gjenkjenning = portskanner = nmap."],
@@ -667,7 +667,7 @@
       regelTekst: "Oppgaven gir ett poeng for riktig svar.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Hva er OSINT {0} forkortelse for?</p>",
-      felt: [{ etikett: "OSINT", godta: ["Open Source Intelligence", "Open Source Inteligence", "Open Source Intelligense", "Open Source Inteligense", "OpenSource Intelligence", "Open SourceIntelligence", "Open Source Intelligence (OSINT)", "Open Source Intelligance"],
+      felt: [{ etikett: "OSINT", godta: ["Open Source Intelligence", "Open Source Inteligence", "Open Source Intelligense", "Open Source Inteligense", "OpenSource Intelligence", "Open SourceIntelligence", "Open Source Intelligence (OSINT)", "Open Source Intelligance"], naer: { "Open Source Information": "Siste ord er Intelligence (etterretning), ikke information: Open Source Intelligence." },
         explain: "<p><strong>Open Source Intelligence</strong>: etterretning basert på åpne, offentlig tilgjengelige kilder. «Open source» betyr her åpne kilder, ikke åpen kildekode.</p>" }]
     },
     losning: ["Open Source Intelligence."],
@@ -1332,7 +1332,7 @@
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       regelMerknad: "Arket har ingen egen poenglinje; maks poeng er 1. Vi antar 1 p for riktig, 0 ellers.",
       tekst: "<p>Hva står forkortelsen SJA for {0} .</p>",
-      felt: [{ etikett: "SJA", godta: ["sikker jobbanalyse", "sikker jobb analyse", "sikker jobbanalyse (SJA)"],
+      felt: [{ etikett: "SJA", godta: ["sikker jobbanalyse", "sikker jobb analyse", "sikker jobbanalyse (SJA)", "Safe Job Analysis"],
         explain: "<p><strong>Sikker jobbanalyse</strong>: en systematisk gjennomgang av risiko før en farlig arbeidsoppgave.</p>" }]
     },
     losning: ["Sikker jobbanalyse."],
@@ -1396,7 +1396,7 @@
       regelTekst: "Riktig svar gir 1p.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Fyll inn ditt {0} her.</p>",
-      felt: [{ etikett: "NATO-spesifikasjonen", godta: ["TEMPEST", "NATO TEMPEST", "TEMPEST-standarden", "TEMPEST-spesifikasjonen", "TEMPEST-standard"],
+      felt: [{ etikett: "NATO-spesifikasjonen", godta: ["TEMPEST", "NATO TEMPEST", "TEMPEST-standarden", "TEMPEST-spesifikasjonen", "TEMPEST-standard"], naer: { "Van Eck": "Van Eck-avlytting er selve angrepsteknikken. NATO-spesifikasjonen heter TEMPEST.", "van Eck phreaking": "Van Eck-avlytting er selve angrepsteknikken. NATO-spesifikasjonen heter TEMPEST." },
         explain: "<p><strong>TEMPEST</strong> handler om at elektronisk utstyr lekker elektromagnetisk stråling som kan fanges opp og brukes til å gjenskape signalene, og om hvordan man skjermer mot det.</p>" }]
     },
     losning: ["TEMPEST."],

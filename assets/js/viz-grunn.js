@@ -824,7 +824,7 @@
       var stop = a.indexOf(false) >= 0, fullt = a.length === 4 && !stop;
       out.className = "gr-out " + (fullt ? "ok" : stop ? "nei" : "");
       out.innerHTML = fullt ? "<b>Lovlig pentest</b>, så lenge testen holder seg innenfor det avtalen beskriver." :
-        stop ? "<b>Ikke en lovlig pentest.</b> Treet stopper ved første nei." : (cur == null && egen == null ? "Velg et scenario, eller svar selv." : "Svar på neste spørsmål.");
+        stop ? "<b>Ikke en lovlig pentest.</b> Treet stopper ved første nei." : (cur == null && egen == null ? "Trykk på et eksempel a)–d) over, eller på «Svar selv»." : "Svar på neste spørsmål.");
     }
     root.appendChild(row); root.appendChild(tree); root.appendChild(out); paint();
     clear(host); host.appendChild(root);

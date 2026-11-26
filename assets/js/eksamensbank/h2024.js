@@ -456,9 +456,9 @@
           regelMerknad: "Alle tre feltene godtar samme liste. Meningen er at de tre feltene skal inneholde tre forskjellige aspekter (verdier, trusler, sårbarheter).",
           tekst: null,
           felt: [
-            { etikett: "Øverste hjørne", godta: RISIKO_ORD, explain: "Hvilket som helst av de tre aspektene: verdier, trusler eller sårbarheter." },
-            { etikett: "Nederste venstre hjørne", godta: RISIKO_ORD, explain: "Hvilket som helst av de tre, men ikke det samme som i et annet hjørne." },
-            { etikett: "Nederste høyre hjørne", godta: RISIKO_ORD, explain: "Det aspektet som gjenstår." }
+            { etikett: "Øverste hjørne", godta: RISIKO_ORD, naer: { "verdi": "Oppgaven ber om flertall: verdier.", "trussel": "Oppgaven ber om flertall: trusler.", "sårbarhet": "Oppgaven ber om flertall: sårbarheter.", "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdier, trusler og sårbarheter.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdier, trusler og sårbarheter.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdier, trusler og sårbarheter." }, explain: "Hvilket som helst av de tre aspektene: verdier, trusler eller sårbarheter." },
+            { etikett: "Nederste venstre hjørne", godta: RISIKO_ORD, naer: { "verdi": "Oppgaven ber om flertall: verdier.", "trussel": "Oppgaven ber om flertall: trusler.", "sårbarhet": "Oppgaven ber om flertall: sårbarheter.", "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdier, trusler og sårbarheter.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdier, trusler og sårbarheter.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdier, trusler og sårbarheter." }, explain: "Hvilket som helst av de tre, men ikke det samme som i et annet hjørne." },
+            { etikett: "Nederste høyre hjørne", godta: RISIKO_ORD, naer: { "verdi": "Oppgaven ber om flertall: verdier.", "trussel": "Oppgaven ber om flertall: trusler.", "sårbarhet": "Oppgaven ber om flertall: sårbarheter.", "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdier, trusler og sårbarheter.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdier, trusler og sårbarheter.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdier, trusler og sårbarheter." }, explain: "Det aspektet som gjenstår." }
           ]
         },
         avvik: null,
@@ -570,9 +570,9 @@
             "<p>I dette kurset har vi nevnt en rekke asymmetriske kryptografi algoritmer som kan brukes til signering. For eksempel i en PKI-sammenheng.</p>" +
             "<p>Skriv <b><u>en, og bare en,</u></b> av disse algoritmene i forkortet form (eksempelvis ville kunstig intelligens vært KI) i feltet under:</p><p>{1}</p>",
           felt: [
-            { etikett: "Standard for sertifikater", godta: ["X.509", "x509", "x 509", "x-509", "X.509v3"],
+            { etikett: "Standard for sertifikater", godta: ["X.509", "x509", "x 509", "x-509", "X.509v3", "X509v3"], naer: { "X.500": "X.500 er katalogstandarden som X.509 er en del av. Sertifikatformatet heter X.509." },
               explain: "X.509 er standarden for formatet på sertifikater på Internett: navn, offentlig nøkkel, gyldighet og CA-ens signatur." },
-            { etikett: "Signaturalgoritme (forkortelse)", godta: ["RSA", "ECC", "DSA", "DH", "MQV", "ECDSA", "EdDSA", "FFC", "IFC", "XMSS", "ML-DSA", "SLH-DSA"],
+            { etikett: "Signaturalgoritme (forkortelse)", godta: ["RSA", "ECC", "DSA", "DH", "MQV", "ECDSA", "EdDSA", "FFC", "IFC", "XMSS", "ML-DSA", "SLH-DSA"], naer: { "AES": "AES er symmetrisk og kan ikke signere. Skriv en asymmetrisk signaturalgoritme, f.eks. RSA eller ECDSA.", "SHA": "SHA er en hashfunksjon, ikke en signaturalgoritme. Signaturen lages med f.eks. RSA eller ECDSA over hashen.", "SHA-256": "SHA-256 er en hashfunksjon, ikke en signaturalgoritme. Signaturen lages med f.eks. RSA eller ECDSA over hashen." },
               explain: "Trygge valg er RSA, DSA, ECDSA eller EdDSA, som alle er signaturalgoritmer. Lista godtar også DH og MQV, selv om de egentlig er nøkkelutveksling." }
           ]
         },
@@ -800,7 +800,7 @@
           regel: R(2, 0, 0, 2),
           tekst: "<p>Hva heter dette programmet? {0}</p>",
           felt: [
-            { etikett: "Programnavn", godta: ["mimikatz", "mimikats", "mimmikatz", "mimmikats", "mimikatz.exe"],
+            { etikett: "Programnavn", godta: ["mimikatz", "mimikats", "mimmikatz", "mimmikats", "mimikatz.exe"], naer: { "kiwi": "Kiwi er utvidelsen som bruker programmet (hintet sier at svaret ikke er kiwi). Programmet heter mimikatz." },
               explain: "Kommandoene privilege::debug og sekurlsa::logonpasswords er kjennetegnet på mimikatz, som henter innloggingsdata (hasher og til og med klartekstpassord) ut av minnet på Windows." }
           ]
         },
@@ -891,7 +891,7 @@
           regel: R(2, 0, 0, 2),
           tekst: "<p>Hvilket program er dette regelsettet et eksempel på? {0}</p>",
           felt: [
-            { etikett: "IDS-program", godta: ["snort", "Snort IDS", "Snort3"],
+            { etikett: "IDS-program", godta: ["snort", "Snort IDS", "Snort3"], naer: { "Suricata": "Suricata leser også regler på denne formen, men rettenøkkelen godtar bare Snort, IDS-en kurset bruker.", "iptables": "iptables er en brannmur, ikke en IDS. Regelen med msg, sid og rev er en Snort-regel." },
               explain: "Formen «alert tcp kilde port -> mål port ( msg:…; content:…; sid:…; rev:…; )» er en Snort-regel. Snort er den signaturbaserte IDS-en kurset bruker." }
           ]
         },
@@ -1178,9 +1178,9 @@
             "<p>Nivå A kalles {0} CTI.</p><p>Nivå B kalles {1} CTI.</p><p>Nivå C kalles {2} CTI.</p><p>Er du i tvil om stavemåte for oppgavene over, spør faglærer.</p>" +
             "<p>MITRE ATT&amp;CK beskriver CTI-elementer på {3}.</p><p>Den mest detaljerte CTI er på {4}.</p><p>Den mest kortvarige CTI er på {5}</p>",
           felt: [
-            { etikett: "Nivå A", godta: CTI_A, explain: "Toppen er strategisk CTI: overordnet bilde av aktører, motiver og trender for ledelsen." },
-            { etikett: "Nivå B", godta: CTI_B, explain: "Midten er taktisk/operasjonell CTI: hvordan aktørene jobber, altså TTP-ene." },
-            { etikett: "Nivå C", godta: CTI_C, explain: "Bunnen er teknisk CTI: konkrete angrepsindikatorer som IP-adresser, domener og filhasher." },
+            { etikett: "Nivå A", godta: CTI_A, naer: { "operasjonell": "Operasjonell (taktisk) er midtnivået med TTP-er. Toppen er strategisk CTI.", "taktisk": "Taktisk/operasjonell er midtnivået med TTP-er. Toppen er strategisk CTI." }, explain: "Toppen er strategisk CTI: overordnet bilde av aktører, motiver og trender for ledelsen." },
+            { etikett: "Nivå B", godta: CTI_B, naer: { "teknisk": "Teknisk CTI er bunnen (IP-adresser, domener og filhasher). Midten med TTP-er er taktisk/operasjonell.", "strategisk": "Strategisk CTI er toppen (overordnet bilde for ledelsen). Midten med TTP-er er taktisk/operasjonell." }, explain: "Midten er taktisk/operasjonell CTI: hvordan aktørene jobber, altså TTP-ene." },
+            { etikett: "Nivå C", godta: CTI_C, naer: { "taktisk": "Taktisk/operasjonell er midten (TTP-er, f.eks. MITRE ATT&amp;CK). Bunnen med IP-adresser og filhasher er teknisk CTI.", "operasjonell": "Taktisk/operasjonell er midten (TTP-er, f.eks. MITRE ATT&amp;CK). Bunnen med IP-adresser og filhasher er teknisk CTI." }, explain: "Bunnen er teknisk CTI: konkrete angrepsindikatorer som IP-adresser, domener og filhasher." },
             { etikett: "MITRE ATT&amp;CK", valg: ["nivå A", "nivå B", "nivå C"], svar: 1, godta: [], explain: "ATT&CK er en katalog over taktikker og teknikker, altså TTP-er. Det er taktisk nivå (B)." },
             { etikett: "Mest detaljert", valg: ["nivå A", "nivå B", "nivå C"], svar: 2, godta: [], explain: "Tekniske indikatorer er de mest konkrete og detaljerte." },
             { etikett: "Mest kortvarig", valg: ["nivå A", "nivå B", "nivå C"], svar: 2, godta: [], explain: "En angriper kan bytte IP-adresse eller filhash på minutter, så teknisk CTI blir fort utdatert. TTP-er er mye vanskeligere å endre." }

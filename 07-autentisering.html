@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126l">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -135,11 +135,11 @@
       <div id="ex-passord"></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Klartekst, hash og saltet hash</h4>
-      <p class="small muted">Velg lagringsmåte og trykk «Lekk databasen» for å se hva en angriper får. Endre passord og salt, og prøv innloggingen. Nederst regner vi ut hvor mye lenger gjettingen tar med salt og med en treg hashfunksjon.</p>
+      <p class="ov-intro">Dette er en demo, ikke en oppgave: ingenting rettes. Velg lagringsmåte og trykk «Lekk databasen» for å se hva en angriper får. Endre passord og salt, og prøv innloggingen. Nederst regner vi ut hvor mye lenger gjettingen tar med salt og med en treg hashfunksjon.</p>
       <div id="viz-salt"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Nøkkelrom og gjettetid</h4>
-      <p class="small muted">Regn selv først: antall passord A<sup>L</sup>, og hvor lang tid det tar å prøve alle. Gliderne gir nye tall. Etterpå kan du åpne kalkulatoren og sammenligne før og etter en policyendring med de samme eksemplene som i regneoppgavene på eksamen.</p>
+      <p class="ov-intro">Regn selv først: antall passord A<sup>L</sup>, og hvor lang tid det tar å prøve alle. Gliderne gir nye tall. Etterpå kan du åpne kalkulatoren og sammenligne før og etter en policyendring med de samme eksemplene som i regneoppgavene på eksamen.</p>
       <div id="viz-noekkelrom"></div>
 
       <h4>Eksempel: 8 til 12 tegn</h4>
@@ -218,7 +218,7 @@
       <div id="ex-eierskap"></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Leke-OTP: brikke og tjener</h4>
-      <p class="small muted">Flytt klokka og se koden skifte hvert 30. sekund. La brikkens klokke drive for å se hvorfor tjeneren godtar nabovinduene, og skriv ned en kode for å se at den blir verdiløs etter kort tid.</p>
+      <p class="ov-intro">Dette er en demo, ikke en oppgave: ingenting rettes. Flytt klokka og se koden skifte hvert 30. sekund. La brikkens klokke drive for å se hvorfor tjeneren godtar nabovinduene, og skriv ned en kode for å se at den blir verdiløs etter kort tid.</p>
       <div id="viz-otp"></div>
 
       <h4>Eksempel: regnet for hånd</h4>
@@ -293,7 +293,7 @@
       <div id="fv-fido"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Sekvensdiagram: registrering og innlogging</h4>
-      <p class="small muted">Velg scenario og gå steg for steg. Før noen av stegene får du et spørsmål om hva som skjer videre. Svar før du går videre, eller slå av «Gjett før hvert steg». Tallene 1, 2 og 3 på pilene er de samme som i figuren fra lysarket og eksamen.</p>
+      <p class="ov-intro">Velg scenario og gå steg for steg. Før noen av stegene får du et spørsmål om hva som skjer videre. Svar før du går videre, eller slå av «Gjett før hvert steg». Tallene 1, 2 og 3 på pilene er de samme som i figuren fra lysarket og eksamen.</p>
       <div id="sp-fido"></div>
 
       <h4>Protokollen i tabell</h4>
@@ -370,7 +370,7 @@
       <div id="ex-biometri"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Terskel, FMR, FNMR og EER</h4>
-      <p class="small muted">Regn ut FMR for terskelen først. Når svaret vises, åpnes figuren: ti genuine forsøk (sirkler) og ti ikke-genuine (firkanter) med skåring fra 0 til 100. Dra i terskelen. Merker på feil side blir røde, og kurvene under viser FMR og FNMR for alle terskler. Det grønne feltet er der FMR = FNMR.</p>
+      <p class="ov-intro">Regn ut FMR for terskelen først. Når svaret vises, åpnes figuren: ti genuine forsøk (sirkler) og ti ikke-genuine (firkanter) med skåring fra 0 til 100. Dra i terskelen. Merker på feil side blir røde, og kurvene under viser FMR og FNMR for alle terskler. Det grønne feltet er der FMR = FNMR.</p>
       <div id="viz-biometri"></div>
 
       <h4>Eksempel: testen i tabell</h4>
@@ -403,9 +403,9 @@
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Biometri i eksamensformat</h4>
       <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar og rett hver for seg.</div>
-      <p class="aut-q">Regn ut ratene.</p>
+      <p class="aut-q">Regn ut TMR, TNMR, FMR og FNMR ut fra testresultatet, og skriv hvert svar som desimaltall i feltet.</p>
       <div id="ov-aut-6"></div>
-      <p class="aut-q">Velg riktig ord.</p>
+      <p class="aut-q">Velg riktig ord i hvert nedtrekksfelt, slik at de tre setningene om terskel, PAD og biometrisk modus blir riktige.</p>
       <div id="ov-aut-7"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -470,7 +470,7 @@
       <div id="fx-garantinivaa-stiger"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Fra konsekvens til nivå</h4>
-      <p class="small muted">Plasser tjenestene og eID-ene på riktig nivå, og trykk «Sjekk svar». Tjenestene er fra en tenkt kommune, Fjellvik. Oppslaget under viser hvilke eID-er som holder hvert nivå.</p>
+      <p class="ov-intro">Plasser tjenestene og eID-ene på riktig nivå, og trykk «Sjekk svar». Tjenestene er fra en tenkt kommune, Fjellvik. Oppslaget under viser hvilke eID-er som holder hvert nivå.</p>
       <div id="viz-nivaa"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -517,38 +517,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261126k"></script>
-  <script src="assets/js/symboler.js?v=20261126k"></script>
-  <script src="assets/js/begreper-data.js?v=20261126k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
-  <script src="assets/js/pseudocode.js?v=20261126k"></script>
-  <script src="assets/js/stepplayer.js?v=20261126k"></script>
-  <script src="assets/js/varline.js?v=20261126k"></script>
-  <script src="assets/js/inspera.js?v=20261126k"></script>
-  <script src="assets/js/dra.js?v=20261126k"></script>
-  <script src="assets/js/ovelse.js?v=20261126k"></script>
-  <script src="assets/js/bank.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
-  <script src="assets/js/viz-aut.js?v=20261126k"></script>
+  <script src="assets/js/core.js?v=20261126l"></script>
+  <script src="assets/js/symboler.js?v=20261126l"></script>
+  <script src="assets/js/begreper-data.js?v=20261126l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126l"></script>
+  <script src="assets/js/pseudocode.js?v=20261126l"></script>
+  <script src="assets/js/stepplayer.js?v=20261126l"></script>
+  <script src="assets/js/varline.js?v=20261126l"></script>
+  <script src="assets/js/inspera.js?v=20261126l"></script>
+  <script src="assets/js/dra.js?v=20261126l"></script>
+  <script src="assets/js/ovelse.js?v=20261126l"></script>
+  <script src="assets/js/bank.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126l"></script>
+  <script src="assets/js/viz-aut.js?v=20261126l"></script>
   <script>
   (function () {
     "use strict";
@@ -776,8 +776,8 @@
           { etikett: "Klammen over bruker og klient", svar: 5, explain: "<p>Bruker mot klient er den <b>lokale etappen</b>. Klient mot tjener er den andre etappen, som går online.</p>" } ] } },
       { key: "ov-aut-6", title: "Regn ut ratene", points: 2, opphav: { type: "egen", variantAv: ["H2022-8.2"], kilder: ["ba s. 29–39", "t07"] }, inspera: { type: "T", regelTekst: "0.5 for riktig, 0 for feil eller ubesvart, minimum 0.", regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 2 },
         tekst: "<p>Et system testes med 50 genuine og 50 ikke-genuine brukere. 47 genuine og 2 ikke-genuine blir godtatt. Oppgi som desimaltall med punktum: TMR {0}, TNMR {1}, FMR {2}, FNMR {3}.</p>",
-        felt: [ { godta: ["0.94", "0,94", ".94", "94%", "94 prosent"], explain: "<p>47/50 = 0.94.</p>" }, { godta: ["0.96", "0,96", ".96", "96%", "96 prosent"], explain: "<p>48/50 = 0.96.</p>" },
-                { godta: ["0.04", "0,04", ".04", "4%", "4 prosent"], explain: "<p>2/50 = 0.04.</p>" }, { godta: ["0.06", "0,06", ".06", "6%", "6 prosent"], explain: "<p>3/50 = 0.06.</p>" } ] } },
+        felt: [ { godta: ["0.94", "0,94", ".94", ",94", "0.940", "0,940", "94%", "94 prosent"], naer: { "0.96": "0.96 er TNMR (48 av 50 ikke-genuine avvist). TMR er andelen genuine som godtas: 47/50 = 0.94.", "0,96": "0.96 er TNMR (48 av 50 ikke-genuine avvist). TMR er andelen genuine som godtas: 47/50 = 0.94.", "0.06": "0.06 er FNMR (genuine som avvises). TMR er andelen genuine som godtas: 47/50 = 0.94.", "0,06": "0.06 er FNMR (genuine som avvises). TMR er andelen genuine som godtas: 47/50 = 0.94.", "47": "47 er antallet. TMR er en andel: 47/50 = 0.94.", "47/50": "Verdien stemmer, men oppgaven ber om desimaltall: 0.94." }, explain: "<p>47/50 = 0.94.</p>" }, { godta: ["0.96", "0,96", ".96", ",96", "0.960", "0,960", "96%", "96 prosent"], naer: { "0.94": "0.94 er TMR (genuine som godtas). TNMR er andelen ikke-genuine som avvises: 48/50 = 0.96.", "0,94": "0.94 er TMR (genuine som godtas). TNMR er andelen ikke-genuine som avvises: 48/50 = 0.96.", "0.04": "0.04 er FMR (ikke-genuine som godtas). TNMR = 1 − FMR = 48/50 = 0.96.", "0,04": "0.04 er FMR (ikke-genuine som godtas). TNMR = 1 − FMR = 48/50 = 0.96.", "48": "48 er antallet. TNMR er en andel: 48/50 = 0.96.", "48/50": "Verdien stemmer, men oppgaven ber om desimaltall: 0.96." }, explain: "<p>48/50 = 0.96.</p>" },
+                { godta: ["0.04", "0,04", ".04", ",04", "0.040", "0,040", "4%", "4 prosent"], naer: { "0.06": "0.06 er FNMR (3 av 50 genuine avvist). FMR teller ikke-genuine som godtas: 2/50 = 0.04.", "0,06": "0.06 er FNMR (3 av 50 genuine avvist). FMR teller ikke-genuine som godtas: 2/50 = 0.04.", "0.96": "0.96 er TNMR, andelen ikke-genuine som avvises. FMR = 1 − TNMR = 0.04.", "0,96": "0.96 er TNMR, andelen ikke-genuine som avvises. FMR = 1 − TNMR = 0.04.", "2": "2 er antallet. FMR er en andel av de ikke-genuine forsøkene: 2/50 = 0.04.", "2/50": "Verdien stemmer, men oppgaven ber om desimaltall: 0.04." }, explain: "<p>2/50 = 0.04.</p>" }, { godta: ["0.06", "0,06", ".06", ",06", "0.060", "0,060", "6%", "6 prosent"], naer: { "0.04": "0.04 er FMR (ikke-genuine som godtas). FNMR teller genuine som avvises: 3/50 = 0.06.", "0,04": "0.04 er FMR (ikke-genuine som godtas). FNMR teller genuine som avvises: 3/50 = 0.06.", "0.94": "0.94 er TMR, andelen genuine som godtas. FNMR = 1 − TMR = 0.06.", "0,94": "0.94 er TMR, andelen genuine som godtas. FNMR = 1 − TMR = 0.06.", "3": "3 er antallet. FNMR er en andel av de genuine forsøkene: 3/50 = 0.06.", "3/50": "Verdien stemmer, men oppgaven ber om desimaltall: 0.06." }, explain: "<p>3/50 = 0.06.</p>" } ] } },
       { key: "ov-aut-7", title: "Terskel, PAD og modus", points: 1.5, opphav: { type: "egen", kilder: ["ba s. 29–39"] }, inspera: { type: "N", regelTekst: "0,5 for riktig, -0,5 for feil, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 1.5 },
         tekst: "<p>Senkes terskelen, vil FNMR {0}. Et silikonavtrykk av en ekte finger stoppes best av {1}. Søk i et register med 10 000 maler er {2}.</p>",
         felt: [ { valg: ["øke", "minske", "forbli uendret"], svar: 1, explain: "<p>Med lavere terskel kommer flere genuine forsøk over streken, så færre genuine avvises. FNMR minsker, mens FMR øker.</p>" }, { valg: ["lav FMR", "PAD", "lav EER"], svar: 1, explain: "<p>En god forfalskning av en ekte finger ser genuin ut, så lav FMR eller lav EER hjelper ikke. Det er PAD som skal oppdage presentasjonsangrep.</p>" },

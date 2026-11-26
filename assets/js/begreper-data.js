@@ -69,6 +69,18 @@
     ti: { ord: "TI", full: "tilrettelagt innhenting", b: 10, mc: ["TI"], ctx: "Etterretning",
       forveks: "Må ikke forveksles med TI som engelsk forkortelse for threat intelligence (trusseletterretning, se CTI).",
       txt: "Etterretningstjenestens innhenting av elektronisk trafikk som krysser grensen inn og ut av Norge." },
+    /* Norske aktører og sektor-CERT-er (eierens ønske 2026-11-26: NorSIS, KraftCERT, HelseCERT …) */
+    norsis: { ord: "NorSIS", full: "Norsk senter for informasjonssikring", b: 1, mc: A("NorSIS"),
+      forveks: "Ikke en CERT, og ikke det samme som NCSC i NSM, som er for statlig og kritisk sektor.",
+      txt: "Uavhengig senter som gir råd om informasjonssikkerhet til privatpersoner og vanlige (små og mellomstore) virksomheter." },
+    kraftcert: { ord: "KraftCERT", b: 1, mc: A("KraftCERT"),
+      txt: "Sektor-CERT for kraftsektoren: hjelper kraftselskapene med å oppdage og håndtere sikkerhetshendelser." },
+    helsecert: { ord: "HelseCERT", b: 1, mc: A("HelseCERT"),
+      txt: "Sektor-CERT for helsesektoren, drevet av Norsk helsenett: varsler og hjelper helsevirksomheter ved sikkerhetshendelser." },
+    etjenesten: { ord: "Etterretningstjenesten", full: "E-tjenesten", b: 10, m: ["Etterretningstjenesten" + S, "E-tjenesten" + S],
+      txt: "Norges utenlandsetterretning under Forsvaret. Følger trusler fra utenlandske aktører, mens PST har ansvaret innenlands." },
+    datatilsynet: { ord: "Datatilsynet", b: 6, m: ["Datatilsynet" + S],
+      txt: "Norsk tilsynsmyndighet for personvern. Fører tilsyn med at personopplysninger behandles etter personvernregelverket (GDPR)." },
     nato: { ord: "NATO", full: "North Atlantic Treaty Organization", b: 1, mc: ["NATO"],
       txt: "Forsvarsalliansen. NATO har egne graderinger, som NATO SECRET, ved siden av de norske." },
 
@@ -270,6 +282,8 @@
       txt: "Etterretning fra åpne kilder som nettsider, sosiale medier, offentlige registre og DNS. Brukes særlig i rekognoseringen." },
     nmap: { ord: "nmap", b: "v", m: ["nmap"],
       txt: "Verktøy for portskanning: sender pakker til portene og tolker svarene som open, closed eller filtered." },
+    zap: { ord: "ZAP", full: "Zed Attack Proxy", b: "v", mc: ["ZAP"],
+      txt: "Gratis proxy med åpen kildekode for å teste webapplikasjoner, som Burp Suite: den står mellom nettleseren og tjeneren og lar deg se og endre forespørslene." },
     wireshark: { ord: "Wireshark", b: "v", m: ["Wireshark"],
       txt: "Pakkeanalysator som fanger og viser nettverkstrafikk. Kryptert innhold kan den ikke lese uten nøkkelen." },
     john: { ord: "John the Ripper", b: "v", m: ["John the Ripper"],
@@ -489,6 +503,8 @@
       txt: "Tjenesten brukeren vil inn på. I føderert IAM godtar den billetten fra IdP-en. Kalles også Relying Party." },
     idporten: { ord: "ID-porten", b: 8, m: ["ID-porten"],
       txt: "Digdirs felles innlogging til offentlige tjenester. Brukeren velger eID, for eksempel MinID eller BankID." },
+    helseid: { ord: "HelseID", b: 8, mc: A("HelseID"),
+      txt: "Felles innloggingsløsning for helsesektoren, drevet av Norsk helsenett og bygget på OIDC/OAuth: helsepersonell logger inn én gang og får tilgang i journalsystemene." },
     feide: { ord: "Feide", full: "Felles Elektronisk IDEntitet", b: 8, mc: ["FEIDE", "Feide"],
       txt: "Innloggingsløsningen for utdanningssektoren i Norge, drevet av Sikt." },
     sso: { ord: "SSO", full: "single sign-on", b: 8, mc: ["SSO"],
@@ -698,7 +714,9 @@
       txt: "Sikkerhetssenter som overvåker og håndterer hendelser, ofte døgnet rundt." },
     cert: { ord: "CERT", full: "Computer Emergency Response Team", b: 1, mc: ["CERT"],
       forveks: "Må ikke forveksles med «cert», kortform for et digitalt sertifikat (certificate) i PKI.",
-      txt: "Team som håndterer og koordinerer sikkerhetshendelser, for eksempel UiO-CERT." }
+      txt: "Team som håndterer og koordinerer sikkerhetshendelser, for eksempel UiO-CERT." },
+    rfc: { ord: "RFC", full: "Request for Comments", b: 9, mc: ["RFC"],
+      txt: "Dokumentserien der internettstandardene beskrives, for eksempel RFC 5280 for X.509-sertifikater og RFC 8446 for TLS 1.3." }
   };
 
   var BLOKK = {

@@ -579,7 +579,7 @@
       regelTekst: "Points: 1 for correct answer.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Answer: {0}.</p>",
-      felt: [{ etikett: "TCP-port", godta: ["443", "port 443", "TCP 443", "TCP/443", "TCP port 443"], explain: "<p>HTTPS (HTTP over TLS) har standardporten <strong>443</strong>. Vanlig HTTP bruker 80.</p>" }]
+      felt: [{ etikett: "TCP-port", godta: ["443", "port 443", "TCP 443", "TCP/443", "TCP port 443", "443/tcp", "HTTPS 443"], naer: { "80": "Port 80 er vanlig HTTP uten TLS. HTTP over TLS (HTTPS) bruker port 443." }, explain: "<p>HTTPS (HTTP over TLS) har standardporten <strong>443</strong>. Vanlig HTTP bruker 80.</p>" }]
     },
     avvik: null,
     losning: ["HTTPS = port 443."],
@@ -709,9 +709,9 @@
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
       tekst: "<p>Application: {0}</p><p>Guest OS VM: {1}</p><p>Hypervisor: {2}</p>",
       felt: [
-        { etikett: "Application", godta: ["3", "ring 3", "tre", "three"], explain: "<p>Applikasjoner kjører i brukermodus, <strong>ring 3</strong>, med minst privilegier.</p>" },
-        { etikett: "Guest OS VM", godta: ["0", "ring 0", "null", "zero"], explain: "<p>Gjeste-OS-kjernen tror den eier maskinen og kjører i <strong>ring 0</strong> (kjernemodus).</p>" },
-        { etikett: "Hypervisor", godta: ["-1", "−1", "- 1", "ring −1", "minus 1", "minus én", "minus en", "minus one"], explain: "<p>Type 1-hypervisoren trenger enda mer makt enn gjeste-kjernene og kjører på <strong>ring −1</strong> (maskinvarestøttet virtualisering).</p>" }
+        { etikett: "Application", godta: ["3", "ring 3", "tre", "three"], naer: { "0": "Ring 0 er kjernemodus (gjeste-OS). Applikasjoner kjører i brukermodus, ring 3." }, explain: "<p>Applikasjoner kjører i brukermodus, <strong>ring 3</strong>, med minst privilegier.</p>" },
+        { etikett: "Guest OS VM", godta: ["0", "ring 0", "null", "zero"], naer: { "1": "I Type 1-arkitekturen på figuren kjører gjeste-OS-kjernen i ring 0, og hypervisoren under den i ring −1.", "-1": "Ring −1 er hypervisoren. Gjeste-OS-kjernen kjører i ring 0, rett over den." }, explain: "<p>Gjeste-OS-kjernen tror den eier maskinen og kjører i <strong>ring 0</strong> (kjernemodus).</p>" },
+        { etikett: "Hypervisor", godta: ["-1", "−1", "- 1", "ring −1", "minus 1", "minus én", "minus en", "minus one"], naer: { "0": "Ring 0 er gjeste-OS-kjernen. Type 1-hypervisoren trenger mer makt og ligger under den, i ring −1.", "1": "Lavere tall gir mer makt, og hypervisoren ligger under kjernen (ring 0): svaret er −1, med minus." }, explain: "<p>Type 1-hypervisoren trenger enda mer makt enn gjeste-kjernene og kjører på <strong>ring −1</strong> (maskinvarestøttet virtualisering).</p>" }
       ]
     },
     avvik: null,
@@ -778,9 +778,9 @@
       regelMerknad: "Alt eller ingenting: alle tre tall riktige gir 3, ellers 0. Arket har tekstfelt der tallet skrives inn foran hvert trinn.",
       tekst: "<p>{0}. Risk Estimation</p><p>{1}. Risk Evaluation</p><p>{2}. Risk Identification</p>",
       felt: [
-        { etikett: "Risk Estimation", godta: ["2"], explain: "<p>Når risikoene er funnet, anslås sannsynlighet og konsekvens for hver: estimering er <strong>2</strong>.</p>" },
-        { etikett: "Risk Evaluation", godta: ["3"], explain: "<p>Til slutt sammenlignes de estimerte risikoene med akseptkriteriene og prioriteres: evaluering er <strong>3</strong>.</p>" },
-        { etikett: "Risk Identification", godta: ["1"], explain: "<p>Først må man finne hva som kan gå galt (verdier, trusler, sårbarheter): identifisering er <strong>1</strong>.</p>" }
+        { etikett: "Risk Estimation", godta: ["2", "to", "two"], explain: "<p>Når risikoene er funnet, anslås sannsynlighet og konsekvens for hver: estimering er <strong>2</strong>.</p>" },
+        { etikett: "Risk Evaluation", godta: ["3", "tre", "three"], explain: "<p>Til slutt sammenlignes de estimerte risikoene med akseptkriteriene og prioriteres: evaluering er <strong>3</strong>.</p>" },
+        { etikett: "Risk Identification", godta: ["1", "en", "én", "ett", "one"], explain: "<p>Først må man finne hva som kan gå galt (verdier, trusler, sårbarheter): identifisering er <strong>1</strong>.</p>" }
       ]
     },
     avvik: null,
@@ -874,7 +874,7 @@
       felt: [
         { etikett: "Type analyse", valg: ["Relative/semi-quantitative", "Qualitative", "Quantitative"], svar: 2, godta: [1], explain: "<p>Sannsynlighet og verdi er tall med enheter (hendelser per år, dollar), og tapet regnes ut med en formel: det er <strong>kvantitativ</strong> analyse. Arkets fasit sier «Qualitative», som må være en feil; begge godtas.</p>" },
         { etikett: "Enhet for ALE", valg: ["(no unit, plain number)", "%", "$", "$ / year"], svar: 3, godta: [2], explain: "<p>ARO er hendelser per år og AV er dollar, så ALE blir <strong>dollar per år</strong> (forventet tap per år). Arkets fasit sier «$»; begge godtas.</p>" },
-        { etikett: "Verdi for ALE", godta: ["50000", "50 000", "50,000", "50.000"], explain: "<p>ALE = ARO × AV = 10 × 5000 = <strong>50000</strong> ($ per år), når hele verdien tapes ved hver hendelse.</p>" }
+        { etikett: "Verdi for ALE", godta: ["50000", "50 000", "50,000", "50.000", "50000 $", "$50000", "50000 $/år", "50000 $/year", "50000 $ per år"], naer: { "5000": "5000 er verdien (AV) som tapes ved én hendelse. ALE er tapet per år: ARO × AV = 10 × 5000 = 50000." }, explain: "<p>ALE = ARO × AV = 10 × 5000 = <strong>50000</strong> ($ per år), når hele verdien tapes ved hver hendelse.</p>" }
       ]
     },
     avvik: ["Arkets fasit krysser av «Qualitative» for analysetypen. En analyse med tallverdier i dollar og hendelser per år, regnet ut med en formel, er kvantitativ; øvingen viser «Quantitative» som riktig og godtar «Qualitative».", "Enheten er hakket av som «$», mens ALE strengt tatt er $ per år; begge godtas.", "Fasitverdien 50000 = ARO × AV forutsetter at hele verdien tapes ved hver hendelse (eksponeringsfaktor 1); den vanlige formen er ALE = ARO × SLE med SLE = AV × EF."],
@@ -1066,11 +1066,11 @@
       regelMerknad: "Alt eller ingenting: alle fem tall riktige gir 2, ellers 0. Arket har tekstfelt der tallet skrives inn foran hvert trinn.",
       tekst: "<ul><li>{0}. User authenticates to the Identity Provider.</li><li>{1}. User is redirected to the Service Provider.</li><li>{2}. User is redirected to the Identity Provider.</li><li>{3}. User gets access to ressource at the Service Provider.</li><li>{4}. User accesses a resource at the Service Provider.</li></ul>",
       felt: [
-        { etikett: "User authenticates to the Identity Provider.", godta: ["3"], explain: "<p>Hos IdP-en logger brukeren inn: <strong>3</strong>.</p>" },
-        { etikett: "User is redirected to the Service Provider.", godta: ["4"], explain: "<p>IdP-en sender brukeren tilbake til SP med en signert påstand om hvem brukeren er: <strong>4</strong>.</p>" },
-        { etikett: "User is redirected to the Identity Provider.", godta: ["2"], explain: "<p>SP-en kjenner ikke brukeren og sender hen videre til IdP-en: <strong>2</strong>.</p>" },
-        { etikett: "User gets access to ressource at the Service Provider.", godta: ["5"], explain: "<p>SP-en verifiserer påstanden og slipper brukeren inn: <strong>5</strong>.</p>" },
-        { etikett: "User accesses a resource at the Service Provider.", godta: ["1"], explain: "<p>Alt starter med at brukeren prøver å nå tjenesten: <strong>1</strong>.</p>" }
+        { etikett: "User authenticates to the Identity Provider.", godta: ["3", "tre", "three"], explain: "<p>Hos IdP-en logger brukeren inn: <strong>3</strong>.</p>" },
+        { etikett: "User is redirected to the Service Provider.", godta: ["4", "fire", "four"], explain: "<p>IdP-en sender brukeren tilbake til SP med en signert påstand om hvem brukeren er: <strong>4</strong>.</p>" },
+        { etikett: "User is redirected to the Identity Provider.", godta: ["2", "to", "two"], explain: "<p>SP-en kjenner ikke brukeren og sender hen videre til IdP-en: <strong>2</strong>.</p>" },
+        { etikett: "User gets access to ressource at the Service Provider.", godta: ["5", "fem", "five"], explain: "<p>SP-en verifiserer påstanden og slipper brukeren inn: <strong>5</strong>.</p>" },
+        { etikett: "User accesses a resource at the Service Provider.", godta: ["1", "en", "én", "ett", "one"], explain: "<p>Alt starter med at brukeren prøver å nå tjenesten: <strong>1</strong>.</p>" }
       ]
     },
     avvik: null,

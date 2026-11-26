@@ -229,3 +229,6 @@
 .insp-opt > .insp-sm { margin-left: auto; padding-left: 6px; }
 .insp-straks-h { margin: var(--d-sm) 0 .2rem; }
 .insp-straks .insp-fasit-l { list-style: none; padding-left: 0; }
+
+/* Hint for nesten-riktige tekstsvar (inspera.js naer): står rett under fasiten */
+.insp-naer { margin: .15rem 0 .2rem; padding: .2rem .5rem; border-left: 3px solid var(--color-on-tone-warn); background: var(--color-tone-warn); color: var(--color-on-tone-warn); border-radius: 0 var(--radius-md) var(--radius-md) 0; }

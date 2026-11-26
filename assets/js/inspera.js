@@ -57,14 +57,29 @@
       .replace(/[\s\-‐-―_'"«»“”‘’`]+/g, "");
   }
   IN.insperaLos = los;
-  /* Fasit for tekstfelt: første godtatte form, og resten i en diskret merknad (listene kan være lange). */
+  /* Fasit for tekstfelt: første godtatte form, og resten i en diskret merknad (listene kan være lange).
+     Variantene står i «» og uten nesten-like skrivemåter (bare skråstrek/mellomrom skiller), så «varm aktiv»
+     ikke leses som to svar «varm» og «aktiv» (eierens funn 2026-11-26).
+     Tekstfelt kan ha naer: { "svar": "hint" }: et galt svar som (løst sammenlignet) er lik en nøkkel, får
+     hintet under fasiten, f.eks. naer: { "varm": "«Varm» alene er tvetydig …" }. */
   function fasitTekst(g) {
     g = arr(g).map(String);
     if (!g.length) return null;
     var e = function (x) { return x.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
     if (g.length === 1) return e(g[0]);
-    var resten = g.slice(1), vis = resten.slice(0, 3).map(e).join(", ") + (resten.length > 3 ? " …" : "");
+    var sett = {}, resten = [];
+    g.forEach(function (x) { var k = los(x).replace(/\//g, ""); if (!sett[k]) { sett[k] = 1; resten.push(x); } });
+    resten = resten.slice(1);
+    if (!resten.length) return e(g[0]);
+    var q = function (x) { return "«" + e(x) + "»"; };
+    var vis = resten.slice(0, 3).map(q).join(", ") + (resten.length > 3 ? " …" : "");
     return e(g[0]) + ' <span class="muted small" title="Godtar også: ' + resten.map(e).join(", ") + '">(godtar også ' + vis + ")</span>";
+  }
+  function naerHint(map, v) {
+    if (!map || !v) return null;
+    var n = los(v); if (!n) return null;
+    for (var k in map) if (Object.prototype.hasOwnProperty.call(map, k) && los(k) === n) return map[k];
+    return null;
   }
   function arr(v) { return v == null ? [] : [].concat(v); }
   function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return h.toString(36); }
@@ -564,6 +579,7 @@
         nodes.push(node);
         units.push({
           label: f.etikett || ("Felt " + (fi + 1)), explain: f.explain, svar: tx ? f.godta : f.svar,
+          naer: tx && f.naer ? function () { return naerHint(f.naer, node.value); } : null,
           fasit: tx ? fasitTekst(f.godta) : (f.svar == null ? null : valg[f.svar]),
           get: function () { return tx ? node.value : (node.value === "" ? null : +node.value); },
           set: function (v) { node.value = v == null ? "" : String(v); },
@@ -874,6 +890,8 @@
           var li = el("li");
           var head = (u.label && units.length > 1 ? "<b>" + u.label + "</b> → " : "") + (u.fasit == null ? '<span class="muted">fasit ukjent</span>' : "<b>" + u.fasit + "</b>");
           li.appendChild(el("div", { html: head }));
+          var nh = u.naer && !u.isRight(u.get()) ? u.naer() : null;
+          if (nh) li.appendChild(html(el("div", { class: "insp-naer small" }), nh));
           if (u.explain) li.appendChild(html(el("div", { class: "insp-ex small" }), u.explain));
           ul.appendChild(li);
         });
@@ -940,6 +958,8 @@
         var li = el("li", { class: "is-" + st });
         li.appendChild(el("div", { html: '<span class="insp-sm is-' + st + '" aria-hidden="true">' + SYM[st] + "</span> " +
           (u.label && units.length > 1 ? "<b>" + u.label + "</b> → " : "") + "<b>" + u.fasit + "</b>" }));
+        var nh2 = st === "wrong" && u.naer ? u.naer() : null;
+        if (nh2) li.appendChild(html(el("div", { class: "insp-naer small" }), nh2));
         if (u.explain) li.appendChild(html(el("div", { class: "insp-ex small" }), u.explain));
         ul.appendChild(li);
       });

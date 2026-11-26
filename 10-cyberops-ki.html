@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126l">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -79,7 +79,7 @@
       <div id="viz-aktorer"></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Hvem ser hva i kjeden?</h4>
-      <p class="ov-intro">Velg hvem du er, så lyser de leddene du kan se. Slå på «Glemte VPN én gang» for å se en vanlig feil. Nederst: samme klient fra nye adresser.</p>
+      <p class="ov-intro">Her ser du hvilke ledd i kjeden fra Grågås til Fjordnett hver part kan se. Knappene velger hvem du er (for eksempel VPN-tilbyderen), så lyser de leddene du kan se. Slå på «Glemte VPN én gang» for å se en vanlig feil. Nederst: samme klient fra nye adresser.</p>
       <div id="viz-sporing"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -97,10 +97,10 @@
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Aktørnivåene</h4>
-      <p class="cy-q">Hvilket aktørnivå passer best?</p>
+      <p class="cy-q">Hver rad beskriver en trusselaktør. Kryss av hvilket aktørnivå som passer best: amatør, cyberkriminell eller APT.</p>
       <div id="ov-cyber-1"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hvem ser hva ved VPN?</h4>
-      <p class="cy-q">Hvem ser hva når Grågås bruker VPN?</p>
+      <p class="cy-q">Hvem ser hva når APT-en Grågås angriper Fjordnett gjennom en VPN-tjeneste? Velg svaret i hver nedtrekksliste i teksten.</p>
       <div id="ov-cyber-2"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -152,7 +152,7 @@
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Plasser hendelsene og knert angrepet</h4>
       <p class="case-ctx" data-case="fjordnett">Målet for APT-en «Grågås», som vil ha anbudsdokumentene Ingrid Solberg jobber med.</p>
-      <p class="ov-intro">«Sjekk plasseringen» regner ut poeng med den justerte skåringen fra eksamen. «Knert her» viser hvor mye av angrepet som aldri skjer.</p>
+      <p class="ov-intro">Hendelsene i Grågås-angrepet står i stokket rekkefølge. Legg hver hendelse på trinnet i Cyber Kill Chain den hører til. «Sjekk plasseringen» regner ut poeng med den justerte skåringen fra eksamen. «Knert her» viser hvor mye av angrepet som aldri skjer.</p>
       <div id="viz-killchain"></div>
 
       <details class="cy-eks">
@@ -192,10 +192,10 @@
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hendelse og kill chain-trinn</h4>
-      <p class="cy-q">Hvilket trinn i Cyber Kill Chain er hendelsen?</p>
+      <p class="cy-q">Hver rad er én hendelse i et angrep mot Fjordnett. Kryss av hvilket trinn i Cyber Kill Chain hendelsen hører til.</p>
       <div id="ov-cyber-3"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Kill og ATT&amp;CK</h4>
-      <p class="cy-q">Velg riktig ord i hver nedtrekksliste.</p>
+      <p class="cy-q">Teksten under handler om ordet «kill» i Cyber Kill Chain og om taktikk og teknikk i MITRE ATT&amp;CK. Velg ordet i hver nedtrekksliste som gjør setningen riktig.</p>
       <div id="ov-cyber-4"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -242,7 +242,7 @@
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Pyramiden, DML-trappa og levetiden</h4>
       <p class="case-ctx" data-case="fjordnett">Kortene er det firmaet deler etter at APT-en «Grågås» har stjålet anbudsdokumenter via makroregneark og VPS-er.</p>
-      <p class="ov-intro">Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så kortene på riktig nivå.</p>
+      <p class="ov-intro">Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så hvert kort på det CTI-nivået det hører til: strategisk, taktisk/operasjonell eller teknisk.</p>
       <div id="viz-cti"></div>
 
       <details class="cy-eks">
@@ -279,10 +279,10 @@
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> CTI-nivå</h4>
-      <p class="cy-q">Hvilket CTI-nivå hører informasjonen til?</p>
+      <p class="cy-q">Hver rad er en type trusseletterretning (CTI). Kryss av hvilket CTI-nivå informasjonen hører til: strategisk, taktisk/operasjonell eller teknisk.</p>
       <div id="ov-cyber-5"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Norske aktører</h4>
-      <p class="cy-q">Hvem gjør hva i Norge?</p>
+      <p class="cy-q">Teksten under handler om hvem som har ansvaret for hva i Norge når det gjelder dataangrep og trusselaktører. Velg svaret i hver nedtrekksliste.</p>
       <div id="ov-cyber-6"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -345,7 +345,7 @@
         </tbody></table></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Informasjonsoperasjoner og cyberoperasjoner</h4>
-      <p class="ov-intro">Trykk på en sirkel for å se hva den står for. Cyberoperasjonene er en del av den store sirkelen, ikke det samme.</p>
+      <p class="ov-intro">Her ser du hvordan cyberoperasjoner henger sammen med informasjonsoperasjoner. Det er ingen oppgave. Trykk på en sirkel for å se hva den står for. Cyberoperasjonene er en del av den store sirkelen, ikke det samme.</p>
       <div id="viz-operasjoner"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -361,10 +361,10 @@
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Type operasjon</h4>
-      <p class="cy-q">Hvilken type operasjon er det?</p>
+      <p class="cy-q">Hver rad beskriver en handling. Kryss av om det er spionasje, sabotasje, forsvar eller ikke en cyberoperasjon.</p>
       <div id="ov-cyber-7"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Egenskaper ved cybervåpen</h4>
-      <p class="cy-q">Hvilke påstander om cybervåpen stemmer?</p>
+      <p class="cy-q">Hvilke påstander om cybervåpen stemmer? Kryss av alle som stemmer. Det kan være flere.</p>
       <div id="ov-cyber-8"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -426,7 +426,7 @@
       <div id="ex-ki"></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> KI, ML, DL og GenKI</h4>
-      <p class="ov-intro">Trykk på en ring for å se hva begrepet står for. Hver ring ligger inni den forrige.</p>
+      <p class="ov-intro">Her ser du hvordan KI, ML, DL og GenKI henger sammen. Det er ingen oppgave. Trykk på en ring for å se hva begrepet står for. Hver ring ligger inni den forrige.</p>
       <div id="viz-ringer"></div>
 
       <h4>Eksempel: én netflow-post hos Fjordnett</h4>
@@ -439,7 +439,7 @@
       </ul>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Klassifisering mot autoenkoder</h4>
-      <p class="ov-intro">Endre netflow-posten eller velg et eksempel. Prøv «Nytt, ukjent angrep»: klassifisereren tror den er normal, mens autoenkoderen slår ut.</p>
+      <p class="ov-intro">Her ser du hvordan to KI-modeller vurderer samme netflow-post: en klassifiserer og en autoenkoder. Endre posten eller velg et eksempel, og se hva modellene svarer. Prøv «Nytt, ukjent angrep»: klassifisereren tror den er normal, mens autoenkoderen slår ut.</p>
       <div id="viz-kiids"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -457,10 +457,10 @@
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Offensiv, defensiv eller angrep mot KI</h4>
-      <p class="cy-q">Er det offensiv KI, defensiv KI eller et angrep mot KI?</p>
+      <p class="cy-q">Hver rad beskriver en bruk av KI. Kryss av om det er offensiv KI, defensiv KI eller et angrep mot KI.</p>
       <div id="ov-cyber-9"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> KI-begreper og IDS</h4>
-      <p class="cy-q">Velg riktig ord i hver nedtrekksliste.</p>
+      <p class="cy-q">Teksten under handler om KI-begreper og om en autoenkoder brukt som IDS. Velg ordet i hver nedtrekksliste som gjør setningen riktig.</p>
       <div id="ov-cyber-10"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -525,11 +525,11 @@
       <p>I AI Act-perspektiv er Fjordhjelp en chattebot som samhandler med mennesker, altså <b>begrenset risiko</b>: brukerne må få vite at de snakker med en KI. Hadde Fjordnett brukt KI til å sortere jobbsøkere, ville det vært <b>høy risiko</b> (HR-systemer).</p>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Hvor treffer angrepet?</h4>
-      <p class="ov-intro">Figuren viser trening og inferens. Legg hvert angrep der det treffer. Etter «Sjekk svar» ringes de tre stedene inn med rødt, slik lysarket gjør.</p>
+      <p class="ov-intro">Figuren viser trening og inferens. Hvor treffer hvert angrep: treningsdata, input ved inferens eller hele leveransekjeden? Legg hvert angrep der det treffer. Etter «Sjekk svar» ringes de tre stedene inn med rødt, slik lysarket gjør.</p>
       <div id="viz-kiangrep"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Prompt injection steg for steg</h4>
-      <p class="ov-intro">Velg scenario og gå gjennom de fire pilene med «Neste». Ved ett steg må du gjette før du får gå videre. Bekreftelse før e-post er vår egen idé, ikke et tiltak fra lysarket.</p>
+      <p class="ov-intro">Ingrid ber KI-assistenten Fjordhjelp oppsummere en nettside som har skjulte instruksjoner. Velg scenario og gå gjennom de fire pilene med «Neste». Ved ett steg må du gjette før du får gå videre. Bekreftelse før e-post er vår egen idé, ikke et tiltak fra lysarket.</p>
       <div id="sp-injeksjon"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> AI Act-pyramiden</h4>
@@ -562,10 +562,10 @@
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> AI Act-nivå</h4>
-      <p class="cy-q">Hvilket risikonivå har KI-systemet etter lysarkets pyramide?</p>
+      <p class="cy-q">Hver rad er et KI-system. Kryss av hvilket risikonivå systemet har i AI Act, etter pyramiden på lysarket.</p>
       <div id="ov-cyber-11"></div>
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Angrep og sted i KI-kjeden</h4>
-      <p class="cy-q">Hvor i KI-kjeden treffer angrepet?</p>
+      <p class="cy-q">Hver rad er et angrep mot KI. Kryss av hvor i KI-kjeden angrepet treffer: treningsdata, input ved inferens eller hele leveransekjeden.</p>
       <div id="ov-cyber-12"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -604,36 +604,36 @@
         kort: "Firmaet i eksemplene på denne siden. Det rammes av tre aktører: amatøren «Pixelulv», en løsepengegruppe og APT-en «Grågås», som stjeler anbudsdokumenter i 14 måneder via en kjede av VPS-er." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126k"></script>
-  <script src="assets/js/symboler.js?v=20261126k"></script>
-  <script src="assets/js/begreper-data.js?v=20261126k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126k"></script>
-  <script src="assets/js/pseudocode.js?v=20261126k"></script>
-  <script src="assets/js/stepplayer.js?v=20261126k"></script>
-  <script src="assets/js/varline.js?v=20261126k"></script>
-  <script src="assets/js/inspera.js?v=20261126k"></script>
-  <script src="assets/js/dra.js?v=20261126k"></script>
-  <script src="assets/js/bank.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126k"></script>
-  <script src="assets/js/viz-cyber.js?v=20261126k"></script>
+  <script src="assets/js/core.js?v=20261126l"></script>
+  <script src="assets/js/symboler.js?v=20261126l"></script>
+  <script src="assets/js/begreper-data.js?v=20261126l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126l"></script>
+  <script src="assets/js/pseudocode.js?v=20261126l"></script>
+  <script src="assets/js/stepplayer.js?v=20261126l"></script>
+  <script src="assets/js/varline.js?v=20261126l"></script>
+  <script src="assets/js/inspera.js?v=20261126l"></script>
+  <script src="assets/js/dra.js?v=20261126l"></script>
+  <script src="assets/js/bank.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126l"></script>
+  <script src="assets/js/viz-cyber.js?v=20261126l"></script>
   <script>
   (function () {
     "use strict";
