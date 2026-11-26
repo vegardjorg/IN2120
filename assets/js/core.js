@@ -2003,4 +2003,25 @@
     p.innerHTML = IN.opphavTekst(op);
     return p;
   };
+
+  /* ---------- Gjennomgående case: kort kontekst der caset brukes ----------
+     Folk hopper mellom fanene, så et eksempel som bygger på et case fra en annen fane trenger en linje om hva caset er.
+     Siden definerer window.IN_CASER = { fjellbekk: { navn: "Fjellbekk barnehage", kort: "40 barn …", fane: "trygghet", fanenavn: "Trygghet" } }
+     og skriver <p class="case-ctx" data-case="fjellbekk"></p> (eller med egen tekst inni) rett under overskriften.
+     Linja fylles ved lasting: «Caset: Fjellbekk barnehage. 40 barn … Mer om caset i fanen Trygghet.» Lenka utelates i caset sin egen fane. */
+  IN.caseLinjer = function (root) {
+    var C = window.IN_CASER || {};
+    Array.prototype.forEach.call((root || document).querySelectorAll(".case-ctx[data-case]"), function (p) {
+      if (p._caseFylt) return;
+      var c = C[p.getAttribute("data-case")];
+      if (!c) return;
+      p._caseFylt = true;
+      var panel = p.closest && p.closest("[data-panel]"), her = panel && panel.getAttribute("data-panel") === c.fane;
+      var egen = p.innerHTML.trim();
+      p.innerHTML = "<b>Caset: " + esc(c.navn) + ".</b> " + (egen || esc(c.kort)) +
+        (c.fane && !her ? ' <a href="#fane=' + esc(c.fane) + (c.anker ? "&amp;til=" + esc(c.anker) : "") + '">Mer om caset' + (c.fanenavn ? " i fanen " + esc(c.fanenavn) : "") + "</a>" : "");
+    });
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { IN.caseLinjer(); });
+  else IN.caseLinjer();
 })();

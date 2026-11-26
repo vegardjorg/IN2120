@@ -26,10 +26,10 @@
     return { manuell: true, min: 0, maks: maks };
   }
 
-  var CTI_A = ["strategisk", "strategic"];
-  var CTI_B = ["taktisk/operasjonell", "taktisk", "operasjonell", "tactical/operational", "tactical", "operational", "TTP", "operativ"];
-  var CTI_C = ["teknisk", "angrepsindikatorer", "attackidentifierare", "angrebsindikatorer", "indicators of compromise", "technical"];
-  var RISIKO_ORD = ["assets", "verdier", "vulnerabilities", "sårbarheter", "threats", "hot", "trusler", "trussler"];
+  var CTI_A = ["strategisk", "strategic", "strategiske"];
+  var CTI_B = ["taktisk/operasjonell", "taktisk", "operasjonell", "tactical/operational", "tactical", "operational", "TTP", "operativ", "taktisk operasjonell", "operasjonell/taktisk", "taktisk og operasjonell", "taktisk eller operasjonell", "operational/tactical", "tactical and operational", "taktiske", "operasjonelle", "TTPs", "TTP-er"];
+  var CTI_C = ["teknisk", "angrepsindikatorer", "attackidentifierare", "angrebsindikatorer", "indicators of compromise", "technical", "tekniske", "IoC", "IoCs", "IoC-er", "kompromitteringsindikatorer"];
+  var RISIKO_ORD = ["verdier", "trusler", "sårbarheter", "assets", "vulnerabilities", "threats", "hot", "trussler", "verdiene", "truslene", "sårbarhetene", "verdiar", "truslar", "sårbarheiter"];
 
   BANK[Y] = {
     year: Y,
@@ -570,9 +570,9 @@
             "<p>I dette kurset har vi nevnt en rekke asymmetriske kryptografi algoritmer som kan brukes til signering. For eksempel i en PKI-sammenheng.</p>" +
             "<p>Skriv <b><u>en, og bare en,</u></b> av disse algoritmene i forkortet form (eksempelvis ville kunstig intelligens vært KI) i feltet under:</p><p>{1}</p>",
           felt: [
-            { etikett: "Standard for sertifikater", godta: ["X.509", "x509", "x 509", "x-509"],
+            { etikett: "Standard for sertifikater", godta: ["X.509", "x509", "x 509", "x-509", "X.509v3"],
               explain: "X.509 er standarden for formatet på sertifikater på Internett: navn, offentlig nøkkel, gyldighet og CA-ens signatur." },
-            { etikett: "Signaturalgoritme (forkortelse)", godta: ["RSA", "ECC", "DSA", "DH", "MQV", "ECDSA", "EdDSA", "FFC", "IFC", "XMSS"],
+            { etikett: "Signaturalgoritme (forkortelse)", godta: ["RSA", "ECC", "DSA", "DH", "MQV", "ECDSA", "EdDSA", "FFC", "IFC", "XMSS", "ML-DSA", "SLH-DSA"],
               explain: "Trygge valg er RSA, DSA, ECDSA eller EdDSA, som alle er signaturalgoritmer. Lista godtar også DH og MQV, selv om de egentlig er nøkkelutveksling." }
           ]
         },
@@ -800,7 +800,7 @@
           regel: R(2, 0, 0, 2),
           tekst: "<p>Hva heter dette programmet? {0}</p>",
           felt: [
-            { etikett: "Programnavn", godta: ["mimikatz", "mimikats", "mimmikatz", "mimmikats"],
+            { etikett: "Programnavn", godta: ["mimikatz", "mimikats", "mimmikatz", "mimmikats", "mimikatz.exe"],
               explain: "Kommandoene privilege::debug og sekurlsa::logonpasswords er kjennetegnet på mimikatz, som henter innloggingsdata (hasher og til og med klartekstpassord) ut av minnet på Windows." }
           ]
         },
@@ -891,7 +891,7 @@
           regel: R(2, 0, 0, 2),
           tekst: "<p>Hvilket program er dette regelsettet et eksempel på? {0}</p>",
           felt: [
-            { etikett: "IDS-program", godta: ["snort"],
+            { etikett: "IDS-program", godta: ["snort", "Snort IDS", "Snort3"],
               explain: "Formen «alert tcp kilde port -> mål port ( msg:…; content:…; sid:…; rev:…; )» er en Snort-regel. Snort er den signaturbaserte IDS-en kurset bruker." }
           ]
         },
@@ -1009,18 +1009,18 @@
           regel: R(0.25, 0, 0, 3),
           tekst: null,
           felt: [
-            { etikett: "tjenesteforespørsel", godta: ["1"], explain: "Alt starter med at brukeren ber SP om en tjeneste." },
-            { etikett: "liste over IdP-er", godta: ["2"], explain: "SP vet ikke hvem brukeren er og viser hvilke IdP-er den stoler på." },
-            { etikett: "velg IdP", godta: ["3"], explain: "Brukeren velger sin IdP." },
-            { etikett: "diriger nettleser til IdP", godta: ["4"], explain: "SP sender nettleseren videre til den valgte IdP-en." },
-            { etikett: "be om autentisering", godta: ["5"], explain: "Klienten kommer til IdP med en forespørsel om autentisering." },
-            { etikett: "vis login-side", godta: ["6"], explain: "IdP svarer med innloggingssiden." },
-            { etikett: "presenter autentikator", godta: ["7"], explain: "Brukeren gir passord, kode eller nøkkel til klienten." },
-            { etikett: "autentikator", godta: ["8"], explain: "Klienten sender autentikatoren til IdP." },
-            { etikett: "bruker-autentisering", godta: ["9"], explain: "IdP sjekker autentikatoren." },
-            { etikett: "send ID-token til klient", godta: ["10"], explain: "Er alt i orden, får klienten et signert ID-token." },
-            { etikett: "videresend ID-token til SP", godta: ["11"], explain: "Klienten tar tokenet med tilbake til SP." },
-            { etikett: "tjeneste", godta: ["12"], explain: "SP stoler på IdP (føderasjonsavtalen), godtar tokenet og leverer tjenesten." }
+            { etikett: "tjenesteforespørsel", godta: ["1", "en", "én", "ett"], explain: "Alt starter med at brukeren ber SP om en tjeneste." },
+            { etikett: "liste over IdP-er", godta: ["2", "to"], explain: "SP vet ikke hvem brukeren er og viser hvilke IdP-er den stoler på." },
+            { etikett: "velg IdP", godta: ["3", "tre"], explain: "Brukeren velger sin IdP." },
+            { etikett: "diriger nettleser til IdP", godta: ["4", "fire"], explain: "SP sender nettleseren videre til den valgte IdP-en." },
+            { etikett: "be om autentisering", godta: ["5", "fem"], explain: "Klienten kommer til IdP med en forespørsel om autentisering." },
+            { etikett: "vis login-side", godta: ["6", "seks"], explain: "IdP svarer med innloggingssiden." },
+            { etikett: "presenter autentikator", godta: ["7", "sju", "syv"], explain: "Brukeren gir passord, kode eller nøkkel til klienten." },
+            { etikett: "autentikator", godta: ["8", "åtte"], explain: "Klienten sender autentikatoren til IdP." },
+            { etikett: "bruker-autentisering", godta: ["9", "ni"], explain: "IdP sjekker autentikatoren." },
+            { etikett: "send ID-token til klient", godta: ["10", "ti"], explain: "Er alt i orden, får klienten et signert ID-token." },
+            { etikett: "videresend ID-token til SP", godta: ["11", "elleve"], explain: "Klienten tar tokenet med tilbake til SP." },
+            { etikett: "tjeneste", godta: ["12", "tolv"], explain: "SP stoler på IdP (føderasjonsavtalen), godtar tokenet og leverer tjenesten." }
           ]
         },
         avvik: null,

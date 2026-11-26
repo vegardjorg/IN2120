@@ -50,6 +50,22 @@
   function num(x) { return String(Math.round(x * 100) / 100).replace(".", ","); }
   function sgn(x) { return (x > 0 ? "+" : x < 0 ? "−" : "±") + num(Math.abs(x)); }
   function norm(s) { return String(s == null ? "" : s).toLowerCase().replace(/\s+/g, " ").replace(/^\s+|\s+$/g, ""); }
+  /* Løs sammenligning av tekstsvar: store/små bokstaver, mellomrom, bindestrek, anførselstegn og
+     avsluttende punktum teller ikke. Minus foran et tall beholdes («-1» ≠ «1») («Nasjonal sikkerhets-myndighet.» = «nasjonal sikkerhetsmyndighet»). */
+  function los(s) {
+    return norm(s).replace(/[.!?;:]+$/, "").replace(/(^|[\s(])[-−–]\s*(?=\d)/g, "$1minus")   // −1 / -1 / minus 1 likt, ikke «1»
+      .replace(/[\s\-‐-―_'"«»“”‘’`]+/g, "");
+  }
+  IN.insperaLos = los;
+  /* Fasit for tekstfelt: første godtatte form, og resten i en diskret merknad (listene kan være lange). */
+  function fasitTekst(g) {
+    g = arr(g).map(String);
+    if (!g.length) return null;
+    var e = function (x) { return x.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    if (g.length === 1) return e(g[0]);
+    var resten = g.slice(1), vis = resten.slice(0, 3).map(e).join(", ") + (resten.length > 3 ? " …" : "");
+    return e(g[0]) + ' <span class="muted small" title="Godtar også: ' + resten.map(e).join(", ") + '">(godtar også ' + vis + ")</span>";
+  }
   function arr(v) { return v == null ? [] : [].concat(v); }
   function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return h.toString(36); }
   function html(node, v) { node.innerHTML = v == null ? "" : String(v); return node; }
@@ -548,12 +564,12 @@
         nodes.push(node);
         units.push({
           label: f.etikett || ("Felt " + (fi + 1)), explain: f.explain, svar: tx ? f.godta : f.svar,
-          fasit: tx ? (f.godta ? f.godta.join(" / ") : null) : (f.svar == null ? null : valg[f.svar]),
+          fasit: tx ? fasitTekst(f.godta) : (f.svar == null ? null : valg[f.svar]),
           get: function () { return tx ? node.value : (node.value === "" ? null : +node.value); },
           set: function (v) { node.value = v == null ? "" : String(v); },
           isBlank: function (v) { return tx ? !norm(v) : v == null; },
           isRight: function (v) {
-            if (tx) { var n = norm(v); return arr(f.godta).some(function (g) { return norm(g) === n; }); }
+            if (tx) { var n = los(v); return !!n && arr(f.godta).some(function (g) { return los(g) === n; }); }
             return v === f.svar || arr(f.godta).indexOf(v) >= 0;
           },
           mark: function (state) { node.classList.remove("is-right", "is-wrong", "is-blank"); if (state) node.classList.add("is-" + state); symEtter(node, state); },

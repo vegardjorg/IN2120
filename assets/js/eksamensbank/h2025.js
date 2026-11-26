@@ -287,9 +287,9 @@
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 2 },
       tekst: "<p>A) Svar {0} her.</p><p>B) {1}</p>",
       felt: [
-        { etikett: "A) NSM står for", godta: ["Nasjonal sikkerhetsmyndighet", "Nasjonalt tryggingsorgan"],
+        { etikett: "A) NSM står for", godta: ["Nasjonal sikkerhetsmyndighet", "Nasjonalt tryggingsorgan", "Nasjonal sikkerhetsmyndighet (NSM)", "Nasjonalt tryggingsorgan (NSM)"],
           explain: "<p><strong>Nasjonal sikkerhetsmyndighet</strong> (nynorsk: Nasjonalt tryggingsorgan) er direktoratet for forebyggende nasjonal sikkerhet og står bak NSMs grunnprinsipper for IKT-sikkerhet.</p>" },
-        { etikett: "B) NSMs nasjonale enhet for hendelser", godta: ["NCSC", "Nasjonalt cybersikkerhetssenter", "National cyber security center", "National cyber security centre"],
+        { etikett: "B) NSMs nasjonale enhet for hendelser", godta: ["NCSC", "Nasjonalt cybersikkerhetssenter", "National cyber security center", "National cyber security centre", "NCSC (Nasjonalt cybersikkerhetssenter)", "Nasjonalt cybersikkerhetssenter (NCSC)", "NSM NCSC", "NSM Nasjonalt cybersikkerhetssenter", "Norwegian National Cyber Security Centre", "Norwegian National Cyber Security Center", "National Cyber Security Centre (NCSC)"],
           explain: "<p><strong>NCSC</strong> (Nasjonalt cybersikkerhetssenter) er NSMs senter for deteksjon, varsling og koordinering av hendelseshåndtering. Det tidligere NorCERT inngår i NCSC.</p>" }
       ]
     },
@@ -579,7 +579,7 @@
       regelTekst: "Riktig svar gir ettpoeng.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Hva heter dette programmet? {0}</p><p>Hint: Svaret skrives i ETT ord, og husk at svaret rettes automatisk. Er du i tvil om skrivemåten, så spør faglærer om du har skrevet det riktig når han går runden.</p><p>Riktig svar gir ettpoeng.</p>",
-      felt: [{ etikett: "Programmet", godta: ["nmap", "n map", "network mapper"],
+      felt: [{ etikett: "Programmet", godta: ["nmap", "n map", "network mapper", "nmap (Network Mapper)", "Network Mapper (nmap)"],
         explain: "<p><strong>nmap</strong> (Network Mapper) er portskanneren som viser åpne porter, tjenester, MAC-adresse og gjetter operativsystem. «scan report for», «Not shown: … filtered tcp ports» og «OS detection performed» er typiske nmap-linjer.</p>" }]
     },
     losning: ["Liste over porter med STATE/SERVICE + OS-gjenkjenning = portskanner = nmap."],
@@ -605,7 +605,7 @@
       regelTekst: "Poeng: 1p for riktig, 0p for galt eller ubesvart.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Skriv svaret ditt {0} her.</p>",
-      felt: [{ etikett: "Skadevaren", godta: ["stuxnet", "stuxnett", "stuksnett", "stuksnet"],
+      felt: [{ etikett: "Skadevaren", godta: ["Stuxnet", "stuxnett", "stuksnett", "stuksnet", "Stuxnet-ormen", "Stuxnet-orm", "Stuxnet worm", "Stuxnet-viruset"],
         explain: "<p><strong>Stuxnet</strong> var en orm som angrep styresystemene (Siemens PLS) for urananrikingssentrifuger i Natanz, fikk dem til å spinne feil og viste samtidig normale verdier til operatørene.</p>" }]
     },
     losning: ["Stuxnet."],
@@ -667,7 +667,7 @@
       regelTekst: "Oppgaven gir ett poeng for riktig svar.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Hva er OSINT {0} forkortelse for?</p>",
-      felt: [{ etikett: "OSINT", godta: ["Open Source Intelligence", "Open Source Inteligence", "Open Source Intelligense", "Open Source Inteligense", "OpenSource Intelligence", "Open SourceIntelligence"],
+      felt: [{ etikett: "OSINT", godta: ["Open Source Intelligence", "Open Source Inteligence", "Open Source Intelligense", "Open Source Inteligense", "OpenSource Intelligence", "Open SourceIntelligence", "Open Source Intelligence (OSINT)", "Open Source Intelligance"],
         explain: "<p><strong>Open Source Intelligence</strong>: etterretning basert på åpne, offentlig tilgjengelige kilder. «Open source» betyr her åpne kilder, ikke åpen kildekode.</p>" }]
     },
     losning: ["Open Source Intelligence."],
@@ -1332,11 +1332,11 @@
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       regelMerknad: "Arket har ingen egen poenglinje; maks poeng er 1. Vi antar 1 p for riktig, 0 ellers.",
       tekst: "<p>Hva står forkortelsen SJA for {0} .</p>",
-      felt: [{ etikett: "SJA", godta: ["sikker jobbanalyse", "sikker jobb analyse"],
+      felt: [{ etikett: "SJA", godta: ["sikker jobbanalyse", "sikker jobb analyse", "sikker jobbanalyse (SJA)"],
         explain: "<p><strong>Sikker jobbanalyse</strong>: en systematisk gjennomgang av risiko før en farlig arbeidsoppgave.</p>" }]
     },
     losning: ["Sikker jobbanalyse."],
-    tips: ["Godta-lista har bare «sikker jobbanalyse» og «sikker jobb analyse». Ikke skriv det engelske «job safety analysis»."]
+    tips: ["Skriv det norske navnet, «sikker jobbanalyse». Store og små bokstaver og orddeling spiller ingen rolle, men det engelske «job safety analysis» står ikke i godkjentlista på arket."]
   });
   P("33", {
     type: "eksamen",
@@ -1396,11 +1396,11 @@
       regelTekst: "Riktig svar gir 1p.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Fyll inn ditt {0} her.</p>",
-      felt: [{ etikett: "NATO-spesifikasjonen", godta: ["TEMPEST"],
+      felt: [{ etikett: "NATO-spesifikasjonen", godta: ["TEMPEST", "NATO TEMPEST", "TEMPEST-standarden", "TEMPEST-spesifikasjonen", "TEMPEST-standard"],
         explain: "<p><strong>TEMPEST</strong> handler om at elektronisk utstyr lekker elektromagnetisk stråling som kan fanges opp og brukes til å gjenskape signalene, og om hvordan man skjermer mot det.</p>" }]
     },
     losning: ["TEMPEST."],
-    tips: ["Bare én skrivemåte godtas. Tiltak: skjerming, Faradaybur, fiber i stedet for kobber, avstand."]
+    tips: ["Skriv navnet på fenomenet, TEMPEST. Tiltak: skjerming, Faradaybur, fiber i stedet for kobber, avstand."]
   });
   P("35", {
     type: "eksamen",

@@ -579,7 +579,7 @@
       regelTekst: "Points: 1 for correct answer.",
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
       tekst: "<p>Answer: {0}.</p>",
-      felt: [{ etikett: "TCP-port", godta: ["443"], explain: "<p>HTTPS (HTTP over TLS) har standardporten <strong>443</strong>. Vanlig HTTP bruker 80.</p>" }]
+      felt: [{ etikett: "TCP-port", godta: ["443", "port 443", "TCP 443", "TCP/443", "TCP port 443"], explain: "<p>HTTPS (HTTP over TLS) har standardporten <strong>443</strong>. Vanlig HTTP bruker 80.</p>" }]
     },
     avvik: null,
     losning: ["HTTPS = port 443."],
@@ -709,9 +709,9 @@
       regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
       tekst: "<p>Application: {0}</p><p>Guest OS VM: {1}</p><p>Hypervisor: {2}</p>",
       felt: [
-        { etikett: "Application", godta: ["3"], explain: "<p>Applikasjoner kjører i brukermodus, <strong>ring 3</strong>, med minst privilegier.</p>" },
-        { etikett: "Guest OS VM", godta: ["0"], explain: "<p>Gjeste-OS-kjernen tror den eier maskinen og kjører i <strong>ring 0</strong> (kjernemodus).</p>" },
-        { etikett: "Hypervisor", godta: ["-1", "−1", "- 1"], explain: "<p>Type 1-hypervisoren trenger enda mer makt enn gjeste-kjernene og kjører på <strong>ring −1</strong> (maskinvarestøttet virtualisering).</p>" }
+        { etikett: "Application", godta: ["3", "ring 3", "tre", "three"], explain: "<p>Applikasjoner kjører i brukermodus, <strong>ring 3</strong>, med minst privilegier.</p>" },
+        { etikett: "Guest OS VM", godta: ["0", "ring 0", "null", "zero"], explain: "<p>Gjeste-OS-kjernen tror den eier maskinen og kjører i <strong>ring 0</strong> (kjernemodus).</p>" },
+        { etikett: "Hypervisor", godta: ["-1", "−1", "- 1", "ring −1", "minus 1", "minus én", "minus en", "minus one"], explain: "<p>Type 1-hypervisoren trenger enda mer makt enn gjeste-kjernene og kjører på <strong>ring −1</strong> (maskinvarestøttet virtualisering).</p>" }
       ]
     },
     avvik: null,

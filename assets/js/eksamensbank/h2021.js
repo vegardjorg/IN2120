@@ -491,8 +491,8 @@
       regelMerknad: "Blandet oppgave: felt {0} og {1} er tekstfelt (heltall, sjekkes mot godta), felt {2} og {3} er nedtrekk. Poenglinja sier ikke noe om ubesvart; forsidens hovedregel (0 for ubesvart) er lagt til grunn.",
       tekst: "<p>Anta et chiffer med krypteringsnøkler med størrelse 8 bits. Hvor mange ulike nøkler fins det? Svar med et heltall: {0}.</p><p>Anta et chiffer med krypteringsnøkler der det fins 1024 forskjellige nøkler. Hva er nøkkelstørrelsen i antall bits.  Svar med et heltall: {1}.</p><p>Hva er typisk nøkkelstørrelse for AES-algoritmen? Velg: {2},</p><p>Hva er typisk nøkkelstørrelse for RSA-algoritmen? Velg: {3}</p>",
       felt: [
-        { etikett: "Antall nøkler ved 8 bit", godta: ["256"], explain: "<p>Hver bit kan være 0 eller 1, så 8 bit gir 2⁸ = <strong>256</strong> ulike nøkler.</p>" },
-        { etikett: "Bitlengde ved 1024 nøkler", godta: ["10"], explain: "<p>Nøkkelstørrelsen er log₂ av antall nøkler: log₂(1024) = <strong>10</strong>, fordi 2¹⁰ = 1024.</p>" },
+        { etikett: "Antall nøkler ved 8 bit", godta: ["256", "2^8", "2⁸", "256 nøkler", "to hundre og femtiseks"], explain: "<p>Hver bit kan være 0 eller 1, så 8 bit gir 2⁸ = <strong>256</strong> ulike nøkler.</p>" },
+        { etikett: "Bitlengde ved 1024 nøkler", godta: ["10", "10 bit", "10 bits", "ti"], explain: "<p>Nøkkelstørrelsen er log₂ av antall nøkler: log₂(1024) = <strong>10</strong>, fordi 2¹⁰ = 1024.</p>" },
         { etikett: "Typisk AES-nøkkel", valg: ["128 bits", "1024 bits", "8 bits"], svar: 0, godta: [], explain: "<p>AES har 128-, 192- eller 256-bits nøkler; <strong>128 bits</strong> er den minste og vanligste.</p>" },
         { etikett: "Typisk RSA-nøkkel", valg: ["8 bits", "1024 bits", "128 bits"], svar: 1, godta: [], explain: "<p>Av alternativene er <strong>1024 bits</strong> riktig. RSA trenger mye lengre nøkler enn symmetriske chiffer for samme sikkerhet. I dag anbefales minst 2048 bit; se avvik.</p>" }
       ]
@@ -785,8 +785,8 @@
         { etikett: "Ideelt system", valg: ["FMR = FNMR = EER = 0", "FMR = FNMR", "FMR = 0", "FNMR = 0"], svar: 0, godta: [], explain: "<p>Ideelt slipper ingen falske gjennom og ingen ekte avvises, så begge feilratene og dermed EER er null: <strong>FMR = FNMR = EER = 0</strong>.</p>" },
         { etikett: "PAD er å", valg: ["oppdage forsøk på forfalskning av biometri", "oppdage når en genuin bruker blir feilaktig avvist", "oppdage når en ikke-genuin bruker blir feilaktig godtatt"], svar: 0, godta: [], explain: "<p>Et presentasjonsangrep er f.eks. en falsk finger eller et bilde av ansiktet. PAD skal <strong>oppdage forsøk på forfalskning av biometri</strong>.</p>" },
         { etikett: "Oppdage forfalskning og EER", valg: ["enkelt med", "vanskelig på tross av"], svar: 1, godta: [], explain: "<p>EER sier hvor godt systemet skiller ulike ekte personer, ikke om prøven er falsk. Forfalskning kan derfor være <strong>vanskelig på tross av</strong> lav EER.</p>" },
-        { etikett: "Antall ikke-genuine godtatt", godta: ["5"], explain: "<p>FMR = godtatte ikke-genuine / antall ikke-genuine, så 0,05 × 100 = <strong>5</strong>.</p>" },
-        { etikett: "Antall genuine avvist", godta: ["7"], explain: "<p>FNMR = avviste genuine / antall genuine, så 0,07 × 100 = <strong>7</strong>.</p>" }
+        { etikett: "Antall ikke-genuine godtatt", godta: ["5", "fem", "5 brukere"], explain: "<p>FMR = godtatte ikke-genuine / antall ikke-genuine, så 0,05 × 100 = <strong>5</strong>.</p>" },
+        { etikett: "Antall genuine avvist", godta: ["7", "sju", "syv", "7 brukere"], explain: "<p>FNMR = avviste genuine / antall genuine, så 0,07 × 100 = <strong>7</strong>.</p>" }
       ]
     },
     avvik: null,
@@ -905,18 +905,18 @@
       regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 6 },
       tekst: null,
       felt: [
-        { etikett: "tjenesteforespørsel (Nettleser → SP)", godta: ["1"], explain: "<p>Alt starter med at brukeren vil bruke tjenesten: nettleseren ber SP om tjenesten (<strong>1</strong>).</p>" },
-        { etikett: "liste over IdP-er (SP → Nettleser)", godta: ["2"], explain: "<p>SP vet ikke hvem brukeren er og svarer med en liste over IdP-er den stoler på (<strong>2</strong>).</p>" },
-        { etikett: "velg IdP (Nettleser → SP)", godta: ["3"], explain: "<p>Brukeren velger hvilken IdP hen vil logge inn med (<strong>3</strong>).</p>" },
-        { etikett: "diriger nettleser til IdP (SP → Nettleser)", godta: ["4"], explain: "<p>SP sender nettleseren videre (omdirigering) til den valgte IdP-en (<strong>4</strong>).</p>" },
-        { etikett: "be om autentisering (Nettleser → IdP)", godta: ["5"], explain: "<p>Nettleseren følger omdirigeringen og ber IdP-en om autentisering (<strong>5</strong>).</p>" },
-        { etikett: "vis login-side (IdP → Nettleser)", godta: ["6"], explain: "<p>IdP-en svarer med en innloggingsside (<strong>6</strong>).</p>" },
-        { etikett: "presenter autentikator (bruker → Nettleser)", godta: ["7"], explain: "<p>Brukeren taster inn passord eller bruker nøkkel/enhet (<strong>7</strong>).</p>" },
-        { etikett: "send autentikator (Nettleser → IdP)", godta: ["8"], explain: "<p>Nettleseren sender autentikatoren til IdP-en (<strong>8</strong>).</p>" },
-        { etikett: "bruker autentiseres (IdP)", godta: ["9"], explain: "<p>IdP-en sjekker autentikatoren mot det den har lagret (<strong>9</strong>).</p>" },
-        { etikett: "token til nettleser (IdP → Nettleser)", godta: ["10"], explain: "<p>Etter vellykket autentisering lager IdP-en et signert ID-token og sender det til nettleseren (<strong>10</strong>).</p>" },
-        { etikett: "videresend token til SP (Nettleser → SP)", godta: ["11"], explain: "<p>Nettleseren tar tokenet med tilbake til SP (<strong>11</strong>).</p>" },
-        { etikett: "tjeneste (SP → Nettleser)", godta: ["12"], explain: "<p>SP validerer tokenet (IdP-ens signatur) og leverer tjenesten (<strong>12</strong>).</p>" }
+        { etikett: "tjenesteforespørsel (Nettleser → SP)", godta: ["1", "en", "én", "ett"], explain: "<p>Alt starter med at brukeren vil bruke tjenesten: nettleseren ber SP om tjenesten (<strong>1</strong>).</p>" },
+        { etikett: "liste over IdP-er (SP → Nettleser)", godta: ["2", "to"], explain: "<p>SP vet ikke hvem brukeren er og svarer med en liste over IdP-er den stoler på (<strong>2</strong>).</p>" },
+        { etikett: "velg IdP (Nettleser → SP)", godta: ["3", "tre"], explain: "<p>Brukeren velger hvilken IdP hen vil logge inn med (<strong>3</strong>).</p>" },
+        { etikett: "diriger nettleser til IdP (SP → Nettleser)", godta: ["4", "fire"], explain: "<p>SP sender nettleseren videre (omdirigering) til den valgte IdP-en (<strong>4</strong>).</p>" },
+        { etikett: "be om autentisering (Nettleser → IdP)", godta: ["5", "fem"], explain: "<p>Nettleseren følger omdirigeringen og ber IdP-en om autentisering (<strong>5</strong>).</p>" },
+        { etikett: "vis login-side (IdP → Nettleser)", godta: ["6", "seks"], explain: "<p>IdP-en svarer med en innloggingsside (<strong>6</strong>).</p>" },
+        { etikett: "presenter autentikator (bruker → Nettleser)", godta: ["7", "sju", "syv"], explain: "<p>Brukeren taster inn passord eller bruker nøkkel/enhet (<strong>7</strong>).</p>" },
+        { etikett: "send autentikator (Nettleser → IdP)", godta: ["8", "åtte"], explain: "<p>Nettleseren sender autentikatoren til IdP-en (<strong>8</strong>).</p>" },
+        { etikett: "bruker autentiseres (IdP)", godta: ["9", "ni"], explain: "<p>IdP-en sjekker autentikatoren mot det den har lagret (<strong>9</strong>).</p>" },
+        { etikett: "token til nettleser (IdP → Nettleser)", godta: ["10", "ti"], explain: "<p>Etter vellykket autentisering lager IdP-en et signert ID-token og sender det til nettleseren (<strong>10</strong>).</p>" },
+        { etikett: "videresend token til SP (Nettleser → SP)", godta: ["11", "elleve"], explain: "<p>Nettleseren tar tokenet med tilbake til SP (<strong>11</strong>).</p>" },
+        { etikett: "tjeneste (SP → Nettleser)", godta: ["12", "tolv"], explain: "<p>SP validerer tokenet (IdP-ens signatur) og leverer tjenesten (<strong>12</strong>).</p>" }
       ]
     },
     avvik: "I den flatede PDF-en er tekstfeltene forskjøvet bort fra sirklene i figuren, så det går ikke å lese direkte hvilket godtatt tall (grønne parenteser (1)–(12)) som hører til hvilken melding. Felt som står ved riktig melding: (9) ved «bruker autentiseres» og (8) ved «send autentikator». Resten av tilordningen er tatt fra den tilsvarende figuren i H2024 31 (litt andre etiketter), der feltene står på plass (1 tjenesteforespørsel … 12 tjeneste), og stemmer med OIDC-flyten i kurset. Hvert felt godtar ett tall, og alle tallene 1–12 forekommer én gang.",

@@ -861,10 +861,10 @@
           regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 2 },
           tekst: "<p>TMR (True Match Rate): {0}</p><p>TNMR (True Non-Match Rate): {1}</p><p>FMR (False Match Rate): {2}</p><p>FNMR (Nalse Non-Match Rate): {3}</p>",
           felt: [
-            { etikett: "TMR", godta: ["0.96"], explain: "<p>96 av 100 genuine godtas: 96/100 = 0.96.</p>" },
-            { etikett: "TNMR", godta: ["0.94"], explain: "<p>6 av 100 ikke-genuine godtas, så 94 avvises: 94/100 = 0.94.</p>" },
-            { etikett: "FMR", godta: ["0.06"], explain: "<p>Ikke-genuine som feilaktig godtas: 6/100 = 0.06.</p>" },
-            { etikett: "FNMR", godta: ["0.04"], explain: "<p>Genuine som feilaktig avvises: 4/100 = 0.04.</p>" }
+            { etikett: "TMR", godta: ["0.96", "0,96"], explain: "<p>96 av 100 genuine godtas: 96/100 = 0.96.</p>" },
+            { etikett: "TNMR", godta: ["0.94", "0,94"], explain: "<p>6 av 100 ikke-genuine godtas, så 94 avvises: 94/100 = 0.94.</p>" },
+            { etikett: "FMR", godta: ["0.06", "0,06"], explain: "<p>Ikke-genuine som feilaktig godtas: 6/100 = 0.06.</p>" },
+            { etikett: "FNMR", godta: ["0.04", "0,04"], explain: "<p>Genuine som feilaktig avvises: 4/100 = 0.04.</p>" }
           ]
         },
         avvik: "«Nalse Non-Match Rate» er skrivefeil i arket for «False Non-Match Rate».",
@@ -873,7 +873,7 @@
           "TMR = 96/100 = 0.96. FNMR = 4/100 = 0.04 (= 1 − TMR).",
           "FMR = 6/100 = 0.06. TNMR = 94/100 = 0.94 (= 1 − FMR)."
         ],
-        tips: ["«Match» = godtatt. «False» = feil person/feil avgjørelse. Del alltid på antallet i riktig gruppe.", "Bruk punktum, ikke komma. Bare 0.96 osv. står i godkjentlista."]
+        tips: ["«Match» = godtatt. «False» = feil person/feil avgjørelse. Del alltid på antallet i riktig gruppe.", "Oppgaven ber om punktum. Øvingen godtar også komma, men på eksamen bør du skrive akkurat formatet oppgaven ber om (0.96)."]
       },
       {
         key: "H2022-8.3", year: "H2022", oppgave_nr: "Oppgave 8.3", del: D8,
@@ -1087,13 +1087,13 @@
           regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 4 },
           tekst: "<p>Oppgi hendelsens sannsynlighet som desimaltall (med punktum) mellom 0 og 1: {0}</p><p>Oppgi kvantitativ konsekvens i NOK: {1} .</p><p>Oppgi kvantitativ risiko som tap per år i NOK: {2} .</p><p>Et sikkerhetstiltak som koster NOK 100 000 forventes å redusere den kvantitativ risikoen med NOK 500 000.</p><p>Oppgi ROI (Return on Investment) for sikkerhetstiltaket: {3}</p>",
           felt: [
-            { etikett: "Sannsynlighet", godta: ["0.5"], explain: "<p>Én gang hvert andre år = 1/2 = 0.5 per år.</p>" },
-            { etikett: "Konsekvens (NOK)", godta: ["1500000"], explain: "<p>Tapt fortjeneste + gjenoppretting = 1 000 000 + 500 000 = 1 500 000.</p>" },
-            { etikett: "Risiko (NOK per år)", godta: ["750000"], explain: "<p>Sannsynlighet × konsekvens = 0.5 × 1 500 000 = 750 000.</p>" },
-            { etikett: "ROI", godta: ["4"], explain: "<p>(Gevinst − kostnad) / kostnad = (500 000 − 100 000) / 100 000 = 4.</p>" }
+            { etikett: "Sannsynlighet", godta: ["0.5", "0,5", "0.50", "0,50"], explain: "<p>Én gang hvert andre år = 1/2 = 0.5 per år.</p>" },
+            { etikett: "Konsekvens (NOK)", godta: ["1500000", "1500000 NOK", "NOK 1500000", "1500000 kr", "kr 1500000", "1500000 kroner", "1500000,-"], explain: "<p>Tapt fortjeneste + gjenoppretting = 1 000 000 + 500 000 = 1 500 000.</p>" },
+            { etikett: "Risiko (NOK per år)", godta: ["750000", "750000 NOK", "NOK 750000", "750000 kr", "kr 750000", "750000 kroner", "750000,-", "750000 NOK per år", "750000 NOK/år", "750000 kr per år", "750000 kr/år"], explain: "<p>Sannsynlighet × konsekvens = 0.5 × 1 500 000 = 750 000.</p>" },
+            { etikett: "ROI", godta: ["4", "4.0", "4,0", "fire", "400%", "400 prosent"], explain: "<p>(Gevinst − kostnad) / kostnad = (500 000 − 100 000) / 100 000 = 4.</p>" }
           ]
         },
-        avvik: "ROI-formelen står ikke i oppgaven. Fasiten 4 stemmer med (risikoreduksjon − kostnad) / kostnad. Ren risikoreduksjon / kostnad ville gitt 5. Godkjentlistene har ingen mellomrom eller tusenskille, så bare «1500000» og «750000» godtas.",
+        avvik: "ROI-formelen står ikke i oppgaven. Fasiten 4 stemmer med (risikoreduksjon − kostnad) / kostnad. Ren risikoreduksjon / kostnad ville gitt 5. Godkjentlistene på arket har bare «1500000» og «750000», uten mellomrom eller tusenskille. Øvingen godtar også mellomrom og enhet (kr, NOK), men på eksamen er det tryggest å skrive bare tallet.",
         losning: [
           "Sannsynlighet per år: 1 gang per 2 år = 0.5.",
           "Konsekvens: 1 000 000 + 500 000 = 1 500 000 NOK.",

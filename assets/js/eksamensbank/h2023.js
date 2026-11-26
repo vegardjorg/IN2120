@@ -426,9 +426,9 @@
           regelMerknad: "Rettenøkkelen godtar samme liste i alle tre hjørnene. Meningen er tre ulike aspekter: verdi, sårbarhet og trussel.",
           tekst: null,
           felt: [
-            { etikett: "Hjørne øverst", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler"], explain: "Verdi: det som har krav til K, I eller T." },
-            { etikett: "Hjørne nede til venstre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler"], explain: "Trussel: noe eller noen som kan skade verdien ved å utnytte en sårbarhet." },
-            { etikett: "Hjørne nede til høyre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler"], explain: "Sårbarhet: en svakhet som trusselen kan utnytte, slik at angrepet ikke lett lar seg stoppe (t06)." }
+            { etikett: "Hjørne øverst", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats"], explain: "Verdi: det som har krav til K, I eller T." },
+            { etikett: "Hjørne nede til venstre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats"], explain: "Trussel: noe eller noen som kan skade verdien ved å utnytte en sårbarhet." },
+            { etikett: "Hjørne nede til høyre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats"], explain: "Sårbarhet: en svakhet som trusselen kan utnytte, slik at angrepet ikke lett lar seg stoppe (t06)." }
           ]
         },
         avvik: null,
@@ -519,7 +519,7 @@
           regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
           tekst: "<p>Fyll in svaret her: {0}</p>",
           felt: [
-            { etikett: "Standard", godta: ["X.509", "x509", "x 509", "x-509"], explain: "X.509 er formatet for sertifikater i nettlesere og TLS." }
+            { etikett: "Standard", godta: ["X.509", "x509", "x 509", "x-509", "X.509v3", "X.509 versjon 3", "X.509 version 3", "X.509-sertifikat", "X.509-sertifikater"], explain: "X.509 er formatet for sertifikater i nettlesere og TLS." }
           ]
         },
         avvik: null,
