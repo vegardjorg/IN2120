@@ -126,7 +126,7 @@
       /* ================= DEL 2 ================= */
       {
         key: "H2022-2.1", year: "H2022", oppgave_nr: "Oppgave 2.1", del: D2,
-        ark: "2.1 Filer, prosess , CPU og minnet", title: "Fra kjørbar fil til prosess",
+        ark: "2.1 Filer, prosess , CPU og minnet", title: "Fra fil på disken til kjøring",
         points: 2, block: "system", tema: ["prosess", "kjørbar fil", "minne", "CPU"], ordrett: true,
         oppgave: "<p>Velg riktig ord i hvert utsagn nedenfor.<br>Poeng 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, 2 for alle riktig, minimum 0.</p>",
         inspera: {

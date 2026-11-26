@@ -276,7 +276,7 @@
 
   add({
     key: "H2025-7", oppgave_nr: "Oppgave 7", del: D1,
-    ark: "NSM", title: "NSM og NCSC",
+    ark: "NSM", title: "NSM: forkortelse og hendelsesenhet",
     points: 2, block: "generelt", tema: ["NSM", "NCSC", "NorCERT", "grunnprinsipper"],
     oppgave: "<p>A) Hva står forkortelsen NSM (og nå snakker vi om den norske organisasjonen som blant annet står bak grunnprinsippene) for? (Hint: Svaret er to ord, og kan skrives på bokmål eller nynorsk).</p>" +
       "<p>B) Hva heter NSMs nasjonale koordinerende enhet for sikkerhetshendelser med hensyn til deteksjon, hendelsesrespons og koordinering? Svar enten forkortelsen eller fullt navn (begge gir lik uttelling). Hint: NorCERT-funksjonen er en del av dette, men ikke i navnet.</p>" +
@@ -547,7 +547,7 @@
 
   add({
     key: "H2025-14", oppgave_nr: "Oppgave 14", del: D3,
-    ark: "Hvilket program er dette?", title: "Kjenn igjen nmap",
+    ark: "Hvilket program er dette?", title: "Kjenn igjen programmet",
     points: 1, block: "pentest", tema: ["nmap", "portskanning", "verktøy"],
     gjenganger: ["H2023-8", "H2024-24"],
     oppgave: "<p>[Skjermbilde av programutdata, se figur]</p>",
@@ -597,7 +597,7 @@
 
   add({
     key: "H2025-15", oppgave_nr: "Oppgave 15", del: D3,
-    ark: "Sentrifuger", title: "Stuxnet",
+    ark: "Sentrifuger", title: "Sentrifugene",
     points: 1, block: "cyberops", tema: ["Stuxnet", "cyberoperasjon", "industrielle styresystemer"],
     oppgave: "<p>Hva heter skadevaren vi snakket om i kurset som ødela sentrifuger for å ødelegge det iranske atomprogrammet?</p><p>Poeng: 1p for riktig, 0p for galt eller ubesvart.</p>",
     inspera: {
@@ -1388,7 +1388,7 @@
 
   add({
     key: "H2025-35", oppgave_nr: "Oppgave 35", del: D8,
-    ark: "Emisjonssikkerhet", title: "TEMPEST",
+    ark: "Emisjonssikkerhet", title: "Emisjonssikkerhet",
     points: 1, block: "fysisk", tema: ["TEMPEST", "emisjonssikkerhet", "elektromagnetisk stråling"],
     oppgave: "<p>Hva heter NATO-spesifikasjonen læreboken beskriver for å avlytte elektromagnetisk stråling for å kunne gjenskape signaler?</p><p>Riktig svar gir 1p.</p>",
     inspera: {

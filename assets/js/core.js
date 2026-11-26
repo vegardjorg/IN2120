@@ -1853,31 +1853,55 @@
     document.body.classList.add("has-crash-ret");
   }
 
-  /* ---------- Melding om ny versjon (uten fetch) ----------
-     Siden kjenner sin egen versjon fra ?v= på core.js. versjon.js lastes med ?t=<tid>, så den
-     alltid kommer fersk fra serveren, og setter IN.SISTE_VERSJON. Er den nyere, tilbys «Oppdater».
-     Ingen versjon vises. Ved hver ?v=-bump: sett samme verdi i assets/js/versjon.js. */
+  /* ---------- Melding om ny versjon (samme oppførsel som IN2010/IN2090) ----------
+     Siden kjenner sin egen versjon fra ?v= på core.js. versjon.js lastes som <script> med ?t=<tid>
+     (ikke fetch, så det virker uten server), og setter IN.SISTE_VERSJON. Sjekkes 3 s etter lasting,
+     når fanen blir synlig igjen og hvert 30. minutt (høyst én gang i minuttet). Er den nyere, vises
+     «Det finnes en ny versjon av guiden.» med «Oppdater». Ved bump: python -I plan/bump-versjon.py. */
   function initVersionCheck() {
     var s = document.querySelector('script[src*="core.js"]'), src = s && s.getAttribute("src") || "";
     var m = src.match(/^(.*?)core\.js\?v=([\w-]+)/);
     if (!m || /\/plan\//.test(location.pathname)) return;
-    var egen = m[2], KEY = "in2120:ny-versjon-skjult";
-    var tag = document.createElement("script");
-    tag.src = m[1] + "versjon.js?t=" + Date.now();
-    tag.onload = function () {
-      var siste = IN.SISTE_VERSJON;
-      if (!siste || siste <= egen) return;
-      try { if (sessionStorage.getItem(KEY) === siste) return; } catch (e) {}
-      var box = el("div", { class: "ny-versjon", role: "status" }, [
-        el("span", { text: "Guiden er oppdatert." }),
-        el("button", { class: "btn sm primary", type: "button", text: "Last inn på nytt", onclick: function () { location.reload(); } }),
-        el("button", { class: "ny-versjon-x", type: "button", "aria-label": "Ikke nå", text: "×",
-          onclick: function () { try { sessionStorage.setItem(KEY, siste); } catch (e) {} box.remove(); } })
-      ]);
+    var egen = m[2], base = m[1], DISMISS = "in2120:ny-versjon-skjult", last = 0, shown = null, tag = null;
+    function check() {
+      if (Date.now() - last < 60000) return;
+      last = Date.now();
+      if (tag) tag.remove();
+      tag = document.createElement("script");
+      tag.src = base + "versjon.js?t=" + Date.now();
+      tag.onload = function () {
+        var v = typeof IN.SISTE_VERSJON === "string" ? IN.SISTE_VERSJON : null;
+        if (!v || v <= egen || v === shown) return;      // samme eller eldre
+        var skjult = null; try { skjult = sessionStorage.getItem(DISMISS); } catch (e) {}
+        if (skjult === v) return;
+        show(v);
+      };
+      tag.onerror = function () { if (tag) tag.remove(); tag = null; };
+      document.head.appendChild(tag);
+    }
+    function show(v) {
+      shown = v;
+      var old = qs(".ny-versjon"); if (old) old.remove();
+      var box = el("div", { class: "ny-versjon", role: "status" });
+      var go = el("button", { class: "btn primary sm", type: "button", text: "Oppdater" });
+      go.addEventListener("click", function () {
+        go.disabled = true; go.textContent = "Henter …";
+        // Over http(s): hent siden forbi nettleserens mellomlager først, så lastes den inn med de nye
+        // filene. Bare en oppfrisking av mellomlageret; fra file:// lastes siden rett inn på nytt.
+        if (/^https?:$/.test(location.protocol) && window.fetch) {
+          fetch(location.href.split("#")[0], { cache: "reload" }).catch(function () {})
+            .then(function () { location.reload(); });
+        } else location.reload();
+      });
+      var x = el("button", { class: "ny-versjon-x", type: "button", "aria-label": "Skjul meldingen", text: "×",
+        onclick: function () { try { sessionStorage.setItem(DISMISS, v); } catch (e) {} box.remove(); } });
+      box.appendChild(el("span", { text: "Det finnes en ny versjon av guiden." }));
+      box.appendChild(go); box.appendChild(x);
       document.body.appendChild(box);
-    };
-    tag.onerror = function () { tag.remove(); };
-    document.head.appendChild(tag);
+    }
+    setTimeout(check, 3000);
+    document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") check(); });
+    setInterval(function () { if (document.visibilityState === "visible") check(); }, 30 * 60000);
   }
 
   /* ---------- «Husk»-lister (fra IN2010, F1b) ----------

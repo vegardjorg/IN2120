@@ -439,7 +439,7 @@
       /* ---------------------------------------------------------------- 13 */
       {
         key: "H2024-13", year: Y, oppgave_nr: "Oppgave 13", del: D1,
-        ark: "Risikotrekanten", title: "Verdier, trusler og sårbarheter",
+        ark: "Risikotrekanten", title: "Risikotrekanten: de tre hjørnene",
         points: 3, block: "risiko", tema: ["risiko", "verdier", "trusler", "sårbarheter"],
         gjenganger: ["H2023-16"],
         ordrett: true,
@@ -555,7 +555,7 @@
       /* ---------------------------------------------------------------- 16 */
       {
         key: "H2024-16", year: Y, oppgave_nr: "Oppgave 16", del: D2,
-        ark: "Nøkkelsertifikat 2", title: "X.509 og en signaturalgoritme",
+        ark: "Nøkkelsertifikat 2", title: "Nøkkelsertifikat: standard og algoritme",
         points: 2, block: "pki", tema: ["X.509", "RSA", "ECDSA", "signaturalgoritme"],
         gjenganger: ["H2023-19"],
         ordrett: true,
@@ -784,7 +784,7 @@
       /* ---------------------------------------------------------------- 24 */
       {
         key: "H2024-24", year: Y, oppgave_nr: "Oppgave 24", del: D3,
-        ark: "Hvilket program er dette?", title: "Mimikatz",
+        ark: "Hvilket program er dette?", title: "Kjenn igjen programmet",
         points: 2, block: "pentest", tema: ["mimikatz", "passordhasher", "Windows"],
         gjenganger: ["H2023-8", "H2025-14"],
         ordrett: true,
@@ -873,7 +873,7 @@
       /* ---------------------------------------------------------------- 27 */
       {
         key: "H2024-27", year: Y, oppgave_nr: "Oppgave 27", del: D4,
-        ark: "IDS", title: "Snort-regel",
+        ark: "IDS", title: "IDS-regel",
         points: 2, block: "nettverk", tema: ["IDS", "Snort", "signaturbasert"],
         gjenganger: ["H2023-31", "H2025-20"],
         ordrett: true,

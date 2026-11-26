@@ -278,7 +278,7 @@
       },
       {
         key: "H2023-11", year: Y, oppgave_nr: "Oppgave 11", del: D1,
-        ark: "Datanettsikkerhet", title: "Brannmur, TLS-inspeksjon og Snort",
+        ark: "Datanettsikkerhet", title: "Datanettsikkerhet: tre begreper",
         points: 3, block: "nettverk", tema: ["brannmur", "TLS-inspeksjon", "IDS", "Snort"],
         gjenganger: ["H2024-10"], ordrett: true,
         oppgave: "<p>Velg det mest passende begrepet i hver setning nedenfor.</p><p><em>Poeng: 1 for hver riktig; 0 for hver feil eller ubesvart; maks 3, minimum 0.</em></p>",
