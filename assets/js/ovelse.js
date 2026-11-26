@@ -187,6 +187,8 @@
     };
   }
   function fpAv(x) { return hash(JSON.stringify(x, function (k, v) { return typeof v === "function" ? String(v) : v; })); }
+  /* Opphavslinje (o.opphav, se IN.opphavTekst i core.js) */
+  function opEl(o) { return o && o.opphav && IN.opphavEl ? IN.opphavEl(o.opphav) : null; }
   /* B1: regelen i en lukket <details> under resultatlinja */
   function regelDetails(regel, enhet) {
     var t = regelTekst(regel, enhet).replace(/^Slik retter øvingen:\s*/, "");
@@ -408,7 +410,7 @@
     var losnFork = el("div", { class: "ov-fork" });
     var etterHost = el("div", { class: "ov-etter" });
     losn.appendChild(losnFasit); losn.appendChild(losnFork); losn.appendChild(etterHost);
-    [q, ctl, row, tips, fb, losn].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [opEl(o), q, ctl, row, tips, fb, losn].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap); wrap._ovSeen = true;
 
     function fasit() { return typeof o.fasit === "function" ? +o.fasit(inn) : +o.fasit; }
@@ -734,7 +736,7 @@
     var bReset = el("button", { class: "btn", type: "button", text: "↺ Nullstill", onclick: function () { nullstill(); } });
     var foot = el("div", { class: "qz-foot" }, [bSjekk, bFasit, bReset]);
     var fb = feedback();
-    [q, brWrap, tw, foot, fb, regelEl].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [opEl(o), q, brWrap, tw, foot, fb, regelEl].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap); wrap._ovSeen = true;
 
     function deep(a) { return JSON.parse(JSON.stringify(a)); }
@@ -985,7 +987,7 @@
     var bTilbake = el("button", { class: "btn", type: "button", text: "← Ett steg tilbake", onclick: function () { tilbake(); } });
     var bOm = el("button", { class: "btn", type: "button", text: "↺ Start på nytt", onclick: function () { omstart(); } });
     var foot = el("div", { class: "qz-foot" }, [bTilbake, bOm]);
-    [tittel, kitEl, stiEl, kons, nodeH, valgEl, slutt, foot].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [tittel, opEl(o), kitEl, stiEl, kons, nodeH, valgEl, slutt, foot].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap); wrap._ovSeen = true;
     var lastReported = null;
 
@@ -1155,7 +1157,7 @@
     var foot = el("div", { class: "qz-foot" }, [bSjekk, bVis, bReset]);
     var fb = feedback();
     var fork = el("div", { class: "ov-losn", hidden: true });
-    [q, steg1, kode, steg2, grp, foot, fb, fork].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [opEl(o), q, steg1, kode, steg2, grp, foot, fb, fork].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap); wrap._ovSeen = true;
 
     function valgtListe() { return Object.keys(valgt).filter(function (k) { return valgt[k]; }).map(Number).sort(function (a, b) { return a - b; }); }

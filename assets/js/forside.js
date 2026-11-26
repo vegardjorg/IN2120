@@ -42,7 +42,9 @@
 
   /* ---------- Banken ---------- */
   function yearKey(y) { var m = /^H(\d{4})$/.exec(y); return m ? +m[1] : 0; }
-  var YEARS = Object.keys(BANK).filter(function (y) { return /^H\d{4}$/.test(y); })
+  // Forsiden (vekter, linjal, oppgavekart) bygger på dagens format H2021–. H2018–H2020 er ekstra øving
+  // på blokksidene og i «Øv på et helt sett», men teller ikke i vektingen (eldre pensum og format).
+  var YEARS = Object.keys(BANK).filter(function (y) { return /^H\d{4}$/.test(y) && yearKey(y) >= 2021; })
     .sort(function (a, b) { return yearKey(a) - yearKey(b); });
   var ALL = [];
   YEARS.forEach(function (y) {

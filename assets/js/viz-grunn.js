@@ -199,6 +199,7 @@
     });
     return {
       id: "grunn-kit-matrise",
+      opphav: { type: "egen", variantAv: ["H2024-3", "H2025-2"], kilder: ["d01a s. 20"] },
       sporsmal: {
         eli5: "<p>Velg det målet angrepet ødelegger. K: noen leser det de ikke skal. I: noe blir endret eller falskt. T: noe kan ikke brukes. Ingen: ingenting av dette skjer. Bryterne under endrer hvordan avlyttingen i første rad skjer.</p>",
         normal: "<p>Velg ett mål per rad, slik som på eksamen. Poengregel som i H2024 3 (−0,5 for feil eller blankt); andre år har hatt andre regler. Spør hva angriperen <i>oppnår</i>: lese (K), endre eller forfalske (I) eller stenge ute (T). Velg «Ingen» hvis ingen av dem brytes. Eksamen H22–H25 har bare K, I og T; H2021 1.1 hadde også «ingen». «Ingen» er med her for å øve på avlyttingsbryterne. Bryterne endrer forutsetningen for avlyttingen i første rad.</p>",
@@ -366,6 +367,8 @@
     var st = sjaLes(), uidS = "gr-sja" + (++uid);
     function lagre() { try { IN.store.set(SJA_KEY, JSON.stringify(st)); } catch (e) {} }
     var root = el("div", { class: "ov gr-sjaform" });
+    var op = IN.opphavEl && IN.opphavEl({ type: "egen", variantAv: ["H2025-34"], kilder: ["d01b s. 8"] });
+    if (op) root.appendChild(op);
     root.appendChild(el("p", { class: "gr-task on", html: "<b>Arbeidsoppgave:</b> skifte et lysrør 4,5 m oppe i taket i gymsalen, med personløfter. Tre av de fire delstegene er gitt (delsteg 2, kjøre opp, står i forslaget). På eksamen deler du opp selv. Velg fare og risiko for hvert steg, skriv et tiltak, og se forslaget etterpå." }));
 
     var t = el("div", { class: "gr-sjat" });
@@ -632,6 +635,7 @@
     } };
     return {
       id: "grunn-backup",
+      opphav: { type: "egen", kilder: ["d01b s. 34"] },
       tittel: "Velg den billigste reserven (backuplokasjonen) som holder for hver virksomhet. Panelet viser om tilgjengeligheten (T) holder.",
       kit: ["T"],
       start: BACKUP_RUNDER[0].id,
@@ -660,7 +664,7 @@
      ========================================================= */
   var SPM = [
     { q: "Har du tillatelse?", nei: "Ikke en lovlig pentest. Får testen tilgang ved å bryte en beskyttelse eller på annen uberettiget måte, er det straffbart etter straffeloven § 204 (bot eller fengsel inntil 2 år). God hensikt hjelper ikke." },
-    { q: "Er tillatelsen skriftlig?", nei: "Ikke godkjent: kurset krever at tillatelsen alltid er skriftlig. Et muntlig ja er ikke nok." },
+    { q: "Er tillatelsen skriftlig?", nei: "Ikke godkjent: tillatelsen skal alltid være skriftlig. Et muntlig ja er ikke nok." },
     { q: "Ble den gitt før testen startet?", nei: "Ikke godkjent: tillatelsen skal være på plass på forhånd." },
     { q: "Har den som ga den, myndighet over systemet?", nei: "Ikke godkjent: bare den som har myndighet over systemet, kan gi lov. Ellers er tilgangen uberettiget." }
   ];

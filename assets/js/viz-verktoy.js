@@ -302,7 +302,8 @@
       zones: V().FASER.map(function (f) { return { id: f.id, label: f.navn, hint: f.kort }; }),
       answer: answer,
       godta: godta,
-      kilde: { ref: "Pentestfasene: d05 s. 16. Brannmur og IDS: d09.", egneOrd: true }
+      kilde: { ref: "Pentestfasene: d05 s. 16. Brannmur og IDS: d09.", egneOrd: true },
+      opphav: { type: "egen", kilder: ["d05 s. 16", "d09 s. 36–71"] }
     });
   };
 
@@ -332,7 +333,8 @@
         explain: g.hvorfor + (t ? ' <a href="#fane=' + t.kat + "&oppg=vt-" + t.id + '">Les om ' + t.navn + " →</a>" : "")
       };
     });
-    return IN.quiz(host, qs, { id: "verktoy-hvilket" });
+    return IN.quiz(host, qs, { id: "verktoy-hvilket",
+      opphav: { type: "egen", variantAv: ["H2025-14", "H2024-24"], kilder: ["d05 s. 25–47", "d09 s. 36–71"] } });
   };
 
   /* ---------- Eksamenskortene ---------- */

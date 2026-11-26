@@ -612,18 +612,18 @@
     { id: "g-hydra", q: "Et program prøver passord fra en liste mot SSH-innloggingen på en maskin, over nettet. Hvilket av kursets verktøy er det?",
       valg: ["John the Ripper", "mimikatz", "Hydra", "Wireshark"], answer: 2, svar: "hydra",
       hvorfor: "Hydra gjetter online mot en tjeneste. John knekker hasher offline, uten å snakke med tjenesten." },
-    { id: "g-john", q: "Vi knekket passordhasher offline. Lysarkene sier programmet er raskest på uttømmende søk og enklest å bruke. Hvilket?",
-      valg: ["Hashcat", "John the Ripper", "Hydra", "Metasploit"], answer: 1, svar: "john",
-      hvorfor: "John the Ripper (d05 s. 42). Hashcat beskrives som best på regelbasert knekking og maskeangrep." },
-    { id: "g-hashcat", q: "Hvilket program beskriver lysarkene som klart best på regelbasert passordknekking, for eksempel maskeangrep?",
-      valg: ["John the Ripper", "Hashcat", "Snort", "unshadow"], answer: 1, svar: "hashcat",
-      hvorfor: "Hashcat: mer komplisert, men mer kontroll (d05 s. 42)." },
+    { id: "g-john", q: "Du har kjørt unshadow og har én fil med brukernavn og passordhasher. Hvilket program knekker hashene på din egen maskin, uten å kontakte tjenesten?",
+      valg: ["Hydra", "John the Ripper", "Wireshark", "Snort"], answer: 1, svar: "john",
+      hvorfor: "John the Ripper knekker hasher offline, og unshadow følger med John. Hydra gjetter online mot tjenesten, Wireshark ser bare trafikk, og Snort er en IDS. Hashcat kunne også knekt hashene, men står ikke blant valgene." },
+    { id: "g-hashcat", q: "Du har passordhashene og vil prøve en maske offline: stor forbokstav, seks små bokstaver og to sifre. Hvilket program gjør det?",
+      valg: ["Hydra", "Hashcat", "Wireshark", "unshadow"], answer: 1, svar: "hashcat",
+      hvorfor: "Hashcat er sterkest på regelbasert knekking som maskeangrep, og er mer komplisert, men gir mer kontroll (d05 s. 42). Hydra gjetter online, og unshadow slår bare sammen passwd og shadow. John kan også bruke masker, men står ikke blant valgene." },
     { id: "g-burp", q: "Du vil endre en forespørsel etter at nettleserens JavaScript-filter har kjørt, før den når tjeneren. Hva slags verktøy bruker du?",
       valg: ["En proxy som Burp eller ZAP", "En pakkeanalysator som Wireshark", "En IDS som Snort", "En portskanner som nmap"], answer: 0, svar: "burp",
       hvorfor: "En proxy står mellom nettleseren og tjeneren og kan endre forespørselen. Wireshark ser trafikken, men endrer den ikke (H2024 23)." },
-    { id: "g-metasploit", q: "Hvilket rammeverk for å utnytte kjente sårbarheter er det mest kjente ifølge lysarkene, og har Kiwi innebygd?",
+    { id: "g-metasploit", q: "Skanningen viser en tjenesteversjon med en kjent sårbarhet. Du vil utnytte den med en ferdig modul. Hvilket rammeverk bruker du?",
       valg: ["OpenVAS", "Metasploit", "nmap", "Snort"], answer: 1, svar: "metasploit",
-      hvorfor: "Metasploit utnytter sårbarheter. OpenVAS kartlegger dem, men utnytter dem ikke (d05 s. 48–49)." }
+      hvorfor: "Metasploit har ferdige moduler som utnytter kjente sårbarheter. OpenVAS finner sårbarheter, men utnytter dem ikke, og nmap kartlegger porter og versjoner (d05 s. 48–49)." }
   ];
 
   var andre = [

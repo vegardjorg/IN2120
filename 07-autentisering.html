@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126g">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -94,7 +94,12 @@
       <h3>Passord: lagring, hash, salt og kompleksitet</h3>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Tre lagringsnivåer:</b> <b>klartekst</b> (svakt: alt ligger åpent ved en lekkasje), <b>hashet</b> (moderat: innloggingen hashes og sammenlignes, men svake passord kan knekkes) og <b>saltet hash</b> (godt, standard praksis: passord og et tilfeldig salt hashes sammen, og saltet lagres ved siden av).</li>
+          <li><b>Tre lagringsnivåer:</b>
+            <ul>
+              <li><b>klartekst</b> (svakt: alt ligger åpent ved en lekkasje),</li>
+              <li><b>hashet</b> (moderat: innloggingen hashes og sammenlignes, men svake passord kan knekkes) og</li>
+              <li><b>saltet hash</b> (godt, standard praksis: passord og et tilfeldig salt hashes sammen, og saltet lagres ved siden av).</li>
+            </ul></li>
           <li><b>Salt:</b> en tilfeldig verdi per bruker (BA-lysarket: i Linux et heltall fra 0 til 4095; det gjelder klassisk DES-crypt, moderne systemer bruker et mye lengre tilfeldig salt). Like passord gir da ulike hasher, og ferdige hashtabeller og <b>regnbuetabeller</b> blir ubrukelige. Salt hindrer <i>ikke</i> at ett svakt passord gjettes.</li>
           <li><b>Kompleksitet:</b> antall mulige passord er N<sup>L</sup>, der N er størrelsen på tegnsettet og L er lengden. Uttømmende søk finner passordet i snitt etter halve rommet.</li>
           <li><b>Kursets råd:</b> minst 13 tegn, flere tegnkategorier, ingen ordboksord, navn eller datoer, bytt sjelden eller aldri, men straks ved mistanke om lekkasje, ikke gjenbruk, og lagre trygt (i hodet, på papir du passer på, eller i en passordbank). <b>NIST 800-63-4:</b> minst 15 tegn når passordet er eneste faktor, minst 8 som del av MFA, ingen sammensetningsregler og ingen krav om periodisk bytte.</li>
@@ -248,7 +253,7 @@
         </ul></div>
 
       <h4>Inspera-øving</h4>
-      <p class="aut-q">Plasser boksene i FIDO-figuren. Hvert felt beskriver hvor i figuren boksen skal stå.</p>
+      <p class="aut-q">Figuren viser innlogging med passnøkler. Plasser de seks boksene på riktig sted i figuren.</p>
       <div id="ov-aut-5"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -273,9 +278,15 @@
           <li><b>Biometri:</b> automatiske metoder for å autentisere eller gjenkjenne en person ut fra kroppen eller atferden. Eksempler: fingeravtrykk, ansikt, iris, håndgeometri, signatur, stemme, tastetrykk.</li>
           <li><b>Krav til en modalitet:</b> universalitet, særpreg, permanens, målbarhet, nøyaktighet (EER), ytelse, aksept og beskyttelse mot forfalskning (BA-lysarket, åtte krav). Ukesoppgave t07 teller sju: universalitet, entydighet (= særpreg), varighet (= permanens), målbarhet, ytelse (der nøyaktighet inngår), aksept og anti-spoofing (= beskyttelse mot forfalskning).</li>
           <li><b>Komponenter:</b> sensor → uttrekk av kjennetegn (for eksempel linjesplitt og linjeender i et fingeravtrykk) → komparator → database med maler.</li>
-          <li><b>Moduser:</b> <b>registrering</b> (lage og lagre malen), <b>identifikasjon 1:N</b> (søke i hele databasen) og <b>autentisering 1:1</b> (sammenligne med malen til den oppgitte bruker-ID-en).</li>
+          <li><b>Moduser:</b>
+            <ul>
+              <li><b>registrering</b> (lage og lagre malen),</li>
+              <li><b>identifikasjon 1:N</b> (søke i hele databasen) og</li>
+              <li><b>autentisering 1:1</b> (sammenligne med malen til den oppgitte bruker-ID-en).</li>
+            </ul></li>
           <li><b>Skåring og terskel:</b> match når <span class="mono">S ≥ T</span>, ikke-match når <span class="mono">S &lt; T</span>.</li>
-          <li><b>FMR</b> = antall match blant ikke-genuine / antall ikke-genuine. <b>FNMR</b> = antall ikke-match blant genuine / antall genuine. TMR = 1 − FNMR og TNMR = 1 − FMR.</li>
+          <li><b>FMR</b> = antall match blant ikke-genuine / antall ikke-genuine.</li>
+          <li><b>FNMR</b> = antall ikke-match blant genuine / antall genuine. TMR = 1 − FNMR og TNMR = 1 − FMR.</li>
           <li><b>EER:</b> raten når T er satt slik at FMR = FNMR. Liten EER betyr høy nøyaktighet og lite overlapp mellom kurvene.</li>
           <li><b>PAD</b> (presentation attack detection): å oppdage presentasjonsangrep som falsk finger, falskt ansikt eller deepfake.</li>
           <li><b>Tvang:</b> kroppsbasert biometri kan tvinges fram, mens atferd krever at brukeren er bevisst.</li>
@@ -405,32 +416,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261126f"></script>
-  <script src="assets/js/symboler.js?v=20261126f"></script>
-  <script src="assets/js/begreper-data.js?v=20261126f"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126f"></script>
-  <script src="assets/js/pseudocode.js?v=20261126f"></script>
-  <script src="assets/js/stepplayer.js?v=20261126f"></script>
-  <script src="assets/js/varline.js?v=20261126f"></script>
-  <script src="assets/js/inspera.js?v=20261126f"></script>
-  <script src="assets/js/dra.js?v=20261126f"></script>
-  <script src="assets/js/ovelse.js?v=20261126f"></script>
-  <script src="assets/js/bank.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126f"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126f"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126f"></script>
-  <script src="assets/js/viz-aut.js?v=20261126f"></script>
+  <script src="assets/js/core.js?v=20261126g"></script>
+  <script src="assets/js/symboler.js?v=20261126g"></script>
+  <script src="assets/js/begreper-data.js?v=20261126g"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126g"></script>
+  <script src="assets/js/pseudocode.js?v=20261126g"></script>
+  <script src="assets/js/stepplayer.js?v=20261126g"></script>
+  <script src="assets/js/varline.js?v=20261126g"></script>
+  <script src="assets/js/inspera.js?v=20261126g"></script>
+  <script src="assets/js/dra.js?v=20261126g"></script>
+  <script src="assets/js/ovelse.js?v=20261126g"></script>
+  <script src="assets/js/bank.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126g"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126g"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126g"></script>
+  <script src="assets/js/viz-aut.js?v=20261126g"></script>
   <script>
   (function () {
     "use strict";
@@ -483,12 +500,17 @@
     safe("viz-nivaa", function () { V.nivaa("#viz-nivaa"); });
 
     /* ---------- Flervalg per fane ---------- */
+    // Lysarksidene per fane (opphav for flervalg og sant/usant), t07 = ukesoppgave 7 (brukerautentisering)
+    var KILDER = {
+      faktorer: ["ba s. 3–13", "t07"], passord: ["ba s. 3–13", "t07"], eierskap: ["ba s. 14–19", "t07"],
+      fido: ["ba s. 20–23", "t07"], biometri: ["ba s. 29–39", "t07"], mfa: ["ba s. 40–48", "t07"]
+    };
     var QUIZ = {
       faktorer: [
         { q: "En BankID-kodebrikke er:", options: ["noe du vet", "noe du har", "noe du er", "noe du gjør"], answer: 1,
           explain: "<p>Brikken er en fysisk gjenstand du må ha med deg.</p>" },
         { q: "Tastetrykkdynamikk (rytmen når du skriver) er:", options: ["noe du vet", "noe du har", "noe du er", "noe du gjør (atferdsbiometri)"], answer: 3,
-          explain: "<p>Det er atferd, ikke kroppen. Kurset kaller det «noe du gjør».</p>" },
+          explain: "<p>Det er atferd, ikke kroppen, og kalles derfor «noe du gjør» (atferdsbiometri).</p>" },
         { q: "Hva er en autentikator?", options: ["brukernavnet", "det hemmelige eller private elementet som beviser eierskap til bruker-ID-en", "identitetstilbyderen (IdP)", "loggen over innlogginger"], answer: 1,
           explain: "<p>Brukernavnet er det som påstås. Autentikatoren er beviset for påstanden.</p>" }
       ],
@@ -517,8 +539,8 @@
           explain: "<p>Den private nøkkelen er brukerens, og domenet bestemmer hvor den kan brukes.</p>" },
         { q: "Hva sendes i steg 1?", options: ["den signerte responsen", "PIN-koden", "utfordringen fra tjeneren", "den offentlige nøkkelen"], answer: 2,
           explain: "<p>Steg 1 er utfordringen C, steg 2 den lokale autentikatoren, steg 3 den signerte responsen.</p>" },
-        { q: "Hvorfor er BankID-appen ikke phishingresistent etter lysarket?", options: ["den bruker SMS", "den avhenger av at brukeren kjenner igjen domenenavn", "den har ingen PIN", "den er statlig"], answer: 1,
-          explain: "<p>Det er brukeren som må avsløre den falske siden. Med passnøkler gjør klienten det.</p>" },
+        { q: "Hvorfor er en kodebrikke eller en godkjenningsapp (som BankID-appen) ikke phishingresistent?", options: ["den bruker SMS", "brukeren må selv kjenne igjen domenet til den falske siden", "den har ingen PIN", "den er statlig"], answer: 1,
+          explain: "<p>Koden eller godkjenningen virker like godt på en falsk side, så det er brukeren som må avsløre den. Med passnøkler er domenet bundet til nøkkelen, og klienten nekter å signere for feil domene.</p>" },
         { q: "Hva er et realistisk angrep mot synkroniserte passnøkler?", options: ["regnbuetabell", "phishing mot innloggingen til passordbanken", "uttømmende søk etter den offentlige nøkkelen", "pass-the-hash"], answer: 1,
           explain: "<p>Skykontoen som synkroniserer nøklene, har vanlig innlogging. Den er ikke phishingresistent.</p>" }
       ],
@@ -546,7 +568,7 @@
       ]
     };
     Object.keys(QUIZ).forEach(function (fane) {
-      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "aut-" + fane }); });
+      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "aut-" + fane, opphav: { type: "egen", kilder: KILDER[fane] } }); });
     });
 
     /* ---------- Sant/usant per fane ---------- */
@@ -562,9 +584,9 @@
       passord: [
         { s: "Med saltet hash kan to brukere med samme passord ha ulike lagrede verdier.", answer: true, explain: "<p>Saltene er ulike, så det som hashes, er ulikt.</p>" },
         { s: "Saltet må holdes hemmelig, ellers er det verdiløst.", answer: false, explain: "<p>Saltet lagres åpent ved siden av hashen. Det virker fordi det er unikt, ikke fordi det er hemmelig.</p>" },
-        { s: "Hashet lagring gir god beskyttelse mot knekking av svake passord.", answer: false, explain: "<p>Lysarket kaller det moderat: svake passord knekkes med kraftige verktøy.</p>" },
+        { s: "Hashet lagring gir god beskyttelse mot knekking av svake passord.", answer: false, explain: "<p>Beskyttelsen er bare moderat: svake passord knekkes raskt med kraftige verktøy og ordlister.</p>" },
         { s: "Fra 10 til 14 tegn med 105 mulige tegn gir 105⁴ ganger flere passord.", answer: true, explain: "<p>Antall passord er 105 opphøyd i lengden. Fire ekstra tegn gir 105¹⁴ / 105¹⁰ = 105⁴ ganger så mange.</p>" },
-        { s: "Kurset anbefaler å bytte passord hver tredje måned.", answer: false, explain: "<p>Bytt sjelden eller aldri, men straks ved mistanke om lekkasje.</p>" },
+        { s: "Passord bør byttes hver tredje måned, også uten mistanke om lekkasje.", answer: false, explain: "<p>Bytt sjelden eller aldri, men straks ved mistanke om lekkasje.</p>" },
         { s: "Uttrekk av passordhasher fra minnet krever admin- eller debugrettigheter.", answer: true, explain: "<p>Derfor er minste privilegium et viktig forsvar for passordene.</p>" },
         { s: "Uttømmende søk finner i snitt passordet etter halve nøkkelrommet.", answer: true, explain: "<p>Passordet er like sannsynlig hvor som helst i rommet, så i snitt halvveis.</p>" },
         { s: "Gjenbruk av passord er farlig fordi én lekkasje åpner flere kontoer.", answer: true, explain: "<p>Angripere prøver lekkede passord på andre tjenester.</p>" }
@@ -607,12 +629,12 @@
       ]
     };
     Object.keys(TF).forEach(function (fane) {
-      safe("tf-" + fane, function () { IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { it.kilde = false; return it; }), { id: "aut-tf-" + fane }); });
+      safe("tf-" + fane, function () { IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { it.kilde = false; return it; }), { id: "aut-tf-" + fane, opphav: { type: "egen", kilder: KILDER[fane] } }); });
     });
 
     /* ---------- Inspera-øvinger (egne oppgaver i eksamensformat) ---------- */
     var OV = [
-      { key: "ov-aut-1", title: "Faktorer", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["Noe du vet", "Noe du har", "Noe du er/gjør"],
+      { key: "ov-aut-1", title: "Faktorer", points: 2.5, opphav: { type: "egen", kilder: ["ba s. 3–13"] }, inspera: { type: "M", multi: false, kolonner: ["Noe du vet", "Noe du har", "Noe du er/gjør"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
           { s: "Sikkerhetsspørsmål «navnet på første kjæledyr»", svar: [0] },
@@ -620,17 +642,17 @@
           { s: "Ansiktsgjenkjenning", svar: [2] },
           { s: "Engangskode sendt på e-post", svar: [1], explain: "<p>Sekundærkanal: du må ha tilgang til e-postkontoen.</p>" },
           { s: "Signaturdynamikk på et nettbrett", svar: [2] } ] } },
-      { key: "ov-aut-2", title: "Krav og tiltak", points: 2, inspera: { type: "M", multi: false, kolonner: ["Tilgangskontroll", "Salting", "Komplekse passord", "Hashing"],
+      { key: "ov-aut-2", title: "Krav og tiltak", points: 2, opphav: { type: "egen", variantAv: ["H2022-8.1"], kilder: ["ba s. 3–13"] }, inspera: { type: "M", multi: false, kolonner: ["Tilgangskontroll", "Salting", "Komplekse passord", "Hashing"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         rader: [
           { s: "En regnbuetabell for vanlige passord skal ikke gi treff", svar: [1] },
           { s: "Bare root skal kunne lese passordfila", svar: [0] },
           { s: "En databasedump skal ikke vise passordene direkte", svar: [3] },
           { s: "Uttømmende søk mot én bruker med kjent salt skal ta urimelig lang tid", svar: [2] } ] } },
-      { key: "ov-aut-3", title: "Fra 8 til 12 tegn", points: 1, inspera: { type: "F1", regelTekst: "1 for riktig; 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
+      { key: "ov-aut-3", title: "Fra 8 til 12 tegn", points: 1, opphav: { type: "egen", kilder: ["ba s. 3–13", "t07"] }, inspera: { type: "F1", regelTekst: "1 for riktig; 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 1 },
         alternativer: ["62*4", "62^4", "4 ganger", "Umulig å si"], svar: 1,
         explain: ["<p>Ganging med 4 gjelder ikke eksponentiell vekst.</p>", "<p>62¹² / 62⁸ = 62⁴.</p>", "<p>Lengde gir ikke lineær vekst.</p>", "<p>Det kan regnes ut som forholdet mellom nøkkelrommene.</p>"] } },
-      { key: "ov-aut-4", title: "Typer enheter", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["OTP-brikke", "Pass og ID-kort", "Online-enheter", "Sekundærkanal"],
+      { key: "ov-aut-4", title: "Typer enheter", points: 2.5, opphav: { type: "egen", variantAv: ["H2021-6.3"], kilder: ["ba s. 14–19"] }, inspera: { type: "M", multi: false, kolonner: ["OTP-brikke", "Pass og ID-kort", "Online-enheter", "Sekundærkanal"],
         regelTekst: "0,5 for hver korrekt, -0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
           { s: "Engangskode i en tekstmelding", svar: [3] },
@@ -638,21 +660,28 @@
           { s: "Signerer en utfordring med privat nøkkel i en sikker chip ved grensa", svar: [1] },
           { s: "Lagrer passnøkler for mange nettsteder", svar: [2] },
           { s: "Godkjenning i en bankapp på mobilen", svar: [3] } ] } },
-      { key: "ov-aut-5", title: "FIDO-figuren", points: 3, inspera: { type: "D", regelTekst: "0,5 for hver riktig, -0,5 for feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
+      { key: "ov-aut-5", title: "Passnøkler i figuren", points: 3,
+        opphav: { type: "egen", variantAv: ["H2025-25", "H2022-8.3"], kilder: ["ba s. 20–23"], merknad: "Samme figur som H2025 oppgave 25, med et sjette felt for den lokale etappen" },
+        figurTekst: "Figuren fra H2025 oppgave 25, tegnet på nytt, med en klamme lagt til for øvingen.",
+        inspera: { type: "D", regelTekst: "0,5 for hver riktig, -0,5 for feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
         tekst: null, bank: ["Challenge", "Respons", "Autentikator", "Passnøkler", "Offentlige nøkler", "Lokal etappe"],
+        // Rekkefølgen følger plassholderne i IN.FIGURER["H2025-25"] (0–4) pluss klammen (5, viz-aut.js).
         felt: [
-          { etikett: "Pil fra bruker til enhet", svar: 2 }, { etikett: "Lagret i enheten", svar: 3 },
-          { etikett: "Lagret hos tjeneren", svar: 4 }, { etikett: "Pil fra tjener til enhet", svar: 0 },
-          { etikett: "Pil fra enhet til tjener", svar: 1 }, { etikett: "Klamme over bruker og enhet", svar: 5 } ] } },
-      { key: "ov-aut-6", title: "Regn ut ratene", points: 2, inspera: { type: "T", regelTekst: "0.5 for riktig, 0 for feil eller ubesvart, minimum 0.", regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 2 },
+          { etikett: "Buet pil fra bruker til klient", svar: 2, explain: "<p>Brukeren låser opp klienten med en <b>autentikator</b> (PIN eller biometri). Det skjer lokalt og sendes ikke til tjeneren.</p>" },
+          { etikett: "Inne i klient-boksen", svar: 3, explain: "<p>De private <b>passnøklene</b> ligger i klienten eller i en brikke koblet til den, én per tjener og domene.</p>" },
+          { etikett: "Buet pil fra tjener til klient (øverst)", svar: 0, explain: "<p>Tjeneren sender en tilfeldig <b>challenge</b>, så et gammelt svar ikke kan spilles av på nytt.</p>" },
+          { etikett: "Buet pil fra klient til tjener (nederst)", svar: 1, explain: "<p>Klienten signerer challengen med passnøkkelen og sender <b>responsen</b> tilbake.</p>" },
+          { etikett: "I tjener-boksen", svar: 4, explain: "<p>Tjeneren har bare de <b>offentlige nøklene</b>, som den verifiserer responsen med.</p>" },
+          { etikett: "Klammen over bruker og klient", svar: 5, explain: "<p>Bruker mot klient er den <b>lokale etappen</b>. Klient mot tjener er den andre etappen, som går online.</p>" } ] } },
+      { key: "ov-aut-6", title: "Regn ut ratene", points: 2, opphav: { type: "egen", variantAv: ["H2022-8.2"], kilder: ["ba s. 29–39", "t07"] }, inspera: { type: "T", regelTekst: "0.5 for riktig, 0 for feil eller ubesvart, minimum 0.", regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 2 },
         tekst: "<p>Et system testes med 50 genuine og 50 ikke-genuine brukere. 47 genuine og 2 ikke-genuine blir godtatt. Oppgi som desimaltall med punktum: TMR {0}, TNMR {1}, FMR {2}, FNMR {3}.</p>",
         felt: [ { godta: ["0.94"], explain: "<p>47/50 = 0.94.</p>" }, { godta: ["0.96"], explain: "<p>48/50 = 0.96.</p>" },
                 { godta: ["0.04"], explain: "<p>2/50 = 0.04.</p>" }, { godta: ["0.06"], explain: "<p>3/50 = 0.06.</p>" } ] } },
-      { key: "ov-aut-7", title: "Terskel, PAD og modus", points: 1.5, inspera: { type: "N", regelTekst: "0,5 for riktig, -0,5 for feil, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 1.5 },
+      { key: "ov-aut-7", title: "Terskel, PAD og modus", points: 1.5, opphav: { type: "egen", kilder: ["ba s. 29–39"] }, inspera: { type: "N", regelTekst: "0,5 for riktig, -0,5 for feil, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 1.5 },
         tekst: "<p>Senkes terskelen, vil FNMR {0}. Et silikonavtrykk av en ekte finger stoppes best av {1}. Søk i et register med 10 000 maler er {2}.</p>",
         felt: [ { valg: ["øke", "minske", "forbli uendret"], svar: 1 }, { valg: ["lav FMR", "PAD", "lav EER"], svar: 1 },
                 { valg: ["autentisering (1:1)", "identifikasjon (1:N)", "registrering"], svar: 1 } ] } },
-      { key: "ov-aut-8", title: "Garantinivå og eID", points: 2.5, inspera: { type: "M", multi: false, kolonner: ["Sant", "Usant"],
+      { key: "ov-aut-8", title: "Garantinivå og eID", points: 2.5, opphav: { type: "egen", variantAv: ["H2023-33", "H2024-30"], kilder: ["ba s. 40–48"] }, inspera: { type: "M", multi: false, kolonner: ["Sant", "Usant"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
           { s: "MinID gir sikkerhetsnivå HØYT", svar: [1] },
@@ -661,7 +690,16 @@
           { s: "Krav til hvordan autentikatoren overleveres, påvirker garantinivået", svar: [0] },
           { s: "eIDAS 2.0 har fire garantinivåer", svar: [1] } ] } }
     ];
-    OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
+    OV.forEach(function (o) {
+      safe(o.key, function () {
+        IN.inspera("#" + o.key, o);
+        // Figur laget for øvingen (IN.FIGURER[o.key], f.eks. ov-aut-5 i viz-aut.js): rett under opphavslinja i øvingen.
+        var host = document.getElementById(o.key), wrap = host && host.querySelector(".insp");
+        if (!wrap || !IN.FIGURER || !IN.FIGURER[o.key] || !IN.insperaFig) return;
+        var fig = IN.insperaFig(host, o), op = wrap.querySelector(".insp-opphav");
+        if (fig) { wrap.insertBefore(fig, op ? op.nextSibling : wrap.firstChild); if (wrap._figPlasser) wrap._figPlasser(); }
+      });
+    });
 
     /* ---------- Eksamensbanken ---------- */
     // Eksamensfigurer gjenbrukt i forklaringene (IN.fig.vis: uten svarfelt, lenke til kortet)

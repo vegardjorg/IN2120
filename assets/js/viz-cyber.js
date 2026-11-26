@@ -57,7 +57,7 @@
   /* ============================================================
      Felles: plasseringsøvingene bruker dra.js (IN.bucketTask / IN.matchTask): trykk og plasser,
      pointer-dra og tastatur. cards = [{id, text, ans, why}] blir brikker i fast stokket rekkefølge,
-     zones = [{id, label, hint}]. Ingen lagring (ingen spec.id), som før.
+     zones = [{id, label, hint}], opphav = opphavslinja (IN.opphavTekst). Ingen lagring (ingen spec.id), som før.
      ============================================================ */
   function draOppg(kind, host, cfg, opts) {
     var ans = {};
@@ -67,7 +67,8 @@
       items: stokk(cfg.cards).map(function (c) { return { id: c.id, html: esc(c.text), forklaring: c.why || "" }; }),
       zones: cfg.zones,
       answer: ans,
-      poolLabel: cfg.poolLabel || "Ikke plassert"
+      poolLabel: cfg.poolLabel || "Ikke plassert",
+      opphav: cfg.opphav || null
     };
     var o = { instant: false, checkLabel: "Sjekk svar", cls: cfg.cls || null };
     if (opts) for (var k in opts) o[k] = opts[k];
@@ -301,7 +302,8 @@
     }
     var task = draOppg("matchTask", taskHost, {
       prompt: "Hendelsene i Grågås-angrepet står i stokket rekkefølge. Legg hver hendelse på trinnet den hører til.",
-      cards: cards, zones: zones, poolLabel: "Hendelser som ikke er plassert", cls: "cy-kc-dra"
+      cards: cards, zones: zones, poolLabel: "Hendelser som ikke er plassert", cls: "cy-kc-dra",
+      opphav: { type: "egen", variantAv: "H2021-10.1", kilder: ["co s. 17"] }
     }, {
       checkLabel: "Sjekk svar",
       result: function (c) {
@@ -415,7 +417,8 @@
     host.appendChild(wrap);
     var task = draOppg("bucketTask", taskHost, {
       prompt: "Kortene er det Fjordnett deler etter angrepet.",
-      cards: CTI_KORT, zones: CTI.map(function (c) { return { id: c.id, label: esc(c.navn), hint: esc(c.om) }; })
+      cards: CTI_KORT, zones: CTI.map(function (c) { return { id: c.id, label: esc(c.navn), hint: esc(c.om) }; }),
+      opphav: { type: "egen", kilder: ["co s. 25–26"], merknad: "Samme tre CTI-nivåer som i H2024 36" }
     });
 
     function mark(i) {
@@ -682,7 +685,8 @@
     host.appendChild(wrap);
     var task = draOppg("bucketTask", taskHost, {
       cards: KI_KORT,
-      zones: [{ id: "data", label: "Treningsdata" }, { id: "input", label: "Input ved inferens" }, { id: "kjede", label: "Hele leveransekjeden" }]
+      zones: [{ id: "data", label: "Treningsdata" }, { id: "input", label: "Input ved inferens" }, { id: "kjede", label: "Hele leveransekjeden" }],
+      opphav: { type: "egen", kilder: ["ki s. 27–36"] }
     }, {
       // Etter «Sjekk» ringes de tre stedene inn i figuren, slik lysarket gjør
       onCheck: function () { [nData, nIn, fig].forEach(function (n) { n.classList.add("cy-hit"); }); }
@@ -808,6 +812,7 @@
     // Bøttene stables som en pyramide (blokk-cyber.css, .cy-aia-dra)
     var task = draOppg("bucketTask", taskHost, {
       cards: AIA_KORT, cls: "cy-aia-dra",
+      opphav: { type: "egen", kilder: ["ki s. 37–38"] },
       zones: AIA.map(function (a) { return { id: a.id, label: esc(a.navn), hint: esc(a.krav) }; })
     });
     return { check: task && task.check, task: task };

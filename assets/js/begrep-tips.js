@@ -160,6 +160,7 @@
     if (e.full) h.appendChild(document.createTextNode(" · " + e.full));
     t.appendChild(h);
     t.appendChild(mk("span", "bt-tip-t", e.txt));
+    if (e.forveks) t.appendChild(mk("span", "bt-tip-fv", e.forveks));
     var b = BG.BLOKK && BG.BLOKK[e.b];
     if (b && b[1] !== pageId()) t.appendChild(mk("span", "bt-tip-se", BG.se(e)));
   }
@@ -280,6 +281,7 @@
       dt.innerHTML = "<b>" + e.ord + "</b>" + (e.full ? " · " + e.full : "");
       dd.innerHTML = e.txt || "";
       if (b) { var a = document.createElement("a"); a.href = b[0]; a.className = "ord-se"; a.textContent = BG.se(e); dd.appendChild(document.createTextNode(" ")); dd.appendChild(a); }
+      if (e.forveks) { var fv = document.createElement("span"); fv.className = "ord-fv"; fv.textContent = e.forveks; dd.appendChild(fv); }
       dl.appendChild(dt); dl.appendChild(dd);
       return { dt: dt, dd: dd, s: (e.ord + " " + (e.full || "") + " " + dt.textContent + " " + dd.textContent).toLowerCase() };
     });

@@ -387,7 +387,7 @@
     var bReset = el("button", { class: "btn", type: "button", text: opts.resetLabel || "↺ Nullstill", onclick: function () { doReset(); } });
     var foot = el("div", { class: "qz-foot" }, [bCheck, bReset]);
     var res = el("div", { class: "qz-result" });
-    var refs = IN.kildeRefs ? IN.kildeRefs(spec.kilde) : null, kildeEl = null, fnEl = null;
+    var refs = IN.kildeRefs && !spec.opphav ? IN.kildeRefs(spec.kilde) : null, kildeEl = null, fnEl = null;   // opphav erstatter kildelinja
     if (refs) {
       kildeEl = el("p", { class: "qz-kilde" }, "Kilde: ");
       refs.forEach(function (r, i) {
@@ -436,7 +436,7 @@
       quickRaf = window.requestAnimationFrame(function () { quickRaf = null; paintQuick(); });
     }
 
-    [head, promptEl, extra, hint, board, foot, res, regelEl, expDet, kildeEl, fnEl, quick, live].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [head, spec.opphav && IN.opphavEl ? IN.opphavEl(spec.opphav) : null, promptEl, extra, hint, board, foot, res, regelEl, expDet, kildeEl, fnEl, quick, live].forEach(function (x) { if (x) wrap.appendChild(x); });
     host.appendChild(wrap);
     // B5: lagre også uten spec.id. Nøkkelen utledes fra host-id (eller nærmeste forelder med id + løpenummer).
     var lagId = spec.id ? String(spec.id) : autoId(host, wrap, ".dra");

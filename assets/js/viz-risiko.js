@@ -31,6 +31,17 @@
   var NS = "http://www.w3.org/2000/svg";
 
   function qsHost(h) { return typeof h === "string" ? IN.qs(h) : h; }
+  /* Opphavslinje for øvingene (o.opphav / spec.opphav, se IN.opphavTekst i core.js) */
+  var UTV = "Sikker utvikling har ingen lysark i 2026, men har vært på eksamen flere år";
+  var OPPHAV = {
+    regnSk: { type: "egen", variantAv: ["H2022-10.3"], kilder: ["t06 oppg. 2"] },
+    regnRoi: { type: "egen", variantAv: ["H2022-10.3"], kilder: ["ism s. 5"] },
+    prosessSort: { type: "egen", variantAv: ["H2023-38", "H2022-10.1"], kilder: ["t06 oppg. 6"] },
+    strideSort: { type: "egen", variantAv: ["H2021-9.2", "H2022-4.2", "H2025-31"], merknad: UTV },
+    livssyklus: { type: "egen", variantAv: ["H2021-9.1", "H2022-4.1"], merknad: UTV },
+    livssyklusAkt: { type: "egen", variantAv: ["H2022-4.1"], merknad: UTV },
+    cmmi: { type: "egen", variantAv: ["H2021-8.3"], kilder: ["ism s. 36"] }
+  };
   function svg(tag, attrs, text) {
     var n = document.createElementNS(NS, tag);
     for (var k in attrs) if (Object.prototype.hasOwnProperty.call(attrs, k) && attrs[k] != null) n.setAttribute(k, attrs[k]);
@@ -418,6 +429,7 @@
     host = qsHost(host); if (!host || !IN.regnForst) return null;
     return IN.regnForst(host, {
       id: "risiko-regn-sk",
+      opphav: OPPHAV.regnSk,
       rentTall: true,
       sporsmal: function (inn) {
         return {
@@ -466,6 +478,7 @@
     host = qsHost(host); if (!host || !IN.regnForst) return null;
     return IN.regnForst(host, {
       id: "risiko-regn-roi",
+      opphav: OPPHAV.regnRoi,
       rentTall: true,
       sporsmal: function (inn) {
         var t = "Risikoen er <b>" + fmt(inn.G) + " kr per år</b>. Et tiltak koster <b>" + fmt(inn.C) + " kr per år</b>, og etter tiltaket er risikoen <b>" + fmt(inn.Ny) + " kr per år</b>.";
@@ -623,6 +636,7 @@
     var nei2 = PROSESS.bp2.nei.map(function (n) { return n[0].toLowerCase(); }).join("; ");
     return IN.sortTask(host, {
       id: "risiko-prosess-sort",
+      opphav: OPPHAV.prosessSort,
       prompt: {
         eli5: "Bakeriet skal finne ut hva som er farlig og hva de skal gjøre med det. Sett stegene i den rekkefølgen de skjer, fra øverst til nederst.",
         normal: "Sett stegene i risikostyringsprosessen i riktig rekkefølge, slik eksamensfiguren viser dem (ISO 27005).",
@@ -645,8 +659,7 @@
         eli5: "Huskeregel: regler → måle → sjekke målingen → plan → sjefen sier ja → gjøre det.",
         normal: "Hvert beslutningspunkt står rett etter det det vurderer: punkt 1 etter vurderingen, punkt 2 etter planen. «Nei» sender prosessen tilbake. Fasitfiguren under viser også underboksene og Nei-pilene.",
         teknisk: "Felle (H2022 10.2, H2024 33): dårlig spredning og stor uvisshet gir «Nei» i punkt 1, mens budsjett og restrisiko gir «Nei» i punkt 2. «Må først gjennomføre OSINT» er en distraktor i begge."
-      },
-      kilde: { ref: "Ukesoppgave t06 og eksamensfigurene H2022 10.1 og H2023 38", egneOrd: true }
+      }
     }, { instant: false });
   }
 
@@ -789,6 +802,7 @@
     var answer = {}, items = STRIDE_OPPG.map(function (x) { answer[x[0]] = x[2]; return { id: x[0], html: x[1], forklaring: x[3] }; });
     return IN.bucketTask(host, {
       id: "risiko-stride-bucket",
+      opphav: OPPHAV.strideSort,
       prompt: {
         eli5: "Hver av disse er en måte noen kan lage trøbbel for Smuldre på. Legg hver av dem i den STRIDE-bokstaven som passer best.",
         normal: "Klassifiser hver trussel mot Smuldre Bakeri i STRIDE-kategorien som passer best.",
@@ -802,8 +816,7 @@
         eli5: "To trusler per bokstav. Spør deg selv hva den slemme personen får til.",
         normal: "Hver bokstav bryter sitt mål: S autentisitet, T integritet, R sporbarhet, I konfidensialitet, D tilgjengelighet og E tilgangskontroll. Det er nettopp det H2025 31 spør om.",
         teknisk: "Grensetilfeller: sletting av logger er både T og R (formålet avgjør), og minneendring er T selv om den kan føre til E (H2022 4.2)."
-      },
-      kilde: { ref: "Egne eksempler. Tabellen bygger på H2021 9.2, H2022 4.2 og H2025 31", egneOrd: true }
+      }
     }, { instant: false });
   }
 
@@ -835,7 +848,7 @@
         normal: "Opplæring → krav → design → koding → test → produksjonssetting → forvaltning. DevSecOps dekker fasene fra krav til forvaltning, men ikke opplæring (H2022 4.1).",
         teknisk: "«Shift left» betyr å flytte sikkerheten tidlig i tidslinjen, mot krav og design. Sikker smidig legger sikkerhetskrav inn i hver sprint. Verken den eller DevSecOps dekker opplæring."
       },
-      kilde: { ref: "Eksamen H2021 9.1 og H2022 4.1", egneOrd: true }
+      opphav: OPPHAV.livssyklus
     }, { instant: false });
   }
   var AKTIVITETER = [
@@ -866,7 +879,7 @@
       items: AKTIVITETER.map(function (a) { answer[a[0]] = a[2]; return { id: a[0], html: a[1], forklaring: a[3] }; }),
       answer: answer,
       oppsummering: "Felle: statisk analyse hører til koding, ikke test. Rutiner for patching og hendelseshåndtering lages i produksjonssettingen (H2022 4.1).",
-      kilde: { ref: "Eksamen H2022 4.1, egne aktiviteter", egneOrd: true }
+      opphav: OPPHAV.livssyklusAkt
     }, { instant: false });
   }
 
@@ -897,7 +910,7 @@
         normal: "0 fraværende, 1 initiell, 2 ledet, 3 definert, 4 kvantifisert, 5 optimaliserende. Smuldre er på nivå 1 i dag. Policy og ledelsesforankring gir nivå 3, helhetlig risikostyring nivå 4.",
         teknisk: "Felle: «tilfeldige tiltak» er nivå 1, ikke 0. Nivå 0 er brannslukking uten tiltak. Ledelsesforankring er det som skiller nivå 3 fra nivå 2 (H2021 8.3)."
       },
-      kilde: { ref: "Forelesning om styring (ism s. 36) og eksamen H2021 8.3", egneOrd: true }
+      opphav: OPPHAV.cmmi
     }, { instant: false });
   }
 
@@ -953,6 +966,13 @@
     host.appendChild(bar);
     host.appendChild(el("p", { class: "small", html: D.map(function (d, i) { return '<span class="rk-key rk-seg' + i + '"></span>' + d[0] + " (" + d[2] + ") " + d[1]; }).join(" · ") + " · til sammen <b>" + tot + "</b> tiltak" }));
   }
+
+  /* Figur til øvingen ov-risiko-8 på 06-risiko.html: samme prosessfigur som H2023 38 (fig-h2023.js), med svarfelt. */
+  IN.FIGURER = IN.FIGURER || {};
+  IN.FIGURER["ov-risiko-8"] = function (h, o) {
+    if (!IN.FIGURER["H2023-38"]) return;
+    return IN.FIGURER["H2023-38"](h, o);
+  };
 
   IN.risiko = {
     data: { risks: RISKS, tiltak: TILTAK, fasit: FASIT, faser: FASER, cmmi: CMMI, stride: STRIDE_OPPG },

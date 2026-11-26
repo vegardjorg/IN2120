@@ -783,7 +783,7 @@
     // Én fotnote per sett når minst ett punkt har en kilde formulert med egne ord
     var fn = items.some(function (it) { return it.src && it.src.some(function (r) { return r.egneOrd; }); })
       ? el("p", { class: "qz-kilde-fn", text: "* formulert med egne ord" }) : null;
-    [head, dotRow, list, pnav, foot, res, fn, live].forEach(function (x) { if (x) wrap.appendChild(x); });
+    [o.opphav && IN.opphavEl ? IN.opphavEl(o.opphav) : null, head, dotRow, list, pnav, foot, res, fn, live].forEach(function (x) { if (x) wrap.appendChild(x); });
     // o.fold: settet ligger i en lukket <details> («Sant eller usant? · 7 påstander»), med status i oppsummeringen
     if (o.fold) {
       foldStat = el("span", { class: "qz-fold-st" });
@@ -1935,4 +1935,72 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
+
+  /* ---------- Opphav: hvor en øving kommer fra ----------
+     Brukes av inspera.js (og andre øvinger) for oppgaver som IKKE er eksamensoppgaver.
+     op = { type: "egen" | "ukesoppgave" | "oblig-type", variantAv: "H2025-1", kilder: ["d01 s. 30", "t01 oppg. 2"] }
+     Gir én linje, f.eks. «Laget for guiden, ikke en eksamensoppgave. Variant av H2025 oppgave 1. Bygger på d01 s. 30.» */
+  var BLOKK_SIDE = {
+    generelt: "grunnbegreper", fysisk: "grunnbegreper", lov: "angrep",
+    krypto: "krypto", pki: "pki", angrep: "angrep", pentest: "angrep", system: "system",
+    risiko: "risiko", utvikling: "risiko", autentisering: "autentisering", iam: "iam",
+    nettverk: "nettverk", cyberops: "cyberops", ki: "cyberops"
+  };
+  IN.eksamenLenke = function (key) {
+    var m = /^H(\d{4})-(.+)$/.exec(String(key || "")), bank = window.IN_EXAM_BANK || {};
+    if (!m) return null;
+    var tekst = "H" + m[1] + " oppgave " + m[2], sett = bank["H" + m[1]], oppg = null;
+    (sett && sett.oppgaver || []).forEach(function (o) { if (o.key === key) oppg = o; });
+    var side = oppg && BLOKK_SIDE[oppg.block], p = side && IN.PAGES.filter(function (x) { return x.id === side; })[0];
+    if (!p) return esc(tekst);
+    return '<a href="' + p.href + "#fane=eksamen&amp;oppg=o-" + String(key).replace(/[^A-Za-z0-9_-]/g, "_") + '">' + esc(tekst) + "</a>";
+  };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  /* Kildeforkortelser i opphav.kilder → lesbar tekst (d01a s. 20 → «lysark 1a (2026) s. 20»). */
+  var KILDE_NAVN = { ism: "ISMS-lysarkene", ba: "lysarkene om brukerautentisering", iam: "IAM-lysarkene",
+    co: "lysarkene om cyberoperasjoner", ki: "lysarkene om KI-sikkerhet" };
+  /* Gir HTML (escapet tekst, eller lenke for H2025-1). */
+  IN.kildeNavn = function (k) {
+    k = String(k || "").trim();
+    var m = /^d0*(\d+)([a-z]?)(.*)$/.exec(k);
+    if (m) return esc("lysark " + m[1] + m[2] + " (2026)" + m[3]);
+    m = /^t0*(\d+)(.*)$/.exec(k);
+    if (m) return esc("ukesoppgave " + m[1] + m[2]);
+    m = /^([a-z]+)(.*)$/.exec(k);
+    if (m && KILDE_NAVN[m[1]]) return esc(KILDE_NAVN[m[1]] + m[2]);
+    m = /^H(\d{4})-(.+)$/.exec(k);
+    if (m) return IN.eksamenLenke(k) || esc(k);
+    return esc(k);
+  };
+  IN.opphavTekst = function (op) {
+    op = op || {};
+    var s = op.type === "ukesoppgave" ? "<b>Bygger på en ukesoppgave</b>, ikke en eksamensoppgave."
+      : op.type === "eksamen" ? "<b>Gjenfortalt eksamensoppgave</b>."
+      : "<b>Laget for guiden</b>, ikke en eksamensoppgave" + (op.type === "oblig-type" ? " (samme oppgavetype som i en oblig)." : ".");
+    var v = [].concat(op.variantAv || []).map(function (k) { return IN.eksamenLenke(k); }).filter(Boolean);
+    if (v.length) s += (op.type === "eksamen" ? " Fra " + v.join(", ").replace(/, ([^,]*)$/, " og $1") + "." : " Samme format som " + v.join(", ").replace(/, ([^,]*)$/, " og $1") + ".");
+    if (op.kilder && op.kilder.length) {
+      // Samme lysarksett to ganger → «… s. 2–15 og 23» i stedet for å gjenta navnet.
+      var ut = [], forrige = null;
+      op.kilder.map(IN.kildeNavn).forEach(function (k) {
+        var m = /^(.*) s\. (.+)$/.exec(k);
+        if (m && forrige && forrige.navn === m[1]) { forrige.sider.push(m[2]); return; }
+        forrige = m ? { navn: m[1], sider: [m[2]] } : null;
+        ut.push(forrige || k);
+      });
+      s += " Bygger på " + ut.map(function (x) {
+        return typeof x === "string" ? x : x.navn + " s. " + x.sider.join(", ").replace(/, ([^,]*)$/, " og $1");
+      }).join(", ") + ".";
+    }
+    if (op.merknad) s += " " + esc(op.merknad) + (/[.!?]$/.test(op.merknad) ? "" : ".");
+    return s;
+  };
+  /* Opphavslinje som element, for øvinger utenfor inspera.js (matrise, scenario, dra, quiz, sant/usant). */
+  IN.opphavEl = function (op) {
+    if (!op) return null;
+    var p = document.createElement("p");
+    p.className = "insp-opphav small";
+    p.innerHTML = IN.opphavTekst(op);
+    return p;
+  };
 })();

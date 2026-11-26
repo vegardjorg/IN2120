@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126g">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -121,7 +121,13 @@
           <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR er adressene de samme hver gang prosessen kjører (d08 s. 9).</li>
           <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (d08 s. 9).</li>
           <li><b>Bufferoverflyt:</b> programmet skriver mer data inn i en variabel (et buffer) enn den har plass til, så dataene renner over i nabominnet. På stakken kan det overskrive <b>returadressen</b>, og da kan angriperen styre hvor programmet fortsetter (H2022 2.3).</li>
-          <li><b>Mottiltak</b> (d08 s. 10): <b>NX</b> merker stakken ikke-kjørbar. En <b>stakk-kanarifugl</b> er en tilfeldig verdi på stakken som sjekkes før funksjonen returnerer. Den ligger mellom lokale variabler og returadressen; plasseringen er vanlig fagkunnskap, utover lysarkteksten. <b>ASLR</b> gjør adressene vanskeligere å gjette. I tillegg: sikrere programmeringsspråk, statisk analyse og bedre kode (innebygd sikkerhet, DevSecOps).</li>
+          <li><b>Mottiltak</b> (d08 s. 10):
+            <ul>
+              <li><b>NX</b> merker stakken ikke-kjørbar.</li>
+              <li>En <b>stakk-kanarifugl</b> er en tilfeldig verdi på stakken som sjekkes før funksjonen returnerer. Den ligger mellom lokale variabler og returadressen; plasseringen er vanlig fagkunnskap, utover lysarkteksten.</li>
+              <li><b>ASLR</b> gjør adressene vanskeligere å gjette.</li>
+            </ul>
+            I tillegg: sikrere programmeringsspråk, statisk analyse og bedre kode (innebygd sikkerhet, DevSecOps).</li>
         </ul></div>
       <div id="ex-minne"></div>
 
@@ -406,7 +412,7 @@
       <h4>Inspera-øving</h4>
       <p class="sys-q">Hvilken kategori har skåren?</p>
       <div id="ov-system-11"></div>
-      <p class="sys-q">Hvilken tilnærming fra d08 s. 6 hører tiltaket til?</p>
+      <p class="sys-q">Hvilken av de fem tilnærmingene til systemsikkerhet hører tiltaket til?</p>
       <div id="ov-system-12"></div>
 
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
@@ -437,30 +443,36 @@
 
   <footer class="footer">IN2120-guide · Blokk 5 · Systemsikkerhet · <a href="06-risiko.html">Neste: blokk 6, risiko og styring</a></footer>
 
-  <script src="assets/js/core.js?v=20261126f"></script>
-  <script src="assets/js/symboler.js?v=20261126f"></script>
-  <script src="assets/js/begreper-data.js?v=20261126f"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126f"></script>
-  <script src="assets/js/pseudocode.js?v=20261126f"></script>
-  <script src="assets/js/stepplayer.js?v=20261126f"></script>
-  <script src="assets/js/varline.js?v=20261126f"></script>
-  <script src="assets/js/inspera.js?v=20261126f"></script>
-  <script src="assets/js/dra.js?v=20261126f"></script>
-  <script src="assets/js/bank.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126f"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126f"></script>
-  <script src="assets/js/viz-system.js?v=20261126f"></script>
+  <script src="assets/js/core.js?v=20261126g"></script>
+  <script src="assets/js/symboler.js?v=20261126g"></script>
+  <script src="assets/js/begreper-data.js?v=20261126g"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126g"></script>
+  <script src="assets/js/pseudocode.js?v=20261126g"></script>
+  <script src="assets/js/stepplayer.js?v=20261126g"></script>
+  <script src="assets/js/varline.js?v=20261126g"></script>
+  <script src="assets/js/inspera.js?v=20261126g"></script>
+  <script src="assets/js/dra.js?v=20261126g"></script>
+  <script src="assets/js/bank.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126g"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126g"></script>
+  <script src="assets/js/viz-system.js?v=20261126g"></script>
   <script>
   (function () {
     "use strict";
@@ -516,9 +528,9 @@
           explain: "<p>Applikasjoner kjører i brukermodus på nivå 3 (d08 s. 7).</p>" },
         { q: "En prosess kjører i kjernemodus. Hvilke nivåer når den?", options: ["Bare 0", "0, 1, 2 og 3", "−1, 0, 1, 2 og 3"], answer: 1,
           explain: "<p>Eget nivå og alle med høyere tall. −1 er mer privilegert (d08 s. 8).</p>" },
-        { q: "Når ble nivå −1 innført?", options: ["På 1980-tallet", "Rundt 2006", "Med UEFI i 2020"], answer: 1,
-          explain: "<p>Nivå −1 kom for hypervisoren rundt 2006. Ringmodellen ellers er fra 1980-tallet (d08 s. 7).</p>" },
-        { q: "Hva er angriperens mål ifølge d08?", options: ["Å komme til nivå 3", "Å komme til nivå 0 eller −1", "Å komme til nivå 2"], answer: 1,
+        { q: "Hvorfor trengs nivå −1 når maskinen kjører virtuelle maskiner?", options: ["Gjeste-OS-ene kjører på nivå 0, så hypervisoren må ligge på et nivå med mer makt for å styre dem", "Applikasjonene trenger et eget nivå under nivå 3", "Nivå −1 erstatter de ubrukte nivåene 1 og 2"], answer: 0,
+          explain: "<p>Gjeste-OS-ene er laget for å kjøre på nivå 0. Skal hypervisoren kunne styre og skille dem, må den ha mer makt enn dem, og derfor ligger den på −1 (d08 s. 7, s. 14).</p>" },
+        { q: "Hva er angriperens mål når hen har fått kjørt kode som vanlig bruker?", options: ["Å komme til nivå 3", "Å komme til nivå 0 eller −1", "Å komme til nivå 2"], answer: 1,
           explain: "<p>Der er makten. Nivå 3 er der angriperen ofte starter (d08 s. 8).</p>" },
         { q: "Hvilke nivåer er som regel ubrukt?", options: ["1 og 2", "0 og 3", "−1 og 0"], answer: 0,
           explain: "<p>Nivå 1 og 2 finnes i modellen, men brukes som regel ikke (d08 s. 7).</p>" }
@@ -542,7 +554,7 @@
           explain: "<p>Hypervisoren er et program på verts-OS-et (d08 s. 15).</p>" },
         { q: "Hvorfor har containere svakere isolasjon enn VM-er?", options: ["De deler kjerne med verten", "De mangler biblioteker", "De kjører på nivå −1"], answer: 0,
           explain: "<p>En feil i den felles kjernen kan ramme alle containerne (d08 s. 17).</p>" },
-        { q: "Hvilket er <i>ikke</i> et sikkerhetsmål for virtualisering på d08?", options: ["Gjestene skal ikke påvirke hypervisoren", "Gjestene skal ikke oppdage at de er virtualisert", "Gjestene skal dele minne for å spare plass"], answer: 2,
+        { q: "Hvilket er <i>ikke</i> et sikkerhetsmål for virtualisering?", options: ["Gjestene skal ikke påvirke hypervisoren", "Gjestene skal ikke oppdage at de er virtualisert", "Gjestene skal dele minne for å spare plass"], answer: 2,
           explain: "<p>Delt minne ville stride mot målet om at gjestene ikke skal nå hverandre (d08 s. 19).</p>" },
         { q: "Hvorfor er virtualisering nyttig ved skadevareanalyse?", options: ["Snapshot gjør at systemet kan rulles tilbake", "VM-er gjør skadevaren harmløs", "Hypervisoren fjerner skadevaren"], answer: 0,
           explain: "<p>Analysen gjøres isolert, og maskinen rulles tilbake etterpå (d08 s. 18). Skadevaren kan fortsatt gjøre skade inne i VM-en.</p>" }
@@ -556,7 +568,7 @@
           explain: "<p>Sikker oppstart håndhever. Det er målt oppstart som bare registrerer (d08 s. 21–22).</p>" },
         { q: "Hvilket eksempel er en TEE brukt i mobiltelefoner?", options: ["ARM TrustZone", "AMD SEV", "Docker Engine"], answer: 0,
           explain: "<p>TrustZone brukes for eksempel til fingeravtrykk og betaling. SEV er for skyen (d08 s. 23).</p>" },
-        { q: "Hva brukes forsegling av nøkler til i eksemplet på d08?", options: ["TLS-sertifikater", "Diskkrypteringsnøkkelen til BitLocker", "Passordhasher"], answer: 1,
+        { q: "Hvilken nøkkel er et typisk eksempel på forsegling av nøkler i TPM?", options: ["Den offentlige nøkkelen i et nettsteds sertifikat", "Diskkrypteringsnøkkelen til BitLocker", "Kanariverdien på stakken"], answer: 1,
           explain: "<p>Nøkkelen frigis bare når målingene er som forventet (d08 s. 22).</p>" }
       ],
       kanaler: [
@@ -568,24 +580,34 @@
           explain: "<p>Lav, men nok for små hemmeligheter (d08 s. 25).</p>" },
         { q: "Hvorfor brukes DNS til tunnelering?", options: ["DNS er kryptert", "DNS-oppslag slippes ofte gjennom brannmuren", "DNS har høy båndbredde"], answer: 1,
           explain: "<p>Nesten alle nett må slippe DNS ut (d08 s. 25).</p>" },
-        { q: "Hvilken bieffekt nevnes <i>ikke</i> som sidekanal på d08?", options: ["Tidsforbruk", "Lyd", "Antall brukere i systemet"], answer: 2,
-          explain: "<p>d08 nevner tid, strøm, lyd og elektromagnetisk stråling (d08 s. 24).</p>" }
+        { q: "Hvilken av disse er <i>ikke</i> en sidekanal?", options: ["Tidsforbruk", "Lyd", "Antall brukere i systemet"], answer: 2,
+          explain: "<p>Sidekanaler er fysiske bieffekter av selve beregningen: tid, strøm, lyd og elektromagnetisk stråling (d08 s. 24). Antall brukere er ingen bieffekt av implementasjonen.</p>" }
       ],
       sarbarhet: [
         { q: "Hvilken kategori har CVSS 9,0?", options: ["Høy", "Kritisk", "Middels"], answer: 1,
           explain: "<p>Kritisk er 9,0–10. Høy slutter på 8,9 (d08 s. 5).</p>" },
-        { q: "Hva er en zero-day ifølge d08?", options: ["En sårbarhet uten tilgjengelig oppdatering, eller som leverandøren ikke kjenner til", "En sårbarhet som er rettet samme dag", "Et angrep som varer under ett døgn"], answer: 0,
+        { q: "Hva er en zero-day?", options: ["En sårbarhet uten tilgjengelig oppdatering, eller som leverandøren ikke kjenner til", "En sårbarhet som er rettet samme dag", "Et angrep som varer under ett døgn"], answer: 0,
           explain: "<p>Definisjonen handler om at det ikke finnes noen rettelse (d08 s. 4).</p>" },
         { q: "Hvorfor utnytter angripere ofte kjente sårbarheter?", options: ["Oppdatering tar tid", "Kjente sårbarheter har høyere CVSS", "Zero-days er ulovlige"], answer: 0,
           explain: "<p>Oppdateringer må testes, så mange systemer er sårbare en stund etter at feilen er kjent (d08 s. 4).</p>" },
-        { q: "Hvilken tilnærming på d08 s. 6 hører NX og ASLR til?", options: ["Monitorering", "Sikkerhetsfunksjoner i OS og CPU", "Virtualisering"], answer: 1,
+        { q: "Hvilken tilnærming til systemsikkerhet hører NX og ASLR til?", options: ["Monitorering", "Sikkerhetsfunksjoner i OS og CPU", "Virtualisering"], answer: 1,
           explain: "<p>Samme gruppe som privilegienivåene (d08 s. 6).</p>" },
-        { q: "Hvem gir en sårbarhet en CVSS-skår i flyten på d08?", options: ["Leverandøren", "NVD", "Virksomheten"], answer: 1,
+        { q: "Hvem gir en sårbarhet en CVSS-skår i flyten fra funn til retting?", options: ["Leverandøren", "NVD", "Virksomheten"], answer: 1,
           explain: "<p>CVE registrerer og gir ID, NVD gir retningslinjer og skår (d08 s. 5).</p>" }
       ]
     };
+    /* Kilder per fane for quiz og sant/usant (opts.opphav, én linje per liste) */
+    var KILDER = {
+      ringer: ["d08 s. 6–8", "d08 s. 14"],
+      minne: ["d08 s. 9–11", "t05 oppg. 5"],
+      virt: ["d08 s. 12–19"],
+      tiltrodd: ["d08 s. 20–23"],
+      kanaler: ["d08 s. 24–25", "d01b s. 30"],
+      sarbarhet: ["d08 s. 2–6"]
+    };
+    function opphavFor(fane) { return { type: "egen", kilder: KILDER[fane] }; }
     Object.keys(QUIZ).forEach(function (fane) {
-      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "system-" + fane }); });
+      safe("quiz-" + fane, function () { IN.quiz("#quiz-" + fane, QUIZ[fane], { id: "system-" + fane, opphav: opphavFor(fane) }); });
     });
 
     /* ---------- Sant/usant per fane ---------- */
@@ -595,7 +617,7 @@
         { s: "En prosess i brukermodus kan endre data som tilhører kjernen.", answer: false, explain: "<p>Kjernen på 0 har mer makt enn brukerprosessen på 3 (d08 s. 8).</p>" },
         { s: "En prosess i hypervisormodus kan få tilgang til ressurser på nivå 0.", answer: true, explain: "<p>Hypervisoren på −1 er mest privilegert. En prosess når sitt eget nivå og alle nivåer med høyere tall, og 0 er høyere enn −1.</p>" },
         { s: "En prosess i kjernemodus kan få tilgang til ressurser på nivå −1.", answer: false, explain: "<p>−1 er mer privilegert enn 0 (d08 s. 8).</p>" },
-        { s: "I d08s modell kjører Unix-root i kjernemodus.", answer: true, explain: "<p>d08 s. 7 plasserer Unix root og Windows administrator på nivå 0. Det er lysarkets forenkling.</p>" },
+        { s: "Ringmodellen plasserer Unix-root og Windows-administrator på nivå 0, kjernemodus.", answer: true, explain: "<p>OS-et med Unix root og Windows administrator står på nivå 0 (d08 s. 7). Det er en forenkling: strengt tatt er det kjernen som kjører på nivå 0, ikke brukerkontoen.</p>" },
         { s: "Privilegienivåene håndheves av operativsystemet alene, uten hjelp fra maskinvaren.", answer: false, explain: "<p>De er en del av CPU-arkitekturen (d08 s. 6–7).</p>" }
       ],
       minne: [
@@ -640,7 +662,7 @@
       ]
     };
     Object.keys(TF).forEach(function (fane) {
-      safe("tf-" + fane, function () { IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { it.kilde = false; return it; }), { id: "system-tf-" + fane }); });
+      safe("tf-" + fane, function () { IN.tfTest("#tf-" + fane, TF[fane].map(function (it) { it.kilde = false; return it; }), { id: "system-tf-" + fane, opphav: opphavFor(fane) }); });
     });
 
     /* ---------- Inspera-øvinger (egne oppgaver i eksamensformat) ---------- */
@@ -752,7 +774,7 @@
           { s: "CVSS 6,9", svar: [1], explain: "<p>Middels er 4,0–6,9.</p>" },
           { s: "CVSS 3,9", svar: [0], explain: "<p>Lav er 0,1–3,9.</p>" },
           { s: "CVSS 8,9", svar: [2], explain: "<p>Høy slutter på 8,9.</p>" } ] } },
-      { key: "ov-system-12", title: "Tilnærminger fra d08 s. 6", points: 2.5, inspera: { type: "M", multi: false,
+      { key: "ov-system-12", title: "Fem tilnærminger til systemsikkerhet", points: 2.5, inspera: { type: "M", multi: false,
         kolonner: ["Fjerne feil i OS", "Sikkerhetsfunksjoner i OS/CPU", "Monitorering", "Virtualisering", "Tiltrodd beregning"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2,5, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
@@ -762,7 +784,22 @@
           { s: "Kjøre e-posttjeneren og webtjeneren i hver sin VM", svar: [3], explain: "<p>Separate VM-er skiller prosessene fra hverandre.</p>" },
           { s: "Slå på sikker oppstart i UEFI", svar: [4], explain: "<p>Sikker oppstart med UEFI er tiltrodd beregning.</p>" } ] } }
     ];
-    OV.forEach(function (o) { safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
+    /* Opphav per øving (IN.opphavTekst i core.js): laget for guiden, eventuelt i samme format som en eksamensoppgave. */
+    var OPPHAV = {
+      "ov-system-1": { type: "egen", variantAv: ["H2025-5", "H2024-5", "H2023-5"], kilder: ["d08 s. 7–8"], merknad: "Eksamen spør om én modus om gangen, her er det tre" },
+      "ov-system-2": { type: "egen", kilder: ["d08 s. 7"] },
+      "ov-system-3": { type: "egen", kilder: ["d08 s. 9–11"] },
+      "ov-system-4": { type: "egen", variantAv: ["H2020-5.2"], kilder: ["d08 s. 10"], merknad: "Her skal du velge tre korrekte utsagn, ikke fire" },
+      "ov-system-5": { type: "egen", variantAv: ["H2022-2.4"], kilder: ["d08 s. 15"], merknad: "Her med type 2 i stedet for type 1" },
+      "ov-system-6": { type: "egen", kilder: ["d08 s. 16–17"] },
+      "ov-system-7": { type: "egen", variantAv: ["H2022-2.6"], kilder: ["d08 s. 20–23"] },
+      "ov-system-8": { type: "egen", kilder: ["d08 s. 21–22"] },
+      "ov-system-9": { type: "egen", variantAv: ["H2021-2.2"], kilder: ["d08 s. 24–25"] },
+      "ov-system-10": { type: "egen", kilder: ["d08 s. 24–25"] },
+      "ov-system-11": { type: "egen", kilder: ["d08 s. 5"] },
+      "ov-system-12": { type: "egen", kilder: ["d08 s. 6"] }
+    };
+    OV.forEach(function (o) { o.opphav = OPPHAV[o.key]; safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
 
     // Ny visuell forklaring (IN.FORKLAR i figurer/forklar-c.js)
     safe("fk-nulldag", function () { IN.FORKLAR["nulldag"]("#fk-nulldag"); });

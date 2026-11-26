@@ -76,7 +76,7 @@
     }
     if (tegnet) {
       fig.classList.add("har-tegning");
-      fig.appendChild(el("figcaption", { class: "small muted", text: "Figuren fra eksamensarket, tegnet på nytt." }));
+      fig.appendChild(el("figcaption", { class: "small muted", text: o.year && o.oppgave_nr ? "Figuren fra eksamensarket, tegnet på nytt." : (o.figurTekst || "Figur laget for øvingen.") }));
     } else {
       if (!f) return null;
       if (draw) IN.clear(fig);
@@ -339,7 +339,14 @@
 
     var wrap = el("div", { class: "insp insp-" + t + (opts.compact ? " insp-compact" : ""), "data-key": key });
 
-    // Poenglinja: én kort linje (ordrett fra arket). «Slik retter øvingen» ligger i en lukket <details>.
+    // Opphav: eksamensoppgave (banken: year + oppgave_nr) eller øving laget for guiden (o.opphav, se IN.opphavTekst).
+    var fraEksamen = !!(o.year && o.oppgave_nr);
+    if (!fraEksamen && !opts.utenOpphav) {
+      wrap.appendChild(el("p", { class: "insp-opphav small", html: IN.opphavTekst(o.opphav) }));
+    }
+
+    // Poenglinja: én kort linje. «Arket» bare for eksamensoppgaver (ordrett fra arket).
+    // Forklaringen «Slik retter øvingen» vises bare når den sier noe mer enn poenglinja.
     if (!manual) {
       var viTxt = (r.sekvens != null
         ? "Slik retter øvingen (justert skåring): " + num(r.sekvens) + " poeng per trinn i den lengste rekken av svar som står i riktig rekkefølge. Feil trinn imellom trekker ikke"
@@ -348,13 +355,24 @@
         (r.alleRiktig != null ? ". Alle riktig gir " + num(r.alleRiktig) : "") +
         ". Aldri under " + num(min) + (maks != null ? ", høyst " + num(maks) : "") + " poeng.";
       var arkTxt = q.regelTekst ? String(q.regelTekst).replace(/^\s*Poeng\s*:\s*/i, "") : null;
-      var rl = el("details", { class: "insp-regel small" });
-      rl.appendChild(el("summary", { html: (arkTxt ? "<b>Arket:</b> " + arkTxt : "<b>Poeng:</b> riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") + ", ubesvart " + (rb ? sgn(rb) : "0")) +
-        ' <span class="insp-regel-mer">slik retter øvingen</span>' }));
-      rl.appendChild(el("p", { class: "insp-regel-vi muted", text: viTxt }));
+      var poengHtml = (arkTxt
+        ? "<b>" + (fraEksamen ? "Poeng på eksamensarket:" : "Poeng:") + "</b> " + arkTxt
+        : "<b>Poeng:</b> riktig " + sgn(rr) + ", galt " + (rf ? sgn(rf) : "0") + ", ubesvart " + (rb ? sgn(rb) : "0") +
+          ". Aldri under " + num(min) + (maks != null ? ", høyst " + num(maks) : "") + ".");
       // «Velg 3 …» er en instruks og står synlig. Andre merknader (retting, distraktorer) står i <details>.
       var mkInstruks = q.regelMerknad && /^\s*velg\b/i.test(plain(q.regelMerknad));
-      if (q.regelMerknad && !mkInstruks) rl.appendChild(el("p", { class: "insp-regel-mk muted", html: q.regelMerknad }));
+      var merMk = q.regelMerknad && !mkInstruks;
+      // Øvingen retter annerledes enn arket bare ved justert skåring (sekvens) eller «alle riktig».
+      var avviker = r.sekvens != null || (r.alleRiktig != null && !(arkTxt && /alle/i.test(arkTxt)));
+      var rl;
+      if (avviker || merMk) {
+        rl = el("details", { class: "insp-regel small" });
+        rl.appendChild(el("summary", { html: poengHtml + ' <span class="insp-regel-mer">' + (avviker ? "slik retter øvingen" : "mer om rettingen") + "</span>" }));
+        if (avviker) rl.appendChild(el("p", { class: "insp-regel-vi muted", text: viTxt }));
+        if (merMk) rl.appendChild(el("p", { class: "insp-regel-mk muted", html: q.regelMerknad }));
+      } else {
+        rl = el("p", { class: "insp-regel small", html: poengHtml });
+      }
       wrap.appendChild(rl);
       if (mkInstruks) wrap.appendChild(el("p", { class: "insp-regel-mk small", html: q.regelMerknad }));
     }

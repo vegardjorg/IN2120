@@ -47,6 +47,7 @@
     clear(host);
     return IN.bucketTask(host, {
       id: "nett-stakk",
+      opphav: { type: "egen", variantAv: ["H2025-22", "H2024-28"], kilder: ["d09 s. 3–9"] },
       prompt: {
         eli5: "Hver protokoll hører hjemme i én etasje i stakken. Legg hver brikke i riktig etasje. Programmet du bruker, står over hele stakken.",
         normal: "Legg hver protokoll i laget den hører til i internettstakken, slik kursets fasit plasserer dem. Programmer står over stakken («App»).",
@@ -345,6 +346,7 @@
     clear(host);
     return IN.bucketTask(host, {
       id: "nett-dmz",
+      opphav: { type: "egen", kilder: ["d09 s. 36–55", "t10 oppg. 7"] },
       prompt: {
         eli5: "En borg har forgård og tronsal. Det besøkende må nå, står i forgården (DMZ). Det verdifulle står innerst. Hvor hører hver ting hjemme?",
         normal: "Virksomheten har en ytre brannmur mot Internett, en DMZ og en indre brannmur foran det indre nettet. Plasser hver maskin eller tjeneste der den bør stå.",
@@ -701,6 +703,7 @@
     host.appendChild(hT);
     var vpn = IN.matrise(hV, {
       id: "nett-mat-vpn",
+      opphav: { type: "egen", kilder: ["d09 s. 26–35"] },
       sporsmal: {
         eli5: "Du går på nett gjennom en låst gang til en VPN-tjeneste. Hvem kan se hva? Kryss av, og trykk «Sjekk».",
         normal: "Du bruker en sky-VPN og besøker et nettsted med TLS (https). Fyll ut hva hver aktør ser, og trykk «Sjekk». Prøv så bryteren.",
@@ -725,6 +728,7 @@
     });
     var tor = IN.matrise(hT, {
       id: "nett-mat-tor",
+      opphav: { type: "egen", kilder: ["d09 s. 26–35"] },
       sporsmal: {
         eli5: "Nå sender du gjennom tre stasjoner med tre låste esker. Hvem ser hva?",
         normal: "Du bruker Tor (inngang, midt, utgang) og besøker et nettsted med TLS. Fyll ut, sjekk, og prøv bryteren.",
@@ -781,6 +785,7 @@
     var STED = ["Før krypteringen", "På strekningen", "Etter dekrypteringen"];
     return IN.matrise(mh, {
       id: "nett-mat-hvemser",
+      opphav: { type: "egen", kilder: ["d09 s. 10–25"], merknad: "Samme tankegang som Bobs passord i H2025 37, med andre personer" },
       sporsmal: {
         eli5: "Ida skriver passordet sitt. Hvem kan lese det? Finn først ut hvor hver person står: før låsen, på veien eller etter at låsen er åpnet.",
         normal: "Ida logger inn på https://skole.example. HSTS er satt, og det er ikke første besøk. Fyll ut begge kolonnene for hver person, og trykk «Sjekk». Prøv så bryterne.",
@@ -856,6 +861,7 @@
       "Ser ikke inn i kryptert trafikk uten å bryte TLS"];
     return IN.matrise(host, {
       id: "nett-mat-forsvar",
+      opphav: { type: "egen", kilder: ["d09 s. 36–71"] },
       sporsmal: {
         eli5: "Fem vakter med ulike jobber. Hvem kan stoppe noen selv, hvem leser brevene, og hvem husker hvem som har vært innom?",
         normal: "Sammenlign verktøyene som brukes i lagdelt forsvar. Fyll ut, og trykk «Sjekk». Celler merket som ikke telt, har ingen fasit i kurset.",
@@ -902,6 +908,7 @@
     clear(host);
     return IN.scenario(host, {
       id: "nett-scen-pentest",
+      opphav: { type: "egen", kilder: ["d05 s. 6", "d09 s. 56–71"] },
       tittel: "Du er på vakt i sikkerhetsteamet. Denne uka er det avtalt pentest.",
       start: "alarm",
       noder: {
@@ -972,6 +979,7 @@
     clear(host);
     return IN.scenario(host, {
       id: "nett-scen-bob",
+      opphav: { type: "eksamen", variantAv: "H2025-37", kilder: ["d09 s. 10–25"], merknad: "Spørsmålene om tiltak etterpå er laget for guiden" },
       tittel: "Du er sikkerhetsrådgiver i Bob Inc. Situasjonen er den fra H2025 oppgave 37.",
       start: "hvem",
       noder: {

@@ -158,6 +158,7 @@
 
     var rfBit = IN.regnForst(h1, {
       id: "krypto-nokkelrom-bit",
+      opphav: { type: "egen", kilder: ["d02 s. 4–12"] },
       sporsmal: function (inn) {
         return "En nøkkel har <b>" + inn.n + " bit</b>. Hvor mange nøkler må en angriper <b>i snitt</b> prøve ved fullt nøkkelsøk?";
       },
@@ -186,6 +187,7 @@
     var TRINN = IN.regnForst.tidstrinn ? IN.regnForst.tidstrinn() : null;
     var rfTid = TRINN && IN.regnForst(h1t, {
       id: "krypto-nokkelrom-tid",
+      opphav: { type: "egen", kilder: ["d02 s. 4–12"] },
       sporsmal: function (inn) {
         return "Samme nøkkel på <b>" + inn.n + " bit</b> som i a). Angriperen prøver <b>10" + sup(inn.v) + " nøkler per sekund</b>. Hvor lang tid tar fullt nøkkelsøk <b>i snitt</b>? Regn ut tiden og velg størrelsesorden.";
       },
@@ -215,6 +217,7 @@
 
     IN.regnForst(h2, {
       id: "krypto-nokkelrom-alf",
+      opphav: { type: "egen", variantAv: ["H2025-11"], kilder: ["d02 s. 4–12"], merknad: "Regnedelen av H2025 11, med tall du kan endre" },
       sporsmal: function (inn) {
         return "Nøkkelen er et kodeord på <b>" + inn.L + "</b> tegn, og hvert tegn velges fritt blant <b>" + inn.A + "</b> tegn" + (inn.A === 29 ? " (det norske alfabetet)" : inn.A === 26 ? " (det engelske alfabetet)" : "") + ". Hvor mange ulike nøkler finnes?";
       },
@@ -332,6 +335,8 @@
     clear(host);
     var nr = 0, forsok = 0, vist = false, M, K, svar = [], celler = [];
     var wrap = el("div", { class: "kr-xov" });
+    var op = IN.opphavEl && IN.opphavEl({ type: "egen", kilder: ["d02 s. 13–35"] });
+    if (op) wrap.appendChild(op);
     var q = el("p", { class: "kr-xov-q" });
     var rows = el("div", { class: "kr-bits" });
     var bS = el("button", { class: "btn primary sm", type: "button", text: "Sjekk" });
@@ -729,6 +734,7 @@
     var x = 19, y = x % 16;
     return IN.matrise(host, {
       id: "krypto-hashkrav",
+      opphav: { type: "egen", variantAv: ["H2023-21"], kilder: ["d02 s. 36–48"] },
       sporsmal: {
         eli5: "Holder disse «fingeravtrykk-maskinene» kravene? Velg Ja eller Nei i hver rute, og trykk «Sjekk».",
         normal: "Hvilke av de fem hashkravene oppfyller hver funksjon? x er et ikke-negativt heltall.",
@@ -1084,6 +1090,7 @@
     clear(host);
     return IN.matrise(host, {
       id: "krypto-mekanismer",
+      opphav: { type: "egen", kilder: ["d02 s. 36–63"] },
       sporsmal: {
         eli5: "Hva gir hver mekanisme? Velg Ja eller Nei, og hvilken nøkkel den trenger. Bryterne under endrer situasjonen.",
         normal: "Fyll ut hvilke sikkerhetsegenskaper hver mekanisme gir alene, og hvilken nøkkeltype den bruker. Bryterne endrer forutsetningene, og fasiten følger med.",
@@ -1129,6 +1136,7 @@
   /* ---------- Postkvante: hvem rammes, og hva erstatter dem (IN.bucketTask) ---------- */
   KR.pqcSpec = {
     id: "krypto-pqc-sorter",
+    opphav: { type: "egen", kilder: ["d02 s. 64–72"] },
     prompt: {
       eli5: "En stor kvantedatamaskin kan dirke opp noen låser, men ikke alle. Legg hver algoritme i riktig gruppe.",
       normal: "Legg hver algoritme i riktig gruppe: rammes den av en stor kvantedatamaskin, rammes den lite, eller er den en postkvantealgoritme som erstatter de sårbare?",
@@ -1156,6 +1164,29 @@
     oppsummering: "Kvantetrusselen rammer tradisjonell asymmetrisk krypto: RSA, DSA, ECC og DH. Nøkkelutveksling flyttes til ML-KEM, signaturer til ML-DSA eller SLH-DSA. AES og SHA-2 beholdes med lang nøkkel og hash. Ikke bland KEM (nøkkelinnkapsling) og DSA (signatur).",
     kilde: { ref: "Forelesning om kryptografi (d02), lysark om postkvantekrypto", egneOrd: true }
   };
+  /* ---------- Figur til øvingen ov-krypto-4 (02-krypto.html) ----------
+     Gjenbruker tegningen til H2025-8 (figurer/fig-h2025.js, uendret) med egne etiketter: cellene byttes om til
+     CTR, ECB, CBC (arket: CBC, CTR, ECB), heter «Diagram 1–3», og svarfeltene får nye indekser etter den nye rekkefølgen. */
+  IN.FIGURER = IN.FIGURER || {};
+  IN.FIGURER["ov-krypto-4"] = function (host, o) {
+    var tegn = IN.FIGURER["H2025-8"];
+    if (!tegn) return;
+    tegn(host, o);
+    var celler = Array.prototype.slice.call(host.querySelectorAll(".fig-celle"));
+    if (celler.length !== 3) return;
+    var grid = celler[0].parentNode;
+    [1, 2, 0].forEach(function (gammel, ny) {
+      var c = celler[gammel], navn = "Diagram " + (ny + 1);
+      grid.appendChild(c);
+      c.setAttribute("data-celle", String(ny));
+      var t = c.querySelector("svg > title");
+      if (t) t.textContent = navn;
+      var ph = c.querySelector(".fig-felt");
+      if (ph) ph.setAttribute("data-felt", String(ny));
+      c.insertBefore(el("p", { class: "small kr-diagnr", html: "<b>" + navn + "</b>" }), c.firstChild);
+    });
+  };
+
   KR.pqc = function (host) {
     host = host$(host); if (!host || !IN.bucketTask) return;
     clear(host);

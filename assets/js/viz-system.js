@@ -40,6 +40,14 @@
   function hex8(x) { var s = (x >>> 0).toString(16); while (s.length < 8) s = "0" + s; return "0x" + s; }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function rnd32() { return Math.floor(Math.random() * 4294967296) >>> 0; }
+  /* Opphavslinje for øvingene i modusene (IN.opphavEl i core.js) */
+  var OPPHAV = {
+    ringer: { type: "egen", variantAv: ["H2025-5", "H2024-5", "H2023-5"], kilder: ["d08 s. 7–8"], merknad: "Tabellen er bygd som på eksamen, med egen Sjekk-knapp" },
+    lag: { type: "egen", variantAv: ["H2022-2.4", "H2022-2.5"], kilder: ["d08 s. 13–17"] },
+    kanal: { type: "egen", variantAv: ["H2021-2.2"], kilder: ["d08 s. 24–25"] },
+    cvss: { type: "egen", kilder: ["d08 s. 4–5"] }
+  };
+  function opphav(w, m) { var p = IN.opphavEl ? IN.opphavEl(OPPHAV[m]) : null; if (p) w.appendChild(p); }
 
   /* =====================================================================
      Rene funksjoner (brukes også av IN.sysSjekk)
@@ -91,6 +99,7 @@
     host = host$(host); if (!host) return;
     clear(host);
     var w = el("div", { class: "sys-viz" });
+    opphav(w, "ringer");
     var modus = null, ovFirst = false, sjekket = false, angriper = null;
     var svar = {};   // nivå → "kan" | "ikke"
 
@@ -143,7 +152,7 @@
         out.innerHTML = "<p>Privilegieeskalering: en exploit flytter angriperen fra nivå 3 til <b>nivå 0</b>. Nå når den nivå 0, 1, 2 og 3 i denne maskinen, men fortsatt ikke hypervisoren på −1. Det ville krevd en ny feil (en «VM-flukt», ordet står ikke på d08).</p>";
       } else {
         out.className = "sys-out";
-        out.innerHTML = "<p>Angriperens mål ifølge d08 er nivå 0 eller −1. Her stopper den på 0. Trykk «Nullstill» for å starte på nytt.</p>";
+        out.innerHTML = "<p>Angriperens mål er nivå 0 eller −1 (d08 s. 8). Her stopper den på 0. Trykk «Nullstill» for å starte på nytt.</p>";
       }
     }
 
@@ -495,6 +504,7 @@
       if (!IN.bucketTask) { clear(taskHost); taskHost.appendChild(H("p", "sys-note", "Øvingen trenger dra.js.")); task = null; return; }
       var sp = lagSpec(fane);
       sp.prompt = "<b>" + LAG[fane].navn + "</b>: legg boksene i stabelen fra toppen og ned.";
+      sp.opphav = OPPHAV.lag;
       task = IN.bucketTask(taskHost, sp, { instant: false, checkLabel: "Sjekk svar", cls: "sys-lagoppg" });
     }
     function paintSide() {
@@ -677,6 +687,7 @@
     clear(host);
     var w = el("div", { class: "sys-viz" });
     var valg = {}, sjekket = false;
+    opphav(w, "kanal");
     w.appendChild(H("p", "sys-note", "Plasser hvert kort med knappene. Spør deg selv: ville noen at informasjonen skulle komme ut?"));
     var pool = el("div", { class: "sys-pool" });
     var kols = el("div", { class: "sys-kols" });
@@ -819,6 +830,7 @@
     w.appendChild(flyt);
 
     w.appendChild(H("h5", "sys-h", "Prioriter mandagens fire varsler"));
+    opphav(w, "cvss");
     w.appendChild(H("p", "sys-note", "Flytt kortene i rekkefølgen driftsgruppen bør ta dem, viktigst øverst. Skårene vises når du sjekker. Sårbarhetene er oppdiktet."));
     var rek = ["xss", "ver", "vpn", "lpe"], sjekket = false;
     var liste = el("ol", { class: "sys-prio" });

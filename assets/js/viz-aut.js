@@ -212,6 +212,7 @@
     if (IN.regnForst) {
       var rf1 = IN.regnForst(h1, {
         id: "aut-nr-antall",
+        opphav: { type: "egen", kilder: ["ba s. 3–13"] },
         sporsmal: function (inn) {
           return "Et passord har nøyaktig <b>" + inn.L + "</b> tegn, og hvert tegn velges fritt blant <b>" + inn.A + "</b> mulige tegn" +
             tegnsettTekst(inn.A) + ". Hvor mange ulike passord finnes? Endre A og L med gliderne over for en ny oppgave.";
@@ -239,6 +240,7 @@
       });
       var rf2 = IN.regnForst(h2, {
         id: "aut-nr-tid",
+        opphav: { type: "egen", kilder: ["ba s. 3–13"] },
         sporsmal: function (inn) {
           return "Samme type passord: A = <b>" + inn.A + "</b> tegn og lengde L = <b>" + inn.L + "</b>. Angriperen har en lekket hash og prøver <b>10<sup>10</sup> gjetninger per sekund</b> (rask hashfunksjon). " +
             "Hvor lang tid tar det i verste fall å prøve alle passordene? Regn ut tiden og velg størrelsesorden.";
@@ -578,6 +580,7 @@
     if (!IN.regnForst) { apne(null); return; }
     IN.regnForst(qHost, {
       id: "aut-bio-fmr",
+      opphav: { type: "egen", kilder: ["ba s. 29–39"] },
       sporsmal: bioSporsmal,
       inndata: [{ navn: "T", etikett: "Terskel T", verdi: 65, min: 40, max: 80, steg: 1 }],
       rentTall: true,
@@ -897,7 +900,7 @@
     var ans = {};
     items.forEach(function (it) { ans[it.id] = NIV_ID[it.niv]; });
     return { id: id, prompt: prompt, zones: NIV_SONER, items: items.map(function (it) { return { id: it.id, html: it.html, forklaring: it.forklaring }; }),
-      answer: ans, oppsummering: oppsummering, kilde: kilde };
+      answer: ans, oppsummering: oppsummering, kilde: kilde, opphav: { type: "egen", kilder: ["ba s. 40–48"] } };
   }
   function eidItems() {
     return EID.map(function (e) {
@@ -958,6 +961,60 @@
     clear(host); host.appendChild(wrap);
     paint();
   }
+
+
+  /* ---------- Figur til øvingen ov-aut-5 (07-autentisering.html) ----------
+     Gjenbruker IN.FIGURER["H2025-25"] (fig-h2025.js, uendret: fem plassholdere 0–4) og legger til felt 5,
+     klammen «Lokal etappe» over bruker og klient (lysarket om passnøkler deler innloggingen i en lokal og en online etappe).
+     Bred figur: klammen er en HTML-stripe over tegningen, like bred som bruker + klient (x 20–590 av 1000).
+     Smal (stående) figur: klammen tegnes til høyre for bruker og klient, med merke 6, og feltet står sist i lista.
+     Byttet mellom bred og smal gjøres av H2025-25-funksjonen; her følges det med en MutationObserver på stilen. */
+  IN.FIGURER = IN.FIGURER || {};
+  IN.FIGURER["ov-aut-5"] = function (host) {
+    var tegn = IN.FIGURER["H2025-25"], F = IN.fig;
+    if (!tegn || !F) return;
+    tegn(host, { title: "Innlogging med passnøkler", figur: { beskrivelse:
+      "Bruker til venstre, klient (bærbar PC) i midten og autentiseringstjenere til høyre. Felt 1 på den buede pila fra bruker til klient, " +
+      "felt 2 inne i klienten, felt 3 på den buede pila fra tjenerne til klienten (øverst), felt 4 på den buede pila fra klienten til tjenerne (nederst), " +
+      "felt 5 i tjenerboksen og felt 6 på en klamme over bruker og klient." } });
+    var bred = host.children[0], smal = host.children[1];
+    if (!bred || !smal) return;
+    var ss = smal.querySelector("svg"), liste = smal.lastElementChild;
+    if (ss) {
+      var NS = ss.namespaceURI;
+      ss.setAttribute("viewBox", "0 0 384 745");
+      ss.style.maxWidth = "430px";
+      var p = document.createElementNS(NS, "path");
+      p.setAttribute("d", "M340 14 Q352 14 352 26 V428 Q352 440 340 440");
+      p.setAttribute("style", "fill:none;stroke:var(--fig-strek);stroke-width:2.2");
+      ss.appendChild(p);
+      var g = document.createElementNS(NS, "g"), c = document.createElementNS(NS, "circle");
+      c.setAttribute("cx", 368); c.setAttribute("cy", 227); c.setAttribute("r", 13);
+      c.setAttribute("style", "fill:var(--color-surface-container-lowest);stroke:var(--color-primary);stroke-width:2;stroke-dasharray:3 2");
+      g.appendChild(c); ss.appendChild(g);
+      F.tekst(g, 368, 227, "6", { fet: true, str: 16 });
+    }
+    var stripe = el("div", { style: "width:57%;margin-left:2%;display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:2px" });
+    var klamme = el("div", { "aria-hidden": "true", style: "align-self:stretch;height:12px;border:2.2px solid var(--fig-strek);border-bottom:0;border-radius:10px 10px 0 0" });
+    stripe.appendChild(klamme);
+    host.insertBefore(stripe, bred);
+    var ph = F.felt(null, 5, { etikett: "6" }), et = ph.querySelector(".fig-felt-et");
+    function sett() {
+      var erBred = bred.style.display !== "none";
+      stripe.style.display = erBred ? "flex" : "none";
+      if (erBred) {
+        ph.style.cssText = "max-width:none;min-height:0;width:31.6%";
+        if (et) et.style.display = "none";
+        stripe.insertBefore(ph, klamme);
+      } else {
+        ph.style.cssText = "";
+        if (et) et.style.display = "";
+        liste.appendChild(ph);
+      }
+    }
+    sett();
+    if (window.MutationObserver) new MutationObserver(sett).observe(bred, { attributes: true, attributeFilter: ["style"] });
+  };
 
   IN.vizAut = { calc: calc, selfTest: selfTest, noekkelrom: noekkelrom, kalkulator: kalkulator, nivaaOppslag: nivaaOppslag, salt: salt, otp: otp, biometri: biometri, fido: fido, nivaa: nivaa,
     fmt: { sci: sci, tid: tid, grp: grp } };

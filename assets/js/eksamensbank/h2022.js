@@ -1059,7 +1059,7 @@
         key: "H2022-10.2", year: "H2022", oppgave_nr: "Oppgave 10.2", del: D10,
         ark: "10.2 Beslutningspunkter", title: "Beslutningspunkt 1 eller 2?",
         points: 2, block: "risiko", tema: ["beslutningspunkt", "restrisiko", "risikostyring"], gjenganger: ["H2024-33"], ordrett: true,
-        oppgave: "<p>Til venstre beskrives noen utsagn vedrørende risikostyring som er relevante enten for beslutningspunkt 1 eller for beslytningspunkt 2 i henhold til figuren for risikostyring i forrige oppgave. Velg hvilket beslutningspunkt som er relevant for hvert utsagn.<br>Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, 2 for alle riktig, minimum 0.</p><p><strong>Velg riktig beslutningspunkt</strong></p>",
+        oppgave: "<p>Til venstre beskrives noen utsagn vedrørende risikostyring som er relevante enten for beslutningspunkt 1 eller for beslytningspunkt 2 i henhold til figuren for risikostyring i forrige oppgave [<a href=\"06-risiko.html#fane=eksamen&amp;oppg=o-H2022-10_1\">figuren i oppgave 10.1</a>]. Velg hvilket beslutningspunkt som er relevant for hvert utsagn.<br>Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, 2 for alle riktig, minimum 0.</p><p><strong>Velg riktig beslutningspunkt</strong></p>",
         inspera: {
           type: "M",
           regelTekst: "Poeng: 0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, 2 for alle riktig, minimum 0.",
@@ -1072,7 +1072,7 @@
             { s: "For høy restrisiko i henhold til kriterier", svar: [1], explain: "<p>Restrisiko er det som er igjen etter planlagte tiltak. Den vurderes i punkt 2.</p>" }
           ]
         },
-        avvik: null,
+        avvik: "«Forrige oppgave» er oppgave 10.1, der prosessfiguren står. Lenken i hakeparentes er lagt til av guiden.",
         losning: ["Punkt 1 (etter risikovurdering): er vurderingen god nok?", "Punkt 2 (etter håndteringsplan): er restrisikoen og planen akseptabel?"],
         tips: ["Ordet «restrisiko» eller «budsjett for tiltak» peker mot punkt 2."]
       },

@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Identitets- og tilgangshåndtering i IN2120: IAM-fasene, silo og føderert identitet, OIDC, FEIDE og ID-porten, OAuth, og tilgangskontrollmodellene DAC, MAC (Bell-LaPadula), RBAC og ABAC – med sekvensdiagram, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126f">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261126g">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126g">
 </head>
 <body data-page="iam">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -51,9 +51,13 @@
           <li><b>Konfigureringsfasen</b> (én gang): registrering av bruker-ID, klargjøring av autentikator(er) og tilgangsautorisering.</li>
           <li><b>Bruksfasen</b> (hver gang): oppgi bruker-ID, oppgi og sjekk autentikator(er) (sammen: brukerautentisering) og tilgangskontroll.</li>
         </ul>
-        <b>Identitetshåndtering</b> er registrering, klargjøring, oppgi bruker-ID og oppgi autentikator. <b>Tilgangshåndtering</b> er autorisering og tilgangskontroll.
         <ul>
-          <li><b>Entitet:</b> person, organisasjon, system, prosess o.l. <b>Identitet:</b> et sett attributter for en entitet i et bestemt domene. <b>Identifikator (bruker-ID):</b> et entydig navn på én identitet i domenet. <b>Digital identitet:</b> en identitet som datasystemer kan behandle.</li>
+          <li><b>Identitetshåndtering</b> er registrering, klargjøring, oppgi bruker-ID og oppgi autentikator.</li>
+          <li><b>Tilgangshåndtering</b> er autorisering og tilgangskontroll.</li>
+          <li><b>Entitet:</b> person, organisasjon, system, prosess o.l.</li>
+          <li><b>Identitet:</b> et sett attributter for en entitet i et bestemt domene.</li>
+          <li><b>Identifikator (bruker-ID):</b> et entydig navn på én identitet i domenet.</li>
+          <li><b>Digital identitet:</b> en identitet som datasystemer kan behandle.</li>
           <li><b>Autentikator:</b> det private eller hemmelige elementet (noe du vet, har eller er) som beviser at bruker-ID-en er din.</li>
           <li><b>PAP / PDP / PEP:</b> der policyen administreres, der beslutningen tas, og der den håndheves.</li>
           <li><b>Registrering før autentisering:</b> «identitet» betyr opprinnelig «den samme som sist». Uten registrering finnes det ingen «sist». Registreringen bygger enten på en identitet du har fra før (for eksempel pass) eller gir en helt ny entitet identitet (en nyfødt).</li>
@@ -373,32 +377,38 @@
 
   <footer class="footer">IN2120-guide · Blokk 8 · Identitets- og tilgangshåndtering · <a href="index.html">Til forsiden</a></footer>
 
-  <script src="assets/js/core.js?v=20261126f"></script>
-  <script src="assets/js/symboler.js?v=20261126f"></script>
-  <script src="assets/js/begreper-data.js?v=20261126f"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126f"></script>
-  <script src="assets/js/pseudocode.js?v=20261126f"></script>
-  <script src="assets/js/stepplayer.js?v=20261126f"></script>
-  <script src="assets/js/varline.js?v=20261126f"></script>
-  <script src="assets/js/inspera.js?v=20261126f"></script>
-  <script src="assets/js/dra.js?v=20261126f"></script>
-  <script src="assets/js/ovelse.js?v=20261126f"></script>
-  <script src="assets/js/bank.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126f"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261126f"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126f"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126f"></script>
-  <script src="assets/js/viz-iam.js?v=20261126f"></script>
+  <script src="assets/js/core.js?v=20261126g"></script>
+  <script src="assets/js/symboler.js?v=20261126g"></script>
+  <script src="assets/js/begreper-data.js?v=20261126g"></script>
+  <script src="assets/js/begrep-tips.js?v=20261126g"></script>
+  <script src="assets/js/pseudocode.js?v=20261126g"></script>
+  <script src="assets/js/stepplayer.js?v=20261126g"></script>
+  <script src="assets/js/varline.js?v=20261126g"></script>
+  <script src="assets/js/inspera.js?v=20261126g"></script>
+  <script src="assets/js/dra.js?v=20261126g"></script>
+  <script src="assets/js/ovelse.js?v=20261126g"></script>
+  <script src="assets/js/bank.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261126g"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261126g"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261126g"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261126g"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261126g"></script>
+  <script src="assets/js/viz-iam.js?v=20261126g"></script>
   <script>
   (function () {
     "use strict";
@@ -551,7 +561,8 @@
       oppsummering: { eli5: "Autorisering er å skrive lista. Tilgangskontroll er døra som leser lista.",
                       normal: "Den vanligste feilen er å bytte autorisering og tilgangskontroll. Autorisering skjer i konfigureringsfasen (policyen skrives), tilgangskontroll i bruksfasen (policyen håndheves).",
                       teknisk: "Identitetshåndtering er de fire trinnene om hvem du er (registrering, klargjøring, oppgi bruker-ID, oppgi autentikator). Tilgangshåndtering er autorisering og tilgangskontroll. Brukerautentisering er oppgi bruker-ID og oppgi og sjekk autentikator." },
-      kilde: { ref: "IAM-lysarkene, figuren med de to fasene", egneOrd: true }
+      kilde: { ref: "IAM-lysarkene, figuren med de to fasene", egneOrd: true },
+      opphav: { type: "egen", variantAv: ["H2023-14", "H2021-1.3"], kilder: ["iam s. 3–11"] }
     };
     safe("dra-iam-faser", function () { IN.bucketTask("#dra-iam-faser", FASER); });
 
@@ -560,7 +571,7 @@
       id: "iam-oidc-sort",
       prompt: { eli5: "Innlogging med en innloggingstjeneste skjer i tolv små steg. Sett dem i riktig rekkefølge.",
                 normal: "Sett de tolv meldingene i OIDC-figuren i riktig rekkefølge. Partene er bruker, klient (nettleser), SP og IdP.",
-                teknisk: "Ordne de tolv meldingene i OIDC-protokollen slik kursfiguren nummererer dem. Føderasjonsavtalen mellom SP og IdP er på plass fra før og telles ikke." },
+                teknisk: "Ordne de tolv meldingene i OIDC-protokollen slik sekvensdiagrammet over (og eksamen) nummererer dem. Føderasjonsavtalen mellom SP og IdP er på plass fra før og telles ikke." },
       items: OIDC.meldinger.map(function (m, i) {
         var hvem = m.fra === m.til ? PARTER_OIDC[m.fra] + " (internt)" : PARTER_OIDC[m.fra] + " → " + PARTER_OIDC[m.til];
         return { id: "m" + (i + 1), html: "<b>" + hvem + ":</b> " + m.tekst + (m.merke ? " [" + m.merke + "]" : ""), forklaring: m.forkl };
@@ -568,7 +579,8 @@
       answer: OIDC.meldinger.map(function (m, i) { return "m" + (i + 1); }),
       regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0 },
       oppsummering: "Fellene: 3 (velg IdP) kommer før 4 (omdiriger), 7 (autentikator til klienten) før 8 (respons til IdP), og tokenet går via klienten (10 og 11).",
-      kilde: { ref: "IAM-lysarkene, OIDC-figuren", egneOrd: true }
+      kilde: { ref: "IAM-lysarkene, OIDC-figuren", egneOrd: true },
+      opphav: { type: "egen", variantAv: ["H2024-31", "H2021-7.2"], kilder: ["iam s. 12–26"], merknad: "På eksamen skriver du tallene 1–12 inn i figuren" }
     };
     safe("dra-iam-oidc", function () { IN.sortTask("#dra-iam-oidc", OIDC_SORT); });
 
@@ -597,7 +609,7 @@
       oidc: [
         { q: "Hva bygger OIDC på?", options: ["SAML", "OAuth 2.0", "Kerberos", "X.509"], answer: 1, explain: "OIDC legger autentisering (ID-token) oppå OAuth 2.0." },
         { q: "Hvem autentiserer brukeren i OIDC?", options: ["SP", "IdP", "Nettleseren alene", "PEP"], answer: 1, explain: "IdP-en sjekker autentikatoren selv (melding 9). SP-en ser aldri passordet og får bare ID-tokenet etterpå." },
-        { q: "Hva er melding 11 i OIDC-figuren?", options: ["IdP sender ID-token til klienten", "Klienten videresender ID-token til SP", "SP gir tjenesten", "Brukeren velger IdP"], answer: 1, explain: "Melding 10 går fra IdP til klient, 11 fra klient til SP, og 12 er tjenesten." },
+        { q: "OIDC-flyten har tolv meldinger, nummerert som i sekvensdiagrammet over. Hva er melding 11?", options: ["IdP sender ID-token til klienten", "Klienten videresender ID-token til SP", "SP gir tjenesten", "Brukeren velger IdP"], answer: 1, explain: "Melding 10 går fra IdP til klient, 11 fra klient til SP, og 12 er tjenesten." },
         { q: "Hvilken eID-leverandør gir bare nivå BETYDELIG?", options: ["BankID", "Buypass", "MinID", "Commfides"], answer: 2, explain: "MinID er den statlige, men den gir ikke HØYT." }
       ],
       oauth: [
@@ -613,8 +625,11 @@
         { q: "Hvilket sikkerhetsmål støtter Bell-LaPadula?", options: ["Integritet", "Tilgjengelighet", "Konfidensialitet", "Ubenektelighet"], answer: 2, explain: "Reglene hindrer at informasjon lekker nedover." }
       ]
     };
+    // Lysarksidene per fane (opphav for flervalg og sant/usant), t09 = ukesoppgave 9 (IAM)
+    var KILDER = { faser: ["iam s. 3–11", "t09"], modeller: ["iam s. 12–26", "t09"], oidc: ["iam s. 12–26", "t09"],
+                   oauth: ["iam s. 38–41", "t09"], tk: ["iam s. 27–37", "t09"] };
     Object.keys(QUIZ).forEach(function (f) {
-      safe("quiz-" + f, function () { IN.quiz("#quiz-" + f, QUIZ[f], { id: "iam-" + f }); });
+      safe("quiz-" + f, function () { IN.quiz("#quiz-" + f, QUIZ[f], { id: "iam-" + f, opphav: { type: "egen", kilder: KILDER[f] } }); });
     });
 
     /* ---------- Sant/usant per fane ---------- */
@@ -627,7 +642,7 @@
         [false, "En bruker kan bare ha én identitet totalt.", "Én per domene er vanlig, og flere i samme domene er mulig."],
         [true, "En identifikator er entydig innenfor sitt domene.", "Den peker på nøyaktig én identitet der."],
         [true, "PDP henter policyen fra PAP.", "PDP trenger policyen for å avgjøre forespørselen fra PEP."],
-        [false, "«Autorisering = at systemet gir deg tilgang» er kursets definisjon.", "Kurset kaller det tilgangskontroll. Autorisering er å spesifisere policyen."]
+        [false, "Autorisering er at systemet slipper deg inn når du ber om tilgang.", "Det er tilgangskontroll. Autorisering er å spesifisere policyen på forhånd, i konfigureringsfasen."]
       ],
       modeller: [
         [true, "Silo er billig å sette opp.", "Tjenesten trenger ingen avtaler med andre."],
@@ -670,14 +685,14 @@
     };
     Object.keys(TF).forEach(function (f) {
       safe("tf-" + f, function () {
-        IN.tfTest("#tf-" + f, TF[f].map(function (r) { return { s: r[1], answer: r[0], explain: r[2], kilde: false }; }), { id: "iam-" + f + "-tf" });
+        IN.tfTest("#tf-" + f, TF[f].map(function (r) { return { s: r[1], answer: r[0], explain: r[2], kilde: false }; }), { id: "iam-" + f + "-tf", opphav: { type: "egen", kilder: KILDER[f] } });
       });
     });
 
     /* ---------- Inspera-øvinger (egne oppgaver) ---------- */
     var NIV = ["BEGRENSET", "KONFIDENSIELT", "HEMMELIG", "STRENGT HEMMELIG"];
     var OV = [
-      { key: "ov-iam-1", inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+      { key: "ov-iam-1", title: "Fase og del av IAM", opphav: { type: "egen", variantAv: ["H2023-14", "H2021-1.3"], kilder: ["iam s. 3–11"] }, inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
           kolonner: ["Konfig. / identitet", "Konfig. / tilgang", "Bruk / identitet", "Bruk / tilgang"], multi: false,
           rader: [
@@ -687,12 +702,12 @@
             { s: "Mira taster koden fra brikken", svar: [2], explain: "<p>Oppgi autentikator: brukerautentisering.</p>" },
             { s: "Systemet avviser at Mira endrer en journal", svar: [3], explain: "<p>Systemet håndhever policyen lederen satte, mens Mira bruker det. Det er tilgangskontroll i bruksfasen, ikke autorisering, som skjedde i konfigureringen.</p>" },
             { s: "Mira skriver brukernavnet sitt", svar: [2], explain: "<p>Med brukernavnet sier Mira hvem hun er (oppgi bruker-ID). Det er første steg i brukerautentiseringen i bruksfasen.</p>" } ] } },
-      { key: "ov-iam-2", inspera: { type: "N", regelTekst: "1 for hver riktig, 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
+      { key: "ov-iam-2", title: "PAP, PDP og PEP", opphav: { type: "egen", kilder: ["iam s. 3–11"] }, inspera: { type: "N", regelTekst: "1 for hver riktig, 0 for feil eller ubesvart.", regel: { riktig: 1, feil: 0, blankt: 0, min: 0, maks: 3 },
           tekst: "<p>Policyen lagres og forvaltes i {0}. Beslutningen tas i {1}. Beslutningen håndheves i {2}.</p>",
           felt: [ { etikett: "Forvaltes i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 0, explain: "<p>PAP (Policy Administration Point) er der administratorene skriver og lagrer reglene. Det avgjør ikke enkeltforespørsler.</p>" },
                   { etikett: "Avgjøres i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 1, explain: "<p>PDP (Policy Decision Point) sammenligner forespørselen med policyen og svarer ja eller nei. Selve stoppingen gjør PEP.</p>" },
                   { etikett: "Håndheves i", valg: ["PAP", "PDP", "PEP", "IdP"], svar: 2, explain: "<p>Policy Enforcement Point, foran ressursen.</p>" } ] } },
-      { key: "ov-iam-3", inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+      { key: "ov-iam-3", title: "Silo eller føderert?", opphav: { type: "egen", variantAv: ["H2021-7.1"], kilder: ["iam s. 12–26"] }, inspera: { type: "M", regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 }, kolonner: ["Silo", "Føderert"], multi: false,
           rader: [
             { s: "Brukeren må huske ett passord per tjeneste", svar: [0], explain: "<p>Identitetsoverlast er siloens hovedulempe.</p>" },
@@ -700,31 +715,31 @@
             { s: "Et utfall hos én aktør stenger mange tjenester", svar: [1], explain: "<p>Mange tjenester stoler på samme IdP. Er den nede, kommer ingen inn noe sted; i en silo rammer et utfall bare én tjeneste.</p>" },
             { s: "Lavest startkostnad for en ny nettbutikk", svar: [0], explain: "<p>Enkelt å sette opp selv, ingen avtaler.</p>" },
             { s: "Logg inn med HelseID i et journalsystem", svar: [1], explain: "<p>HelseID er en føderasjon med sentralisert navnerom og distribuert autentisering.</p>" } ] } },
-      { key: "ov-iam-4", inspera: { type: "M", multi: true, kolonner: ["Sentr. navnerom", "Distr. navnerom", "Sentr. aut.", "Distr. aut."],
+      { key: "ov-iam-4", title: "Navnerom og autentisering", opphav: { type: "egen", kilder: ["iam s. 12–26"] }, inspera: { type: "M", multi: true, kolonner: ["Sentr. navnerom", "Distr. navnerom", "Sentr. aut.", "Distr. aut."],
           regelTekst: "0,2 for hver riktig avkrysning, −0,2 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.2, feil: -0.2, blankt: 0, min: 0 },
           rader: [
             { s: "FEIDE", svar: [1, 2], explain: "<p>Hver institusjon har sitt navnerom, men brukeren kan bare autentiseres hjemme.</p>" },
             { s: "Altinn", svar: [0, 3], explain: "<p>Fødselsnummeret forvaltes av staten, og flere eID-leverandører kan autentisere.</p>" },
             { s: "Tysk eID", svar: [0, 2], explain: "<p>Én statlig aktør forvalter både navnerom og autentisering.</p>" },
             { s: "Logg inn med Apple", svar: [1, 3], explain: "<p>Hver leverandør har sitt navnerom, og brukeren velger leverandør.</p>" } ] } },
-      { key: "ov-iam-5", inspera: { type: "T", regelTekst: "0,25 for korrekt tall, 0 for feil eller intet tall, minimum 0.",
+      { key: "ov-iam-5", title: "OIDC-meldingene i rekkefølge", opphav: { type: "egen", variantAv: ["H2024-31", "H2021-7.2"], kilder: ["iam s. 12–26", "t09"], merknad: "Nummereringen følger OIDC-sekvensdiagrammet på denne siden" }, inspera: { type: "T", regelTekst: "0,25 for korrekt tall, 0 for feil eller intet tall, minimum 0.",
           regel: { riktig: 0.25, feil: 0, blankt: 0, min: 0, maks: 1.5 },
           tekst: "<p>Lina logger inn i Bibliotekappen med Studentkonto (OIDC). Skriv meldingsnummeret (1–12): nettleseren videresender ID-tokenet {0}; Studentkonto viser innloggingssiden {1}; Lina velger Studentkonto {2}; Studentkonto kontrollerer svaret {3}; appen omdirigerer nettleseren {4}; Lina får lånelista {5}.</p>",
           felt: [ { etikett: "Videresender ID-token", godta: ["11"] }, { etikett: "Innloggingsside", godta: ["6"] }, { etikett: "Velger IdP", godta: ["3"] },
                   { etikett: "Kontrollerer svaret", godta: ["9"] }, { etikett: "Omdirigerer", godta: ["4"] }, { etikett: "Får tjenesten", godta: ["12"] } ] } },
-      { key: "ov-iam-6", inspera: { type: "M", kolonner: ["Sant", "Usant"], multi: false, regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
+      { key: "ov-iam-6", title: "eID-er og nivåer", opphav: { type: "egen", variantAv: ["H2023-33", "H2024-30"], kilder: ["iam s. 12–26"] }, inspera: { type: "M", kolonner: ["Sant", "Usant"], multi: false, regelTekst: "0,5 for hver riktig, −0,5 for hver feil, 0 for ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
           rader: [
             { s: "Alle eID-leverandørene i ID-porten kan brukes til offentlige tjenester", svar: [0], explain: "<p>ID-porten er felles innlogging for offentlige tjenester, og alle eID-ene som er koblet til, kan brukes der.</p>" },
             { s: "MinID gir sikkerhetsnivå HØYT", svar: [1], explain: "<p>MinID gir bare BETYDELIG. For HØYT trengs blant annet strengere kontroll av identiteten ved registrering, som i BankID.</p>" },
             { s: "BankID er en statlig tjeneste", svar: [1], explain: "<p>BankID eies av bankene. Bare MinID er statlig.</p>" },
             { s: "I europeisk eID går innloggingen via eIDAS-portaler i begge land", svar: [0], explain: "<p>Borgeren går via sitt eget lands portal og tjenestelandets portal.</p>" } ] } },
-      { key: "ov-iam-7", inspera: { type: "T", regelTekst: "0,5 for hver riktig, 0 for feil eller ubesvart, minimum 0.",
+      { key: "ov-iam-7", title: "OAuth-meldingene i rekkefølge", opphav: { type: "egen", variantAv: ["H2023-35"], kilder: ["iam s. 38–41", "t09"], merknad: "Nummereringen følger OAuth-sekvensdiagrammet på denne siden" }, inspera: { type: "T", regelTekst: "0,5 for hver riktig, 0 for feil eller ubesvart, minimum 0.",
           regel: { riktig: 0.5, feil: 0, blankt: 0, min: 0, maks: 3.5 },
           tekst: "<p>Løpelogg henter pulsdata fra Klokkesky med OAuth. Skriv meldingsnummeret (1–7): tokenet utstedes {0}; Aron trykker «Koble til» {1}; Aron blir spurt {2}; dataene sendes {3}; Løpelogg viser tokenet {4}; Løpelogg ber om tilgang {5}; Aron godkjenner {6}.</p>",
           felt: [ { etikett: "Tokenet utstedes", godta: ["5"] }, { etikett: "Koble til", godta: ["1"] }, { etikett: "Aron blir spurt", godta: ["3"] },
                   { etikett: "Dataene sendes", godta: ["7"] }, { etikett: "Viser tokenet", godta: ["6"] }, { etikett: "Ber om tilgang", godta: ["2"] }, { etikett: "Godkjenner", godta: ["4"] } ] } },
-      { key: "ov-iam-8", inspera: { type: "M", multi: false, kolonner: ["RBAC", "MAC", "ABAC", "DAC"],
+      { key: "ov-iam-8", title: "Hvilken tilgangsmodell?", opphav: { type: "egen", variantAv: ["H2021-7.3"], kilder: ["iam s. 27–37"] }, inspera: { type: "M", multi: false, kolonner: ["RBAC", "MAC", "ABAC", "DAC"],
           regelTekst: "0,5 for hver korrekt, −0,5 for hver feil, 0 for intet valg, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
           rader: [
             { s: "Eieren av mappa legger til en kollega i ACL-en", svar: [3], explain: "<p>Eieren gir tilgang til en navngitt person etter eget skjønn. Det er DAC: eieren bestemmer, ikke en sentral policy.</p>" },
@@ -732,7 +747,7 @@
             { s: "Tilgang bare i arbeidstiden og fra kontornettet", svar: [2], explain: "<p>Kontekstattributter (tid og lokasjon).</p>" },
             { s: "SELinux med graderte merker", svar: [1], explain: "<p>Systemet sammenligner graderingsmerker på bruker og fil, og verken brukeren eller eieren kan overstyre det. Det er MAC.</p>" },
             { s: "Modellen som generaliserer de tre andre", svar: [2], explain: "<p>Rolle, eier og graderingsmerke kan alle skrives som attributter. Derfor kan ABAC uttrykke RBAC, DAC og MAC.</p>" } ] } },
-      { key: "ov-iam-9", inspera: { type: "M", multi: true, kolonner: NIV,
+      { key: "ov-iam-9", title: "Bell-LaPadula: lese, skrive, redigere", opphav: { type: "egen", variantAv: ["H2022-9.3"], kilder: ["iam s. 27–37"] }, inspera: { type: "M", multi: true, kolonner: NIV,
           regelTekst: "0,5 for hver riktig avkrysning, −0,5 for hver feil, 0 for ubesvart, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0 },
           rader: [
             { s: "Maks STRENGT HEMMELIG, aktuelt BEGRENSET: hva kan hun LESE?", svar: [0], explain: "<p>Det er det aktuelle nivået som teller, ikke maks. Hun kan lese på eget nivå og nedover (ingen lesing opp), og BEGRENSET er det laveste.</p>" },
@@ -744,7 +759,6 @@
       // Matrise med avkrysning rettes per boks (inspera.js): maks = antall riktige bokser × riktig
       if (rg.maks == null && q.type === "M" && q.multi) rg.maks = Math.round(q.rader.reduce(function (n, r) { return n + [].concat(r.svar).length; }, 0) * rg.riktig * 100) / 100;
       o.points = rg.maks;
-      o.title = "Øving";
       safe(o.key, function () { IN.inspera("#" + o.key, o); });
     });
 

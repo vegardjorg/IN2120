@@ -36,6 +36,13 @@
 .bt-tip > span { display: block; }
 .bt-tip-h { font-weight: 600; margin-bottom: .15rem; }
 .bt-tip-h b { color: var(--color-primary); font-weight: 700; }
+/* «Må ikke forveksles med …» (feltet forveks) */
+.bt-tip-fv {
+  margin-top: .3rem;
+  font-size: var(--text-xs, .8rem);
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
 .bt-tip-se {
   margin-top: .3rem;
   font-size: var(--text-xs, .8rem);
@@ -58,4 +65,5 @@
 .ord-liste dt b { color: var(--color-primary); }
 .ord-liste dd { margin: .1rem 0 0; color: var(--color-on-surface-variant); font-size: var(--text-sm); overflow-wrap: anywhere; }
 .ord-se { white-space: nowrap; font-size: var(--text-xs, .8rem); }
+.ord-fv { display: block; margin-top: .15rem; font-size: var(--text-xs, .8rem); font-style: italic; }
 @media print { .ordliste { display: none; } }

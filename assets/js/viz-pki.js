@@ -68,6 +68,7 @@
   function faseNavn(id) { return FASER.filter(function (f) { return f.id === id; })[0].navn; }
   var TILST_OPPG = {
     id: "pki-tilstander",
+    opphav: { type: "egen", kilder: ["d03 s. 24–26"] },
     prompt: {
       eli5: "En nøkkel går gjennom seks tilstander. Legg hver tilstand i boksen som sier hva nøkkelen da får brukes til.",
       normal: "Legg hver NIST-tilstand i riktig bøtte: hva er lov å gjøre med nøkkelen i den tilstanden?",
@@ -248,6 +249,7 @@
   function tyveriScenario() {
     return {
       id: "pki-tyveri",
+      opphav: { type: "egen", kilder: ["d03 s. 23"], merknad: "Samme situasjon som H2022 oppgave 6.1, men som scenario" },
       tittel: "Alice har stjålet Bobs private nøkkel " + K("B", "priv") + ". Alle ser all trafikk. Svar før du ser forklaringen.",
       start: "cb",
       noder: {
@@ -305,7 +307,7 @@
     node.appendChild(out);
   }
   var DIST_OPPG = [
-    { id: "pki-dist-sym", enhet: "nøkler", n: 12,
+    { id: "pki-dist-sym", enhet: "nøkler", n: 12, opphav: { type: "egen", kilder: ["d03 s. 28"] },
       sporsmal: function (inn) { return "<b>" + inn.n + "</b> noder skal kunne kommunisere hemmelig to og to med <b>symmetrisk</b> krypto. Hvor mange hemmelige nøkler må distribueres?"; },
       fasit: function (inn) { return dist(inn.n).sym; },
       feil: [
@@ -319,7 +321,7 @@
         normal: "<p>Antall par blant " + n + " noder er n(n−1)/2 = " + n + "·" + (n - 1) + "/2 = <b>" + tall(dist(n).sym) + "</b>. Hver nøkkel må distribueres <b>hemmelig</b>, fordi den gir konfidensialitet (d03 s. 28).</p>",
         teknisk: "<p>Kombinasjoner: C(n, 2) = n(n−1)/2 = " + tall(dist(n).sym) + ". Veksten er kvadratisk. Offentlige nøkler uten PKI krever n(n−1) = " + tall(dist(n).utenPki) + " <i>autentiske</i> overføringer, og med PKI holder én autentisk rotnøkkel per node: n = " + n + " (d03 s. 28).</p>"
       }; } },
-    { id: "pki-dist-pub", enhet: "overføringer", n: 10,
+    { id: "pki-dist-pub", enhet: "overføringer", n: 10, opphav: { type: "egen", kilder: ["d03 s. 28"] },
       sporsmal: function (inn) { return "Nå bruker de <b>" + inn.n + "</b> nodene offentlige nøkler, men <b>uten PKI</b>. Hver node må få en autentisk kopi av den offentlige nøkkelen til hver av de andre. Hvor mange autentiske overføringer trengs?"; },
       fasit: function (inn) { return dist(inn.n).utenPki; },
       feil: [
@@ -343,7 +345,7 @@
       var sub = el("div", { class: "pki-regn" });
       w.appendChild(sub);
       IN.regnForst(sub, {
-        id: d.id, rentTall: true, sporsmal: d.sporsmal, fasit: d.fasit, toleranse: 0, enhet: d.enhet,
+        id: d.id, opphav: d.opphav, rentTall: true, sporsmal: d.sporsmal, fasit: d.fasit, toleranse: 0, enhet: d.enhet,
         inndata: [{ navn: "n", etikett: "Antall noder n", verdi: d.n, min: 2, max: 100, steg: 1 }],
         vanligeFeil: d.feil.map(function (x) { return { verdi: function (inn) { return x.f(inn.n); }, hint: x.hint }; }),
         forklaring: d.forklaring,
@@ -399,6 +401,7 @@
   // Fyll-ut-oppgaven: verdiene skal i riktig felt. To distraktorer hører ikke hjemme i sertifikatet.
   var FELT_OPPG = {
     id: "pki-felter",
+    opphav: { type: "egen", kilder: ["d03 s. 31", "d03 s. 34"] },
     prompt: {
       eli5: "Sertifikatet for bibliotek.lerkedal.no er tomt. Legg hver opplysning i riktig felt. To av lappene hører ikke hjemme i sertifikatet i det hele tatt.",
       normal: "Fyll ut X.509-sertifikatet for bibliotek.lerkedal.no: legg hver verdi i feltet den hører til. To verdier står ikke i et sertifikat.",
@@ -850,6 +853,7 @@
   var CAA_DNS = "lerkedal.no.  CAA  0 issue \"fjellvik.no\"";
   var CAA_SCEN = {
     id: "pki-caa",
+    opphav: { type: "ukesoppgave", kilder: ["t03 oppg. 6b"] },
     tittel: "Du jobber med sertifikatutstedelse. I DNS står: <code>" + CAA_DNS + "</code>",
     start: "nordkapp",
     noder: {
