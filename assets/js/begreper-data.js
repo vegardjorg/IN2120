@@ -451,7 +451,7 @@
     mfa: { ord: "MFA", full: "multi-factor authentication", b: 7, mc: ["MFA"],
       txt: "Autentisering med minst to ulike faktorer: noe du vet, noe du har, noe du er." },
     fido: { ord: "FIDO", full: "Fast IDentity Online", b: 7, mc: ["FIDO2?"],
-      txt: "Standarder fra FIDO Alliance for autentisering med offentlig-nøkkel-kryptografi. FIDO2 (WebAuthn + CTAP) er grunnlaget for passnøkler." },
+      txt: "Standarder fra FIDO Alliance for autentisering med offentlig-nøkkel-kryptografi. FIDO2 (WebAuthn + CTAP) er grunnlaget for passnøkler. Det fulle navnet og CTAP er ikke pensum." },
     webauthn: { ord: "WebAuthn", full: "Web Authentication", b: 7, mc: ["WebAuthn"],
       txt: "W3C-standard som lar nettsteder bruke passnøkler og sikkerhetsnøkler gjennom nettleseren." },
     passnokkel: { ord: "passnøkkel", full: "passkey", b: 7, m: ["passnøk(?:kel|kelen|ler|lene)", "passkeys?"],
