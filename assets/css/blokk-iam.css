@@ -132,3 +132,12 @@
   .iam-2x2 td::before { content: attr(data-kol); display: block; font-size: var(--text-xs); color: var(--color-on-surface-variant); margin-bottom: 2px; }
   .iam-cell-b { min-height: 40px; padding: 6px 12px; }
 }
+
+/* Nummererte deler i hver fane (samme mønster som h4.aut-del i blokk 7 og h4.kr-del i blokk 2) */
+h4.iam-del { margin-top: 1.8rem; font-size: 17px; line-height: 1.3; }
+.callout.begrep > p { margin: .3rem 0; }
+/* Major Dahl-tabellen: fire smale kolonner uten vannrett scroll på 375 px */
+@media (max-width: 480px) {
+  .iam-dahl { font-size: var(--text-sm); }
+  .iam-dahl th, .iam-dahl td { padding: .3rem .3rem; overflow-wrap: anywhere; hyphens: auto; }
+}

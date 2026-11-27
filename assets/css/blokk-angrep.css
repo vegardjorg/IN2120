@@ -79,3 +79,25 @@
 
 /* Tabeller på siden */
 .an-tab th[scope="row"] { white-space: nowrap; }
+
+/* ---------- Nummererte deloverskrifter i fanene (samme mønster som h4.kr-del i blokk-krypto.css) ---------- */
+h4.an-del { margin-top: 1.8rem; font-size: 17px; line-height: 1.3; }
+
+/* Klikkhint ved elementer som kan trykkes (mønster: .kr-klikkhint) */
+.an-klikkhint { font-size: var(--text-xs, .75rem); color: var(--color-primary); margin: 0 0 .25rem; }
+
+/* Kode mot data: eksempelknappene viser hvilket eksempel som står i feltet */
+.an-sql-ctl { align-items: center; }
+.an-sql-note { font-size: var(--text-xs, .75rem); opacity: .85; }
+
+/* Logganalyse: valgt svar markeres med ✓/✗ i tekst og farge (ikke bare farge) */
+.btn.an-svar.an-rett { background: var(--color-tone-ok); border-color: var(--color-on-tone-ok); color: var(--color-on-tone-ok); font-weight: 700; }
+.btn.an-svar.an-galt, .btn.an-svar.an-galt[aria-pressed="true"] { background: var(--color-tone-danger); border-color: var(--color-on-tone-danger); color: var(--color-on-tone-danger); font-weight: 700; }
+
+/* Smal skjerm: tabellene skal ikke rulles sidelengs (plan/ui-ux-regler.md punkt 6) */
+@media (max-width: 560px) {
+  .an-tab th[scope="row"] { white-space: normal; }
+  .an-tab th, .an-tab td { padding: .35rem .4rem; font-size: var(--text-sm, .875rem); hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+  .an-logg-t th, .an-logg-t td { padding: .3rem .35rem; font-size: var(--text-xs, .75rem); }
+}
+@media (max-width: 560px) { .an-tab-akt th[scope="col"] { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; } }

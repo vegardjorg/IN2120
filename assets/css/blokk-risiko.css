@@ -111,7 +111,12 @@ details.rk-fig > summary:focus-visible { outline: var(--focus); outline-offset: 
 .rk-corner circle { fill: var(--color-primary); }
 .rk-corner text { font-size: 10px; font-weight: 700; fill: var(--color-on-primary); pointer-events: none; }
 .rk-corner.is-off circle { fill: var(--color-surface); stroke: var(--color-outline); stroke-dasharray: 3 2; }
-.rk-corner.is-off text { fill: var(--color-on-surface-variant); }
+.rk-corner.is-off .rk-corner-paa { fill: var(--color-on-surface-variant); }
+.rk-corner .rk-corner-navn { font-size: 13px; font-weight: 700; fill: var(--color-on-surface); pointer-events: auto; cursor: pointer; }
+.rk-corner.is-off .rk-corner-navn { fill: var(--color-on-surface-variant); text-decoration: line-through; }
+.rk-corner:hover circle { stroke: var(--color-on-surface); stroke-width: 3; }
+.rk-corner:focus { outline: none; }
+.rk-corner:focus-visible circle { stroke: var(--color-on-surface); stroke-width: 4; }
 
 /* ISO 27002-stolpe */
 .rk-stack { display: flex; height: 34px; max-width: 560px; margin: .5rem 0 .2rem; }
@@ -127,3 +132,19 @@ details.rk-fig > summary:focus-visible { outline: var(--focus); outline-offset: 
 /* Grenser mellom øvinger og grupper (fase 3, mild variant uten rammer): tynn toppstrek og mer luft over
    hver mellomtittel i panelene, og en kort ingress «Hva du skal gjøre» der to oppgaver står etter hverandre. */
 .rk-hva { font-size: var(--text-sm); color: var(--color-on-surface-variant); margin: .25rem 0 .7rem; }
+
+/* Klikkbart område (mønster: .kr-klikkrad / .kr-klikkhint i blokk-krypto.css): stiplet ramme og hint over figuren */
+.rk-klikkrad { padding: 6px 8px; border-radius: var(--radius); outline: 1px dashed var(--color-primary); outline-offset: 0; }
+.rk-klikkhint { margin: 0 0 .3rem; font-size: var(--text-xs, .75rem); color: var(--color-primary); }
+/* Valgt rute i matrisen (aria-pressed) */
+.rk-cell.is-sel rect { stroke: var(--color-on-surface); stroke-width: 4; }
+.rk-cell.is-sel .rk-sum { font-weight: 700; fill: var(--color-on-surface); }
+
+/* Nummererte deloverskrifter med eksamensmerke (mønster: h4.kr-del i blokk-krypto.css) */
+h4.rk-del { margin-top: 1.8rem; font-size: 17px; line-height: 1.3; }
+
+/* Smal skjerm: tabellene skal få plass uten vannrett rulling (ui-ux-regler punkt 6) */
+@media (max-width: 560px) {
+  [data-page="risiko"] .table-wrap td, [data-page="risiko"] .table-wrap th {
+    min-width: 0; padding: 6px 4px; font-size: 12.5px; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+}

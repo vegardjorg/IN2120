@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Identitets- og tilgangshåndtering i IN2120: IAM-fasene, silo og føderert identitet, OIDC, FEIDE og ID-porten, OAuth, og tilgangskontrollmodellene DAC, MAC (Bell-LaPadula), RBAC og ABAC – med sekvensdiagram, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/blokk-iam.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127m">
 </head>
 <body data-page="iam">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -45,39 +45,65 @@
     <!-- ===================== 1 · IAM-FASER ===================== -->
     <section data-panel="faser">
       <h3>IAM-faser og begreper</h3>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> Kom i H2021, H2022 og H2023, men ikke i H2024–H2025. Det kan godt komme igjen.</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-1_3">H2021 1.3</a> (3p) og <a href="#fane=eksamen&amp;oppg=o-H2023-14">H2023 14</a> (3p): dra trinnene inn i figuren med de to fasene (del 1).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-1_3">H2022 1.3</a> (4p): kryss av hvilke trinn hvert begrep består av (brukerautentisering, identitetshåndtering, tilgangshåndtering, de to fasene, IAM). 0,2p per kryss.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-34">H2023 34</a> (3p): korrekt eller feil om identitet og identitetsdomene (del 2, og fanen «Silo og føderert»).</li>
+        </ul>
+        <p class="small">Merkene: <span class="tag tag-kjerne">kommer ofte</span> = spurt om de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="iam-del">1 · To faser og sju trinn <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
-        <b>IAM</b> skal sørge for at rette personer får tilgang til rette ressurser, til rett tid og av rette grunner, og hindre svindel og uautorisert tilgang.
-        Arbeidet har to faser:
+        <p><b>IAM</b> (Identity and Access Management, identitets- og tilgangshåndtering) skal sørge for at rette personer får tilgang til rette ressurser, til rett tid og av rette grunner, og hindre svindel og uautorisert tilgang. Arbeidet har to faser:</p>
         <ul>
           <li><b>Konfigureringsfasen</b> (én gang): registrering av bruker-ID, klargjøring av autentikator(er) og tilgangsautorisering.</li>
           <li><b>Bruksfasen</b> (hver gang): oppgi bruker-ID, oppgi og sjekk autentikator(er) (sammen: brukerautentisering) og tilgangskontroll.</li>
         </ul>
+        <p>Trinnene deles også i to deler:</p>
         <ul>
           <li><b>Identitetshåndtering</b> er registrering, klargjøring, oppgi bruker-ID og oppgi autentikator.</li>
           <li><b>Tilgangshåndtering</b> er autorisering og tilgangskontroll.</li>
+        </ul></div>
+
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hvilket trinn er det? Plasser handlingene</h4>
+      <div id="dra-iam-faser"></div>
+
+      <h4 class="iam-del">2 · Entitet, identitet og identifikator <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
           <li><b>Entitet:</b> person, organisasjon, system, prosess o.l.</li>
           <li><b>Identitet:</b> et sett attributter for en entitet i et bestemt domene.</li>
           <li><b>Identifikator (bruker-ID):</b> et entydig navn på én identitet i domenet.</li>
           <li><b>Digital identitet:</b> en identitet som datasystemer kan behandle.</li>
           <li><b>Autentikator:</b> det private eller hemmelige elementet (noe du vet, har eller er) som beviser at bruker-ID-en er din.</li>
-          <li><b>PAP / PDP / PEP:</b> PAP (Policy Administration Point) er der policyen administreres, PDP (Policy Decision Point) der tilgangsbeslutningen tas, og PEP (Policy Enforcement Point) der beslutningen håndheves, for eksempel ved at forespørselen slippes gjennom eller stoppes.</li>
           <li><b>Registrering før autentisering:</b> «identitet» betyr opprinnelig «den samme som sist». Uten registrering finnes det ingen «sist». Registreringen
             <ul>
               <li>bygger enten på en identitet du har fra før (for eksempel pass) eller</li>
               <li>gir en helt ny entitet identitet (en nyfødt).</li>
             </ul></li>
         </ul></div>
-      <div id="ex-faser"></div>
-
       <p class="small muted fig-vis-led">Entitet, identitet og identifikator i ett bilde: én person har en egen identitet i hvert domene, og hver identitet har sitt eget entydige navn.</p>
       <div id="fx-entitet-identitet"></div>
 
-      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hvilket trinn er det? Plasser handlingene</h4>
-      <div id="dra-iam-faser"></div>
-
+      <h4 class="iam-del">3 · PAP, PDP og PEP <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <p>Tilgangshåndteringen deles på tre policypunkter:</p>
+        <ul>
+          <li><b>PAP</b> (Policy Administration Point): der policyen administreres. Ressurseieren legger den inn her (autorisering).</li>
+          <li><b>PDP</b> (Policy Decision Point): der tilgangsbeslutningen tas, ut fra policyen.</li>
+          <li><b>PEP</b> (Policy Enforcement Point): der beslutningen håndheves, for eksempel ved at forespørselen slippes gjennom eller stoppes.</li>
+        </ul>
+        <p>Scenarioet under har også en <b>IdP</b> (Identity Provider): tjenesten som autentiserer brukeren. Mer om den i fanen «Silo og føderert».</p></div>
       <h4 class="ov-h"><span class="ov-tag">Øving</span> PAP, PDP og PEP i ett scenario</h4>
       <p class="ov-intro">Trykk «Neste» for å gå gjennom de åtte meldingene. Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis. Stiplede piler (1–3) hører til konfigureringsfasen, heltrukne (4–8) til bruksfasen. Registrering og klargjøring kan skje hos ressurseieren eller hos IdP-en; her er de tegnet mot IdP-en.</p>
       <div id="sp-pap"></div>
+
+      <h4 class="iam-del">4 · Hvorfor autorisering skjer før tilgangskontroll <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Samme forklaring på tre nivåer. Velg nivå med bryteren øverst på siden.</p>
+      <div id="ex-faser"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor heter trinn 3 «autorisering» og ikke trinn 7–8?</summary>
@@ -89,14 +115,6 @@
         <ul>
           <li><b>Identitetsdomene</b> er et navnerom med unike navn, ikke et sett attributter.</li>
           <li>Én entitet kan ha identiteter i mange domener, og til og med flere i samme domene.</li>
-        </ul></div>
-
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li>H2021 1.3 (3 p) og H2023 14 (3 p): dra trinnene inn i figuren med de to fasene.</li>
-          <li>H2022 1.3 (4 p): kryss av hvilke trinn hvert begrep består av (brukerautentisering, identitetshåndtering, tilgangshåndtering, de to fasene, IAM). 0,2 p per kryss.</li>
-          <li>H2023 34 (3 p): korrekt eller feil om identitet og identitetsdomene (også i fanen «Silo og føderert»).</li>
-          <li>Kom i H2021, H2022 og H2023, men ikke H2024–H2025. Det kan godt komme igjen.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Fase og del av IAM</h4>
@@ -117,22 +135,33 @@
     <!-- ===================== 2 · SILO OG FØDERERT ===================== -->
     <section data-panel="modeller">
       <h3>Identitetsmodeller: silo og føderert</h3>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> Spurt om i H2021, H2022 og H2023 (og Eduroam i H2018), men ikke etter 2023.</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-7_1">H2021 7.1</a> (2p): silo eller føderert for fire kjennetegn (del 1).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-9_2">H2022 9.2</a> (2p): hvilke oppgaver SP og IdP har (del 1).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-9_1">H2022 9.1</a> (3p): sentralisert eller distribuert identitet og autentisering for OIDC, ID-porten, internett-IdP-er, silo, FIDO og personnummer (del 2).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-13">H2023 13</a> (1p): Eduroam i Stockholm.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-34">H2023 34</a> (3p): seks utsagn korrekt eller feil.</li>
+        </ul>
+        <p class="small">Merkene: <span class="tag tag-kjerne">kommer ofte</span> = spurt om de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="iam-del">1 · Silo og føderert <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Identitetsdomene:</b> et navnerom med unike navn. En bruker har som regel én identitet per domene.</li>
-          <li><b>SP og IdP:</b> SP (Service Provider) er tjenesten brukeren vil inn på. IdP (Identity Provider) er den som autentiserer brukeren.</li>
+          <li><b>SP og IdP:</b> SP (Service Provider, tjenestetilbyder) er tjenesten brukeren vil inn på. IdP (Identity Provider, identitetstilbyder) er den som autentiserer brukeren.</li>
           <li><b>Silomodell:</b> SP er også IdP. Hver tjeneste har sitt eget navnerom og autentiserer selv, så brukeren får én bruker-ID og én autentikator per tjeneste.</li>
           <li><b>Føderert modell:</b> SP og IdP er ulike aktører. IdP-en autentiserer brukeren og sender et digitalt signert ID-token (en sikkerhetsbillett) til SP-en. Mange SP-er kan godta samme IdP.</li>
-          <li><b>Aktørene:</b>
+          <li><b>Aktørene i en føderasjon:</b>
             <ul>
               <li>brukeren (har bruker-ID og autentikator),</li>
               <li>SP, også kalt Relying Party (har et register over bruker-ID-er og en avtale med IdP-en),</li>
               <li>IdP (i e-forvaltning: eID-leverandør) og</li>
               <li>noen ganger en autentiseringsportal som ID-porten.</li>
             </ul></li>
-          <li><b>Fire kategorier</b> av føderering: navnerommet kan være sentralisert eller distribuert, og autentiseringen kan være sentralisert eller distribuert.</li>
         </ul></div>
-      <div id="ex-modeller"></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Silo og føderert side om side</h4>
       <p class="ov-intro">Samme bruker og tre tjenester (nettbutikk, bibliotek, treningsapp). Bytt mellom Silo og Føderert for å se hvem som autentiserer, og hvor mange bruker-ID-er brukeren trenger.</p>
@@ -145,32 +174,43 @@
         <li>Baksiden: når IdP-en er nede, kommer han ikke inn på noen av de fire, og IdP-en ser hver gang han logger inn.</li>
       </ul>
 
+      <h4 class="iam-del">2 · Fire kategorier: navnerom og autentisering <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <p>Føderering deles i fire kategorier etter to spørsmål:</p>
+        <ul>
+          <li><b>Navnerommet</b> (hvem forvalter identifikatorene?):
+            <ul>
+              <li><b>sentralisert</b> når én aktør forvalter dem for alle, for eksempel staten med fødselsnummeret;</li>
+              <li><b>distribuert</b> når flere aktører forvalter hvert sitt, for eksempel hver institusjon sine brukernavn, eller e-postadresser på internett.</li>
+            </ul></li>
+          <li><b>Autentiseringen</b> (hvem kan autentisere en bestemt bruker?):
+            <ul>
+              <li><b>sentralisert</b> når bare én aktør kan autentisere den brukeren;</li>
+              <li><b>distribuert</b> når brukeren kan velge mellom flere aktører, for eksempel flere eID-leverandører.</li>
+            </ul></li>
+        </ul>
+        <p>Det er brukerens valg som avgjør: har brukeren bare én mulig IdP, er autentiseringen sentralisert, selv om føderasjonen har mange IdP-er.</p></div>
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Plasser ordningene: navnerom og autentisering</h4>
       <p class="ov-intro">Har ordningen sentralisert eller distribuert navnerom, og sentralisert eller distribuert autentisering? Trykk på en ordning, og plasser den i panelet som åpnes under den (eller i tabellen). Forklaringen kommer når du treffer.</p>
       <div id="viz-kategorier"></div>
 
+      <h4 class="iam-del">3 · Fordeler og ulemper <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Samme forklaring på tre nivåer. Velg nivå med bryteren øverst på siden.</p>
+      <div id="ex-modeller"></div>
+
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Er føderering alltid distribuert autentisering?</summary>
-          <p>Nei. I FEIDE og Eduroam kan en bruker bare autentiseres av hjemmeinstitusjonen, så autentiseringen regnes som sentralisert. Tysk eID har både sentralisert navnerom og sentralisert autentisering.</p></details>
+          <p>Nei. FEIDE og Eduroam har mange IdP-er, én per institusjon, og hver institusjon forvalter sitt eget navnerom (distribuert navnerom). Men en bestemt bruker kan bare autentiseres av sin egen hjemmeinstitusjon, ikke av en hvilken som helst institusjon i føderasjonen. Brukeren har altså bare én mulig IdP, og derfor regnes autentiseringen som sentralisert. Tysk eID har både sentralisert navnerom og sentralisert autentisering.</p></details>
         <details class="grense"><summary>Har føderering alltid distribuerte identitetsdomener?</summary>
           <p>Nei. ID-porten bruker fødselsnummeret, som er ett sentralt navnerom.</p></details>
         <details class="grense"><summary>Kan silo bare bruke én autentiseringsfaktor?</summary>
           <p>Nei. Antall faktorer har ingenting med identitetsmodellen å gjøre.</p></details>
         <details class="grense"><summary>Hvorfor står Eduroam under sentralisert autentisering?</summary>
-          <p>Fordi bare hjemmeinstitusjonen kan autentisere deg, selv om navnerommene er mange. 2026-lysarket plasserer Eduroam slik. En eldre fasit (H2018) hadde distribuert på begge aksene. Følg 2026-lysarket.</p></details>
+          <p>Av samme grunn som FEIDE: bare hjemmeinstitusjonen kan autentisere deg, selv om navnerommene er mange. 2026-lysarket plasserer Eduroam slik. En eldre fasit (H2018) hadde distribuert på begge aksene. Følg 2026-lysarket.</p></details>
         <ul>
           <li><b>Personvern:</b> silo gir <i>potensielt</i> bedre personvern fordi tjenestene vanskelig kan dele data. Føderering gjør det lett å dele informasjon om brukere.</li>
           <li><b>Hvem lager billetten?</b> IdP-en autentiserer og utsteder billetten. SP-en tilbyr tjenesten og tar imot billetten.</li>
           <li><b>Eduroam i Stockholm:</b> UiO-brukeren kommer på nett uten oppsett. Det er føderert identitet.</li>
-        </ul></div>
-
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li>H2021 7.1 (2 p): silo eller føderert for fire kjennetegn.</li>
-          <li>H2022 9.1 (3 p): sentralisert eller distribuert identitet og autentisering for OIDC, ID-porten, internett-IdP-er, silo, FIDO og personnummer.</li>
-          <li>H2022 9.2 (2 p): hvilke oppgaver SP og IdP har.</li>
-          <li>H2023 13 (1 p): Eduroam i Stockholm.</li>
-          <li>H2023 34 (3 p): seks utsagn korrekt eller feil.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Silo eller føderert?</h4>
@@ -191,28 +231,30 @@
     <!-- ===================== 3 · OIDC ===================== -->
     <section data-panel="oidc">
       <h3>Føderering i praksis: OIDC, FEIDE, ID-porten og eID</h3>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag tag-kjerne">kommer ofte</span> OIDC har vært med hvert år fra H2019 til H2024:</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-7_2">H2021 7.2</a> (6p) og <a href="#fane=eksamen&amp;oppg=o-H2024-31">H2024 31</a> (3p): skriv 1–12 på meldingene i OIDC-figuren (del 1). Samme figur, men 0,5p per tall i 2021 og 0,25p i 2024.</li>
+          <li><a href="07-autentisering.html#fane=eksamen&amp;oppg=o-H2024-30">H2024 30</a> (2p): sant eller usant om eID-leverandørene (statlige? HØYT overalt? brukt i e-forvaltning?) (del 2, oppgaven ligger i blokk 7).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-9_1">H2022 9.1</a>: OIDC støtter alle kombinasjoner av sentralisert og distribuert (fanen «Silo og føderert»).</li>
+        </ul>
+        <p class="small">Merkene: <span class="tag tag-kjerne">kommer ofte</span> = spurt om de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="iam-del">1 · OIDC: de tolv meldingene <span class="tag tag-kjerne">kommer ofte</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>ID-føderering</b> bruker protokoller der IdP-en autentiserer brukeren og sender et digitalt signert ID-token til SP-en, som tar det som bevis på at brukeren er autentisert.</li>
-          <li><b>Standarder:</b> OAuth, <b>OIDC</b> (OpenID Connect, bygd på OAuth 2.0) og <b>SAML</b> (eldre og XML-basert; ordningene går over til OIDC).</li>
-          <li><b>SSO:</b> når klienten har fått ID-token fra en IdP, trenger den ikke autentisere seg på nytt hos andre SP-er som bruker samme IdP.</li>
-          <li><b>FEIDE:</b> føderasjonen i utdanningssektoren. Brukeren er registrert hos hjemmeinstitusjonen (IdP-en) og logger inn via FEIDE. SP-en får billett og attributter, aldri passordet.</li>
-          <li><b>ID-porten:</b> autentiseringsportal for offentlige tjenester. Brukeren velger eID-leverandør: BankID, Buypass og Commfides gir nivå HØYT, MinID gir BETYDELIG.</li>
-          <li><b>Europeisk eID (eIDAS):</b> en borger i land A logger på en tjeneste i land B via de to landenes eIDAS-portaler.
-            <ul>
-              <li>EU krever en statlig IdP (IAM-lysarket s. 25).</li>
-              <li>I Norge er bare MinID statlig, og den gir bare BETYDELIG.</li>
-              <li>Forbehold: selve forordningen (eIDAS art. 7) godtar også eID som er utstedt på statens mandat eller anerkjent av staten. Lær lysarkets versjon til eksamen.</li>
-            </ul></li>
+          <li><b>Standarder:</b> OAuth, <b>OIDC</b> (OpenID Connect, bygd på OAuth 2.0) og <b>SAML</b> (Security Assertion Markup Language, eldre og XML-basert; ordningene går over til OIDC).</li>
+          <li><b>Klient:</b> nettleseren eller appen brukeren bruker. I OIDC går nesten alle meldingene mellom SP og IdP via klienten.</li>
+          <li><b>SSO</b> (Single Sign-On, én innlogging): når klienten har fått ID-token fra en IdP, trenger den ikke autentisere seg på nytt hos andre SP-er som bruker samme IdP.</li>
         </ul></div>
-      <div id="ex-oidc"></div>
-
       <h4 class="ov-h"><span class="ov-tag">Øving</span> OIDC: de tolv meldingene</h4>
       <p class="ov-intro">Trykk «Neste» for å gå gjennom meldingene én og én. Føderasjonsavtalen mellom SP og IdP er satt opp på forhånd (stiplet). Merkene C og R er utfordring og respons, ID er ID-tokenet. Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis.</p>
       <div id="sp-oidc"></div>
 
       <h4>Eksempel: Lina og Bibliotekappen</h4>
-      <p>Lina åpner Bibliotekappen (SP) og velger «Logg inn med Studentkonto» (IdP).</p>
+      <p>Lina åpner Bibliotekappen (SP) og velger «Logg inn med Studentkonto» (IdP). Tallene er de samme som i diagrammet over.</p>
       <ol class="small">
         <li>Nettleseren ber Bibliotekappen om lånelista.</li>
         <li>Appen viser valgene «Studentkonto» og «Kommune-ID».</li>
@@ -228,6 +270,18 @@
         <li>Lina ser lånelista. Bibliotekappen så aldri passordet.</li>
       </ol>
 
+      <h4 class="iam-del">2 · FEIDE, ID-porten og eID <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>FEIDE:</b> føderasjonen i utdanningssektoren. Brukeren er registrert hos hjemmeinstitusjonen (IdP-en) og logger inn via FEIDE. SP-en får billett og attributter, aldri passordet.</li>
+          <li><b>ID-porten:</b> autentiseringsportal for offentlige tjenester. Brukeren velger eID-leverandør (eID = elektronisk identitet): BankID, Buypass og Commfides gir nivå HØYT, MinID gir BETYDELIG.</li>
+          <li><b>Europeisk eID (eIDAS):</b> en borger i land A logger på en tjeneste i land B via de to landenes eIDAS-portaler.
+            <ul>
+              <li>EU krever en statlig IdP (IAM-lysarket s. 25).</li>
+              <li>I Norge er bare MinID statlig, og den gir bare BETYDELIG.</li>
+              <li>Forbehold: selve forordningen (eIDAS art. 7) godtar også eID som er utstedt på statens mandat eller anerkjent av staten. Lær lysarkets versjon til eksamen.</li>
+            </ul></li>
+        </ul></div>
       <h4>FEIDE og ID-porten i fem steg</h4>
       <ol>
         <li>Brukeren ber SP-en om tjenesten.</li>
@@ -240,6 +294,10 @@
       <p class="small muted fig-vis-led">ID-porten er IdP-en tjenesten har avtale med, og den står mellom tjenesten og eID-leverandørene. Tjenesten får ID-tokenet fra ID-porten, ikke fra BankID eller MinID.</p>
       <div id="fk-idporten"></div>
 
+      <h4 class="iam-del">3 · Hvorfor SP-en kan stole på ID-tokenet <span class="tag tag-kjerne">kommer ofte</span></h4>
+      <p class="ov-intro">Samme forklaring på tre nivåer. Velg nivå med bryteren øverst på siden.</p>
+      <div id="ex-oidc"></div>
+
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor går ID-tokenet via nettleseren og ikke rett fra IdP til SP?</summary>
           <p>I OIDC-figuren er det klienten som bærer meldingene: tokenet går fra IdP til klient (10) og videre fra klient til SP (11). Forenklede figurer sier «sendes til SP», men det skjer egentlig via nettleseren.</p></details>
@@ -251,13 +309,6 @@
           <li><b>Speilvendt figur:</b> H2021 7.2 og H2024 31 har samme protokoll, men H2021-figuren har IdP til venstre og andre etiketter («Nettleser», «Token»). Lær meldingene, ikke plasseringen.</li>
           <li><b>OIDC eller OAuth for innlogging?</b> OIDC gir autentisering (ID-token). OAuth gir tilgang (tilgangstoken).</li>
           <li><b>Er alle eID-leverandørene statlige?</b> Nei, bare MinID. BankID er privat.</li>
-        </ul></div>
-
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li>H2021 7.2 (6 p) og H2024 31 (3 p): skriv 1–12 på meldingene i OIDC-figuren. Samme figur, men 0,5 p per tall i 2021 og 0,25 p i 2024.</li>
-          <li>H2024 30 (2 p): sant eller usant om eID-leverandørene (statlige? HØYT overalt? brukt i e-forvaltning?).</li>
-          <li>H2022 9.1: OIDC støtter alle kombinasjoner av sentralisert og distribuert (fanen «Silo og føderert»).</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Sett de tolv OIDC-meldingene i rekkefølge</h4>
@@ -281,6 +332,16 @@
     <!-- ===================== 4 · OAUTH ===================== -->
     <section data-panel="oauth">
       <h3>OAuth: distribuert tilgangskontroll</h3>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> OAuth-figuren kom i H2023:</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-35">H2023 35</a> (4p): skriv 1–7 i Photo Edit-figuren, 0,5p per riktig tall og bonus når alt er riktig (del 1).</li>
+          <li>Ukesoppgavene spør i fritekst om motivasjonen for OAuth (del 1) og om bruk i helsesektoren (del 2).</li>
+        </ul>
+        <p class="small">Merkene: <span class="tag tag-kjerne">kommer ofte</span> = spurt om de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="iam-del">1 · Rollene og de sju meldingene <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>OAuth</b> (Open Authorization) er en IETF-standard for arkitekturer for <b>tilgangsautorisering og tilgangskontroll</b> når ressurseieren og ressurstjeneren er ulike aktører. OIDC bygger på OAuth.</li>
@@ -294,14 +355,12 @@
               <li>ressurstjener (der dataene ligger).</li>
             </ul></li>
         </ul></div>
-      <div id="ex-oauth"></div>
-
       <h4 class="ov-h"><span class="ov-tag">Øving</span> OAuth: de sju meldingene</h4>
       <p class="ov-intro">Trykk «Neste» for å gå gjennom meldingene én og én. Diagrammet bruker eksempelet fra eksamensfiguren (H2023 35): Photo Edit vil redigere brukerens bilder i Google Photos. AC er tilgangstokenet. Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis.</p>
       <div id="sp-oauth"></div>
 
       <h4>Eksempel: Løpelogg og Klokkesky</h4>
-      <p>Treningsappen Løpelogg (klient) vil hente pulsdata fra Klokkesky (ressurstjener).</p>
+      <p>Treningsappen Løpelogg (klient) vil hente pulsdata fra Klokkesky (ressurstjener). Tallene er de samme som i diagrammet over.</p>
       <ol>
         <li>Aron trykker «Koble til Klokkesky» i Løpelogg.</li>
         <li>Løpelogg ber Klokkeskys autoriseringstjener om lesetilgang til puls.</li>
@@ -313,13 +372,19 @@
       </ol>
       <p>Løpelogg kan ikke slette noe eller lese meldinger, og kjenner ikke Arons passord.</p>
 
+      <h4 class="iam-del">2 · OAuth i helsesektoren <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span></h4>
+      <p class="small muted">Står i lysarket og ukesoppgavene, men har ikke vært spurt om på eksamen.</p>
       <div class="callout eksempel"><span class="lbl">OAuth i helsesektoren</span>
-        Én sentral autoriseringstjener kan erstatte parvise avtaler mellom sykehus.
+        <p>Én sentral autoriseringstjener kan erstatte parvise avtaler mellom sykehus. En lege bruker et fagsystem (klienten) for å be om en pasientjournal (ressursen) hos et annet sykehus (ressurseieren).</p>
         <ul>
           <li>Med <b>generell policy</b> har sykehuset gitt policyen på forhånd, og legens forespørsel godkjennes automatisk (spørsmålet til ressurseieren i steg 3–4 faller bort).</li>
           <li>Med <b>spesifikk policy</b> går hver forespørsel til ressurseieren for godkjenning.</li>
         </ul>
-        Tilgangstokenet følges av et ID-token for legen.</div>
+        <p>I begge tilfellene får fagsystemet to token fra autoriseringstjeneren: et <b>tilgangstoken</b> som beviser at forespørselen er godkjent, og et <b>ID-token</b> som sier hvilken lege det gjelder. Ressurstjeneren vet dermed både at tilgangen er gitt og hvem som får den.</p></div>
+
+      <h4 class="iam-del">3 · Hvorfor appen aldri ser passordet <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Samme forklaring på tre nivåer. Velg nivå med bryteren øverst på siden.</p>
+      <div id="ex-oauth"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Er OAuth for innlogging?</summary>
@@ -332,12 +397,6 @@
           <li><b>Steg 1</b> går fra brukeren til appen, ikke til autoriseringstjeneren.</li>
           <li><b>Hvorfor bedre enn å gi appen passordet?</b> Tokenet gjelder bare én ressurs og ett formål, og passordet lekker ikke.</li>
           <li><b>Autorisering eller tilgangskontroll?</b> Godkjenningen i steg 4 er ressurseierens autorisering. Ressurstjenerens sjekk av tokenet i steg 6–7 er tilgangskontroll.</li>
-        </ul></div>
-
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li>H2023 35 (4 p): skriv 1–7 i Photo Edit-figuren, 0,5 p per riktig tall og bonus når alt er riktig.</li>
-          <li>Ukesoppgavene spør i fritekst om motivasjonen for OAuth og om bruk i helsesektoren.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> OAuth-meldingene i rekkefølge</h4>
@@ -355,44 +414,73 @@
     <!-- ===================== 5 · TILGANGSKONTROLLMODELLER ===================== -->
     <section data-panel="tk">
       <h3>Tilgangskontrollmodeller: DAC, MAC, RBAC og ABAC</h3>
-      <div class="callout begrep"><span class="lbl">Begrep</span>
-        Tilgangskontroll avgjør hvilke <b>subjekter</b> (brukere) som får tilgang til hvilke <b>objekter</b> (ressurser), og med hvilken <b>tilgangsmodus</b> (lese, skrive, utføre).
-        <ul>
-          <li><b>DAC</b> (navnebasert): policyen spesifiseres og håndheves ut fra subjektnavn og objektnavn, gjerne i en ACL. Eieren bestemmer etter eget skjønn. Brukes i Windows, macOS og Linux.</li>
-          <li><b>MAC</b> (merkebasert): subjekter har <b>klarering</b>, objekter har <b>gradering</b>, og en obligatorisk policy sammenligner merkene. Brukeren kan ikke gi bort tilgang. Brukes i SELinux og militære systemer.</li>
-          <li><b>Bell-LaPadula</b> (en MAC-modell):
-            <ul>
-              <li><b>ikke les opp</b> (ss-egenskapen) og</li>
-              <li><b>ikke skriv ned</b> (∗-egenskapen).</li>
-              <li>Brukeren har en maks klarering, men kan velge et lavere <b>aktuelt nivå for økten</b>.</li>
-              <li>Modellen støtter <b>konfidensialitet</b>.</li>
-            </ul></li>
-          <li><b>RBAC:</b> tilgang ut fra arbeidsrolle. Rollene lages fra jobbfunksjonene, og vanligvis har man én rolle om gangen. Det forenkler tildelingen, men gir fare for rolleeksplosjon. RBAC kan konfigureres som DAC eller MAC.</li>
-          <li><b>ABAC:</b> policyer kombinert med attributter av alle slag: subjekt, objekt, kontekst og forespørsel. ABAC generaliserer DAC, MAC og RBAC. Policyene skrives i JSON (OAuth og OIDC) eller XACML (XML, SAML).</li>
-        </ul></div>
-      <div id="ex-tk"></div>
 
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> Var med hvert år fra H2018 til H2022, men har ikke vært spurt om etter 2022. Temaet er fortsatt pensum.</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2021-7_3">H2021 7.3</a> (2p): RBAC, MAC, ABAC eller DAC for fire kjennetegn (del 1–3).</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-9_3">H2022 9.3</a> (2p): hva kan en bruker med maks HEMMELIG lese og skrive med aktuelt nivå HEMMELIG eller KONFIDENSIELT? (del 2)</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-9_4">H2022 9.4</a> (3p): plasser MAC, beslutning, gradering, tidspunkt, klarering og tilgangsmodus i ABAC-figuren (del 3).</li>
+        </ul>
+        <p class="small">Merkene: <span class="tag tag-kjerne">kommer ofte</span> = spurt om de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="iam-del">1 · DAC og RBAC <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <p>Tilgangskontroll avgjør hvilke <b>subjekter</b> (brukere) som får tilgang til hvilke <b>objekter</b> (ressurser), og med hvilken <b>tilgangsmodus</b> (lese, skrive, utføre).</p>
+        <ul>
+          <li><b>DAC</b> (Discretionary Access Control, navnebasert): policyen spesifiseres og håndheves ut fra subjektnavn og objektnavn. Eieren av ressursen bestemmer etter eget skjønn hvem som får tilgang. Brukes i Windows, macOS og Linux.</li>
+          <li><b>ACL</b> (Access Control List, tilgangskontrolliste): måten DAC lagres på. Lista sier hvilke subjekter som har hvilke tilgangsmoduser til hvilke objekter, for eksempel «John: lese og skrive» på mappa HR. Den kan lagres ved objektet eller i subjektets profil.</li>
+          <li><b>RBAC</b> (Role Based Access Control): tilgang ut fra arbeidsrolle. Rollene lages fra jobbfunksjonene, og vanligvis har man én rolle om gangen. Det forenkler tildelingen, fordi ansatte kommer og går, mens rollene er mer stabile.</li>
+          <li><b>Rolleeksplosjon</b> er RBACs problem: det defineres svært mange ulike roller, for eksempel én for hver kombinasjon av avdeling, stilling og prosjekt, til rollene blir like uoversiktlige som brukerne de skulle samle.</li>
+          <li><b>RBAC kan konfigureres som DAC eller MAC</b> (lysarket): rollene er bare et mellomledd. Hvem som knytter roller til ressurser, avgjør hva slags kontroll det er: eieren etter eget skjønn (som i DAC), eller en obligatorisk policy brukeren ikke kan endre (som i MAC).</li>
+        </ul></div>
       <p class="small muted fig-vis-led">RBAC og DAC side om side: i RBAC går tilgangen via roller, i DAC står den i en liste ved objektet, og eieren bestemmer.</p>
       <div id="fx-rbac-dac"></div>
 
+      <h4 class="iam-del">2 · MAC og Bell-LaPadula <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>MAC</b> (Mandatory Access Control, merkebasert): subjekter har <b>klarering</b>, objekter har <b>gradering</b>, og en obligatorisk policy sammenligner merkene. Brukeren kan ikke gi bort tilgang. Brukes i SELinux og militære systemer.</li>
+          <li><b>Bell-LaPadula</b> er en MAC-modell. Nivåene fra lavest til høyest er BEGRENSET, KONFIDENSIELT, HEMMELIG og STRENGT HEMMELIG. «Opp» betyr en høyere gradering enn øktens nivå, «ned» en lavere:
+            <ul>
+              <li><b>ikke les opp</b> (ss-egenskapen): du kan ikke lese et dokument som er gradert høyere enn øktens nivå;</li>
+              <li><b>ikke skriv ned</b> (∗-egenskapen): du kan ikke skrive i et dokument som er gradert lavere enn øktens nivå, fordi hemmelig innhold da kunne lekke nedover.</li>
+              <li>Brukeren har en maks klarering, men kan velge et lavere <b>aktuelt nivå for økten</b>.</li>
+              <li>Modellen støtter <b>konfidensialitet</b>.</li>
+            </ul></li>
+        </ul></div>
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Bell-LaPadula: lese, skrive eller redigere?</h4>
-      <p class="ov-intro">Velg maks klarering, aktuelt nivå og dokumentets gradering, og se hva brukeren får lov til. Graderingene fra lavest til høyest: BEGRENSET, KONFIDENSIELT, HEMMELIG, STRENGT HEMMELIG. Aktuelt nivå kan ikke settes over maks. Eksempelknappene «Major Dahl» gjelder en bruker med maks klarering HEMMELIG (eksempelet under).</p>
+      <p class="ov-intro">Velg maks klarering, aktuelt nivå og dokumentets gradering, og se hva brukeren får lov til. Aktuelt nivå kan ikke settes over maks. Eksempelknappene «Major Dahl» gjelder en bruker med maks klarering HEMMELIG (eksempelet under).</p>
       <div id="viz-blp"></div>
 
       <h4>Eksempel: Major Dahl</h4>
       <p>Tre dokumenter: Øvelsesplan (BEGRENSET), Logistikk (KONFIDENSIELT) og Angrepsplan (HEMMELIG). Major Dahl har maks klarering HEMMELIG.</p>
-      <div class="iam-tw"><table>
-        <thead><tr><th>Aktuelt nivå</th><th>Kan lese</th><th>Kan skrive</th><th>Kan redigere</th></tr></thead>
+      <div class="iam-tw"><table class="iam-dahl">
+        <thead><tr><th scope="col">Aktuelt nivå</th><th scope="col">Kan lese</th><th scope="col">Kan skrive</th><th scope="col">Kan redigere</th></tr></thead>
         <tbody>
-          <tr><td>HEMMELIG</td><td>alle tre</td><td>Angrepsplan (og STRENGT HEMMELIG-dokumenter)</td><td>Angrepsplan</td></tr>
-          <tr><td>KONFIDENSIELT</td><td>Øvelsesplan, Logistikk</td><td>Logistikk, Angrepsplan (og høyere)</td><td>Logistikk</td></tr>
+          <tr><th scope="row">HEMMELIG</th><td>alle tre</td><td>Angrepsplan (og STRENGT HEMMELIG-dokumenter)</td><td>Angrepsplan</td></tr>
+          <tr><th scope="row">KONFIDENSIELT</th><td>Øvelsesplan, Logistikk</td><td>Logistikk, Angrepsplan (og høyere)</td><td>Logistikk</td></tr>
         </tbody></table></div>
 
+      <h4 class="iam-del">3 · ABAC <span class="tag">eksamensbasert</span></h4>
+      <div class="callout begrep"><span class="lbl">Begrep</span>
+        <ul>
+          <li><b>ABAC</b> (Attribute Based Access Control): policyer kombinert med attributter av alle slag: subjekt, objekt, kontekst og forespørsel. ABAC generaliserer DAC, MAC og RBAC.</li>
+          <li><b>Policyspråk:</b> attributtene og policyene skrives i et maskinlesbart språk som sier hvordan systemet skal avgjøre en forespørsel:
+            <ul>
+              <li><b>JSON</b> (JavaScript Object Notation) Schema i løsninger som bygger på OAuth og OIDC;</li>
+              <li><b>XACML</b> (eXtensible Access Control Markup Language, utvidelsen er ikke pensum), som er XML-basert, i løsninger som bygger på SAML.</li>
+            </ul></li>
+        </ul></div>
       <p class="small muted fig-vis-led">ABAC-arkitekturen: fire typer attributter og policyene går inn i ABAC-funksjonen, som avgjør om forespørselen får tilgang.</p>
       <div id="fv-abac"></div>
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> ABAC: en policy for journaler</h4>
       <p class="ov-intro">Dr. Berg på kirurgi ber kl. 14 om å lese en kirurgijournal: tilgang. Samme forespørsel kl. 03, når hun ikke er på vakt: avslag. Her ser du hvordan policyen avgjør. Bytt attributtene under (rolle, avdeling, tid og modus), så viser demoen hvilke vilkår som holder, og om forespørselen får tilgang.</p>
       <div id="viz-abac"></div>
+
+      <h4 class="iam-del">4 · Hvordan modellene henger sammen <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Samme forklaring på tre nivåer. Velg nivå med bryteren øverst på siden.</p>
+      <div id="ex-tk"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Beskytter Bell-LaPadula integritet?</summary>
@@ -407,14 +495,6 @@
           <li><b>«MAC» betyr to ting</b> på eksamen: Mandatory Access Control her, Message Authentication Code i kryptografi.</li>
           <li><b>Klarering eller gradering?</b> Klarering er et subjektattributt, gradering er et objektattributt.</li>
           <li>Tradisjonelt bruker kommersielle systemer DAC, mens militære bruker både DAC og MAC.</li>
-        </ul></div>
-
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li>H2021 7.3 (2 p): RBAC, MAC, ABAC eller DAC for fire kjennetegn.</li>
-          <li>H2022 9.3 (2 p): hva kan en bruker med maks HEMMELIG lese og skrive med aktuelt nivå HEMMELIG eller KONFIDENSIELT?</li>
-          <li>H2022 9.4 (3 p): plasser MAC, beslutning, gradering, tidspunkt, klarering og tilgangsmodus i ABAC-figuren.</li>
-          <li>Temaet har ikke vært på eksamen etter 2022, men er fortsatt pensum.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Hvilken tilgangsmodell?</h4>
@@ -442,39 +522,39 @@
 
   <footer class="footer">IN2120-guide · Blokk 8 · Identitets- og tilgangshåndtering · <a href="09-nettverk.html">Neste: blokk 9, nettverk</a></footer>
 
-  <script src="assets/js/core.js?v=20261127l"></script>
-  <script src="assets/js/symboler.js?v=20261127l"></script>
-  <script src="assets/js/begreper-data.js?v=20261127l"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
-  <script src="assets/js/pseudocode.js?v=20261127l"></script>
-  <script src="assets/js/stepplayer.js?v=20261127l"></script>
-  <script src="assets/js/varline.js?v=20261127l"></script>
-  <script src="assets/js/inspera.js?v=20261127l"></script>
-  <script src="assets/js/dra.js?v=20261127l"></script>
-  <script src="assets/js/ovelse.js?v=20261127l"></script>
-  <script src="assets/js/bank.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261127l"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
-  <script src="assets/js/viz-iam.js?v=20261127l"></script>
+  <script src="assets/js/core.js?v=20261127m"></script>
+  <script src="assets/js/symboler.js?v=20261127m"></script>
+  <script src="assets/js/begreper-data.js?v=20261127m"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127m"></script>
+  <script src="assets/js/pseudocode.js?v=20261127m"></script>
+  <script src="assets/js/stepplayer.js?v=20261127m"></script>
+  <script src="assets/js/varline.js?v=20261127m"></script>
+  <script src="assets/js/inspera.js?v=20261127m"></script>
+  <script src="assets/js/dra.js?v=20261127m"></script>
+  <script src="assets/js/ovelse.js?v=20261127m"></script>
+  <script src="assets/js/bank.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127m"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127m"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261127m"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127m"></script>
+  <script src="assets/js/viz-iam.js?v=20261127m"></script>
   <script>
   (function () {
     "use strict";

@@ -189,7 +189,7 @@
   /* Regn først: studenten regner A^L og tiden før kalkulatoren åpnes.
      Fasit og vanlige feil er rene funksjoner (calc.nr*), så selfTest kan sjekke dem. */
   var NR_INN = [
-    { navn: "A", etikett: "Tegn å velge mellom (A)", verdi: 36, min: 10, max: 105, steg: 1 },
+    { navn: "A", etikett: "Tegn å velge mellom (N)", verdi: 36, min: 10, max: 105, steg: 1 },
     { navn: "L", etikett: "Lengde (L)", verdi: 10, min: 4, max: 16, steg: 1 }
   ];
   var NR_FART = 1e10;
@@ -215,25 +215,25 @@
         opphav: { type: "egen", kilder: ["ba s. 3–13"] },
         sporsmal: function (inn) {
           return "Et passord har nøyaktig <b>" + inn.L + "</b> tegn, og hvert tegn velges fritt blant <b>" + inn.A + "</b> mulige tegn" +
-            tegnsettTekst(inn.A) + ". Hvor mange ulike passord finnes? Endre A og L med gliderne over for en ny oppgave.";
+            tegnsettTekst(inn.A) + ". Hvor mange ulike passord finnes? Endre N og L med gliderne over for en ny oppgave.";
         },
         inndata: NR_INN,
         fasit: function (inn) { return calc.keyspace(inn.A, inn.L); },
         enhet: "passord",
         vanligeFeil: [
-          { verdi: function (inn) { return Math.pow(inn.L, inn.A); }, hint: "Du har byttet om grunntall og eksponent (L<sup>A</sup>). Det er antall <i>tegn</i> opphøyd i <i>lengden</i>: A<sup>L</sup>." },
-          { verdi: function (inn) { return inn.A * inn.L; }, hint: "Valgene for hver posisjon ganges med hverandre: A · A · … · A, L ganger. A · L ville betydd at hvert nytt tegn bare legger til A muligheter." },
+          { verdi: function (inn) { return Math.pow(inn.L, inn.A); }, hint: "Du har byttet om grunntall og eksponent (L<sup>N</sup>). Det er antall <i>tegn</i> opphøyd i <i>lengden</i>: N<sup>L</sup>." },
+          { verdi: function (inn) { return inn.A * inn.L; }, hint: "Valgene for hver posisjon ganges med hverandre: N · N · … · N, L ganger. N · L ville betydd at hvert nytt tegn bare legger til N muligheter." },
           { verdi: function (inn) { return calc.keyspace(inn.A, inn.L) / 2; }, hint: "Det er hvor mange gjetninger som trengs i snitt. Spørsmålet gjelder alle mulige passord." },
-          { verdi: function (inn) { return calc.keyspace(inn.A, inn.L - 1); }, hint: "Du har én faktor for lite: A<sup>L−1</sup>. Alle de L tegnene har A valg, også det første." },
-          { test: function (svar, inn) { return inn.A !== 26 && IN.regnForst.naer(svar, Math.pow(26, inn.L), 0.02); }, hint: "Du har bare regnet med små bokstaver (26). Ta med hele tegnsettet A." }
+          { verdi: function (inn) { return calc.keyspace(inn.A, inn.L - 1); }, hint: "Du har én faktor for lite: N<sup>L−1</sup>. Alle de L tegnene har N valg, også det første." },
+          { test: function (svar, inn) { return inn.A !== 26 && IN.regnForst.naer(svar, Math.pow(26, inn.L), 0.02); }, hint: "Du har bare regnet med små bokstaver (26). Ta med hele tegnsettet N." }
         ],
         forklaring: function (inn) {
           var d = Math.floor(inn.L * Math.log10(inn.A)) + 1;
           return {
             eli5: "<p>For hvert tegn har du " + inn.A + " valg. To tegn gir " + inn.A + " · " + inn.A + " muligheter, og hvert nytt tegn ganger med " + inn.A + " igjen.</p>",
-            normal: "<p>Hver av de " + inn.L + " posisjonene har " + inn.A + " valg, uavhengig av de andre. Antallet blir A<sup>L</sup> = " + inn.A + sup(inn.L) +
+            normal: "<p>Hver av de " + inn.L + " posisjonene har " + inn.A + " valg, uavhengig av de andre. Antallet blir N<sup>L</sup> = " + inn.A + sup(inn.L) +
               ", et tall med " + d + " sifre. Ett tegn til ganger antallet med " + inn.A + ", mens et større tegnsett bare øker grunntallet. Derfor slår lengde tegnsett.</p>",
-            teknisk: "<p>|K| = A<sup>L</sup> = " + inn.A + sup(inn.L) + " ≈ " + sci(calc.keyspace(inn.A, inn.L)) + ", altså log₂|K| = L · log₂A ≈ " +
+            teknisk: "<p>Antall mulige passord |K| = N<sup>L</sup> = " + inn.A + sup(inn.L) + " ≈ " + sci(calc.keyspace(inn.A, inn.L)) + ", altså log₂|K| = L · log₂N ≈ " +
               dec(inn.L * Math.log(inn.A) / Math.LN2, 1) + " bit. Det forutsetter at tegnene velges tilfeldig. Menneskevalgte passord ligger langt under dette, og angriperen starter med ordlister.</p>"
           };
         }
@@ -242,7 +242,7 @@
         id: "aut-nr-tid",
         opphav: { type: "egen", kilder: ["ba s. 3–13"] },
         sporsmal: function (inn) {
-          return "Samme type passord: A = <b>" + inn.A + "</b> tegn og lengde L = <b>" + inn.L + "</b>. Angriperen har en lekket hash og prøver <b>10<sup>10</sup> gjetninger per sekund</b> (rask hashfunksjon). " +
+          return "Samme type passord: N = <b>" + inn.A + "</b> tegn og lengde L = <b>" + inn.L + "</b>. Angriperen har en lekket hash og prøver <b>10<sup>10</sup> gjetninger per sekund</b> (rask hashfunksjon). " +
             "Hvor lang tid tar det i verste fall å prøve alle passordene? Regn ut tiden og velg størrelsesorden.";
         },
         inndata: NR_INN,
@@ -254,7 +254,7 @@
         vanligeFeil: [
           { verdi: function (inn) { return calc.snitt(inn.A, inn.L, NR_FART); }, hint: "Det er tiden <i>i snitt</i> (halvparten av rommet). Spørsmålet gjelder verste fall: alle passordene." },
           { verdi: function (inn) { return calc.keyspace(inn.A, inn.L) * NR_FART; }, hint: "Du har ganget med farten. Antall passord <i>delt på</i> gjetninger per sekund gir sekunder." },
-          { verdi: function (inn) { return Math.pow(inn.L, inn.A) / NR_FART; }, hint: "Du har byttet om grunntall og eksponent. Antallet er A<sup>L</sup>, ikke L<sup>A</sup>." },
+          { verdi: function (inn) { return Math.pow(inn.L, inn.A) / NR_FART; }, hint: "Du har byttet om grunntall og eksponent. Antallet er N<sup>L</sup>, ikke L<sup>N</sup>." },
           { verdi: function (inn) { return calc.keyspace(inn.A, inn.L); }, hint: "Det er antall passord. Del på 10<sup>10</sup> gjetninger per sekund for å få tiden." }
         ],
         forklaring: function (inn) {
@@ -263,7 +263,7 @@
             eli5: "<p>Tell hvor mange passord det finnes, og del på hvor mange angriperen rekker per sekund. Det tar " + tid(s) + ".</p>",
             normal: "<p>Tid = antall passord / gjetninger per sekund = " + inn.A + sup(inn.L) + " / 10¹⁰ ≈ " + sci(s) + " s ≈ <b>" + tid(s) + "</b>. I snitt finnes passordet etter halvparten av tiden.</p>" +
               "<p>En bevisst treg hashfunksjon senker farten, og tiden går opp med samme faktor. Kalkulatoren under viser det.</p>",
-            teknisk: "<p>T<sub>maks</sub> = A<sup>L</sup> / r og T<sub>snitt</sub> = A<sup>L</sup> / 2r, med r = 10¹⁰ s⁻¹. Med en treg hash (for eksempel r = 10⁴) blir tiden 10⁶ ganger lenger. Salt endrer ikke dette tallet for én bruker, men tvinger angriperen til å gjøre jobben på nytt for hver bruker.</p>"
+            teknisk: "<p>T<sub>maks</sub> = N<sup>L</sup> / r og T<sub>snitt</sub> = N<sup>L</sup> / 2r, med r = 10¹⁰ gjetninger per sekund. Med en treg hash (for eksempel r = 10⁴) blir tiden 10⁶ ganger lenger. Salt endrer ikke dette tallet for én bruker, men tvinger angriperen til å gjøre jobben på nytt for hver bruker.</p>"
           };
         }
       });
@@ -280,6 +280,14 @@
     var wrap = el("div", { class: "aut-viz aut-nr" });
     var pre = row("aut-presets", [el("span", { class: "aut-k", text: "Eksempler:" })]);
     wrap.appendChild(pre);
+    var preNote = el("p", { class: "small muted", "aria-live": "polite" });
+    wrap.appendChild(preNote);
+    var preBtns = [], preValgt = 0;
+    function visPreset() {
+      preBtns.forEach(function (b, i) { b.setAttribute("aria-pressed", i === preValgt ? "true" : "false"); });
+      preNote.textContent = preValgt >= 0 ? "Valgt eksempel: " + PRESETS[preValgt].navn + ". Endre tegnsett, lengde eller fart for å regne på egne tall."
+        : "Egne tall. Trykk et eksempel for å hente tallene fra eksamen eller lysarket.";
+    }
 
     function side(navn) {
       var boxes = {}, chk = el("div", { class: "aut-chk", role: "group", "aria-label": "Tegnsett " + navn });
@@ -314,9 +322,11 @@
     var fartTab = el("div", { class: "aut-farttab" });
     wrap.appendChild(cmp); wrap.appendChild(bars); wrap.appendChild(fartTab);
 
-    PRESETS.forEach(function (p) {
-      pre.appendChild(el("button", { class: "btn sm", type: "button", text: p.navn, onclick: function () { A.set(p.a); B.set(p.b); fart.value = String(p.fart); paint(); } }));
+    PRESETS.forEach(function (p, i) {
+      var b = el("button", { class: "btn sm", type: "button", text: p.navn, "aria-pressed": "false", onclick: function () { A.set(p.a); B.set(p.b); fart.value = String(p.fart); preValgt = i; paint(); } });
+      preBtns.push(b); pre.appendChild(b);
     });
+    function egne() { if (preValgt >= 0) { preValgt = -1; } paint(); }
 
     function paintSide(S, v) {
       var N = S.N(), L = S.L();
@@ -329,6 +339,7 @@
       return { N: N, L: L };
     }
     function paint() {
+      visPreset();
       var v = FART[+fart.value].v;
       var a = paintSide(A, v), b = paintSide(B, v);
       clear(cmp); clear(bars); clear(fartTab);
@@ -364,9 +375,9 @@
       fartTab.appendChild(el("div", { class: "table-wrap" }, [t]));
     }
     [A, B].forEach(function (S) {
-      IN.qsa("input", S.col).forEach(function (i) { i.addEventListener("input", paint); i.addEventListener("change", paint); });
+      IN.qsa("input", S.col).forEach(function (i) { i.addEventListener("input", egne); i.addEventListener("change", egne); });
     });
-    fart.addEventListener("change", paint);
+    fart.addEventListener("change", egne);
     A.set(PRESETS[0].a); B.set(PRESETS[0].b);
     clear(host); host.appendChild(wrap);
     paint();
@@ -387,9 +398,12 @@
       var b = el("button", { class: "btn sm", type: "button", text: m[1], "aria-pressed": "false", onclick: function () { mode = m[0]; paint(); } });
       mBtns[m[0]] = b; modes.appendChild(b);
     });
-    var lekkBtn = el("button", { class: "btn sm", type: "button", "aria-pressed": "false", onclick: function () { lekk = !lekk; paint(); } });
-    modes.appendChild(lekkBtn);
+    var lekkBtn = el("button", { class: "btn sm aut-angrep", type: "button", "aria-pressed": "false", onclick: function () { lekk = !lekk; paint(); } });
+    var lekkHint = el("span", { class: "small muted" });
+    // Angrepet står på en egen rad, så det ikke ser ut som et fjerde lagringsvalg (demo-gjennomgang punkt 15).
+    var angrep = row("aut-seg", [el("span", { class: "aut-k", text: "Angrep:" }), lekkBtn, lekkHint]);
     wrap.appendChild(modes);
+    wrap.appendChild(angrep);
     wrap.appendChild(el("p", { class: "small muted", html: "Leke-hash (ikke sikker, bare for å vise prinsippet): H(x) = (summen av tegnverdiene × 37) mod 1000, der a = 1, …, z = 26 og et siffer teller som sin verdi. Med salt: H(salt ‖ passord) = ((salt + summen) × 37) mod 1000. Andre tegn enn a–z og 0–9 telles ikke." }));
 
     var ed = el("div", { class: "aut-users" });
@@ -428,8 +442,9 @@
     }
     function paint() {
       Object.keys(mBtns).forEach(function (k) { mBtns[k].setAttribute("aria-pressed", k === mode ? "true" : "false"); });
-      lekkBtn.textContent = lekk ? "Skjul lekkasjen" : "Lekk databasen";
+      lekkBtn.textContent = lekk ? "Databasen er lekket (trykk for å angre)" : "Lekk databasen";
       lekkBtn.setAttribute("aria-pressed", lekk ? "true" : "false");
+      lekkHint.textContent = lekk ? "Tabellen og teksten under viser hva angriperen ser." : "Trykk for å se hva en angriper får ut av databasen.";
       // Databasen
       var vals = users.map(lagret), count = {};
       vals.forEach(function (v) { count[v] = (count[v] || 0) + 1; });
@@ -512,7 +527,7 @@
       el("button", { class: "btn sm", type: "button", text: "+ 5 min", onclick: function () { now += 300; sync(); } }),
       lbl("Nøkkel K:", kIn)]));
     wrap.appendChild(row("", [lbl("Brikkens klokke går feil med:", dr), drV]));
-    var lockBtn = el("button", { class: "btn sm", type: "button", onclick: function () { locked = locked == null ? cur.kode : null; paint(); } });
+    var lockBtn = el("button", { class: "btn sm", type: "button", "aria-pressed": "false", onclick: function () { locked = locked == null ? cur.kode : null; paint(); } });
     wrap.appendChild(row("", [lockBtn, el("span", { class: "small muted", text: "Skriv ned koden og flytt klokka for å se at en gammel kode ikke virker." })]));
     var cols = el("div", { class: "aut-cols" }), tl = el("div", { class: "aut-tl" }), res = el("p", { class: "aut-login", "aria-live": "polite" });
     wrap.appendChild(cols); wrap.appendChild(tl); wrap.appendChild(res);
@@ -526,7 +541,8 @@
       cur = { kode: kode };
       var tastet = locked != null ? locked : kode;
       drV.textContent = (drift > 0 ? "+" : drift < 0 ? "−" : "±") + Math.abs(drift) + " s";
-      lockBtn.textContent = locked != null ? "Slipp koden (" + locked + ")" : "Skriv ned koden";
+      lockBtn.textContent = locked != null ? "Koden " + locked + " er skrevet ned (trykk for å slippe)" : "Skriv ned koden";
+      lockBtn.setAttribute("aria-pressed", locked != null ? "true" : "false");
       clear(cols);
       cols.appendChild(el("div", { class: "aut-col" }, [el("h5", { class: "aut-h", text: "Brikken" }),
         el("p", { class: "mono", text: "klokke " + hhmmss(now + drift) + " → t = " + tb }),
@@ -624,7 +640,7 @@
     var sl = el("input", { type: "range", min: "0", max: "100", value: String(T), "aria-label": "Terskel T" });
     var tv = el("output", { class: "aut-big" });
     var pre = row("aut-presets", [lbl("Terskel T:", sl), tv]);
-    [50, 60, 70, 75].forEach(function (v) { pre.appendChild(el("button", { class: "btn sm", type: "button", text: "T = " + v, onclick: function () { T = v; sl.value = String(v); paint(); } })); });
+    var tBtns = [50, 60, 70, 75].map(function (v) { var b = el("button", { class: "btn sm", type: "button", text: "T = " + v, "aria-pressed": "false", onclick: function () { T = v; sl.value = String(v); paint(); } }); b._T = v; pre.appendChild(b); return b; });
     wrap.appendChild(pre);
     var svgHost = el("div", { class: "aut-svg" }), stats = el("div"), note = el("p", { class: "aut-note", "aria-live": "polite" });
     wrap.appendChild(svgHost); wrap.appendChild(stats); wrap.appendChild(note);
@@ -633,6 +649,7 @@
     var X0 = 50, X1 = 630, xs = function (v) { return X0 + (X1 - X0) * v / 100; };
     function paint() {
       tv.textContent = String(T);
+      tBtns.forEach(function (b) { b.setAttribute("aria-pressed", b._T === T ? "true" : "false"); });
       var r = calc.rater(GEN, IMP, T), s = [];
       s.push('<svg class="viz-svg" viewBox="0 0 660 330" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">Skåringer for genuine og ikke-genuine forsøk med terskel ' + T + "</title>");
       // akse
@@ -814,16 +831,19 @@
   };
 
   function seqSvg(sc, upto, idn) {
-    var n = sc.parts.length, W = 660, top = 56, dy = 46, shown = sc.msgs.filter(function (m) { return m.s <= upto; });
+    var n = sc.parts.length, W = 660, top = 66, dy = 46, shown = sc.msgs.filter(function (m) { return m.s <= upto; });
     var H = top + Math.max(1, sc.msgs.length) * dy + (sc.etapper ? 48 : 14);
     var xs = function (i) { return 20 + (W - 40) * (i + 0.5) / n; };
     var s = ['<svg class="viz-svg aut-seq-svg" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Sekvensdiagram"><defs>' +
       '<marker id="' + idn + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="aut-mk"/></marker></defs>'];
     sc.parts.forEach(function (p, i) {
       var bw = (W - 40) / n - 12;
-      s.push('<rect class="aut-part" x="' + (xs(i) - bw / 2) + '" y="8" width="' + bw + '" height="32" rx="6"/>');
-      s.push('<text class="aut-partl" x="' + xs(i) + '" y="29" text-anchor="middle">' + esc(p) + "</text>");
-      s.push('<line class="aut-life" x1="' + xs(i) + '" y1="40" x2="' + xs(i) + '" y2="' + (H - (sc.etapper ? 40 : 6)) + '"/>');
+      // Navn på første linje og parentesen på andre, så lange navn ikke flyter inn i nabo-boksen (fire parter).
+      var k = p.indexOf(" ("), l1 = k > 0 ? p.slice(0, k) : p, l2 = k > 0 ? p.slice(k + 1) : "";
+      s.push('<rect class="aut-part" x="' + (xs(i) - bw / 2) + '" y="6" width="' + bw + '" height="44" rx="6"/>');
+      s.push('<text class="aut-partl" x="' + xs(i) + '" y="' + (l2 ? 24 : 33) + '" text-anchor="middle">' + esc(l1) + "</text>");
+      if (l2) s.push('<text class="aut-tk" x="' + xs(i) + '" y="41" text-anchor="middle">' + esc(l2) + "</text>");
+      s.push('<line class="aut-life" x1="' + xs(i) + '" y1="50" x2="' + xs(i) + '" y2="' + (H - (sc.etapper ? 40 : 6)) + '"/>');
     });
     shown.forEach(function (m, k) {
       var y = top + 14 + sc.msgs.indexOf(m) * dy, cur = m.s === upto ? " cur" : "";
@@ -959,7 +979,7 @@
       EID.forEach(function (e) {
         var on = e.niv >= sel;
         lev.appendChild(el("span", { class: "aut-chip" + (on ? " on" : ""), title: on ? "Holder nivået" : "For lavt nivå",
-          text: e.navn + " (" + ["LAVT", "BETYDELIG", "HØYT"][e.niv] + (e.statlig ? ", statlig" : "") + (e.note ? ", " + e.note : "") + ")" }));
+          text: (on ? "✓ " : "✗ ") + e.navn + " (" + ["LAVT", "BETYDELIG", "HØYT"][e.niv] + (e.statlig ? ", statlig" : "") + (e.note ? ", " + e.note : "") + ")" }));
       });
       out.appendChild(el("p", { class: "small", text: "eID-er som holder nivået (" + ok.length + " av " + EID.length + "):" }));
       out.appendChild(lev);

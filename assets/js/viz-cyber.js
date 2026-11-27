@@ -191,9 +191,9 @@
       var b = btn(s.navn, function () { velg(cur === i ? -1 : i); }, null, { "aria-pressed": "false" });
       obs.appendChild(b); return b;
     });
-    var bGlemt = btn("Glemte VPN én gang", function () { glemt = !glemt; tegn(); }, null, { "aria-pressed": "false" });
-    obs.appendChild(bGlemt);
     wrap.appendChild(obs);
+    var bGlemt = btn("Glemte VPN én gang", function () { glemt = !glemt; tegn(); }, null, { "aria-pressed": "false" });
+    wrap.appendChild(el("div", { class: "cy-ctl", role: "group", "aria-label": "Scenario" }, [el("span", { class: "small muted", text: "Scenario:" }), bGlemt]));
 
     var chain = el("ol", { class: "cy-chain", "aria-label": "Trafikkens vei" });
     var nodeEls = NODER.map(function (n, i) {
@@ -244,17 +244,21 @@
         { uke: "Uke 60", ip: "203.0.113.81", f: nyKlient ? B : A }
       ];
       var tbl = el("table", { class: "cy-ja" });
-      tbl.appendChild(el("thead", null, el("tr", null, ["Når", "Fra adresse", "Versjon", "Chifferliste", "Utvidelser", "Merke"].map(function (h) { return el("th", { scope: "col", text: h }); }))));
+      tbl.appendChild(el("thead", null, el("tr", null, ["Når og fra adresse", "Felt i ClientHello", "Merke"].map(function (h) { return el("th", { scope: "col", text: h }); }))));
       var tb = el("tbody"), first = null;
+      function felt(navn, verdi, mono) {
+        return el("div", { class: "cy-ja-felt" }, [el("span", { class: "small muted", text: navn + ": " }), el("span", { class: mono ? "mono" : "", text: verdi })]);
+      }
       rader.forEach(function (r) {
         var m = lekemerke(r.f.v + "," + r.f.c + "," + r.f.u);
         if (first == null) first = m;
-        tb.appendChild(el("tr", null, [el("td", { text: r.uke }), el("td", { class: "mono", text: r.ip }), el("td", { text: r.f.v }),
-          el("td", { class: "mono", text: r.f.c }), el("td", { class: "mono", text: r.f.u }),
+        tb.appendChild(el("tr", null, [
+          el("th", { scope: "row" }, [el("div", { text: r.uke }), el("div", { class: "mono small", text: r.ip })]),
+          el("td", null, [felt("Versjon", r.f.v, false), felt("Chifferliste", r.f.c, true), felt("Utvidelser", r.f.u, true)]),
           el("td", null, el("span", { class: "cy-merke" + (m === first ? " same" : " diff"), text: m }))]));
       });
       tbl.appendChild(tb);
-      clear(jaHost); jaHost.appendChild(tbl);
+      clear(jaHost); jaHost.appendChild(el("div", { class: "table-wrap" }, tbl));
       jaHost.appendChild(el("p", { class: "small", text: nyKlient
         ? "I uke 60 har klienten byttet programvare, så merket er nytt. Fingeravtrykket er et svakt spor som må kombineres med andre."
         : "IP-adressen byttes hver gang, men merket er det samme. Det kobler de tre hendelsene til samme klientprogramvare." }));
@@ -399,15 +403,15 @@
     var lag = CTI.map(function (c, i) {
       var life = el("span", { class: "cy-life" }, el("span", { class: "cy-life-bar" }));
       var lifeTxt = el("span", { class: "small muted cy-life-t" });
-      var d = el("div", { class: "cy-lag cy-lag-" + c.id, style: "--w:" + (64 + i * 18) + "%" }, [
+      var d = el("button", { type: "button", class: "cy-lag cy-lag-" + c.id, style: "--w:" + (64 + i * 18) + "%", "aria-pressed": "false",
+        title: "Trykk for å vise DML-trinnene for dette laget" }, [
         el("b", { text: c.navn }), el("span", { class: "small", text: c.om }), el("span", { class: "cy-life-row" }, [life, lifeTxt])
       ]);
-      d.addEventListener("focus", function () { mark(i); });
-      d.addEventListener("mouseenter", function () { mark(i); });
+      d.addEventListener("click", function () { mark(i); });
       pyr.appendChild(d);
       return { el: d, bar: life.firstChild, txt: lifeTxt };
     });
-    grid.appendChild(pyr);
+    grid.appendChild(el("div", { class: "cy-pyr-klikk" }, [el("span", { class: "cy-klikkhint", text: "Trykk på et lag" }), pyr]));
     var lad = el("ol", { class: "cy-dml", reversed: true, "aria-label": "DML-trappa" });
     var rungs = [];
     for (var k = 9; k >= 0; k--) {
@@ -433,7 +437,7 @@
 
     function mark(i) {
       rungs.forEach(function (r, k) { r.classList.toggle("on", CTI[i].dml.indexOf(k) >= 0); });
-      lag.forEach(function (l, k) { l.el.classList.toggle("cur", k === i); });
+      lag.forEach(function (l, k) { l.el.classList.toggle("cur", k === i); press(l.el, k === i); });
     }
     function uker() {
       var w = +sl.value;
@@ -478,7 +482,7 @@
     var s = svg("svg", { viewBox: "0 0 640 400", class: "cy-ops-svg", role: "group", "aria-label": "Mengdediagram over informasjonsoperasjoner" });
     var msg = el("p", { class: "cy-msg", "aria-live": "polite" });
     var gs = OPS.map(function (o) {
-      var g = svg("g", { class: "cy-op cy-op-" + o.id, tabindex: "0", role: "button", "aria-label": o.navn.join(" ") });
+      var g = svg("g", { class: "cy-op cy-op-" + o.id, tabindex: "0", role: "button", "aria-pressed": "false", "aria-label": o.navn.join(" ") });
       g.appendChild(svg("circle", { cx: o.cx, cy: o.cy, r: o.r }));
       var ly = o.ly != null ? o.ly : o.cy - (o.navn.length - 1) * 8 + 5;
       var t = svg("text", { x: o.cx, y: ly, "text-anchor": "middle" });
@@ -493,7 +497,7 @@
     wrap.appendChild(s); wrap.appendChild(msg);
     host.appendChild(wrap);
     function vis(o) {
-      gs.forEach(function (g, i) { g.classList.toggle("cur", OPS[i] === o); });
+      gs.forEach(function (g, i) { g.classList.toggle("cur", OPS[i] === o); press(g, OPS[i] === o); });
       msg.innerHTML = "<b>" + o.navn.join(" ") + ":</b> " + o.txt;
     }
     msg.textContent = "Trykk på en sirkel.";
@@ -516,10 +520,10 @@
     var s = svg("svg", { viewBox: "0 0 320 320", class: "cy-ring-svg", role: "group", "aria-label": "KI, ML, DL og GenKI som ringer inni hverandre" });
     var msg = el("p", { class: "cy-msg", "aria-live": "polite", text: "Trykk på en ring." });
     var gs = RINGER.map(function (r, i) {
-      var g = svg("g", { class: "cy-ring cy-ring-" + i, tabindex: "0", role: "button", "aria-label": r.navn });
+      var g = svg("g", { class: "cy-ring cy-ring-" + i, tabindex: "0", role: "button", "aria-pressed": "false", "aria-label": r.navn });
       g.appendChild(svg("circle", { cx: 160, cy: 160, r: r.r }));
       g.appendChild(svg("text", { x: 160, y: i === 3 ? 165 : 160 - r.r + 22, "text-anchor": "middle" }, r.navn));
-      function go(e) { e.stopPropagation(); gs.forEach(function (x, k) { x.classList.toggle("cur", k === i); }); msg.innerHTML = "<b>" + r.navn + ":</b> " + r.txt; }
+      function go(e) { e.stopPropagation(); gs.forEach(function (x, k) { x.classList.toggle("cur", k === i); press(x, k === i); }); msg.innerHTML = "<b>" + r.navn + ":</b> " + r.txt; }
       g.addEventListener("click", go);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(e); } });
       s.appendChild(g);
@@ -558,11 +562,16 @@
   V.kiIds = function (host) {
     host = host$(host); if (!host) return null;
     clear(host);
-    var f = { d: 2.1, b: 48000, p: "TCP", port: 443 }, modus = "klass", TERSKEL = 0.5;
+    var f = { d: 2.1, b: 48000, p: "TCP", port: 443 }, modus = "klass", TERSKEL = 0.5, aktiv = "Fjordnett kl. 03:12";
     var wrap = el("div", { class: "cy-ids" });
-    var pre = el("div", { class: "cy-ctl" }, [el("span", { class: "small muted", text: "Eksempler:" })]);
+    var bK = btn("Klassifisering", function () { modus = "klass"; tegn(); }, null, { "aria-pressed": "true" });
+    var bA = btn("Autoenkoder", function () { modus = "auto"; tegn(); }, null, { "aria-pressed": "false" });
+    wrap.appendChild(el("div", { class: "cy-ctl", role: "group", "aria-label": "Modelltype" }, [el("span", { class: "small muted", text: "Modell:" }), bK, bA]));
+    var pre = el("div", { class: "cy-ctl", role: "group", "aria-label": "Eksempler" }, [el("span", { class: "small muted", text: "Eksempel:" })]);
+    var preBtns = {};
     Object.keys(IDS_PRESET).forEach(function (n) {
-      pre.appendChild(btn(n, function () { var p = IDS_PRESET[n]; f = { d: p.d, b: p.b, p: p.p, port: p.port }; synk(); tegn(); }));
+      preBtns[n] = btn(n, function () { var p = IDS_PRESET[n]; f = { d: p.d, b: p.b, p: p.p, port: p.port }; aktiv = n; synk(); tegn(); }, null, { "aria-pressed": "false" });
+      pre.appendChild(preBtns[n]);
     });
     wrap.appendChild(pre);
 
@@ -599,19 +608,17 @@
     g.appendChild(el("div", { class: "cy-net-w" }, [el("p", { class: "cy-col-h", text: "Modellen" }), net,
       el("p", { class: "small muted", text: "4 input → 4 skjulte → 3 output. Sterkere farge betyr sterkere signal." })]));
     // Resultat
-    var bK = btn("Klassifisering", function () { modus = "klass"; tegn(); }, null, { "aria-pressed": "true" });
-    var bA = btn("Autoenkoder", function () { modus = "auto"; tegn(); }, null, { "aria-pressed": "false" });
     var res = el("div", { class: "cy-ids-res", "aria-live": "polite" });
-    g.appendChild(el("div", { class: "cy-res-w" }, [el("div", { class: "cy-ctl", role: "group", "aria-label": "Modelltype" }, [bK, bA]), res]));
+    g.appendChild(el("div", { class: "cy-res-w" }, [res]));
     wrap.appendChild(g);
     wrap.appendChild(el("p", { class: "small muted", text: "Lekemodell: tallene er laget for å vise idéen på KI-lysarket, ikke regnet ut av et ekte nett." }));
     host.appendChild(wrap);
 
     function synk() { rd.value = String(lg(f.d)); rb.value = String(lg(f.b)); sp.value = f.p; so.value = String(f.port); }
-    rd.addEventListener("input", function () { f.d = Math.pow(10, +rd.value); tegn(); });
-    rb.addEventListener("input", function () { f.b = Math.pow(10, +rb.value); tegn(); });
-    sp.addEventListener("change", function () { f.p = sp.value; tegn(); });
-    so.addEventListener("change", function () { f.port = +so.value; tegn(); });
+    rd.addEventListener("input", function () { f.d = Math.pow(10, +rd.value); aktiv = null; tegn(); });
+    rb.addEventListener("input", function () { f.b = Math.pow(10, +rb.value); aktiv = null; tegn(); });
+    sp.addEventListener("change", function () { f.p = sp.value; aktiv = null; tegn(); });
+    so.addEventListener("change", function () { f.port = +so.value; aktiv = null; tegn(); });
 
     function bar(label, p, cls) {
       return el("div", { class: "cy-bar " + (cls || "") }, [el("span", { class: "cy-bar-l small", text: label }),
@@ -622,6 +629,7 @@
       vd.textContent = f.d < 0.1 ? num(f.d, 2) + " s" : num(f.d, 1) + " s";
       vb.textContent = heltall(f.b);
       press(bK, modus === "klass"); press(bA, modus === "auto");
+      Object.keys(preBtns).forEach(function (n) { press(preBtns[n], n === aktiv); });
       var x = [(lg(f.d) + 2) / 3, (lg(f.b) - 1.5) / 3.5, f.p === "UDP" ? 1 : 0, PORTER.indexOf(f.port) / 3];
       var h = W1.map(function (w) { var s = 0; for (var k = 0; k < 4; k++) s += w[k] * x[k]; return 1 / (1 + Math.exp(-2 * (s - 0.6))); });
       var pr = klassifiser(f), ae = rekonstruer(f);
@@ -660,7 +668,7 @@
       }
     }
     synk(); tegn();
-    return { set: function (p) { f = p; synk(); tegn(); } };
+    return { set: function (p) { f = p; aktiv = null; synk(); tegn(); } };
   };
 
   /* ============================================================

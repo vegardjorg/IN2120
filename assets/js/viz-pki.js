@@ -99,37 +99,55 @@
     var oppg = el("div");
     w.appendChild(oppg);
 
-    // Slett mot overskriv
+    // Slett mot overskriv: tre steg i fast rekkefølge, bare neste steg kan trykkes
     w.appendChild(H("h5", "pki-h", "Destruering: slett eller overskriv?"));
-    var disk = { mappe: true, kurv: false, sektor: true, nuller: false };
+    w.appendChild(H("p", "small muted", "Gjør de tre stegene i rekkefølge, og se etter hvert steg hvor nøkkelen fortsatt ligger. Bare neste steg kan trykkes."));
+    var disk, steg;
     var diskOut = el("div", { class: "pki-disk" });
     var diskMsg = H("p", "pki-out");
-    var row = el("div", { class: "pki-row" }, [
-      btn("Slett fila", function () { if (disk.mappe) { disk.mappe = false; disk.kurv = true; } paintDisk("slett"); }),
-      btn("Tøm papirkurven", function () { disk.kurv = false; paintDisk("toem"); }),
-      btn("Overskriv sektorene", function () { disk.mappe = false; disk.kurv = false; disk.sektor = false; disk.nuller = true; paintDisk("over"); }),
-      btn("↺ Nullstill", function () { disk = { mappe: true, kurv: false, sektor: true, nuller: false }; paintDisk(""); })
-    ]);
+    var STEG = [
+      { navn: "Slett fila", id: "slett", gjor: function () { disk.mappe = false; disk.kurv = true; } },
+      { navn: "Tøm papirkurven", id: "toem", gjor: function () { disk.kurv = false; } },
+      { navn: "Overskriv sektorene", id: "over", gjor: function () { disk.sektor = false; disk.nuller = true; } }
+    ];
+    var nullBtn;
+    var stegBtn = STEG.map(function (st, i) {
+      return btn("", function () { if (i !== steg) return; st.gjor(); steg = i + 1; paintDisk(st.id); if (stegBtn[i + 1]) stegBtn[i + 1].focus(); else nullBtn.focus(); }, "pki-steg");
+    });
+    nullBtn = btn("↺ Nullstill", function () { start(); stegBtn[0].focus(); });
+    var row = el("div", { class: "pki-row", role: "group", "aria-label": "Steg for å fjerne nøkkelen" }, stegBtn.concat([nullBtn]));
     w.appendChild(row); w.appendChild(diskOut); w.appendChild(diskMsg);
     host.appendChild(w);
     if (IN.bucketTask) IN.bucketTask(oppg, TILST_OPPG, { instant: false });
 
+    function start() { disk = { mappe: true, kurv: false, sektor: true, nuller: false }; steg = 0; paintDisk(""); }
+    function paintStegknapper() {
+      STEG.forEach(function (st, i) {
+        var b = stegBtn[i], ferdig = i < steg, neste = i === steg;
+        b.innerHTML = (ferdig ? "✓ " : "") + (i + 1) + " · " + st.navn;
+        b.disabled = !neste;
+        b.classList.toggle("pki-utfort", ferdig);
+        b.classList.toggle("pki-neste", neste);
+        b.setAttribute("aria-label", (i + 1) + ". " + st.navn + (ferdig ? ", utført" : neste ? ", neste steg" : ", ikke tilgjengelig ennå"));
+      });
+    }
     function paintDisk(sist) {
+      paintStegknapper();
       clear(diskOut);
       var key = "K<sub>arkiv</sub> = 9f3a…c71e";
       [["Mappa /nokler", disk.mappe ? key : "–"], ["Papirkurven", disk.kurv ? key : "–"],
        ["Disksektorene", disk.sektor ? key + " <span class=\"muted small\">(kan hentes ut med verktøy)</span>" : (disk.nuller ? "00 00 00 00 … (overskrevet)" : "–")]
       ].forEach(function (r) { diskOut.appendChild(H("div", "pki-disk-r", "<span class=\"pki-k\">" + r[0] + "</span> <span class=\"mono\">" + r[1] + "</span>")); });
       var m = {
-        "": "Nøkkelen ligger i mappa. Prøv å slette den.",
-        slett: "Fila er bare flyttet til papirkurven. Nøkkelen er ikke destruert.",
-        toem: "Papirkurven er tom, men bitene ligger igjen i disksektorene til de blir skrevet over. Fortsatt ikke destruert.",
-        over: "Sektorene er overskrevet. Nå er nøkkelen destruert. Degaussing og fysisk ødeleggelse av mediet virker også (d03 s. 26)."
+        "": "Nøkkelen ligger i mappa. Start med steg 1: slett fila.",
+        slett: "Steg 1: fila er bare flyttet til papirkurven. Nøkkelen er ikke destruert.",
+        toem: "Steg 2: papirkurven er tom, men bitene ligger igjen i disksektorene til de blir skrevet over. Fortsatt ikke destruert.",
+        over: "Steg 3: sektorene er overskrevet. Nå er nøkkelen destruert. Degaussing (avmagnetisering med et sterkt magnetfelt) og fysisk ødeleggelse av mediet virker også (d03 s. 26)."
       };
       diskMsg.innerHTML = m[sist] || "";
       diskMsg.className = "pki-out " + (disk.nuller ? "ok" : sist ? "nei" : "");
     }
-    paintDisk("");
+    start();
   };
 
   /* =====================================================================
@@ -154,11 +172,18 @@
     Object.keys(NTYPER).forEach(function (k) { var o = el("option", { value: k, text: NTYPER[k].navn }); if (k === typ) o.selected = true; sel.appendChild(o); });
     sel.addEventListener("change", function () { typ = sel.value; paint(); });
     var cb = el("input", { type: "checkbox" });
-    cb.addEventListener("change", function () { komp = cb.checked; rng.disabled = !komp; paint(); });
-    var rng = el("input", { type: "range", min: "0", max: "143", value: String(mnd), disabled: "disabled", "aria-label": "Tidspunkt for kompromittering" });
+    cb.addEventListener("change", function () { komp = cb.checked; rng.disabled = !komp; paint(); if (komp) rng.focus(); });
+    var rng = el("input", { type: "range", min: "0", max: "143", value: String(mnd), disabled: "disabled", "aria-label": "Datoen nøkkelen blir kompromittert" });
+    var rngVerdi = el("output", { class: "pki-dato mono", "aria-live": "polite" });
     rng.addEventListener("input", function () { mnd = +rng.value; paint(); });
     w.appendChild(el("div", { class: "pki-row" }, [el("label", { class: "pki-lbl" }, [el("span", { class: "pki-k", text: "Nøkkeltype:" }), sel])]));
-    w.appendChild(el("div", { class: "pki-row" }, [el("label", { class: "pki-lbl" }, [cb, el("span", { text: "Kompromittert her:" })]), rng]));
+    var kHint = H("span", "pki-klikkhint", "");
+    var kRad = el("div", { class: "pki-row pki-klikkrad" }, [
+      el("label", { class: "pki-lbl" }, [cb, el("span", { html: "<b>Simuler kompromittering</b> (slår på glideren)" })]),
+      el("span", { class: "pki-lbl" }, [rng, rngVerdi]),
+      kHint
+    ]);
+    w.appendChild(kRad);
     var fig = el("div", { class: "pki-svg" });
     var out = H("div", "pki-out");
     w.appendChild(fig); w.appendChild(out);
@@ -171,6 +196,9 @@
       function X(iso) { return x0 + (x1 - x0) * (dnum(iso) - t0) / (t1 - t0); }
       var svg = S("svg", { viewBox: "0 0 " + W + " 170", class: "viz-svg", role: "img", "aria-label": "Tidslinje for beskyttelses- og prosesseringsperioden" });
       var kd = komp ? mndDato(mnd) : null, kx = kd ? X(kd) : null;
+      rngVerdi.textContent = komp ? "Kompromittert: " + fmt(kd) : "Glideren er av";
+      rngVerdi.classList.toggle("endret", !!komp);
+      kHint.textContent = komp ? "Dra glideren for å flytte datoen" : "Kryss av for å slå på glideren";
       var bS = X(TL.fra), bE = X(TL.bTil), pE = X(TL.pTil);
       // Beskyttelse
       svg.appendChild(S("text", { x: x0, y: 22, class: "pki-tl-l" }, "Beskyttelse: " + T.bOp));
@@ -261,7 +289,7 @@
         bc: tyvSp({ fra: "B", til: "C" }, "les", "<p>Bob svarer Charlie, kryptert med " + K("C", "pub") + ". Kan Alice lese svaret?</p>", "sigB"),
         sigB: tyvSp({ fra: "B", til: "C" }, "sig", "<p>Kan Alice lage en melding til Charlie som ser ut til å være signert av Bob?</p>", "sigC", { I: "brutt" }),
         sigC: tyvSp({ fra: "C", til: "A" }, "sig", "<p>Kan Alice lage en melding som ser ut til å være signert av Charlie?</p>", "sigA"),
-        sigA: tyvSp({ fra: "A", til: "C" }, "sig", "<p>Kan Alice signere en melding fra seg selv til Charlie? (Fellen fra H2022 6.1.)</p>", "tiltak"),
+        sigA: tyvSp({ fra: "A", til: "C" }, "sig", "<p>Kan Alice signere en melding fra seg selv (Alice) til Charlie, med sin egen private nøkkel " + K("A", "priv") + "? I H2022 6.1 er dette alternativ 6, «Alice kan signere meldinger fra Alice til Charlie», som mange stryker fordi det virker for lett.</p>", "tiltak"),
         tiltak: { tekst: "<p>Bob oppdager tyveriet. Hva gjør han først?</p>", valg: [
           { tekst: "Slutter å signere med " + K("B", "priv") + ", varsler mottakerne og ber CA-en tilbakekalle sertifikatet", til: "nytt", poeng: 2, kit: { I: "truet" },
             konsekvens: "<b>Riktig.</b> Signering er beskyttelse og må stoppe straks, og brukerne varsles (d03 s. 23). Tilbakekallingen (t03 O9a; RFC 5280) trekker bindingen mellom Bob og nøkkelparet tilbake, så nye forfalskninger kan avvises." },
@@ -903,7 +931,7 @@
       },
       slutt: { slutt: true, oppsummering: {
         eli5: "<p>CAA er en lapp i DNS som sier hvilke kontorer som får lage sertifikater for domenet. Ærlige kontorer følger lappen. Et kontor som er hacket, bryr seg ikke, og da må juksen oppdages etterpå.</p>",
-        normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (t03 O6b). En ærlig CA sjekker recorden og avslår om den ikke står der. CAA hindrer ikke en kompromittert CA som ignorerer regelen (RFC 8659), selv om t03 O6a sier at CA-autorisering forhindrer det. På eksamen kan t03-svaret ventes, men vit begrensningen. Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles (t03 O6a).</p>",
+        normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (ukesoppgave uke 3, t03 O6b). En ærlig CA sjekker recorden og avslår om den ikke står der.</p><p>Ukesoppgaven (t03 O6a) sier kort at CAA og CT sammen forhindrer falske sertifikater, og det svaret kan ventes på eksamen. Vit likevel begrensningen: en kompromittert CA kan ignorere CAA-recorden (RFC 8659, <i>Ikke pensum</i>). Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles.</p>",
         teknisk: "<p>CAA (CA-autorisering) er en DNS-record på domenet, med <code>issue</code>-verdier for CA-ene som får utstede. Kontrollen skjer hos CA-en ved utstedelse. Mot en CA som ignorerer CAA hjelper bare at utstedelsen blir synlig og oppdages (CT), og deretter tilbakekalling eller at CA-en fjernes fra rotlagrene. Detaljene om CT og hvem som sjekker CAA, er ikke pensum (står ikke i kildene).</p>"
       } }
     }
@@ -982,15 +1010,18 @@
     [["rot", "selvsignert rot"], ["ca", "CA-signert mellomliggende"], ["subj", "CA-signert subjekt"], ["selv", "selvsignert subjekt"], ["bro", "bro-CA"], ["anker", "tillitsanker (ring)"], ["bad", "mister tillit"]].forEach(function (x) {
       lg.appendChild(H("span", "item", "<span class=\"pki-sw pki-sw-" + x[0] + "\"></span>" + x[1]));
     });
-    w.appendChild(H("p", "small muted", "Klikk på en node for å kompromittere den. Alt den kan signere seg fram til, blir rødt. Tegningene er forenklede skisser, ikke kopier av lysarket."));
-    w.appendChild(fig); w.appendChild(lg); w.appendChild(info);
+    w.appendChild(H("p", "small muted", "Alt en kompromittert node kan signere seg fram til, blir rødt og får en kryss-strek. Tegningene er forenklede skisser, ikke kopier av lysarket."));
+    var figRamme = el("div", { class: "pki-klikkrad pki-klikkfig" }, [H("span", "pki-klikkhint", "Klikk en node for å kompromittere den. Klikk den igjen for å angre."), fig]);
+    w.appendChild(figRamme); w.appendChild(lg); w.appendChild(info);
     host.appendChild(w);
+    var KIND = { rot: "selvsignert rot", ca: "CA-signert mellomliggende CA", subj: "CA-signert subjekt", selv: "selvsignert bruker", bro: "bro-CA" };
+    var fokusN = null;
 
     function paint() {
       var m = MODELLER.filter(function (x) { return x.id === mid; })[0];
       Object.keys(tb).forEach(function (k) { press(tb[k], k === mid); });
       var ber = komp ? spred(m, komp) : {};
-      var svg = S("svg", { viewBox: "0 0 360 215", class: "viz-svg", role: "img", "aria-label": m.navn });
+      var svg = S("svg", { viewBox: "0 0 360 228", class: "viz-svg", role: "group", "aria-label": m.navn + ": klikk en node for å kompromittere den" });
       var defs = S("defs");
       var mk = S("marker", { id: id, viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "7", markerHeight: "7", orient: "auto-start-reverse" });
       mk.appendChild(S("path", { d: "M0,0 L10,5 L0,10 z", class: "pki-arh" }));
@@ -1004,23 +1035,31 @@
         if (bi) at["marker-start"] = "url(#" + id + ")";
         svg.appendChild(S("line", at));
       });
+      var sNr = 0, navnPa = {};
       Object.keys(m.noder).forEach(function (n) {
         var v = m.noder[n];
-        var g = S("g", { class: "pki-node" + (ber[n] ? " bad" : "") + (komp === n ? " komp" : ""), tabindex: "0", role: "button",
-          "aria-label": (v[4] || n) + (ber[n] ? ", mister tillit" : "") + ". Klikk for å kompromittere." });
+        var navn = v[4] || ("S" + (++sNr));
+        navnPa[n] = navn;
+        var g = S("g", { class: "pki-node" + (ber[n] ? " bad" : "") + (komp === n ? " komp" : ""), tabindex: "0", role: "button", "data-n": n,
+          "aria-pressed": komp === n ? "true" : "false",
+          "aria-label": navn + ", " + KIND[v[2]] + (v[3] ? ", tillitsanker" : "") + (komp === n ? ", kompromittert. Klikk for å angre." : ber[n] ? ", mister tillit. Klikk for å kompromittere." : ". Klikk for å kompromittere.") });
+        g.appendChild(S("circle", { cx: v[0], cy: v[1], r: R + 7, class: "pki-fokus" }));
         if (v[3]) g.appendChild(S("circle", { cx: v[0], cy: v[1], r: R + 4, class: "pki-anker" }));
         g.appendChild(S("circle", { cx: v[0], cy: v[1], r: R, class: "pki-n pki-n-" + v[2] }));
-        if (v[4]) g.appendChild(S("text", { x: v[0], y: v[1] + R + 13, "text-anchor": "middle", class: "pki-nl" }, v[4]));
-        g.appendChild(S("title", null, v[4] || "subjekt"));
-        g.addEventListener("click", function () { komp = komp === n ? null : n; paint(); });
-        g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); komp = komp === n ? null : n; paint(); } });
+        if (ber[n]) g.appendChild(S("path", { d: "M" + (v[0] - 5) + "," + (v[1] - 5) + " L" + (v[0] + 5) + "," + (v[1] + 5) + " M" + (v[0] + 5) + "," + (v[1] - 5) + " L" + (v[0] - 5) + "," + (v[1] + 5), class: "pki-kryss" }));
+        g.appendChild(S("text", { x: v[0], y: v[1] + R + 17, "text-anchor": "middle", class: "pki-nl" }, navn));
+        g.appendChild(S("title", null, navn + " (" + KIND[v[2]] + ")"));
+        function velg() { komp = komp === n ? null : n; fokusN = n; paint(); }
+        g.addEventListener("click", velg);
+        g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); velg(); } });
         svg.appendChild(g);
       });
       clear(fig); fig.appendChild(svg);
+      if (fokusN) { var fg = svg.querySelector("[data-n=\"" + fokusN + "\"]"); if (fg && fg.focus) fg.focus(); fokusN = null; }
       var antall = Object.keys(ber).length, tot = Object.keys(m.noder).length;
       var h = "<p><b>" + m.navn + "</b>" + (m.eks ? " (" + m.eks + ")" : "") + ". " + m.tekst + "</p>";
       if (komp) {
-        h += "<p class=\"nei\">" + antall + " av " + tot + " noder mister tillit.";
+        h += "<p class=\"nei\">Kompromittert: <b>" + navnPa[komp] + "</b>. " + antall + " av " + tot + " noder mister tillit.";
         if (mid === "enkelt" && m.noder[komp][2] === "rot") h += " Roten er kompromittert: totalt sammenbrudd.";
         h += "</p>";
         if (mid === "silo") h += "<p class=\"nei small\"><b>Men:</b> i tegningen rammes bare én silo. I nettleseren kan hver rot og CA utstede for <i>alle</i> domener, så angriperen kan lage sertifikater som godtas også for domener i de andre siloene. Det svakeste leddet bestemmer.</p>";
@@ -1031,19 +1070,33 @@
 
     // Tillitsforvirring
     w.appendChild(H("h5", "pki-h", "Tillitsforvirring: hvilken er pålitelig?"));
+    w.appendChild(H("p", "small muted", "Begge nettsidene under viser hengelås og et gyldig sertifikat. Hvilken av dem kan sertifikatet si er pålitelig? Trykk på ett svar."));
     var tf = el("div", { class: "pki-tf2" });
     ["lerkedalsparebank.no", "lerkedal-sparebank.no"].forEach(function (d) {
       tf.appendChild(H("div", "pki-browser", "<span class=\"pki-lock\" aria-hidden=\"true\">🔒</span> <span class=\"mono\">https://" + d + "</span><br><span class=\"small ok\">Sertifikatet er gyldig · kjeden er i orden</span><br><span class=\"small muted\">Lerkedal Sparebank · Logg inn</span>"));
     });
     w.appendChild(tf);
     var svar = H("p", "pki-out");
-    w.appendChild(el("div", { class: "pki-row" }, [
-      btn("Venstre", function () { gi("nei", "Det er riktignok bankens ekte domene, men det vet du bare fordi du kjenner navnet. Sertifikatet sier det ikke."); }),
-      btn("Høyre", function () { gi("nei", "Høyre er svindlerens domene. Sertifikatet er likevel helt ekte for det domenet."); }),
-      btn("Sertifikatet kan ikke avgjøre det", function () { gi("ok", "Riktig. Begge har ekte, gyldige sertifikater. Et sertifikat gir <b>autentisitet</b> for domenenavnet, ikke <b>pålitelighet</b>. Valideringen er syntaktisk, ikke semantisk (d03 s. 42–43). Bare en bruker som vet at banken heter lerkedalsparebank.no, oppdager svindelen."); })
-    ]));
+    var TFV = [
+      { tekst: "<span class=\"mono\">lerkedalsparebank.no</span>", aria: "lerkedalsparebank.no", c: "nei", t: "Ikke riktig. Det er riktignok bankens ekte domene, men det vet du bare fordi du kjenner navnet. Sertifikatet sier det ikke." },
+      { tekst: "<span class=\"mono\">lerkedal-sparebank.no</span>", aria: "lerkedal-sparebank.no", c: "nei", t: "Ikke riktig. lerkedal-sparebank.no er svindlerens domene. Sertifikatet er likevel helt ekte for det domenet." },
+      { tekst: "Sertifikatet kan ikke avgjøre det", aria: "Sertifikatet kan ikke avgjøre det", c: "ok", t: "Riktig. Begge har ekte, gyldige sertifikater. Et sertifikat gir <b>autentisitet</b> for domenenavnet, ikke <b>pålitelighet</b>. Valideringen er syntaktisk, ikke semantisk (d03 s. 42–43). Bare en bruker som vet at banken heter lerkedalsparebank.no, oppdager svindelen." }
+    ];
+    var tfBtn = TFV.map(function (v, i) { var b = btn(v.tekst, function () { gi(i); }); b.setAttribute("aria-pressed", "false"); return b; });
+    w.appendChild(el("div", { class: "pki-row pki-tfvalg", role: "group", "aria-label": "Hvilken er pålitelig?" }, tfBtn));
     w.appendChild(svar);
-    function gi(c, t) { svar.className = "pki-out " + c; svar.innerHTML = t; }
+    function gi(i) {
+      tfBtn.forEach(function (b, j) {
+        var valgt = i === j, v = TFV[j];
+        press(b, valgt);
+        b.classList.toggle("pki-svar-ok", valgt && v.c === "ok");
+        b.classList.toggle("pki-svar-nei", valgt && v.c !== "ok");
+        b.innerHTML = (valgt ? (v.c === "ok" ? "✓ " : "✗ ") : "") + v.tekst;
+        b.setAttribute("aria-label", v.aria + (valgt ? (v.c === "ok" ? ", valgt, riktig" : ", valgt, feil") : ""));
+      });
+      var v = TFV[i];
+      svar.className = "pki-out " + v.c; svar.innerHTML = v.t;
+    }
   };
 
   /* =====================================================================

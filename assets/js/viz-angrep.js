@@ -38,7 +38,7 @@
   var FASER = [
     { navn: "Planlegging", kort: "Avtale",
       skjer: "Testeren og virksomheten avtaler mål (hvilke kjerneverdier testen skal prøve å ramme), omfang (hva som er med og ikke), tidsrom, kontaktperson ved driftsstans og boksfarge. Tillatelsen gis skriftlig, på forhånd, av noen med myndighet over systemet.",
-      forsvar: "Velg kjerneverdiene som betyr mest (økonomi, sensitive data, tilgjengelighet). Sørg for at den som signerer faktisk har myndighet over systemet (kurset knytter dette til legalitetsprinsippet i forvaltningen, forenklet d05 s. 8–9).",
+      forsvar: "Velg kjerneverdiene som betyr mest (økonomi, sensitive data, tilgjengelighet). Sørg for at den som signerer faktisk har myndighet over systemet (kurset knytter dette til legalitetsprinsippet i forvaltningen, forenklet, pentestlysarket s. 8–9).",
       eks: [["H2022-3.3", "§ 204"], ["H2025-13", "§ 204"], ["H2022-4.3", "hvitboks"], ["H2023-4", "svartboks"], ["H2024-4", "gråboks"], ["H2025-4", "svartboks"]] },
     { navn: "Rekognosering", kort: "Finn ut mest mulig",
       skjer: "Først passiv innsamling fra åpne kilder (OSINT): nettsider, stillingsannonser, sosiale medier, offentlige registre over domener og IP-adresser. Deretter kartlegging av hvilke maskiner og tjenester som svarer.",
@@ -124,6 +124,7 @@
     }
     scr.addEventListener("scroll", fade, { passive: true });
     window.addEventListener("resize", fade);
+    wrap.appendChild(el("p", { class: "an-klikkhint", text: "Trykk på et stadium for å se det, eller bruk piltastene. Det valgte stadiet er uthevet." }));
     wrap.appendChild(scr);
     wrap.appendChild(sveip);
     wrap.appendChild(det);
@@ -161,14 +162,22 @@
     host = host$(host); if (!host) return null;
     clear(host);
     var wrap = el("div", { class: "an-sql" });
-    var ctl = el("div", { class: "btn-row" });
+    var ctl = el("div", { class: "btn-row an-sql-ctl", role: "group", "aria-label": "Eksempler" });
     var inp = el("input", { type: "text", maxlength: "40", value: "kanelbolle7", "aria-label": "Passordfeltet", spellcheck: "false", autocomplete: "off", class: "an-sql-in" });
-    PRESET.forEach(function (p) {
-      ctl.appendChild(el("button", { type: "button", class: "btn sm", title: p.note, text: p.navn, onclick: function () { spill(p.v); } }));
+    ctl.appendChild(el("span", { class: "small an-k", text: "Eksempler:" }));
+    var pb = PRESET.map(function (p) {
+      var b = el("button", { type: "button", class: "btn sm", "aria-pressed": "false", onclick: function () { spill(p.v); } },
+        [el("span", { class: "mono", text: p.navn }), el("span", { class: "an-sql-note", text: " · " + p.note })]);
+      ctl.appendChild(b);
+      return b;
     });
-    var playBtn = el("button", { type: "button", class: "btn sm primary", text: "Spill av", onclick: function () { spill(inp.value); } });
-    ctl.appendChild(playBtn);
-    wrap.appendChild(el("div", { class: "an-sql-fld" }, [el("label", { class: "small", text: "Passordfeltet i innloggingsskjemaet:" }), inp]));
+    function merkValg() {
+      pb.forEach(function (b, k) { b.setAttribute("aria-pressed", PRESET[k].v === inp.value ? "true" : "false"); });
+    }
+    var playBtn = el("button", { type: "button", class: "btn sm primary", text: "▶ Spill av det som står i feltet", onclick: function () { spill(inp.value); } });
+    var inpId = "an-sql-in-" + Math.random().toString(36).slice(2, 8);
+    inp.id = inpId; inp.removeAttribute("aria-label");
+    wrap.appendChild(el("div", { class: "an-sql-fld" }, [el("label", { class: "small", for: inpId, text: "Passordfeltet i innloggingsskjemaet (skriv selv her):" }), inp, playBtn]));
     wrap.appendChild(ctl);
 
     var g = el("div", { class: "an-sql-g" });
@@ -217,7 +226,7 @@
     function vis(s) { var r = tegnL(s); tegnR(s); melding(s, r); }
     function spill(s) {
       if (timer) { clearInterval(timer); timer = null; }
-      inp.value = s;
+      inp.value = s; merkValg();
       if (reduced()) { r1.classList.add("cur"); r2.classList.add("cur"); vis(s); return; }
       var i = 0;
       r1.classList.add("cur"); r2.classList.remove("cur");
@@ -234,8 +243,9 @@
       }, 140);
       if (!s.length) { clearInterval(timer); timer = null; vis(s); }
     }
-    inp.addEventListener("input", function () { if (timer) { clearInterval(timer); timer = null; } r1.classList.remove("cur"); r2.classList.add("cur"); vis(inp.value); });
+    inp.addEventListener("input", function () { if (timer) { clearInterval(timer); timer = null; } r1.classList.remove("cur"); r2.classList.add("cur"); merkValg(); vis(inp.value); });
     host.appendChild(wrap);
+    merkValg();
     vis(inp.value);
     return { spill: spill };
   };
@@ -277,19 +287,23 @@
     host = host$(host); if (!host) return null;
     clear(host);
     var wrap = el("div", { class: "an-logg" });
-    var sel = el("div", { class: "btn-row", role: "group", "aria-label": "Velg logg" });
+    var sel = el("div", { class: "btn-row", role: "group", "aria-label": "Velg logg" }, [el("span", { class: "small an-k", text: "Velg logg:" })]);
     var tw = el("div", { class: "table-wrap" });
     var cnt = el("div", { class: "pills an-logg-cnt" });
-    var valg = el("div", { class: "btn-row", role: "group", "aria-label": "Hva er dette?" });
+    var valg = el("div", { class: "btn-row", role: "group", "aria-label": "Ditt svar: hva viser loggen?" });
     var msg = el("p", { class: "an-logg-msg", "aria-live": "polite" });
-    var cur = 0, lb = [];
+    var cur = 0, lb = [], sb = [];
     LOGGER.forEach(function (g, i) {
       var b = el("button", { type: "button", class: "btn sm", text: g.navn, "aria-pressed": "false", onclick: function () { set(i); } });
       lb.push(b); sel.appendChild(b);
     });
     MONSTER.forEach(function (m, i) {
-      valg.appendChild(el("button", { type: "button", class: "btn sm", text: m, onclick: function () { svar(i); } }));
+      var b = el("button", { type: "button", class: "btn sm an-svar", "aria-pressed": "false", text: m, onclick: function () { svar(i); } });
+      sb.push(b); valg.appendChild(b);
     });
+    function nullstillSvar() {
+      sb.forEach(function (b, k) { b.setAttribute("aria-pressed", "false"); b.classList.remove("an-rett", "an-galt"); b.textContent = MONSTER[k]; });
+    }
     function set(i) {
       cur = i;
       lb.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
@@ -307,16 +321,22 @@
       [["antall brukere", c.brukere], ["forsøk per bruker (maks)", c.maks], ["kilde-IP-er", c.ip], ["ok etter mange feil", c.ok ? "ja" : "nei"]].forEach(function (p) {
         cnt.appendChild(el("span", { class: "pill" }, [el("span", { class: "k", text: p[0] + ": " }), String(p[1])]));
       });
-      msg.textContent = "Hva viser loggen? Se på de to første tellerne.";
+      nullstillSvar();
+      msg.textContent = "Velg et svar under. Se på de to første tellerne.";
       msg.className = "an-logg-msg";
     }
     function svar(i) {
       var g = LOGGER[cur], rett = i === g.svar;
+      nullstillSvar();
+      sb[i].setAttribute("aria-pressed", "true");
+      sb[i].classList.add(rett ? "an-rett" : "an-galt");
+      sb[i].textContent = (rett ? "✓ " : "✗ ") + MONSTER[i];
+      if (!rett) { sb[g.svar].classList.add("an-rett"); sb[g.svar].textContent = "✓ " + MONSTER[g.svar]; }
       msg.className = "an-logg-msg " + (rett ? "ok" : "feil");
       msg.textContent = (rett ? "Riktig. " : "Ikke riktig. Dette er «" + MONSTER[g.svar] + "». ") + g.hvorfor;
     }
     wrap.appendChild(sel); wrap.appendChild(tw); wrap.appendChild(cnt);
-    wrap.appendChild(el("p", { class: "small muted", text: "Hva er dette?" }));
+    wrap.appendChild(el("p", { class: "small an-k", text: "Ditt svar: hva viser loggen?" }));
     wrap.appendChild(valg); wrap.appendChild(msg);
     wrap.appendChild(el("p", { class: "an-merk small" }, [
       el("b", { text: "Merk om " }), lenke("H2023-26", "H2023 26"), el("b", { text: ": " }),
@@ -343,7 +363,7 @@
     prompt: {
       eli5: "Et avtalt innbrudd skjer i en fast rekkefølge. Sett stegene i riktig rekkefølge, fra avtalen til rapporten.",
       normal: "Sett de sju stadiene i en penetrasjonstest i riktig rekkefølge.",
-      teknisk: "Sett stadiene i kursets pentestmodell i rekkefølge, fra avtale til rapport. Ikke bland med Cyber Kill Chain."
+      teknisk: "Sett stadiene i kursets pentestmodell i rekkefølge, fra avtale til rapport. Ikke bland med Cyber Kill Chain: den beskriver en ekte angripers sju trinn (rekognosering til aksjon) og har verken avtale eller rapport."
     },
     items: [
       { id: "plan", html: "Planlegging", forklaring: {
@@ -358,7 +378,7 @@
       { id: "rap", html: "Rapport", forklaring: "Et eget, siste stadium: funn, alvorlighet og tiltak. Rapporten er det kunden betaler for." }
     ],
     answer: ["plan", "rek", "innl", "utv", "fot", "gev", "rap"],
-    oppsummering: "Huskeregel: avtale → finn ut → kom inn → få mer → bli værende → vis det → skriv det. Trykk på stadiene under for hva forsvareren kan gjøre i hvert av dem.",
+    oppsummering: "Huskeregel: avtale → finn ut → kom inn → få mer → bli værende → vis det → skriv det. Tidslinja i del 3 viser hva forsvareren kan gjøre i hvert av dem.",
     kilde: { ref: "Forelesning om pentesting (d05), lysark 16", egneOrd: true }
   };
   A.faserSort = function (host) { return IN.sortTask(host, D.faserSort, { instant: false }); };

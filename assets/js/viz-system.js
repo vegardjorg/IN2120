@@ -102,7 +102,7 @@
     clear(host);
     var w = el("div", { class: "sys-viz" });
     opphav(w, "ringer");
-    var modus = null, ovFirst = false, sjekket = false, angriper = null;
+    var modus = null, ovFirst = true, sjekket = false, angriper = null;
     var svar = {};   // nivå → "kan" | "ikke"
 
     var bRow = el("div", { class: "sys-row", role: "group", "aria-label": "Velg prosessens modus" });
@@ -115,6 +115,7 @@
 
     var ovLbl = el("label", { class: "sys-lbl" });
     var ovCb = el("input", { type: "checkbox" });
+    ovCb.checked = true;   // øvemodus fra start: fargene viser ikke fasiten før tabellen er fylt ut
     ovCb.addEventListener("change", function () { ovFirst = ovCb.checked; sjekket = false; paint(); });
     ovLbl.appendChild(ovCb); ovLbl.appendChild(document.createTextNode(" Øv først: skjul fargene til jeg trykker «Sjekk svar»"));
     w.appendChild(ovLbl);
@@ -147,11 +148,11 @@
       if (angriper === null) {
         angriper = 3; modus = "bruker"; svar = {}; sjekket = false; paint();
         out.className = "sys-out nei";
-        out.innerHTML = "<p>Skadevare i nettleseren kjører på <b>nivå 3</b>. Den når bare sitt eget nivå. Trykk igjen for å la den utnytte en feil i en driver i kjernen.</p>";
+        out.innerHTML = "<p class=\"sys-modusbytte\"><b>Modus byttet til brukermodus (nivå 3).</b> Ringene viser nå svaret, også i øvemodus.</p><p>Skadevare i nettleseren kjører på <b>nivå 3</b>. Den når bare sitt eget nivå. Trykk igjen for å la den utnytte en feil i en driver i kjernen.</p>";
       } else if (angriper === 3) {
         angriper = 0; modus = "kjerne"; svar = {}; sjekket = false; paint();
         out.className = "sys-out nei";
-        out.innerHTML = "<p>Privilegieeskalering: en exploit flytter angriperen fra nivå 3 til <b>nivå 0</b>. Nå når den nivå 0, 1, 2 og 3 i denne maskinen, men fortsatt ikke hypervisoren på −1. Det ville krevd en ny feil (en «VM-flukt», ordet står ikke på d08).</p>";
+        out.innerHTML = "<p class=\"sys-modusbytte\"><b>Modus byttet til kjernemodus (nivå 0).</b></p><p>Privilegieeskalering: en exploit flytter angriperen fra nivå 3 til <b>nivå 0</b>. Nå når den nivå 0, 1, 2 og 3 i denne maskinen, men fortsatt ikke hypervisoren på −1. Det ville krevd en ny feil (en «VM-flukt», ordet står ikke på d08).</p>";
       } else {
         out.className = "sys-out";
         out.innerHTML = "<p>Angriperens mål er nivå 0 eller −1 (d08 s. 8). Her stopper den på 0. Trykk «↺ Nullstill» for å starte på nytt.</p>";
@@ -161,7 +162,7 @@
     function paint() {
       var m = cur();
       for (var id in mBtn) press(mBtn[id], id === modus);
-      var vis = m && (!ovFirst || sjekket);
+      var vis = m && (!ovFirst || sjekket || angriper != null);
       // SVG
       clear(svgBox);
       var svg = S("svg", { viewBox: "0 0 340 340", class: "viz-svg", role: "img",
@@ -219,7 +220,7 @@
       if (!sjekket) {
         out.className = "sys-out";
         out.innerHTML = "<p>" + m.navn.replace("…", "Prosess") + " kjører på nivå <b>" + nivaTekst(m.n) + "</b>." +
-          (ovFirst ? " Fyll ut tabellen og trykk «Sjekk svar»." : " Grønt = når, rødt med lås = når ikke.") + "</p>";
+          (ovFirst ? " Fargene er skjult i øvemodus. Fyll ut tabellen og trykk «Sjekk svar»." : " Grønt = når, tykk kant = eget nivå, rødt med lås = når ikke.") + "</p>";
         return;
       }
       var riktig = 0, feil = 0, blank = 0;
@@ -276,19 +277,34 @@
     w.appendChild(H("p", "sys-note", "Funksjonen <span class=\"sys-mono\">les_navn()</span> i «Bibliotekkiosk» kopierer input inn i <span class=\"sys-mono\">navn[8]</span> uten å sjekke lengden. Velg et eksempel eller skriv egen input (høyst 24 tegn), og gå steg for steg. Slå tiltakene av og på."));
     var vRow = el("div", { class: "sys-row", role: "group", "aria-label": "Mottiltak" });
     var vBtn = {};
+    // Tilstanden står i knappeteksten («på»/«av»), ikke bare i fargen (aria-pressed).
+    function vernTekst(id, navn) { return navn + ": " + (vern[id] ? "på" : "av"); }
     [["kanari", "Kanarifugl"], ["nx", "NX"], ["aslr", "ASLR"]].forEach(function (p) {
-      var b = btn(p[1], function () { vern[p[0]] = !vern[p[0]]; press(b, vern[p[0]]); sset("stakk", JSON.stringify(vern)); nyKjoring(); });
+      var b = btn(vernTekst(p[0], p[1]), function () {
+        vern[p[0]] = !vern[p[0]]; press(b, vern[p[0]]); b.textContent = vernTekst(p[0], p[1]);
+        sset("stakk", JSON.stringify(vern)); nyKjoring(true);
+      });
       press(b, vern[p[0]]); vBtn[p[0]] = b; vRow.appendChild(b);
     });
-    vRow.appendChild(btn("↻ Kjør programmet på nytt", nyKjoring));
+    vRow.appendChild(btn("↻ Kjør programmet på nytt", function () { nyKjoring(true); }));
     w.appendChild(vRow);
+    var vStatus = el("p", { class: "sys-note sys-vernstatus", "aria-live": "polite" });
+    w.appendChild(vStatus);
     var sp = el("div", { class: "sys-sp" });
     w.appendChild(sp);
 
-    function nyKjoring() {
+    function vernStatusTekst() {
+      return "kanarifugl " + (vern.kanari ? "på" : "av") + ", NX " + (vern.nx ? "på" : "av") + " og ASLR " + (vern.aslr ? "på" : "av");
+    }
+    function nyKjoring(melding) {
       kjoring.kanariVerdi = rnd32();
       kjoring.base = vern.aslr ? ((0xbf000000 + Math.floor(Math.random() * 0x00f00000)) & 0xfffffff0) >>> 0 : STAKK_BASE;
       if (player && curInput) player.setInput(curInput);
+      vStatus.innerHTML = (melding ? "<b>Programmet startet på nytt</b> med " : "Programmet kjører med ") + vernStatusTekst() +
+        ". Ny kanariverdi: <span class=\"sys-mono\">" + hex8(kjoring.kanariVerdi) + "</span>" +
+        (vern.aslr ? ", stakken på <span class=\"sys-mono\">" + hex8(kjoring.base) + "</span>." : ".") +
+        (melding ? " Avspillingen begynner fra første steg." : "");
+      if (melding) { vStatus.classList.remove("endret"); void vStatus.offsetWidth; vStatus.classList.add("endret"); }
     }
 
     function generate(input) {
@@ -476,6 +492,9 @@
     var w = el("div", { class: "sys-viz" });
     var fane = sget("lag", "type1"); if (!LAG[fane]) fane = "type1";
     var angrep = false, task = null;
+    // «Angrep fra gjest» er en av/på-bryter: teksten sier tilstanden, og den slås av ved bytte av arkitektur.
+    var aBtn = btn("Angrep fra gjest: av", function () { angrep = !angrep; paintSide(); });
+    press(aBtn, false);
 
     var tRow = el("div", { class: "sys-row", role: "group", "aria-label": "Velg arkitektur" });
     var tBtn = {};
@@ -497,7 +516,7 @@
         sp.items.forEach(function (it) { task.place(it.id, sp.answer[it.id]); });
         task.check();
       }),
-      btn("Angrep fra gjest", function () { angrep = true; paintSide(); })
+      aBtn
     ]));
     var out = el("div", { class: "sys-out", "aria-live": "polite" });
     w.appendChild(out);
@@ -512,8 +531,10 @@
       task = IN.bucketTask(taskHost, sp, { instant: false, checkLabel: "Sjekk svar", cls: "sys-lagoppg" });
     }
     function paintSide() {
+      press(aBtn, angrep); aBtn.textContent = "Angrep fra gjest: " + (angrep ? "på" : "av");
       clear(side);
       side.appendChild(H("div", "sys-k", "Sikkerhetsmål for virtualisering (d08 s. 19)"));
+      if (!angrep) side.appendChild(H("p", "sys-note sys-plass", "Slå på «Angrep fra gjest» under figuren for å se om hvert mål holder for " + LAG[fane].navn.toLowerCase() + "."));
       var maal = maalStatus(fane, angrep);
       ["Gjestene kan ikke nå eller påvirke hverandre", "Gjestene kan ikke påvirke hypervisoren", "Gjestene kan ikke oppdage at de er virtualisert"].forEach(function (t, i) {
         side.appendChild(H("div", "sys-maal " + maal[i][0], "<b>" + (i + 1) + ".</b> " + t + (maal[i][1] ? "<br><span class=\"sys-note\">" + maal[i][1] + "</span>" : "")));
@@ -587,13 +608,18 @@
     var scen = sget("oppstart", "normal"); if (!SCEN[scen]) scen = "normal";
     var attest = null;
 
-    var row = el("div", { class: "sys-row" });
-    var sel = el("select", { class: "sys-sel", "aria-label": "Scenario" });
-    Object.keys(SCEN).forEach(function (k) { var o = el("option", { value: k, text: SCEN[k].navn }); if (k === scen) o.selected = true; sel.appendChild(o); });
-    sel.addEventListener("change", function () { scen = sel.value; attest = null; sset("oppstart", scen); paint(); });
-    row.appendChild(el("label", { class: "sys-lbl" }, ["Scenario: ", sel]));
-    row.appendChild(btn("Attester", function () { attest = true; paint(); }));
+    var row = el("div", { class: "sys-row", role: "group", "aria-label": "Velg scenario" });
+    row.appendChild(H("span", "sys-lbl", "Scenario:"));
+    var sBtn = {};
+    Object.keys(SCEN).forEach(function (k) {
+      var b = btn(SCEN[k].navn, function () { scen = k; attest = null; sset("oppstart", scen); paint(); });
+      sBtn[k] = b; row.appendChild(b);
+    });
     w.appendChild(row);
+    var aRow = el("div", { class: "sys-row" });
+    aRow.appendChild(btn("Attester", function () { attest = true; paint(); }));
+    aRow.appendChild(H("span", "sys-note", "Maskinen sender TPM-signerte målinger til VPN-tjeneren, som sammenligner dem med forventede verdier."));
+    w.appendChild(aRow);
     var scTxt = H("p", "sys-note", "");
     w.appendChild(scTxt);
     var lay = el("div", { class: "sys-boot" });
@@ -604,6 +630,7 @@
     host.appendChild(w);
 
     function paint() {
+      for (var k in sBtn) press(sBtn[k], k === scen);
       scTxt.textContent = SCEN[scen].tekst;
       clear(lay);
       var stopp = scen === "usignert" || scen === "svarteliste";

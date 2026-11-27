@@ -72,7 +72,11 @@
 .cy-direkte { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; color: var(--color-on-tone-danger); margin: .2rem 0; }
 .cy-redline { flex: 0 1 12rem; min-width: 4rem; height: 0; border-top: 3px solid var(--color-on-tone-danger); position: relative; }
 .cy-redline::after { content: "▶"; position: absolute; right: -.5rem; top: -.72rem; font-size: .8rem; }
-.cy-ja td, .cy-ja th { white-space: nowrap; }
+.cy-ja td, .cy-ja th { vertical-align: top; text-align: left; }
+.cy-ja th[scope="row"] { font-weight: 600; white-space: nowrap; }
+.cy-ja-felt { line-height: 1.35; }
+.cy-ja-felt .mono { overflow-wrap: anywhere; }
+.cy-merke { white-space: nowrap; }
 .cy-merke { font-family: var(--font-mono); font-weight: 700; padding: 0 4px; border-left: 3px solid; }
 .cy-merke.same { border-color: var(--color-on-tone-ok); color: var(--color-on-tone-ok); }
 .cy-merke.diff { border-color: var(--color-on-tone-danger); color: var(--color-on-tone-danger); }
@@ -110,6 +114,16 @@
 .cy-lag { background: var(--color-surface-container-high); clip-path: polygon(var(--inn) 0, calc(100% - var(--inn)) 0, 100% 100%, 0 100%); padding-top: .55rem; }
 .cy-lag-s { --inn: 26%; } .cy-lag-o { --inn: 11%; } .cy-lag-t { --inn: 9%; }
 .cy-lag.cur { background: var(--color-tone-info); }
+/* Lagene er knapper (demo-gjennomgang punkt 1). Klikkbart område: stiplet ramme og hint, som .kr-klikkrad i blokk-krypto.css.
+   clip-path klipper vanlig outline, så fokus vises med understreket, fet tittel og en mørkere bakgrunn. */
+.cy-pyr-klikk { padding: 6px 8px 8px; border-radius: var(--radius); background: var(--color-surface-container); outline: 1px dashed var(--color-primary); }
+.cy-klikkhint { display: block; text-align: center; font-size: var(--text-xs, .75rem); color: var(--color-primary); margin-bottom: .3rem; }
+button.cy-lag { font: inherit; color: var(--color-on-surface); border-right: 0; border-bottom: 0; cursor: pointer; margin: 0; }
+button.cy-lag:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); }
+button.cy-lag:focus { outline: none; }
+button.cy-lag:focus-visible { background-image: linear-gradient(color-mix(in srgb, var(--color-primary) 22%, transparent), color-mix(in srgb, var(--color-primary) 22%, transparent)); }
+button.cy-lag:focus-visible b { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+button.cy-lag.cur { color: var(--color-on-tone-info); }
 @media (max-width: 560px) { .cy-lag-s { --inn: 22%; } .cy-lag-o { --inn: 6.5%; } .cy-lag-t { --inn: 6%; } }
 @media (max-width: 560px) { .cy-lag { width: calc(var(--w, 100%) + (100% - var(--w, 100%)) * .35); padding: .4rem .5rem; } }
 .cy-lag-s { border-top-color: var(--color-tertiary); }
@@ -134,8 +148,11 @@
 .cy-op-spi circle, .cy-op-sab circle, .cy-op-for circle { fill: var(--color-surface); stroke: var(--color-primary); }
 .cy-op-fys circle, .cy-op-jam circle, .cy-op-psy circle { fill: var(--color-tone-caution); stroke: var(--color-on-tone-caution); }
 .cy-op text, .cy-ring text { fill: var(--color-on-surface); font-size: 13px; font-weight: 600; pointer-events: none; }
+/* Valgt: tykk, hel primærkant. Hover: litt tykkere kant. Fokus: egen stiplet ring, så fokus ikke ser ut som valgt. */
+.cy-op:hover circle, .cy-ring:hover circle { stroke: var(--color-primary); stroke-width: 2.5; }
 .cy-op.cur circle, .cy-ring.cur circle { stroke: var(--color-primary); stroke-width: 3.5; }
-.cy-op:focus-visible circle, .cy-ring:focus-visible circle { stroke: var(--color-primary); stroke-width: 3.5; }
+.cy-op:focus-visible circle, .cy-ring:focus-visible circle { stroke: var(--color-on-surface); stroke-width: 3; stroke-dasharray: 7 4; }
+.cy-op.cur:focus-visible circle, .cy-ring.cur:focus-visible circle { stroke: var(--color-primary); stroke-width: 4; stroke-dasharray: 7 4; }
 .cy-op:focus, .cy-ring:focus { outline: none; }
 .cy-ring-0 circle { fill: var(--color-surface-container-low); }
 .cy-ring-1 circle { fill: var(--color-tone-info); }
@@ -211,9 +228,18 @@
 .cy-eks[open] > summary { margin-bottom: .3rem; }
 
 /* Tabeller på siden */
-.cy-tab th[scope="row"] { white-space: nowrap; }
+.cy-tab th[scope="row"] { white-space: nowrap; font-weight: 600; background: var(--color-surface-container); vertical-align: top; }
+.cy-tab td { vertical-align: top; }
+/* Smal skjerm: ingen vannrett rulling (ui-ux-regler punkt 6) */
+@media (max-width: 560px) {
+  .cy-tab td, .cy-tab th { padding: 6px 4px; font-size: 12.5px; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+  .cy-tab th[scope="row"] { white-space: normal; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .cy-node, .cy-kc-step, .cy-life-bar, .cy-bar-f { transition: none; }
 }
 .cy-pi-scene { width: 100%; min-width: 0; }
+
+/* Nummererte deloverskrifter i fanene (samme uttrykk som h4.kr-del i blokk-krypto.css) */
+h4.cy-del { margin-top: 1.8rem; font-size: 17px; line-height: 1.3; }

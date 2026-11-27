@@ -151,7 +151,7 @@
     host = qsHost(host); if (!host) return null;
     opts = opts || {};
     var C = 58, X0 = 64, Y0 = 16, N = 6, W = X0 + N * C + 16, H = Y0 + N * C + 54;
-    var st = { grense: 5, visEtter: false, mode: opts.handling ? "handling" : "fasit", valgt: null, plassert: {}, handling: null };
+    var st = { grense: 5, visEtter: false, mode: opts.handling ? "handling" : "fasit", valgt: null, plassert: {}, handling: null, rute: null };
     var wrap = el("div", { class: "rk-matrise" });
     var ctl = el("div", { class: "rk-ctl" });
     var slider = el("input", { type: "range", min: "4", max: "7", step: "1", value: "5", "aria-label": "Akseptgrense" });
@@ -160,7 +160,7 @@
     var modeBtns = {};
     if (!opts.handling) {
       [["fasit", "Vis R1–R5"], ["plasser", "Plasser selv"]].forEach(function (m) {
-        var b = el("button", { type: "button", class: "btn sm", text: m[1], onclick: function () { st.mode = m[0]; st.valgt = null; paint(); } });
+        var b = el("button", { type: "button", class: "btn sm", text: m[1], onclick: function () { st.mode = m[0]; st.valgt = null; st.rute = null; paint(); } });
         modeBtns[m[0]] = b; ctl.appendChild(b);
       });
       var pil = el("button", { type: "button", class: "btn sm", text: "Piler før → etter tiltak", onclick: function () { st.visEtter = !st.visEtter; paint(); } });
@@ -179,9 +179,12 @@
       });
       wrap.appendChild(hb);
     }
-    var svgHost = el("div", { class: "rk-svgwrap" });
-    var s = svg("svg", { viewBox: "0 0 " + W + " " + H, class: "rk-svg", role: "img", "aria-label": "Risikomatrise med sannsynlighet loddrett og konsekvens vannrett" });
-    svgHost.appendChild(s); wrap.appendChild(svgHost);
+    /* Klikkbart område: stiplet ramme og hint over matrisen (mønster: KR.bitflipp, .kr-klikkrad / .kr-klikkhint) */
+    var hint = el("p", { class: "rk-klikkhint" });
+    var svgHost = el("div", { class: "rk-svgwrap rk-klikkrad" });
+    var s = svg("svg", { viewBox: "0 0 " + W + " " + H, class: "rk-svg", role: "group",
+      "aria-label": "Risikomatrise med sannsynlighet loddrett og konsekvens vannrett. Hver rute er en knapp." });
+    svgHost.appendChild(hint); svgHost.appendChild(s); wrap.appendChild(svgHost);
     var info = el("div", { class: "rk-info", "aria-live": "polite" });
     wrap.appendChild(info);
     clear(host); host.appendChild(wrap);
@@ -220,14 +223,18 @@
       Object.keys(modeBtns).forEach(function (m) { modeBtns[m].setAttribute("aria-pressed", st.mode === m ? "true" : "false"); });
       if (pil) { pil.setAttribute("aria-pressed", st.visEtter ? "true" : "false"); pil.disabled = st.mode === "plasser"; }
       Object.keys(hBtns).forEach(function (h) { hBtns[h].setAttribute("aria-pressed", String(st.handling) === h ? "true" : "false"); });
+      hint.textContent = st.mode === "plasser" ? (st.valgt ? "Klikk ruta der " + st.valgt + " hører hjemme" : "Velg først en risiko over, og klikk så en rute")
+        : "Klikk en rute for å se risikonivået R = s + k for den";
       // Brikker
       clear(chips);
       if (st.mode === "plasser") {
         chips.appendChild(el("span", { class: "small muted", text: "Velg en risiko og klikk ruta der den hører hjemme:" }));
         RISKS.forEach(function (r) {
           var done = !!st.plassert[r.id];
-          chips.appendChild(el("button", { type: "button", class: "btn sm rk-chip" + (done ? " is-done" : ""), "aria-pressed": st.valgt === r.id ? "true" : "false",
-            text: r.id + (done ? " ✓" : ""), title: r.navn, onclick: function () { st.valgt = r.id; paint(); } }));
+          chips.appendChild(el("button", { type: "button", class: "btn sm rk-chip" + (done ? " is-done" : ""), "aria-pressed": st.valgt === r.id ? "true" : "false", "data-id": r.id,
+            text: r.id + (done ? " ✓" : ""), title: r.navn, onclick: function () {
+              st.valgt = r.id; paint();
+              var b = chips.querySelector('[data-id="' + r.id + '"]'); if (b) b.focus(); } }));
         });
         chips.appendChild(el("button", { type: "button", class: "btn sm", text: "↺ Nullstill", onclick: function () { st.plassert = {}; st.valgt = null; info.innerHTML = ""; paint(); } }));
       }
@@ -238,8 +245,9 @@
       mk.appendChild(svg("path", { d: "M0,0 L10,5 L0,10 z", class: "rk-arrowhead" }));
       defs.appendChild(mk); s.appendChild(defs);
       for (var sv = 0; sv < N; sv++) for (var k = 0; k < N; k++) {
-        var sum = sv + k, g = svg("g", { class: "rk-cell rk-" + sone(sum) + (st.feil === sv + ":" + k ? " rk-cell-feil" : ""), "data-s": sv, "data-k": k,
-          tabindex: "0", role: "button", "aria-label": "Sannsynlighet " + sv + ", konsekvens " + k });
+        var sel = st.mode !== "plasser" && st.rute === sv + ":" + k;
+        var sum = sv + k, g = svg("g", { class: "rk-cell rk-" + sone(sum) + (st.feil === sv + ":" + k ? " rk-cell-feil" : "") + (sel ? " is-sel" : ""), "data-s": sv, "data-k": k,
+          tabindex: "0", role: "button", "aria-pressed": sel ? "true" : "false", "aria-label": "Sannsynlighet " + sv + ", konsekvens " + k + ", R = " + sum });
         g.appendChild(svg("rect", { x: cellX(k), y: cellY(sv), width: C, height: C }));
         g.appendChild(svg("text", { x: cellX(k) + 5, y: cellY(sv) + 13, class: "rk-sum" }, String(sum)));
         (function (sv2, k2) {
@@ -325,11 +333,13 @@
 
     function cellClick(sv, k) {
       if (st.mode !== "plasser") {
+        st.rute = sv + ":" + k; paint();
         var here = RISKS.filter(function (r) { return r.s === sv && kvalK(r) === k; }).map(function (r) { return r.id; });
         info.innerHTML = "Ruta s = " + sv + ", k = " + k + " gir R = " + (sv + k) + ", som er <b>" + vurd(sv + k) + "</b> med grensen " + st.grense + "." +
           (here.length ? " Her ligger " + here.join(" og ") + "." : "") + ' <a href="#" class="rk-back">Vis lista igjen</a>';
         var back = IN.qs(".rk-back", info);
-        if (back) back.addEventListener("click", function (ev) { ev.preventDefault(); paintInfo(); });
+        if (back) back.addEventListener("click", function (ev) { ev.preventDefault(); st.rute = null; paint(); });
+        refocus(sv, k);
         return;
       }
       if (!st.valgt) { info.innerHTML = "Velg først en risiko (R1–R5) over matrisen."; return; }
@@ -350,6 +360,12 @@
         setTimeout(function () { st.feil = null; var c = s.querySelector(".rk-cell-feil"); if (c) c.classList.remove("rk-cell-feil"); }, 1400);
       }
       paint();
+      refocus(sv, k);
+    }
+    /* paint() tegner rutene på nytt, så fokus settes tilbake på ruta som ble valgt (tastatur) */
+    function refocus(sv, k) {
+      var c = s.querySelector('.rk-cell[data-s="' + sv + '"][data-k="' + k + '"]');
+      if (c && c.focus) c.focus();
     }
 
     paint();
@@ -377,11 +393,12 @@
     host = qsHost(host); if (!host) return;
     clear(host);
     var g = 5;
-    host.appendChild(table(["#", "Risiko (KIT)", "s", "k (største aspekt)", "R = s + k", "Vurdering (R ≤ 5)"], RISKS.map(function (r) {
+    /* Maks fire kolonner (ui-ux-regler punkt 6): nummer og navn i én kolonne, R og vurdering i én */
+    host.appendChild(table(["Risiko (KIT)", "s", "k (største aspekt)", "R = s + k og vurdering (R ≤ 5)"], RISKS.map(function (r) {
       var R = kvalR(r), kTxt = r.aspekterK.length > 1 ?
         kvalK(r) + " <span class=\"muted small\">(" + r.aspekterK.map(function (a) { return a.n + " " + a.k; }).join(", ") + " → maks " + kvalK(r) + ")</span>" :
         kvalK(r) + " <span class=\"muted small\">(" + r.aspekterK[0].n + ")</span>";
-      return { cls: R > g ? "rk-row-bad" : "", cells: [r.id, r.navn + " (" + r.kit + ")", r.s, kTxt, "<b>" + R + "</b>", R > g ? "Uakseptabel" : R === g ? "Akseptabel (på grensen)" : "Akseptabel"] };
+      return { cls: R > g ? "rk-row-bad" : "", cells: ["<b>" + r.id + "</b> " + r.navn + " (" + r.kit + ")", r.s, kTxt, "<b>" + R + "</b>: " + (R > g ? "uakseptabel" : R === g ? "akseptabel (på grensen)" : "akseptabel")] };
     })));
     var etter = RISKS.filter(function (r) { return r.etter; }).map(function (r) {
       var e = etterPos(r), hva = r.etter.k != null ? "k " + kvalK(r) + " → " + e.k : "s " + r.s + " → " + e.s;
@@ -416,9 +433,9 @@
 
     // Koblingen mellom skalaene
     host.appendChild(el("p", { class: "small", html: "<b>Sammenhengen mellom skalaene.</b> Med «ett nivå = × 10» er s = 3 + log₁₀(frekvens) og k = log₁₀(kroner) − 2. Da blir s + k = 1 + log₁₀(risiko i kr/år). Siden regner det ut for hver risiko:" }));
-    host.appendChild(table(["#", "s = 3 + log₁₀(S)", "k = log₁₀(K) − 2", "1 + log₁₀(S × K)", "Kvalitativ R"], RISKS.map(function (r) {
+    host.appendChild(table(["#", "s = 3 + log₁₀(S)", "k = log₁₀(K) − 2", "1 + log₁₀(S × K) → kvalitativ R"], RISKS.map(function (r) {
       var sL = logS(r.freq), kL = logK(kvantK(r)), RL = 1 + Math.log10(kvantRisk(r));
-      return [r.id, fmt(sL, 2) + " → " + Math.round(sL), fmt(kL, 2) + " → " + Math.round(kL), fmt(RL, 2), kvalR(r)];
+      return [r.id, fmt(sL, 2) + " → " + Math.round(sL), fmt(kL, 2) + " → " + Math.round(kL), fmt(RL, 2) + " → <b>" + kvalR(r) + "</b>"];
     })));
     host.appendChild(el("p", { class: "small muted", text: "R1 og R2 får begge nivå 6 kvalitativt, men kronebeløpene (35 000 og 70 000) skiller dem. R1 havner på 6 fordi k = 3,54 rundes opp til 4. Kvalitativ vurdering er grov." }));
     kontrollLinje(host);
@@ -664,7 +681,7 @@
       oppsummering: {
         eli5: "Huskeregel: regler → måle → sjekke målingen → plan → sjefen sier ja → gjøre det.",
         normal: "Hvert beslutningspunkt står rett etter det det vurderer: punkt 1 etter vurderingen, punkt 2 etter planen. «Nei» sender prosessen tilbake. Fasitfiguren under viser også underboksene og Nei-pilene.",
-        teknisk: "Felle (H2022 10.2, H2024 33): dårlig spredning og stor uvisshet gir «Nei» i punkt 1, mens budsjett og restrisiko gir «Nei» i punkt 2. «Må først gjennomføre OSINT» er en distraktor i begge."
+        teknisk: "Felle (H2022 10.2, H2024 33): dårlig spredning og stor uvisshet gir «Nei» i punkt 1, mens budsjett og restrisiko gir «Nei» i punkt 2. «Må først gjennomføre OSINT» er et feil svaralternativ i begge."
       }
     }, { instant: false });
   }
@@ -928,33 +945,42 @@
     var H = { v: ["Verdier", "driftskontoen og betalingsrutinen", "ingen penger å stjele"],
               t: ["Trusler", "svindleren som sender falske fakturaer", "ingen som prøver svindel"],
               s: ["Sårbarheter", "ingen rutine for å bekrefte nytt kontonummer", "bekreftelsesrutinen er innført"] };
-    var P = { v: [160, 30], t: [40, 220], s: [280, 220] };
-    var svgN = svg("svg", { viewBox: "0 0 320 260", class: "rk-svg rk-tri", role: "group", "aria-label": "Risikotrekanten" });
+    var P = { v: [160, 32], t: [44, 222], s: [276, 222] };
+    /* Navnet står utenfor sirkelen (Sårbarheter er for langt til å stå inni), sirkelen viser på/av med tegn og tekst */
+    var NAVN = { v: { x: 190, y: 37, a: "start" }, t: { x: 44, y: 266, a: "middle" }, s: { x: 276, y: 266, a: "middle" } };
+    var svgN = svg("svg", { viewBox: "0 0 320 278", class: "rk-svg rk-tri", role: "group", "aria-label": "Risikotrekanten. Hvert hjørne er en av/på-knapp." });
     var tri = svg("polygon", { points: [P.v, P.t, P.s].map(function (p) { return p.join(","); }).join(" "), class: "rk-tri-p" });
     svgN.appendChild(tri);
-    var mid = svg("text", { x: 160, y: 158, "text-anchor": "middle", class: "rk-tri-mid" }, "RISIKO");
+    var mid = svg("text", { x: 160, y: 160, "text-anchor": "middle", class: "rk-tri-mid" }, "RISIKO");
     svgN.appendChild(mid);
-    var gs = {};
+    var gs = {}, paa = {};
     Object.keys(P).forEach(function (k) {
-      var g = svg("g", { class: "rk-corner", tabindex: "0", role: "button", "aria-label": H[k][0] + " av eller på" });
-      g.appendChild(svg("circle", { cx: P[k][0], cy: P[k][1], r: 24 }));
-      g.appendChild(svg("text", { x: P[k][0], y: P[k][1] + 4, "text-anchor": "middle" }, H[k][0]));
+      var g = svg("g", { class: "rk-corner", tabindex: "0", role: "button", "aria-pressed": "true", "aria-label": H[k][0] });
+      g.appendChild(svg("circle", { cx: P[k][0], cy: P[k][1], r: 22 }));
+      paa[k] = svg("text", { x: P[k][0], y: P[k][1] + 4, "text-anchor": "middle", class: "rk-corner-paa" }, "✓ på");
+      g.appendChild(paa[k]);
+      g.appendChild(svg("text", { x: NAVN[k].x, y: NAVN[k].y, "text-anchor": NAVN[k].a, class: "rk-corner-navn" }, H[k][0]));
       g.addEventListener("click", function () { on[k] = !on[k]; paint(); });
       g.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); on[k] = !on[k]; paint(); } });
       gs[k] = g; svgN.appendChild(g);
     });
     var info = el("div", { class: "rk-info", "aria-live": "polite" });
-    host.appendChild(el("div", { class: "rk-svgwrap rk-narrow" }, [svgN]));
+    /* Klikkbart område: stiplet ramme og hint (mønster: KR.bitflipp, .kr-klikkrad / .kr-klikkhint) */
+    host.appendChild(el("div", { class: "rk-svgwrap rk-narrow rk-klikkrad" }, [
+      el("p", { class: "rk-klikkhint", text: "Klikk et hjørne for å slå det av eller på" }), svgN]));
     host.appendChild(info);
     function paint() {
       var all = on.v && on.t && on.s;
-      Object.keys(gs).forEach(function (k) { gs[k].classList.toggle("is-off", !on[k]); });
+      Object.keys(gs).forEach(function (k) {
+        gs[k].classList.toggle("is-off", !on[k]);
+        gs[k].setAttribute("aria-pressed", on[k] ? "true" : "false");
+        paa[k].textContent = on[k] ? "✓ på" : "✗ av";
+      });
       mid.setAttribute("class", "rk-tri-mid" + (all ? "" : " is-off"));
       info.innerHTML = "<ul class=\"small\">" + Object.keys(H).map(function (k) {
         return "<li><b>" + H[k][0] + ":</b> " + (on[k] ? H[k][1] : "<s>" + H[k][1] + "</s> → " + H[k][2]) + "</li>";
       }).join("") + "</ul><p>" + (all ? "Alle tre hjørnene finnes, så risikoen R2 «fakturasvindel» er der." :
-        "Ett hjørne mangler, så risikoen forsvinner. Det er derfor tiltak mot sårbarheter virker.") + "</p>" +
-        "<p class=\"small muted\">Klikk et hjørne for å slå det av eller på.</p>";
+        "Minst ett hjørne mangler, så risikoen forsvinner. Det er derfor tiltak mot sårbarheter virker.") + "</p>";
     }
     paint();
   }

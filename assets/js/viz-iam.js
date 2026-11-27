@@ -352,7 +352,7 @@
     function mkSel(lbl, key) {
       var s = el("select", { "aria-label": lbl });
       NIV.forEach(function (n, i) { s.appendChild(el("option", { value: String(i), text: n })); });
-      s.addEventListener("change", function () { st[key] = +s.value; if (st.akt > st.maks) st.akt = st.maks; paint(); });
+      s.addEventListener("change", function () { st[key] = +s.value; klemt = st.akt > st.maks; if (klemt) st.akt = st.maks; paint(); });
       return s;
     }
     var sMaks = mkSel("Maks klarering", "maks"), sAkt = mkSel("Aktuelt nivå for økten", "akt"), sObj = mkSel("Dokumentets gradering", "obj");
@@ -361,9 +361,12 @@
       el("label", { class: "fld" }, [el("span", { text: "Aktuelt nivå (økten)" }), sAkt]),
       el("label", { class: "fld" }, [el("span", { text: "Dokumentets gradering" }), sObj])
     ]);
+    var klemt = false;
     var presets = el("div", { class: "btn-row" }, [el("span", { class: "small muted", text: "Eksempler:" })]);
-    [["Major Dahl, aktuelt HEMMELIG", 2, 2, 1], ["Major Dahl, aktuelt KONFIDENSIELT", 2, 1, 2], ["Maks STRENGT HEMMELIG, aktuelt BEGRENSET", 3, 0, 3]].forEach(function (p) {
-      presets.appendChild(el("button", { class: "btn sm", type: "button", text: p[0], onclick: function () { st.maks = p[1]; st.akt = p[2]; st.obj = p[3]; paint(); } }));
+    var PRE = [["Major Dahl, aktuelt HEMMELIG", 2, 2, 1], ["Major Dahl, aktuelt KONFIDENSIELT", 2, 1, 2], ["Maks STRENGT HEMMELIG, aktuelt BEGRENSET", 3, 0, 3]];
+    var preBtns = PRE.map(function (p) {
+      var b = el("button", { class: "btn sm", type: "button", text: p[0], "aria-pressed": "false", onclick: function () { st.maks = p[1]; st.akt = p[2]; st.obj = p[3]; klemt = false; paint(); } });
+      b._p = p; presets.appendChild(b); return b;
     });
     var verdict = el("div", { class: "iam-blp-v", "aria-live": "polite" });
     var tw = el("div", { class: "iam-tw" }), tab = el("table", { class: "iam-blp-t" });
@@ -373,9 +376,10 @@
       sMaks.value = String(st.maks); sAkt.value = String(st.akt); sObj.value = String(st.obj);
       IN.qsa("option", sAkt).forEach(function (o) { o.disabled = +o.value > st.maks; });
       var a = st.akt, o = st.obj, les = o <= a, skr = o >= a;
-      verdict.innerHTML =
-        "<p><b>Lese " + NIV[o] + "?</b> " + yes(les) + " · " + (les ? "graderingen er på eller under aktuelt nivå (" + NIV[a] + ")." : "det ville vært å lese opp. Ikke les opp.") + "</p>" +
-        "<p><b>Skrive i " + NIV[o] + "?</b> " + yes(skr) + " · " + (skr ? "graderingen er på eller over aktuelt nivå, så ingenting lekker nedover." : "det ville vært å skrive ned. Ikke skriv ned.") + "</p>" +
+      preBtns.forEach(function (b) { var p = b._p; b.setAttribute("aria-pressed", p[1] === st.maks && p[2] === a && p[3] === o ? "true" : "false"); });
+      verdict.innerHTML = (klemt ? '<p class="small"><b>Merk:</b> aktuelt nivå kan ikke være over maks, så det er satt ned til ' + NIV[st.maks] + ".</p>" : "") +
+        "<p><b>Lese " + NIV[o] + "?</b> " + yes(les) + " · " + (les ? "graderingen er på eller under aktuelt nivå (" + NIV[a] + ")." : "graderingen er over aktuelt nivå, og det ville vært å lese opp. Ikke les opp.") + "</p>" +
+        "<p><b>Skrive i " + NIV[o] + "?</b> " + yes(skr) + " · " + (skr ? "graderingen er på eller over aktuelt nivå, så ingenting lekker nedover." : "graderingen er under aktuelt nivå, og det ville vært å skrive ned. Ikke skriv ned.") + "</p>" +
         "<p><b>Redigere (lese og skrive)?</b> " + yes(les && skr) + " · " + (les && skr ? "bare mulig når graderingen er lik aktuelt nivå." : "krever at graderingen er lik aktuelt nivå.") + "</p>" +
         (a < st.maks ? '<p class="small muted">Brukeren har valgt et lavere nivå enn maks for denne økten. Reglene sjekkes mot det aktuelle nivået, ikke mot maks.</p>' : "");
       clear(tab);
@@ -396,7 +400,7 @@
           tr.appendChild(el("td", { html: yes(i === a) }));
           tr.addEventListener("click", function () {
             var fokus = document.activeElement === rb;
-            st.obj = i; paint();
+            st.obj = i; klemt = false; paint();
             if (fokus) { var nb = tab.querySelector('.iam-rad-b[data-niv="' + i + '"]'); if (nb) nb.focus(); }
           });
           tb.appendChild(tr);

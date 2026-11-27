@@ -509,6 +509,9 @@
     });
   };
   window.addEventListener("storage", function (e) { if (e.key === STRAKS_KEY) straksEvent(e.newValue === "1"); });
+  // Siden kan komme tilbake fra nettleserens hurtigbuffer (bfcache) med gammel tilstand i bryterne.
+  // Les innstillingen på nytt da, så alle øvinger følger den globale bryteren.
+  window.addEventListener("pageshow", function (e) { if (e.persisted) straksEvent(IN.svarStraks.get()); });
   function plain(html) { var d = document.createElement("div"); d.innerHTML = html; return (d.textContent || "").trim(); }
 
   /* ---------- Kildehenvisning på et punkt (sant/usant, flervalg) ----------

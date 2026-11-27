@@ -72,7 +72,7 @@
         { id: "dnssec", html: "DNSSEC", forklaring: {
           normal: "DNSSEC er en utvidelse av DNS med digitale signaturer på svarene. DNS er en applikasjonstjeneste, så DNSSEC hører også til applikasjonslaget.",
           teknisk: "DNSSEC gir integritet og autentisitet for DNS-data (signaturer og en egen PKI, se blokk 3), men ingen konfidensialitet. Den ligger der DNS ligger: i applikasjonslaget." } },
-        { id: "tlsh", html: "TLS Handshake", forklaring: "Kurset legger Handshake i applikasjonslaget, sammen med HTTP (d09 s. 12). Den forhandler algoritmer og etablerer øktnøkkelen." },
+        { id: "tlsh", html: "TLS Handshake", forklaring: "Kurset legger Handshake i applikasjonslaget, sammen med HTTP (lysark uke 9, s. 12). Den forhandler algoritmer og etablerer øktnøkkelen." },
         { id: "tlsr", html: "TLS Record", forklaring: "Record sitter rett over TCP og regnes til transportlaget. Den krypterer med nøkkelen Handshake etablerte." },
         { id: "tcp", html: "TCP", forklaring: "TCP leverer til riktig program via porter og sørger for at alt kommer fram i riktig rekkefølge. Det er transportlaget, men uten kryptografi." },
         { id: "udp", html: "UDP", forklaring: "Transport med porter, uten garantert levering. Ingen kryptografi, så ingen sikkerhetsprotokoll." },
@@ -291,7 +291,7 @@
         if (hit < 0) steps.push({ pk: pk, rs: rs, at: rs.length, implicit: true, text: {
           eli5: "Ingen linje passet. Denne dørvakten slipper da folk inn. Derfor bør siste linje være «alle andre: nei».",
           normal: "Ingen regel traff. iptables har implisitt ACCEPT, så pakken <b>slipper gjennom</b>. Med en eksplisitt DROP til slutt hadde den blitt stoppet.",
-          teknisk: "Ingen regel matchet, og standardpolicy ACCEPT gjelder (d09 s. 48). En eksplisitt <code>-j DROP</code> sist gir minste privilegium. Merk: H2025 24-fasiten antar at trafikk uten treff blir stoppet." } });
+          teknisk: "Ingen regel matchet, og standardpolicy ACCEPT gjelder (lysark uke 9, s. 48). En eksplisitt <code>-j DROP</code> sist gir minste privilegium. Merk: H2025 24-fasiten antar at trafikk uten treff blir stoppet." } });
         // Gjett før svaret: spørsmålet vises på første steg, før regel 1 sjekkes
         var dom = hit >= 0 ? rs[hit].j : "ACCEPT";
         if (steps[1]) steps[1].spor = {
@@ -370,7 +370,7 @@
       prompt: {
         eli5: "En borg har forgård og tronsal. Det besøkende må nå, står i forgården (DMZ). Det verdifulle står innerst. Hvor hører hver ting hjemme?",
         normal: "Virksomheten har en ytre brannmur mot Internett, en DMZ og en indre brannmur foran det indre nettet. Plasser hver maskin eller tjeneste der den bør stå.",
-        teknisk: "Arkitektur som i d09 s. 41: ytre brannmur, DMZ (eksponert segment) og indre brannmur foran indre segment. Plasser etter hvem som må nå tjenesten, og hva et kompromiss koster."
+        teknisk: "Arkitektur som på lysark uke 9, s. 41: ytre brannmur, DMZ (eksponert segment) og indre brannmur foran indre segment. Plasser etter hvem som må nå tjenesten, og hva et kompromiss koster."
       },
       zones: [
         { id: "ute", label: "Internett", hint: "utenfor ytre brannmur" },
@@ -383,7 +383,7 @@
         { id: "dns", html: "Offentlig DNS-tjener", forklaring: "Svarer på oppslag fra Internett (port 53). DMZ, som på lysarket." },
         { id: "db", html: "Database med kundedata", forklaring: {
           normal: "Skal aldri nås direkte utenfra. Den står i det indre nettet, og den indre brannmuren slipper bare inn webtjeneren på databaseporten.",
-          teknisk: "Indre segment. Typisk regel i den indre brannmuren: web → database på databaseporten, alt annet DROP (t10 O7). Da må angriperen gjennom to lag." } },
+          teknisk: "Indre segment. Typisk regel i den indre brannmuren: web → database på databaseporten, alt annet DROP (ukeoppgave nettverk, oppgave 7). Da må angriperen gjennom to lag." } },
         { id: "fil", html: "Intern filtjener", forklaring: "Bare de ansatte skal bruke den, og ingen utenfra trenger å nå den. Da hører den til det indre nettet, ikke DMZ." },
         { id: "pc", html: "Ansattes arbeidsstasjoner", forklaring: "Skal ikke kunne nås utenfra. Indre nett, bak begge brannmurene." },
         { id: "kunde", html: "Kundenes nettlesere", forklaring: "Virksomheten eier dem ikke og kan ikke stole på dem. De er ute på Internett." },
@@ -435,18 +435,25 @@
       { t: "3389", c: "d", f: "Målport: RDP." },
       { t: "(msg:\"Utgående RDP\"; sid:1000102; rev:1;)", c: "o", f: "Valg: meldingen i varselet, sid = regelens unike nummer (egne regler fra 1 000 000), rev = revisjon." }
     ];
-    var row = el("div", { class: "nt-snort mono", role: "list" });
-    var info = H("p", "nt-snort-info small", "Klikk på en del av regelen for å se hva den betyr.");
-    deler.forEach(function (d) {
-      var b = el("button", { type: "button", class: "nt-sn nt-sn-" + d.c, role: "listitem", text: d.t });
+    var wrap = el("div", { class: "nt-snort-klikk" });
+    wrap.appendChild(H("span", "nt-klikkhint", "Klikk på en del av regelen"));
+    var row = el("ul", { class: "nt-snort mono", "aria-label": "Snort-regelen, del for del" });
+    var info = H("p", "nt-snort-info small", "Ingen del valgt ennå. Klikk på en del av regelen for å se hva den betyr.");
+    info.setAttribute("aria-live", "polite");
+    deler.forEach(function (d, i) {
+      var li = el("li");
+      var b = el("button", { type: "button", class: "nt-sn nt-sn-" + d.c, text: d.t, "aria-pressed": "false",
+        title: "Klikk for å se hva denne delen betyr", "aria-label": "Del " + (i + 1) + " av " + deler.length + ": " + d.t });
       b.addEventListener("click", function () {
-        IN.qsa(".nt-sn", row).forEach(function (x) { x.classList.remove("on"); });
-        b.classList.add("on");
+        IN.qsa(".nt-sn", row).forEach(function (x) { x.classList.remove("on"); x.setAttribute("aria-pressed", "false"); });
+        b.classList.add("on"); b.setAttribute("aria-pressed", "true");
         info.innerHTML = "<b class=\"mono\">" + d.t.replace(/</g, "&lt;") + "</b>: " + d.f;
       });
-      row.appendChild(b);
+      li.appendChild(b);
+      row.appendChild(li);
     });
-    host.appendChild(row);
+    wrap.appendChild(row);
+    host.appendChild(wrap);
     host.appendChild(info);
   };
 
@@ -479,7 +486,7 @@
     { navn: "Utgående RDP fra 192.168.40.12", vil: ["p1"],
       tips: "Kilden (192.168.40.12) står til venstre for pilen, og RDP-porten 3389 er målporten. Svarpakken har 3389 som kildeport og treffer derfor ikke en regel med én retning." },
     { navn: "Utgående SSH fra domenekontrolleren 10.10.23.23", vil: ["p4"],
-      tips: "Samme form som i H2025 20: domenekontrolleren som kilde, 22 som målport. Fasiten der skrev 22 som kildeport (trafikk fra serveren), og rettenøkkelen gir 0 poeng for feil retning. Skriv maskinen som kilde, og si gjerne i én setning hvorfor 22 står på målsiden." },
+      tips: "Samme form som i H2025 20: domenekontrolleren som kilde, 22 som målport. Fasiten der skrev 22 som kildeport (trafikk fra serveren), og retteinstruksen til sensor gir 0 poeng for feil retning. Skriv maskinen som kilde, og si gjerne i én setning hvorfor 22 står på målsiden." },
     { navn: "All Telnet inn mot 192.168.40.7", vil: ["p6"],
       tips: "Hvem som helst kan være kilden, så kilde-IP og kildeport er any. Målet er 192.168.40.7 på port 23." }
   ];
@@ -521,11 +528,12 @@
       var fp = 0, fn = 0, rows = PK.map(function (p) {
         var t = IN.nettSnortTreff(regel, p), vil = o.vil.indexOf(p.id) >= 0;
         if (t && !vil) fp++; if (!t && vil) fn++;
-        return "<tr" + (vil ? " class=\"nt-sb-vil\"" : "") + "><td>" + (vil ? "★" : "") + "</td><td class=\"mono\">" + p.proto.toUpperCase() + " " + p.s + ":" + p.sp + " → " + p.d + ":" + p.dp + "</td><td>" + p.navn + "</td>" +
+        return "<tr" + (vil ? " class=\"nt-sb-vil\"" : "") + "><td>" + (vil ? "<span class=\"nt-sb-stjerne\" aria-hidden=\"true\">★ </span><span class=\"qz-sr\">Skal gi alarm: </span>" : "") + p.navn +
+          "<br><span class=\"mono small\">" + p.proto.toUpperCase() + " " + p.s + ":" + p.sp + " → " + p.d + ":" + p.dp + "</span></td>" +
           "<td class=\"" + (t ? "nt-alarm" : "muted") + "\">" + (t ? "🔔 alarm" : "ingen") + "</td>" +
           "<td class=\"" + (t === vil ? "nt-m-ja" : "nt-m-nei") + "\">" + (t === vil ? "✓" : vil ? "bom" : "falsk alarm") + "</td></tr>";
       });
-      tw.innerHTML = "<table class=\"nt-fw nt-sn-tab\"><thead><tr><th><span class=\"qz-sr\">Skal gi alarm</span></th><th>Pakke</th><th>Hva det er</th><th>Regelen din</th><th>Mot oppgaven</th></tr></thead><tbody>" + rows.join("") + "</tbody></table>";
+      tw.innerHTML = "<table class=\"nt-fw nt-sn-tab\"><thead><tr><th>Pakke (★ = skal gi alarm)</th><th>Regelen din</th><th>Mot oppgaven</th></tr></thead><tbody>" + rows.join("") + "</tbody></table>";
       if (!fp && !fn) {
         res.className = "nt-sb-res nt-ok";
         res.innerHTML = "<b>Regelen treffer akkurat det oppgaven ber om.</b> " + o.tips;
@@ -625,7 +633,7 @@
       { t: "Kjent skadevare, sendt ukryptert, i et vanlig mønster", d: "Skadevaren har en kjent signatur. Den lastes ned over http, i en mengde og på en tid som ligner vanlig trafikk.", a: [true, false],
         f: { eli5: "Tyven står på plakaten, men oppfører seg helt vanlig. Bare plakat-alarmen piper.", normal: "Signaturen treffer på innholdet. Trafikkmønsteret er normalt, så anomalibasert ser ingenting.", teknisk: "Signaturbasert trenger ofte å se innholdet. Her er det synlig." } },
       { t: "Den samme skadevaren, men over HTTPS", d: "Nå lastes den ned over TLS, uten TLS-inspeksjon, fortsatt i et vanlig mønster.", a: [false, false],
-        f: { eli5: "Tyven har på seg maske og oppfører seg vanlig. Ingen alarm piper.", normal: "TLS skjuler innholdet, så signaturen finner ingenting å treffe på (d09 s. 59). Mønsteret er normalt, så anomalibasert er også stille.", teknisk: "TLS gjør signaturbasert IDS mindre effektiv. Motmidler: TLS-inspeksjon i proxyen, eller HIDS på endepunktet der innholdet er dekryptert." } },
+        f: { eli5: "Tyven har på seg maske og oppfører seg vanlig. Ingen alarm piper.", normal: "TLS skjuler innholdet, så signaturen finner ingenting å treffe på (lysark uke 9, s. 59). Mønsteret er normalt, så anomalibasert er også stille.", teknisk: "TLS gjør signaturbasert IDS mindre effektiv. Motmidler: TLS-inspeksjon i proxyen, eller HIDS på endepunktet der innholdet er dekryptert." } },
       { t: "Etter trening under pentest", d: "Anomali-IDS-en ble trent i mars mens en pentest pågikk. I april kartlegger en ekte angriper nettet på samme måte. Ingen signatur passer.", a: [false, false],
         f: { eli5: "Vakthunden lærte at tyver hører til i huset, så den bjeffer ikke.", normal: "Modellen lærte at kartlegging er normalt, og varsler ikke om den nå. Ingen signatur passer heller (H2025 21).", teknisk: "Forgiftet baseline gir falske negative. Tren på en periode du vet er ren." } }
     ];
@@ -886,14 +894,14 @@
       opphav: { type: "egen", kilder: ["d09 s. 36–71"] },
       sporsmal: {
         eli5: "Fem vakter med ulike jobber. Hvem kan stoppe noen selv, hvem leser brevene, og hvem husker hvem som har vært innom?",
-        normal: "Sammenlign verktøyene som brukes i lagdelt forsvar. Fyll ut, og trykk «Sjekk svar». Celler merket som ikke telt, har ingen fasit i kurset.",
+        normal: "Sammenlign verktøyene som brukes i lagdelt forsvar: stopper verktøyet trafikk selv, kan det lese innholdet (brukerdataene), og husker det forbindelser (økter)? Fyll ut, og trykk «Sjekk svar». Celler merket som ikke telt, har ingen fasit i kurset.",
         teknisk: "Sammenlign pakkefilter, tilstandsbasert brannmur, applikasjonsbrannmur/proxy, IDS og IPS etter inngrep, innsyn i nyttelast, tilstand og typisk svakhet."
       },
       rader: ["Pakkefilter (tilstandsløs brannmur)", "Tilstandsbasert brannmur", "Applikasjonsbrannmur / proxy", "IDS (for eksempel Snort)", "IPS"],
       kolonner: [
-        { navn: "Stopper trafikk selv", valg: JN },
-        { navn: "Kan lese innholdet (brukerdataene)", valg: JN },
-        { navn: "Husker forbindelser (økter)", valg: JN },
+        { navn: "Stopper selv", valg: JN },
+        { navn: "Leser innhold", valg: JN },
+        { navn: "Husker økter", valg: JN },
         { navn: "Typisk svakhet", valg: SV }
       ],
       fasit: [

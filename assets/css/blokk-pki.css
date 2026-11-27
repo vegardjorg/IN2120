@@ -171,3 +171,33 @@ a.badge { text-decoration: none; }
 .pki-browser { font-size: var(--text-sm); padding: .3rem 0 .3rem .6rem; border-left: 3px solid var(--pki-ok); border-bottom: 1px solid var(--pki-line); overflow-wrap: anywhere; }
 
 @media (prefers-reduced-motion: reduce) { .pki-card, .pki-step { transition: none; } }
+
+/* ---------- Klikkhint (samme mønster som .kr-klikkrad / .kr-klikkhint i blokk-krypto.css) ---------- */
+.pki-klikkrad { padding: 6px 8px; border-radius: var(--radius); background: var(--color-surface-container); outline: 1px dashed var(--color-primary); }
+.pki-klikkhint { font-size: var(--text-xs, .75rem); font-weight: 400; color: var(--color-primary); }
+.pki-klikkfig { display: flex; flex-direction: column; gap: .2rem; }
+.pki-dato { font-size: var(--text-sm); padding: 1px 6px; border-radius: var(--radius); }
+.pki-dato.endret { outline: 2px solid var(--color-on-tone-danger); outline-offset: 1px; color: var(--color-on-tone-danger); font-weight: 600; }
+
+/* Destrueringsstegene: utført, neste, ikke tilgjengelig ennå */
+.pki-viz .btn.pki-steg:disabled { opacity: .5; cursor: not-allowed; }
+.pki-viz .btn.pki-steg.pki-utfort:disabled { opacity: 1; background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: var(--color-on-tone-ok); }
+.pki-viz .btn.pki-steg.pki-neste { outline: 1px dashed var(--color-primary); outline-offset: 2px; }
+.pki-viz .btn.pki-steg.pki-neste:focus-visible { outline: 3px solid var(--color-primary); }
+
+/* Tillitsmodellene: hover og tydelig fokusring på nodene */
+.viz-svg .pki-fokus { fill: none; stroke: transparent; stroke-width: 2.5; }
+.viz-svg .pki-node:hover .pki-fokus { stroke: var(--color-primary); stroke-dasharray: 3 2; }
+.viz-svg .pki-node:focus-visible .pki-fokus { stroke: var(--color-primary); stroke-width: 3; stroke-dasharray: none; }
+.viz-svg .pki-node:hover .pki-nl, .viz-svg .pki-node:focus-visible .pki-nl { fill: var(--color-on-surface); font-weight: 700; }
+.viz-svg .pki-kryss { stroke: var(--color-surface); stroke-width: 2; stroke-linecap: round; }
+
+/* Tillitsforvirring: valgt svar markert med ✓/✗ og farge */
+.pki-viz .pki-tfvalg .btn { white-space: normal; text-align: left; }
+.pki-viz .btn.pki-svar-nei[aria-pressed="true"] { background: var(--color-tone-danger); color: var(--color-on-tone-danger); border-color: var(--color-on-tone-danger); }
+
+/* Tabellene på siden: ingen sidelengs rulling på smal skjerm (ui-ux-regler punkt 6) */
+@media (max-width: 560px) {
+  body[data-page="pki"] .table-wrap table { font-size: .85em; }
+  body[data-page="pki"] .table-wrap th, body[data-page="pki"] .table-wrap td { padding: 4px 5px; hyphens: auto; overflow-wrap: break-word; }
+}

@@ -550,14 +550,16 @@
       grid.appendChild(el("span", { class: "dhf-kt-hj dhf-st-" + d.status, role: "columnheader", title: d.navn, text: KORT[r] }));
     });
     var valgt = null;
+    // Skjermlesertekst: g<sup>a</sup> blir g^a, så eksponenten ikke forsvinner.
+    function ren(h) { return h.replace(/<sup>([^<]*)<\/sup>/g, "^$1").replace(/<[^>]+>/g, ""); }
     PERS.forEach(function (p) {
       grid.appendChild(el("span", { class: "dhf-kt-p dhf-p-" + p.id, role: "rowheader", text: p.navn }));
       rader.forEach(function (r) {
         var d = R[r], kj = kjenner(i, r, p.id), n = ny(i, r, p.id);
-        var beskr = "<b>" + p.navn + "</b> " + (kj ? "kjenner" : "kjenner ikke") + " <b>" + d.navn.toLowerCase() + "</b> (" + d.sym +
+        var beskr = "<b>" + p.navn + "</b> " + (kj ? "kjenner" : "kjenner ikke") + " <b>" + (/^(Alice|Bob|Eve)/.test(d.navn) ? d.navn : d.navn.charAt(0).toLowerCase() + d.navn.slice(1)) + "</b> (" + d.sym +
           ", " + STATUS[d.status] + ")" + (kj ? ": " + d.fnavn + (TALL ? ", tallet " + d.tall : "") : "") + (n ? ". Nytt i dette steget." : ".");
         var c = el("button", { type: "button", class: "dhf-kt-c dhf-kc-" + p.id + (n ? " ny" : "") + (kj ? "" : " ukj"), role: "cell",
-          "aria-label": beskr.replace(/<[^>]+>/g, ""), title: beskr.replace(/<[^>]+>/g, "") });
+          "aria-label": ren(beskr), title: ren(beskr) });
         if (kj) {
           var sw = el("span", { class: "dhf-pr dhf-pr-k" + (r === "E" ? " feil" : ""), style: "background:" + d.hex + ";color:" + tekstPaa(d.hex) });
           if (TALL) sw.textContent = String(d.tall);

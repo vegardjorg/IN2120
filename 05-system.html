@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127l">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127m">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -48,6 +48,17 @@
     <!-- ===================== 1 · PRIVILEGIENIVÅER ===================== -->
     <section data-panel="ringer">
       <h3>Privilegienivåer (ringer) og tilgang mellom dem</h3>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag tag-kjerne">kommer ofte</span> Samme oppgave har kommet tre år på rad (H2023–H2025), med ny modus hvert år og 1–3 poeng. Prosessen står i en modus, og du krysser av for hvert nivå om den «Kan få tilgang» eller «Kan IKKE få tilgang». Nivåene står her i samme rekkefølge som i oppgavens tabell:</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2023-5">Eksamen høst 2023, oppgave 5</a> (3p): prosess i <b>kjernemodus</b>. Nivå 0 kan, nivå 3 kan, nivå −1 kan IKKE.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2024-5">Eksamen høst 2024, oppgave 5</a> (3p): prosess i <b>brukermodus</b>. Nivå −1 kan IKKE, nivå 0 kan IKKE, nivå 3 kan. Her ga både feil og ubesvart −1 poeng.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2025-5">Eksamen høst 2025, oppgave 5</a> (1p): prosess i <b>hypervisormodus</b>. Nivå −1 kan, nivå 0 kan.</li>
+          <li>Neste gang kan det være nivå 1 eller 2, eller en prosess i et gjeste-OS i type 2-virtualisering (fanen Virtualisering).</li>
+        </ul>
+        <p>Delene under er merket: <span class="tag tag-kjerne">kommer ofte</span> (spurt de fleste år), <span class="tag">eksamensbasert</span> (spurt om minst én gang) eller <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span>. Fakta utenfor kursets kilder er merket «ikke pensum».</p></div>
+
+      <h4 class="sys-del">1 · Hva er privilegienivåer? <span class="tag tag-kjerne">kommer ofte</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Privilegienivåer</b> er CPU-ens måte å skille prosesser på. Modellen kom med x86 på 1980-tallet:
@@ -63,11 +74,11 @@
         </ul></div>
       <div id="ex-ringer"></div>
 
-      <h4 class="ov-h"><span class="ov-tag">Øving</span> Hva når en prosess?</h4>
-      <p class="ov-intro">Hvilke privilegienivåer kan en prosess få tilgang til? Velg en modus (hypervisor-, kjerne- eller brukermodus) og se hvilke ringer prosessen når. Vil du øve slik eksamen spør, huk av «Øv først», svar «Kan få tilgang» eller «Kan IKKE få tilgang» for hvert nivå i tabellen, og trykk «Sjekk svar». «Angriper eskalerer» viser privilegieeskalering fra nivå 3 til 0.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> 2 · Hva når en prosess? <span class="tag tag-kjerne">kommer ofte</span></h4>
+      <p class="ov-intro">Velg en modus (hypervisor-, kjerne- eller brukermodus). Ringene er nivåene: −1 innerst og 3 ytterst, og stiplede ringer er de ubrukte nivåene 1 og 2. «Øv først» er på fra start, så fargene er skjult: svar «Kan få tilgang» eller «Kan IKKE få tilgang» for hvert nivå i tabellen, og trykk «Sjekk svar». Etter sjekk er ringene prosessen når grønne, egen ring har tykk kant, og ringene den ikke når er røde med en lås. Ta av «Øv først» for å se svaret med en gang. «Angriper eskalerer» bytter modus til brukermodus og så kjernemodus og viser privilegieeskalering (å skaffe seg mer makt) fra nivå 3 til 0.</p>
       <div id="viz-ringer" data-modus="ringer"></div>
 
-      <h4>Eksempel: maskinen «Lerke-01»</h4>
+      <h4 class="sys-del">3 · Eksempel: maskinen «Lerke-01» <span class="tag">eksamensbasert</span></h4>
       <p>Lerke-01 kjører type 1-virtualisering med to virtuelle maskiner.</p>
       <div class="table-wrap"><table class="sys-ex">
         <thead><tr><th>Prosess</th><th>Nivå</th><th>Når −1?</th><th>Når 0?</th><th>Når 3?</th></tr></thead>
@@ -76,8 +87,9 @@
           <tr><td>Linux-kjernen i VM 1</td><td>0</td><td>nei</td><td>ja (eget nivå)</td><td>ja</td></tr>
           <tr><td>Nettleseren i VM 1</td><td>3</td><td>nei</td><td>nei</td><td>ja (eget nivå)</td></tr>
         </tbody></table></div>
-      <p>Skadevare i nettleseren starter på nivå 3. Utnytter den en feil i en driver i kjernen, er den på nivå 0 og når alt i VM 1. Den når fortsatt ikke hypervisoren eller VM 2. Det krever en ny feil, en «VM-flukt» (ordet står ikke på d08).</p>
+      <p>Skadevare i nettleseren starter på nivå 3. Utnytter den en feil i en driver i kjernen, er den på nivå 0 og når alt i VM 1. Den når fortsatt ikke hypervisoren eller VM 2. Det krever en ny feil, en «VM-flukt» (VM escape, <span class="sys-ukjent">ikke pensum</span>: ordet står ikke på d08).</p>
 
+      <h4 class="sys-del">4 · Feller <span class="tag tag-kjerne">kommer ofte</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor har lavest tall mest makt, og ikke høyest?</summary>
           <p>Modellen nummererer innenfra og ut. Innerst er mest beskyttet og mest privilegert. Ring 3 er ytterst og har minst makt (d08 s. 7).</p></details>
@@ -86,25 +98,10 @@
         <details class="grense"><summary>Når kjernen hypervisoren, siden begge er «OS-nivå»?</summary>
           <p>Nei. −1 er mer privilegert enn 0, og kjernen når bare 0 og oppover (H2023 5).</p></details>
         <ul>
-          <li><b>En brukerprosess som gjør et systemkall,</b> får ikke tilgang til kjernens data. Den <i>ber</i> kjernen om en tjeneste (H2024 5).</li>
+          <li><b>En brukerprosess som gjør et systemkall,</b> får ikke tilgang til kjernens data. Et systemkall er en forespørsel fra programmet til kjernen: prosessen <i>ber</i> kjernen gjøre jobben, og kjernen bestemmer (H2024 5).</li>
           <li><b>Prosessen når alltid sitt eget nivå</b> (H2024 5, H2025 5).</li>
           <li><b>Les overskriften</b> i oppgaven: modusen står der, og den avgjør svaret.</li>
-          <li><b>H2024 5 gir −1 for ubesvart.</b> La aldri en rad stå tom.</li>
-        </ul></div>
-
-      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Privilegienivåer i eksamensformat</h4>
-      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
-      <p class="sys-q">Indiker for hver rad om prosessen kan få tilgang til nivået.</p>
-      <div id="ov-system-1"></div>
-      <p class="sys-q">Velg riktig nivå eller ord i hvert nedtrekksfelt, slik at setningene om ringmodellen blir riktige.</p>
-      <div id="ov-system-2"></div>
-
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2023-5">H2023 5</a> (3p): prosess i <b>kjernemodus</b>. Nivå 0 kan, nivå 3 kan, nivå −1 kan IKKE.</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2024-5">H2024 5</a> (3p): prosess i <b>brukermodus</b>. Nivå −1 kan IKKE, nivå 0 kan IKKE, nivå 3 kan. Ubesvart gir −1.</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2025-5">H2025 5</a> (1p): prosess i <b>hypervisormodus</b>. Nivå −1 kan, nivå 0 kan.</li>
-          <li>Samme oppgave tre år på rad med ny modus hvert år. Neste gang kan det være nivå 1 eller 2, eller en prosess i et gjeste-OS i type 2.</li>
+          <li><b>La aldri en rad stå tom i H2024 5-typen,</b> fordi ubesvart der ga −1, like mye som et feil svar.</li>
         </ul></div>
       <div class="sys-forbehold">
         <p><b>Fasit med forbehold</b></p>
@@ -113,6 +110,13 @@
           <li><b>H2024 5:</b> ubesvart gir −1. I resten av settet gir en ubesvart oppgave 0 poeng. Poengregelen står over hver oppgave, så les den før du svarer. Øvingen i eksamensfanen regner poeng slik regelen står i oppgaven.</li>
           <li><b>Eldre sett</b> (in2120-2020) brukte ringer helt ned til −3 med Intel ME og UEFI/BIOS. Det er <span class="sys-ukjent">ikke pensum</span>: d08 går bare ned til −1.</li>
         </ul></div>
+
+      <h4 class="ov-h"><span class="ov-tag">Inspera</span> Privilegienivåer i eksamensformat</h4>
+      <div class="ov-intro">To egne oppgaver med poengregel som på eksamen. Svar på alle feltene og rett for å se poeng og forklaring.</div>
+      <p class="sys-q">Indiker for hver rad om prosessen kan få tilgang til nivået.</p>
+      <div id="ov-system-1"></div>
+      <p class="sys-q">Velg riktig nivå eller ord i hvert nedtrekksfelt, slik at setningene om ringmodellen blir riktige.</p>
+      <div id="ov-system-2"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Privilegienivåer</h4>
       <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
@@ -125,12 +129,38 @@
     <!-- ===================== 2 · MINNE OG BUFFEROVERFLYT ===================== -->
     <section data-panel="minne">
       <h3>Prosess, virtuelt minne og bufferoverflyt</h3>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> Eksamen høst 2022 hadde tre deloppgaver her (4 poeng til sammen), og eldre sett hadde en «velg fire» om bufferoverflyt. Ingen oppgave H2023–H2025.</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_1">Eksamen høst 2022, oppgave 2.1</a> (2p): fire nedtrekksfelt om hvordan et program kjøres. Svaret er <b>kjørbar fil → prosess → minnet → CPU</b>.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_2">Eksamen høst 2022, oppgave 2.2</a> (1p), to påstander om virtuelt minne:
+            <ul>
+              <li>«To prosesser kan ikke ha samme virtuelle minneadresse» er <b>usant</b>, og</li>
+              <li>«virtuelle minneområder fjerner buffer-overflow-sårbarheten» er <b>usant</b>.</li>
+            </ul></li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_3">Eksamen høst 2022, oppgave 2.3</a> (1p): angrepskoden ligger et annet sted i minnet, og du skal klikke på den delen av stakkfiguren angriperen må overskrive for å få den kjørt. Riktig område er <b>returadressen</b> i B()-rammen. Forrige rammepeker er et feil alternativ som ligner (se Feller).</li>
+          <li>Eldre sett hadde «velg fire» om bufferoverflyt. De riktige var:
+            <ul>
+              <li>kan finnes med fuzzing (testing med mengder av tilfeldig eller misdannet input),</li>
+              <li>er typisk del av en exploit,</li>
+              <li>skriver mer enn variabelen har plass til, og</li>
+              <li>er en bug.</li>
+            </ul>
+            «Kan forhindres med ASLR» var ikke riktig.</li>
+        </ul>
+        <p class="small">Merkene ved hver del: <span class="tag tag-kjerne">kommer ofte</span> = spurt de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="sys-del">1 · Prosess, minne og bufferoverflyt <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Systemarkitektur:</b> CPU-en utfører kode og regner på data. Disken lagrer programmer og data. Minnet holder aktiv kode og data for prosessene som kjører. ROM har statisk kode som UEFI, og koprosessorer som TPM støtter spesielle funksjoner. Alt henger sammen via systembussen (d08 s. 3).</li>
           <li><b>Kjørbar fil → prosess:</b> den kjørbare fila på disken har instruksjonene. Når den startes, lager OS-et en prosess, setter av minne og laster inn kode og data, og CPU-en utfører instruksjonene (H2022 2.1).</li>
           <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR (Address Space Layout Randomization, tilfeldig plassering i adresserommet) er adressene de samme hver gang prosessen kjører (d08 s. 9).</li>
-          <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (d08 s. 9).</li>
+          <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (d08 s. 9).
+            <ul>
+              <li><b>Heap</b> er minnet programmet ber om underveis mens det kjører, for eksempel til en liste som vokser.</li>
+              <li><b>Stakken</b> holder én <b>ramme</b> per funksjon som kjører: de lokale variablene og adressen programmet skal tilbake til når funksjonen er ferdig (returadressen).</li>
+            </ul></li>
           <li><b>Bufferoverflyt:</b> programmet skriver mer data inn i en variabel (et buffer) enn den har plass til, så dataene renner over i nabominnet. På stakken kan det overskrive <b>returadressen</b>, og da kan angriperen styre hvor programmet fortsetter (H2022 2.3).</li>
           <li><b>Mottiltak</b> (d08 s. 10):
             <ul>
@@ -142,12 +172,12 @@
         </ul></div>
       <div id="ex-minne"></div>
 
-      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Stakkrammen steg for steg</h4>
-      <p class="ov-intro">Dette er en demo, ikke en oppgave: ingenting rettes. Den viser en modell av hvordan minnet ser ut, ikke angrepskode. Velg lengde på inputen og se hvilke felt som overskrives. Slå kanarifugl, NX og ASLR av og på og se hva som stopper hoppet ved retur. «Kjør programmet på nytt» gir ny kanariverdi, og med ASLR en ny plassering av stakken.</p>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> 2 · Stakkrammen steg for steg <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Dette er en demo, ikke en oppgave: ingenting rettes. Den viser en modell av hvordan minnet ser ut, ikke angrepskode. Velg lengde på inputen og se hvilke felt som overskrives. Figuren viser høy adresse øverst, som H2022 2.3: B()-rammen har returadressen øverst, så forrige rammepeker, kanarifuglen (når den er på) og bufferet nederst. Felt som inputen har nådd, viser teksten i «» i stedet for den gamle verdien. I bufferet er det input som fikk plass, utenfor bufferet er det overflyt (rød kant og fet rød tekst). Feltet som skrives i steget, har en ramme. Knappene for kanarifugl, NX og ASLR viser «på» eller «av». Hver gang du slår et tiltak av eller på, startes programmet på nytt, og meldingen under knappene sier hva som er på. «Kjør programmet på nytt» gir ny kanariverdi, og med ASLR en ny plassering av stakken.</p>
       <div id="viz-stakk" data-modus="stakk"></div>
 
-      <h4>Eksempel: «Bibliotekkiosk»</h4>
-      <p>Funksjonen <code>les_navn()</code> har bufferet <code>navn[8]</code> og kopierer input uten lengdesjekk. Stakkrammen fra lav til høy adresse (32-bit, 4 byte per felt, med kanarifugl):</p>
+      <h4 class="sys-del">3 · Eksempel: «Bibliotekkiosk» <span class="tag">eksamensbasert</span></h4>
+      <p>Funksjonen <code>les_navn()</code> har bufferet <code>navn[8]</code> og kopierer input uten lengdesjekk. Stakkrammen fra lav til høy adresse (32-bit, 4 byte per felt, med kanarifugl). <b>Forrige rammepeker</b> er adressen til rammen til funksjonen som kalte <code>les_navn()</code>, lagret så den kan hentes fram igjen ved retur:</p>
       <div class="table-wrap"><table class="sys-ex">
         <thead><tr><th>Byte</th><th>Innhold</th></tr></thead>
         <tbody>
@@ -163,24 +193,25 @@
           <ul>
             <li>Uten kanarifugl hopper programmet til adressen i byte 16–19.</li>
             <li>Med kanarifugl må angriperen gjette <code>0x5be0c41d</code> (opptil 2³² muligheter).</li>
-            <li>Med ASLR vet angriperen ikke hvilken adresse som skal stå der.</li>
             <li>Med NX kan ikke angrepskoden ligge i <code>navn[]</code>.</li>
+            <li>Med ASLR vet angriperen ikke hvilken adresse som skal stå der.</li>
           </ul></li>
-        <li><b>Den egentlige rettingen:</b> lengdesjekk, for eksempel <code>fgets(navn, sizeof navn, stdin)</code>, eller et språk med grensesjekk.</li>
+        <li><b>Den egentlige rettingen:</b> lengdesjekk, eller et språk med grensesjekk (d08 s. 10: sikrere språk og bedre kode). I C kan det for eksempel gjøres med <code>fgets(navn, sizeof navn, stdin)</code>: funksjonen <code>fgets</code> leser fra tastaturet (<code>stdin</code>) og stopper når bufferet er fullt, fordi den får vite størrelsen (<code>sizeof navn</code>). Selve funksjonen er <span class="sys-ukjent">ikke pensum</span>.</li>
       </ul>
 
+      <h4 class="sys-del">4 · Feller <span class="tag">eksamensbasert</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
-        <details class="grense"><summary>Hvorfor returadressen og ikke forrige rammepeker (H2022 2.3)?</summary>
-          <p>Returadressen bestemmer hvor programmet fortsetter når funksjonen er ferdig. Rammepekeren ligger bare i veien mellom bufferet og returadressen. Treffer du bare den, får du feil oppførsel, ikke kontroll.</p></details>
         <details class="grense"><summary>Hvorfor «kjørbar fil» og ikke «prosess» i første felt (H2022 2.1)?</summary>
           <p>Fila er det som ligger på disken med instruksjonene. Prosessen er det OS-et lager når fila startes. Rekkefølgen er kjørbar fil → prosess → minnet → CPU.</p></details>
         <details class="grense"><summary>Fjerner virtuelt minne bufferoverflyt?</summary>
           <p>Nei. Virtuelt minne skiller prosessene fra hverandre. Overflyten skjer <i>inne i én prosess</i>, i dens eget minne (H2022 2.2).</p></details>
+        <details class="grense"><summary>Hvorfor returadressen og ikke forrige rammepeker (H2022 2.3)?</summary>
+          <p>Ikke rammepekeren, fordi den bare forteller hvor den forrige rammen ligger. Returadressen bestemmer hvor programmet fortsetter når funksjonen er ferdig, og angrepskoden ligger et annet sted i minnet, så det er dit hoppet må styres. Rammepekeren ligger bare i veien mellom bufferet og returadressen. Treffer du bare den, får du feil oppførsel, ikke kontroll.</p></details>
         <ul>
           <li><b>To prosesser kan godt ha samme virtuelle adresse.</b> Adresserommene er separate (H2022 2.2, d08 s. 9).</li>
-          <li><b>«ASLR forhindrer bufferoverflyt»</b> er feil. NX, kanarifugl og ASLR gjør <i>utnyttelse</i> vanskeligere. Feilen i koden er der fortsatt.</li>
-          <li><b>Kanarifuglen hindrer ikke overskrivingen.</b> Den <i>oppdager</i> den ved retur og avslutter programmet (d08 s. 10).</li>
           <li><b>Bufferoverflyt er ikke DDoS</b>, ikke «minnet er brukt opp» og ikke «data kommer for fort». Det er en programfeil der det skrives forbi en variabel.</li>
+          <li><b>Kanarifuglen hindrer ikke overskrivingen.</b> Den <i>oppdager</i> den ved retur og avslutter programmet (d08 s. 10).</li>
+          <li><b>«ASLR forhindrer bufferoverflyt»</b> er feil. NX, kanarifugl og ASLR gjør <i>utnyttelse</i> vanskeligere. Feilen i koden er der fortsatt.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Minne og bufferoverflyt i eksamensformat</h4>
@@ -190,24 +221,6 @@
       <p class="sys-q">Velg 3 korrekte utsagn om bufferoverflyt.</p>
       <div id="ov-system-4"></div>
 
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_1">H2022 2.1</a> (2p): fire nedtrekk. <b>kjørbar fil → prosess → minnet → CPU</b>.</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_2">H2022 2.2</a> (1p):
-            <ul>
-              <li>«To prosesser kan ikke ha samme virtuelle minneadresse» er <b>usant</b>, og</li>
-              <li>«virtuelle minneområder fjerner buffer-overflow-sårbarheten» er <b>usant</b>.</li>
-            </ul></li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_3">H2022 2.3</a> (1p): klikk i stakkfiguren. Riktig område er <b>returadressen</b> i B()-rammen. Forrige rammepeker er distraktoren.</li>
-          <li>Eldre sett hadde «velg fire» om bufferoverflyt:
-            <ul>
-              <li>kan finnes med fuzzing,</li>
-              <li>er typisk del av en exploit,</li>
-              <li>skriver mer enn variabelen har plass til, og</li>
-              <li>er en bug.</li>
-            </ul>
-            «Kan forhindres med ASLR» var ikke riktig.</li>
-        </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Minne og bufferoverflyt</h4>
       <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
@@ -220,6 +233,18 @@
     <!-- ===================== 3 · VIRTUALISERING ===================== -->
     <section data-panel="virt">
       <h3>Virtualisering og containere</h3>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <ul>
+        <p><span class="tag">eksamensbasert</span> Eksamen høst 2022 hadde to dra-oppgaver om lagene (4 poeng til sammen). Ingen oppgave H2023–H2025. Du drar boksene inn i fire felt, og lagene leses fra toppen og ned:</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_4">Eksamen høst 2022, oppgave 2.4</a> (2p): type 1 fra topp til bunn: <b>App → Gjeste-OS → Hypervisor → Maskinvare</b>. Seks bokser til fire felt, så to av dem skal ikke brukes.</li>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_5">Eksamen høst 2022, oppgave 2.5</a> (2p): container fra topp til bunn: <b>Kontainer → Docker Engine → Vert-OS → Maskinvare</b>. Fire bokser til fire felt.</li>
+          <li>Eldre sett spurte om ringnumrene i type 1 og type 2 og om påstander om VM-er og sikkerhet. Type 2-ringene er derfor en sannsynlig ny variant.</li>
+        </ul>
+        <p class="small">Merkene ved hver del: <span class="tag tag-kjerne">kommer ofte</span> = spurt de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="sys-del">1 · VM-er, hypervisor og containere <span class="tag">eksamensbasert</span></h4>
+
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Virtuell maskin (VM):</b> programvare som oppfører seg som en hel maskin med eget OS og egne apper. Flere VM-er deler én fysisk maskin gjennom en <b>hypervisor</b> (d08 s. 12).</li>
@@ -237,20 +262,21 @@
         </ul></div>
       <div id="ex-virt"></div>
 
-      <h4 class="ov-h"><span class="ov-tag">Øving</span> Bygg stablene</h4>
-      <p class="ov-intro">Velg arkitektur og plasser boksene fra banken i riktig lag, slik H2022 2.4 og 2.5 spør. «Sjekk svar» viser nivåtallene. «Angrep fra gjest» viser hva som skiller naboene, og hvilke sikkerhetsmål som holder.</p>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> 2 · Bygg stablene <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Velg arkitektur og plasser boksene fra banken i riktig lag, slik H2022 2.4 og 2.5 spør. Lagene leses fra toppen og ned, som på eksamen. «Sjekk svar» viser nivåtallene. Ved siden av stabelen (på mobil under) står de tre sikkerhetsmålene. «Angrep fra gjest» er en av/på-bryter: slått på viser den hva som skiller naboene, og om hvert mål holder (grønn kant), svikter (rød kant) eller ikke vises i scenarioet (grå). Når du bytter arkitektur, slås den av.</p>
       <div id="viz-lag" data-modus="lag"></div>
 
-      <h4>Eksempel: Lerkedal kommune</h4>
+      <h4 class="sys-del">3 · Eksempel: Lerkedal kommune <span class="tag">eksamensbasert</span></h4>
       <div class="table-wrap"><table class="sys-ex">
-        <thead><tr><th>Behov</th><th>Valg</th><th>Lag fra bunn til topp</th><th>Hvorfor</th></tr></thead>
+        <thead><tr><th>Behov</th><th>Valg</th><th>Lag fra topp til bunn</th><th>Hvorfor</th></tr></thead>
         <tbody>
-          <tr><td>Skytjener med VM-er for 40 kunder</td><td>Type 1</td><td>Maskinvare → hypervisor (−1) → gjeste-OS (0) → apper (3)</td><td>Mest effektiv. Sterk isolasjon mellom kundene</td></tr>
-          <tr><td>Analytikeren vil åpne et mistenkelig vedlegg på laptopen</td><td>Type 2</td><td>Maskinvare → verts-OS (0) → hypervisor → gjeste-OS → app</td><td>Lett å installere. Snapshot og tilbakerulling etter testen</td></tr>
-          <tr><td>15 mikrotjenester for bibliotekets nettsted</td><td>Containere</td><td>Maskinvare → verts-OS → Docker Engine → containere</td><td>Lette og flyttbare. Svakere isolasjon, men alle er kommunens egne tjenester</td></tr>
+          <tr><td>Skytjener med VM-er for 40 kunder</td><td>Type 1</td><td>Apper (3) → gjeste-OS (0) → hypervisor (−1) → maskinvare</td><td>Mest effektiv. Sterk isolasjon mellom kundene</td></tr>
+          <tr><td>Analytikeren vil åpne et mistenkelig vedlegg på laptopen</td><td>Type 2</td><td>App → gjeste-OS → hypervisor → verts-OS (0) → maskinvare</td><td>Lett å installere. Snapshot og tilbakerulling etter testen</td></tr>
+          <tr><td>15 mikrotjenester for bibliotekets nettsted</td><td>Containere</td><td>Containere → Docker Engine → verts-OS → maskinvare</td><td>Lette og flyttbare. Svakere isolasjon, men alle er kommunens egne tjenester</td></tr>
         </tbody></table></div>
       <p>Ville Lerkedal kjørt <i>kundenes</i> containere side om side på samme vert, kunne en kjernefeil latt én kunde nå en annen. Da er VM-er det tryggere valget.</p>
 
+      <h4 class="sys-del">4 · Feller <span class="tag">eksamensbasert</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor har type 1 ikke noe verts-OS?</summary>
           <p>I type 1 kjører hypervisoren rett på maskinvaren. Verts-OS-et under hypervisoren er det som kjennetegner type 2 (H2022 2.4).</p></details>
@@ -263,7 +289,15 @@
           <li><b>Containere isolerer ikke like godt som VM-er</b> (d08 s. 17).</li>
           <li><b>VM-er er ikke immune mot virus</b> og hindrer ikke sosial manipulering. Skadevaren kan fortsatt kjøre inne i gjesten.</li>
           <li><b>Gjesten skal ikke vite at den er virtualisert.</b> Det er et av målene.</li>
-          <li><b>Distraktorer:</b> H2022 2.4 har Kontainer og Docker Engine som distraktorer. I 2.5 er det fire bokser til fire felt.</li>
+          <li><b>Ikke bruk alle boksene i type 1.</b> H2022 2.4 har seks bokser til fire felt. Kontainer og Docker Engine er feil alternativer som ligner, fordi de hører til containerarkitekturen. I 2.5 er det fire bokser til fire felt, så alle brukes.</li>
+        </ul></div>
+
+      <div class="sys-forbehold">
+        <p><b>Forbehold</b></p>
+        <ul>
+          <li><b>Ringene i type 2:</b> d08 s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. Guiden følger figuren, og det er det du svarer på eksamen. d08 s. 15 nevner også at type 2 bruker maskinvarestøtte for virtualisering (VT-x hos Intel, AMD-V hos AMD: instruksjoner i CPU-en som lar en hypervisor kjøre gjester effektivt), selv om figuren setter hypervisoren på nivå 3.</li>
+          <li><span class="sys-ukjent">Ikke pensum:</span> i praksis installerer en type 2-hypervisor en driver i verts-OS-ets kjerne, som kjører på nivå 0 og bruker VT-x/AMD-V. Det står ikke på d08.</li>
+          <li><span class="sys-ukjent">Ikke pensum:</span> containere isoleres av kjernen med <b>navnerom</b> (namespaces: hver container ser bare sine egne prosesser, filer og nettverk) og <b>cgroups</b> (control groups: grenser for hvor mye CPU og minne hver container får bruke). Det står ikke på d08.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Virtualisering og containere i eksamensformat</h4>
@@ -273,18 +307,6 @@
       <p class="sys-q">Gjelder egenskapen bare en type 1-VM, bare en container, begge eller ingen? Velg ett svar for hver rad.</p>
       <div id="ov-system-6"></div>
 
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_4">H2022 2.4</a> (2p): type 1 fra topp til bunn: <b>App → Gjeste-OS → Hypervisor → Maskinvare</b>.</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_5">H2022 2.5</a> (2p): container fra topp til bunn: <b>Kontainer → Docker Engine → Vert-OS → Maskinvare</b>.</li>
-          <li>Eldre sett spurte om ringnumrene i type 1 og type 2 og om påstander om VM-er og sikkerhet. Type 2-ringene er derfor en sannsynlig ny variant.</li>
-        </ul></div>
-      <div class="sys-forbehold">
-        <p><b>Forbehold</b></p>
-        <ul>
-          <li><b>Ringene i type 2:</b> d08 s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. d08 s. 15 sier at type 2 bruker maskinvarestøtte (VT-x/AMD-V), men figuren setter likevel hypervisoren på nivå 3. Kjernedriveren står ikke på d08. Guiden følger figuren.</li>
-          <li><b>Hvordan containere isoleres</b> (navnerom og cgroups i kjernen) står ikke på d08. Det er <span class="sys-ukjent">ikke pensum</span>.</li>
-        </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Virtualisering og containere</h4>
       <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
@@ -297,22 +319,38 @@
     <!-- ===================== 4 · TILTRODD BEREGNING ===================== -->
     <section data-panel="tiltrodd">
       <h3>Tiltrodd beregning: sikker oppstart, TPM og TEE</h3>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> Eksamen høst 2022 hadde én matriseoppgave (2 poeng), og eldre sett spurte om TPM. Ingen oppgave H2023–H2025. Radene står her i oppgavens rekkefølge:</p>
+        <ul>
+          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_6">Eksamen høst 2022, oppgave 2.6</a> (2p): for hver påstand velger du en av kolonnene Begge, Bare TPM, Ingen og Bare UEFI.
+            <ul>
+              <li>«Tillitskjede basert på sertifikat i firmware» → <b>Bare UEFI</b>,</li>
+              <li>«kan brukes til å støtte autentisering» → <b>Bare TPM</b>,</li>
+              <li>«erstatter BIOS» → <b>Bare UEFI</b>,</li>
+              <li>«kan brukes for å bedre sikkerhet ved oppstart» → <b>Begge</b>.</li>
+            </ul></li>
+          <li>Eldre sett spurte om TPM-ens tre tjenester (målt oppstart, forseglet lagring, fjernattestering) og om forskjellen på målt og sikker oppstart. En kort fritekst er mulig.</li>
+        </ul>
+        <p class="small">Merkene ved hver del: <span class="tag tag-kjerne">kommer ofte</span> = spurt de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="sys-del">1 · Tiltrodd beregning, UEFI, TPM og TEE <span class="tag">eksamensbasert</span></h4>
+
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Tiltrodd beregning</b> (trusted computing): deler av sikkerheten er forankret i maskinvare, fordi maskinvare regnes som mer robust mot angrep enn programvare. Eksempler: sikker oppstart med UEFI, TPM og TEE (d08 s. 20).</li>
           <li><b>UEFI og sikker oppstart</b> (d08 s. 21): UEFI erstatter BIOS og styrer oppstarten. UEFI-koden ligger i flashminne, og programmodulene for oppstart er digitalt signert. Startknapp → CPU kjører UEFI-kode fra firmware → verifiserer signaturen på UEFI-driverne → laster dem → kjører dem, og de laster OS-et → OS-et overtar.</li>
           <li><b>db, dbx og PK:</b> signaturene sjekkes mot en liste over godkjente nøkler (<b>db</b>) og en svarteliste (<b>dbx</b>). Plattformnøkkelen (<b>PK</b>) beskytter listene mot endring og er tillitsankeret. Feil signatur → oppstarten avbrytes.</li>
-          <li><b>TPM</b> (Trusted Platform Module): en sikkerhetsbrikke (koprosessor) i de fleste moderne PC-er. Den støtter <b>målt oppstart</b> (registrerer hva som startes), <b>attestering</b> (beviser oppstartstilstanden overfor en tredjepart) og <b>forsegling av nøkler</b>, for eksempel diskkrypteringsnøkkelen til BitLocker (d08 s. 22).</li>
+          <li><b>TPM</b> (Trusted Platform Module): en sikkerhetsbrikke (koprosessor) i de fleste moderne PC-er. Den støtter <b>målt oppstart</b> (registrerer hva som startes), <b>attestering</b> (beviser oppstartstilstanden overfor en tredjepart) og <b>forsegling av nøkler</b>, for eksempel diskkrypteringsnøkkelen til BitLocker, diskkrypteringen i Windows (d08 s. 22). Forsegling betyr at nøkkelen er låst til målingene fra oppstarten: TPM-en gir den bare ut igjen når oppstarten måles likt som da nøkkelen ble forseglet.</li>
           <li><b>Sikker oppstart stopper ukjent kode. Målt oppstart registrerer den</b> (d08 s. 22).</li>
           <li><b>TEE</b> (Trusted Execution Environment): data og beregninger beskyttes av maskinvare i prosessoren. Selv et kompromittert OS eller en kompromittert hypervisor skal ikke kunne lese dataene. Eksempler: ARM TrustZone i mobiler, Intel SGX/TDX og AMD SEV i skyen (d08 s. 23).</li>
         </ul></div>
       <div id="ex-tiltrodd"></div>
 
-      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Oppstarten, TPM-loggen og BitLocker</h4>
-      <p class="ov-intro">Dette er en demo, ikke en oppgave: scenarioknappene velger hvilket tilfelle som vises, og ingenting rettes. Flyten i midten er UEFI-sikker oppstart, stripa under er TPM-ens målinger, og til høyre ser du om BitLocker-nøkkelen frigis og hva attesteringen svarer. Hashverdiene er korte leketøysverdier.</p>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> 2 · Oppstarten, TPM-loggen og BitLocker <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Dette er en demo, ikke en oppgave: scenarioknappene velger hvilket tilfelle som vises, og ingenting rettes. Til venstre står tillitsankeret (PK, db og dbx), og lista som brukes i scenarioet er markert. I midten er flyten i UEFI-sikker oppstart, med TPM-ens målinger i stripa under. Til høyre ser du om BitLocker-nøkkelen frigis. «Attester» lar maskinen sende de TPM-signerte målingene til kommunens VPN-tjener, som sammenligner dem med forventede verdier og godkjenner eller avviser maskinen. Svaret nullstilles når du bytter scenario. Hashverdiene er korte leketøysverdier.</p>
       <div id="viz-oppstart" data-modus="oppstart"></div>
 
-      <h4>Eksempel: laptopen «LK-0417»</h4>
+      <h4 class="sys-del">3 · Eksempel: laptopen «LK-0417» <span class="tag">eksamensbasert</span></h4>
       <p class="case-ctx" data-case="lerkedal">LK-0417 er en av kommunens bærbare PC-er, med sikker oppstart og BitLocker. Kommunens VPN-tjener sjekker maskinen med attestering.</p>
       <div class="table-wrap"><table class="sys-ex">
         <thead><tr><th>Scenario</th><th>Sikker oppstart (UEFI)</th><th>Målt oppstart (TPM)</th><th>BitLocker</th></tr></thead>
@@ -320,21 +358,34 @@
           <tr><td>Normal oppstart med signert oppstartslaster</td><td>Signatur i db → fortsetter</td><td>Målingene stemmer</td><td>Nøkkelen frigis</td></tr>
           <tr><td>Rootkit bytter lasteren med en usignert fil</td><td>Feil signatur → <b>avbrytes</b></td><td>Rekker ikke å skje</td><td>–</td></tr>
           <tr><td>Signert, men kjent sårbar laster (hashen står i dbx)</td><td>Svartelistet → <b>avbrytes</b></td><td>–</td><td>–</td></tr>
-          <tr><td>Sikker oppstart slått av, og en endret laster startes</td><td>Ingen sjekk</td><td>Målingen er annerledes</td><td><b>Nøkkelen frigis ikke</b>, gjenopprettingsnøkkel kreves</td></tr>
+          <tr><td>Sikker oppstart slått av, og en endret laster startes</td><td>Ingen sjekk</td><td>Målingen er annerledes</td><td><b>Nøkkelen frigis ikke</b>, gjenopprettings&shy;nøkkel kreves</td></tr>
           <tr><td>Kommunens VPN-tjener spør om maskinen er ren</td><td>–</td><td><b>Attestering:</b> TPM-signerte målinger sendes</td><td>–</td></tr>
         </tbody></table></div>
 
+      <h4 class="sys-del">4 · Feller <span class="tag">eksamensbasert</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
-        <details class="grense"><summary>Stopper TPM oppstarten når koden er feil?</summary>
-          <p>Nei, det gjør UEFI-sikker oppstart. TPM måler og registrerer. Effekten kommer etterpå: forseglede nøkler slippes ikke ut, og attesteringen avslører avviket.</p></details>
         <details class="grense"><summary>Er UEFI en sikkerhetsbrikke?</summary>
           <p>Nei. UEFI er firmware (programvare i flashminne) som erstatter BIOS. TPM er brikken (H2022 2.6).</p></details>
         <details class="grense"><summary>Er db svartelisten?</summary>
           <p>Nei, db er godkjente nøkler. dbx er svartelisten. Tenk «x» for utelukket (d08 s. 21).</p></details>
+        <details class="grense"><summary>Stopper TPM oppstarten når koden er feil?</summary>
+          <p>Nei, det gjør UEFI-sikker oppstart. TPM måler og registrerer. Effekten kommer etterpå: forseglede nøkler slippes ikke ut, og attesteringen avslører avviket.</p></details>
         <ul>
-          <li><b>TPM erstatter ikke BIOS.</b> Det gjør UEFI.</li>
           <li><b>Tiltrodd betyr ikke feilfritt.</b> Det betyr at sikkerheten er forankret i maskinvare, som regnes som mer robust.</li>
+          <li><b>TPM erstatter ikke BIOS.</b> Det gjør UEFI.</li>
           <li><b>TEE beskytter ikke mot alt.</b> d08 sier bare at OS og hypervisor ikke skal kunne lese dataene.</li>
+        </ul></div>
+
+      <div class="sys-forbehold">
+        <p><b>Fasit med forbehold (H2022 2.6)</b></p>
+        <ul>
+          <li><b>Rad 1, «tillitskjede basert på sertifikat i firmware» → Bare UEFI:</b> målt oppstart med TPM er også en kjede, men den bygger på målinger (hasher), ikke på sertifikater i firmware. Fasiten holder med ordet «sertifikat».</li>
+          <li><b>Rad 2, «støtte autentisering» → Bare TPM:</b> litt tvilsom. UEFI-sikker oppstart verifiserer digitale signaturer, og det er dataautentisering av oppstartskoden. Med den lesningen kunne «Begge» forsvares. Fasiten tenker trolig på brukerautentisering og maskinidentitet med nøkler i TPM-en. Lær «Bare TPM».</li>
+          <li><span class="sys-ukjent">Ikke pensum</span> (står ikke i kildene for 2026):
+            <ul>
+              <li>TPM-en lagrer målingene i egne registre, PCR (Platform Configuration Register). Et PCR kan bare utvides med en ny måling, aldri settes til en valgfri verdi, så skadevare kan ikke viske ut sporet etterpå.</li>
+              <li>TCB (Trusted Computing Base) er alle delene av systemet som sikkerheten avhenger av: maskinvare, firmware og programvare. Er én av dem kompromittert, holder ikke sikkerheten.</li>
+            </ul></li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sikker oppstart, TPM og TEE i eksamensformat</h4>
@@ -344,24 +395,6 @@
       <p class="sys-q">Velg riktig ord i hvert nedtrekksfelt, slik at teksten om sikker oppstart og TPM blir riktig.</p>
       <div id="ov-system-8"></div>
 
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-2_6">H2022 2.6</a> (2p): kolonnene Begge, Bare TPM, Ingen, Bare UEFI.
-            <ul>
-              <li>«Tillitskjede basert på sertifikat i firmware» → <b>Bare UEFI</b>,</li>
-              <li>«kan brukes til å støtte autentisering» → <b>Bare TPM</b>,</li>
-              <li>«erstatter BIOS» → <b>Bare UEFI</b>,</li>
-              <li>«kan brukes for å bedre sikkerhet ved oppstart» → <b>Begge</b>.</li>
-            </ul></li>
-          <li>Eldre sett spurte om TPM-ens tre tjenester (målt oppstart, forseglet lagring, fjernattestering) og om forskjellen på målt og sikker oppstart. En kort fritekst er mulig.</li>
-        </ul></div>
-      <div class="sys-forbehold">
-        <p><b>Fasit med forbehold (H2022 2.6)</b></p>
-        <ul>
-          <li><b>Rad 2, «støtte autentisering» → Bare TPM:</b> litt tvilsom. UEFI-sikker oppstart verifiserer digitale signaturer, og det er dataautentisering av oppstartskoden. Med den lesningen kunne «Begge» forsvares. Fasiten tenker trolig på brukerautentisering og maskinidentitet med nøkler i TPM-en. Lær «Bare TPM».</li>
-          <li><b>Rad 1, «tillitskjede basert på sertifikat i firmware» → Bare UEFI:</b> målt oppstart med TPM er også en kjede, men den bygger på målinger (hasher), ikke på sertifikater i firmware. Fasiten holder med ordet «sertifikat».</li>
-          <li><b>Ikke pensum:</b> at målingene lagres i registre som bare kan utvides (PCR), og begrepet TCB (Trusted Computing Base). Det står ikke i kildene for 2026.</li>
-        </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sikker oppstart, TPM og TEE</h4>
       <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
@@ -374,12 +407,27 @@
     <!-- ===================== 5 · KANALER ===================== -->
     <section data-panel="kanaler">
       <h3>Sidekanaler og skjulte kanaler</h3>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">eksamensbasert</span> Eksamen høst 2021 hadde én matriseoppgave (2 poeng). Ingen oppgave H2022–H2025, men lysarket fikk to nye sider om kanalene i 2026, så de kan komme igjen. Radene står her i oppgavens rekkefølge:</p>
+        <ul>
+          <li><a href="04-angrep.html#fane=eksamen&amp;oppg=o-H2021-2_2">Eksamen høst 2021, oppgave 2.2</a> (2p, ligger i banken for blokk 4): for hver rad velger du en av kolonnene Skjult kanal, Ingen, MitM og Sidekanal. MitM (man-in-the-middle) er en angriper som sitter mellom to parter og videresender trafikken.
+            <ul>
+              <li>«Kryptert forbindelse gjennom TOR» → <b>Ingen</b>,</li>
+              <li>«opptre som både avsender og mottager i en kryptert forbindelse» → <b>MitM</b>,</li>
+              <li>«måle variasjon av tidsbruk ved kryptering med ulike nøkkelverdier» → <b>Sidekanal</b>,</li>
+              <li>«kalle funksjoner med ulike tidsbruk med hensikt at det kan måles utenfor systemet» → <b>Skjult kanal</b>.</li>
+            </ul></li>
+        </ul>
+        <p class="small">Merkene ved hver del: <span class="tag tag-kjerne">kommer ofte</span> = spurt de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om.</p></div>
+
+      <h4 class="sys-del">1 · Sidekanal og skjult kanal <span class="tag">eksamensbasert</span></h4>
+
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Sidekanal:</b> en <b>utilsiktet</b> informasjonslekkasje som kommer av den fysiske implementasjonen, ikke av selve grensesnittet. Angriperen observerer bieffekter og trekker slutninger om hemmelige data. Eksempler: tidsforbruk (ulik behandlingstid kan avsløre bit i en kryptonøkkel), strømforbruk, lyd og elektromagnetisk stråling (d08 s. 24).</li>
           <li><b>Skjult kanal:</b> en mekanisme som <b>ikke er laget for kommunikasjon</b>, men som <b>misbrukes bevisst</b> til å overføre informasjon mellom parter som ikke har lov til å utveksle dataene. Båndbredden er typisk svært lav. Eksempler (d08 s. 25):
             <ul>
-              <li>viftestøy eller blinkende lysdioder fra isolerte maskiner</li>
+              <li>viftestøy eller blinkende lysdioder fra isolerte maskiner (air-gappede maskiner, som ikke er koblet til noe nettverk)</li>
               <li>to mobilapper som «snakker» via volumet</li>
               <li>DNS-tunnelering forbi brannmuren.</li>
             </ul></li>
@@ -387,13 +435,14 @@
         </ul></div>
       <div id="ex-kanaler"></div>
 
-      <h4 class="ov-h"><span class="ov-tag">Øving</span> Sorter scenarioene</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> 2 · Sorter scenarioene <span class="tag">eksamensbasert</span></h4>
       <p class="ov-intro">Plasser hvert kort som sidekanal, skjult kanal eller ingen av dem. Etter sjekk ser du hvem som sender. Nederst gjetter du først hvor lang tid en langsom skjult kanal trenger, og får så en kalkulator du kan prøve andre tall i.</p>
       <div id="viz-kanal" data-modus="kanal"></div>
 
-      <h4>Eksempel: båndbredde</h4>
-      <p>Viften på en air-gappet maskin kan skifte hastighet én gang per 2 sekund, altså 0,5 bit/s. En 256-bits AES-nøkkel tar da 256 / 0,5 = <b>512 sekunder</b>, under 9 minutter. Lav båndbredde er ingen trøst når hemmeligheten er liten.</p>
+      <h4 class="sys-del">3 · Eksempel: båndbredde <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span></h4>
+      <p>En air-gappet maskin er fysisk isolert fra alle nettverk, så data kan ikke sendes ut på vanlig måte. Viften på en slik maskin kan skifte hastighet én gang per 2 sekund, altså 0,5 bit/s. En 256-bits AES-nøkkel tar da 256 / 0,5 = <b>512 sekunder</b>, under 9 minutter. Lav båndbredde er ingen trøst når hemmeligheten er liten.</p>
 
+      <h4 class="sys-del">4 · Feller <span class="tag">eksamensbasert</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Er sidekanal og skjult kanal det samme, siden begge kan bruke tid?</summary>
           <p>Nei. Forskjellen er hensikten. I en sidekanal lekker offeret uten å vite det, og angriperen måler. I en skjult kanal sender en innsider, ofte skadevare, med vilje. Se på hensikten, ikke på mediet (H2021 2.2).</p></details>
@@ -413,17 +462,6 @@
       <p class="sys-q">Velg riktig ord i hvert nedtrekksfelt, slik at definisjonene av sidekanal og skjult kanal blir riktige.</p>
       <div id="ov-system-10"></div>
 
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li><a href="04-angrep.html#fane=eksamen&amp;oppg=o-H2021-2_2">H2021 2.2</a> (2p, ligger i banken for blokk 4): kolonnene Skjult kanal, Ingen, MitM og Sidekanal.
-            <ul>
-              <li>«Kryptert forbindelse gjennom TOR» → <b>Ingen</b>,</li>
-              <li>«opptre som både avsender og mottager i en kryptert forbindelse» → <b>MitM</b>,</li>
-              <li>«måle variasjon av tidsbruk ved kryptering med ulike nøkkelverdier» → <b>Sidekanal</b>,</li>
-              <li>«kalle funksjoner med ulike tidsbruk med hensikt at det kan måles utenfor systemet» → <b>Skjult kanal</b>.</li>
-            </ul></li>
-          <li>Ingen oppgave i H2022–H2025 om side- eller skjulte kanaler. Lysarket fikk to nye sider om dem i 2026, så de kan komme igjen.</li>
-        </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Side- og skjulte kanaler</h4>
       <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
@@ -436,6 +474,17 @@
     <!-- ===================== 6 · SÅRBARHETER ===================== -->
     <section data-panel="sarbarhet">
       <h3>Sårbarheter, oppdatering og tilnærminger</h3>
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag">pensum, ikke spurt før</span> Stoffet står på 2026-lysarket (d08 s. 2–6), men ingen oppgave i systemblokka H2021–H2025 har spurt om det.</p>
+        <ul>
+          <li>Ingen oppgave i systemblokka H2021–H2025 spør om CVE, CVSS eller zero-day.</li>
+          <li>Nulldagssårbarheter dukker opp i cyberops-oppgaven H2024 37: «Selge nulldagssårbarheter» er ett av de riktige alternativene i første delspørsmål.</li>
+          <li>CVSS-grensene er lette å spørre om i en matrise eller med nedtrekk. Stoffet er nytt på 2026-lysarket, så det er usikkert om det kommer.</li>
+        </ul>
+        <p class="small">Merkene ved hver del: <span class="tag tag-kjerne">kommer ofte</span> = spurt de fleste år, <span class="tag">eksamensbasert</span> = spurt om minst én gang, <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span> = hjelper forståelsen, men blir ikke spurt om, <span class="tag">pensum, ikke spurt før</span> = står på 2026-lysarket, men har ikke vært på eksamen.</p></div>
+
+      <h4 class="sys-del">1 · Sårbarheter, CVE og CVSS <span class="tag">pensum, ikke spurt før</span></h4>
+
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Hvorfor systemsikkerhet:</b> god kommunikasjonssikkerhet er bortkastet hvis systemene i endene er svake. d08 s. 2 illustrerer det med et sitat av Eugene Spafford om en pansret bil mellom to pappesker.</li>
@@ -455,12 +504,12 @@
       <p class="small muted fig-vis-led">Livsløpet til en sårbarhet. Nulldag er tiden uten rettelse; etterpå er faren at rettelsen ikke er installert.</p>
       <div id="fk-nulldag"></div>
 
-      <h4 class="ov-h"><span class="ov-tag">Øving</span> CVSS-skalaen og prioritering</h4>
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> 2 · CVSS-skalaen og prioritering <span class="tag">pensum, ikke spurt før</span></h4>
       <p class="case-ctx" data-case="lerkedal">Driftsgruppen i Lerkedal kommune får fire sårbarhetsvarsler en mandag morgen og må velge hva som tas først.</p>
       <p class="ov-intro">Dra i glidebryteren og se kategorien. Prøv grensene 3,9/4,0, 6,9/7,0 og 8,9/9,0. Sorter så mandagens fire varsler i den rekkefølgen driftsgruppen bør ta dem, og trykk «Sjekk svar».</p>
       <div id="viz-cvss" data-modus="cvss"></div>
 
-      <h4>Eksempel: mandag morgen i Lerkedal</h4>
+      <h4 class="sys-del">3 · Eksempel: mandag morgen i Lerkedal <span class="tag">pensum, ikke spurt før</span></h4>
       <p class="case-ctx" data-case="lerkedal"></p>
       <p>Driftsgruppen får fire varsler (oppdiktede sårbarheter, ingen ekte CVE-ID):</p>
       <div class="table-wrap"><table class="sys-ex">
@@ -473,16 +522,24 @@
         </tbody></table></div>
       <p>Tirsdag kommer en nyhet om at VPN-produsenten fortsatt ikke har noen oppdatering for en <i>annen</i> feil som utnyttes aktivt. Det er en zero-day etter d08s definisjon. Den kan ikke rettes med oppdatering, så Lerkedal må begrense skaden: stenge tjenesten, segmentere og overvåke.</p>
 
+      <h4 class="sys-del">4 · Feller <span class="tag">pensum, ikke spurt før</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
-        <details class="grense"><summary>Er CVSS 7,0 Middels eller Høy?</summary>
-          <p>Høy. Middels slutter på 6,9, og Høy går fra 7,0 til 8,9. Det samme mønsteret gjelder 4,0 (Middels) og 9,0 (Kritisk).</p></details>
         <details class="grense"><summary>Betyr zero-day at sårbarheten ble funnet i dag?</summary>
           <p>Nei. Det betyr at leverandøren ikke kjenner til den, eller at det ikke finnes noen oppdatering (d08 s. 4).</p></details>
+        <details class="grense"><summary>Er CVSS 7,0 Middels eller Høy?</summary>
+          <p>Høy. Middels slutter på 6,9, og Høy går fra 7,0 til 8,9. Det samme mønsteret gjelder 4,0 (Middels) og 9,0 (Kritisk).</p></details>
         <ul>
+          <li><b>God kryptering veier ikke opp for svake systemer.</b> Det er poenget med Spafford-sitatet.</li>
+          <li><b>Oppdater ikke uten testing.</b> Oppdateringer kan ødelegge for egne systemer.</li>
           <li><b>Angripere bruker ikke mest zero-days.</b> d08 sier de ofte bruker kjente sårbarheter, fordi oppdatering tar tid.</li>
           <li><b>CVE gir ikke CVSS-skåren.</b> CVE registrerer og gir ID, NVD gir skåren.</li>
-          <li><b>Oppdater ikke uten testing.</b> Oppdateringer kan ødelegge for egne systemer.</li>
-          <li><b>God kryptering veier ikke opp for svake systemer.</b> Det er poenget med Spafford-sitatet.</li>
+        </ul></div>
+
+      <div class="sys-forbehold">
+        <p><b>Forbehold</b></p>
+        <ul>
+          <li><b>CVSS 0,0</b> har ingen kategori på d08, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ikke pensum</span>.</li>
+          <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er en kobling til risikoblokka som ikke står i kildene.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Sårbarheter og CVSS i eksamensformat</h4>
@@ -492,18 +549,6 @@
       <p class="sys-q">Hvilken av de fem tilnærmingene til systemsikkerhet hører tiltaket til? Velg én tilnærming for hvert tiltak.</p>
       <div id="ov-system-12"></div>
 
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <ul>
-          <li>Ingen oppgave i systemblokka H2021–H2025 spør om CVE, CVSS eller zero-day.</li>
-          <li>Nulldagssårbarheter dukker opp i cyberops-oppgaven H2024 37: «Selge nulldagssårbarheter» er ett av de riktige alternativene i første delspørsmål.</li>
-          <li>CVSS-grensene er lette å spørre om i en matrise eller med nedtrekk. Stoffet er nytt på 2026-lysarket, så det er usikkert om det kommer.</li>
-        </ul></div>
-      <div class="sys-forbehold">
-        <p><b>Forbehold</b></p>
-        <ul>
-          <li><b>CVSS 0,0</b> har ingen kategori på d08, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ikke pensum</span>.</li>
-          <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er en kobling til risikoblokka som ikke står i kildene.</li>
-        </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sårbarheter og CVSS</h4>
       <p class="ov-intro">Flervalg: velg ett svar per spørsmål. Forklaringen vises når du har svart.</p>
@@ -530,37 +575,37 @@
         kort: "En kommune med egen driftsgruppe: skytjener med VM-er for 40 kunder, bibliotekets nettsted som 15 mikrotjenester i containere, VPN-gateway og intranett." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127l"></script>
-  <script src="assets/js/symboler.js?v=20261127l"></script>
-  <script src="assets/js/begreper-data.js?v=20261127l"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
-  <script src="assets/js/pseudocode.js?v=20261127l"></script>
-  <script src="assets/js/stepplayer.js?v=20261127l"></script>
-  <script src="assets/js/varline.js?v=20261127l"></script>
-  <script src="assets/js/inspera.js?v=20261127l"></script>
-  <script src="assets/js/dra.js?v=20261127l"></script>
-  <script src="assets/js/bank.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
-  <script src="assets/js/viz-system.js?v=20261127l"></script>
+  <script src="assets/js/core.js?v=20261127m"></script>
+  <script src="assets/js/symboler.js?v=20261127m"></script>
+  <script src="assets/js/begreper-data.js?v=20261127m"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127m"></script>
+  <script src="assets/js/pseudocode.js?v=20261127m"></script>
+  <script src="assets/js/stepplayer.js?v=20261127m"></script>
+  <script src="assets/js/varline.js?v=20261127m"></script>
+  <script src="assets/js/inspera.js?v=20261127m"></script>
+  <script src="assets/js/dra.js?v=20261127m"></script>
+  <script src="assets/js/bank.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127m"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127m"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127m"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127m"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127m"></script>
+  <script src="assets/js/viz-system.js?v=20261127m"></script>
   <script>
   (function () {
     "use strict";

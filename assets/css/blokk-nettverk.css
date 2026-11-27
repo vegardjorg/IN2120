@@ -132,7 +132,11 @@ table.nt-fw tr.nt-done td { color: var(--color-on-surface-variant); }
 }
 
 /* ---------- Snort ---------- */
-.nt-snort { display: flex; flex-wrap: wrap; gap: .25rem; margin: .6rem 0 .3rem; }
+/* Klikkbart område markeres med stiplet ramme og hint (mønster: .kr-klikkrad / .kr-klikkhint i blokk-krypto.css) */
+.nt-snort-klikk { margin: .6rem 0 .3rem; padding: 6px 8px; border-radius: var(--radius); background: var(--color-surface-container); outline: 1px dashed var(--color-primary); }
+.nt-klikkhint { display: block; font-family: var(--font-sans, inherit); font-size: var(--text-xs, .75rem); color: var(--color-primary); margin-bottom: .25rem; }
+.nt-snort { display: flex; flex-wrap: wrap; gap: .25rem; margin: 0; padding: 0; list-style: none; }
+.nt-snort > li { margin: 0; padding: 0; }
 /* Regeldelene er trykkbare (samme uttrykk som .qz-choice); fargen i underkanten viser delen */
 .nt-sn {
   font: inherit; font-size: 13px; background: var(--color-surface-container-lowest); border: 1px solid var(--color-outline-variant); border-bottom: 3px solid var(--color-outline);
@@ -140,7 +144,7 @@ table.nt-fw tr.nt-done td { color: var(--color-on-surface-variant); }
 }
 .nt-sn:hover { background-image: linear-gradient(var(--state-hover), var(--state-hover)); border-top-color: var(--color-primary); border-left-color: var(--color-primary); border-right-color: var(--color-primary); }
 .nt-sn.on { background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface-container-lowest)); border-top-color: var(--color-primary); border-left-color: var(--color-primary); border-right-color: var(--color-primary); }
-.nt-sn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.nt-sn:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
 .nt-sn-h { border-bottom-color: var(--nt-bad); }
 .nt-sn-p { border-bottom-color: var(--color-tertiary); }
 .nt-sn-s { border-bottom-color: var(--c-target); }
@@ -219,7 +223,8 @@ table.nt-arp tr.nt-dup td { color: var(--nt-bad); font-weight: 600; }
 .nt-sb-res { margin: .6rem 0 0; }
 .nt-sb-res.nt-ok b { color: var(--nt-ok); }
 .nt-sb-res.nt-bad b { color: var(--nt-bad); }
-table.nt-fw tr.nt-sb-vil td:first-child { color: var(--nt-warn); font-weight: 700; }
+table.nt-fw tr.nt-sb-vil .nt-sb-stjerne { color: var(--nt-warn); font-weight: 700; }
+table.nt-sn-tab .mono { overflow-wrap: anywhere; }
 
 /* ---------- Anomali: gjett først ---------- */
 .nt-gjett { margin-top: .5rem; border-left: 3px solid var(--nt-warn); padding-left: .7rem; }
@@ -246,3 +251,6 @@ main pre.mono { max-width: 100%; overflow-x: auto; }
 .nt-fw-nr { font-weight: 700; min-width: 1.1rem; }
 .nt-fw-l { color: var(--color-on-surface-variant); font-weight: 400; }
 .nt-verdict.nt-venter b { color: var(--color-on-surface-variant); }
+
+/* Nummererte deloverskrifter i fanene (samme uttrykk som h4.kr-del i blokk-krypto.css) */
+h4.nt-del { margin-top: 1.8rem; font-size: 17px; line-height: 1.3; }

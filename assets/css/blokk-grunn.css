@@ -29,6 +29,9 @@ a.badge { text-decoration: none; }
 .gr-tab tr.on td:first-child { box-shadow: inset 3px -2px 0 var(--color-primary); font-weight: 600; }
 .gr-tab tr.ok td:first-child { box-shadow: inset 3px 0 0 var(--gr-ok); }
 .gr-tab tr.nei td:first-child { box-shadow: inset 3px 0 0 var(--gr-bad); }
+@media (max-width: 560px) {
+  .gr-tab th, .gr-tab td { padding: 4px 5px; hyphens: auto; overflow-wrap: break-word; }
+}
 .gr-ja { font-weight: 700; color: var(--gr-ok); }
 
 /* Felles for visualiseringene */

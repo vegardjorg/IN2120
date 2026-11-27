@@ -1017,7 +1017,7 @@
     var list = el("ul", { class: "kr-okter" });
     var q = el("div", { class: "kr-lekk-q", role: "group", "aria-label": "Forutsi hva som skjer" });
     var note = el("p", { class: "small", "aria-live": "polite" });
-    host.appendChild(el("div", { class: "btn-row" }, [el("span", { class: "small muted", text: "Løsning:" }), bH, bD]));
+    host.appendChild(el("div", { class: "btn-row" }, [el("span", { class: "small muted", text: "Velg protokoll:" }), bH, bD]));
     host.appendChild(list); host.appendChild(q); host.appendChild(note);
     host.appendChild(el("div", { class: "btn-row" }, [bR]));
     function paint() {
