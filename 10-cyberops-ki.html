@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -94,7 +94,7 @@
           <li><b>«Med VPN er aktøren usynlig»</b> er feil. VPN-tilbyderen ser alt.</li>
           <li><b>«TLS skjuler hvilket program du bruker»</b> er feil. Client Hello er ukryptert, og det er grunnlaget for JA3/JA4.</li>
         </ul>
-        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Kryptert DNS (DoH og DoT) finnes, men er ukjent i kildene. Kurset sier bare at DNS-oppslag går ukryptert.</p>
+        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Kryptert DNS (DoH og DoT) finnes, men er ikke pensum. Kurset sier bare at DNS-oppslag går ukryptert.</p>
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Aktørnivåene</h4>
@@ -243,7 +243,7 @@
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Pyramiden, DML-trappa og levetiden</h4>
       <p class="case-ctx" data-case="fjordnett">Kortene er det firmaet deler etter at APT-en «Grågås» har stjålet anbudsdokumenter via makroregneark og VPS-er.</p>
-      <p class="ov-intro">Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så hvert kort på det CTI-nivået det hører til: strategisk, taktisk/operasjonell eller teknisk.</p>
+      <p class="ov-intro">DML-trappa (KI-lysarket s. 25) har trinn 0–9 for hvor moden deteksjonen er: fra ingen deteksjon, via enkeltindikatorer som IP-adresser og hasher, til taktikker, strategi og hvem angriperen er. (At DML står for Detection Maturity Level, er ikke pensum.) Pek på et lag for å se hvilke DML-trinn som hører til. Dra i glideren for å se hvor fort informasjonen går ut på dato. Legg så hvert kort på det CTI-nivået det hører til: strategisk, taktisk/operasjonell eller teknisk.</p>
       <div id="viz-cti"></div>
 
       <details class="cy-eks">
@@ -270,7 +270,7 @@
           <li><b>«NCSC er en egen etat ved siden av NSM»</b> er feil. NCSC er en del av NSM.</li>
         </ul>
         <div class="cy-forbehold"><span class="lbl">Forbehold</span>
-          <p>Lysarkene skriver ikke ut forkortelsene DML, TLP og EOS. Fra nettkilder:</p>
+          <p>Lysarkene skriver ikke ut forkortelsene DML, TLP og EOS. Ikke pensum, fra nettkilder:</p>
           <ul>
             <li>DML = Detection Maturity Level (Stillions, 2014),</li>
             <li>TLP = Traffic Light Protocol (FIRST),</li>
@@ -379,7 +379,7 @@
           <li>Ingen oppgave i H2021–H2025 spør om avskrekking, informasjonsoperasjoner eller Paris Call. Ukesoppgaven har dem som fritekst, så de kan komme som korte tekstsvar.</li>
         </ul>
         <p class="cy-forbehold"><span class="lbl">Forbehold om H2024 37 del 2</span>Begge de to alternativene om arsenalet er merket riktige, men de kan stå i motsetning til hverandre. Et begrenset arsenal som brukes måneder før angrepet, blir ofte oppdaget og rettet og er da borte i innledende fase. Ukesoppgaven trekker mot «innledende fase». Svar med begge, slik arket godtar.</p>
-        <p class="cy-forbehold"><span class="lbl">Forbehold om H2025 15</span>Stuxnet står ikke i kildene fra 2026. Oppgaven sier «vi snakket om i kurset» om 2025-kurset.</p>
+        <p class="cy-forbehold"><span class="lbl">Forbehold om H2025 15</span>Stuxnet er ikke pensum (står ikke i kildene fra 2026). Oppgaven sier «vi snakket om i kurset» om 2025-kurset.</p>
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Cyberoperasjoner</h4>
@@ -454,7 +454,7 @@
           <li><b>«Stor rekonstruksjonsfeil betyr at modellen er dårlig»</b> er feil her. I anomalideteksjon er den selve alarmsignalet.</li>
           <li><b>«KI er bare et angrepsverktøy»</b> er feil. Kurset deler det i offensiv bruk, defensiv bruk og angrep mot KI.</li>
         </ul>
-        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Lysarket viser at KI kan brukes i hendelsesrespons med en SIEM, men har ingen tekst om hvordan. Hvordan kryptografisk autentisering av video gjøres i praksis, er også ukjent i kildene. Idéen er at kameraet eller avsenderen signerer opptaket med en privat nøkkel, som i blokk 2.</p>
+        <p class="cy-forbehold"><span class="lbl">Forbehold</span>Lysarket viser at KI kan brukes i hendelsesrespons med en SIEM, men har ingen tekst om hvordan. Hvordan kryptografisk autentisering av video gjøres i praksis, står heller ikke i kildene (ikke pensum). Idéen er at kameraet eller avsenderen signerer opptaket med en privat nøkkel, som i blokk 2.</p>
       </div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Offensiv, defensiv eller angrep mot KI</h4>
@@ -510,7 +510,7 @@
           <li>Lysarket knytter nivåene til artikkel 5, 6, 52 og 69. Numrene 52 og 69 ser ut til å komme fra kommisjonens forslag fra 2021. I den vedtatte forordningen (EU) 2024/1689 er transparens artikkel 50 og frivillige atferdsregler artikkel 95.</li>
           <li>I den vedtatte teksten er dessuten noen former for emosjonsgjenkjenning (på arbeidsplass og i skole) og biometrisk kategorisering etter sensitive kjennetegn forbudt, mens andre former er høy risiko.</li>
         </ul>
-        <p>Dette er ukjent i kildene og bygger på generell kunnskap. For eksamen: følg lysarkets pyramide og nivånavn, og ikke legg vekt på artikkelnumrene.</p></div>
+        <p>Ikke pensum: dette står ikke i kildene og bygger på generell kunnskap. For eksamen: følg lysarkets pyramide og nivånavn, og ikke legg vekt på artikkelnumrene.</p></div>
 
       <h4>Eksempel: e-postassistenten «Fjordhjelp»</h4>
       <p class="case-ctx" data-case="fjordnett">Samme firma som ble rammet av APT-en «Grågås». Ingrid Solberg jobber med anbudene.</p>
@@ -558,7 +558,7 @@
                 <li>å behandle eksternt innhold som upålitelig og</li>
                 <li>kontroll med hvor modeller og datasett kommer fra,</li>
               </ul>
-              er generell kunnskap og ukjent i kildene.</li>
+              er generell kunnskap og ikke pensum.</li>
           </ul></div>
       </div>
 
@@ -605,37 +605,37 @@
         kort: "Firmaet i eksemplene på denne siden. Det rammes av tre aktører: amatøren «Pixelulv», en løsepengegruppe og APT-en «Grågås», som stjeler anbudsdokumenter i 14 måneder via en kjede av VPS-er." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/pseudocode.js?v=20261127k"></script>
-  <script src="assets/js/stepplayer.js?v=20261127k"></script>
-  <script src="assets/js/varline.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/dra.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
-  <script src="assets/js/viz-cyber.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/pseudocode.js?v=20261127l"></script>
+  <script src="assets/js/stepplayer.js?v=20261127l"></script>
+  <script src="assets/js/varline.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/dra.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
+  <script src="assets/js/viz-cyber.js?v=20261127l"></script>
   <script>
   (function () {
     "use strict";
@@ -652,7 +652,7 @@
       "ex-killchain": {
         eli5: "<p>Et innbrudd har sju trinn:</p><ol><li>speide på huset</li><li>lage et dirkesett</li><li>gå bort til døra</li><li>dirke opp låsen</li><li>gjemme en ekstra nøkkel</li><li>ringe kompisen ute for å få beskjed</li><li>og til slutt ta med sølvtøyet.</li></ol><p>Stopper du tyven på ett av trinnene, blir det ikke noe innbrudd. Jo tidligere, jo mindre skade.</p>",
         normal: "<p>Kill chain er et verktøy for forsvareren. For hvert trinn kan man spørre: «Hvordan oppdager og stopper vi angrepet her?» De to første trinnene skjer mest hos angriperen og er vanskelige å se. Fra overlevering og utover etterlater angrepet spor.</p><p>MITRE ATT&amp;CK er mer detaljert. Den lister angripernes delmål (taktikker) og de mange måtene å nå hvert delmål på (teknikker), basert på det som er observert hos ekte grupper.</p>",
-        teknisk: "<p>Kill chain er lineær med sju grove trinn og egner seg til å planlegge forsvar langs angrepet. ATT&amp;CK er en matrise der taktikkene ikke har noen streng rekkefølge, og under dem ligger mange teknikker og underteknikker. ATT&amp;CK beskriver også det som skjer <i>inne</i> i nettet etter innbruddet, mens kill chain samler alt det i trinn 5–7. Sammenstillingen står ikke i kildene; ukesoppgaven sier bare at det finnes likheter og ulikheter.</p><p>Begge beskriver angriperens atferd, ikke tiltakene. Forsvareren bruker dem til å kartlegge hvilke trinn og teknikker hen kan oppdage. Bevæpning er bygging av verktøyet, kjøringen er utførelse, og fysisk levering som en minnepinne er overlevering.</p>"
+        teknisk: "<p>Kill chain er lineær med sju grove trinn og egner seg til å planlegge forsvar langs angrepet. ATT&amp;CK er en matrise der taktikkene ikke har noen streng rekkefølge, og under dem ligger mange teknikker og underteknikker. ATT&amp;CK beskriver også det som skjer <i>inne</i> i nettet etter innbruddet, mens kill chain samler alt det i trinn 5–7. Sammenstillingen er ikke pensum (står ikke i kildene); ukesoppgaven sier bare at det finnes likheter og ulikheter.</p><p>Begge beskriver angriperens atferd, ikke tiltakene. Forsvareren bruker dem til å kartlegge hvilke trinn og teknikker hen kan oppdage. Bevæpning er bygging av verktøyet, kjøringen er utførelse, og fysisk levering som en minnepinne er overlevering.</p>"
       },
       "ex-cti": {
         eli5: "<p>Tenk deg at alle butikkene i en by deler bilder av tyver med hverandre. Bildet av ansiktet er nyttig lenge, for ansiktet er vanskelig å bytte. Bilnummeret er nyttig bare en dag eller to, for tyven bytter bil. Byens politi samler alt og sier fra når en ny bande dukker opp.</p>",

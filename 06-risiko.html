@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -63,7 +63,7 @@
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> CMMI-trappen</h4>
       <p class="case-ctx" data-case="smuldre"></p>
-      <div class="rk-hva"><b>Hva du skal gjøre:</b> sett nivåene i rekkefølge, og trykk «Sjekk svar». Forklaringen per brikke viser hvor Smuldre står.</div>
+      <div class="rk-hva"><b>CMMI</b> (Capability Maturity Model Integration) er en trapp for hvor modent arbeidet i en virksomhet er, fra kaos til målbart og stadig bedre. <b>Hva du skal gjøre:</b> sett nivåene i rekkefølge, og trykk «Sjekk svar». Forklaringen per brikke viser hvor Smuldre står.</div>
       <div id="viz-cmmi"></div>
 
       <h4>Eksempel: Smuldre Bakeri får et ISMS</h4>
@@ -142,7 +142,7 @@
         <ul>
           <li>Bakeriet sertifiseres etter <b>27001</b>, og risikovurderingen legges opp etter <b>27005</b>.</li>
           <li>Tiltakene hentes fra <b>27002</b>: trusseletterretning (organisatorisk, 5.x), adgangskontroll til bakerommet (fysisk, 7.x) og sikkerhetskopiering (teknologisk, 8.x).</li>
-          <li>SoA-en lister alle 93 tiltakene med «relevant ja/nei» og «innført ja/nei».</li>
+          <li>SoA-en (Statement of Applicability, erklæring om hvilke tiltak som gjelder) lister alle 93 tiltakene med «relevant ja/nei» og «innført ja/nei».</li>
           <li>Den årlige internrevisjonen er <b>Check</b>, og rettingen etterpå er <b>Act</b>.</li>
         </ul></div>
 
@@ -344,7 +344,7 @@
       <div id="viz-kvantitativ"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Regn først: risiko og ROI</h4>
-      <p class="ov-intro">To regneoppgaver: først kvantitativ risiko i kroner per år, så ROI for et tiltak. Regn selv, skriv svaret i feltet og trykk «Sjekk svar». Gliderne gir nye tall. Standardtallene er et eget eksempel i samme stil som H2022 10.3.</p>
+      <p class="ov-intro">To regneoppgaver: først kvantitativ risiko i kroner per år, så ROI (Return on Investment, hvor mye tiltaket sparer i forhold til hva det koster) for et tiltak. Regn selv, skriv svaret i feltet og trykk «Sjekk svar». Gliderne gir nye tall. Standardtallene er et eget eksempel i samme stil som H2022 10.3.</p>
       <div id="viz-kalk"></div>
       <div id="viz-kalk-roi"></div>
 
@@ -397,7 +397,7 @@
         Rekkefølgen etter kursets ISO 27005-figur:
         <ol>
           <li><b>Kontekstetablering</b>: planlegging, risikokriterier (akseptgrense) og valg av risikoeier.</li>
-          <li><b>Risikovurdering (ROS)</b>: identifisering → analyse → evaluering.</li>
+          <li><b>Risikovurdering (ROS, risiko- og sårbarhetsanalyse)</b>: identifisering → analyse → evaluering.</li>
           <li><b>Beslutningspunkt 1</b>: er vurderingen god nok?</li>
           <li><b>Risikohåndteringsplan</b>: redusere, dele/overføre, unngå eller akseptere.</li>
           <li><b>Beslutningspunkt 2</b>: er planen akseptabel?</li>
@@ -500,7 +500,7 @@
       <div id="viz-stride-sort"></div>
 
       <h4>OWASP Top 10</h4>
-      <p class="small">2025-lista står ikke i kursets kilder. 2025-kolonnen er kontrollert mot top10.owasp.org (nov. 2025; det som kom 6.11.2025, var et utkast, RC1).</p>
+      <p class="small">Ikke pensum: 2025-lista står ikke i kursets kilder. 2025-kolonnen er kontrollert mot top10.owasp.org (nov. 2025; det som kom 6.11.2025, var et utkast, RC1).</p>
       <div class="table-wrap"><table>
         <thead><tr><th scope="col">#</th><th scope="col">2021 (lista i H2022)</th><th scope="col">2025 (november 2025, kontroller mot owasp.org)</th></tr></thead>
         <tbody>
@@ -572,38 +572,38 @@
         kort: "12 ansatte, tre utsalg, nettbutikk, kasse- og ordresystem i sky, kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken. Akseptgrensen for risiko er R ≤ 5." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/pseudocode.js?v=20261127k"></script>
-  <script src="assets/js/stepplayer.js?v=20261127k"></script>
-  <script src="assets/js/varline.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/dra.js?v=20261127k"></script>
-  <script src="assets/js/ovelse.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
-  <script src="assets/js/viz-risiko.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/pseudocode.js?v=20261127l"></script>
+  <script src="assets/js/stepplayer.js?v=20261127l"></script>
+  <script src="assets/js/varline.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/dra.js?v=20261127l"></script>
+  <script src="assets/js/ovelse.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
+  <script src="assets/js/viz-risiko.js?v=20261127l"></script>
   <script>
   (function () {
     "use strict";

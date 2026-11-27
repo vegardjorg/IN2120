@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -122,7 +122,7 @@
           <li><b>Kryptoperiode:</b> tiden en bestemt nøkkel er godkjent for bruk. Den begrenser hvor mye data som kan analyseres under én nøkkel, hvor stor skaden blir om nøkkelen lekker, og hvor lenge en algoritme brukes ut over sin trygge levetid (d03 s. 14).</li>
           <li><b>Beskyttelsesperiode:</b> nøkkelen brukes til å <b>kryptere</b> (hemmelig eller offentlig nøkkel) eller <b>signere</b> (privat nøkkel).</li>
           <li><b>Prosesseringsperiode:</b> nøkkelen brukes til å <b>dekryptere</b> (hemmelig eller privat nøkkel) eller <b>validere</b> (offentlig nøkkel).</li>
-          <li>Kryptoperioden varer fra starten av beskyttelsesperioden til slutten av prosesseringsperioden, og prosesseringsperioden kan vare lenger (d03 s. 15). NIST kaller periodene OUP og RUP.</li>
+          <li>Kryptoperioden varer fra starten av beskyttelsesperioden til slutten av prosesseringsperioden, og prosesseringsperioden kan vare lenger (d03 s. 15). NIST kaller beskyttelsesperioden OUP (Originator Usage Period) og prosesseringsperioden RUP (Recipient Usage Period).</li>
           <li><b>Lengden er en avveiing:</b> jo mer sensitive data, jo kortere periode. For korte perioder gir mer arbeid og flere feil ved nøkkelbytte, og kan gå ut over tilgjengeligheten (d03 s. 16).</li>
           <li><b>Kompromittert nøkkel:</b> det er kjent eller mistenkt at en uvedkommende har den. All <b>beskyttelse</b> stopper straks, og brukerne varsles. <b>Prosessering</b> av gamle data kan tillates hvis risikoen og policyen gir rom for det. Verst er kompromittering som ikke oppdages (d03 s. 23).</li>
         </ul></div>
@@ -453,16 +453,16 @@
         Utdypning, mulig eksamensstoff.
         <ul>
           <li>Denne fanen står ikke på 2026-lysarket for PKI, men i ukesoppgaven fra 2025 (t03 O6 og O9), og revokering var med i H2024 7.</li>
-          <li><b>CRL</b> står ikke i noen kilde i mappa: den er tatt med bare som bakgrunn fra vanlig lærebokkunnskap og er ukjent i kildene. Det samme gjelder detaljene om hvordan sertifikattransparens virker.</li>
+          <li><b>Ikke pensum:</b> ordet <b>CRL</b> står ikke i 2026-kildene og er tatt med som bakgrunn. Det samme gjelder detaljene om hvordan sertifikattransparens virker.</li>
         </ul></div>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Revokering (tilbakekalling):</b> et sertifikat erklæres ugyldig før utløpsdatoen, typisk når eieren mistenker at den private nøkkelen er kompromittert (t03 O9a). Det er bindingen mellom navnet og nøkkelparet som trekkes tilbake.</li>
-          <li><b>CRL</b> (Certificate Revocation List): en liste over tilbakekalte serienumre, signert med CA-ens private nøkkel og publisert med jevne mellomrom. <i>Ukjent i kildene, bakgrunnsstoff.</i></li>
+          <li><b>CRL</b> (Certificate Revocation List): en liste over tilbakekalte serienumre, signert med CA-ens private nøkkel og publisert med jevne mellomrom. <i>Ikke pensum.</i></li>
           <li><b>OCSP</b> (Online Certificate Status Protocol): nettleseren spør CA-en om status for ett bestemt sertifikat. Ulempen er personvern: CA-en får vite hvilke nettsteder brukeren besøker (t03 O9b).</li>
           <li><b>OCSP-stifting og «must-staple»:</b> tjeneren henter selv et ferskt, signert statussvar og sender det med sitt sertifikat. Must-staple betyr at svaret <i>må</i> følge med, så nettleseren ikke trenger å spørre CA-en (t03 O6c, O9b).</li>
           <li><b>CAA:</b> domeneeieren skriver i DNS-recorden for domenet hvilke CA-er som får utstede sertifikater for det (t03 O6b).</li>
-          <li><b>Sertifikattransparens (CT):</b> t03 O6a sier at CAA og CT sammen løser problemet med at kompromitterte CA-er utsteder falske sertifikater. At CT er offentlige logger der man bare kan legge til, over alle utstedte sertifikater, som domeneeiere kan overvåke, er lærebokstoff og står ikke i kildene.</li>
+          <li><b>Sertifikattransparens (CT):</b> t03 O6a sier at CAA og CT sammen løser problemet med at kompromitterte CA-er utsteder falske sertifikater. At CT er offentlige logger der man bare kan legge til, over alle utstedte sertifikater, som domeneeiere kan overvåke, er ikke pensum (står ikke i kildene).</li>
           <li><b>Domenevalidering:</b> CA-en må identifisere eieren riktig før den utsteder (t03 O7b). Nivåene DV, OV og EV står ikke i 2026-kildene. «OV» i «GEANT OV ECC CA 4» betyr organisasjonsvalidert.</li>
         </ul></div>
       <div id="ex-revokering"></div>
@@ -540,38 +540,38 @@
         kort: "Lerkedal bibliotek har nettstedet bibliotek.lerkedal.no. Sertifikatstien er Fjellvik Root R1 (rot) → Fjellvik TLS CA 2 (mellomliggende CA) → bibliotek.lerkedal.no (subjektsertifikat)." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/pseudocode.js?v=20261127k"></script>
-  <script src="assets/js/stepplayer.js?v=20261127k"></script>
-  <script src="assets/js/varline.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/dra.js?v=20261127k"></script>
-  <script src="assets/js/ovelse.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
-  <script src="assets/js/viz-pki.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/pseudocode.js?v=20261127l"></script>
+  <script src="assets/js/stepplayer.js?v=20261127l"></script>
+  <script src="assets/js/varline.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/dra.js?v=20261127l"></script>
+  <script src="assets/js/ovelse.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
+  <script src="assets/js/viz-pki.js?v=20261127l"></script>
   <script>
   (function () {
     "use strict";

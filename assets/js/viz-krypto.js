@@ -9,6 +9,7 @@
    IN.krypto.xorOv(host)               regn selv C = M ⊕ K (8 bit), KR.xorSjekk er ren
    IN.krypto.xor(host)                 stegspiller: OTP og nøkkelgjenbruk (med spor)
    IN.krypto.bitflipp(host)            bit-flipping i strømchiffer (beløp 5 kr)
+   IN.krypto.modusOversikt(host)       statisk oversikt: ECB, CBC, CTR side om side (IN.fig), med lesehjelp
    IN.krypto.moduser(host)             stegspiller: ECB, CBC, CTR (kryptering og dekryptering), med spor
    IN.krypto.pingvin(host)             klartekst / ECB / CTR som 8×8-bilde
    IN.krypto.hashTest(host)            IN.matrise: x + 1, x mod 16 og SHA-256 mot de fem kravene
@@ -687,6 +688,90 @@
     }
     var sc = el("div", { class: "kr-svgwrap" }); sc.appendChild(svg); stage.appendChild(sc);
   };
+
+  /* ---------- Oversiktsfigur: ECB, CBC og CTR side om side (to blokker hver, med navn og lesehjelp) ----------
+     Tegnes med IN.fig (samme stil som eksamensfigurene). Rekkefølgen ECB → CBC → CTR er den samme som i
+     begrepslista, oversiktstabellen og huskereglene i fanen. Kilde for strukturen: d02 s. 29–34. */
+  KR.modusOversikt = function (host) {
+    host = host$(host); var F = IN.fig; if (!host || !F) return;
+    clear(host);
+    var W = 300, H = 205, MW = 44, MH = 30, EW = 58, EH = 38, CY = 165, cols = [120, 235];
+    var c = F.celler(host, 3, { klasse: "kr-mo" });
+    function topp(celle, navn, full) { celle.appendChild(el("p", { class: "kr-mo-navn", html: "<b>" + navn + "</b> · " + full })); }
+    function under(celle, html) { celle.appendChild(el("div", { class: "kr-mo-tekst small", html: html })); }
+    function cBoks(s, cx, i) { F.boks(s, cx - MW / 2, CY, MW, MH, "C_" + i, { rolle: "chiffer" }); }
+
+    /* ECB: M → E(K) → C, ingen kobling. */
+    topp(c[0], "ECB", "Electronic Code Book");
+    (function () {
+      var s = F.svg(c[0], { w: W, h: H, tittel: "ECB med to blokker",
+        desc: "M1 og M2 går rett inn i hver sin E sammen med nøkkelen K, og ut kommer C1 og C2. Ingen XOR og ingen piler mellom blokkene." });
+      var KY = 84, EY = 98;
+      F.nokkel(s, 30, 64, { etikett: "K" });
+      F.brutt(s, KY, 42, cols[1] + 16, cols);
+      cols.forEach(function (cx, i) {
+        F.boks(s, cx - MW / 2, 30, MW, MH, "M_" + (i + 1), { rolle: "klar" });
+        F.pil(s, [[cx, 30 + MH], [cx, EY]]);
+        F.pil(s, [[cx + 16, KY], [cx + 16, EY]]);
+        F.boks(s, cx - EW / 2, EY, EW, EH, "E", { rolle: "funk" });
+        F.pil(s, [[cx, EY + EH], [cx, CY]]);
+        cBoks(s, cx, i + 1);
+      });
+    })();
+    under(c[0], "<p><b>Hva du ser:</b> klartekstblokka M går rett inn i E. Det er ingen ⊕ og ingen piler mellom blokkene, så hver blokk krypteres helt for seg: C₁ = E(M₁, K).</p>" +
+      "<p><b>Følgen:</b> to like klartekstblokker gir to like chifferblokker. Derfor er ECB usikker.</p>");
+
+    /* CBC: M → ⊕ (IV / forrige C) → E(K) → C, C kjedes videre. */
+    topp(c[1], "CBC", "Cipher Block Chaining");
+    (function () {
+      var s = F.svg(c[1], { w: W, h: H, tittel: "CBC med to blokker",
+        desc: "M1 XOR-es med IV, og M2 XOR-es med C1. Resultatet går inn i E sammen med nøkkelen K, og ut kommer C1 og C2. En pil går fra C1 opp til XOR-en foran den andre E-en." });
+      var XY = 60, KY = 84, EY = 98;
+      F.nokkel(s, 30, 64, { etikett: "K" });
+      F.brutt(s, KY, 42, cols[1] + 16, cols.concat([cols[0] + 50]));
+      cols.forEach(function (cx, i) {
+        F.boks(s, cx - MW / 2, 6, MW, MH, "M_" + (i + 1), { rolle: "klar" });
+        F.pil(s, [[cx, 6 + MH], [cx, XY - 10]]);
+        F.xor(s, cx, XY, 10);
+        F.pil(s, [[cx, XY + 10], [cx, EY]]);
+        F.pil(s, [[cx + 16, KY], [cx + 16, EY]]);
+        F.boks(s, cx - EW / 2, EY, EW, EH, "E", { rolle: "funk" });
+        F.pil(s, [[cx, EY + EH], [cx, CY]]);
+        cBoks(s, cx, i + 1);
+      });
+      F.pil(s, [[cols[0] + MW / 2, CY + MH / 2], [cols[0] + 50, CY + MH / 2], [cols[0] + 50, XY], [cols[1] - 10, XY]], { klasse: "kr-mo-kjede" });
+      F.tekst(s, cols[0] + 56, CY - 14, "kjede", { anker: "start", str: 13, klasse: "kr-mo-merk" });
+      F.boks(s, 30, 6, 40, 28, "IV", { rolle: "teller" });   // over nøkkelen, så de ikke overlapper
+      F.pil(s, [[70, 20], [88, 20], [88, XY], [cols[0] - 10, XY]]);
+    })();
+    under(c[1], "<p><b>Hva du ser:</b> M XOR-es med noe <i>før</i> E. Første blokk får IV, de neste får forrige chifferblokk (pilen merket «kjede»): C₁ = E(IV ⊕ M₁, K) og C₂ = E(C₁ ⊕ M₂, K).</p>" +
+      "<p><b>Følgen:</b> to like klartekstblokker gir ulik inndata til E, og dermed ulike chifferblokker.</p>");
+
+    /* CTR: T → E(K) → ⊕ ← M → C. */
+    topp(c[2], "CTR", "Counter Mode (tellermodus)");
+    (function () {
+      var s = F.svg(c[2], { w: W, h: H, tittel: "CTR med to blokker",
+        desc: "T1 og T2 øverst går inn i hver sin E sammen med nøkkelen K. Utgangen fra hver E XOR-es med M1 og M2, som kommer inn fra venstre. Resultatet er C1 og C2." });
+      var KY = 46, EY = 62, XY = 128;
+      F.nokkel(s, 30, 26, { etikett: "K" });
+      F.brutt(s, KY, 42, cols[1] + 16, cols);
+      cols.forEach(function (cx, i) {
+        F.boks(s, cx - MW / 2, 4, MW, MH, "T_" + (i + 1), { rolle: "teller" });
+        F.pil(s, [[cx, 4 + MH], [cx, EY]]);
+        F.pil(s, [[cx + 16, KY], [cx + 16, EY]]);
+        F.boks(s, cx - EW / 2, EY, EW, EH, "E", { rolle: "funk" });
+        F.pil(s, [[cx, EY + EH], [cx, XY - 10]]);
+        F.xor(s, cx, XY, 10);
+        F.boks(s, cx - 66, XY - MH / 2, MW, MH, "M_" + (i + 1), { rolle: "klar" });
+        F.pil(s, [[cx - 22, XY], [cx - 10, XY]]);
+        F.pil(s, [[cx, XY + 10], [cx, CY]]);
+        cBoks(s, cx, i + 1);
+      });
+    })();
+    under(c[2], "<p><b>Hva du ser:</b> det er telleren T, ikke M, som går inn i E. Resultatet E(T, K) er nøkkelstrømmen, og M XOR-es inn <i>etter</i> E, fra siden: C₁ = E(T₁, K) ⊕ M₁.</p>" +
+      "<p><b>Følgen:</b> hver blokk får sin egen teller og dermed sin egen nøkkelstrøm, så like blokker blir ulike.</p>");
+  };
+
   KR.moduser = function (host) {
     return player(host, {
       presets: {

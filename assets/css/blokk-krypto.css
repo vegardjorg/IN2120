@@ -350,3 +350,34 @@ details.kr-pqc-eks > summary:focus-visible { outline: 2px solid var(--color-prim
 .dhf2.smal .dhf-bilde { box-sizing: border-box; min-height: var(--dhf-bilde-h, 0px); justify-content: center; margin-bottom: 0; }
 
 /* DH med tall: knappene øverst via felles valg navTopp i stepplayer.js (styles.css .sp-navtopp). */
+
+/* ---------- Moduser-fanen (UI/UX-runde 2026-11-27) ---------- */
+/* Oversiktsfiguren KR.modusOversikt: navn over, tegning, lesehjelp under. Cellene toppjusteres. */
+.kr-mo .fig-celler-grid { align-items: start; }
+.kr-mo .fig-celle { align-items: stretch; }
+.kr-mo .fig-celle > .fig-tegning { align-self: center; }
+.kr-mo-navn { margin: 0; font-size: var(--text-md, 15px); color: var(--color-on-surface); }
+.kr-mo-navn b { color: var(--color-primary); }
+.kr-mo-tekst p { margin: .25rem 0; }
+.kr-mo-kjede { color: var(--color-primary); }
+.kr-mo-merk { fill: var(--color-primary); }
+.kr-mo-fig { margin: .6rem 0 1rem; padding: .6rem .7rem; border: 1px solid var(--color-outline-variant); border-radius: var(--radius-lg); background: var(--color-surface-container-lowest); }
+/* Oversiktstabellen: modusene som kolonner (fire kolonner passer på 375 px); første kolonne er egenskapen */
+.kr-motab th[scope="row"] { font-weight: 600; background: var(--color-surface-container); min-width: 6.5rem; }
+.kr-motab td, .kr-motab th { vertical-align: top; }
+.kr-motab td { min-width: 6.5rem; }
+/* Utvidbare tillegg (Ikke pensum / fordypning) */
+details.kr-ekstra { margin: .7rem 0 1rem; border: 1px solid var(--color-outline-variant); border-radius: var(--radius-lg); padding: .4rem .75rem; background: var(--color-surface-container-lowest); }
+details.kr-ekstra > summary { cursor: pointer; font-weight: 600; padding: .2rem 0; }
+details.kr-ekstra > summary:focus-visible { outline: var(--focus, 2px solid var(--color-primary)); outline-offset: 2px; border-radius: var(--radius); }
+details.kr-ekstra[open] > summary { margin-bottom: .3rem; }
+/* Regneeksempel i CTR: bitrader */
+.kr-regn { margin: .4rem 0 .8rem; }
+.kr-regn .kr-bitlbl { min-width: 7.5rem; }
+/* Delte overskrifter i fanen: nummer og merke */
+h4.kr-del { margin-top: 1.8rem; font-size: 17px; line-height: 1.3; }
+/* Smal skjerm: fire kolonner skal få plass uten sidelengs rulling (orddeling i lange ord som «klartekstblokker») */
+@media (max-width: 560px) {
+  .kr-motab td, .kr-motab th { min-width: 0; padding: 6px 4px; font-size: 12.5px; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+  .kr-motab th[scope="row"] { min-width: 0; width: 24%; }
+}

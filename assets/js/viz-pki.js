@@ -894,7 +894,7 @@
         tekst: "<p>En angriper har tatt kontroll over Nordkapp CA og utsteder et sertifikat for bibliotek.lerkedal.no, selv om CAA sier nei. Hva gjelder nå?</p>",
         valg: [
           { tekst: "CAA stoppet ikke dette. Utstedelsen må oppdages i ettertid, for eksempel gjennom sertifikattransparens, og så må sertifikatet tilbakekalles", til: "slutt", poeng: 2, kit: { K: "truet", I: "truet" },
-            konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. t03 O6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er en presisering og lærebokstoff." },
+            konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. t03 O6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er en presisering og ikke pensum." },
           { tekst: "Nettleseren slår opp CAA-recorden og avviser sertifikatet", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
             konsekvens: "<b>Nei.</b> CAA sjekkes av CA-en når den utsteder, ikke av nettleseren. Sertifikatet har en gyldig kjede og godtas. (RFC 8659; står ikke i kurskildene.)" },
           { tekst: "Ingenting kan skje: CAA gjør det umulig å utstede", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
@@ -904,7 +904,7 @@
       slutt: { slutt: true, oppsummering: {
         eli5: "<p>CAA er en lapp i DNS som sier hvilke kontorer som får lage sertifikater for domenet. Ærlige kontorer følger lappen. Et kontor som er hacket, bryr seg ikke, og da må juksen oppdages etterpå.</p>",
         normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (t03 O6b). En ærlig CA sjekker recorden og avslår om den ikke står der. CAA hindrer ikke en kompromittert CA som ignorerer regelen (RFC 8659), selv om t03 O6a sier at CA-autorisering forhindrer det. På eksamen kan t03-svaret ventes, men vit begrensningen. Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles (t03 O6a).</p>",
-        teknisk: "<p>CAA (CA-autorisering) er en DNS-record på domenet, med <code>issue</code>-verdier for CA-ene som får utstede. Kontrollen skjer hos CA-en ved utstedelse. Mot en CA som ignorerer CAA hjelper bare at utstedelsen blir synlig og oppdages (CT), og deretter tilbakekalling eller at CA-en fjernes fra rotlagrene. Detaljene om CT og hvem som sjekker CAA, er lærebokstoff og står ikke i kildene.</p>"
+        teknisk: "<p>CAA (CA-autorisering) er en DNS-record på domenet, med <code>issue</code>-verdier for CA-ene som får utstede. Kontrollen skjer hos CA-en ved utstedelse. Mot en CA som ignorerer CAA hjelper bare at utstedelsen blir synlig og oppdages (CT), og deretter tilbakekalling eller at CA-en fjernes fra rotlagrene. Detaljene om CT og hvem som sjekker CAA, er ikke pensum (står ikke i kildene).</p>"
       } }
     }
   };

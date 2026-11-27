@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -110,8 +110,8 @@
         <p><b>Fasit med forbehold</b></p>
         <ul>
           <li><b>H2025 5:</b> overskriften sier «hypervisormodus», men linja over tabellen sier «indiker om en bruker-prosess kan få tilgang». Leser man den linja, blir begge svarene «Kan IKKE». Fasiten følger overskriften (hypervisormodus), og det er den riktige lesningen.</li>
-          <li><b>H2024 5:</b> ubesvart gir −1, som avviker fra resten av settet. Øvingen i eksamensfanen bruker poenglinja slik den står.</li>
-          <li><b>Eldre sett</b> (in2120-2020) brukte ringer helt ned til −3 med Intel ME og UEFI/BIOS. Det er <span class="sys-ukjent">ukjent i kildene for 2026</span> og utenfor pensum: d08 går bare ned til −1.</li>
+          <li><b>H2024 5:</b> ubesvart gir −1. I resten av settet gir en ubesvart oppgave 0 poeng. Poengregelen står over hver oppgave, så les den før du svarer. Øvingen i eksamensfanen regner poeng slik regelen står i oppgaven.</li>
+          <li><b>Eldre sett</b> (in2120-2020) brukte ringer helt ned til −3 med Intel ME og UEFI/BIOS. Det er <span class="sys-ukjent">ikke pensum</span>: d08 går bare ned til −1.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Privilegienivåer</h4>
@@ -129,14 +129,14 @@
         <ul>
           <li><b>Systemarkitektur:</b> CPU-en utfører kode og regner på data. Disken lagrer programmer og data. Minnet holder aktiv kode og data for prosessene som kjører. ROM har statisk kode som UEFI, og koprosessorer som TPM støtter spesielle funksjoner. Alt henger sammen via systembussen (d08 s. 3).</li>
           <li><b>Kjørbar fil → prosess:</b> den kjørbare fila på disken har instruksjonene. Når den startes, lager OS-et en prosess, setter av minne og laster inn kode og data, og CPU-en utfører instruksjonene (H2022 2.1).</li>
-          <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR er adressene de samme hver gang prosessen kjører (d08 s. 9).</li>
+          <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR (Address Space Layout Randomization, tilfeldig plassering i adresserommet) er adressene de samme hver gang prosessen kjører (d08 s. 9).</li>
           <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (d08 s. 9).</li>
           <li><b>Bufferoverflyt:</b> programmet skriver mer data inn i en variabel (et buffer) enn den har plass til, så dataene renner over i nabominnet. På stakken kan det overskrive <b>returadressen</b>, og da kan angriperen styre hvor programmet fortsetter (H2022 2.3).</li>
           <li><b>Mottiltak</b> (d08 s. 10):
             <ul>
-              <li><b>NX</b> merker stakken ikke-kjørbar.</li>
+              <li><b>NX</b> (No eXecute) merker stakken ikke-kjørbar. Da nekter CPU-en å kjøre kode som angriperen har lagt inn på stakken.</li>
               <li>En <b>stakk-kanarifugl</b> er en tilfeldig verdi på stakken som sjekkes før funksjonen returnerer. Den ligger mellom lokale variabler og returadressen; plasseringen er vanlig fagkunnskap, utover lysarkteksten.</li>
-              <li><b>ASLR</b> gjør adressene vanskeligere å gjette.</li>
+              <li><b>ASLR</b> legger stakk, heap og biblioteker på nye, tilfeldige adresser hver gang programmet starter. Da vet ikke angriperen hvilken adresse den falske returadressen skal peke på.</li>
             </ul>
             I tillegg: sikrere programmeringsspråk, statisk analyse og bedre kode (innebygd sikkerhet, DevSecOps).</li>
         </ul></div>
@@ -283,7 +283,7 @@
         <p><b>Forbehold</b></p>
         <ul>
           <li><b>Ringene i type 2:</b> d08 s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. d08 s. 15 sier at type 2 bruker maskinvarestøtte (VT-x/AMD-V), men figuren setter likevel hypervisoren på nivå 3. Kjernedriveren står ikke på d08. Guiden følger figuren.</li>
-          <li><b>Hvordan containere isoleres</b> (navnerom og cgroups i kjernen) står ikke på d08. Det er <span class="sys-ukjent">utover lysarket</span>.</li>
+          <li><b>Hvordan containere isoleres</b> (navnerom og cgroups i kjernen) står ikke på d08. Det er <span class="sys-ukjent">ikke pensum</span>.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Virtualisering og containere</h4>
@@ -360,7 +360,7 @@
         <ul>
           <li><b>Rad 2, «støtte autentisering» → Bare TPM:</b> litt tvilsom. UEFI-sikker oppstart verifiserer digitale signaturer, og det er dataautentisering av oppstartskoden. Med den lesningen kunne «Begge» forsvares. Fasiten tenker trolig på brukerautentisering og maskinidentitet med nøkler i TPM-en. Lær «Bare TPM».</li>
           <li><b>Rad 1, «tillitskjede basert på sertifikat i firmware» → Bare UEFI:</b> målt oppstart med TPM er også en kjede, men den bygger på målinger (hasher), ikke på sertifikater i firmware. Fasiten holder med ordet «sertifikat».</li>
-          <li><b>Utover lysarket:</b> at målingene lagres i registre som bare kan utvides (PCR), og begrepet TCB (Trusted Computing Base), er <span class="sys-ukjent">ukjent i kildene for 2026</span>.</li>
+          <li><b>Ikke pensum:</b> at målingene lagres i registre som bare kan utvides (PCR), og begrepet TCB (Trusted Computing Base). Det står ikke i kildene for 2026.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sikker oppstart, TPM og TEE</h4>
@@ -441,7 +441,7 @@
           <li><b>Hvorfor systemsikkerhet:</b> god kommunikasjonssikkerhet er bortkastet hvis systemene i endene er svake. d08 s. 2 illustrerer det med et sitat av Eugene Spafford om en pansret bil mellom to pappesker.</li>
           <li><b>Kontinuerlig oppdatering:</b> nye sårbarheter oppdages hele tiden. Oppdatering tar tid fordi den må testes og kan ødelegge for egne systemer. Derfor utnytter angripere ofte <b>kjente</b> sårbarheter (d08 s. 4).</li>
           <li><b>Zero-day (nulldagssårbarhet):</b> en sårbarhet som leverandøren ikke kjenner til, eller som det ikke finnes noen tilgjengelig sikkerhetsoppdatering for (d08 s. 4).</li>
-          <li><b>CVE, NVD og CVSS</b> (d08 s. 5): den som finner sårbarheten, rapporterer den. <b>CVE</b> registrerer den og gir en CVE-ID. <b>NVD</b> gir retningslinjer og en <b>CVSS</b>-skår. Virksomhetene prioriterer etter alvorlighet. Skalaen går fra 0 til 10: <b>Kritisk 9,0–10 · Høy 7,0–8,9 · Middels 4,0–6,9 · Lav 0,1–3,9</b>.</li>
+          <li><b>CVE, NVD og CVSS</b> (d08 s. 5): den som finner sårbarheten, rapporterer den. <b>CVE</b> (Common Vulnerabilities and Exposures) registrerer den og gir en CVE-ID. <b>NVD</b> (National Vulnerability Database) gir retningslinjer og en <b>CVSS</b>-skår (Common Vulnerability Scoring System, et tall for hvor alvorlig sårbarheten er). Virksomhetene prioriterer etter alvorlighet. Skalaen går fra 0 til 10: <b>Kritisk 9,0–10 · Høy 7,0–8,9 · Middels 4,0–6,9 · Lav 0,1–3,9</b>.</li>
           <li><b>Fem tilnærminger</b> (d08 s. 6):
             <ul>
               <li>fjerne feil i OS-et (oppdateringer),</li>
@@ -501,7 +501,7 @@
       <div class="sys-forbehold">
         <p><b>Forbehold</b></p>
         <ul>
-          <li><b>CVSS 0,0</b> har ingen kategori på d08, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ukjent i kildene</span>.</li>
+          <li><b>CVSS 0,0</b> har ingen kategori på d08, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ikke pensum</span>.</li>
           <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er en kobling til risikoblokka som ikke står i kildene.</li>
         </ul></div>
 
@@ -530,37 +530,37 @@
         kort: "En kommune med egen driftsgruppe: skytjener med VM-er for 40 kunder, bibliotekets nettsted som 15 mikrotjenester i containere, VPN-gateway og intranett." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/pseudocode.js?v=20261127k"></script>
-  <script src="assets/js/stepplayer.js?v=20261127k"></script>
-  <script src="assets/js/varline.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/dra.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
-  <script src="assets/js/viz-system.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/pseudocode.js?v=20261127l"></script>
+  <script src="assets/js/stepplayer.js?v=20261127l"></script>
+  <script src="assets/js/varline.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/dra.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
+  <script src="assets/js/viz-system.js?v=20261127l"></script>
   <script>
   (function () {
     "use strict";
@@ -577,7 +577,7 @@
       "ex-minne": {
         eli5: "<p>Tenk deg et skjema med en rute til navnet ditt med plass til ti bokstaver. Rett over står «send pakken til: …». Skriver du et altfor langt navn uten at noen stopper deg, skriver du over adressen, og pakken havner der du vil.</p><p>Kanarifuglen er en liten lapp mellom navneruta og adressen. Er lappen ødelagt, stopper postmannen. ASLR er at adressefeltet flyttes til et tilfeldig sted hver gang. NX er en regel om at ingen pakker kan sendes fra navneruta.</p>",
         normal: "<p>Virtuelt minne gjør at prosesser ikke kan lese hverandres minne. To prosesser kan godt bruke samme virtuelle adresse, for den peker til ulike fysiske steder. Men en bufferoverflyt skjer <i>inne i én prosess</i>, så isolasjonen mellom prosesser hjelper ikke mot den.</p><p>Når et program kopierer input inn i et buffer uten å sjekke lengden, kan inputen skrive over returadressen på stakken. Da hopper programmet dit angriperen vil når funksjonen er ferdig. NX, kanarifugl og ASLR gjør dette vanskeligere hver på sin måte, men feilen i koden er der fortsatt. Bare bedre kode, sikrere språk og analyse fjerner selve feilen.</p>",
-        teknisk: "<p>Hver funksjon som kalles, får en ramme på stakken med returadresse, forrige rammepeker og lokale variabler. Bufferet fylles mot høyere adresser, mens nye rammer legges på mot lavere adresser. En overflyt treffer derfor først kanarifuglen (hvis den finnes), så forrige rammepeker og deretter returadressen (d08 s. 11, H2022 2.3).</p><ul><li>Kanarifuglen oppdager overskrivingen <i>ved retur</i>, før den falske returadressen brukes.</li><li>NX stopper kode som ligger <i>på stakken</i>, men ikke at angriperen hopper til kode som allerede finnes i et bibliotek. Det kalles return-to-libc eller ROP og står ikke i kildene.</li><li>ASLR flytter stakk, heap og biblioteker, så en hardkodet adresse blir feil.</li><li>Tiltakene utfyller hverandre, og derfor brukes alle tre samtidig.</li></ul>"
+        teknisk: "<p>Hver funksjon som kalles, får en ramme på stakken med returadresse, forrige rammepeker og lokale variabler. Bufferet fylles mot høyere adresser, mens nye rammer legges på mot lavere adresser. En overflyt treffer derfor først kanarifuglen (hvis den finnes), så forrige rammepeker og deretter returadressen (d08 s. 11, H2022 2.3).</p><ul><li>Kanarifuglen oppdager overskrivingen <i>ved retur</i>, før den falske returadressen brukes.</li><li>NX stopper kode som ligger <i>på stakken</i>, men ikke at angriperen hopper til kode som allerede finnes i et bibliotek. Det kalles return-to-libc eller ROP (ikke pensum).</li><li>ASLR flytter stakk, heap og biblioteker, så en hardkodet adresse blir feil.</li><li>Tiltakene utfyller hverandre, og derfor brukes alle tre samtidig.</li></ul>"
       },
       "ex-virt": {
         eli5: "<p>Type 1 er en bygård der vaktmesteren bor i kjelleren rett på grunnmuren, og hver leilighet har sitt eget kjøkken (eget OS). Type 2 er at du bygger dukkehus inne i stua di: huset ditt (verts-OS-et) kommer først, og dukkehusene er gjester. Containere er rom i samme leilighet. De har egne møbler (biblioteker), men deler kjøkkenet (kjernen). Brenner det på kjøkkenet, rammes alle rommene.</p>",
@@ -592,7 +592,7 @@
       "ex-kanaler": {
         eli5: "<p>Sidekanal: du hører på naboens dør hvor lenge han fomler med kodelåsen, og gjetter koden. Han mente ikke å fortelle deg noe. Skjult kanal: du og vennen din har avtalt at lyset i vinduet blinker to ganger for «ja». Lyset er ikke laget for å sende beskjeder, men dere bruker det slik med vilje.</p>",
         normal: "<p>Spørsmålet som skiller dem, er: <i>ville noen at informasjonen skulle komme ut?</i></p><ul><li>I en sidekanal lekker offeret uten å vite det, og angriperen måler utenfra.</li><li>I en skjult kanal sender en innsider, ofte skadevare, data ut med vilje gjennom en vei som ikke var ment for det, til en mottaker som venter.</li><li>Begge kan bruke tid som bærer. Derfor må du se på hensikten, ikke på mediet.</li><li>Skjulte kanaler er langsomme, men det holder for å smugle ut en nøkkel eller et passord.</li></ul>",
-        teknisk: "<p>Sidekanaler angriper implementasjonen, ikke algoritmen. AES kan være matematisk sterk og likevel lekke nøkkelbit gjennom tidsbruk eller strømforbruk. Et mottiltak er kode som bruker konstant tid uansett nøkkel, men det står ikke på d08.</p><p>Skjulte kanaler bryter en <b>policy</b> om hvem som får kommunisere med hvem, for eksempel en air-gap eller app-tillatelser. Derfor er de relevante for tilgangskontrollmodeller som Bell-LaPadula (koblingen står ikke i kildene). DNS-tunnelering virker fordi DNS nesten alltid slippes gjennom brannmuren. MitM er ingen av delene: angriperen går aktivt inn i forbindelsen.</p>"
+        teknisk: "<p>Sidekanaler angriper implementasjonen, ikke algoritmen. AES kan være matematisk sterk og likevel lekke nøkkelbit gjennom tidsbruk eller strømforbruk. Et mottiltak er kode som bruker konstant tid uansett nøkkel (ikke pensum, står ikke på d08).</p><p>Skjulte kanaler bryter en <b>policy</b> om hvem som får kommunisere med hvem, for eksempel en air-gap eller app-tillatelser. Derfor er de relevante for tilgangskontrollmodeller som Bell-LaPadula (ikke pensum: koblingen står ikke i kildene). DNS-tunnelering virker fordi DNS nesten alltid slippes gjennom brannmuren. MitM er ingen av delene: angriperen går aktivt inn i forbindelsen.</p>"
       },
       "ex-sarbarhet": {
         eli5: "<p>Et hus får stadig nye sprekker. Noen ganger vet ingen om sprekken ennå, ikke engang snekkeren. Det er en nulldagssprekk. Når sprekkene blir kjent, får de et nummer i et felles register (CVE) og en karakter fra 0 til 10 for hvor farlige de er (CVSS). Du tetter de farligste først. Tyvene vet at det tar tid å tette, så de prøver gjerne de kjente sprekkene først.</p>",

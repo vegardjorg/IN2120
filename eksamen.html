@@ -7,10 +7,10 @@
   <title>Øv på et helt sett · IN2120</title>
   <meta name="description" content="Øv på et helt eksamenssett i IN2120 (H2018–H2025) med Inspera-oppgavetypene og eksamens egen poengregel.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme')||'light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level')||'normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
   <style>
     .sett-bar { display: flex; flex-wrap: wrap; gap: var(--d-sm); align-items: center; margin: var(--d-sm) 0; }
     /* Bare én linje er klebrig (A7, UI/UX 2026-11-26). Tidtaker og nullstilling står under og ruller med. */
@@ -41,6 +41,17 @@
       <div class="sett-modus" id="sett-modus"></div>
       <p class="lead">Velg et år og løs settet slik det sto i Inspera. Oppgavene som rettes automatisk, rettes med arkets egen poenglinje
         (minuspoeng for feil, men aldri under 0 per oppgave). Fritekst vurderer du selv mot «Perfekt svar» og sensors retteinstrukser.</p>
+      <details class="callout" id="tegnforklaring"><summary><b>Tegnforklaring: koder du ser i guiden</b></summary>
+        <ul>
+          <li><b>Eksamen:</b> H2025 6 = eksamen høsten 2025, oppgave 6. H2022 5.2 = oppgave 5, deloppgave 2. H21–H25 = eksamenene høsten 2021 til høsten 2025.</li>
+          <li><b>Oppgavetyper</b> (slik de heter i Inspera, eksamenssystemet): M = matrise med ett valg per rad, for eksempel sant/usant per påstand. F1 = flervalg med ett riktig svar. FF = flervalg med flere riktige svar. N = nedtrekkslister i en tekst. D = dra-og-slipp. T = tekstfelt der du skriver et kort svar. H = klikk på riktig sted i en figur. K og E = skriftlig svar som sensor vurderer (K kort, E lengre).</li>
+          <li><b>Poeng:</b> «3p» = oppgaven gir 3 poeng. <b>Poenglinja</b> er regelen i oppgaveteksten for hvor mye riktig, galt og blankt svar gir, for eksempel «+1 for riktig, −0,5 for galt, 0 for blankt».</li>
+          <li><b>Distraktor:</b> et galt svaralternativ som er laget for å se riktig ut.</li>
+          <li><b>Kilder:</b> d02 s. 63 = lysarkene for del 2 av kurset (kryptografi), side 63. ism, ba og iam = lysarkene om styring (ISMS), brukerautentisering og IAM. t03 O6b = ukesoppgave t03, oppgave 6, del b. LF = løsningsforslag til ukesoppgavene.</li>
+          <li><b>Ikke pensum:</b> fakta som ikke står i kursets kilder for 2026. De er med for å gi sammenheng, men du trenger dem ikke på eksamen.</li>
+        </ul>
+        <p class="small muted">Koder i teksten har prikket understrek: hold musa over, eller trykk, for å se hva de betyr.</p>
+      </details>
     </div>
 
     <div class="sett-bar" id="sett-aar" role="group" aria-label="Velg eksamen"></div>
@@ -49,30 +60,30 @@
 
   <footer class="footer">IN2120-guide · laget for eksamensøving · fungerer frakoblet (file://) og på GitHub Pages.</footer>
 
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
   <script>
   (function () {
     var IN = window.IN, el = IN.el, B = window.IN_EXAM_BANK || {};

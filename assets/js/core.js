@@ -1981,6 +1981,12 @@
     // Symbolforklaringer i statisk tekst (.callout o.l.) og det sidens egne skript har tegnet ved oppstart
     setTimeout(function () { IN.symbolTips(document); }, 0);
     window.addEventListener("load", function () { IN.symbolTips(document); });
+    // Lenker til eksamensoppgaver («H2021 4.2») får en forklarende tittel: symboltipsene hopper over lenker.
+    qsa('a[href*="oppg=o-"]').forEach(function (a) {
+      var m = /oppg=o-([HV])(20\d\d)-([\w.]+)/.exec(a.getAttribute("href") || "");
+      if (!m || a.title) return;
+      a.title = "Eksamen " + (m[1] === "V" ? "våren " : "høsten ") + m[2] + ", oppgave " + m[3].replace(/_/g, ".") + ". Åpner oppgaven i fanen Eksamensoppgaver.";
+    });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();

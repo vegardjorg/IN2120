@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -62,7 +62,7 @@
             </ul></li>
           <li><b>Styrke</b> avhenger av to ting: nøkkelstørrelsen, altså hvor lang tid fullt nøkkelsøk tar, og at algoritmen tåler kryptanalyse. Chifferteksten skal være jevnt fordelt, uten statistiske mønstre.</li>
           <li><b>Nøkkelstørrelse</b> = log₂(N) bit når det finnes N nøkler. Med n bit finnes 2ⁿ nøkler, og i snitt må angriperen prøve halvparten, 2ⁿ/2.</li>
-          <li><b>Kerckhoffs' prinsipp</b> <span class="tag">eksamensbasert</span>: systemet skal være trygt selv om fienden kjenner hele algoritmen. Bare nøkkelen skal være hemmelig. Det står ikke på 2026-lysarkene, men ga 3 poeng på H2025.</li>
+          <li><b>Kerckhoffs' prinsipp</b> <span class="tag">eksamensbasert</span>: systemet skal være trygt selv om fienden kjenner hele algoritmen. Bare nøkkelen skal være hemmelig. Ikke pensum (ikke på 2026-lysarkene), men ga 3 poeng på H2025.</li>
         </ul></div>
       <div id="ex-maal"></div>
 
@@ -144,7 +144,7 @@
           <p>En MAC (meldingsautentiseringskode) løser dette. Avsenderen regner ut en kort kontrollverdi av meldingen og en hemmelig nøkkel som bare avsender og mottaker kjenner, og sender den med. Mottakeren regner ut verdien på nytt. Er den ulik, er meldingen endret. Uten nøkkelen kan ikke angriperen lage en ny, riktig MAC. Altså: kryptering gir konfidensialitet (ingen kan lese), og MAC gir integritet (ingen kan endre uten at det oppdages).</p></details>
         <ul>
           <li>«OTP er perfekt uansett» → bare med tilfeldig, like lang nøkkel som brukes én gang.</li>
-          <li>«AES-512» finnes ikke. H2025 6 brukte det likevel som rad, og riktig svar var symmetrisk kryptering.</li>
+          <li>«AES-512» finnes ikke: AES har bare nøkler på 128, 192 og 256 bit. Likevel sto påstanden «AES-512 er et eksempel på …» i en tabell i H2025 6, og der var riktig svar «symmetrisk kryptering». Svar ut fra hva slags algoritme AES er, og ikke la deg lure av tallet.</li>
           <li>Ikke bland blokkstørrelse og nøkkelstørrelse. Blokkstørrelsen er hvor mange bit av meldingen et blokkchiffer krypterer om gangen. Nøkkelstørrelsen er hvor lang den hemmelige nøkkelen er, og den avgjør hvor mange nøkler en angriper må prøve. AES har alltid 128-bits blokk, men nøkkelen kan være 128, 192 eller 256 bit. «AES-256» betyr altså 256-bits nøkkel, ikke 256-bits blokk.</li>
           <li>Cæsar og AES er symmetriske; RSA og ECC er asymmetriske (H2025 3).</li>
         </ul></div>
@@ -169,62 +169,133 @@
     </section>
 
     <!-- ===================== 3 · MODUSER ===================== -->
+    <!-- Rekkefølge (plan/ui-ux-regler.md): relevans → hva og hvorfor → figur med lesehjelp → kjennetegn/tabell →
+         eksamensfiguren → regning → fordypning → feller → huskeregler → test. Modusene står alltid ECB → CBC → CTR,
+         unntatt der en eksamensfigur har en annen rekkefølge; da følger forklaringen figuren. -->
     <section data-panel="moduser">
       <h3>Operasjonsmoduser: ECB, CBC og CTR</h3>
+
+      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
+        <p><span class="tag tag-kjerne">kommer hvert år</span> Moduser har vært med på hver eksamen fra H2021 til H2025, med 2–3 poeng hver gang (13 poeng til sammen). Oppgavene er av fire slag:</p>
+        <ol>
+          <li><b>Sett navn på modusdiagrammer:</b> <a href="#fane=eksamen&amp;oppg=o-H2023-20">H2023 20</a> (CTR, CBC), <a href="#fane=eksamen&amp;oppg=o-H2024-17">H2024 17</a> (ECB, CTR) og <a href="#fane=eksamen&amp;oppg=o-H2025-8">H2025 8</a> (CBC, CTR, ECB).</li>
+          <li><b>Pingvinbildet:</b> hvilken modus lar omrisset synes? <a href="#fane=eksamen&amp;oppg=o-H2021-3_2">H2021 3.2</a> (ECB, tellermodus, og «Symmetrisk modus» = ingen).</li>
+          <li><b>Dekryptering i tellermodus:</b> hvilken funksjon brukes? <a href="#fane=eksamen&amp;oppg=o-H2021-3_3">H2021 3.3</a> (E, ikke D).</li>
+          <li><b>XOR-regning i tellermodus</b> med 4-bits blokker der E(T, K) er oppgitt: <a href="#fane=eksamen&amp;oppg=o-H2022-5_5">H2022 5.5</a>.</li>
+        </ol>
+        <p>Ingen av oppgavene har bedt deg regne ut selve blokkchifferet E, eller regne CBC med tall. Hver del under er merket: <span class="tag tag-kjerne">kommer hvert år</span>, <span class="tag">eksamensbasert</span> (spurt om minst én gang) eller <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span>.</p></div>
+
+      <h4 class="kr-del">1 · Hva er en operasjonsmodus, og hvorfor trengs den? <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li>Et blokkchiffer krypterer bare én blokk (typisk 128 bit ≈ 16 tegn). Lengre meldinger trenger en <b>operasjonsmodus</b>. CTR, CBC, OFB og CFB regnes som sikre, ECB som usikker.</li>
-          <li><b>ECB:</b> hver blokk krypteres for seg, C₁ = E(M₁, K). Like klartekstblokker gir like chifferblokker.</li>
-          <li><b>CTR</b> (tellermodus): en teller T krypteres, og resultatet XOR-es med klarteksten. C₁ = E(T₁, K) ⊕ M₁ og M₁ = E(T₁, K) ⊕ C₁. Bare E brukes, også ved dekryptering.</li>
-          <li><b>CBC:</b> forrige chifferblokk XOR-es inn i neste klartekstblokk før kryptering. C₁ = E(IV ⊕ M₁, K), C₂ = E(C₁ ⊕ M₂, K). Dekryptering: M₁ = D(C₁, K) ⊕ IV. IV skal være tilfeldig, men trenger ikke være hemmelig.</li>
-        </ul></div>
+          <li><b>Blokk:</b> en bit av meldingen med fast lengde. AES krypterer 128 bit om gangen, omtrent 16 tegn.</li>
+          <li><b>Blokkchiffer</b> (E): krypterer én blokk med nøkkelen K. D gjør det motsatte og dekrypterer. Mer om dette i fanen <a href="#fane=symmetrisk">Symmetrisk</a>.</li>
+          <li><b>Klartekstblokker</b> M₁, M₂, M₃ …: meldingen (M for <i>message</i>) delt i blokker.</li>
+          <li><b>Chifferblokker</b> C₁, C₂, C₃ …: de krypterte blokkene, én for hver klartekstblokk.</li>
+          <li><b>XOR</b> (⊕): bit for bit, 0 når bitene er like og 1 når de er ulike. To XOR med samme verdi opphever hverandre.</li>
+          <li><b>Operasjonsmodus:</b> regelen for hvordan blokkchifferet brukes på en melding som er lengre enn én blokk. Lysarket nevner fem: CTR, CBC, OFB og CFB regnes som sikre, ECB som usikker. Eksamen spør om de tre første i tittelen.</li>
+          <li><b>IV</b> (initialiseringsvektor): en tilfeldig startverdi som CBC blander inn i første blokk. Den skal være tilfeldig, men trenger ikke være hemmelig.</li>
+          <li><b>Teller</b> (T₁, T₂, T₃ …): en verdi som øker for hver blokk i CTR (tellermodus).</li>
+          <li><b>Nøkkelstrøm:</b> biter laget fra nøkkelen som XOR-es med klarteksten. I CTR er nøkkelstrømmen for blokk 1 lik E(T₁, K).</li>
+        </ul>
+        <p><b>Hvorfor trengs moduser?</b> Krypterer man bare blokk for blokk med samme nøkkel, blir to like klartekstblokker til to like chifferblokker. Da kan en angriper se mønstre i meldingen uten å kjenne nøkkelen. CBC og CTR blander inn noe nytt for hver blokk, så like blokker blir ulike.</p></div>
+
+      <h4 class="kr-del">2 · De tre modusene side om side <span class="tag tag-kjerne">kommer hvert år</span></h4>
+      <p>Hver figur viser to blokker. Pilene viser hvor bitene går. Hule bokser (bare kant) er klartekst (M), fylte bokser med fet skrift er chiffertekst (C), og den blå boksen E er blokkchifferet med nøkkelen K. Bokser med stiplet innerkant er IV og teller. ⊕ er XOR. Følg pilen inn i E: det er den som skiller modusene.</p>
+      <div class="kr-mo-fig"><div id="fig-modusoversikt"></div></div>
+
+      <h4 class="kr-del">3 · Kjennetegn i en tabell <span class="tag tag-kjerne">kommer hvert år</span></h4>
+      <p>Samme tre moduser i samme rekkefølge. Les én rad om gangen og sammenlign modusene.</p>
+      <div class="table-wrap"><table class="kr-motab">
+        <caption class="small muted">Kilde: lysark d02 s. 28–34. Formlene følger kursets notasjon.</caption>
+        <thead><tr><th scope="col">Egenskap</th><th scope="col">ECB</th><th scope="col">CBC</th><th scope="col">CTR</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Fullt navn</th><td>Electronic Code Book</td><td>Cipher Block Chaining</td><td>Counter Mode, på norsk tellermodus</td></tr>
+          <tr><th scope="row">Hva går inn i E?</th><td>Klarteksten M</td><td>M XOR-et med IV (første blokk) eller forrige chifferblokk</td><td>Telleren T</td></tr>
+          <tr><th scope="row">Hvor står XOR?</th><td>Ingen XOR</td><td>Før E</td><td>Etter E, med M fra siden</td></tr>
+          <tr><th scope="row">Formel, blokk 1</th><td>C₁ = E(M₁, K)</td><td>C₁ = E(IV ⊕ M₁, K)</td><td>C₁ = E(T₁, K) ⊕ M₁</td></tr>
+          <tr><th scope="row">Startverdi</th><td>Ingen</td><td>IV: tilfeldig, ikke hemmelig</td><td>Teller: må aldri gjentas med samme nøkkel</td></tr>
+          <tr><th scope="row">Like klartekstblokker gir</th><td>like chifferblokker: mønsteret lekker</td><td>ulike chifferblokker</td><td>ulike chifferblokker</td></tr>
+          <tr><th scope="row">Sikker ifølge lysarket?</th><td>Nei</td><td>Ja</td><td>Ja</td></tr>
+          <tr><th scope="row">Dekryptering</th><td>M₁ = D(C₁, K)</td><td>M₁ = D(C₁, K) ⊕ IV: D først, så XOR</td><td>M₁ = E(T₁, K) ⊕ C₁: bare E, aldri D</td></tr>
+          <tr><th scope="row">Eksamensfelle</th><td>«ECB er usikker fordi chifferet er svakt»: nei, det er modusen som er problemet</td><td>«IV må være hemmelig»: nei, bare tilfeldig</td><td>«Dekrypter med D»: nei, E brukes begge veier</td></tr>
+        </tbody></table></div>
+
+      <details class="kr-ekstra"><summary>Ikke pensum: parallellisering og feilspredning</summary>
+        <p class="small">Dette står ikke på lysarkene for 2026 og er ikke spurt om på eksamen H2021–H2025. Det er tatt med fordi lærebøker ofte sammenligner modusene på to ting til: parallellisering (kan blokkene behandles samtidig?) og feilspredning (hvor mye blir feil når én bit i chifferteksten er feil?).</p>
+        <div class="table-wrap"><table class="kr-motab">
+          <thead><tr><th scope="col">Egenskap</th><th scope="col">ECB</th><th scope="col">CBC</th><th scope="col">CTR</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Kryptere blokkene samtidig (parallelt)?</th><td>Ja</td><td>Nei: hver blokk venter på forrige chifferblokk</td><td>Ja: tellerne er kjent på forhånd</td></tr>
+            <tr><th scope="row">Dekryptere blokkene samtidig?</th><td>Ja</td><td>Ja: alle chifferblokkene er kjent</td><td>Ja</td></tr>
+            <tr><th scope="row">Én feil bit i Cᵢ gir</th><td>blokk i blir uleselig</td><td>blokk i blir uleselig, og samme bit snus i blokk i + 1</td><td>bare samme bit i blokk i snus</td></tr>
+          </tbody></table></div></details>
+
+      <h4 class="kr-del">4 · Hvorfor CBC og CTR skjuler mønsteret <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Samme forklaring på tre nivåer. Velg nivå med bryteren øverst på siden.</p>
       <div id="ex-moduser"></div>
 
-      <h4 class="ov-h"><span class="ov-tag">Øving</span> Steg for steg med lekechifferet</h4>
-      <p class="ov-intro">Her krypterer og dekrypterer du tre blokker med lekechifferet i modusene ECB, CBC og CTR. Velg modus øverst, og bla med «Neste». Med «Gjett før hvert steg» på svarer du på et spørsmål før neste steg vises, for eksempel om to like klartekstblokker gir like chifferblokker.</p>
-      <p class="case-ctx" data-case="leke"></p>
-      <p class="small muted">K = 0111, M = 1001 · 1001 · 1100 (legg merke til at M₁ = M₂), IV = 1010 og tellerne T = 0001, 0010, 0011. Velg modus øverst. I «Eget:» kan du skrive inn egne 4-bits blokker; da brukes modusen du sist valgte. Slå på «Gjett før hvert steg» hvis du vil gjette hva som skjer med mønsteret før den andre like blokken krypteres.</p>
-      <div id="viz-moduser"></div>
-
-      <h4>Hele regnestykket i tabeller</h4>
-      <div id="tab-moduser"></div>
-
-      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Pingvinen: hvorfor ECB lekker</h4>
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Pingvinen: hvorfor ECB lekker <span class="tag">eksamensbasert</span></h4>
+      <p class="ov-intro">Tre bilder på 8 × 8 ruter, der hver rute er én 4-bits blokk. Fra venstre: klarteksten, det samme bildet kryptert med ECB, og kryptert med CTR. H2021 3.2 viste det samme med et ekte bilde av en pingvin.</p>
       <div id="viz-pingvin"></div>
 
-      <p class="small muted fig-vis-led">De tre modusene slik de står på eksamensarket (H2025). Hvilken er hvilken? Bruk reglene under.</p>
+      <h4 class="kr-del">5 · Kjenn igjen figuren på eksamen <span class="tag tag-kjerne">kommer hvert år</span></h4>
+      <p class="fig-vis-led">Slik så figuren ut på H2025 8. Merk at modusene står i en annen rekkefølge enn over. Forklaringen under figuren følger arkets rekkefølge: venstre, midten, høyre.</p>
       <div id="fv-moduser"></div>
-      <div class="callout eksempel"><span class="lbl">Kjenn igjen figuren</span>
+      <div class="callout eksempel"><span class="lbl">Slik leser du figuren</span>
         <ul>
-          <li>M rett inn i E og ingen piler mellom blokkene: <b>ECB</b>.</li>
-          <li>IV inn i den første XOR-en, og C ført videre til XOR-en foran neste E: <b>CBC</b>.</li>
-          <li>T inn i E, og M inn fra siden i en XOR <i>etter</i> E: <b>CTR</b>.</li>
-        </ul></div>
+          <li><b>Venstre = CBC:</b> IV går inn i den første XOR-en, og hver chifferblokk C føres videre til XOR-en foran neste E.</li>
+          <li><b>Midten = CTR:</b> telleren T går inn i E, og M kommer inn fra siden i en XOR <i>etter</i> E.</li>
+          <li><b>Høyre = ECB:</b> M går rett inn i E, og det er ingen piler mellom blokkene.</li>
+        </ul>
+        <p>Svaralternativene har med navn som ikke står i figuren: «Output Feedback (OFB)» i H2025, «Data Encryption Standard (DES)» i H2024 og «Symmetrisk modus» i H2021. DES er en algoritme, ikke en modus, og «Symmetrisk modus» finnes ikke.</p></div>
+
+      <h4 class="kr-del">6 · Regn i tellermodus <span class="tag">eksamensbasert</span></h4>
+      <p>I H2022 5.5 var E(T, K) oppgitt. Da trenger du verken nøkkelen eller blokkchifferet: du regner bare XOR, bit for bit. Eksempel med egne tall, E(T₁, K) = 1100 og M₁ = 1010:</p>
+      <div class="kr-bits kr-regn" aria-label="XOR bit for bit: 1100 XOR 1010 = 0110">
+        <div class="kr-bitrow"><span class="kr-bitlbl">E(T₁, K)</span><span class="kr-bit one">1</span><span class="kr-bit one">1</span><span class="kr-bit">0</span><span class="kr-bit">0</span></div>
+        <div class="kr-bitrow"><span class="kr-bitlbl">⊕ M₁</span><span class="kr-bit one">1</span><span class="kr-bit">0</span><span class="kr-bit one">1</span><span class="kr-bit">0</span></div>
+        <hr class="kr-sep">
+        <div class="kr-bitrow res"><span class="kr-bitlbl">= C₁</span><span class="kr-bit">0</span><span class="kr-bit one">1</span><span class="kr-bit one">1</span><span class="kr-bit">0</span></div>
+      </div>
+      <p>Like biter gir 0, ulike gir 1, så C₁ = 0110. Dekryptering er samme regnestykke med C i stedet for M: M₁ = E(T₁, K) ⊕ C₁ = 1100 ⊕ 0110 = 1010, altså M₁ tilbake. Derfor trengs aldri D i tellermodus.</p>
+
+      <h4 class="kr-del">7 · Fordypning: modusene regnet ut med lekechifferet <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span></h4>
+      <p>Eksamen har aldri bedt deg regne ut E selv. Denne delen er for deg som vil se hva som skjer inne i figurene, blokk for blokk. Den gjør særlig to eksamensregler lettere å huske: at XOR kommer <i>etter</i> D når CBC dekrypteres, og at CTR bare bruker E. Har du dårlig tid, kan du hoppe til feller og huskeregler.</p>
+      <p class="case-ctx" data-case="leke"></p>
+      <p class="small muted">Tallene: K = 0111, M = 1001 · 1001 · 1100 (legg merke til at M₁ = M₂), IV = 1010 og tellerne T = 0001, 0010, 0011.</p>
+
+      <h4 class="ov-h"><span class="ov-tag">Øving</span> Steg for steg med lekechifferet</h4>
+      <p class="ov-intro">Velg modus øverst (kryptering eller dekryptering), og bla med «Neste». Slå på «Gjett før hvert steg» hvis du vil gjette først, for eksempel om de to like klartekstblokkene blir like chifferblokker. I feltet «Eget:» kan du skrive egne 4-bits blokker; da brukes modusen du sist valgte.</p>
+      <div id="viz-moduser"></div>
+
+      <details class="kr-ekstra"><summary>Hele regnestykket i tabeller (ECB, CBC og CTR)</summary>
+        <p class="small">De samme tallene som i stegspilleren, alle blokkene på én gang, med dekrypteringen som kontroll (✓).</p>
+        <div id="tab-moduser"></div></details>
 
       <div class="callout felle"><span class="lbl">Feller</span>
-        <details class="grense"><summary>Hvorfor bruker CTR E og ikke D ved dekryptering?</summary>
-          <p>E brukes bare til å lage nøkkelstrømmen E(T, K). Den samme strømmen XOR-es av igjen, og XOR to ganger opphever seg. D trengs aldri (H2021 3.3: riktig svar for D er «ingen»).</p></details>
-        <details class="grense"><summary>Hvorfor kommer XOR <i>etter</i> D i CBC-dekryptering?</summary>
-          <p>Ved kryptering ble XOR gjort før E. For å gå baklengs må E oppheves først (med D), og så XOR-es det samme som ble lagt til: forrige chifferblokk, eller IV for første blokk.</p></details>
         <details class="grense"><summary>Hvorfor er ECB usikker selv med AES?</summary>
           <p>Svakheten ligger i modusen, ikke i blokkchifferet. Samme blokk gir alltid samme chiffer, uansett hvor godt chifferet er.</p></details>
+        <details class="grense"><summary>Hvorfor kommer XOR <i>etter</i> D i CBC-dekryptering?</summary>
+          <p>Ved kryptering ble XOR gjort før E. For å gå baklengs må E oppheves først (med D), og så XOR-es det samme som ble lagt til: forrige chifferblokk, eller IV for første blokk.</p></details>
+        <details class="grense"><summary>Hvorfor bruker CTR E og ikke D ved dekryptering?</summary>
+          <p>E brukes bare til å lage nøkkelstrømmen E(T, K). Den samme strømmen XOR-es av igjen, og XOR to ganger opphever seg. D trengs aldri (H2021 3.3: riktig svar for D er «ingen»).</p></details>
         <ul>
           <li>«IV må være hemmelig» → den skal være tilfeldig, men ikke hemmelig.</li>
-          <li>«Symmetrisk modus», «DES» og «OFB» er distraktorer i figuroppgavene (H2021 3.2, H2024 17, H2025 8).</li>
           <li>Samme teller to ganger med samme nøkkel gir samme nøkkelstrøm, altså samme lekkasje som en gjenbrukt engangsnøkkel. <span id="ctr-gjentatt"></span></li>
+          <li>«Symmetrisk modus», «DES» og «OFB» er distraktorer i figuroppgavene (H2021 3.2, H2024 17, H2025 8).</li>
           <li>I H2022 5.5 er E(T, K) oppgitt, så nøkkel og teller trengs ikke. «T2 = 0002» er en skrivefeil i arket, men påvirker ikke svaret.</li>
         </ul></div>
 
-      <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        Figuren kommer hvert år H21–H25 og er den sikreste poengkilden i blokka:
-        <ul>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2021-3_2">H2021 3.2</a> (pingvin: ECB, tellermodus, «Symmetrisk modus» = ingen)</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2021-3_3">H2021 3.3</a> (dekryptering i tellermodus: E, ikke D)</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2022-5_5">H2022 5.5</a> (XOR-regning i CTR)</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2023-20">H2023 20</a> (CTR, CBC)</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2024-17">H2024 17</a> (ECB, CTR)</li>
-          <li><a href="#fane=eksamen&amp;oppg=o-H2025-8">H2025 8</a> (CBC, CTR, ECB)</li>
-        </ul></div>
+      <div class="husk"><h4>Huskeregler for moduser, samlet</h4>
+        <ol>
+          <li><b>Se hva som går inn i E.</b> M alene: ECB. M XOR-et med IV eller forrige C: CBC. Telleren T: CTR.</li>
+          <li><b>Se hvor XOR står.</b> Ingen XOR: ECB. Før E: CBC. Etter E: CTR.</li>
+          <li><b>Like inn gir like ut bare i ECB.</b> Derfor er pingvinen synlig bare med ECB.</li>
+          <li><b>Dekryptering:</b> ECB bruker D. CBC bruker D først og XOR etterpå. CTR bruker bare E.</li>
+          <li><b>IV er tilfeldig, men ikke hemmelig.</b> En teller må aldri gjentas med samme nøkkel.</li>
+          <li><b>Navn som ikke er moduser:</b> «Symmetrisk modus» finnes ikke, og DES er en algoritme.</li>
+        </ol></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Regn i tellermodus</h4>
       <div class="ov-intro">Regn ut blokkene i tellermodus med XOR, bit for bit. Skriv hvert svar som fire biter (for eksempel 0101) i feltet.</div>
@@ -434,7 +505,7 @@
         <details class="grense"><summary>Hvorfor gir DH fremoverhemmelighold og ikke hybrid?</summary>
           <p>DH-nøkkelen sendes aldri og avhenger ikke av langtidsnøkkelen. a og b slettes etter økta. Langtidsnøkkelen brukes bare til å signere, så den som stjeler den, kan utgi seg for eieren i <i>nye</i> økter, men ikke regne ut gamle øktnøkler.</p></details>
         <ul>
-          <li>«DH krypterer», «DH autentiserer», «DH lager asymmetriske nøkler» → alle feil (X20 2.4, H2024 14 c). DH etablerer én felles symmetrisk nøkkel.</li>
+          <li>«DH krypterer», «DH autentiserer», «DH lager asymmetriske nøkler» → alle feil (H2020 2.4, H2024 14 c). DH etablerer én felles symmetrisk nøkkel.</li>
           <li>«DH gir svak autentisering som hindrer mann-i-midten» → feil alternativ i H2024 14 c.</li>
           <li>«Asymmetrisk kryptering er det samme som DH» → feil alternativ i H2023 17 c.</li>
           <li>«DH er kvantesikker» → nei.</li>
@@ -619,39 +690,39 @@
         kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/pseudocode.js?v=20261127k"></script>
-  <script src="assets/js/stepplayer.js?v=20261127k"></script>
-  <script src="assets/js/varline.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/dra.js?v=20261127k"></script>
-  <script src="assets/js/ovelse.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
-  <script src="assets/js/viz-krypto.js?v=20261127k"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/pseudocode.js?v=20261127l"></script>
+  <script src="assets/js/stepplayer.js?v=20261127l"></script>
+  <script src="assets/js/varline.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/dra.js?v=20261127l"></script>
+  <script src="assets/js/ovelse.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
+  <script src="assets/js/viz-krypto.js?v=20261127l"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261127l"></script>
   <script>
   (function () {
     "use strict";
@@ -758,6 +829,7 @@
     safe("viz-xorov", function () { KR.xorOv("#viz-xorov"); });
     safe("viz-xor", function () { KR.xor("#viz-xor"); });
     safe("viz-bitflipp", function () { KR.bitflipp("#viz-bitflipp"); });
+    safe("fig-modusoversikt", function () { KR.modusOversikt("#fig-modusoversikt"); });
     safe("viz-moduser", function () { KR.moduser("#viz-moduser"); });
     safe("viz-pingvin", function () { KR.pingvin("#viz-pingvin"); });
     safe("viz-hashtest", function () { KR.hashTest("#viz-hashtest"); });

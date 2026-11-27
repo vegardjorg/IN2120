@@ -94,6 +94,14 @@
   /* Mønstre som dekker flere tegn. Lengste treff på samme sted vinner (se scan).
      { id, re: /…/g, wrap?: 1 }  wrap = mønsteret har åpne/lukke-tegn med innhold mellom. */
   var MULTI = [
+    /* ---------- koder for eksamen, oppgavetype og kilder (tipset lages i KODER under, arg fra treffet) ---------- */
+    { id: "eksrange", re: /(?<![A-Za-zÆØÅæøå0-9-])H(?:20)?(1[5-9]|2[0-6])[–-]H(?:20)?(1[5-9]|2[0-6])(?![A-Za-zÆØÅæøå0-9])/g, arg: function (m) { return m[1] + "|" + m[2]; } },
+    { id: "eksref", re: /(?<![A-Za-zÆØÅæøå0-9#=\/-])([HV])(20(?:1[5-9]|2[0-6])|1[5-9]|2[0-6])(?:[  ](\d{1,2}(?:\.\d{1,2}){0,2}(?: ?[a-f](?![A-Za-zÆØÅæøå]))?))?(?![A-Za-zÆØÅæøå0-9-])/g,
+      arg: function (m) { return m[1] + "|" + (m[2].length === 2 ? "20" + m[2] : m[2]) + "|" + (m[3] || ""); } },
+    { id: "oppgtype", re: /\((?:M|F1|FF|D|N|T|H|K|E)(?: × \d+)?(?=, ?\d)/g, arg: function (m) { return m[0].slice(1).split(" ")[0]; } },
+    { id: "kildeD", re: /(?<![A-Za-zÆØÅæøå0-9])d(0[1-9]|1[0-3])([ab]?)(?: s\. ?\d+(?:[–-]\d+)?)?(?![A-Za-zÆØÅæøå0-9])/g, arg: function (m) { return m[1] + m[2]; } },
+    { id: "kildeT", re: /(?<![A-Za-zÆØÅæøå0-9])t(0[2-9]|1[01])(?: O\d+[a-d]?)?(?![A-Za-zÆØÅæøå0-9])/g, arg: function (m) { return m[1]; } },
+    { id: "kildeL", re: /(?<![A-Za-zÆØÅæøå0-9-])(ism|ba|iam|cyberops)(?: s\. ?\d+(?:[–-]\d+)?)(?![A-Za-zÆØÅæøå0-9])/g, arg: function (m) { return m[1]; } },
     { id: "otpReuse", re: /C\s*⊕\s*C[′']\s*=\s*M\s*⊕\s*M[′']/g },
     { id: "otpTo", re: /M\s*⊕\s*([KU])\s*⊕\s*\1\s*=\s*M/g },
     { id: "cbc", re: /C[₁-₉ᵢₙ]\s*=\s*E\(\s*(?:IV|C[₀-₉ᵢₙ₋]+)\s*⊕\s*M[₁-₉ᵢₙ]\s*,\s*K\s*\)/g },
@@ -156,6 +164,7 @@
       while ((m = p.re.exec(text)) !== null) {
         var h = { i: m.index, n: m[0].length, id: p.id };
         if (p.wrap) { h.open = 1; h.close = 1; }
+        if (p.arg) h.arg = p.arg(m);
         hits.push(h);
         if (!m[0].length) p.re.lastIndex++;
       }
@@ -175,7 +184,43 @@
   }
 
   /* Oppslag for et treff: { vis, navn, txt, eks }. */
+  /* Dynamiske tips for kodene over. Kilder: plan/kildekart.md. */
+  var LYSARK = { "01a": "introduksjon", "01b": "fysisk sikkerhet og personellsikkerhet", "02": "kryptografi", "03": "nøkkelhåndtering og PKI",
+    "05": "pentesting", "08": "systemsikkerhet", "09": "kommunikasjonssikkerhet (nettverk)", "13": "eksamen" };
+  var UKE = { "02": "kryptografi", "03": "nøkkelhåndtering og PKI", "04": "angrepsvektorer", "05": "pentesting", "06": "risikostyring",
+    "07": "brukerautentisering", "09": "IAM", "10": "nettverkssikkerhet", "11": "cyberoperasjoner" };
+  var LNAVN = { ism: "styring av cybersikkerhet (ISMS)", ba: "brukerautentisering", iam: "identitets- og tilgangshåndtering (IAM)", cyberops: "cyberoperasjoner" };
+  var TYPE = { M: "matrise: ett valg per rad, for eksempel sant/usant per påstand", F1: "flervalg med ett riktig svar", FF: "flervalg med flere riktige svar",
+    D: "dra-og-slipp", N: "nedtrekkslister i en tekst", T: "tekstfelt der du skriver et kort svar", H: "klikk på riktig sted i en figur",
+    K: "kort skriftlig svar som sensor vurderer", E: "lengre skriftlig svar (essay) som sensor vurderer" };
+  var KODER = {
+    eksref: function (a) {
+      var p = a.split("|"), hva = (p[0] === "V" ? "våren " : "høsten ") + p[1];
+      return { vis: p[0] + p[1] + (p[2] ? " " + p[2] : ""), navn: "eksamen " + hva + (p[2] ? ", oppgave " + p[2] : ""),
+        txt: (p[0] === "V" ? "V" : "H") + " = " + (p[0] === "V" ? "vår" : "høst") + "eksamen, så årstallet" + (p[2] ? " og oppgavenummeret (5.2 = oppgave 5, deloppgave 2)" : "") +
+          ". De gamle eksamenene ligger i fanen Eksamensoppgaver på hver blokkside og under «Øv på et helt sett».", eks: "" };
+    },
+    eksrange: function (a) {
+      var p = a.split("|");
+      return { vis: "H20" + p[0] + "–H20" + p[1], navn: "eksamenene høsten 20" + p[0] + " til høsten 20" + p[1], txt: "H = høsteksamen, tallene er årstallene (21 = 2021).", eks: "" };
+    },
+    oppgtype: function (a) {
+      var t = a.replace(/[^A-Z0-9]/g, "");
+      return { vis: t, navn: "oppgavetype i Inspera", txt: t + " = " + (TYPE[t] || "oppgavetype") + ". Tallet med p bak er hvor mange poeng oppgaven ga.", eks: "" };
+    },
+    kildeD: function (a) {
+      return { vis: "d" + a, navn: "lysark fra forelesningen", txt: "Lysarkene for del " + a.replace(/^0/, "") + " av kurset" + (LYSARK[a] ? ": " + LYSARK[a] : "") +
+        ". «s.» er sidetallet i lysarkene.", eks: "" };
+    },
+    kildeT: function (a) {
+      return { vis: "t" + a, navn: "ukesoppgave", txt: "Ukesoppgave t" + a + (UKE[a] ? " om " + UKE[a] : "") + ", med løsningsforslag. O6b betyr oppgave 6, del b.", eks: "" };
+    },
+    kildeL: function (a) {
+      return { vis: a, navn: "lysark fra forelesningen", txt: "Lysarkene om " + (LNAVN[a] || a) + ". «s.» er sidetallet i lysarkene.", eks: "" };
+    }
+  };
   function entry(id, arg) {
+    if (KODER[id]) return KODER[id](arg || "");
     var e = S[id];
     if (!e) return null;
     if ((id === "kpriv" || id === "kpub") && arg) {

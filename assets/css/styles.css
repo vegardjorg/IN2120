@@ -2584,3 +2584,13 @@ body[data-page="crash"] .cr-step { scroll-margin-top: 0; }
 .stepplayer.sp-navtopp > .sp-frame > .sp-stage { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
 .stepplayer.sp-navtopp > .sp-explain { order: 5; }
 .sp-skjult { visibility: hidden; }
+
+/* ---------- Eksamensrelevans-merker (UI/UX-runde 2026-11-27, se plan/ui-ux-regler.md) ----------
+   Står sist i en h4 (eller først i en relevansboks) og sier hvor viktig delen er til eksamen:
+     <span class="tag">eksamensbasert</span>                      spurt om minst én gang H2021–H2025
+     <span class="tag tag-kjerne">kommer hvert år</span>         spurt om hvert år (sikre poeng)
+     <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span>
+   Fargene er toner fra paletten, så lys og mørk modus virker. */
+h4 > .tag, h3 > .tag { vertical-align: .15em; margin-left: .35rem; font-size: 11px; }
+.tag.tag-kjerne { background: var(--color-tone-ok); color: var(--color-on-tone-ok); border-color: color-mix(in srgb, var(--color-on-tone-ok) 35%, transparent); }
+.tag.tag-fordyp { background: var(--color-tone-warn); color: var(--color-on-tone-warn); border-color: color-mix(in srgb, var(--color-on-tone-warn) 35%, transparent); }

@@ -861,6 +861,28 @@
     skaare: { ord: "skåre", full: "score, S", b: 7, m: ["skår(?:e|en|er|ene)"], ctx: "biometri|FMR|FNMR|terskel|fingeravtrykk|ansikt",
       txt: "Tall S for hvor lik en biometrisk prøve er den lagrede malen. Høy skåre betyr stor likhet. Sammenlignes med terskelen T." },
 
+    /* ---------- Operasjonsmoduser (lagt til 2026-11-27, UI/UX-runden i fanen Moduser; kilde d02 s. 28–34) ---------- */
+    opmodus: { ord: "operasjonsmodus", full: "mode of operation", b: 2, m: ["operasjonsmodus(?:en|er|ene)?", "blokkmodus(?:en|er|ene)?"],
+      txt: "Regelen for hvordan et blokkchiffer brukes på en melding som er lengre enn én blokk. Kurset nevner ECB (usikker) og CTR, CBC, OFB og CFB (sikre)." },
+    klartekstblokk: { ord: "klartekstblokk", full: "M₁, M₂ …", b: 2, m: ["klartekstblokk(?:a|en|er|ene)?"],
+      txt: "Én blokk av klarteksten. Meldingen deles i blokker M₁, M₂, M₃ … med fast lengde (128 bit i AES), og hver blir til én chifferblokk C₁, C₂, C₃ …" },
+    teller: { ord: "teller", full: "counter, T", b: 2, m: ["telleren", "teller(?:e|ne|verdi(?:en|er|ene)?)?"], ctx: "CTR|tellermodus",
+      txt: "Verdien T₁, T₂, T₃ … som øker for hver blokk i tellermodus (CTR). Telleren krypteres med nøkkelen og gir nøkkelstrømmen E(T, K). Samme teller må aldri brukes to ganger med samme nøkkel." },
+    kjeding: { ord: "kjeding", full: "chaining", b: 2, m: ["kjeding(?:en)?", "kjedes"], ctx: "CBC",
+      txt: "I CBC føres hver chifferblokk videre og XOR-es inn i neste klartekstblokk før E. Derfor avhenger hver blokk av alle blokkene før, og like klartekstblokker gir ulike chifferblokker." },
+    lekechiffer: { ord: "lekechifferet", b: 2, m: ["lekechiffer(?:et)?"],
+      txt: "Guidens eget 4-bits øvingschiffer, ikke et ekte chiffer: E(X, K) = X ⊕ K rotert én plass mot venstre. Brukes bare for å vise hva modusene gjør. Eksamen ber aldri om å regne ut E selv." },
+    parallell: { ord: "parallellisering", b: 2, m: ["parallelt", "parallellisering(?:en)?", "parallelliserbar(?:e)?"], ctx: "ECB|CBC|CTR",
+      txt: "Ikke pensum: at flere blokker kan krypteres eller dekrypteres samtidig. Går i ECB og CTR. CBC-kryptering må gå blokk for blokk, fordi hver blokk trenger forrige chifferblokk." },
+    feilspredning: { ord: "feilspredning", full: "error propagation", b: 2, m: ["feilspredning(?:en)?"],
+      txt: "Ikke pensum: hvor mye av klarteksten som blir feil når én bit i chifferteksten er feil. CTR: bare samme bit. ECB: hele blokka. CBC: hele blokka pluss samme bit i neste blokk." },
+
+    distraktor: { ord: "distraktor", m: ["distraktor(?:en|er|ene)?"],
+      txt: "Et galt svaralternativ som er laget for å se riktig ut. Eksamen i Inspera bruker mange slike." },
+    poenglinje: { ord: "poenglinje", m: ["poenglinj(?:a|en|e|ene|er)"],
+      txt: "Regelen i oppgaveteksten for hvor mye riktig, galt og blankt svar gir, for eksempel «+1 for riktig, −0,5 for galt, 0 for blankt». Summen blir aldri under 0 per oppgave." },
+    lf: { ord: "LF", full: "løsningsforslag", mc: A("LF"),
+      txt: "Løsningsforslaget til ukesoppgavene, laget av kursets lærere." },
     rfc: { ord: "RFC", full: "Request for Comments", b: 9, mc: ["RFC"],
       txt: "Dokumentserien der internettstandardene beskrives, for eksempel RFC 5280 for X.509-sertifikater og RFC 8446 for TLS 1.3." }
   };

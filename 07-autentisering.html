@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Brukerautentisering i IN2120: faktorer, passordlagring med hash og salt, nøkkelrom og gjettetid, OTP-brikker og kort, FIDO og passnøkler, biometri med FMR/FNMR og EER, MFA og garantinivå (eIDAS, eID) – med kalkulatorer, stegspiller, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261127k">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/blokk-aut.css?v=20261127l">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127l">
 </head>
 <body data-page="autentisering">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -212,7 +212,7 @@
             </ul></li>
           <li><b>Tidsbasert OTP-brikke:</b> brikken har en klokke og en hemmelig nøkkel og viser en engangskode for et kort tidsvindu. Tjeneren har samme nøkkel og algoritme, regner ut forventet kode og sammenligner. Koder fra nabovinduene godtas, klokkene må være synkrone, og brikken trenger batteri. Eksempler: BankID-brikke, RSA SecurID.</li>
           <li><b>Kort:</b> kontaktløse RFID-kort får strøm fra leserens felt. Et adgangskort med <b>symmetrisk</b> nøkkel svarer på en tilfeldig utfordring fra leseren, og leseren sammenligner med forventet svar. Nasjonale ID-kort og pass bruker <b>asymmetrisk</b> nøkkel.</li>
-          <li><b>Pass:</b> landets rotsertifikat (CS) signerer et DS-sertifikat, og DS signerer foto og passets offentlige nøkkel i chipen. Kontrollen sjekker signaturene og sender en utfordring som chipen signerer med den private nøkkelen, som aldri forlater chipen.</li>
+          <li><b>Pass:</b> landets rotsertifikat (CS, Country Signing) signerer et DS-sertifikat (Document Signer, nøkkelen som signerer passene), og DS signerer foto og passets offentlige nøkkel i chipen. Kontrollen sjekker signaturene og sender en utfordring som chipen signerer med den private nøkkelen, som aldri forlater chipen.</li>
           <li><b>Sekundærkanal:</b> nettsiden er primærkanalen, og koden kommer via mobilnettet (SMS) eller en app. SMS regnes som relativt svak.</li>
           <li><b>Leveransekjedeangrep:</b> angripere stjal hemmeligheter hos RSA, produsenten av SecurID, og brukte dem mot kunder.</li>
         </ul></div>
@@ -360,11 +360,11 @@
               <li><b>identifikasjon 1:N</b> (søke i hele databasen) og</li>
               <li><b>autentisering 1:1</b> (sammenligne med malen til den oppgitte bruker-ID-en).</li>
             </ul></li>
-          <li><b>Skåring og terskel:</b> match når <span class="mono">S ≥ T</span>, ikke-match når <span class="mono">S &lt; T</span>.</li>
-          <li><b>FMR</b> = antall match blant ikke-genuine / antall ikke-genuine.</li>
-          <li><b>FNMR</b> = antall ikke-match blant genuine / antall genuine.</li>
-          <li>TMR = 1 − FNMR og TNMR = 1 − FMR.</li>
-          <li><b>EER:</b> raten når T er satt slik at FMR = FNMR. Liten EER betyr høy nøyaktighet og lite overlapp mellom kurvene.</li>
+          <li><b>Skåring og terskel:</b> komparatoren gir en skår S for hvor lik prøven er malen, og T er terskelen systemet er stilt inn på. Det er match når <span class="mono">S ≥ T</span>, ikke-match når <span class="mono">S &lt; T</span>.</li>
+          <li><b>FMR</b> (False Match Rate, andel feilaktige treff) = antall match blant ikke-genuine / antall ikke-genuine. «Genuin» betyr at personen virkelig er den hen gir seg ut for.</li>
+          <li><b>FNMR</b> (False Non-Match Rate, andel feilaktige avvisninger) = antall ikke-match blant genuine / antall genuine.</li>
+          <li>TMR (True Match Rate) = 1 − FNMR og TNMR (True Non-Match Rate) = 1 − FMR.</li>
+          <li><b>EER</b> (Equal Error Rate)<b>:</b> raten når T er satt slik at FMR = FNMR. Liten EER betyr høy nøyaktighet og lite overlapp mellom kurvene.</li>
           <li><b>PAD</b> (presentation attack detection): å oppdage presentasjonsangrep som falsk finger, falskt ansikt eller deepfake.</li>
           <li><b>Tvang:</b> kroppsbasert biometri kan tvinges fram, mens atferd krever at brukeren er bevisst.</li>
         </ul></div>
@@ -518,39 +518,39 @@
 
   <footer class="footer">IN2120-guide · Blokk 7 · Autentisering · <a href="08-iam.html">Neste: blokk 8, IAM</a></footer>
 
-  <script src="assets/js/core.js?v=20261127k"></script>
-  <script src="assets/js/symboler.js?v=20261127k"></script>
-  <script src="assets/js/begreper-data.js?v=20261127k"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
-  <script src="assets/js/pseudocode.js?v=20261127k"></script>
-  <script src="assets/js/stepplayer.js?v=20261127k"></script>
-  <script src="assets/js/varline.js?v=20261127k"></script>
-  <script src="assets/js/inspera.js?v=20261127k"></script>
-  <script src="assets/js/dra.js?v=20261127k"></script>
-  <script src="assets/js/ovelse.js?v=20261127k"></script>
-  <script src="assets/js/bank.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261127k"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
-  <script src="assets/js/viz-aut.js?v=20261127k"></script>
+  <script src="assets/js/core.js?v=20261127l"></script>
+  <script src="assets/js/symboler.js?v=20261127l"></script>
+  <script src="assets/js/begreper-data.js?v=20261127l"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127l"></script>
+  <script src="assets/js/pseudocode.js?v=20261127l"></script>
+  <script src="assets/js/stepplayer.js?v=20261127l"></script>
+  <script src="assets/js/varline.js?v=20261127l"></script>
+  <script src="assets/js/inspera.js?v=20261127l"></script>
+  <script src="assets/js/dra.js?v=20261127l"></script>
+  <script src="assets/js/ovelse.js?v=20261127l"></script>
+  <script src="assets/js/bank.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127l"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127l"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261127l"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127l"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127l"></script>
+  <script src="assets/js/viz-aut.js?v=20261127l"></script>
   <script>
   (function () {
     "use strict";

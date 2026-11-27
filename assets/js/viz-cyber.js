@@ -755,7 +755,7 @@
     if (bekreft) s.push({ k: 4, blocked: true, spor: spor4, text: {
       eli5: "Før Fjordhjelp får sende noe, spør den Ingrid. Ingrid ser at mottakeren er ukjent og sier nei. Fila blir hjemme.",
       normal: "Pil 4 stoppes: Ingrid må bekrefte e-posten, ser en ukjent mottaker og avviser. Tiltaket er ikke fra lysarket, som ikke gir tiltak.",
-      teknisk: "Et menneske i løkka før handlinger som sender data ut. Andre tiltak er minste privilegium for verktøyene og å behandle eksternt innhold som upålitelig. Alt dette er generell kunnskap, ukjent i kildene." } });
+      teknisk: "Et menneske i løkka før handlinger som sender data ut. Andre tiltak er minste privilegium for verktøyene og å behandle eksternt innhold som upålitelig. Alt dette er generell kunnskap og ikke pensum." } });
     else s.push({ k: 4, spor: spor4, text: {
       eli5: "Fjordhjelp sender fila til skurken. Ingrid merker ingenting.",
       normal: "Pil 4: fila sendes ut. Konfidensialiteten er brutt, og Ingrid ba aldri om det.",
