@@ -125,22 +125,113 @@ button.kr-bit.flipped { outline: 2px solid var(--color-on-tone-danger); outline-
 .dhf-vr { display: flex; align-items: center; gap: 6px; }
 .dhf-sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--color-outline-variant); cursor: pointer; padding: 0; }
 .dhf-sw[aria-pressed="true"] { border-color: var(--color-on-surface); box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-on-surface); }
-.dhf { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: var(--d-sm); align-items: start; }
-.dhf-col { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
-.dhf-mid { border-left: 1px dashed var(--color-outline-variant); border-right: 1px dashed var(--color-outline-variant); padding: 0 6px; }
-.dhf-h { font-weight: 700; font-size: var(--text-sm); text-align: center; padding-bottom: 4px; border-bottom: 1px solid var(--color-outline-variant); align-self: stretch; }
-.dhf-rad { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.dhf-b { display: flex; flex-direction: column; align-items: center; max-width: 110px; }
-.dhf-b svg { display: block; }
-.dhf-bt { font-size: var(--text-xs, .75rem); text-align: center; line-height: 1.25; }
-.dhf-b.hemmelig .dhf-bt::before { content: "🔒 "; }
-.dhf-b.feil .dhf-bt { color: var(--color-error, #b3261e); }
-.dhf-b.ny { animation: dhf-inn .35s ease-out; }
-@keyframes dhf-inn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .dhf-b.ny { animation: none; } }
-.dhf-pil { font-size: var(--text-xs, .75rem); color: var(--color-on-surface-variant); text-align: center; }
-.dhf-ok { margin-top: var(--d-sm); border-left: 3px solid var(--c-sorted, #2e9b4a); padding-left: 8px; }
-@media (max-width: 560px) { .dhf { grid-template-columns: 1fr 1fr; } .dhf-mid { grid-column: 1 / -1; grid-row: 2; border: 0; border-top: 1px dashed var(--color-outline-variant); padding-top: 6px; } }
+/* v2: stegtekst + handlingsflate + kunnskapstabell «Hvem kjenner hva?» */
+.dhf-host .sp-stage { height: auto; min-height: 220px; display: block; padding: var(--d-sm, .6rem); overflow: visible; }
+.dhf-host .sp-explain { display: none; }
+.dhf-venstre { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.dhf-tekst { font-size: var(--text-sm); line-height: 1.5; }
+.dhf-tag { font-weight: 700; font-size: var(--text-base, 1rem); margin-bottom: 2px; }
+.dhf2 { display: flex; flex-direction: column; gap: var(--d-sm, .75rem); width: 100%; }
+.dhf-akt { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 8px; border-radius: var(--radius-md, 10px);
+  background: var(--color-surface-container-low, var(--color-surface-container)); border: 1px solid var(--color-outline-variant); }
+.dhf-akt-t { margin: 0; font-size: var(--text-sm); text-align: center; color: var(--color-on-surface-variant); }
+.dhf-likn { display: flex; align-items: flex-start; justify-content: center; flex-wrap: wrap; gap: 4px 6px; }
+.dhf-gjett { align-items: center; }
+.dhf-op { font-size: 1.4rem; font-weight: 700; line-height: 48px; min-width: 14px; text-align: center; color: var(--color-on-surface-variant); }
+.dhf-fig { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 96px; }
+.dhf-fig-t { font-size: var(--text-xs, .75rem); text-align: center; line-height: 1.25; overflow-wrap: anywhere; }
+.dhf-fig.feil .dhf-fig-t { color: var(--color-error); font-weight: 600; }
+.dhf-fig.ny .dhf-pr { animation: dhf-inn .35s ease-out; }
+.dhf-pr { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; flex: none;
+  border: 2px solid color-mix(in srgb, var(--color-on-surface) 35%, transparent); box-sizing: border-box; }
+.dhf-pr-s { width: 26px; height: 26px; }
+.dhf-pr-m { width: 36px; height: 36px; }
+.dhf-pr-l { width: 48px; height: 48px; }
+.dhf-pr.hemmelig { box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-on-surface); }
+.dhf-pr.feil { border-style: dashed; border-color: var(--color-error); }
+.dhf-ukj { border: 2px dashed var(--color-outline-variant); background: transparent; color: var(--color-on-surface-variant); font-weight: 700; font-size: .8rem; }
+/* Linja Alice — Bob, med Eve under */
+.dhf-linje { display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 6px; width: 100%; max-width: 420px; }
+.dhf-ende { font-weight: 700; font-size: var(--text-sm); padding: 6px 10px; border-radius: 999px; background: var(--color-surface); border: 1px solid var(--color-outline-variant); }
+.dhf-kanal { display: flex; flex-direction: column; align-items: stretch; min-width: 0; }
+.dhf-streng { position: relative; height: 40px; display: flex; align-items: center; justify-content: center; }
+.dhf-streng::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed var(--color-outline); }
+.dhf-pakke { position: relative; display: inline-flex; align-items: center; gap: 4px; padding: 0 6px; background: var(--color-surface-container-low, var(--color-surface-container)); font-weight: 700; }
+.dhf-pakke.hoyre { animation: dhf-hoyre .6s ease-out; }
+.dhf-pakke.venstre { animation: dhf-venstre .6s ease-out; }
+.dhf-eve { align-self: center; font-size: var(--text-xs, .75rem); font-weight: 600; padding: 2px 8px; border-radius: 999px;
+  background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.dhf-eve::before { content: "↑ "; }
+/* Oppskriftsstripe */
+.dhf-oppskrift { width: 100%; max-width: 320px; }
+.dhf-opp-h { font-size: var(--text-xs, .75rem); font-weight: 600; margin-bottom: 2px; }
+.dhf-opp-bar { display: flex; height: 18px; border-radius: 4px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-on-surface) 35%, transparent); }
+.dhf-opp-del { flex: 1; }
+.dhf-opp-del + .dhf-opp-del { border-left: 2px solid var(--color-surface); }
+.dhf-opp-lbl { display: flex; font-size: .7rem; color: var(--color-on-surface-variant); }
+.dhf-opp-lbl span { flex: 1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dhf-oppskrift.feil .dhf-opp-h { color: var(--color-error); }
+/* Kunnskapstabellen */
+.dhf-tabw { width: 100%; overflow-x: auto; }
+.dhf-tab { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.dhf-tab caption { text-align: left; font-weight: 700; padding-bottom: 4px; }
+.dhf-tab th, .dhf-tab td { padding: 4px 4px; border-bottom: 1px solid var(--color-outline-variant); vertical-align: middle; }
+.dhf-tab-p { text-align: center; font-weight: 700; width: 18%; }
+.dhf-p-eve { color: var(--color-on-tone-danger); background: var(--color-tone-danger); border-radius: 6px 6px 0 0; }
+.dhf-sub { display: block; font-size: .68rem; font-weight: 500; }
+.dhf-tab-rad { text-align: left; font-weight: 400; }
+.dhf-rn { display: block; font-weight: 600; line-height: 1.2; }
+.dhf-rs { display: block; font-size: .72rem; color: var(--color-on-surface-variant); line-height: 1.3; }
+.dhf-st { display: inline-block; font-size: .66rem; font-weight: 600; padding: 0 5px; border-radius: 999px; margin-left: 2px; }
+.dhf-st-off { background: var(--color-tone-info); color: var(--color-on-tone-info); }
+.dhf-st-hem { background: var(--color-tone-heavy); color: var(--color-on-tone-heavy); }
+.dhf-st-feil { background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.dhf-c { text-align: center; position: relative; }
+.dhf-c:nth-child(4) { background: color-mix(in srgb, var(--color-tone-danger) 45%, transparent); }
+.dhf-c.ny { background: var(--color-tone-warn); }
+.dhf-c.ny .dhf-pr { animation: dhf-inn .35s ease-out; }
+.dhf-ny { display: block; font-size: .62rem; font-weight: 700; color: var(--color-on-tone-warn); line-height: 1; margin-top: 1px; }
+@keyframes dhf-inn { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes dhf-hoyre { from { transform: translateX(-40px); opacity: .3; } to { transform: none; opacity: 1; } }
+@keyframes dhf-venstre { from { transform: translateX(40px); opacity: .3; } to { transform: none; opacity: 1; } }
+/* Blandeanimasjonen: ingredienser → bøtte med lag → røring → resultat */
+.dhf-anim { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+.dhf-ingr .dhf-fig { position: relative; transition: opacity .3s, transform .3s; }
+.dhf-helt { visibility: hidden; font-size: .7rem; font-weight: 700; color: var(--color-primary); }
+.dhf-ingr .dhf-fig.aktiv { transform: translateY(4px); }
+.dhf-ingr .dhf-fig.aktiv .dhf-helt { visibility: visible; }
+.dhf-ingr .dhf-fig.aktiv .dhf-pr { box-shadow: 0 0 0 3px var(--color-surface), 0 0 0 5px var(--color-primary); }
+.dhf-ingr .dhf-fig.oppi:not(.aktiv) { opacity: .55; }
+.dhf-brad { align-items: center; }
+.dhf-botte { position: relative; width: 104px; height: 80px; border: 3px solid var(--color-on-surface-variant); border-top: 0;
+  border-radius: 4px 4px 22px 22px; overflow: hidden; background: var(--color-surface); }
+.dhf-botte::before { content: ""; position: absolute; left: -6px; right: -6px; top: 0; border-top: 3px solid var(--color-on-surface-variant); }
+.dhf-lagbox { position: absolute; inset: 0; display: flex; flex-direction: column-reverse; }
+.dhf-lag { height: 0; flex: none; transition: height .8s ease-out, background-color 1.2s ease-in-out; }
+.dhf-lag + .dhf-lag { box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--color-surface) 70%, transparent); }
+.dhf-botte.rort .dhf-lag + .dhf-lag { box-shadow: none; }
+.dhf-ror { position: absolute; left: 50%; top: 52%; width: 70px; height: 26px; margin: -13px 0 0 -35px; border-radius: 50%;
+  border: 2px dashed color-mix(in srgb, var(--color-surface) 85%, transparent); opacity: 0; }
+.dhf-botte.rorer .dhf-ror { opacity: 1; animation: dhf-ror .5s linear infinite; }
+@keyframes dhf-ror { from { transform: rotate(0deg) scaleX(1); } 50% { transform: rotate(180deg) scaleX(.8); } to { transform: rotate(360deg) scaleX(1); } }
+.dhf-brad .skjult { visibility: hidden; }
+.dhf-brad .dhf-fig.ny:not(.skjult) .dhf-pr { animation: dhf-inn .4s ease-out; }
+.dhf-fase-t { min-height: 2.6em; margin: 0; text-align: center; }
+.dhf-opp-del, .dhf-opp-lbl span { transition: opacity .4s; }
+.dhf-opp-del.tom { opacity: .12; }
+.dhf-opp-lbl span.tom { opacity: .35; }
+.dhf-faser { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.dhf-fase { font: inherit; font-size: .72rem; padding: 3px 8px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--color-outline-variant); background: var(--color-surface); color: var(--color-on-surface); }
+.dhf-fase[aria-pressed="true"] { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
+.dhf-fase:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.dhf-igjen { font-weight: 600; }
+@media (prefers-reduced-motion: reduce) {
+  .dhf-fig.ny .dhf-pr, .dhf-c.ny .dhf-pr, .dhf-pakke.hoyre, .dhf-pakke.venstre, .dhf-botte.rorer .dhf-ror,
+  .dhf-brad .dhf-fig.ny:not(.skjult) .dhf-pr { animation: none; }
+  .dhf-lag, .dhf-ingr .dhf-fig, .dhf-opp-del, .dhf-opp-lbl span { transition: none; }
+}
+@media (min-width: 720px) { .dhf2 { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; } }
 /* Postkvante: eksempeltabellen ligger lukket under sorteringsøvingen (den røper svaret) */
 details.kr-pqc-eks { margin: .6rem 0 1rem; }
 details.kr-pqc-eks > summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); min-height: 44px; display: list-item; padding: .6rem 0; box-sizing: border-box; }
