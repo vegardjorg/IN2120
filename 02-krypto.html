@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127e">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127e">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127e">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127e">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127e">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127e">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127f">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127f">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127f">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127f">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127f">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127f">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -20,7 +20,8 @@
   <main id="main" class="wrap">
     <div class="pagehead">
       <h1>Blokk 2 · Kryptografi</h1>
-      <p class="lead">Kryptografi er en av de store blokkene på eksamen (76 av 503 poeng i H21–H25). Figuroppgaven om operasjonsmoduser kommer hvert år, og «hvilken nøkkel brukes?» nesten like ofte. Her går vi fra styrke og nøkkelrom, via symmetrisk kryptering, moduser, hash og MAC, til asymmetrisk kryptering, Diffie–Hellman, digital signatur og postkvantekrypto.</p>
+      <p class="lead">Kryptografi er en av de store blokkene på eksamen. Figuroppgaven om operasjonsmoduser kommer hvert år, og «hvilken nøkkel brukes?» nesten like ofte. Her går vi fra styrke og nøkkelrom, via symmetrisk kryptering, moduser, hash og MAC, til asymmetrisk kryptering, Diffie–Hellman, digital signatur og postkvantekrypto.</p>
+      <p class="blokk-vekt"><span class="bv-tekst"><b>Eksamensvekt H2021–H2025:</b> i snitt 15 % av poengene per eksamen. Stolpene viser poeng per år.</span></p>
       <div class="badges">
         <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-12"><b>H2025</b> · Fremoverhemmelighold: DH mot hybrid · <span class="pts">3p</span></a>
         <a class="badge" href="#fane=eksamen&amp;oppg=o-H2025-8"><b>H2025</b> · Gjenkjenn CBC, CTR og ECB · <span class="pts">3p</span></a>
@@ -616,38 +617,39 @@
         kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127e"></script>
-  <script src="assets/js/symboler.js?v=20261127e"></script>
-  <script src="assets/js/begreper-data.js?v=20261127e"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127e"></script>
-  <script src="assets/js/pseudocode.js?v=20261127e"></script>
-  <script src="assets/js/stepplayer.js?v=20261127e"></script>
-  <script src="assets/js/varline.js?v=20261127e"></script>
-  <script src="assets/js/inspera.js?v=20261127e"></script>
-  <script src="assets/js/dra.js?v=20261127e"></script>
-  <script src="assets/js/ovelse.js?v=20261127e"></script>
-  <script src="assets/js/bank.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127e"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127e"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127e"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127e"></script>
-  <script src="assets/js/viz-krypto.js?v=20261127e"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261127e"></script>
+  <script src="assets/js/core.js?v=20261127f"></script>
+  <script src="assets/js/symboler.js?v=20261127f"></script>
+  <script src="assets/js/begreper-data.js?v=20261127f"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127f"></script>
+  <script src="assets/js/pseudocode.js?v=20261127f"></script>
+  <script src="assets/js/stepplayer.js?v=20261127f"></script>
+  <script src="assets/js/varline.js?v=20261127f"></script>
+  <script src="assets/js/inspera.js?v=20261127f"></script>
+  <script src="assets/js/dra.js?v=20261127f"></script>
+  <script src="assets/js/ovelse.js?v=20261127f"></script>
+  <script src="assets/js/bank.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127f"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127f"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127f"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127f"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127f"></script>
+  <script src="assets/js/viz-krypto.js?v=20261127f"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261127f"></script>
   <script>
   (function () {
     "use strict";

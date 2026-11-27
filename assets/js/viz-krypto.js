@@ -799,6 +799,8 @@
      Sekvensdiagram (felles for MAC, hybrid, DH og signatur)
      step: { lanes: [navn], rows: [{ act: lane, t } | { from, to, t }], n: antall synlige rader }
      ====================================================== */
+  // Alle rader tegnes med tekst fra første steg; de som ikke er nådd ennå, er skjult med .kr-hid
+  // (visibility: hidden, også for skjermlesere). Da har diagrammet samme høyde i alle steg.
   KR.vizSeq = function (stage, s) {
     clear(stage);
     var L = s.lanes.length;
@@ -811,13 +813,13 @@
         var cells = [].concat(r.act);
         for (var c = 0; c < L; c++) {
           var k = cells.indexOf(c);
-          g.appendChild(el("div", { class: "kr-act" + (k >= 0 ? cls : " kr-empty"), html: k >= 0 && vis ? ([].concat(r.t)[k] || [].concat(r.t)[0]) : "" }));
+          g.appendChild(el("div", { class: "kr-act" + (k >= 0 ? cls : " kr-empty"), html: k >= 0 ? ([].concat(r.t)[k] || [].concat(r.t)[0]) : "" }));
         }
       } else {
         var lo = Math.min(r.from, r.to), hi = Math.max(r.from, r.to);
         for (var c2 = 0; c2 < lo; c2++) g.appendChild(el("div", { class: "kr-act kr-empty" }));
         var m = el("div", { class: "kr-msg" + cls + (r.to < r.from ? " left" : ""), style: "grid-column:" + (lo + 1) + " / " + (hi + 2) });
-        m.appendChild(el("span", { class: "kr-msg-t", html: vis ? r.t : "" }));
+        m.appendChild(el("span", { class: "kr-msg-t", html: r.t }));
         m.appendChild(el("span", { class: "kr-msg-ar", "aria-hidden": "true" }));
         g.appendChild(m);
         for (var c3 = hi + 1; c3 < L; c3++) g.appendChild(el("div", { class: "kr-act kr-empty" }));
@@ -1000,6 +1002,7 @@
     return seqSteps(["Alice", "Mallory", "Bob"], rows, "Mallory prøver igjen, men nå signerer Alice DH-nøkkelen (Bob gjør det samme motsatt vei).");
   };
   KR.dh = function (host) {
+    var h = host$(host); if (h) h.classList.add("kr-navtopp");   // knappene øverst (CSS)
     return player(host, {
       presets: { "a = 6, b = 9": [6, 9], "Mallory (e = 3)": [6, 9, 3], "Mallory + signatur": [6, 9, 3, 1] },
       inputLabel: "a, b (eller a, b, e)", inputAria: "Hemmelige tall a, b og eventuelt Mallorys e",
