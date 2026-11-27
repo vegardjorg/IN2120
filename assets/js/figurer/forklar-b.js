@@ -79,7 +79,7 @@
   IN.FORKLAR["iptables-kjeder"] = function (host) {
     var h = ramme(host, "iptables-kjeder", [
       { navn: "netfilter Packet Filtering HOWTO §6", url: "https://iptables.org/documentation/HOWTO/packet-filtering-HOWTO-6.html" },
-      { navn: "kursets d09" }]);
+      { navn: "kursets nettverkslysarket" }]);
     if (!h) return;
     var F = IN.fig, s = F.svg(h, { w: 340, h: 478, maks: 520, tittel: "Pakkens vei gjennom iptables-kjedene",
       desc: "En pakke kommer inn på et grensesnitt. Rutingsbeslutningen avgjør kjeden: pakker til brannmuren selv går til INPUT og videre til et program på brannmuren. Pakker til en annen maskin går til FORWARD og ut på et annet grensesnitt. Pakker som brannmuren selv lager, går gjennom OUTPUT. Eksempel fra H2023 32: web-tjener til database går gjennom brannmuren, altså FORWARD." });
@@ -119,7 +119,7 @@
   IN.FORKLAR["arp-forgiftning"] = function (host) {
     var h = ramme(host, "arp-forgiftning", [
       { navn: "MITRE ATT&CK T1557.002 (ARP Cache Poisoning)", url: "https://attack.mitre.org/techniques/T1557/002/" },
-      { navn: "kursets d09" }]);
+      { navn: "kursets nettverkslysarket" }]);
     if (!h) return;
     var F = IN.fig, s = F.svg(h, { w: 340, h: 362, maks: 540, tittel: "ARP-forgiftning i et lokalnett",
       desc: "Ruteren kringkaster: hvem har 10.1.1.3? Angriperen (10.1.1.4) svarer først med sin egen MAC-adresse. Ruterens ARP-tabell kobler da 10.1.1.3 til angriperens MAC. Pakker til offeret går til angriperen, som sender dem videre og kan lese og endre dem: mann i midten. ARP har ingen autentisering." });
@@ -152,7 +152,7 @@
   IN.FORKLAR["nids-plassering"] = function (host) {
     var h = ramme(host, "nids-plassering", [
       { navn: "NIST SP 800-94 §4.2.2 og fig. 4-2/4-3", url: "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf" },
-      { navn: "kursets d09" }]);
+      { navn: "kursets nettverkslysarket" }]);
     if (!h) return;
     var F = IN.fig, s = F.svg(h, { w: 340, h: 430, maks: 540, tittel: "Hvor NIDS- og IPS-sensorene står",
       desc: "Nettet fra Internett og innover: ytre brannmur, DMZ, indre brannmur og indre segment. En passiv NIDS-sensor utenfor gatewayen ser alle forsøk utenfra. En passiv NIDS i DMZ får en kopi av trafikken fra en speilport og varsler. En IPS står inline foran det indre segmentet: trafikken går gjennom den, så den kan blokkere." });

@@ -16,7 +16,7 @@
    }
    verktøy = {
      id, navn, alias, kat (KAT.id), fase (FASER.id), rolle: "angrep"|"forsvar"|"begge",
-     mitre: [{ id, navn, taktikk }], kurs: "d05 s. 26",
+     mitre: [{ id, navn, taktikk }], kurs: "pentestlysarket s. 26",
      kort, hva: { eli5, normal, teknisk }, kjenn: [html], forsvar?: [html],
      utdata?: [{ tittel, term, kommentar?, linjer: ["… [[n|felt]] …"], felt: [{ n, f, k }] }]
        [[n|tekst]] markerer et felt (indeks n i felt[]); k = indeks i kilder[].
@@ -51,12 +51,12 @@
     {
       id: "nmap", navn: "nmap", alias: ["nmap", "n map", "network mapper"], kat: "kartlegging", fase: "rekognosering", rolle: "begge",
       mitre: [{ id: "T1046", navn: "Network Service Discovery", taktikk: "Discovery" }],
-      kurs: "d05 s. 26–27, 31",
+      kurs: "pentestlysarket s. 26–27, 31",
       kort: "Portskanner: hvilke maskiner svarer, hvilke porter er åpne, og hva kjører bak dem.",
       hva: {
         eli5: "<p>Tenk deg at du banker forsiktig på alle dørene i et hus. Noen dører åpnes, noen sier «ingen hjemme», og noen svarer ikke i det hele tatt. nmap gjør det samme med en datamaskin: den banker på hver port og skriver ned hvem som svarer.</p>",
         normal: "<p>nmap («Network Mapper») er kursets portskanner. Den lager en tabell over porter, tilstand (open, closed, filtered) og hvilken tjeneste som trolig kjører. Med <code>-sV</code> spør den tjenestene om versjon, og med <code>-O</code> gjetter den operativsystemet.</p><p>I pentesten hører den til rekognoseringen: du kartlegger før du velger hva du ser nærmere på. Forsvarere bruker det samme verktøyet for å se hva de selv viser utad.</p>",
-        teknisk: "<p>Standard er de 1000 vanligste TCP-portene.</p><ul><li>Svarer porten med et «ja», er den <i>open</i>.</li><li>Svarer maskinen «ingen her» (RST), er den <i>closed</i>.</li><li>Kommer det ikke noe svar, er den <i>filtered</i>, som betyr at noe, typisk en brannmur, stopper probene.</li></ul><p>Uten <code>-sV</code> er SERVICE-kolonnen bare et oppslag på portnummeret, så den kan «lyve» når en tjeneste kjører på en annen port enn vanlig (d05 s. 26). Versjonsnummeret er broen videre til kjente sårbarheter (CVE), og derfor er en åpen port med gammel programvare det viktigste funnet i en skanning.</p>"
+        teknisk: "<p>Standard er de 1000 vanligste TCP-portene.</p><ul><li>Svarer porten med et «ja», er den <i>open</i>.</li><li>Svarer maskinen «ingen her» (RST), er den <i>closed</i>.</li><li>Kommer det ikke noe svar, er den <i>filtered</i>, som betyr at noe, typisk en brannmur, stopper probene.</li></ul><p>Uten <code>-sV</code> er SERVICE-kolonnen bare et oppslag på portnummeret, så den kan «lyve» når en tjeneste kjører på en annen port enn vanlig (pentestlysarket s. 26). Versjonsnummeret er broen videre til kjente sårbarheter (CVE), og derfor er en åpen port med gammel programvare det viktigste funnet i en skanning.</p>"
       },
       kjenn: ["Linjene <code>Nmap scan report for …</code> og <code>Host is up</code>", "Tabellen <code>PORT  STATE  SERVICE</code> med <code>21/tcp open ftp</code>", "<code>Not shown: … ports</code>, <code>MAC Address</code> og OS-gjetning nederst"],
       utdata: [{
@@ -88,7 +88,7 @@
           { n: "Not shown", f: "Porter i den vanligste tilstanden oppsummeres i én linje i stedet for å listes. «(reset)» er grunnen: maskinen svarte med RST, altså closed. 996 + 4 viste = de 1000 vanligste portene, som er standard.", k: 5 },
           { n: "PORT", f: "Portnummer og transportprotokoll (tcp eller udp).", k: 0 },
           { n: "STATE open", f: "<b>open</b>: et program tar imot forbindelser på porten.", k: 0 },
-          { n: "SERVICE", f: "Navnet på tjenesten. Uten <code>-sV</code> er det bare et oppslag på portnummeret (21 = ftp). En tjeneste kan kjøre på en annen port enn vanlig, så navnet kan være feil: «portnummer kan lyve» (d05 s. 26).", k: 4 },
+          { n: "SERVICE", f: "Navnet på tjenesten. Uten <code>-sV</code> er det bare et oppslag på portnummeret (21 = ftp). En tjeneste kan kjøre på en annen port enn vanlig, så navnet kan være feil: «portnummer kan lyve» (pentestlysarket s. 26).", k: 4 },
           { n: "VERSION", f: "Programvaren og versjonen som tjenesten selv oppga. Det er dette forsvareren sjekker mot kjente sårbarheter (CVE) og oppdaterer.", k: 4 },
           { n: "STATE filtered", f: "<b>filtered</b>: probene kommer ikke fram, typisk fordi en brannmur kaster dem. nmap kan ikke si om porten er åpen eller lukket. Det er ikke det samme som closed, der maskinen faktisk svarer «ingen her».", k: 0 },
           { n: "MAC Address", f: "Vises bare når målet står på samme lokale nett som skanneren, fordi nmap da finner maskinen med ARP. Navnet i parentes er produsenten slått opp fra starten av adressen (her ukjent). Over en ruter ser du ingen MAC-adresse.", k: 5 },
@@ -123,7 +123,7 @@
     {
       id: "wireshark", navn: "Wireshark (og tcpdump)", alias: ["wireshark", "tcpdump"], kat: "kartlegging", fase: "rekognosering", rolle: "begge",
       mitre: [{ id: "T1040", navn: "Network Sniffing", taktikk: "Credential Access, Discovery" }],
-      kurs: "d05 s. 28 (bare tekst)",
+      kurs: "pentestlysarket s. 28 (bare tekst)",
       kort: "Pakkeanalysator: fanger og viser trafikken på nettet, pakke for pakke.",
       hva: {
         eli5: "<p>Wireshark er som å ta opp alle samtalene i et rom og skrive dem ned: hvem sa noe, til hvem, når og hva. Snakker folk et språk alle forstår (ukryptert), kan du lese alt. Snakker de i kode (kryptert), ser du bare at noen snakket.</p>",
@@ -179,7 +179,7 @@
     {
       id: "hydra", navn: "Hydra", alias: ["hydra"], kat: "passord", fase: "innledende", rolle: "angrep",
       mitre: [{ id: "T1110.001", navn: "Password Guessing", taktikk: "Credential Access" }],
-      kurs: "d05 s. 34–35",
+      kurs: "pentestlysarket s. 34–35",
       kort: "Gjetter passord mot en innloggingstjeneste over nettet (online), fra en ordliste.",
       hva: {
         eli5: "<p>Hydra er som noen som står ved inngangsdøra og prøver nøkkel etter nøkkel fra et stort knippe. Det tar tid, og hvert forsøk merkes ved døra.</p>",
@@ -193,7 +193,7 @@
         { q: "Passordgjetting eller passordspraying?", a: "Gjetting: mange passord mot én konto. Spraying: ett eller få passord mot mange kontoer, som er vanskeligere å oppdage med kontosperring. H2023 26-fasiten kaller loggen passordspraying." }
       ],
       eksamen: {
-        spor: "Ikke navngitt på eksamen H18–H25. Loggen fra et slikt angrep kommer i H2023 26 (hva har skjedd?).",
+        spor: "Ikke navngitt på eksamen H2018–H2025. Loggen fra et slikt angrep kommer i H2023 26 (hva har skjedd?).",
         figurer: [],
         oppgaver: [{ key: "H2023-26", hva: "Kjenn igjen angrepet fra innloggingsloggen." }]
       },
@@ -202,11 +202,11 @@
     {
       id: "unshadow", navn: "unshadow", alias: ["unshadow"], kat: "passord", fase: "utvide", rolle: "angrep",
       mitre: [{ id: "T1003.008", navn: "/etc/passwd and /etc/shadow", taktikk: "Credential Access" }],
-      kurs: "d05 s. 40",
+      kurs: "pentestlysarket s. 40",
       kort: "Følger med John. Slår sammen /etc/passwd og /etc/shadow til én fil som et knekkeprogram kan lese.",
       hva: {
         eli5: "<p>Den ene lista har navnene på alle beboerne, og den andre har de hemmelige merkene deres. unshadow limer de to listene sammen til én, så det blir lettere å jobbe med dem.</p>",
-        normal: "<p>På Linux ligger kontoene i <code>/etc/passwd</code>, som alle kan lese, mens passordhashene ligger i <code>/etc/shadow</code>, som bare root kan lese (d05 s. 40). unshadow kombinerer dem til én fil. Det er et forberedende steg før knekking, og det krever at noen allerede kan lese shadow-fila.</p>",
+        normal: "<p>På Linux ligger kontoene i <code>/etc/passwd</code>, som alle kan lese, mens passordhashene ligger i <code>/etc/shadow</code>, som bare root kan lese (pentestlysarket s. 40). unshadow kombinerer dem til én fil. Det er et forberedende steg før knekking, og det krever at noen allerede kan lese shadow-fila.</p>",
         teknisk: "<p>Hver linje i shadow-fila har brukernavnet, hashen og datofelter for passordets alder. Hashen har et prefiks som sier hvilken metode som er brukt (<code>$y$</code> = yescrypt, <code>$6$</code> = SHA-512-crypt), og deretter salt og hash. I passwd står det bare <code>x</code> der hashen før lå.</p><p>Poenget for forsvareren er at shadow-fila er grensen. Den som kan lese den, for eksempel gjennom en for vid sudo-rett (H2023 29), kan knekke passordene i ro og fred offline.</p>"
       },
       kjenn: ["Navnet på verktøyet som slår sammen passwd og shadow"],
@@ -230,14 +230,14 @@
     {
       id: "john", navn: "John the Ripper", alias: ["john", "john the ripper"], kat: "passord", fase: "utvide", rolle: "angrep",
       mitre: [{ id: "T1110.002", navn: "Password Cracking", taktikk: "Credential Access" }],
-      kurs: "d05 s. 41–42",
+      kurs: "pentestlysarket s. 41–42",
       kort: "Knekker passordhasher offline. Kurset kaller den raskest på uttømmende søk og enklest å bruke.",
       hva: {
         eli5: "<p>John har en låst boks og et stort knippe nøkler hjemme hos seg selv. Han prøver nøkkel etter nøkkel i sitt eget tempo, og ingen ser at han prøver.</p>",
         normal: "<p>John the Ripper tar passordhasher og prøver kandidatpassord: lager hashen av hver kandidat og ser om den stemmer. Kandidatene kommer fra en ordliste, fra varianter av ordene i lista eller fra alle kombinasjoner av tegn. Det skjer <b>offline</b>, så det finnes ingen kontosperring som stopper det.</p><p>Parameteren som lager varianter av ordene i ordlista, heter <code>--rules</code> (H2024 8).</p>",
         teknisk: "<p>De viktigste modusene:</p><ul><li>ordliste, eventuelt med regler som lager varianter (store bokstaver, tall bak, bytte bokstaver mot tegn),</li><li>inkrementell (alle kombinasjoner av et tegnsett) og</li><li>single crack (gjetter ut fra brukernavn og navnefelt).</li></ul><p>Dokumentasjonen har også en fjerde, external, der brukeren selv definerer kandidatene. Salt hindrer at én utregning treffer mange brukere og gjør forhåndsberegnede tabeller verdiløse, men stopper ikke å knekke ett svakt passord. Det som hjelper, er lange passord og en bevisst treg hash.</p><p>Knekte passord lagres i en pot-fil, så de ikke knekkes på nytt.</p>"
       },
-      kjenn: ["Navnet på parameteren som lager permutasjoner av ordlista: rules", "«Raskest på uttømmende søk, enklest å bruke» (d05 s. 42)"],
+      kjenn: ["Navnet på parameteren som lager permutasjoner av ordlista: rules", "«Raskest på uttømmende søk, enklest å bruke» (pentestlysarket s. 42)"],
       forsvar: ["Lange passord (passfraser) og ingen gjenbruk", "Treg, saltet hash (yescrypt, bcrypt, Argon2)", "Beskytt hashene: shadow bare for root"],
       feller: [
         { q: "Hvilken John-parameter lager varianter av ordene i ordlista?", a: "rules. Ikke «wordspray», «permute» eller «all» (H2024 8)." },
@@ -263,11 +263,11 @@
     {
       id: "hashcat", navn: "Hashcat", alias: ["hashcat"], kat: "passord", fase: "utvide", rolle: "angrep",
       mitre: [{ id: "T1110.002", navn: "Password Cracking", taktikk: "Credential Access" }],
-      kurs: "d05 s. 42 (bare tekst)",
+      kurs: "pentestlysarket s. 42 (bare tekst)",
       kort: "Knekker passordhasher offline, ofte på grafikkort. Kurset: best på regelbasert knekking og maskeangrep.",
       hva: {
         eli5: "<p>Hashcat er som John, men med en hel fabrikk av hjelpere (grafikkortet) og en plan for hvilke nøkler som er mest sannsynlige først, for eksempel «stor bokstav først og to tall til slutt».</p>",
-        normal: "<p>Hashcat gjør det samme som John, men lysarkene sier den er best på regelbasert knekking og maskeangrep og gir mer kontroll, til gjengjeld er den mer komplisert (d05 s. 42).</p>",
+        normal: "<p>Hashcat gjør det samme som John, men lysarkene sier den er best på regelbasert knekking og maskeangrep og gir mer kontroll, til gjengjeld er den mer komplisert (pentestlysarket s. 42).</p>",
         teknisk: "<p>Et maskeangrep er uttømmende søk der hver posisjon har sitt eget tegnsett, for eksempel stor bokstav, så små bokstaver, så sifre. Det bygger på hvordan folk faktisk lager passord og krymper søkerommet kraftig. Gjetter masken feil om mønsteret, blir passordet ikke funnet. Det er en god grunn til at passordregler som «stor bokstav og tall» gir mindre sikkerhet enn de ser ut til.</p>"
       },
       kjenn: ["«Best på regelbasert knekking / maskeangrep»", "Et knekkeprogram, ikke en VPN-løsning (H2024 10)"],
@@ -290,11 +290,11 @@
     {
       id: "sudo", navn: "sudo (sudo -l)", alias: ["sudo", "sudo -l"], kat: "rettigheter", fase: "utvide", rolle: "begge",
       mitre: [{ id: "T1548.003", navn: "Sudo and Sudo Caching", taktikk: "Privilege Escalation" }],
-      kurs: "d05 s. 36–40",
+      kurs: "pentestlysarket s. 36–40",
       kort: "Lar en bruker kjøre utvalgte kommandoer som en annen bruker, typisk root. sudo -l viser hva du har lov til.",
       hva: {
         eli5: "<p>sudo er som en lapp fra rektor: «Kari får låne nøkkelen til gymsalen.» sudo -l er å lese lappen. Står det «Kari får låne hovednøkkelen», kan hun åpne alle rom, ikke bare gymsalen.</p>",
-        normal: "<p>sudo er administrasjonsverktøyet som gir avgrensede root-rettigheter. Kommandoen <code>sudo -l</code> lister hva brukeren din får kjøre, og som hvem. Lysarkene kaller misbruk av slike rettigheter «live off the land»: angriperen bruker verktøyene som allerede finnes (d05 s. 36).</p><p>Faren er regler som ser uskyldige ut. Et program som kan lese alle filer (cat), eller som kan starte andre programmer (tolker, redigeringsprogram, sidevisere), gir i praksis root.</p>",
+        normal: "<p>sudo er administrasjonsverktøyet som gir avgrensede root-rettigheter. Kommandoen <code>sudo -l</code> lister hva brukeren din får kjøre, og som hvem. Lysarkene kaller misbruk av slike rettigheter «live off the land»: angriperen bruker verktøyene som allerede finnes (pentestlysarket s. 36).</p><p>Faren er regler som ser uskyldige ut. Et program som kan lese alle filer (cat), eller som kan starte andre programmer (tolker, redigeringsprogram, sidevisere), gir i praksis root.</p>",
         teknisk: "<p>Hver regel sier <i>hvem</i>, <i>hvor</i>, <i>som hvem</i> og <i>hva</i>. sudoers-manualen advarer selv: lar du en bruker kjøre et program som kan starte andre programmer, kan brukeren komme seg ut til et skall med sudo-rettighetene. Derfor skal en sudo-regel behandles som en root-tilgang: tillat bare konkrete kommandoer med faste argumenter, aldri tolker, skall, redigeringsprogram eller generelle filverktøy.</p><p>Det er nettopp de to eksamensoppgavene: python3 (H2022 4.4) og cat (H2023 29).</p>"
       },
       kjenn: ["<code>User … may run the following commands on …</code>", "<code>(root)</code> eller <code>(ALL : ALL)</code> foran et program", "<code>Matching Defaults entries</code> med env_reset og secure_path"],
@@ -346,17 +346,17 @@
     {
       id: "mimikatz", navn: "mimikatz", alias: ["mimikatz", "mimikats", "mimmikatz", "mimmikats"], kat: "rettigheter", fase: "utvide", rolle: "angrep",
       mitre: [{ id: "T1003.001", navn: "LSASS Memory", taktikk: "Credential Access" }, { id: "T1550.002", navn: "Pass the Hash", taktikk: "Lateral Movement" }],
-      kurs: "d05 s. 45–46",
+      kurs: "pentestlysarket s. 45–46",
       kort: "Henter passordhasher, og noen ganger klartekstpassord, fra minnet på Windows. Krever administrator- eller debugrettigheter.",
       hva: {
         eli5: "<p>Windows husker hvem som er logget inn, så du slipper å skrive passordet hele tiden. mimikatz er et verktøy som leser denne hukommelsen. Men det slipper bare inn hvis det allerede har sjefsnøkkelen til maskinen.</p>",
-        normal: "<p>mimikatz er kursets verktøy for <b>passorddumping</b>: det leser innloggingsdata fra minnet til Windows-prosessen som håndterer pålogging (LSASS). Utdataene viser brukernavn, domene, NTLM- og SHA1-hasher og av og til passordet i klartekst. Det krever administrator- eller debugrettigheter (d05 s. 45). Kiwi er den samme funksjonaliteten bygget inn i Metasploit.</p>",
-        teknisk: "<p>En NTLM-hash kan brukes direkte til å logge på andre maskiner, uten å kjenne passordet: <b>pass the hash</b> (d05 s. 46, Impacket og psexec). Angriperen trenger aldri å knekke hashen, så det hjelper ikke at passordet er sterkt. Er samme passord brukt på mange maskiner, gir det samme NTLM-hash på alle (NTLM bruker ikke salt; ikke pensum), og den ene stjålne hashen åpner dem alle. Gode passord skal derfor heller ikke gjenbrukes. Mot dette virker minste privilegium (få lokale administratorer), unike lokale administratorpassord og beskyttelse av LSASS-prosessen.</p>"
+        normal: "<p>mimikatz er kursets verktøy for <b>passorddumping</b>: det leser innloggingsdata fra minnet til Windows-prosessen som håndterer pålogging (LSASS). Utdataene viser brukernavn, domene, NTLM- og SHA1-hasher og av og til passordet i klartekst. Det krever administrator- eller debugrettigheter (pentestlysarket s. 45). Kiwi er den samme funksjonaliteten bygget inn i Metasploit.</p>",
+        teknisk: "<p>En NTLM-hash kan brukes direkte til å logge på andre maskiner, uten å kjenne passordet: <b>pass the hash</b> (pentestlysarket s. 46, Impacket og psexec). Angriperen trenger aldri å knekke hashen, så det hjelper ikke at passordet er sterkt. Er samme passord brukt på mange maskiner, gir det samme NTLM-hash på alle (NTLM bruker ikke salt; ikke pensum), og den ene stjålne hashen åpner dem alle. Gode passord skal derfor heller ikke gjenbrukes. Mot dette virker minste privilegium (få lokale administratorer), unike lokale administratorpassord og beskyttelse av LSASS-prosessen.</p>"
       },
       kjenn: ["I skjermbildet (H2024 24) står kommandonavn på formen <code>modul::kommando</code>, som <code>privilege::debug</code> og <code>sekurlsa::logonpasswords</code>. Det er navnene du skal kjenne igjen i utdataene, ikke noe du skal kunne kjøre", "Svaret <code>Privilege '20' OK</code> (debugrettigheten ble gitt)", "Blokker med <code>msv</code>, <code>tspkg</code> og feltene NTLM, SHA1 og Password. Passordverdien er skjult her (<code>••••••••</code>)"],
       forsvar: ["Få administratorer, og ingen hverdagsbruk med admin-konto", "Unike lokale administratorpassord på hver maskin", "Ikke gjenbruk passord (pass the hash)"],
       feller: [
-        { q: "Er svaret «kiwi»?", a: "Nei. H2024 24 sier at Kiwi bruker programmet, men svaret er mimikatz. Lysark d05 s. 45 viser Kiwi som modulen i Metasploit." },
+        { q: "Er svaret «kiwi»?", a: "Nei. H2024 24 sier at Kiwi bruker programmet, men svaret er mimikatz. Pentestlysarket s. 45 viser Kiwi som modulen i Metasploit." },
         { q: "Kan mimikatz brukes av en vanlig bruker for å bli administrator?", a: "Nei, det krever allerede administrator- eller debugrettigheter. Det er et verktøy for å utvide tilgangen <i>etter</i> at du er admin på én maskin." },
         { q: "Hvorfor er en lekket NTLM-hash farlig selv om den ikke knekkes?", a: "Den kan brukes direkte til innlogging (pass the hash)." }
       ],
@@ -380,12 +380,12 @@
     {
       id: "metasploit", navn: "Metasploit", alias: ["metasploit", "msfconsole"], kat: "utnytting", fase: "innledende", rolle: "angrep",
       mitre: [{ id: "T1190", navn: "Exploit Public-Facing Application", taktikk: "Initial Access" }, { id: "T1210", navn: "Exploitation of Remote Services", taktikk: "Lateral Movement" }],
-      kurs: "d05 s. 45, 47, 49",
+      kurs: "pentestlysarket s. 45, 47, 49",
       kort: "Rammeverk med ferdige moduler for å utnytte kjente sårbarheter. Det mest kjente, og gratis.",
       hva: {
         eli5: "<p>Metasploit er en stor verktøykasse der hvert verktøy passer til én bestemt svakhet. Finner du ut at døra har en kjent feil, finnes det ofte allerede et verktøy for akkurat den feilen i kassa.</p>",
-        normal: "<p>Metasploit er kursets eksempel på et rammeverk for å <b>utnytte sårbarheter</b> (d05 s. 49). Det har moduler</p><ul><li>for utnyttelse (exploit),</li><li>for kartlegging og hjelpeoppgaver (auxiliary),</li><li>for kode som kjører etter en vellykket utnyttelse (payload), og</li><li>for arbeid etter innbrudd (post).</li></ul><p>Kiwi, som henter passord fra minnet, er en del av Metasploit.</p>",
-        teknisk: "<p>Kjeden i lysarkene går fra versjonsnummer (nmap -sV) til kjent sårbarhet (CVE, sårbarhetsskanner som OpenVAS) og videre til en modul som utnytter den. Lysarkene påpeker også at hver utnyttelse kan føre til driftsforstyrrelser, så en pentester kjører ikke flere exploits enn nødvendig og beveger seg heller sideveis med tilganger hen allerede har (d05 s. 47).</p><p>ATT&amp;CK-merkene: T1190 er utnyttelse av en tjeneste som vender ut mot nettet, for å komme inn (innledende tilgang). T1210 er utnyttelse av tjenester på det interne nettet, for å bevege seg sideveis etter innbruddet.</p><p>Forsvaret er det kjedelige: oppdater programvaren og fjern tjenester som ikke trengs, så det ikke finnes kjente sårbarheter å utnytte.</p>"
+        normal: "<p>Metasploit er kursets eksempel på et rammeverk for å <b>utnytte sårbarheter</b> (pentestlysarket s. 49). Det har moduler</p><ul><li>for utnyttelse (exploit),</li><li>for kartlegging og hjelpeoppgaver (auxiliary),</li><li>for kode som kjører etter en vellykket utnyttelse (payload), og</li><li>for arbeid etter innbrudd (post).</li></ul><p>Kiwi, som henter passord fra minnet, er en del av Metasploit.</p>",
+        teknisk: "<p>Kjeden i lysarkene går fra versjonsnummer (nmap -sV) til kjent sårbarhet (CVE, sårbarhetsskanner som OpenVAS) og videre til en modul som utnytter den. Lysarkene påpeker også at hver utnyttelse kan føre til driftsforstyrrelser, så en pentester kjører ikke flere exploits enn nødvendig og beveger seg heller sideveis med tilganger hen allerede har (pentestlysarket s. 47).</p><p>ATT&amp;CK-merkene: T1190 er utnyttelse av en tjeneste som vender ut mot nettet, for å komme inn (innledende tilgang). T1210 er utnyttelse av tjenester på det interne nettet, for å bevege seg sideveis etter innbruddet.</p><p>Forsvaret er det kjedelige: oppdater programvaren og fjern tjenester som ikke trengs, så det ikke finnes kjente sårbarheter å utnytte.</p>"
       },
       kjenn: ["Ledeteksten <code>msf6 &gt;</code> og oppstartsbildet med antall exploits, auxiliary og payloads", "Kiwi som del av Metasploit"],
       forsvar: ["Oppdater programvare (patch) og fjern unødvendige tjenester", "Sårbarhetsskanning av egne systemer"],
@@ -393,7 +393,7 @@
         { q: "Sårbarhetsskanner eller utnyttelsesrammeverk?", a: "OpenVAS og Nessus kartlegger sårbarheter. Metasploit utnytter dem." }
       ],
       eksamen: {
-        spor: "Ikke spurt om på eksamen H18–H25. Kunne plassere det som rammeverk for utnyttelse, og vite at Kiwi er Metasploits modul for det samme som mimikatz (d05 s. 45). H2024 24 nevner bare at Kiwi bruker programmet.",
+        spor: "Ikke spurt om på eksamen H2018–H2025. Kunne plassere det som rammeverk for utnyttelse, og vite at Kiwi er Metasploits modul for det samme som mimikatz (pentestlysarket s. 45). H2024 24 nevner bare at Kiwi bruker programmet.",
         figurer: [],
         oppgaver: [{ key: "H2024-24", hva: "Hintet: Kiwi bruker mimikatz." }]
       },
@@ -434,12 +434,12 @@
     {
       id: "iptables", navn: "iptables", alias: ["iptables", "ip-tables"], kat: "forsvar", fase: "beskytte", rolle: "forsvar",
       mitre: [],
-      kurs: "d09 s. 45–50",
+      kurs: "nettverkslysarket s. 45–50",
       kort: "Linux-brannmuren: regler i kjedene INPUT, FORWARD og OUTPUT som slipper gjennom (ACCEPT) eller kaster (DROP) pakker.",
       hva: {
         eli5: "<p>iptables er vakta ved porten med en liste. Vakta leser lista ovenfra og ned, og den første linja som passer på den som kommer, bestemmer: slipp inn eller send bort. Står ingen linje som passer, slipper denne vakta folk inn, så det lønner seg å skrive «alle andre: nei» nederst.</p>",
         normal: "<p>iptables er kursets Linux-brannmur (H2024 10). En regel legges til med <code>-A</code> i en kjede:</p><ul><li><code>INPUT</code> for trafikk til maskinen selv,</li><li><code>FORWARD</code> for trafikk som rutes gjennom den, og</li><li><code>OUTPUT</code> for trafikk maskinen selv sender.</li></ul><p>Regelen beskriver kilde (<code>-s</code>), mål (<code>-d</code>), protokoll (<code>-p</code>) og port (<code>--dport</code>), og ender med <code>-j ACCEPT</code> eller <code>-j DROP</code>.</p>",
-        teknisk: "<p>Reglene leses ovenfra, og <b>første treff vinner</b>. Treffer ingen regel, bestemmer kjedens policy. Den er ACCEPT med mindre noen har endret den, derfor avslutter man med en eksplisitt DROP (d09). Et felt som ikke står i regelen, matcher alt. <code>--dport</code> virker bare sammen med <code>-p tcp</code> eller <code>-p udp</code>.</p><p>En tilstandsløs brannmur vurderer hver pakke for seg, så svarene tilbake må også slippes gjennom av en regel. <code>iptables -L -n -v</code> viser reglene med tellere, og tellerne viser hvilke regler som faktisk treffer.</p>"
+        teknisk: "<p>Reglene leses ovenfra, og <b>første treff vinner</b>. Treffer ingen regel, bestemmer kjedens policy. Den er ACCEPT med mindre noen har endret den, derfor avslutter man med en eksplisitt DROP (nettverkslysarket). Et felt som ikke står i regelen, matcher alt. <code>--dport</code> virker bare sammen med <code>-p tcp</code> eller <code>-p udp</code>.</p><p>En tilstandsløs brannmur vurderer hver pakke for seg, så svarene tilbake må også slippes gjennom av en regel. <code>iptables -L -n -v</code> viser reglene med tellere, og tellerne viser hvilke regler som faktisk treffer.</p>"
       },
       kjenn: ["<code>iptables -A FORWARD … -j ACCEPT</code>", "<code>Chain INPUT (policy …)</code> og kolonnene target, prot, source, destination"],
       utdata: [
@@ -492,7 +492,7 @@
         { q: "Blokkerer iptables alt som ikke er tillatt?", a: "Ikke av seg selv. Standardpolicyen er ACCEPT, så du må avslutte med en eksplisitt DROP (eller sette policyen til DROP)." },
         { q: "Hvilken regel gjelder når to regler passer?", a: "Den øverste. Første treff vinner, også om en senere regel er mer presis (H2025 24)." },
         { q: "INPUT eller FORWARD?", a: "INPUT er trafikk til brannmuren selv. Trafikk mellom to andre maskiner gjennom brannmuren går i FORWARD (H2023 32, H2025 24)." },
-        { q: "Er iptables en applikasjonsproxy?", a: "Nei, et pakkefilter som ser på adresser, protokoller og porter, ikke på innholdet i HTTP eller andre applikasjonsprotokoller (d09)." }
+        { q: "Er iptables en applikasjonsproxy?", a: "Nei, et pakkefilter som ser på adresser, protokoller og porter, ikke på innholdet i HTTP eller andre applikasjonsprotokoller (nettverkslysarket)." }
       ],
       eksamen: {
         spor: "Skriv én regel i riktig kjede (H2023 32), tolk et regelsett ovenfra med første treff (H2025 24), og vit at iptables er Linux-brannmuren (H2024 10).",
@@ -511,7 +511,7 @@
     {
       id: "snort", navn: "Snort", alias: ["snort"], kat: "forsvar", fase: "oppdage", rolle: "forsvar",
       mitre: [],
-      kurs: "d09 s. 59–62",
+      kurs: "nettverkslysarket s. 59–62",
       kort: "Signaturbasert IDS: regler beskriver mønstre i trafikken, og treff gir et varsel.",
       hva: {
         eli5: "<p>Snort er en vakt med et ark med beskrivelser: «si fra hvis noen i rød jakke går inn bakdøra». Vakta stopper ingen, men roper når beskrivelsen passer. Folk som ikke står på arket, merker den ikke.</p>",
@@ -605,7 +605,7 @@
       hvorfor: "Handlingen alert, retningspilen og valgene msg, sid og rev i parentes er en Snort-regel (H2024 27). En iptables-regel har -A, -s, -d og -j." },
     { id: "g-mimikatz", q: "Hva heter programmet i skjermbildet?", fig: "H2024-24",
       valg: ["kiwi", "John the Ripper", "mimikatz", "Hashcat"], answer: 2, svar: "mimikatz",
-      hvorfor: "Kommandonavnene privilege::debug og sekurlsa::logonpasswords og blokkene med NTLM-hasher og et Password-felt (verdien er skjult her) kjennetegner mimikatz. H2024 24 sier at Kiwi bruker programmet, så svaret er ikke kiwi. Lysark d05 s. 45 viser Kiwi som modulen i Metasploit." },
+      hvorfor: "Kommandonavnene privilege::debug og sekurlsa::logonpasswords og blokkene med NTLM-hasher og et Password-felt (verdien er skjult her) kjennetegner mimikatz. H2024 24 sier at Kiwi bruker programmet, så svaret er ikke kiwi. Pentestlysarket s. 45 viser Kiwi som modulen i Metasploit." },
     { id: "g-unshadow", q: "Hvilket verktøy slår sammen /etc/passwd og /etc/shadow til én fil som et knekkeprogram kan lese?",
       valg: ["sudo", "unshadow", "nmap", "Hydra"], answer: 1, svar: "unshadow",
       hvorfor: "unshadow følger med John the Ripper og gjør nettopp dette. Det krever at shadow-fila allerede kan leses, altså root-tilgang." },
@@ -617,23 +617,23 @@
       hvorfor: "John the Ripper knekker hasher offline, og unshadow følger med John. Hydra gjetter online mot tjenesten, Wireshark ser bare trafikk, og Snort er en IDS. Hashcat kunne også knekt hashene, men står ikke blant valgene." },
     { id: "g-hashcat", q: "Du har passordhashene og vil prøve en maske offline: stor forbokstav, seks små bokstaver og to sifre. Hvilket program gjør det?",
       valg: ["Hydra", "Hashcat", "Wireshark", "unshadow"], answer: 1, svar: "hashcat",
-      hvorfor: "Hashcat er sterkest på regelbasert knekking som maskeangrep, og er mer komplisert, men gir mer kontroll (d05 s. 42). Hydra gjetter online, og unshadow slår bare sammen passwd og shadow. John kan også bruke masker, men står ikke blant valgene." },
+      hvorfor: "Hashcat er sterkest på regelbasert knekking som maskeangrep, og er mer komplisert, men gir mer kontroll (pentestlysarket s. 42). Hydra gjetter online, og unshadow slår bare sammen passwd og shadow. John kan også bruke masker, men står ikke blant valgene." },
     { id: "g-burp", q: "Du vil endre en forespørsel etter at nettleserens JavaScript-filter har kjørt, før den når tjeneren. Hva slags verktøy bruker du?",
       valg: ["En proxy som Burp eller ZAP", "En pakkeanalysator som Wireshark", "En IDS som Snort", "En portskanner som nmap"], answer: 0, svar: "burp",
       hvorfor: "En proxy står mellom nettleseren og tjeneren og kan endre forespørselen. Wireshark ser trafikken, men endrer den ikke (H2024 23)." },
     { id: "g-metasploit", q: "Skanningen viser en tjenesteversjon med en kjent sårbarhet. Du vil utnytte den med en ferdig modul. Hvilket rammeverk bruker du?",
       valg: ["OpenVAS", "Metasploit", "nmap", "Snort"], answer: 1, svar: "metasploit",
-      hvorfor: "Metasploit har ferdige moduler som utnytter kjente sårbarheter. OpenVAS finner sårbarheter, men utnytter dem ikke, og nmap kartlegger porter og versjoner (d05 s. 48–49)." }
+      hvorfor: "Metasploit har ferdige moduler som utnytter kjente sårbarheter. OpenVAS finner sårbarheter, men utnytter dem ikke, og nmap kartlegger porter og versjoner (pentestlysarket s. 48–49)." }
   ];
 
   var andre = [
-    { navn: "nslookup og RIPE-databasen", hva: "Fra domenenavn til IP-adresse og hele adresseblokken til virksomheten (rekognosering).", kurs: "d05 s. 20" },
-    { navn: "ftp-klient", hva: "Anonym innlogging på FTP uten passord kan lekke filer.", kurs: "d05 s. 33" },
-    { navn: "OpenVAS / Nessus", hva: "Sårbarhetsskannere: kartlegger kjente sårbarheter ut fra versjonsnumre, men utnytter dem ikke.", kurs: "d05 s. 48" },
-    { navn: "CVE-databasen", hva: "Fra versjonsnummer til kjent sårbarhet (f.eks. SMBv1-sårbarheten i H2024 27).", kurs: "d05 s. 48" },
-    { navn: "Impacket / psexec", hva: "Pass the hash: logge på med selve hashen.", kurs: "d05 s. 46" },
+    { navn: "nslookup og RIPE-databasen", hva: "Fra domenenavn til IP-adresse og hele adresseblokken til virksomheten (rekognosering).", kurs: "pentestlysarket s. 20" },
+    { navn: "ftp-klient", hva: "Anonym innlogging på FTP uten passord kan lekke filer.", kurs: "pentestlysarket s. 33" },
+    { navn: "OpenVAS / Nessus", hva: "Sårbarhetsskannere: kartlegger kjente sårbarheter ut fra versjonsnumre, men utnytter dem ikke.", kurs: "pentestlysarket s. 48" },
+    { navn: "CVE-databasen", hva: "Fra versjonsnummer til kjent sårbarhet (f.eks. SMBv1-sårbarheten i H2024 27).", kurs: "pentestlysarket s. 48" },
+    { navn: "Impacket / psexec", hva: "Pass the hash: logge på med selve hashen.", kurs: "pentestlysarket s. 46" },
     { navn: "Ettercap/Bettercap, Scapy/hping3", hva: "Ettercap og Bettercap for mann i midten (ARP-forfalskning), Scapy og hping3 for å lage falske pakker, i scenarioet i H2024 38.", kurs: "H2024 38" },
-    { navn: "Sertifikatvisning i nettleseren", hva: "Lese X.509-feltene og sertifikatkjeden (blokk 3).", kurs: "d03 s. 32–33" }
+    { navn: "Sertifikatvisning i nettleseren", hva: "Lese X.509-feltene og sertifikatkjeden (blokk 3).", kurs: "PKI-lysarket s. 32–33" }
   ];
 
   var byId = {};

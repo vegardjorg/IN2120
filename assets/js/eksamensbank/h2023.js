@@ -64,7 +64,7 @@
         },
         avvik: null,
         losning: ["Spør deg: beskytter gjerdet mot noen som vil inn (sikkerhet), mot uhell (trygghet), eller sier det bare noe om hvor noe er (visshet)?"],
-        tips: ["Ordene sikkerhet/trygghet/visshet er gitt hvert år H23–H25, men står ikke på 2026-lysarkene. Lær skillet tilsiktet / utilsiktet / kunnskap."]
+        tips: ["Ordene sikkerhet/trygghet/visshet er gitt hvert år H2023–H2025, men står ikke på 2026-lysarkene. Lær skillet tilsiktet / utilsiktet / kunnskap."]
       },
       {
         key: "H2023-2", year: Y, oppgave_nr: "Oppgave 2", del: D1,
@@ -147,7 +147,7 @@
         },
         avvik: null,
         losning: ["Lavere tall betyr mer makt. En prosess når sitt eget nivå og alle nivåer med høyere tall."],
-        tips: ["Samme oppgave kommer med bruker- (H24) og hypervisorprosess (H25). Tegn ringene −1, 0, 3 og les av."]
+        tips: ["Samme oppgave kommer med bruker- (H2024) og hypervisorprosess (H2025). Tegn ringene −1, 0, 3 og les av."]
       },
       {
         key: "H2023-6", year: Y, oppgave_nr: "Oppgave 6", del: D1,
@@ -428,7 +428,7 @@
           felt: [
             { etikett: "Hjørne øverst", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Verdi: det som har krav til K, I eller T." },
             { etikett: "Hjørne nede til venstre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Trussel: noe eller noen som kan skade verdien ved å utnytte en sårbarhet." },
-            { etikett: "Hjørne nede til høyre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Sårbarhet: en svakhet som trusselen kan utnytte, slik at angrepet ikke lett lar seg stoppe (t06)." }
+            { etikett: "Hjørne nede til høyre", godta: ["verdi", "verdier", "sårbarhet", "sårbarheter", "trussel", "trusel", "trusler", "trussler", "verdien", "verdiene", "sårbarheten", "sårbarhetene", "trusselen", "truslene", "asset", "assets", "vulnerability", "vulnerabilities", "threat", "threats", "verdiar", "sårbarheit", "sårbarheiter", "truslar"], naer: { "risiko": "Risiko er det hele trekanten beskriver, ikke ett hjørne. Hjørnene er verdi, trussel og sårbarhet.", "sannsynlighet": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet.", "konsekvens": "Sannsynlighet og konsekvens brukes når risikoen estimeres. Trekantens hjørner er verdi, trussel og sårbarhet." }, explain: "Sårbarhet: en svakhet som trusselen kan utnytte, slik at angrepet ikke lett lar seg stoppe (ukesoppgaven om risikostyring)." }
           ]
         },
         avvik: null,
@@ -524,7 +524,7 @@
         },
         avvik: null,
         losning: ["Formatet «-.---» passer med X.509."],
-        tips: ["Gjenbrukt ordrett i H24."]
+        tips: ["Gjenbrukt ordrett i H2024."]
       },
       {
         key: "H2023-20", year: Y, oppgave_nr: "Oppgave 20", del: D2,
@@ -686,7 +686,7 @@
             "Det er ingen SQL-syntaks (apostrof, or-betingelse) i feltene."
           ]
         },
-        avvik: ["Fasiten (og H24 3) kaller dette «passordspraying», men loggen viser mange passord mot én konto.", "Kurset selv (d05, lysarket «Passordspraying», og LF til pentest-ukesoppgaven) definerer passordspraying som ett passord mot mange brukere, og mange passord mot én bruker som bruteforce. MITRE ATT&CK skiller på samme måte (T1110.003 Password Spraying, T1110.001 Password Guessing).", "Velg likevel «Passordspraying» på eksamen: det er fasit, og det eneste passordangrepet blant alternativene."],
+        avvik: ["Fasiten (og H2024 3) kaller dette «passordspraying», men loggen viser mange passord mot én konto.", "Kurset selv (pentestlysarket, lysarket «Passordspraying», og LF til pentest-ukesoppgaven) definerer passordspraying som ett passord mot mange brukere, og mange passord mot én bruker som bruteforce. MITRE ATT&CK skiller på samme måte (T1110.003 Password Spraying, T1110.001 Password Guessing).", "Velg likevel «Passordspraying» på eksamen: det er fasit, og det eneste passordangrepet blant alternativene."],
         losning: [
           "Les loggen: samme kilde, samme bruker, omtrent to nye passord i sekundet. Det er et automatisert gjetteangrep på innlogging.",
           "Sårbarheten er at innloggingen tillater ubegrenset mange forsøk, og at admin-kontoen er lett å gjette navnet på.",
@@ -1119,7 +1119,7 @@
     "<p>Injeksjon oppstår når inndata blandes inn i kode (en SQL-spørring eller en skallkommando) uten å skilles fra den. Parameteriserte spørringer og å unngå skallet fjerner sårbarheten. Rootkit opererer ofte på kjernenivå for å skjule seg for verktøyene som skulle avsløre det.</p>");
   hv(26, "<p>Noen prøver nøkkel etter nøkkel i samme dør, flere i sekundet.</p>",
     "<p>Loggen viser automatisert passordgjetting mot admin-kontoen. Fasiten kaller det passordspraying.</p>",
-    "<p>Mønsteret (én kilde, én konto, mange passord, høy hastighet) er et gjetteangrep mot innlogging. Ordet passordspraying brukes ellers, også på pentest-lysarket (d05), om ett passord mot mange kontoer, men fasiten bruker det her. Mottiltak: begrensning av forsøk, flerfaktor og overvåking.</p>");
+    "<p>Mønsteret (én kilde, én konto, mange passord, høy hastighet) er et gjetteangrep mot innlogging. Ordet passordspraying brukes ellers, også på pentest-lysarket (pentestlysarket), om ett passord mot mange kontoer, men fasiten bruker det her. Mottiltak: begrensning av forsøk, flerfaktor og overvåking.</p>");
   hv(27, "<p>Hvert ekstra siffer gir ti ganger flere koder å prøve. To siffer gir hundre ganger.</p>",
     "<p>10⁶ / 10⁴ = 100.</p>",
     "<p>Antall kandidater er N<sup>L</sup> for tegnsett N og lengde L. Arbeidet ved uttømmende søk vokser med N for hvert ekstra tegn, derfor er lengde den mest effektive måten å gjøre passord sterkere på.</p>");
@@ -1162,7 +1162,7 @@
     hvorfor: {
       eli5: "<p>Vakten mellom to rom får en lapp: «Slipp gjennom bud fra webrommet til databasedøra nummer 1433, ingen andre.»</p>",
       normal: "<p>Brannmuren står mellom segmentene, så trafikken videresendes gjennom den. Regelen må ligge i FORWARD-kjeden og være så smal som mulig: én kilde, ett mål, én protokoll og én port.</p>",
-      teknisk: "<p>INPUT og OUTPUT gjelder trafikk til og fra brannmuren selv. FORWARD gjelder trafikk som rutes gjennom den.</p><p>Siden brannmuren ifølge oppgaven allerede blokkerer alt annet (policy DROP her; iptables’ egen standard er implisitt ACCEPT, d09), holder det med én ACCEPT-regel. Portfilteret krever at protokollen er oppgitt.</p><p>Blokkerer brannmuren også trafikk ut, må svartrafikken fra databasen slippes tilbake, vanligvis med en tilstandsbasert regel for etablerte forbindelser, men oppgaven spør ikke om det.</p>"
+      teknisk: "<p>INPUT og OUTPUT gjelder trafikk til og fra brannmuren selv. FORWARD gjelder trafikk som rutes gjennom den.</p><p>Siden brannmuren ifølge oppgaven allerede blokkerer alt annet (policy DROP her; iptables’ egen standard er implisitt ACCEPT, nettverkslysarket), holder det med én ACCEPT-regel. Portfilteret krever at protokollen er oppgitt.</p><p>Blokkerer brannmuren også trafikk ut, må svartrafikken fra databasen slippes tilbake, vanligvis med en tilstandsbasert regel for etablerte forbindelser, men oppgaven spør ikke om det.</p>"
     },
     sensor: {
       deler: [

@@ -34,13 +34,13 @@
   /* Opphavslinje for øvingene (o.opphav / spec.opphav, se IN.opphavTekst i core.js) */
   var UTV = "Sikker utvikling har ingen lysark i 2026, men har vært på eksamen flere år";
   var OPPHAV = {
-    regnSk: { type: "egen", variantAv: ["H2022-10.3"], kilder: ["t06 oppg. 2"] },
-    regnRoi: { type: "egen", variantAv: ["H2022-10.3"], kilder: ["ism s. 5"] },
-    prosessSort: { type: "egen", variantAv: ["H2023-38", "H2022-10.1"], kilder: ["t06 oppg. 6"] },
+    regnSk: { type: "egen", variantAv: ["H2022-10.3"], kilder: ["ukesoppgaven om risikostyring, oppg. 2"] },
+    regnRoi: { type: "egen", variantAv: ["H2022-10.3"], kilder: ["ISMS-lysarket s. 5"] },
+    prosessSort: { type: "egen", variantAv: ["H2023-38", "H2022-10.1"], kilder: ["ukesoppgaven om risikostyring, oppg. 6"] },
     strideSort: { type: "egen", variantAv: ["H2021-9.2", "H2022-4.2", "H2025-31"], merknad: UTV },
     livssyklus: { type: "egen", variantAv: ["H2021-9.1", "H2022-4.1"], merknad: UTV },
     livssyklusAkt: { type: "egen", variantAv: ["H2022-4.1"], merknad: UTV },
-    cmmi: { type: "egen", variantAv: ["H2021-8.3"], kilder: ["ism s. 36"] }
+    cmmi: { type: "egen", variantAv: ["H2021-8.3"], kilder: ["ISMS-lysarket s. 36"] }
   };
   function svg(tag, attrs, text) {
     var n = document.createElementNS(NS, tag);
@@ -562,7 +562,7 @@
     aksepter: { t: "Aksepter risiko", s: "Del av planen: risikoene som beholdes, er restrisiko.", b: "Smuldre: R3 (4), R4 (5) og R5 (5) ligger innenfor grensen og aksepteres." },
     bp2: { t: "Beslutningspunkt 2", s: "Godtar ledelsen planen?", diamond: true,
       b: "Smuldre: tiltakene koster 15 000 + 20 000 = 35 000 kr per år. Med forsikringspremien i tillegg sprenger planen budsjettet, så svaret blir <b>Nei</b>. Forsikringen strykes, og tiltakene mot R1 og R2 beholdes. Da blir svaret <b>Ja</b>.",
-      nei: [["For dyr eller for ambisiøs plan, eller budsjettet strekker ikke til", "Ledelsen kan bevisst heve akseptgrensen (revidere kriteriene, t06 6b), velge færre tiltak eller gi mer budsjett"],
+      nei: [["For dyr eller for ambisiøs plan, eller budsjettet strekker ikke til", "Ledelsen kan bevisst heve akseptgrensen (revidere kriteriene, ukesoppgaven om risikostyring, oppg. 6b), velge færre tiltak eller gi mer budsjett"],
             ["For mange aksepterte risikoer eller for høy restrisiko", "Senk akseptgrensen eller legg til tiltak"],
             ["Kostnadsanslaget er misvisende", "Regn kostnadene på nytt"]] },
     impl: { t: "Implementer sikkerhetstiltak", s: "Tiltakene i planen innføres.", b: "Smuldre: backup og bekreftelsesrutine er på plass før julesalget." }
@@ -629,7 +629,7 @@
       Object.keys(nodes).forEach(function (k) { nodes[k].classList.toggle("is-sel", k === id); });
       var p = PROSESS[id], h = "<p><b>" + p.t + ".</b> " + p.s + "</p><p>" + p.b + "</p>";
       if (p.nei) {
-        h += "<p class=\"small\"><b>Typiske grunner til «Nei» (ukesoppgave t06):</b></p><ul class=\"small\">" +
+        h += "<p class=\"small\"><b>Typiske grunner til «Nei» (ukesoppgaven om risikostyring):</b></p><ul class=\"small\">" +
           p.nei.map(function (n) { return "<li>" + n[0] + ". <i>Gjør så:</i> " + n[1] + ".</li>"; }).join("") + "</ul>";
       }
       info.innerHTML = h;
@@ -922,7 +922,7 @@
       prompt: {
         eli5: "Hvor flinke er bakeriet til sikkerhet? Sorter trinnene fra «helt uten» øverst til «best» nederst.",
         normal: "Sorter CMMI-nivåene for sikkerhetsmodenhet fra lavest (0) øverst til høyest (5) nederst.",
-        teknisk: "Ordne modenhetsnivåene 0–5 (ism s. 36). H2021 8.3 spurte om nivåene for ledelsesforankring og helhetlig risikostyring."
+        teknisk: "Ordne modenhetsnivåene 0–5 (ISMS-lysarket s. 36). H2021 8.3 spurte om nivåene for ledelsesforankring og helhetlig risikostyring."
       },
       items: CMMI.map(function (c, i) {
         return { id: "n" + i, html: c[1], forklaring: "Nivå " + i + " " + c[0] + ". " + c[2] };

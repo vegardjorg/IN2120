@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Styring av informasjonssikkerhet i IN2120: ISMS, ISO 27000-serien, NIST CSF 2.0 og NSMs grunnprinsipper, risikobegreper, kvalitativ og kvantitativ risikovurdering, risikostyringsprosessen og sikker utvikling med STRIDE og OWASP, med øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/blokk-risiko.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127n">
 </head>
 <body data-page="risiko">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -59,9 +59,9 @@
       <h4 class="rk-del">1 · Hva er styring og ISMS? <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Styring av informasjonssikkerhet</b>: å sette strategiske sikkerhetsmål og sørge for at de nås. Det betyr å styre sikkerhetsrisikoen med fornuftig ressursbruk og å følge med på at styringen virker (ism s. 4).</li>
-          <li><b>ISMS</b> (styringssystem for informasjonssikkerhet): policyer, prosedyrer, retningslinjer, ressurser og aktiviteter som beskytter informasjonsverdiene systematisk. Det bygger på risikovurdering (ism s. 9).</li>
-          <li>Samme ting har flere navn (ism s. 12):
+          <li><b>Styring av informasjonssikkerhet</b>: å sette strategiske sikkerhetsmål og sørge for at de nås. Det betyr å styre sikkerhetsrisikoen med fornuftig ressursbruk og å følge med på at styringen virker (ISMS-lysarket s. 4).</li>
+          <li><b>ISMS</b> (styringssystem for informasjonssikkerhet): policyer, prosedyrer, retningslinjer, ressurser og aktiviteter som beskytter informasjonsverdiene systematisk. Det bygger på risikovurdering (ISMS-lysarket s. 9).</li>
+          <li>Samme ting har flere navn (ISMS-lysarket s. 12):
             <ul>
               <li><b>LSIS</b>, ledelsessystem for informasjonssikkerhet (Standard Norge og UiO)</li>
               <li>«styringssystem for informasjonssikkerhet» (NSM og lovverket)</li>
@@ -72,7 +72,7 @@
       <div id="ex-styring"></div>
 
       <h4 class="rk-del">2 · CMMI-trappen: hvor moden er sikkerheten? <span class="tag">eksamensbasert</span></h4>
-      <p><b>CMMI</b> (Capability Maturity Model Integration) er en trapp for hvor modent sikkerhetsarbeidet i en virksomhet er, fra kaos til målbart og stadig bedre. Nivåene er 0–5 (ism s. 36):</p>
+      <p><b>CMMI</b> (Capability Maturity Model Integration) er en trapp for hvor modent sikkerhetsarbeidet i en virksomhet er, fra kaos til målbart og stadig bedre. Nivåene er 0–5 (ISMS-lysarket s. 36):</p>
       <ol start="0" class="small">
         <li><b>Fraværende</b>: brannslukking og kaos, ingen tiltak før noe går galt.</li>
         <li><b>Initiell</b>: tilfeldige tiltak.</li>
@@ -100,7 +100,7 @@
 
       <h4 class="rk-del">4 · Dokumenthierarkiet <span class="tag tag-fordyp">Fordypning, ikke nødvendig til eksamen</span></h4>
       <p class="small">Dokumenthierarkiet står i lysarket, men er ikke spurt om i H2021–H2025.</p>
-      <p class="small">Fra det mest overordnede til det mest konkrete (ism s. 35), med eksempler fra Smuldre:</p>
+      <p class="small">Fra det mest overordnede til det mest konkrete (ISMS-lysarket s. 35), med eksempler fra Smuldre:</p>
       <ol class="small">
         <li><b>Lover</b>: personopplysningsloven.</li>
         <li><b>Forskrifter</b>: for eksempel eForvaltningsforskriften (for offentlige virksomheter).</li>
@@ -119,7 +119,7 @@
           <p>Krav som kommer fra risikovurderingen, er oppfylt når risikoen er på et <b>forsvarlig nivå</b>. Krav fra lov, forskrift og kontrakt er oppfylt ved <b>samsvar</b> (H2023 2).</p></details>
         <details class="grense"><summary>Hvorfor er CMMI-nivå 0 ikke «tilfeldige tiltak»?</summary>
           <p>Tilfeldige tiltak er nivå 1. Nivå 0 er brannslukking og kaos, uten tiltak i det hele tatt.</p></details>
-        <ul><li><b>«Styring» og «ledelse»</b> av informasjonssikkerhet brukes ofte om hverandre (ism s. 4). Ikke bruk tid på å skille dem.</li></ul></div>
+        <ul><li><b>«Styring» og «ledelse»</b> av informasjonssikkerhet brukes ofte om hverandre (ISMS-lysarket s. 4). Ikke bruk tid på å skille dem.</li></ul></div>
 
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> CMMI-trappen</h4>
@@ -158,7 +158,7 @@
           <li><b>27002</b>: en <i>tiltaksbank</i> med 93 tiltak i 4 domener (2022-utgaven; kurset sier domener, standarden selv kaller dem temaer).</li>
           <li><b>27005</b>: <i>risikostyring</i> for informasjonssikkerhet.</li>
         </ul>
-        De fleste ISO-standardene må kjøpes (ism s. 8–10, 14, 18).</div>
+        De fleste ISO-standardene må kjøpes (ISMS-lysarket s. 8–10, 14, 18).</div>
       <div id="ex-iso"></div>
       <p class="small muted fig-vis-led">Familien som kart: 27000 gir begrepene til alle, 27002 og 27005 er veiledning, og bare 27001 har krav som kan sertifiseres.</p>
       <div id="fk-iso-familie"></div>
@@ -172,7 +172,7 @@
         <li><b>Check</b> = kapittel 9 (evaluering av prestasjon).</li>
         <li><b>Act</b> = kapittel 10 (forbedring).</li>
       </ul>
-      <p class="small muted">Kapittel 1–3 er innledning. Kravene står i kapittel 4–10 (ism s. 10–11).</p>
+      <p class="small muted">Kapittel 1–3 er innledning. Kravene står i kapittel 4–10 (ISMS-lysarket s. 10–11).</p>
       <p class="small muted">Kurset (ism-lysarket) og eksamen H2025 28 knytter kapitlene til PDCA slik; standarden selv krever ikke PDCA (det ble tatt ut i 2013-utgaven), og noen kilder legger kapittel 7 i Do. Svar som kurset på eksamen.</p>
       <p class="small muted fig-vis-led">PDCA-sirkelen og kapitlene i 27001 slik eksamen viste dem.</p>
       <div id="fv-pdca"></div>
@@ -199,7 +199,7 @@
         <details class="grense"><summary>Hvorfor kan man ikke sertifiseres etter 27002?</summary>
           <p>27002 gir veiledning om tiltak, ikke krav. Bare 27001 har krav som en revisor kan sjekke.</p></details>
         <details class="grense"><summary>Hvorfor hører NSMs grunnprinsipper til Do og ikke Plan?</summary>
-          <p>De beskriver tiltak som skal innføres og driftes. Det skjer i kapittel 8, som er drift (ism s. 11, H2025 28).</p></details>
+          <p>De beskriver tiltak som skal innføres og driftes. Det skjer i kapittel 8, som er drift (ISMS-lysarket s. 11, H2025 28).</p></details>
         <details class="grense"><summary>27000 eller 27001 som «beskrivelse av ISMS»?</summary>
           <p>Generell beskrivelse og begreper er 27000. Krav til ISMS er 27001 (H2023 36).</p></details>
         <details class="grense"><summary>Hvorfor 93 og ikke 114 tiltak?</summary>
@@ -234,8 +234,8 @@
       <h4 class="rk-del">1 · NIST CSF 2.0 og NSMs grunnprinsipper <span class="tag tag-kjerne">kommer ofte</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>NIST CSF 2.0</b>: gratis amerikansk rammeverk med <b>6 funksjoner</b>: GOVERN (Styre, ny i 2.0 fra 2024), IDENTIFY, PROTECT, DETECT, RESPOND og RECOVER. Det har 22 kategorier og 106 underkategorier (ism s. 19–21).</li>
-          <li><b>NSMs grunnprinsipper for IKT-sikkerhet</b>: gratis og på norsk, med <b>4 kategorier</b> (identifisere og kartlegge · beskytte og opprettholde · oppdage · håndtere og gjenopprette), <b>21 prinsipper</b> og <b>118 tiltak</b> (ism s. 22–24).</li>
+          <li><b>NIST CSF 2.0</b>: gratis amerikansk rammeverk med <b>6 funksjoner</b>: GOVERN (Styre, ny i 2.0 fra 2024), IDENTIFY, PROTECT, DETECT, RESPOND og RECOVER. Det har 22 kategorier og 106 underkategorier (ISMS-lysarket s. 19–21).</li>
+          <li><b>NSMs grunnprinsipper for IKT-sikkerhet</b>: gratis og på norsk, med <b>4 kategorier</b> (identifisere og kartlegge · beskytte og opprettholde · oppdage · håndtere og gjenopprette), <b>21 prinsipper</b> og <b>118 tiltak</b> (ISMS-lysarket s. 22–24).</li>
         </ul></div>
       <div id="ex-rammeverk"></div>
 
@@ -276,7 +276,7 @@
           <li><b>Håndtere og gjenopprette</b>: øvd gjenoppretting fra backup.</li>
         </ol>
         <p>Med NIST CSF 2.0 kommer GOVERN i tillegg: daglig leder vedtar policy og risikotoleranse.</p>
-        <p>Lysarket viser også <b>cyberforsvarsmatrisen</b>: et rutenett med de fem opprinnelige NIST-funksjonene langs den ene aksen og fem klasser digitale verdier (enheter, apper, nettverk, data, brukere) langs den andre (ism s. 29). Hver rute sier om bakeriet har tiltak for den kombinasjonen. Hos Smuldre er ruta «data × gjenopprette» tom i dag. <b>Målprofilen</b> er slik bakeriet vil at matrisen skal se ut, og sammenlignes med nåprofilen (gap-analyse). Her fyller målprofilen ruta med frakoblet backup.</p></div>
+        <p>Lysarket viser også <b>cyberforsvarsmatrisen</b>: et rutenett med de fem opprinnelige NIST-funksjonene langs den ene aksen og fem klasser digitale verdier (enheter, apper, nettverk, data, brukere) langs den andre (ISMS-lysarket s. 29). Hver rute sier om bakeriet har tiltak for den kombinasjonen. Hos Smuldre er ruta «data × gjenopprette» tom i dag. <b>Målprofilen</b> er slik bakeriet vil at matrisen skal se ut, og sammenlignes med nåprofilen (gap-analyse). Her fyller målprofilen ruta med frakoblet backup.</p></div>
 
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -285,7 +285,7 @@
         <details class="grense"><summary>Hvorfor 4 kategorier hos NSM og ikke 5?</summary>
           <p>«Håndtere og gjenopprette» er én kategori. Den dekker både RESPOND og RECOVER.</p></details>
         <details class="grense"><summary>Hvorfor bruker cyberforsvarsmatrisen bare 5 funksjoner?</summary>
-          <p>Den bygger på de opprinnelige funksjonene uten GOVERN (ism s. 29). Det er ingen motsigelse.</p></details>
+          <p>Den bygger på de opprinnelige funksjonene uten GOVERN (ISMS-lysarket s. 29). Det er ingen motsigelse.</p></details>
         <ul>
           <li><b>«Må kjøpes»</b>: verken NSM eller NIST (H2023 37 = H2024 32). Mellom ISO 27001 og NSM: bare ISO 27001 (H2025 29).</li>
           <li><b>«Sortert etter funksjoner»</b>: mellom ISO 27001 og NSM er det bare NSM. 27001 er sortert etter kravkapitler (H2025 29).</li>
@@ -306,7 +306,7 @@
     <!-- ===================== 4 · RISIKOBEGREPER ===================== -->
     <section data-panel="begreper">
       <h3>Risikobegreper</h3>
-      <p class="rk-hull">Det finnes ikke noe 2026-lysark for risikostyring. Fanen bygger på ukesoppgave t06 og eksamenssettene.</p>
+      <p class="rk-hull">Det finnes ikke noe 2026-lysark for risikostyring. Fanen bygger på ukesoppgaven om risikostyring og eksamenssettene.</p>
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <p><span class="tag tag-kjerne">kommer ofte</span> Risikobegrepene er spurt om i H2021, H2022, H2023 og H2024:</p>
         <ul>
@@ -362,7 +362,7 @@
     <!-- ===================== 5 · RISIKOVURDERING ===================== -->
     <section data-panel="vurdering">
       <h3>Risikovurdering, kvalitativt og kvantitativt</h3>
-      <p class="rk-hull">Bygger på oblig 3 (oppgaveteksten), ukesoppgave t06 og eksamen H2022 10.3 og H2025 30. Kalibreringen og tallene for Smuldre er laget for guiden.</p>
+      <p class="rk-hull">Bygger på oblig 3 (oppgaveteksten), ukesoppgaven om risikostyring og eksamen H2022 10.3 og H2025 30. Kalibreringen og tallene for Smuldre er laget for guiden.</p>
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <p><span class="tag">eksamensbasert</span> Risikovurdering er spurt om i H2022 og H2025:</p>
         <ul>
@@ -437,7 +437,7 @@
     <!-- ===================== 6 · PROSESSEN ===================== -->
     <section data-panel="prosess">
       <h3>Risikostyringsprosessen og behandling av risiko</h3>
-      <p class="rk-hull">Bygger på ukesoppgave t06 og eksamensfigurene, ikke på et 2026-lysark.</p>
+      <p class="rk-hull">Bygger på ukesoppgaven om risikostyring og eksamensfigurene, ikke på et 2026-lysark.</p>
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
         <p><span class="tag">eksamensbasert</span> Prosessen er spurt om i H2022, H2023 og H2024:</p>
         <ul>
@@ -452,7 +452,7 @@
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <p>Prosessen etter ISO 27005, slik eksamensfiguren viser den, har fire hovedsteg og to beslutningspunkter.
         «Nei» i et beslutningspunkt sender prosessen tilbake. <b>ROS</b> (risiko- og sårbarhetsanalyse) er det norske navnet på risikovurderingen i figuren.</p>
-        <p>Figuren og beslutningspunktene er kursets (t06 oppg. 6 og eksamen) og bygger på eldre utgaver av ISO 27005 (2008–2018). Utgaven fra 2022 er bygd om og har ikke egne beslutningspunkter. Svar etter kursets figur.</p></div>
+        <p>Figuren og beslutningspunktene er kursets (ukesoppgaven om risikostyring, oppg. 6 og eksamen) og bygger på eldre utgaver av ISO 27005 (2008–2018). Utgaven fra 2022 er bygd om og har ikke egne beslutningspunkter. Svar etter kursets figur.</p></div>
 
       <p class="small">Figuren går ovenfra og ned. Rektangler er steg, romber er beslutningspunkter, og den stiplede pila er «Nei» tilbake. Klikk en boks eller en rombe for å lese om steget.</p>
       <div id="viz-prosess-fig"></div>
@@ -474,7 +474,7 @@
         <details class="grense"><summary>Hvorfor er «for lite budsjett» punkt 2?</summary>
           <p>Budsjettet gjelder tiltakene i planen. De finnes først etter punkt 1.</p></details>
         <details class="grense"><summary>Hvorfor er «endre risikotabellen» ikke gyldig håndtering?</summary>
-          <p>Å justere sannsynlighet eller konsekvens for å få et pent resultat flytter målestokken, ikke risikoen (H2023 39). Det er noe annet å revidere akseptkriteriene: ved «Nei» i beslutningspunkt 2 kan ledelsen bevisst heve eller senke akseptgrensen (t06 oppg. 6b). Det er lov, så lenge det er en villet beslutning og ikke kosmetikk.</p></details>
+          <p>Å justere sannsynlighet eller konsekvens for å få et pent resultat flytter målestokken, ikke risikoen (H2023 39). Det er noe annet å revidere akseptkriteriene: ved «Nei» i beslutningspunkt 2 kan ledelsen bevisst heve eller senke akseptgrensen (ukesoppgaven om risikostyring, oppg. 6b). Det er lov, så lenge det er en villet beslutning og ikke kosmetikk.</p></details>
         <details class="grense"><summary>Risikoanalyse eller risikovurdering?</summary>
           <p>Analysen er én del av vurderingen. Vurdering = identifisering + analyse + evaluering.</p></details>
         <ul>
@@ -652,38 +652,38 @@
         kort: "12 ansatte, tre utsalg, nettbutikk, kasse- og ordresystem i sky, kunderegister med om lag 4 000 kunder og en regnskapsmedarbeider som betaler fakturaer i nettbanken. Akseptgrensen for risiko er R ≤ 5." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127m"></script>
-  <script src="assets/js/symboler.js?v=20261127m"></script>
-  <script src="assets/js/begreper-data.js?v=20261127m"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127m"></script>
-  <script src="assets/js/pseudocode.js?v=20261127m"></script>
-  <script src="assets/js/stepplayer.js?v=20261127m"></script>
-  <script src="assets/js/varline.js?v=20261127m"></script>
-  <script src="assets/js/inspera.js?v=20261127m"></script>
-  <script src="assets/js/dra.js?v=20261127m"></script>
-  <script src="assets/js/ovelse.js?v=20261127m"></script>
-  <script src="assets/js/bank.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127m"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127m"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127m"></script>
-  <script src="assets/js/viz-risiko.js?v=20261127m"></script>
+  <script src="assets/js/core.js?v=20261127n"></script>
+  <script src="assets/js/symboler.js?v=20261127n"></script>
+  <script src="assets/js/begreper-data.js?v=20261127n"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127n"></script>
+  <script src="assets/js/pseudocode.js?v=20261127n"></script>
+  <script src="assets/js/stepplayer.js?v=20261127n"></script>
+  <script src="assets/js/varline.js?v=20261127n"></script>
+  <script src="assets/js/inspera.js?v=20261127n"></script>
+  <script src="assets/js/dra.js?v=20261127n"></script>
+  <script src="assets/js/ovelse.js?v=20261127n"></script>
+  <script src="assets/js/bank.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127n"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127n"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127n"></script>
+  <script src="assets/js/viz-risiko.js?v=20261127n"></script>
   <script>
   (function () {
     "use strict";
@@ -694,18 +694,18 @@
     var EX = {
       "ex-styring": {
         eli5: "<p>Et ISMS er bedriftens husregler for sikkerhet, pluss en vane med å sjekke at reglene virker og gjøre dem bedre. Det er ikke et dataprogram. Det er en måte å drive bedriften på.</p>",
-        normal: "<p>Styring betyr at ledelsen eier sikkerheten. Ledelsen setter mål, bestemmer hvor mye risiko bedriften tåler, gir budsjett og får jevnlige rapporter.</p><p>Forelesningen gir seks mål for styringen:</p><ul><li>strategisk tilpasning,</li><li>risikohåndtering,</li><li>verdiskapning (balansen mellom kostnad og risikoreduksjon),</li><li>ressursbruk,</li><li>målbarhet og</li><li>integrering av fysisk, finansiell og IT-sikkerhet (ism s. 5).</li></ul><p>ISMS-et er verktøyet som gjør dette systematisk. Det etableres, drives, overvåkes og forbedres, og det er risikobasert.</p>",
-        teknisk: "<p>Styring av cybersikkerhet ligger under foretaksstyring og GRC (styring, risiko og etterlevelse), ved siden av IKT-styring, risikostyring, drift av sikkerhet og sikkerhetsrevisjon (ism s. 3). God styring gjelder hele virksomheten: ledelsen er informert og tar ansvar, prioriteringen er risikobasert med kjent risikotoleranse, og rollene er tydelige (ism s. 6).</p><p>Ingen standard dekker alt. ISMS-et bygges av utvalgte rammeverk og egne policyer (ism s. 34), ordnet i et dokumenthierarki fra lover ned til logger og rapporter. CMMI-skalaen (Capability Maturity Model Integration, se del 2) 0–5 måler modenheten:</p><ul><li>fra brannslukking (0) via</li><li>tilfeldige tiltak (1),</li><li>noen risikovurderinger (2),</li><li>ledelsesforankring og policyer (3) og</li><li>helhetlig risikostyring (4)</li><li>til målbar forbedring (5).</li></ul>"
+        normal: "<p>Styring betyr at ledelsen eier sikkerheten. Ledelsen setter mål, bestemmer hvor mye risiko bedriften tåler, gir budsjett og får jevnlige rapporter.</p><p>Forelesningen gir seks mål for styringen:</p><ul><li>strategisk tilpasning,</li><li>risikohåndtering,</li><li>verdiskapning (balansen mellom kostnad og risikoreduksjon),</li><li>ressursbruk,</li><li>målbarhet og</li><li>integrering av fysisk, finansiell og IT-sikkerhet (ISMS-lysarket s. 5).</li></ul><p>ISMS-et er verktøyet som gjør dette systematisk. Det etableres, drives, overvåkes og forbedres, og det er risikobasert.</p>",
+        teknisk: "<p>Styring av cybersikkerhet ligger under foretaksstyring og GRC (styring, risiko og etterlevelse), ved siden av IKT-styring, risikostyring, drift av sikkerhet og sikkerhetsrevisjon (ISMS-lysarket s. 3). God styring gjelder hele virksomheten: ledelsen er informert og tar ansvar, prioriteringen er risikobasert med kjent risikotoleranse, og rollene er tydelige (ISMS-lysarket s. 6).</p><p>Ingen standard dekker alt. ISMS-et bygges av utvalgte rammeverk og egne policyer (ISMS-lysarket s. 34), ordnet i et dokumenthierarki fra lover ned til logger og rapporter. CMMI-skalaen (Capability Maturity Model Integration, se del 2) 0–5 måler modenheten:</p><ul><li>fra brannslukking (0) via</li><li>tilfeldige tiltak (1),</li><li>noen risikovurderinger (2),</li><li>ledelsesforankring og policyer (3) og</li><li>helhetlig risikostyring (4)</li><li>til målbar forbedring (5).</li></ul>"
       },
       "ex-iso": {
         eli5: "<p>27001 er oppskriften på hvordan kjøkkenet skal organiseres, og det er den kontrolløren sjekker. 27002 er en stor verktøykasse man velger redskaper fra. 27005 er en guide til å finne ut hva som er farligst.</p>",
         normal: "<p>27001 har tre innledende kapitler, og kravene står i kapittel 4–10: kontekst, ledelse, planlegging, støtte, drift, evaluering og forbedring. Kravene leses som en PDCA-sirkel: Plan er kapittel 4–7, Do er kapittel 8, Check er kapittel 9 og Act er kapittel 10. I Do innføres de konkrete tiltakene, for eksempel fra NSMs grunnprinsipper eller NIST CSF.</p>",
-        teknisk: "<p>27002:2022 har 93 tiltak i fire domener: organisatoriske (37), personell (8), fysiske (14) og teknologiske (34). Hvert tiltak har attributter i fem kategorier:</p><ul><li>type (#Forebyggende, #Oppdagende, #Korrigerende),</li><li>KIT-egenskap,</li><li>cybersikkerhetskonsept (#Identifisere … #Gjenopprette, som hos NIST og NSM),</li><li>operasjonell kapasitet og</li><li>sikkerhetsdomene (ism s. 15–16).</li></ul><p>Ved revisjon etter 27001 kreves en <b>SoA</b> (Statement of Applicability) som sier hvilke 27002-tiltak som er relevante og om de er innført. Begge standardene startet som britisk BS 7799. Andre i familien er 27003 (veiledning), 27004 (måling), 27014 (styring), 27017 (sky) og 27701 (personvern). ISO 31000 er generell risikostyring.</p>"
+        teknisk: "<p>27002:2022 har 93 tiltak i fire domener: organisatoriske (37), personell (8), fysiske (14) og teknologiske (34). Hvert tiltak har attributter i fem kategorier:</p><ul><li>type (#Forebyggende, #Oppdagende, #Korrigerende),</li><li>KIT-egenskap,</li><li>cybersikkerhetskonsept (#Identifisere … #Gjenopprette, som hos NIST og NSM),</li><li>operasjonell kapasitet og</li><li>sikkerhetsdomene (ISMS-lysarket s. 15–16).</li></ul><p>Ved revisjon etter 27001 kreves en <b>SoA</b> (Statement of Applicability) som sier hvilke 27002-tiltak som er relevante og om de er innført. Begge standardene startet som britisk BS 7799. Andre i familien er 27003 (veiledning), 27004 (måling), 27014 (styring), 27017 (sky) og 27701 (personvern). ISO 31000 er generell risikostyring.</p>"
       },
       "ex-rammeverk": {
         eli5: "<p>Begge er huskelister sortert etter når man gjør tingene: finne ut hva man har, beskytte det, merke at noe skjer, og rydde opp etterpå. NIST har i tillegg en sjef-funksjon i midten som styrer resten.</p>",
-        normal: "<p>Begge sorterer tiltak etter sikkerhetsfunksjoner og kan brukes sammen med ISO 27001 som Do-delen av PDCA. NSMs fjerde kategori «håndtere og gjenopprette» dekker både RESPOND og RECOVER hos NIST. GOVERN hos NIST tilsvarer omtrent NSMs egen veileder i sikkerhetsstyring.</p><p>Hvert NSM-tiltak har prioritet 1, 2 eller 3. NSM regner med at om lag 90 % av hendelsene kan unngås ved å innføre alle tiltakene i gruppe 1 (ism s. 22).</p>",
-        teknisk: "<p>Funksjonene kan kobles til risiko (ism s. 19):</p><ul><li>IDENTIFY og PROTECT er forebyggende og senker sannsynligheten,</li><li>DETECT er oppdagende,</li><li>RESPOND og RECOVER er korrigerende og senker konsekvensen.</li></ul><p>De 22 kategoriene fordeler seg slik: GV 6, ID 3, PR 5, DE 2, RS 4, RC 2. NSM er bygd som kategori → prinsipp (for eksempel 1.2 «kartlegg enheter og programvare») → tiltak (1.2.1 osv.).</p><p>Andre rammeverk (ism s. 26–33):</p><ul><li>COBIT,</li><li>ISF Standard of Good Practice,</li><li>ITIL,</li><li>Digdirs internkontroll-veileder,</li><li>Datatilsynet (innebygd personvern),</li><li>CIS Controls (18 kategorier) og</li><li>NIST SP 800-53 (20 tiltaksfamilier).</li></ul><p>Cyberforsvarsmatrisen krysser de fem opprinnelige CSF-funksjonene med fem klasser digitale verdier og brukes til gap-analyse (nåprofil mot målprofil) og ansvarsfordeling.</p>"
+        normal: "<p>Begge sorterer tiltak etter sikkerhetsfunksjoner og kan brukes sammen med ISO 27001 som Do-delen av PDCA. NSMs fjerde kategori «håndtere og gjenopprette» dekker både RESPOND og RECOVER hos NIST. GOVERN hos NIST tilsvarer omtrent NSMs egen veileder i sikkerhetsstyring.</p><p>Hvert NSM-tiltak har prioritet 1, 2 eller 3. NSM regner med at om lag 90 % av hendelsene kan unngås ved å innføre alle tiltakene i gruppe 1 (ISMS-lysarket s. 22).</p>",
+        teknisk: "<p>Funksjonene kan kobles til risiko (ISMS-lysarket s. 19):</p><ul><li>IDENTIFY og PROTECT er forebyggende og senker sannsynligheten,</li><li>DETECT er oppdagende,</li><li>RESPOND og RECOVER er korrigerende og senker konsekvensen.</li></ul><p>De 22 kategoriene fordeler seg slik: GV 6, ID 3, PR 5, DE 2, RS 4, RC 2. NSM er bygd som kategori → prinsipp (for eksempel 1.2 «kartlegg enheter og programvare») → tiltak (1.2.1 osv.).</p><p>Andre rammeverk (ISMS-lysarket s. 26–33):</p><ul><li>COBIT,</li><li>ISF Standard of Good Practice,</li><li>ITIL,</li><li>Digdirs internkontroll-veileder,</li><li>Datatilsynet (innebygd personvern),</li><li>CIS Controls (18 kategorier) og</li><li>NIST SP 800-53 (20 tiltaksfamilier).</li></ul><p>Cyberforsvarsmatrisen krysser de fem opprinnelige CSF-funksjonene med fem klasser digitale verdier og brukes til gap-analyse (nåprofil mot målprofil) og ansvarsfordeling.</p>"
       },
       "ex-begreper": {
         eli5: "<p>Du har en kakeboks (verdi). Lillebror elsker kaker (trussel). Lokket går ikke i lås (sårbarhet). Risikoen er hele denne situasjonen. Hvor stor risikoen er (risikonivået), avhenger av hvor ofte lillebror prøver og hvor mange kaker som forsvinner.</p>",
@@ -839,13 +839,13 @@
     /* Opphav per øving (IN.opphavTekst i core.js): laget for guiden, eventuelt i samme format som en eksamensoppgave. */
     var OPPHAV = {
       "ov-styring": { type: "egen", variantAv: ["H2023-2"] },
-      "ov-iso": { type: "egen", variantAv: ["H2023-36", "H2021-8.1"], kilder: ["ism s. 8–18"] },
-      "ov-pdca": { type: "egen", variantAv: ["H2025-28"], kilder: ["ism s. 10–11"] },
-      "ov-rammeverk": { type: "egen", variantAv: ["H2024-32", "H2023-37", "H2025-29"], kilder: ["ism s. 19–25"] },
-      "ov-begreper": { type: "egen", variantAv: ["H2022-1.2", "H2021-1.2", "H2024-13"], kilder: ["t06 oppg. 1–2"] },
-      "ov-vurdering": { type: "egen", variantAv: ["H2022-10.3"], kilder: ["t06 oppg. 2", "ism s. 5"] },
-      "ov-prosess": { type: "egen", variantAv: ["H2022-10.2", "H2024-33"], kilder: ["t06 oppg. 6"] },
-      "ov-prosess-d": { type: "egen", variantAv: ["H2023-38", "H2022-10.1"], kilder: ["t06 oppg. 6"], merknad: "Samme figur og ordbank som på eksamen, men uten minuspoeng" },
+      "ov-iso": { type: "egen", variantAv: ["H2023-36", "H2021-8.1"], kilder: ["ISMS-lysarket s. 8–18"] },
+      "ov-pdca": { type: "egen", variantAv: ["H2025-28"], kilder: ["ISMS-lysarket s. 10–11"] },
+      "ov-rammeverk": { type: "egen", variantAv: ["H2024-32", "H2023-37", "H2025-29"], kilder: ["ISMS-lysarket s. 19–25"] },
+      "ov-begreper": { type: "egen", variantAv: ["H2022-1.2", "H2021-1.2", "H2024-13"], kilder: ["ukesoppgaven om risikostyring, oppg. 1–2"] },
+      "ov-vurdering": { type: "egen", variantAv: ["H2022-10.3"], kilder: ["ukesoppgaven om risikostyring, oppg. 2", "ISMS-lysarket s. 5"] },
+      "ov-prosess": { type: "egen", variantAv: ["H2022-10.2", "H2024-33"], kilder: ["ukesoppgaven om risikostyring, oppg. 6"] },
+      "ov-prosess-d": { type: "egen", variantAv: ["H2023-38", "H2022-10.1"], kilder: ["ukesoppgaven om risikostyring, oppg. 6"], merknad: "Samme figur og ordbank som på eksamen, men uten minuspoeng" },
       "ov-utvikling": { type: "egen", variantAv: ["H2022-4.2", "H2022-4.1"], merknad: "Sikker utvikling har ingen lysark i 2026, men har vært på eksamen flere år" },
       "ov-utvikling-fri": { type: "egen", variantAv: ["H2025-31"], merknad: "Sikker utvikling har ingen lysark i 2026, men har vært på eksamen flere år" }
     };
@@ -865,9 +865,9 @@
     var QUIZ = {
       styring: [
         { q: "Hva er et ISMS?", options: ["Et brannmurprogram", "Et sett av policyer, prosesser og ressurser for systematisk sikkerhetsarbeid", "NSMs tiltaksliste", "En revisjonsrapport"], answer: 1, explain: "<p>Et ISMS er et styringssystem, ikke et verktøy og ikke en tiltaksbank.</p>" },
-        { q: "Hvilket CMMI-nivå er det første med ledelsesforankring og policyer?", options: ["1", "2", "3", "5"], answer: 2, explain: "<p>Nivå 3 «definert» (ism s. 36). Nivå 4 er helhetlig risikostyring.</p>" },
+        { q: "Hvilket CMMI-nivå er det første med ledelsesforankring og policyer?", options: ["1", "2", "3", "5"], answer: 2, explain: "<p>Nivå 3 «definert» (ISMS-lysarket s. 36). Nivå 4 er helhetlig risikostyring.</p>" },
         { q: "Et krav i en kundekontrakt er oppfylt ved …", options: ["forsvarlig nivå", "samsvar", "restrisiko", "ROI"], answer: 1, explain: "<p>Krav fra lov, forskrift og kontrakt måles i samsvar.</p>" },
-        { q: "Hvem eier ansvaret for sikkerheten i virksomheten?", options: ["IT-driften", "Ledelsen", "Revisor", "Leverandøren"], answer: 1, explain: "<p>God styring betyr at ledelsen er informert og tar ansvar (ism s. 6).</p>" }
+        { q: "Hvem eier ansvaret for sikkerheten i virksomheten?", options: ["IT-driften", "Ledelsen", "Revisor", "Leverandøren"], answer: 1, explain: "<p>God styring betyr at ledelsen er informert og tar ansvar (ISMS-lysarket s. 6).</p>" }
       ],
       iso: [
         { q: "Hvilken standard sertifiseres en virksomhet etter?", options: ["27000", "27001", "27002", "27005"], answer: 1, explain: "<p>27001 er kravstandarden, og bare krav kan revideres og sertifiseres mot. 27000 er begreper, 27002 tiltak og 27005 risikostyring.</p>" },
@@ -878,7 +878,7 @@
       rammeverk: [
         { q: "Hvilken funksjon er ny i NIST CSF 2.0?", options: ["RECOVER", "GOVERN", "DETECT", "IDENTIFY"], answer: 1, explain: "<p>GOVERN (Styre) kom i 2.0 i 2024 og gjør styring og ansvar til en egen funksjon. De fem andre fantes fra før.</p>" },
         { q: "Hvor mange tiltak har NSMs grunnprinsipper?", options: ["93", "106", "118", "21"], answer: 2, explain: "<p>118 tiltak fordelt på 21 prinsipper i 4 kategorier.</p>" },
-        { q: "Hvilke CSF-funksjoner reduserer konsekvensen?", options: ["ID og PR", "DE", "RS og RC", "GV"], answer: 2, explain: "<p>RESPOND og RECOVER er korrigerende (ism s. 19).</p>" },
+        { q: "Hvilke CSF-funksjoner reduserer konsekvensen?", options: ["ID og PR", "DE", "RS og RC", "GV"], answer: 2, explain: "<p>RESPOND og RECOVER er korrigerende (ISMS-lysarket s. 19).</p>" },
         { q: "Hvilken dimensjon har cyberforsvarsmatrisen i tillegg til funksjonene?", options: ["KIT", "Klasser av digitale verdier", "CMMI-nivå", "Trusselaktører"], answer: 1, explain: "<p>Enheter, apper, nettverk, data og brukere.</p>" }
       ],
       begreper: [
@@ -909,12 +909,12 @@
     };
     /* Opphav per fane for quiz og sant/usant (opts.opphav, én linje per liste) */
     var LISTE_OPPHAV = {
-      styring: { type: "egen", kilder: ["ism s. 2–12", "ism s. 34–36"] },
-      iso: { type: "egen", kilder: ["ism s. 8–18"] },
-      rammeverk: { type: "egen", kilder: ["ism s. 19–33"] },
-      begreper: { type: "egen", kilder: ["t06 oppg. 1–2", "t06 oppg. 5"] },
-      vurdering: { type: "egen", kilder: ["t06 oppg. 2", "ism s. 5"] },
-      prosess: { type: "egen", kilder: ["t06 oppg. 1", "t06 oppg. 3", "t06 oppg. 6"] },
+      styring: { type: "egen", kilder: ["ISMS-lysarket s. 2–12", "ISMS-lysarket s. 34–36"] },
+      iso: { type: "egen", kilder: ["ISMS-lysarket s. 8–18"] },
+      rammeverk: { type: "egen", kilder: ["ISMS-lysarket s. 19–33"] },
+      begreper: { type: "egen", kilder: ["ukesoppgaven om risikostyring, oppg. 1–2", "ukesoppgaven om risikostyring, oppg. 5"] },
+      vurdering: { type: "egen", kilder: ["ukesoppgaven om risikostyring, oppg. 2", "ISMS-lysarket s. 5"] },
+      prosess: { type: "egen", kilder: ["ukesoppgaven om risikostyring, oppg. 1", "ukesoppgaven om risikostyring, oppg. 3", "ukesoppgaven om risikostyring, oppg. 6"] },
       utvikling: { type: "egen", merknad: "Sikker utvikling har ingen lysark i 2026; spørsmålene bygger på eksamensoppgavene om temaet" }
     };
     Object.keys(QUIZ).forEach(function (fane) {
@@ -924,21 +924,21 @@
     /* ---------- Sant/usant per fane ---------- */
     var TF = {
       styring: [
-        { s: "LSIS og ISMS betyr det samme.", answer: true, explain: "<p>LSIS er Standard Norges navn (ism s. 12).</p>" },
+        { s: "LSIS og ISMS betyr det samme.", answer: true, explain: "<p>LSIS er Standard Norges navn (ISMS-lysarket s. 12).</p>" },
         { s: "Digdirs «internkontroll» betyr omtrent det samme som ISMS.", answer: true, explain: "<p>Ja, men ordet kan også bety intern revisjon.</p>" },
-        { s: "Et ISMS skal bygge på risikovurdering.", answer: true, explain: "<p>Et ISMS velger tiltak ut fra hvilke risikoer virksomheten faktisk har. Uten risikovurdering vet man ikke hva som må beskyttes, eller hvor mye (ism s. 9).</p>" },
-        { s: "Ett godt rammeverk dekker alle behov, så man trenger ikke egne policyer.", answer: false, explain: "<p>Rammeverk gir generelle tiltak, men hver virksomhet har egne verdier og regler. Derfor trengs egne policyer i tillegg (ism s. 34).</p>" },
-        { s: "Risikovurderinger ligger nederst i dokumenthierarkiet, sammen med logger og revisjonsrapporter.", answer: true, explain: "<p>Øverst står det som sier hva som skal gjelde (lover, policyer). Nederst ligger det som dokumenterer hva som faktisk er funnet og gjort, og der hører risikovurderingene hjemme (ism s. 35).</p>" },
+        { s: "Et ISMS skal bygge på risikovurdering.", answer: true, explain: "<p>Et ISMS velger tiltak ut fra hvilke risikoer virksomheten faktisk har. Uten risikovurdering vet man ikke hva som må beskyttes, eller hvor mye (ISMS-lysarket s. 9).</p>" },
+        { s: "Ett godt rammeverk dekker alle behov, så man trenger ikke egne policyer.", answer: false, explain: "<p>Rammeverk gir generelle tiltak, men hver virksomhet har egne verdier og regler. Derfor trengs egne policyer i tillegg (ISMS-lysarket s. 34).</p>" },
+        { s: "Risikovurderinger ligger nederst i dokumenthierarkiet, sammen med logger og revisjonsrapporter.", answer: true, explain: "<p>Øverst står det som sier hva som skal gjelde (lover, policyer). Nederst ligger det som dokumenterer hva som faktisk er funnet og gjort, og der hører risikovurderingene hjemme (ISMS-lysarket s. 35).</p>" },
         { s: "CMMI-nivå 0 betyr «tilfeldige sikkerhetstiltak».", answer: false, explain: "<p>Det er nivå 1. Nivå 0 er brannslukking og kaos.</p>" },
-        { s: "«Verdiskapning» som mål for styring handler om balansen mellom ressursbruk og risikoreduksjon.", answer: true, explain: "<p>Sikkerhet koster. Verdiskapning betyr at ressursene brukes der de reduserer risikoen mest, ikke at alt skal sikres maksimalt (ism s. 5).</p>" }
+        { s: "«Verdiskapning» som mål for styring handler om balansen mellom ressursbruk og risikoreduksjon.", answer: true, explain: "<p>Sikkerhet koster. Verdiskapning betyr at ressursene brukes der de reduserer risikoen mest, ikke at alt skal sikres maksimalt (ISMS-lysarket s. 5).</p>" }
       ],
       iso: [
         { s: "27002 har fire domener: organisatorisk, personell, fysisk og teknologisk.", answer: true, explain: "<p>37 + 8 + 14 + 34 = 93 tiltak.</p>" },
         { s: "27005 er tiltaksbanken.", answer: false, explain: "<p>27005 handler om risikostyring. Tiltaksbanken er 27002.</p>" },
-        { s: "ISO-standardene er gratis.", answer: false, explain: "<p>De fleste ISO-standardene må kjøpes. Det skiller dem fra NSMs grunnprinsipper og NIST CSF, som er gratis (ism s. 8).</p>" },
+        { s: "ISO-standardene er gratis.", answer: false, explain: "<p>De fleste ISO-standardene må kjøpes. Det skiller dem fra NSMs grunnprinsipper og NIST CSF, som er gratis (ISMS-lysarket s. 8).</p>" },
         { s: "Kapittel 6 Planlegging hører til Plan i PDCA.", answer: true, explain: "<p>Kapittel 4–7 bygger opp ISMS-et før det tas i bruk, og det er Plan. I planleggingen vurderes risikoene og velges tiltak.</p>" },
-        { s: "27001 og 27002 kommer begge fra britisk standard (BS 7799).", answer: true, explain: "<p>BS 7799 hadde en tiltaksdel og en kravdel. De ble til 27002 og 27001 (ism s. 17).</p>" },
-        { s: "Attributtet #Oppdagende er en type sikkerhetstiltak.", answer: true, explain: "<p>Typene er forebyggende, oppdagende og korrigerende (ism s. 16).</p>" },
+        { s: "27001 og 27002 kommer begge fra britisk standard (BS 7799).", answer: true, explain: "<p>BS 7799 hadde en tiltaksdel og en kravdel. De ble til 27002 og 27001 (ISMS-lysarket s. 17).</p>" },
+        { s: "Attributtet #Oppdagende er en type sikkerhetstiltak.", answer: true, explain: "<p>Typene er forebyggende, oppdagende og korrigerende (ISMS-lysarket s. 16).</p>" },
         { s: "27001 har krav i kapittel 1–10.", answer: false, explain: "<p>Kapittel 1–3 er omfang, referanser og begreper. Kravene ISMS-et skal oppfylle, står i kapittel 4–10.</p>" }
       ],
       rammeverk: [
@@ -949,7 +949,7 @@
         { s: "NSMs kategori 3 heter «Oppdage».", answer: true, explain: "<p>Kategoriene er identifisere og kartlegge, beskytte og opprettholde, oppdage, håndtere og gjenopprette.</p>" },
         { s: "NIST CSF 2.0 har 22 kategorier.", answer: true, explain: "<p>GV 6, ID 3, PR 5, DE 2, RS 4, RC 2.</p>" },
         { s: "NSM-tiltakene er merket med prioritetsgruppe 1–3.", answer: true, explain: "<p>Gruppe 1 skal hindre om lag 90 % av hendelsene.</p>" },
-        { s: "Cyberforsvarsmatrisen har verdiklassene enheter, apper, nettverk, data og brukere.", answer: true, explain: "<p>Krysset med de fem opprinnelige funksjonene. Brukere er både personer og KI-agenter (ism s. 30).</p>" }
+        { s: "Cyberforsvarsmatrisen har verdiklassene enheter, apper, nettverk, data og brukere.", answer: true, explain: "<p>Krysset med de fem opprinnelige funksjonene. Brukere er både personer og KI-agenter (ISMS-lysarket s. 30).</p>" }
       ],
       begreper: [
         { s: "Uten sårbarhet er det ingen risiko, selv om trusselen finnes.", answer: true, explain: "<p>Alle tre hjørnene i trekanten må være der.</p>" },

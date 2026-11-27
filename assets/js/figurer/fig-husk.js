@@ -20,7 +20,7 @@
 
   H["H2024-28"] = { tittel: "applikasjon = OSI 7–5", tekst:
     "<p>Internettstakkens applikasjonslag dekker OSI 7, 6 og 5 (applikasjon, presentasjon, sesjon); transport er OSI 4.</p>" +
-    "<p><b>Merk:</b> eksamensarket og lysark d09 (s. 7) tegner feltene over OSI 7–6 og 5–4. " +
+    "<p><b>Merk:</b> eksamensarket og nettverkslysarket (s. 7) tegner feltene over OSI 7–6 og 5–4. " +
     "Standard OSI-tilordning er 7–5 og 4, og figuren her er tegnet slik. Poengene gis bare for lagnavnene.</p>" };
 
   /* ---------- Gruppe: operasjonsmoduser (H2021-3.2, H2021-3.3, H2022-5.5, H2023-20, H2024-17, H2025-8) ---------- */
@@ -40,7 +40,7 @@
   var STAKK = "<p>Internettstakken ovenfra: <b>A</b>pplikasjon – <b>T</b>ransport – <b>I</b>nternett (IP) – <b>L</b>ink, " +
     "med fysisk lag under og selve appen (programmet brukeren kjører) over.</p>" +
     "<p>Internettstakkens applikasjonslag dekker OSI 7, 6 og 5 (applikasjon, presentasjon, sesjon); transport er OSI 4. " +
-    "(Lysark d09 s. 7 tegner applikasjon over OSI 7–6 og transport over 5–4; standard tilordning er 7–5 og 4.)</p>" +
+    "(nettverkslysarket s. 7 tegner applikasjon over OSI 7–6 og transport over 5–4; standard tilordning er 7–5 og 4.)</p>" +
     "<p>Kjennetegn:</p><ul><li>portnummer = transport (TCP, UDP)</li><li>IP-adresse = internett</li><li>MAC-adresse = link (Ethernet, ARP)</li></ul>";
   H["H2021-5.1"] = { tittel: "A-T-I-L ovenfra", tekst: STAKK };
   H["H2025-22"] = { tittel: "A-T-I-L ovenfra", tekst: STAKK +

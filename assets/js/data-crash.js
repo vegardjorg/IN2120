@@ -193,7 +193,7 @@
           "Fremoverhemmelighold: en senere lekket langtidsnøkkel avslører ikke gamle økter.",
           "DH (nye verdier per økt) gir fremoverhemmelighold. Hybrid kryptering gjør det ikke.",
           "DH uten signatur er sårbar for mann-i-midten.",
-          "Fullt TLS 1.3-handtrykk bruker alltid flyktig (EC)DH og gir fremoverhemmelighold (d09 s. 20). Statisk RSA-nøkkeltransport er fjernet. Bare gjenopptak med ren forhåndsdelt nøkkel (PSK) mangler det."
+          "Fullt TLS 1.3-handtrykk bruker alltid flyktig (EC)DH og gir fremoverhemmelighold (nettverkslysarket s. 20). Statisk RSA-nøkkeltransport er fjernet. Bare gjenopptak med ren forhåndsdelt nøkkel (PSK) mangler det."
         ],
         feller: [
           "«Hybrid kryptering gir fremoverhemmelighold fordi øktnøkkelen er ny»: samme langtidsnøkkel beskytter alle øktnøklene.",
@@ -322,7 +322,7 @@
           "TLS-stripping: mann-i-midten nedgraderer til HTTP. HSTS hindrer det, men ikke ved første besøk uten preload.",
           "IPsec: ESP i transportmodus (bare nyttelasten) eller tunnelmodus (hele pakken pakkes inn). Brukes til VPN.",
           "Tor: tre lag kryptering. Innerste lag tilhører utgangsnoden, ytterste inngangsnoden.",
-          "Fullt TLS 1.3-handtrykk bruker alltid flyktig (EC)DH og gir fremoverhemmelighold (d09 s. 20). Statisk RSA-nøkkeltransport er fjernet. Bare gjenopptak med ren forhåndsdelt nøkkel (PSK) mangler det."
+          "Fullt TLS 1.3-handtrykk bruker alltid flyktig (EC)DH og gir fremoverhemmelighold (nettverkslysarket s. 20). Statisk RSA-nøkkeltransport er fjernet. Bare gjenopptak med ren forhåndsdelt nøkkel (PSK) mangler det."
         ],
         feller: [
           "«HSTS beskytter alltid»: ikke første gang, uten preload.",
@@ -358,7 +358,7 @@
         hvorfor: "IDS og Snort kom H2023, H2024 og H2025. H2025 hadde to fritekstoppgaver (5 p), og H2024 spurte om mørke IP-adresser (4 p).",
         kjerne: t(
           "<p>En IDS er en alarm. Signaturbasert alarm kjenner igjen kjente tyver. Anomalibasert alarm reagerer på alt som er uvanlig, også nye triks, men den hyler oftere uten grunn.</p>",
-          "<ul><li>IDS oppdager, IPS blokkerer.</li><li>Signaturbasert IDS (som Snort) sammenligner trafikk med kjente mønstre og finner ikke nye angrep.</li><li>Anomalibasert IDS lærer hva som er normalt, ofte med maskinlæring, og kan finne ukjente angrep, men gir flere falske alarmer.</li><li>Mørke IP-adresser er ubrukte adresser og en billig honeypot-løsning (d09 s. 71): all trafikk dit er illegitim, så de brukes til deteksjon.</li></ul>",
+          "<ul><li>IDS oppdager, IPS blokkerer.</li><li>Signaturbasert IDS (som Snort) sammenligner trafikk med kjente mønstre og finner ikke nye angrep.</li><li>Anomalibasert IDS lærer hva som er normalt, ofte med maskinlæring, og kan finne ukjente angrep, men gir flere falske alarmer.</li><li>Mørke IP-adresser er ubrukte adresser og en billig honeypot-løsning (nettverkslysarket s. 71): all trafikk dit er illegitim, så de brukes til deteksjon.</li></ul>",
           "<p>Snort-regel: handling, protokoll, kilde-IP, kildeport, retning, mål-IP, målport, (opsjoner). Eksempel: <code>alert tcp 10.10.23.23 22 -&gt; any any (msg:\"SSH fra DC\"; sid:1000001; rev:1;)</code>. Sensor H2025: feil retning gir 0 p. Mangler «alert», «tcp» eller riktig port, trekkes det ett poeng.</p>"),
         kunne: [
           "IDS oppdager, IPS stopper. NIDS ser nettverket, HIDS ser én maskin.",

@@ -1203,7 +1203,7 @@
     },
     avvik: null,
     losning: ["Etisk: skriftlig avtale/tillatelse på forhånd, leter etter alle sårbarheter, skriver rapport, mål = bedre sikkerhet.", "Ulovlig: ingen tillatelse, går første/enkleste vei inn, ingen rapport, mål = skade, stjele, presse."],
-    tips: ["Nevn tillatelsen først: uten skriftlig tillatelse er det straffbart etter straffeloven § 204, uansett hensikt.", "2026-lysarkene (d05) skiller også på motivasjon og praksis: pentesteren vil finne alle feil, angriperen én eller to veier inn og vil være usynlig."]
+    tips: ["Nevn tillatelsen først: uten skriftlig tillatelse er det straffbart etter straffeloven § 204, uansett hensikt.", "2026-lysarkene (pentestlysarket) skiller også på motivasjon og praksis: pentesteren vil finne alle feil, angriperen én eller to veier inn og vil være usynlig."]
   });
   IN.PERFEKT["H2019-9.1"] = {
     type: "eksamen",
@@ -1240,7 +1240,7 @@
     },
     avvik: null,
     losning: ["1 informasjonsinnhenting → 2 skanning etter svakheter → 3 skaffe tilgang → 4 beholde tilgang."],
-    tips: ["2026-lysarkene (d05) deler en pentest/et angrep i planlegging, rekognosering, innledende tilgang, utvide tilgang, sikre fotfeste, gevinst og rapport. Rekkefølgen er den samme logikken som her.", "Sammenlign med Cyber Kill Chain (H2021 10.1), som starter med rekognosering og bevæpning."]
+    tips: ["2026-lysarkene (pentestlysarket) deler en pentest/et angrep i planlegging, rekognosering, innledende tilgang, utvide tilgang, sikre fotfeste, gevinst og rapport. Rekkefølgen er den samme logikken som her.", "Sammenlign med Cyber Kill Chain (H2021 10.1), som starter med rekognosering og bevæpning."]
   });
   hv("H2019-9.2",
     "<p>En innbruddstyv finner først ut hvem som bor i huset, så går han rundt og ser etter åpne vinduer, så klatrer han inn, og til slutt lar han et vindu stå på gløtt så han kan komme tilbake.</p>",
@@ -1270,7 +1270,7 @@
     },
     avvik: null,
     losning: ["Disassemble → assembler. Decompile → høynivåspråk.", "Statisk: uten å kjøre. Dynamisk: ved å kjøre.", "Instruksjon: én operasjon. Register: liten minneenhet."],
-    tips: [UTE + "reversering er ikke på 2026-lysarkene (plan/vranglaere.md E). Sist på eksamen H2019.", "Statisk analyse nevnes i 2026 (d08) som tiltak mot bufferoverflyt, så skillet statisk/dynamisk er fortsatt nyttig."]
+    tips: [UTE + "reversering er ikke på 2026-lysarkene (plan/vranglaere.md E). Sist på eksamen H2019.", "Statisk analyse nevnes i 2026 (systemlysarket) som tiltak mot bufferoverflyt, så skillet statisk/dynamisk er fortsatt nyttig."]
   });
   hv("H2019-9.3",
     "<p>Å disassemblere er å oversette maskinens tallkode til en liste med enkle kommandoer. Å dekompilere er å prøve å gjenskape den opprinnelige oppskriften. Statisk analyse er å lese oppskriften; dynamisk analyse er å lage maten og se hva som skjer.</p>",
@@ -1301,7 +1301,7 @@
     },
     avvik: null,
     losning: ["Sant: forårsaket av input, overskriver mer minne enn tiltenkt, kan krasje, kan styre programflyten.", "Usant: bare 32-bit, og ikke-ASCII-tegn som årsak."],
-    tips: ["Arket skriver «sytems» (skrivefeil i originalen). «stack overflow» betyr her stakkbasert bufferoverflyt.", "Mottiltak i 2026 (d08): NX, stakk-kanarifugler, ASLR og sikrere språk/statisk analyse. De gjør utnyttelse vanskeligere, men retter ikke feilen (vranglære C37)."]
+    tips: ["Arket skriver «sytems» (skrivefeil i originalen). «stack overflow» betyr her stakkbasert bufferoverflyt.", "Mottiltak i 2026 (systemlysarket): NX, stakk-kanarifugler, ASLR og sikrere språk/statisk analyse. De gjør utnyttelse vanskeligere, men retter ikke feilen (vranglære C37)."]
   });
   hv("H2019-9.4",
     "<p>Et glass kan bare romme så mye vann. Heller du i mer, renner det over og søler på papirene ved siden av. En slu person kan helle slik at sølet skriver en ny beskjed på papiret.</p>",
@@ -1310,7 +1310,7 @@
 
   /* ============================ PART 10: APPLICATION SECURITY ============================ */
 
-  var USIKKER_UTV = "OWASP Top 10 og DevSecOps har ingen egne 2026-lysark (plan/vranglaere.md E), men kan dekkes av boka; d08 nevner DevSecOps som mottiltak.";
+  var USIKKER_UTV = "OWASP Top 10 og DevSecOps har ingen egne 2026-lysark (plan/vranglaere.md E), men kan dekkes av boka; systemlysarket nevner DevSecOps som mottiltak.";
 
   O.push({
     key: "H2019-10.1", year: Y, oppgave_nr: "Oppgave 10.1", del: D10,

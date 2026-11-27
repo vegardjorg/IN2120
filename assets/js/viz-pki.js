@@ -52,10 +52,10 @@
      ===================================================================== */
   var TILST = [
     { id: "gen", navn: "Generert", fase: "pre", lov: [], txt: "Nøkkelen finnes, men er ikke tatt i bruk. Ingenting skal beskyttes eller prosesseres ennå." },
-    { id: "akt", navn: "Aktivert", fase: "op", lov: ["krypter", "signer", "dekrypter", "valider"], txt: "Den eneste tilstanden der nøkkelen kan <b>beskytte</b> (kryptere eller signere). Avhengig av nøkkeltypen kan den også prosessere (t03 O5)." },
+    { id: "akt", navn: "Aktivert", fase: "op", lov: ["krypter", "signer", "dekrypter", "valider"], txt: "Den eneste tilstanden der nøkkelen kan <b>beskytte</b> (kryptere eller signere). Avhengig av nøkkeltypen kan den også prosessere (ukesoppgaven om PKI, oppg. 5)." },
     { id: "sus", navn: "Suspendert", fase: "op", lov: ["dekrypter", "valider"], txt: "Midlertidig stoppet. Bare prosessering: gamle data kan dekrypteres eller valideres, men ingenting nytt beskyttes." },
     { id: "deakt", navn: "Deaktivert", fase: "post", lov: ["dekrypter", "valider"], txt: "Perioden for beskyttelse er over. Gamle data skal fortsatt kunne leses og verifiseres." },
-    { id: "komp", navn: "Kompromittert", fase: "post", lov: ["dekrypter", "valider"], txt: "Noen uvedkommende har, eller kan ha, nøkkelen. All beskyttelse stopper straks, og brukerne varsles. Prosessering av gamle data kan tillates hvis risikoen og policyen gir rom for det (d03 s. 23)." },
+    { id: "komp", navn: "Kompromittert", fase: "post", lov: ["dekrypter", "valider"], txt: "Noen uvedkommende har, eller kan ha, nøkkelen. All beskyttelse stopper straks, og brukerne varsles. Prosessering av gamle data kan tillates hvis risikoen og policyen gir rom for det (PKI-lysarket s. 23)." },
     { id: "dest", navn: "Destruert", fase: "slutt", lov: [], txt: "Nøkkelen finnes ikke lenger, verken i minnet eller på disk. Ingen bruk er mulig." }
   ];
   var FASER = [
@@ -68,11 +68,11 @@
   function faseNavn(id) { return FASER.filter(function (f) { return f.id === id; })[0].navn; }
   var TILST_OPPG = {
     id: "pki-tilstander",
-    opphav: { type: "egen", kilder: ["d03 s. 24–26"] },
+    opphav: { type: "egen", kilder: ["PKI-lysarket s. 24–26"] },
     prompt: {
       eli5: "En nøkkel går gjennom seks tilstander. Legg hver tilstand i boksen som sier hva nøkkelen da får brukes til.",
       normal: "Legg hver NIST-tilstand i riktig bøtte: hva er lov å gjøre med nøkkelen i den tilstanden?",
-      teknisk: "Klassifiser de seks NIST-tilstandene (SP 800-57, d03 s. 24) etter tillatt bruk. Beskytte = kryptere eller signere. Prosessere = dekryptere eller validere."
+      teknisk: "Klassifiser de seks NIST-tilstandene (SP 800-57, PKI-lysarket s. 24) etter tillatt bruk. Beskytte = kryptere eller signere. Prosessere = dekryptere eller validere."
     },
     zones: [
       { id: "begge", label: "Beskytte og/eller prosessere", hint: "kryptere, signere, dekryptere, validere" },
@@ -86,10 +86,10 @@
     regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 3 },
     oppsummering: {
       eli5: "<p>Bare når nøkkelen er aktivert, kan den lage noe nytt. Ellers kan den bare åpne eller sjekke det gamle, eller ingenting.</p>",
-      normal: "<p>Bare <b>Aktivert</b> kan beskytte. Suspendert, deaktivert og kompromittert kan bare prosessere gamle data. Generert og destruert gir ingen bruk.</p><p>Vanlig vei: Generert → Aktivert → Deaktivert → Destruert. Aktivert kan midlertidig gå til Suspendert og tilbake. Fra Generert, Aktivert, Suspendert og Deaktivert kan nøkkelen bli Kompromittert. Kompromittert ender i Destruert (NIST SP 800-57 avsn. 7.2, d03 s. 24).</p>",
-      teknisk: "<p>Fasene: pre-operasjonell (generert), operasjonell (aktivert, suspendert), post-operasjonell (deaktivert, kompromittert) og destruert. Beskyttelse er bare lov i aktivert tilstand. For kompromittert tillates prosessering bare hvis risikoen og policyen gir rom for det (d03 s. 23–24).</p>"
+      normal: "<p>Bare <b>Aktivert</b> kan beskytte. Suspendert, deaktivert og kompromittert kan bare prosessere gamle data. Generert og destruert gir ingen bruk.</p><p>Vanlig vei: Generert → Aktivert → Deaktivert → Destruert. Aktivert kan midlertidig gå til Suspendert og tilbake. Fra Generert, Aktivert, Suspendert og Deaktivert kan nøkkelen bli Kompromittert. Kompromittert ender i Destruert (NIST SP 800-57 avsn. 7.2, PKI-lysarket s. 24).</p>",
+      teknisk: "<p>Fasene: pre-operasjonell (generert), operasjonell (aktivert, suspendert), post-operasjonell (deaktivert, kompromittert) og destruert. Beskyttelse er bare lov i aktivert tilstand. For kompromittert tillates prosessering bare hvis risikoen og policyen gir rom for det (PKI-lysarket s. 23–24).</p>"
     },
-    kilde: { ref: "d03 s. 23–24 (NIST SP 800-57)", egneOrd: true }
+    kilde: { ref: "PKI-lysarket s. 23–24 (NIST SP 800-57)", egneOrd: true }
   };
 
   IN.pkiTilstander = function (host) {
@@ -142,7 +142,7 @@
         "": "Nøkkelen ligger i mappa. Start med steg 1: slett fila.",
         slett: "Steg 1: fila er bare flyttet til papirkurven. Nøkkelen er ikke destruert.",
         toem: "Steg 2: papirkurven er tom, men bitene ligger igjen i disksektorene til de blir skrevet over. Fortsatt ikke destruert.",
-        over: "Steg 3: sektorene er overskrevet. Nå er nøkkelen destruert. Degaussing (avmagnetisering med et sterkt magnetfelt) og fysisk ødeleggelse av mediet virker også (d03 s. 26)."
+        over: "Steg 3: sektorene er overskrevet. Nå er nøkkelen destruert. Degaussing (avmagnetisering med et sterkt magnetfelt) og fysisk ødeleggelse av mediet virker også (PKI-lysarket s. 26)."
       };
       diskMsg.innerHTML = m[sist] || "";
       diskMsg.className = "pki-out " + (disk.nuller ? "ok" : sist ? "nei" : "");
@@ -277,7 +277,7 @@
   function tyveriScenario() {
     return {
       id: "pki-tyveri",
-      opphav: { type: "egen", kilder: ["d03 s. 23"], merknad: "Samme situasjon som H2022 oppgave 6.1, men som scenario" },
+      opphav: { type: "egen", kilder: ["PKI-lysarket s. 23"], merknad: "Samme situasjon som H2022 oppgave 6.1, men som scenario" },
       tittel: "Alice har stjålet Bobs private nøkkel " + K("B", "priv") + ". Alle ser all trafikk. Svar før du ser forklaringen.",
       start: "cb",
       noder: {
@@ -292,9 +292,9 @@
         sigA: tyvSp({ fra: "A", til: "C" }, "sig", "<p>Kan Alice signere en melding fra seg selv (Alice) til Charlie, med sin egen private nøkkel " + K("A", "priv") + "? I H2022 6.1 er dette alternativ 6, «Alice kan signere meldinger fra Alice til Charlie», som mange stryker fordi det virker for lett.</p>", "tiltak"),
         tiltak: { tekst: "<p>Bob oppdager tyveriet. Hva gjør han først?</p>", valg: [
           { tekst: "Slutter å signere med " + K("B", "priv") + ", varsler mottakerne og ber CA-en tilbakekalle sertifikatet", til: "nytt", poeng: 2, kit: { I: "truet" },
-            konsekvens: "<b>Riktig.</b> Signering er beskyttelse og må stoppe straks, og brukerne varsles (d03 s. 23). Tilbakekallingen (t03 O9a; RFC 5280) trekker bindingen mellom Bob og nøkkelparet tilbake, så nye forfalskninger kan avvises." },
+            konsekvens: "<b>Riktig.</b> Signering er beskyttelse og må stoppe straks, og brukerne varsles (PKI-lysarket s. 23). Tilbakekallingen (ukesoppgaven om PKI, oppg. 9a; RFC 5280) trekker bindingen mellom Bob og nøkkelparet tilbake, så nye forfalskninger kan avvises." },
           { tekst: "Fortsetter som før til sertifikatet går ut av seg selv", til: "nytt", poeng: -1, kit: { I: "brutt" },
-            konsekvens: "<b>Nei.</b> Fram til utløpsdatoen kan Alice signere som Bob, og alle godtar det. Utløpsdatoen kommer for sent (t03 O9a)." },
+            konsekvens: "<b>Nei.</b> Fram til utløpsdatoen kan Alice signere som Bob, og alle godtar det. Utløpsdatoen kommer for sent (ukesoppgaven om PKI, oppg. 9a)." },
           { tekst: "Bytter passordet på fila der nøkkelen ligger", til: "nytt", poeng: -1, kit: { I: "brutt" },
             konsekvens: "<b>Nei.</b> Alice har allerede en kopi av selve nøkkelen. Et nytt passord på Bobs fil endrer ingenting for hennes kopi." }
         ] },
@@ -335,7 +335,7 @@
     node.appendChild(out);
   }
   var DIST_OPPG = [
-    { id: "pki-dist-sym", enhet: "nøkler", n: 12, opphav: { type: "egen", kilder: ["d03 s. 28"] },
+    { id: "pki-dist-sym", enhet: "nøkler", n: 12, opphav: { type: "egen", kilder: ["PKI-lysarket s. 28"] },
       sporsmal: function (inn) { return "<b>" + inn.n + "</b> noder skal kunne kommunisere hemmelig to og to med <b>symmetrisk</b> krypto. Hvor mange hemmelige nøkler må distribueres?"; },
       fasit: function (inn) { return dist(inn.n).sym; },
       feil: [
@@ -346,10 +346,10 @@
       ],
       forklaring: function (inn) { var n = inn.n; return {
         eli5: "<p>Hvert par venner trenger sin egen hemmelige nøkkel. Med " + n + " venner har hver av dem " + (n - 1) + " andre å snakke med. Da teller du hvert par to ganger, så du deler på 2.</p>",
-        normal: "<p>Antall par blant " + n + " noder er n(n−1)/2 = " + n + "·" + (n - 1) + "/2 = <b>" + tall(dist(n).sym) + "</b>. Hver nøkkel må distribueres <b>hemmelig</b>, fordi den gir konfidensialitet (d03 s. 28).</p>",
-        teknisk: "<p>Kombinasjoner: C(n, 2) = n(n−1)/2 = " + tall(dist(n).sym) + ". Veksten er kvadratisk. Offentlige nøkler uten PKI krever n(n−1) = " + tall(dist(n).utenPki) + " <i>autentiske</i> overføringer, og med PKI holder én autentisk rotnøkkel per node: n = " + n + " (d03 s. 28).</p>"
+        normal: "<p>Antall par blant " + n + " noder er n(n−1)/2 = " + n + "·" + (n - 1) + "/2 = <b>" + tall(dist(n).sym) + "</b>. Hver nøkkel må distribueres <b>hemmelig</b>, fordi den gir konfidensialitet (PKI-lysarket s. 28).</p>",
+        teknisk: "<p>Kombinasjoner: C(n, 2) = n(n−1)/2 = " + tall(dist(n).sym) + ". Veksten er kvadratisk. Offentlige nøkler uten PKI krever n(n−1) = " + tall(dist(n).utenPki) + " <i>autentiske</i> overføringer, og med PKI holder én autentisk rotnøkkel per node: n = " + n + " (PKI-lysarket s. 28).</p>"
       }; } },
-    { id: "pki-dist-pub", enhet: "overføringer", n: 10, opphav: { type: "egen", kilder: ["d03 s. 28"] },
+    { id: "pki-dist-pub", enhet: "overføringer", n: 10, opphav: { type: "egen", kilder: ["PKI-lysarket s. 28"] },
       sporsmal: function (inn) { return "Nå bruker de <b>" + inn.n + "</b> nodene offentlige nøkler, men <b>uten PKI</b>. Hver node må få en autentisk kopi av den offentlige nøkkelen til hver av de andre. Hvor mange autentiske overføringer trengs?"; },
       fasit: function (inn) { return dist(inn.n).utenPki; },
       feil: [
@@ -360,7 +360,7 @@
       forklaring: function (inn) { var n = inn.n; return {
         eli5: "<p>Hver av de " + n + " må få telefonnummeret til de " + (n - 1) + " andre fra en kilde de stoler på. Det blir " + n + " ganger " + (n - 1) + ".</p>",
         normal: "<p>Hver node trenger n−1 offentlige nøkler: n(n−1) = " + n + "·" + (n - 1) + " = <b>" + tall(dist(n).utenPki) + "</b>. De må ikke være hemmelige, men de må være <b>autentiske</b>. Med PKI holder det med én rotnøkkel per node: " + n + ".</p>",
-        teknisk: "<p>Uten PKI: n(n−1) = " + tall(dist(n).utenPki) + " autentiske distribusjoner. Med PKI flyttes problemet til én autentisk rotnøkkel per klient, forhåndsinstallert i nettleseren, så veksten blir lineær (d03 s. 28).</p>"
+        teknisk: "<p>Uten PKI: n(n−1) = " + tall(dist(n).utenPki) + " autentiske distribusjoner. Med PKI flyttes problemet til én autentisk rotnøkkel per klient, forhåndsinstallert i nettleseren, så veksten blir lineær (PKI-lysarket s. 28).</p>"
       }; } }
   ];
   IN.pkiDistribusjon = function (host) {
@@ -388,10 +388,10 @@
   var RSA = { n: 33, d: 7, e: 3, h: 5 };   // leke-RSA, ikke kursstoff
   var FELT = [
     { id: "ver", navn: "Version", v: "3", hEndret: 17, ny: "1", hvorfor: "Version sier hvilken X.509-versjon sertifikatet følger. Versjon 3 har plass til Extensions." },
-    { id: "ser", navn: "Serial Number", v: "0x4F2A…", hEndret: 26, ny: "0x4F2B…", hvorfor: "CA-en gir hvert sertifikat et unikt serienummer. Det er serienummeret som oppgis når sertifikatet tilbakekalles (t03 O9a; RFC 5280)." },
-    { id: "alg", navn: "Algorithm Identifier", v: "ecdsa-with-SHA256", hEndret: 23, ny: "md5WithRSA", hvorfor: "Algorithm Identifier sier hvilken signaturalgoritme CA-en brukte (d03 s. 31; H2024 16 spør etter en slik algoritme)." },
+    { id: "ser", navn: "Serial Number", v: "0x4F2A…", hEndret: 26, ny: "0x4F2B…", hvorfor: "CA-en gir hvert sertifikat et unikt serienummer. Det er serienummeret som oppgis når sertifikatet tilbakekalles (ukesoppgaven om PKI, oppg. 9a; RFC 5280)." },
+    { id: "alg", navn: "Algorithm Identifier", v: "ecdsa-with-SHA256", hEndret: 23, ny: "md5WithRSA", hvorfor: "Algorithm Identifier sier hvilken signaturalgoritme CA-en brukte (PKI-lysarket s. 31; H2024 16 spør etter en slik algoritme)." },
     { id: "iss", navn: "Issuer", v: "Fjellvik TLS CA 2", hEndret: 11, ny: "Fjellvik TLS CA 3", hvorfor: "Issuer er navnet på CA-en som utstedte og signerte sertifikatet. Det skal være lik Subject i sertifikatet over i kjeden." },
-    { id: "sub", navn: "Subject (navn + offentlig nøkkel)", v: "bibliotek.lerkedal.no · ECC P-256 04:9B:…", hEndret: 20, ny: "bibliotek.lerkedal.no · 04:E1:… (angriperens nøkkel)", hvorfor: "Subject har navnet og den <b>offentlige</b> nøkkelen. Det er denne bindingen sertifikatet garanterer (d03 s. 31)." },
+    { id: "sub", navn: "Subject (navn + offentlig nøkkel)", v: "bibliotek.lerkedal.no · ECC P-256 04:9B:…", hEndret: 20, ny: "bibliotek.lerkedal.no · 04:E1:… (angriperens nøkkel)", hvorfor: "Subject har navnet og den <b>offentlige</b> nøkkelen. Det er denne bindingen sertifikatet garanterer (PKI-lysarket s. 31)." },
     { id: "val", navn: "Validity", v: "15.09.2026–14.12.2026", hEndret: 8, ny: "15.09.2026–14.12.2027", hvorfor: "Validity er perioden sertifikatet er gyldig. Den er dekket av signaturen, så den kan ikke forlenges i ettertid." },
     { id: "ext", navn: "Extensions", v: "SAN bibliotek.lerkedal.no · keyUsage digitalSignature · CA = false", hEndret: 29, ny: "SAN … · CA = true", hvorfor: "Extensions har blant annet alternative domenenavn (SAN), lov bruk av nøkkelen og om subjektet er en CA." }
   ];
@@ -429,11 +429,11 @@
   // Fyll-ut-oppgaven: verdiene skal i riktig felt. To distraktorer hører ikke hjemme i sertifikatet.
   var FELT_OPPG = {
     id: "pki-felter",
-    opphav: { type: "egen", kilder: ["d03 s. 31", "d03 s. 34"] },
+    opphav: { type: "egen", kilder: ["PKI-lysarket s. 31", "PKI-lysarket s. 34"] },
     prompt: {
       eli5: "Sertifikatet for bibliotek.lerkedal.no er tomt. Legg hver opplysning i riktig felt. To av lappene hører ikke hjemme i sertifikatet i det hele tatt.",
       normal: "Fyll ut X.509-sertifikatet for bibliotek.lerkedal.no: legg hver verdi i feltet den hører til. To verdier står ikke i et sertifikat.",
-      teknisk: "Plasser verdiene i X.509-feltene (d03 s. 31). Signaturfeltet holder S = Sig(Hash(Rec), " + K("CA", "priv") + "). To verdier skal i «Står ikke i sertifikatet»."
+      teknisk: "Plasser verdiene i X.509-feltene (PKI-lysarket s. 31). Signaturfeltet holder S = Sig(Hash(Rec), " + K("CA", "priv") + "). To verdier skal i «Står ikke i sertifikatet»."
     },
     zones: FELT.map(function (f) { return { id: f.id, label: f.navn }; }).concat([
       { id: "sig", label: "Digital Signature" },
@@ -443,7 +443,7 @@
       return { id: "v-" + f.id, html: "<span class=\"mono\">" + f.v + "</span>", forklaring: f.hvorfor };
     }).concat([
       { id: "v-sig", html: "<span class=\"mono\">Sig(Hash(Rec), " + K("CA", "priv") + ")</span>",
-        forklaring: "CA-en signerer hashen av alle de andre feltene med sin private nøkkel (d03 s. 34). Selve nøkkelen står ikke der, bare signaturen." },
+        forklaring: "CA-en signerer hashen av alle de andre feltene med sin private nøkkel (PKI-lysarket s. 34). Selve nøkkelen står ikke der, bare signaturen." },
       { id: "x-priv", html: "Bibliotekets private nøkkel",
         forklaring: "Private nøkler står aldri i et sertifikat. Bare den offentlige nøkkelen står i Subject (H2021 4.4, H2022 6.4)." },
       { id: "x-capriv", html: "Den private nøkkelen til Fjellvik TLS CA 2",
@@ -456,7 +456,7 @@
     })(),
     regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 5 },
     oppsummering: "<p>Signaturen dekker alle feltene unntatt seg selv. Sertifikatet binder navnet og den <b>offentlige</b> nøkkelen sammen. Ingen private nøkler står i det. Under ser du hvordan CA-en lager signaturen, og hva som skjer hvis noen endrer et felt.</p>",
-    kilde: { ref: "d03 s. 31 og 34", egneOrd: true }
+    kilde: { ref: "PKI-lysarket s. 31 og 34", egneOrd: true }
   };
 
   IN.pkiFelter = function (host) {
@@ -505,7 +505,7 @@
       var STEG = [
         { rec: false, sig: "tom", vis: "", text: { eli5: "Her er alle opplysningene om nettstedet, men ingen stempel ennå.",
             normal: "Sertifikatet for bibliotek.lerkedal.no med de åtte feltene. Signaturfeltet er tomt.",
-            teknisk: "Feltene fra d03 s. 31. Subject har navnet og den <b>offentlige</b> nøkkelen. Den private nøkkelen er ikke med, og blir aldri det." } },
+            teknisk: "Feltene fra PKI-lysarket s. 31. Subject har navnet og den <b>offentlige</b> nøkkelen. Den private nøkkelen er ikke med, og blir aldri det." } },
         { rec: true, sig: "tom", vis: "Rec = de sju første feltene",
           spor: { sporsmal: "Hvilke felt samler CA-en i recorden Rec som skal signeres?", valg: ["Alle unntatt signaturfeltet", "Bare Subject (navn og offentlig nøkkel)", "Alle, også signaturfeltet"], fasit: 0,
             forklaring: "Rec er alle feltene unntatt signaturen. Derfor kan ingen av dem endres uten at det oppdages." },
@@ -521,7 +521,7 @@
           text: {
             eli5: "Kontoret stempler fingeravtrykket med sitt hemmelige stempel.",
             normal: "Så signeres hashen: S = Sig(H, " + K("CA", "priv") + "). Det er CA-ens private nøkkel som signerer, ikke subjektets og ikke «sertifikatet».",
-            teknisk: "Leke-RSA i stedet for ECDSA, for å vise prinsippet. Fjellvik TLS CA 2: modul 33, privat eksponent 7, offentlig eksponent 3 (3 · 7 = 21 ≡ 1 mod 20). " + RSA.h + "<sup>7</sup> mod 33 = " + S1 + ". d03 skriver det som Sig[H, Kpriv(CA)]." } },
+            teknisk: "Leke-RSA i stedet for ECDSA, for å vise prinsippet. Fjellvik TLS CA 2: modul 33, privat eksponent 7, offentlig eksponent 3 (3 · 7 = 21 ≡ 1 mod 20). " + RSA.h + "<sup>7</sup> mod 33 = " + S1 + ". PKI-lysarket skriver det som Sig[H, Kpriv(CA)]." } },
         { rec: true, sig: "S", vis: "S legges inn i signaturfeltet", text: { eli5: "Stempelet festes på arket. Nå er sertifikatet ferdig.",
             normal: "Til slutt legges S til recorden. Sertifikatet er ferdig og kan sendes til hvem som helst.",
             teknisk: "Signaturfeltet selv er ikke med i Rec. Det kan ikke dekke seg selv." } }
@@ -761,10 +761,10 @@
       Object.keys(mBtn).forEach(function (k) { press(mBtn[k], k === st.m); });
       dato.value = D.date; adr.value = D.url;
       var subj = D.certs[2];
-      mNote.innerHTML = st.m === "ocsp" ? "OCSP: nettleseren spør CA-en om status. <b>CA-en ser da at du besøker " + D.url + "</b>. Det er personvernproblemet (t03 O9b). I dag spør nettleserne sjelden CA-en direkte: CRL er påbudt og OCSP valgfritt (CA/B Forum 2024). Kursets modell er fra t03."
-        : st.m === "stifting" ? "Stifting: tjeneren legger ved et ferskt statussvar som CA-en (eller dens OCSP-responder) har signert. Nettleseren slipper å spørre, og CA-en ser ikke hvor du surfer (t03 O6c, O9b)."
+      mNote.innerHTML = st.m === "ocsp" ? "OCSP: nettleseren spør CA-en om status. <b>CA-en ser da at du besøker " + D.url + "</b>. Det er personvernproblemet (ukesoppgaven om PKI, oppg. 9b). I dag spør nettleserne sjelden CA-en direkte: CRL er påbudt og OCSP valgfritt (CA/B Forum 2024). Kursets modell er fra ukesoppgaven om PKI."
+        : st.m === "stifting" ? "Stifting: tjeneren legger ved et ferskt statussvar som CA-en (eller dens OCSP-responder) har signert. Nettleseren slipper å spørre, og CA-en ser ikke hvor du surfer (ukesoppgaven om PKI, oppg. 6c, 9b)."
         : "Ingen statussjekk: et tilbakekalt sertifikat blir ikke oppdaget.";
-      mNote.innerHTML += " <span class=\"muted small\">Statussjekk står i t03 (2025), ikke på 2026-lysarket.</span>";
+      mNote.innerHTML += " <span class=\"muted small\">Statussjekk står i ukesoppgaven om PKI (2025), ikke på 2026-lysarket.</span>";
 
       // Rotlager
       clear(lager);
@@ -888,7 +888,7 @@
   var CAA_DNS = "lerkedal.no.  CAA  0 issue \"fjellvik.no\"";
   var CAA_SCEN = {
     id: "pki-caa",
-    opphav: { type: "ukesoppgave", kilder: ["t03 oppg. 6b"] },
+    opphav: { type: "ukesoppgave", kilder: ["ukesoppgaven om PKI, oppg. 6b"] },
     tittel: "Du jobber med sertifikatutstedelse. I DNS står: <code>" + CAA_DNS + "</code>",
     start: "nordkapp",
     noder: {
@@ -900,7 +900,7 @@
         },
         valg: [
           { tekst: "Avslår: CAA-recorden sier at bare Fjellvik får utstede for lerkedal.no", til: "fjellvik", poeng: 1,
-            konsekvens: "<b>Riktig.</b> Domeneeieren har skrevet i DNS hvilke CA-er som får utstede, og Nordkapp står ikke der (t03 O6b). Recorden på lerkedal.no gjelder også underdomenet bibliotek.lerkedal.no." },
+            konsekvens: "<b>Riktig.</b> Domeneeieren har skrevet i DNS hvilke CA-er som får utstede, og Nordkapp står ikke der (ukesoppgaven om PKI, oppg. 6b). Recorden på lerkedal.no gjelder også underdomenet bibliotek.lerkedal.no." },
           { tekst: "Utsteder: søkeren har jo vist at den kontrollerer domenet", til: "fjellvik", poeng: -1, kit: { I: "truet" },
             konsekvens: "<b>Nei.</b> Domenekontroll er ikke nok når CAA-recorden utelukker Nordkapp. Sertifikatet ville vært feilutstedt." },
           { tekst: "Spør Fjellvik om lov til å utstede", til: "fjellvik", poeng: -1,
@@ -911,18 +911,18 @@
         tekst: "<p>Søkeren går i stedet til <b>Fjellvik</b>. Hva gjør Fjellvik?</p>",
         valg: [
           { tekst: "Sjekker at søkeren kontrollerer domenet, og utsteder", til: "komp", poeng: 1,
-            konsekvens: "<b>Riktig.</b> CAA tillater Fjellvik, men CA-en må fortsatt identifisere søkeren riktig før den utsteder (t03 O7b)." },
+            konsekvens: "<b>Riktig.</b> CAA tillater Fjellvik, men CA-en må fortsatt identifisere søkeren riktig før den utsteder (ukesoppgaven om PKI, oppg. 7b)." },
           { tekst: "Utsteder uten videre, fordi CAA-recorden nevner Fjellvik", til: "komp", poeng: -1, kit: { I: "truet" },
             konsekvens: "<b>Nei.</b> CAA sier bare <i>hvem</i> som får utstede. Den sier ingenting om hvem søkeren er. Uten domenevalidering kunne hvem som helst fått sertifikatet." },
           { tekst: "Avslår, fordi CAA-policyen ikke er lagret hos Fjellvik", til: "komp", poeng: -1, kit: { T: "truet" },
-            konsekvens: "<b>Nei.</b> CAA ligger alltid i domenets DNS, ikke hos CA-en (t03 O6b). Fjellvik er tillatt." }
+            konsekvens: "<b>Nei.</b> CAA ligger alltid i domenets DNS, ikke hos CA-en (ukesoppgaven om PKI, oppg. 6b). Fjellvik er tillatt." }
         ]
       },
       komp: {
         tekst: "<p>En angriper har tatt kontroll over Nordkapp CA og utsteder et sertifikat for bibliotek.lerkedal.no, selv om CAA sier nei. Hva gjelder nå?</p>",
         valg: [
           { tekst: "CAA stoppet ikke dette. Utstedelsen må oppdages i ettertid, for eksempel gjennom sertifikattransparens, og så må sertifikatet tilbakekalles", til: "slutt", poeng: 2, kit: { K: "truet", I: "truet" },
-            konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. t03 O6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er en presisering og ikke pensum." },
+            konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. Ukesoppgaven om PKI, oppg. 6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er en presisering og ikke pensum." },
           { tekst: "Nettleseren slår opp CAA-recorden og avviser sertifikatet", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
             konsekvens: "<b>Nei.</b> CAA sjekkes av CA-en når den utsteder, ikke av nettleseren. Sertifikatet har en gyldig kjede og godtas. (RFC 8659; står ikke i kurskildene.)" },
           { tekst: "Ingenting kan skje: CAA gjør det umulig å utstede", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
@@ -931,7 +931,7 @@
       },
       slutt: { slutt: true, oppsummering: {
         eli5: "<p>CAA er en lapp i DNS som sier hvilke kontorer som får lage sertifikater for domenet. Ærlige kontorer følger lappen. Et kontor som er hacket, bryr seg ikke, og da må juksen oppdages etterpå.</p>",
-        normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (ukesoppgave uke 3, t03 O6b). En ærlig CA sjekker recorden og avslår om den ikke står der.</p><p>Ukesoppgaven (t03 O6a) sier kort at CAA og CT sammen forhindrer falske sertifikater, og det svaret kan ventes på eksamen. Vit likevel begrensningen: en kompromittert CA kan ignorere CAA-recorden (RFC 8659, <i>Ikke pensum</i>). Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles.</p>",
+        normal: "<p>CAA: domeneeieren skriver i DNS hvilke CA-er som får utstede (ukesoppgave uke 3, ukesoppgaven om PKI, oppg. 6b). En ærlig CA sjekker recorden og avslår om den ikke står der.</p><p>Ukesoppgaven (ukesoppgaven om PKI, oppg. 6a) sier kort at CAA og CT sammen forhindrer falske sertifikater, og det svaret kan ventes på eksamen. Vit likevel begrensningen: en kompromittert CA kan ignorere CAA-recorden (RFC 8659, <i>Ikke pensum</i>). Derfor trengs CT i tillegg, så feilutstedelser kan oppdages og sertifikatene tilbakekalles.</p>",
         teknisk: "<p>CAA (CA-autorisering) er en DNS-record på domenet, med <code>issue</code>-verdier for CA-ene som får utstede. Kontrollen skjer hos CA-en ved utstedelse. Mot en CA som ignorerer CAA hjelper bare at utstedelsen blir synlig og oppdages (CT), og deretter tilbakekalling eller at CA-en fjernes fra rotlagrene. Detaljene om CT og hvem som sjekker CAA, er ikke pensum (står ikke i kildene).</p>"
       } }
     }
@@ -955,7 +955,7 @@
       noder: { R: [180, 28, "rot", 1, "Rot"], A: [100, 100, "ca", 0, "CA 1"], B: [260, 100, "ca", 0, "CA 2"],
         a1: [60, 172, "subj", 0, "a1"], a2: [140, 172, "subj", 0, "a2"], b1: [220, 172, "subj", 0, "b1"], b2: [300, 172, "subj", 0, "b2"] },
       kanter: ["R>A", "R>B", "A>a1", "A>a2", "B>b1", "B>b2"],
-      tekst: "Fordeler: enkel struktur som passer i strengt organiserte, lukkede nett, for eksempel militære. Ulemper: alle må stole på samme rot, en kompromittert rot gir totalt sammenbrudd, og modellen skalerer ikke til åpne nett (d03 s. 39)." },
+      tekst: "Fordeler: enkel struktur som passer i strengt organiserte, lukkede nett, for eksempel militære. Ulemper: alle må stole på samme rot, en kompromittert rot gir totalt sammenbrudd, og modellen skalerer ikke til åpne nett (PKI-lysarket s. 39)." },
     { id: "toveis", navn: "Toveis-hierarki", eks: "",
       noder: { R: [180, 28, "rot", 0, "Rot"], A: [100, 100, "ca", 1, "CA 1"], B: [260, 100, "ca", 1, "CA 2"],
         a1: [60, 172, "subj", 0, "a1"], a2: [140, 172, "subj", 0, "a2"], b1: [220, 172, "subj", 0, "b1"], b2: [300, 172, "subj", 0, "b2"] },
@@ -966,7 +966,7 @@
         C1: [60, 100, "ca", 0, "CA"], C2: [180, 100, "ca", 0, "CA"], C3: [300, 100, "ca", 0, "CA"],
         s1: [30, 172, "subj", 0, ""], s2: [90, 172, "subj", 0, ""], s3: [150, 172, "subj", 0, ""], s4: [210, 172, "subj", 0, ""], s5: [270, 172, "subj", 0, ""], s6: [330, 172, "subj", 0, ""] },
       kanter: ["R1>C1", "R2>C2", "R3>C3", "C1>s1", "C1>s2", "C2>s3", "C2>s4", "C3>s5", "C3>s6"],
-      tekst: "Nettleseren har noen hundre uavhengige røtter installert, og nye kommer med programvareoppdateringer (d03 s. 41). Fordel: brukervennlig og automatisk. Ulemper: rotlageret er svakt beskyttet, brukere klikker forbi advarsler, og én kompromittert CA truer hele systemet (t03 O3b)." },
+      tekst: "Nettleseren har noen hundre uavhengige røtter installert, og nye kommer med programvareoppdateringer (PKI-lysarket s. 41). Fordel: brukervennlig og automatisk. Ulemper: rotlageret er svakt beskyttet, brukere klikker forbi advarsler, og én kompromittert CA truer hele systemet (ukesoppgaven om PKI, oppg. 3b)." },
     { id: "kryss", navn: "Kryss-sertifisert (mesh)", eks: "",
       noder: { A: [70, 40, "rot", 1, "CA A"], B: [290, 40, "rot", 1, "CA B"], C: [180, 120, "rot", 1, "CA C"],
         a1: [30, 110, "subj", 0, ""], a2: [100, 120, "subj", 0, ""], b1: [260, 120, "subj", 0, ""], b2: [330, 110, "subj", 0, ""], c1: [150, 188, "subj", 0, ""], c2: [210, 188, "subj", 0, ""] },
@@ -980,7 +980,7 @@
     { id: "bruker", navn: "Brukersentrisk", eks: "PGP, «web of trust»",
       noder: { u1: [180, 28, "selv", 1, "Ola"], u2: [300, 70, "selv", 1, "Kari"], u3: [300, 160, "selv", 1, "Per"], u4: [180, 195, "selv", 1, "Lise"], u5: [60, 160, "selv", 1, "Nils"], u6: [60, 70, "selv", 1, "Mia"] },
       kanter: ["u1>u2", "u2>u3", "u1>u6", "u6>u5", "u3>u4", "u5>u4"],
-      tekst: "Hver bruker er sin egen rot og har sin egen offentlige nøkkelring. Hun signerer andres nøkler når hun er overbevist om at de er ekte, og kan godta nøkler som er signert av noen hun stoler på (d03 s. 40)." },
+      tekst: "Hver bruker er sin egen rot og har sin egen offentlige nøkkelring. Hun signerer andres nøkler når hun er overbevist om at de er ekte, og kan godta nøkler som er signert av noen hun stoler på (PKI-lysarket s. 40)." },
     { id: "ustrukt", navn: "Ustrukturert", eks: "",
       noder: { R: [60, 40, "rot", 1, "Rot"], C: [170, 70, "ca", 0, "CA"], u: [290, 40, "selv", 1, "Bruker"], s1: [100, 160, "subj", 0, ""], s2: [220, 170, "subj", 0, ""], u2: [320, 150, "selv", 1, "Bruker"] },
       kanter: ["R>C", "C>s1", "C>u", "u>s2", "u2>s2", "R>s1"],
@@ -1080,7 +1080,7 @@
     var TFV = [
       { tekst: "<span class=\"mono\">lerkedalsparebank.no</span>", aria: "lerkedalsparebank.no", c: "nei", t: "Ikke riktig. Det er riktignok bankens ekte domene, men det vet du bare fordi du kjenner navnet. Sertifikatet sier det ikke." },
       { tekst: "<span class=\"mono\">lerkedal-sparebank.no</span>", aria: "lerkedal-sparebank.no", c: "nei", t: "Ikke riktig. lerkedal-sparebank.no er svindlerens domene. Sertifikatet er likevel helt ekte for det domenet." },
-      { tekst: "Sertifikatet kan ikke avgjøre det", aria: "Sertifikatet kan ikke avgjøre det", c: "ok", t: "Riktig. Begge har ekte, gyldige sertifikater. Et sertifikat gir <b>autentisitet</b> for domenenavnet, ikke <b>pålitelighet</b>. Valideringen er syntaktisk, ikke semantisk (d03 s. 42–43). Bare en bruker som vet at banken heter lerkedalsparebank.no, oppdager svindelen." }
+      { tekst: "Sertifikatet kan ikke avgjøre det", aria: "Sertifikatet kan ikke avgjøre det", c: "ok", t: "Riktig. Begge har ekte, gyldige sertifikater. Et sertifikat gir <b>autentisitet</b> for domenenavnet, ikke <b>pålitelighet</b>. Valideringen er syntaktisk, ikke semantisk (PKI-lysarket s. 42–43). Bare en bruker som vet at banken heter lerkedalsparebank.no, oppdager svindelen." }
     ];
     var tfBtn = TFV.map(function (v, i) { var b = btn(v.tekst, function () { gi(i); }); b.setAttribute("aria-pressed", "false"); return b; });
     w.appendChild(el("div", { class: "pki-row pki-tfvalg", role: "group", "aria-label": "Hvilken er pålitelig?" }, tfBtn));

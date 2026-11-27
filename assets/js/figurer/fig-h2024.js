@@ -250,7 +250,7 @@
 
   /* ---------- H2024-28: internett- og OSI-stakken (s. 20) ----------
      12 slippfelt: 0–4 i internettstakken ovenfra, 5–11 i OSI 7–1. Ingen lagnavn.
-     Eierbeslutning 2026-11-25/26: tegnet etter standard OSI-tilordning (øverste felt over OSI 7–5, neste over 4). Arket og d09 s. 7 har 7–6 og 5–4. */
+     Eierbeslutning 2026-11-25/26: tegnet etter standard OSI-tilordning (øverste felt over OSI 7–5, neste over 4). Arket og nettverkslysarket s. 7 har 7–6 og 5–4. */
   IN.FIGURER["H2024-28"] = function (host) {
     var spenn = [3, 1, 1, 1, 1];
     var kant = "1.5px solid var(--color-on-surface)";

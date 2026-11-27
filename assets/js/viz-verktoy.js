@@ -282,7 +282,7 @@
     tb.appendChild(body);
     wrap.appendChild(tb);
     host.appendChild(wrap);
-    host.appendChild(el("p", { class: "small muted", text: "Fasene er pentestfasene fra d05 s. 16 (de tre som verktøyene hører til), pluss forsvarssiden. iptables og Snort er forsvarsverktøy og har ingen ATT&CK-teknikk." }));
+    host.appendChild(el("p", { class: "small muted", text: "Fasene er pentestfasene fra pentestlysarket s. 16 (de tre som verktøyene hører til), pluss forsvarssiden. iptables og Snort er forsvarsverktøy og har ingen ATT&CK-teknikk." }));
   };
 
   /* ---------- Bøtteøving: fase ---------- */
@@ -302,8 +302,8 @@
       zones: V().FASER.map(function (f) { return { id: f.id, label: f.navn, hint: f.kort }; }),
       answer: answer,
       godta: godta,
-      kilde: { ref: "Pentestfasene: d05 s. 16. Brannmur og IDS: d09.", egneOrd: true },
-      opphav: { type: "egen", kilder: ["d05 s. 16", "d09 s. 36–71"] }
+      kilde: { ref: "Pentestfasene: pentestlysarket s. 16. Brannmur og IDS: nettverkslysarket.", egneOrd: true },
+      opphav: { type: "egen", kilder: ["pentestlysarket s. 16", "nettverkslysarket s. 36–71"] }
     });
   };
 
@@ -334,7 +334,7 @@
       };
     });
     return IN.quiz(host, qs, { id: "verktoy-hvilket",
-      opphav: { type: "egen", variantAv: ["H2025-14", "H2024-24"], kilder: ["d05 s. 25–47", "d09 s. 36–71"] } });
+      opphav: { type: "egen", variantAv: ["H2025-14", "H2024-24"], kilder: ["pentestlysarket s. 25–47", "nettverkslysarket s. 36–71"] } });
   };
 
   /* ---------- Eksamenskortene ---------- */

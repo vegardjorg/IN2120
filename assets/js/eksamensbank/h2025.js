@@ -81,7 +81,7 @@
       "Hvert begrep brukes bare én gang, så du kan krysse ut etter hvert."
     ],
     tips: [
-      "Sikkerhet/trygghet/visshet går igjen hvert år (H23 1, H24 2, H25 1). Lær forskjellen: sikkerhet mot tilsiktede handlinger, trygghet mot ulykker, visshet om å vite.",
+      "Sikkerhet/trygghet/visshet går igjen hvert år (H2023 1, H2024 2, H2025 1). Lær forskjellen: sikkerhet mot tilsiktede handlinger, trygghet mot ulykker, visshet om å vite.",
       "Begrepsparet står ikke på lysarkene for 2026, men det har vært på eksamen tre år på rad."
     ],
     avvik: "Skrivefeil i arket («sutuasjonen», «sannsynliget») er beholdt ordrett. Påvirker ikke fasit."
@@ -194,14 +194,14 @@
       ]
     },
     losning: ["Ingen informasjon = du ser ikke inn i boksen = svartboks."],
-    tips: ["Boksoppgaven har kommet hvert år fra H22 med ulik farge (hvit, svart, grå, svart). Lær alle tre."]
+    tips: ["Boksoppgaven har kommet hvert år fra H2022 med ulik farge (hvit, svart, grå, svart). Lær alle tre."]
   });
   P("4", {
     type: "eksamen",
     hvorfor: {
       eli5: "<p>Tenk deg en eske du ikke kan se inn i. Du må prøve deg fram utenfra. Det er en svart boks.</p>",
       normal: "<p>Fargen sier hvor mye testeren vet på forhånd: svart = ingenting, grå = litt, hvit = alt. Svartboks etterligner en angriper utenfra, men tar lengre tid fordi testeren må kartlegge alt selv.</p>",
-      teknisk: "<ul><li>Svartboks-testing starter med rekognosering (OSINT, portskanning) som en ekstern trusselaktør.</li><li>Hvitboks gir kildekode og konfigurasjon og finner flere feil per time, men simulerer ikke en uinformert angriper.</li><li>Gråboks ligner en innsider eller en angriper som allerede har en brukerkonto.</li></ul><p>Uansett boks krever pentest skriftlig avtale på forhånd (d05); uten samtykke er det innbrudd etter straffeloven § 204.</p>"
+      teknisk: "<ul><li>Svartboks-testing starter med rekognosering (OSINT, portskanning) som en ekstern trusselaktør.</li><li>Hvitboks gir kildekode og konfigurasjon og finner flere feil per time, men simulerer ikke en uinformert angriper.</li><li>Gråboks ligner en innsider eller en angriper som allerede har en brukerkonto.</li></ul><p>Uansett boks krever pentest skriftlig avtale på forhånd (pentestlysarket); uten samtykke er det innbrudd etter straffeloven § 204.</p>"
     }
   });
 
@@ -343,7 +343,7 @@
       "Se etter kjennetegn:<ul><li>IV + kjeding fra forrige C = CBC</li><li>tellere T inn i E og XOR etterpå = CTR</li><li>ingenting mellom blokkene = ECB</li></ul>",
       "OFB er en distraktor (ikke vist). Bruker du den, mister du 1 poeng."
     ],
-    tips: ["Minuspoengene er like store som plusspoengene her (±1). Er du usikker på én, kan blankt lønne seg.", "Operasjonsmodus-diagram har kommet H23, H24 og H25."]
+    tips: ["Minuspoengene er like store som plusspoengene her (±1). Er du usikker på én, kan blankt lønne seg.", "Operasjonsmodus-diagram har kommet H2023, H2024 og H2025."]
   });
   P("8", {
     type: "eksamen",
@@ -408,7 +408,7 @@
       "Si hva prinsippet krever: systemet skal være sikkert selv om fienden kjenner alt unntatt nøkkelen.",
       "Si eksplisitt at nøkkelen må holdes hemmelig (gir det tredje poenget)."
     ],
-    tips: ["Felle: prinsippet sier det motsatte av «hold algoritmen hemmelig». Hemmelig design er «security by obscurity».", "Kerckhoffs står ikke på lysarkene for 2026, men var på eksamen H25 (3 p)."]
+    tips: ["Felle: prinsippet sier det motsatte av «hold algoritmen hemmelig». Hemmelig design er «security by obscurity».", "Kerckhoffs står ikke på lysarkene for 2026, men var på eksamen H2025 (3 p)."]
   });
   P("10", {
     type: "skjonn",
@@ -897,7 +897,7 @@
       "Link: ARP. Internett: IP. Transport: UDP, TLS Record. Applikasjon: HTTP, Telnet, TLS Handshake. App: Outlook."
     ],
     tips: ["TLS er delt i kurset: Record = transport, Handshake = applikasjon. Det er spurt om flere år.", "Kursets stakk har et eget «App»-lag over applikasjonsprotokollene, for selve programmet brukeren kjører."],
-    avvik: "Plasseringen av TLS Record i transportlaget og TLS Handshake i applikasjonslaget følger kurset (lysark d09). RFC 8446 plasserer ikke TLS-delene i noe lag, og mange andre kilder legger hele TLS over TCP. Svar som kurset på eksamen."
+    avvik: "Plasseringen av TLS Record i transportlaget og TLS Handshake i applikasjonslaget følger kurset (nettverkslysarket). RFC 8446 plasserer ikke TLS-delene i noe lag, og mange andre kilder legger hele TLS over TCP. Svar som kurset på eksamen."
   });
   P("22", {
     type: "eksamen",

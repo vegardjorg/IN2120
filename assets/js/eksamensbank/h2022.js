@@ -1118,7 +1118,7 @@
   P("H2022-1.2",
     "Gullet er verdien. Tyven er trusselen. Et åpent vindu er sårbarheten. Innbruddet er hendelsen, og det du taper er konsekvensen.",
     "Risiko er kombinasjonen av en trussel, sårbarhetene den kan utnytte og verdiene som kan rammes. Hvor stor risikoen er (risikonivået), måles med sannsynlighet og konsekvens. En hendelse skjer når en trussel utnytter en sårbarhet mot en verdi.",
-    "Begrepene henger sammen i en kjede: trussel → utnytter sårbarhet → hendelse → rammer verdi → konsekvens. Risiko er selve kombinasjonen trussel–sårbarhet–verdi; risikonivået er en funksjon av sannsynlighet og konsekvens for hendelsen (t06). Når du skal plassere et utsagn, spør du hvilket ledd i kjeden det beskriver.");
+    "Begrepene henger sammen i en kjede: trussel → utnytter sårbarhet → hendelse → rammer verdi → konsekvens. Risiko er selve kombinasjonen trussel–sårbarhet–verdi; risikonivået er en funksjon av sannsynlighet og konsekvens for hendelsen (ukesoppgaven om risikostyring). Når du skal plassere et utsagn, spør du hvilket ledd i kjeden det beskriver.");
   P("H2022-1.3",
     "Først får du et medlemskort og en nøkkel. Senere viser du kortet i døra og slipper inn der du har lov.",
     "IAM har en konfigureringsfase (registrere, klargjøre, autorisere) og en bruksfase (bruker-ID, autentikator, tilgangskontroll). Brukerautentisering er en del av identitetshåndteringen; tilgangshåndtering er autorisering og tilgangskontroll.",

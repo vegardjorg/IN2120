@@ -81,11 +81,11 @@
   /* ---------- csf-nsm: NIST CSF 2.0 som hjul, og NSMs fire kategorier ----------
      Kilde: NIST CSWP 29 §2 og fig. 2 (GOVERN i midten «because it informs how an organization will implement the other
      five Functions»), NSMs grunnprinsipper v2.1 («fordelt på fire kategorier»). Fargene (forebyggende/oppdagende/korrigerende)
-     er kursets kobling (ism s. 19), ikke NISTs. Rekkefølgen med klokka følger fig. 2. */
+     er kursets kobling (ISMS-lysarket s. 19), ikke NISTs. Rekkefølgen med klokka følger fig. 2. */
   IN.FORKLAR["csf-nsm"] = function (host) {
     var hh = ramme(host, "csf-nsm", lenke("https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf", "NIST CSWP 29 (CSF 2.0) §2 og fig. 2") +
       " · " + lenke("https://nsm.no/getfile.php/1313975-1717589722/NSM/Filer/Dokumenter/Veiledere/NSMs%20Grunnprinsipper%20for%20IKT-sikkerhet%20v2.1.pdf", "NSMs grunnprinsipper v2.1, «fire kategorier»") +
-      " · fargene etter kurset (ism s. 19)");
+      " · fargene etter kurset (ISMS-lysarket s. 19)");
     if (!hh) return;
     var F = IN.fig, c = F.celler(hh, 2, { kol: 2 });
 
@@ -130,7 +130,7 @@
   /* ---------- iso-familie: 27000 i midten, bare 27001 sertifiseres ----------
      Kilde: ISO-sidene for 27000:2018 («overview of information security management systems»), 27001:2022 («defines
      requirements an ISMS must meet»), 27002:2022 (veiledning, «cannot be certified to») og 27005:2022 («guidance on
-     managing information security risks»). Kurset (ism s. 8–18) sier det samme. */
+     managing information security risks»). Kurset (ISMS-lysarket s. 8–18) sier det samme. */
   IN.FORKLAR["iso-familie"] = function (host) {
     var hh = ramme(host, "iso-familie", "ISO-sidene for " + lenke("https://committee.iso.org/standard/73906.html", "27000:2018") + ", " +
       lenke("https://committee.iso.org/standard/27001", "27001:2022") + ", " + lenke("https://committee.iso.org/standard/75652.html", "27002:2022") +
@@ -214,7 +214,7 @@
   /* ---------- hashkrav: enveis, svak og sterk kollisjonsresistens ----------
      Kilde: NIST SP 800-107r1 §4.1: preimage resistance («also called the one-way property»), second preimage resistance
      («given an input x … find a second input x′») og collision resistance («two different inputs x and x′»). Kurset
-     (d02 s.38–45) bruker enveis, svak og sterk kollisjonsresistens. Notasjonen Hash(x) = y følger Begrep-boksen på fanen. */
+     (kryptolysarket s.38–45) bruker enveis, svak og sterk kollisjonsresistens. Notasjonen Hash(x) = y følger Begrep-boksen på fanen. */
   IN.FORKLAR["hashkrav"] = function (host) {
     var hh = ramme(host, "hashkrav", lenke("https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-107r1.pdf", "NIST SP 800-107r1 §4.1") +
       " (NIST: preimage, second preimage og collision resistance; kurset: enveis, svak og sterk kollisjonsresistens)");

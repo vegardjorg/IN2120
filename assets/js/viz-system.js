@@ -3,7 +3,7 @@
    Visualiseringer for blokk 5 (systemsikkerhet). Klassisk script, lastes etter core.js og stepplayer.js.
 
    IN.vizSystem(host)        velger modus fra data-modus på holderen (ringer|stakk|lag|oppstart|kanal|cvss)
-   IN.sysRinger(host)        privilegienivåene −1, 0, (1, 2), 3: hva når en prosess? Tabell som H23–H25 5,
+   IN.sysRinger(host)        privilegienivåene −1, 0, (1, 2), 3: hva når en prosess? Tabell som H2023–H2025 5,
                              og «Angriper eskalerer»
    IN.sysStakk(host)         bufferoverflyt på konseptnivå: stakkrammen fylles (stegspiller), kanarifugl, NX og
                              ASLR, og virtuelt minne for to prosesser. Ingen utnyttelseskode.
@@ -44,10 +44,10 @@
   function rnd32() { return Math.floor(Math.random() * 4294967296) >>> 0; }
   /* Opphavslinje for øvingene i modusene (IN.opphavEl i core.js) */
   var OPPHAV = {
-    ringer: { type: "egen", variantAv: ["H2025-5", "H2024-5", "H2023-5"], kilder: ["d08 s. 7–8"], merknad: "Tabellen er bygd som på eksamen, med egen Sjekk-knapp" },
-    lag: { type: "egen", variantAv: ["H2022-2.4", "H2022-2.5"], kilder: ["d08 s. 13–17"] },
-    kanal: { type: "egen", variantAv: ["H2021-2.2"], kilder: ["d08 s. 24–25"] },
-    cvss: { type: "egen", kilder: ["d08 s. 4–5"] }
+    ringer: { type: "egen", variantAv: ["H2025-5", "H2024-5", "H2023-5"], kilder: ["systemlysarket s. 7–8"], merknad: "Tabellen er bygd som på eksamen, med egen Sjekk-knapp" },
+    lag: { type: "egen", variantAv: ["H2022-2.4", "H2022-2.5"], kilder: ["systemlysarket s. 13–17"] },
+    kanal: { type: "egen", variantAv: ["H2021-2.2"], kilder: ["systemlysarket s. 24–25"] },
+    cvss: { type: "egen", kilder: ["systemlysarket s. 4–5"] }
   };
   function opphav(w, m) { var p = IN.opphavEl ? IN.opphavEl(OPPHAV[m]) : null; if (p) w.appendChild(p); }
 
@@ -58,7 +58,7 @@
   function kanNaa(p, m) { return m >= p; }
   function cvssKat(x) {
     x = Math.round(x * 10) / 10;
-    if (x <= 0) return { id: "ingen", navn: "Ingen kategori på d08" };
+    if (x <= 0) return { id: "ingen", navn: "Ingen kategori på systemlysarket" };
     if (x < 4) return { id: "lav", navn: "Lav" };
     if (x < 7) return { id: "middels", navn: "Middels" };
     if (x < 9) return { id: "hoy", navn: "Høy" };
@@ -152,10 +152,10 @@
       } else if (angriper === 3) {
         angriper = 0; modus = "kjerne"; svar = {}; sjekket = false; paint();
         out.className = "sys-out nei";
-        out.innerHTML = "<p class=\"sys-modusbytte\"><b>Modus byttet til kjernemodus (nivå 0).</b></p><p>Privilegieeskalering: en exploit flytter angriperen fra nivå 3 til <b>nivå 0</b>. Nå når den nivå 0, 1, 2 og 3 i denne maskinen, men fortsatt ikke hypervisoren på −1. Det ville krevd en ny feil (en «VM-flukt», ordet står ikke på d08).</p>";
+        out.innerHTML = "<p class=\"sys-modusbytte\"><b>Modus byttet til kjernemodus (nivå 0).</b></p><p>Privilegieeskalering: en exploit flytter angriperen fra nivå 3 til <b>nivå 0</b>. Nå når den nivå 0, 1, 2 og 3 i denne maskinen, men fortsatt ikke hypervisoren på −1. Det ville krevd en ny feil (en «VM-flukt», ordet står ikke på systemlysarket).</p>";
       } else {
         out.className = "sys-out";
-        out.innerHTML = "<p>Angriperens mål er nivå 0 eller −1 (d08 s. 8). Her stopper den på 0. Trykk «↺ Nullstill» for å starte på nytt.</p>";
+        out.innerHTML = "<p>Angriperens mål er nivå 0 eller −1 (systemlysarket s. 8). Her stopper den på 0. Trykk «↺ Nullstill» for å starte på nytt.</p>";
       }
     }
 
@@ -230,7 +230,7 @@
       });
       out.className = "sys-out " + (feil || blank ? "nei" : "ok");
       out.innerHTML = "<p><b>" + riktig + " av 3 riktig</b>" + (feil ? ", " + feil + " feil" : "") + (blank ? ", " + blank + " ubesvart" : "") + "</p>" +
-        "<p><b>Regelen:</b> en prosess når sitt eget nivå og alle nivåer med <i>høyere</i> tall (mindre makt), aldri et nivå med lavere tall (d08 s. 8).</p>" +
+        "<p><b>Regelen:</b> en prosess når sitt eget nivå og alle nivåer med <i>høyere</i> tall (mindre makt), aldri et nivå med lavere tall (systemlysarket s. 8).</p>" +
         (blank ? "<p class=\"sys-note\">Husk: i H2024 5 ga ubesvart −1. La aldri en rad stå tom.</p>" : "");
     }
 
@@ -331,7 +331,7 @@
         var over = f.type !== "buf";
         var t;
         if (!over) t = { eli5: "Bokstavene får plass i navneruta.", normal: "Byte " + (i * 4) + "–" + (i * 4 + 3) + " havner i " + f.navn + ". Det er innenfor bufferet.", teknisk: "Ingen overflyt ennå: " + Math.min(n, (i + 1) * 4) + " av 8 byte i bufferet er brukt." };
-        else if (f.type === "kan") t = { eli5: "Navnet er for langt. Det skriver over den lille lappen (kanarifuglen).", normal: "<b>Overflyt:</b> byte " + (i * 4) + "–" + (i * 4 + 3) + " skriver over kanarifuglen. Ingen merker det ennå.", teknisk: "Kanarifuglen oppdager ingenting i det den overskrives. Sjekken skjer først ved retur (d08 s. 11)." };
+        else if (f.type === "kan") t = { eli5: "Navnet er for langt. Det skriver over den lille lappen (kanarifuglen).", normal: "<b>Overflyt:</b> byte " + (i * 4) + "–" + (i * 4 + 3) + " skriver over kanarifuglen. Ingen merker det ennå.", teknisk: "Kanarifuglen oppdager ingenting i det den overskrives. Sjekken skjer først ved retur (systemlysarket s. 11)." };
         else if (f.type === "rfp") t = { eli5: "Navnet renner videre over i neste felt.", normal: "<b>Overflyt:</b> forrige rammepeker overskrives. Den ligger bare i veien. Det er returadressen angriperen er ute etter.", teknisk: "Rammepekeren er ikke målet (H2022 2.3). En ødelagt rammepeker gir som regel feil eller krasj senere." };
         else t = { eli5: "Nå er adressen der programmet skal fortsette, skrevet over.", normal: "<b>Returadressen overskrives.</b> Når B() er ferdig, hopper programmet til den adressen som nå står der, i stedet for tilbake til A().", teknisk: "Dette er det kritiske feltet (H2022 2.3). Den som styrer innholdet, styrer hvor programmet fortsetter." };
         var st = snap({ tag: over ? "Overflyt" : "Kopier", skriver: f.id, text: t });
@@ -446,7 +446,7 @@
       vm.appendChild(c);
     });
     w.appendChild(vm);
-    w.appendChild(H("p", "sys-note", "Samme virtuelle adresse i to prosesser peker til to ulike fysiske steder, så nettleseren kan ikke lese minnet til passordbanken (d08 s. 9). En bufferoverflyt skjer derimot <i>inne i én prosess</i>, i dens eget minne. Virtuelt minne hjelper ikke mot den (H22 2.2)."));
+    w.appendChild(H("p", "sys-note", "Samme virtuelle adresse i to prosesser peker til to ulike fysiske steder, så nettleseren kan ikke lese minnet til passordbanken (systemlysarket s. 9). En bufferoverflyt skjer derimot <i>inne i én prosess</i>, i dens eget minne. Virtuelt minne hjelper ikke mot den (H2022 2.2)."));
     var kart = el("div", { class: "sys-kart" });
     kart.appendChild(H("div", "sys-k", "Minnekartet til én 32-bits prosess (4 GB virtuelt), fra høy til lav adresse"));
     [["Stakk", "lese/skrive", "rw"], ["Ledig minne", "", "fri"], ["Felles biblioteker", "lese/kjøre", "rx"], ["Ledig minne", "", "fri"], ["Data og heap", "lese/skrive", "rw"], ["Kodesegment", "lese/kjøre", "rx"]].forEach(function (r) {
@@ -460,10 +460,10 @@
      3 · Lag: tradisjonell, type 1, type 2, container
      ===================================================================== */
   var LAG = {
-    trad: { navn: "Tradisjonell", lag: ["App", "OS", "Maskinvare"], niv: ["3", "0", ""], kilde: "d08 s. 13" },
-    type1: { navn: "Type 1", lag: ["App", "Gjeste-OS", "Hypervisor", "Maskinvare"], niv: ["3", "0", "−1", ""], kilde: "d08 s. 14, H22 2.4" },
-    type2: { navn: "Type 2", lag: ["App", "Gjeste-OS", "Hypervisor", "Verts-OS", "Maskinvare"], niv: ["3", "3", "3", "0", ""], kilde: "d08 s. 15, X16 28" },
-    cont: { navn: "Container", lag: ["Container", "Docker Engine", "Verts-OS", "Maskinvare"], niv: ["–", "–", "0", ""], kilde: "d08 s. 16–17, H22 2.5" }
+    trad: { navn: "Tradisjonell", lag: ["App", "OS", "Maskinvare"], niv: ["3", "0", ""], kilde: "systemlysarket s. 13" },
+    type1: { navn: "Type 1", lag: ["App", "Gjeste-OS", "Hypervisor", "Maskinvare"], niv: ["3", "0", "−1", ""], kilde: "systemlysarket s. 14, H2022 2.4" },
+    type2: { navn: "Type 2", lag: ["App", "Gjeste-OS", "Hypervisor", "Verts-OS", "Maskinvare"], niv: ["3", "3", "3", "0", ""], kilde: "systemlysarket s. 15, X16 28" },
+    cont: { navn: "Container", lag: ["Container", "Docker Engine", "Verts-OS", "Maskinvare"], niv: ["–", "–", "0", ""], kilde: "systemlysarket s. 16–17, H2022 2.5" }
   };
   var LAG_BANK = ["App", "Gjeste-OS", "Hypervisor", "OS", "Verts-OS", "Docker Engine", "Container", "Binaries/biblioteker", "Maskinvare"];
 
@@ -533,7 +533,7 @@
     function paintSide() {
       press(aBtn, angrep); aBtn.textContent = "Angrep fra gjest: " + (angrep ? "på" : "av");
       clear(side);
-      side.appendChild(H("div", "sys-k", "Sikkerhetsmål for virtualisering (d08 s. 19)"));
+      side.appendChild(H("div", "sys-k", "Sikkerhetsmål for virtualisering (systemlysarket s. 19)"));
       if (!angrep) side.appendChild(H("p", "sys-note sys-plass", "Slå på «Angrep fra gjest» under figuren for å se om hvert mål holder for " + LAG[fane].navn.toLowerCase() + "."));
       var maal = maalStatus(fane, angrep);
       ["Gjestene kan ikke nå eller påvirke hverandre", "Gjestene kan ikke påvirke hypervisoren", "Gjestene kan ikke oppdage at de er virtualisert"].forEach(function (t, i) {
@@ -553,7 +553,7 @@
     return {
       trad: "Uten virtualisering: OS-et på nivå 0 rett på maskinvaren, appene på nivå 3.",
       type1: "Hypervisoren kjører rett på maskinvaren på −1. Gjeste-OS-ene kjører på 0, slik de er laget for. Det finnes ikke noe verts-OS.",
-      type2: "Verts-OS-et ligger rett over maskinvaren på nivå 0. Hypervisoren er et vanlig program på verts-OS-et. Figuren på d08 s. 15 setter hypervisor, gjeste-OS og apper på nivå 3.",
+      type2: "Verts-OS-et ligger rett over maskinvaren på nivå 0. Hypervisoren er et vanlig program på verts-OS-et. Figuren på systemlysarket s. 15 setter hypervisor, gjeste-OS og apper på nivå 3.",
       cont: "Ingen gjeste-OS: Docker Engine kjører på verts-OS-et, og hver container har appen og bibliotekene sine. Nivåtall for containerlagene vises ikke her, bare verts-OS-et (0)."
     }[f];
   }
@@ -562,14 +562,14 @@
       trad: "Ingen gjester. Prosessene skilles bare av OS-et og privilegienivåene (fane 1).",
       type1: "Skadevare i VM 1 prøver å nå VM 2. Den stoppes av hypervisoren på −1, som styrer hvilket fysisk minne hver gjest får.",
       type2: "Skadevare i en gjest prøver å nå naboen. Hypervisoren skiller gjestene, men den er selv et program på verts-OS-et.",
-      cont: "Skadevare i container A går via den <b>felles kjernen</b> mot container B. Delt kjerne = svakere isolasjon (d08 s. 17)."
+      cont: "Skadevare i container A går via den <b>felles kjernen</b> mot container B. Delt kjerne = svakere isolasjon (systemlysarket s. 17)."
     }[f];
   }
   function maalStatus(f, angrep) {
     if (!angrep) return [["", ""], ["", ""], ["", ""]];
     if (f === "trad") return [["gra", "Ingen gjester i denne arkitekturen."], ["gra", ""], ["gra", ""]];
     if (f === "cont") return [["nei", "Svakere: en kjernefeil kan la én container nå en annen."], ["gra", "Ingen hypervisor, men verts-kjernen er felles."], ["gra", "Ikke vist i scenarioet."]];
-    return [["ok", "Stoppet ved hypervisoren."], ["ok", f === "type1" ? "Gjesten på nivå 0 når ikke hypervisoren på −1." : "Gjeste-OS-et kjører på nivå 3 (d08 s. 15) og når ikke naboen."], ["gra", "Ikke vist i scenarioet. Viktig fordi skadevare ofte oppfører seg pent i en analyse-VM."]];
+    return [["ok", "Stoppet ved hypervisoren."], ["ok", f === "type1" ? "Gjesten på nivå 0 når ikke hypervisoren på −1." : "Gjeste-OS-et kjører på nivå 3 (systemlysarket s. 15) og når ikke naboen."], ["gra", "Ikke vist i scenarioet. Viktig fordi skadevare ofte oppfører seg pent i en analyse-VM."]];
   }
   function angrepFig(f) {
     var cont = f === "cont";
@@ -661,7 +661,7 @@
         }
       });
       var mid = el("div", { class: "sys-boot-col sys-boot-mid" });
-      mid.appendChild(H("div", "sys-k", "UEFI-sikker oppstart (d08 s. 21)"));
+      mid.appendChild(H("div", "sys-k", "UEFI-sikker oppstart (systemlysarket s. 21)"));
       mid.appendChild(flyt);
       mid.appendChild(H("div", "sys-k", "TPM-logg (målt oppstart)"));
       var lg = el("div", { class: "sys-logg" });
@@ -700,12 +700,12 @@
      ===================================================================== */
   var KORT = [
     { id: "tid", medium: "tid", s: "En forsker måler at innloggingen på kiosk.lerkedal.no svarer 0,8 ms raskere når første tegn i passordet er feil enn når det er riktig.", svar: "side", hvem: "Offeret lekker uten å vite det. Angriperen måler.", hvorfor: "Ulik behandlingstid lekker utilsiktet." },
-    { id: "vifte", medium: "vifte", s: "Skadevare på en air-gappet maskin setter viftehastigheten høyt for «1» og lavt for «0». En mobil i rommet tar opp lyden.", svar: "skjult", hvem: "En innsider (skadevaren) sender med vilje.", hvorfor: "Viften er ikke laget for kommunikasjon, men brukes bevisst (d08 s. 25)." },
+    { id: "vifte", medium: "vifte", s: "Skadevare på en air-gappet maskin setter viftehastigheten høyt for «1» og lavt for «0». En mobil i rommet tar opp lyden.", svar: "skjult", hvem: "En innsider (skadevaren) sender med vilje.", hvorfor: "Viften er ikke laget for kommunikasjon, men brukes bevisst (systemlysarket s. 25)." },
     { id: "dns", medium: "DNS", s: "Skadevare sender 4f7a1c.data.eksempel-angriper.net som DNS-oppslag.", svar: "skjult", hvem: "En innsider (skadevaren) sender med vilje.", hvorfor: "Data skjules i DNS-oppslag for å komme forbi brannmuren." },
-    { id: "antenne", medium: "stråling", s: "En antenne utenfor bygget fanger opp stråling fra en skjerm og gjenskaper bildet.", svar: "side", hvem: "Offeret lekker uten å vite det. Angriperen måler.", hvorfor: "Elektromagnetisk stråling lekker utilsiktet (TEMPEST, d01b s. 30)." },
+    { id: "antenne", medium: "stråling", s: "En antenne utenfor bygget fanger opp stråling fra en skjerm og gjenskaper bildet.", svar: "side", hvem: "Offeret lekker uten å vite det. Angriperen måler.", hvorfor: "Elektromagnetisk stråling lekker utilsiktet (TEMPEST, lysarket om fysisk sikkerhet s. 30)." },
     { id: "wifi", medium: "nett", s: "Angriperen setter opp et falskt Wi-Fi-punkt og videresender trafikken.", svar: "ingen", hvem: "Ingen lekkasje via bieffekt. Angriperen går aktivt inn i forbindelsen.", hvorfor: "Det er MitM, ikke en kanal av noen av typene." },
-    { id: "volum", medium: "volum", s: "Én app har tilgang til kontaktene og en annen har nettilgang. De «snakker» ved å endre og lese av telefonens volum.", svar: "skjult", hvem: "To apper samarbeider med vilje.", hvorfor: "Volumet er ikke laget for å sende data mellom apper (d08 s. 25)." },
-    { id: "strom", medium: "strøm", s: "En angriper måler strømforbruket til et betalingskort mens det signerer.", svar: "side", hvem: "Offeret (kortet) lekker uten å vite det.", hvorfor: "Strømforbruk er en sidekanal (d08 s. 24)." },
+    { id: "volum", medium: "volum", s: "Én app har tilgang til kontaktene og en annen har nettilgang. De «snakker» ved å endre og lese av telefonens volum.", svar: "skjult", hvem: "To apper samarbeider med vilje.", hvorfor: "Volumet er ikke laget for å sende data mellom apper (systemlysarket s. 25)." },
+    { id: "strom", medium: "strøm", s: "En angriper måler strømforbruket til et betalingskort mens det signerer.", svar: "side", hvem: "Offeret (kortet) lekker uten å vite det.", hvorfor: "Strømforbruk er en sidekanal (systemlysarket s. 24)." },
     { id: "tor", medium: "nett", s: "En bruker setter opp en kryptert forbindelse gjennom Tor.", svar: "ingen", hvem: "Ingen angriper og ingen lekkasje.", hvorfor: "Tor er et anonymiseringsnettverk, ikke et angrep." }
   ];
   // Gjett først: størrelsesorden for tiden. maks i sekunder (siste trinn uten øvre grense).
@@ -803,7 +803,7 @@
         out.innerHTML = "<p><b>" + r + " av " + KORT.length + " riktig</b></p>" +
           "<p><b>Sidekanal:</b> utilsiktet lekkasje fra den fysiske implementasjonen.</p>" +
           "<p><b>Skjult kanal:</b> en mekanisme som ikke er laget for kommunikasjon, men brukes bevisst til det.</p>" +
-          "<p class=\"small muted\">d08 s. 24–25</p>";
+          "<p class=\"small muted\">Systemlysarket s. 24–25</p>";
       } else { out.className = "sys-out"; out.innerHTML = ""; }
     }
     paint();
@@ -850,12 +850,12 @@
       var grense = [3.9, 4.0, 6.9, 7.0, 8.9, 9.0].some(function (g) { return Math.abs(g - x) < 0.001; });
       res.className = "sys-out sys-kat-" + k.id;
       res.innerHTML = "<p><b class=\"sys-mono\">" + komma(x, 1) + "</b> = <b>" + k.navn + "</b>" +
-        (k.id === "ingen" ? ". d08 starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er ikke pensum." : "") +
+        (k.id === "ingen" ? ". Systemlysarket starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er ikke pensum." : "") +
         (grense ? " <span class=\"sys-varsel\">Grensetilfelle: Lav 0,1–3,9 · Middels 4,0–6,9 · Høy 7,0–8,9 · Kritisk 9,0–10.</span>" : "") + "</p>";
     }
     paintSkala();
 
-    w.appendChild(H("h5", "sys-h", "Fra funn til retting (d08 s. 5)"));
+    w.appendChild(H("h5", "sys-h", "Fra funn til retting (systemlysarket s. 5)"));
     var flyt = el("ol", { class: "sys-cveflyt" });
     ["Oppdage og rapportere", "CVE: registrer, lag CVE-ID", "NVD: retningslinjer, CVSS-skår", "Virksomhet: prioriter og fjern"].forEach(function (t) { flyt.appendChild(H("li", "", t)); });
     w.appendChild(flyt);

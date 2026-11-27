@@ -654,7 +654,7 @@
     },
     avvik: null,
     losning: ["TLS deles i to: Handshake i applikasjonslaget, Record i transportlaget.", "IPsec i IP-laget.", "Linklaget: ingen av alternativene."],
-    tips: ["Lagplasseringen av TLS følger kursets konvensjon; den kommer igjen i H22, H24 og H25."]
+    tips: ["Lagplasseringen av TLS følger kursets konvensjon; den kommer igjen i H2022, H2024 og H2025."]
   });
   hv("H2021-5.2",
     "<p>Sikkerhet kan legges på ulike steder: rundt selve innholdet i brevet, rundt konvolutten eller rundt hele lastebilen. TLS og IPsec er slike lag med beskyttelse på ulike nivåer.</p>",

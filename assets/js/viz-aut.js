@@ -107,7 +107,7 @@
     eq("PIN 4 → 6 sifre = 100 (H2023 27)", calc.forhold(10, 4, 10, 6), 100);
     eq("PIN 5 → 7 sifre = 100 (quiz)", calc.forhold(10, 5, 10, 7), 100);
     eq("105^4 (H2024 11)", calc.keyspaceExact(105, 4), "121550625");
-    near("95^10 / 28·10^9 ≈ 68 år (d05)", calc.sekunder(95, 10, 28e9) / YEAR, 68, 0.01);
+    near("95^10 / 28·10^9 ≈ 68 år (pentestlysarket)", calc.sekunder(95, 10, 28e9) / YEAR, 68, 0.01);
     near("26^7·10^2 ≈ 8·10^11", Math.pow(26, 7) * 100, 8.03e11, 0.005);
     near("26^7·10^2 / 28·10^9 ≈ 29 s", Math.pow(26, 7) * 100 / 28e9, 29, 0.02);
     eq("leke-hash «sol» uten salt = 702", calc.lekeHash("sol", 0).tekst, "702");
@@ -212,7 +212,7 @@
     if (IN.regnForst) {
       var rf1 = IN.regnForst(h1, {
         id: "aut-nr-antall",
-        opphav: { type: "egen", kilder: ["ba s. 3–13"] },
+        opphav: { type: "egen", kilder: ["autentiseringslysarket s. 3–13"] },
         sporsmal: function (inn) {
           return "Et passord har nøyaktig <b>" + inn.L + "</b> tegn, og hvert tegn velges fritt blant <b>" + inn.A + "</b> mulige tegn" +
             tegnsettTekst(inn.A) + ". Hvor mange ulike passord finnes? Endre N og L med gliderne over for en ny oppgave.";
@@ -240,7 +240,7 @@
       });
       var rf2 = IN.regnForst(h2, {
         id: "aut-nr-tid",
-        opphav: { type: "egen", kilder: ["ba s. 3–13"] },
+        opphav: { type: "egen", kilder: ["autentiseringslysarket s. 3–13"] },
         sporsmal: function (inn) {
           return "Samme type passord: N = <b>" + inn.A + "</b> tegn og lengde L = <b>" + inn.L + "</b>. Angriperen har en lekket hash og prøver <b>10<sup>10</sup> gjetninger per sekund</b> (rask hashfunksjon). " +
             "Hvor lang tid tar det i verste fall å prøve alle passordene? Regn ut tiden og velg størrelsesorden.";
@@ -596,7 +596,7 @@
     if (!IN.regnForst) { apne(null); return; }
     IN.regnForst(qHost, {
       id: "aut-bio-fmr",
-      opphav: { type: "egen", kilder: ["ba s. 29–39"] },
+      opphav: { type: "egen", kilder: ["autentiseringslysarket s. 29–39"] },
       sporsmal: bioSporsmal,
       inndata: [{ navn: "T", etikett: "Terskel T", verdi: 65, min: 40, max: 80, steg: 1 }],
       rentTall: true,
@@ -915,7 +915,7 @@
   ];
   var NIV_ID = ["lav", "bet", "hoy"];
   /* Egne eksempler (Fjellvik kommune). Konsekvensen står i teksten, så nivået følger av regelen
-     liten → Low, betydelig → Substantial, alvorlig → High (ba s. 48). */
+     liten → Low, betydelig → Substantial, alvorlig → High (autentiseringslysarket s. 48). */
   var NIV_SIT = [
     { id: "hull", niv: 0, html: "Melde fra om et hull i veien med navnet ditt", forklaring: "Liten konsekvens: i verste fall sender noen en melding i ditt navn. Low / LAVT holder." },
     { id: "hall", niv: 0, html: "Bestille tid i kommunens idrettshall", forklaring: "Liten konsekvens: feil person kan reservere en time i ditt navn, og det rettes lett opp. Low / LAVT." },
@@ -928,7 +928,7 @@
     var ans = {};
     items.forEach(function (it) { ans[it.id] = NIV_ID[it.niv]; });
     return { id: id, prompt: prompt, zones: NIV_SONER, items: items.map(function (it) { return { id: it.id, html: it.html, forklaring: it.forklaring }; }),
-      answer: ans, oppsummering: oppsummering, kilde: kilde, opphav: { type: "egen", kilder: ["ba s. 40–48"] } };
+      answer: ans, oppsummering: oppsummering, kilde: kilde, opphav: { type: "egen", kilder: ["autentiseringslysarket s. 40–48"] } };
   }
   function eidItems() {
     return EID.map(function (e) {

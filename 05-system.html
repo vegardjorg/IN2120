@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127m">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127m">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127n">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127n">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -67,10 +67,10 @@
               <li>nivå 2 og 1 er som regel ubrukt</li>
               <li>nivå 0 er operativsystemet i <b>kjernemodus</b> (Unix root, Windows administrator).</li>
             </ul>
-            Rundt 2006 kom nivå <b>−1</b> for hypervisoren, som da ble det mest privilegerte nivået. Nivåene tegnes ofte som beskyttelsesringer (d08 s. 7).</li>
-          <li><b>Lavere tall = mer makt.</b> Når d08 kaller nivå 0 «høyest» og nivå 3 «lavest», betyr «høyt» mye makt, ikke stort tall.</li>
-          <li><b>Tilgangsregelen:</b> en prosess kan lese og endre data og programvare på <b>sitt eget nivå og alle mindre privilegerte nivåer</b> (høyere tall). En prosess i kjernemodus når altså 0, 1, 2 og 3, men ikke −1 (d08 s. 8).</li>
-          <li><b>Angriperens mål</b> er å komme seg ned til nivå 0 eller −1, for eksempel med exploits eller ved å lure brukeren til å installere skadevare (d08 s. 8).</li>
+            Rundt 2006 kom nivå <b>−1</b> for hypervisoren, som da ble det mest privilegerte nivået. Nivåene tegnes ofte som beskyttelsesringer (systemlysarket s. 7).</li>
+          <li><b>Lavere tall = mer makt.</b> Når systemlysarket kaller nivå 0 «høyest» og nivå 3 «lavest», betyr «høyt» mye makt, ikke stort tall.</li>
+          <li><b>Tilgangsregelen:</b> en prosess kan lese og endre data og programvare på <b>sitt eget nivå og alle mindre privilegerte nivåer</b> (høyere tall). En prosess i kjernemodus når altså 0, 1, 2 og 3, men ikke −1 (systemlysarket s. 8).</li>
+          <li><b>Angriperens mål</b> er å komme seg ned til nivå 0 eller −1, for eksempel med exploits eller ved å lure brukeren til å installere skadevare (systemlysarket s. 8).</li>
         </ul></div>
       <div id="ex-ringer"></div>
 
@@ -87,14 +87,14 @@
           <tr><td>Linux-kjernen i VM 1</td><td>0</td><td>nei</td><td>ja (eget nivå)</td><td>ja</td></tr>
           <tr><td>Nettleseren i VM 1</td><td>3</td><td>nei</td><td>nei</td><td>ja (eget nivå)</td></tr>
         </tbody></table></div>
-      <p>Skadevare i nettleseren starter på nivå 3. Utnytter den en feil i en driver i kjernen, er den på nivå 0 og når alt i VM 1. Den når fortsatt ikke hypervisoren eller VM 2. Det krever en ny feil, en «VM-flukt» (VM escape, <span class="sys-ukjent">ikke pensum</span>: ordet står ikke på d08).</p>
+      <p>Skadevare i nettleseren starter på nivå 3. Utnytter den en feil i en driver i kjernen, er den på nivå 0 og når alt i VM 1. Den når fortsatt ikke hypervisoren eller VM 2. Det krever en ny feil, en «VM-flukt» (VM escape, <span class="sys-ukjent">ikke pensum</span>: ordet står ikke på systemlysarket).</p>
 
       <h4 class="sys-del">4 · Feller <span class="tag tag-kjerne">kommer ofte</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor har lavest tall mest makt, og ikke høyest?</summary>
-          <p>Modellen nummererer innenfra og ut. Innerst er mest beskyttet og mest privilegert. Ring 3 er ytterst og har minst makt (d08 s. 7).</p></details>
+          <p>Modellen nummererer innenfra og ut. Innerst er mest beskyttet og mest privilegert. Ring 3 er ytterst og har minst makt (systemlysarket s. 7).</p></details>
         <details class="grense"><summary>«Lavere privilegienivå»: lavere tall eller mindre makt?</summary>
-          <p>Mindre makt, altså <i>høyere</i> tall. Når d08 s. 8 sier at en prosess når «samme eller lavere privilegienivå», betyr det eget nivå og nivåene med høyere tall.</p></details>
+          <p>Mindre makt, altså <i>høyere</i> tall. Når systemlysarket s. 8 sier at en prosess når «samme eller lavere privilegienivå», betyr det eget nivå og nivåene med høyere tall.</p></details>
         <details class="grense"><summary>Når kjernen hypervisoren, siden begge er «OS-nivå»?</summary>
           <p>Nei. −1 er mer privilegert enn 0, og kjernen når bare 0 og oppover (H2023 5).</p></details>
         <ul>
@@ -108,7 +108,7 @@
         <ul>
           <li><b>H2025 5:</b> overskriften sier «hypervisormodus», men linja over tabellen sier «indiker om en bruker-prosess kan få tilgang». Leser man den linja, blir begge svarene «Kan IKKE». Fasiten følger overskriften (hypervisormodus), og det er den riktige lesningen.</li>
           <li><b>H2024 5:</b> ubesvart gir −1. I resten av settet gir en ubesvart oppgave 0 poeng. Poengregelen står over hver oppgave, så les den før du svarer. Øvingen i eksamensfanen regner poeng slik regelen står i oppgaven.</li>
-          <li><b>Eldre sett</b> (in2120-2020) brukte ringer helt ned til −3 med Intel ME og UEFI/BIOS. Det er <span class="sys-ukjent">ikke pensum</span>: d08 går bare ned til −1.</li>
+          <li><b>Eldre sett</b> (in2120-2020) brukte ringer helt ned til −3 med Intel ME og UEFI/BIOS. Det er <span class="sys-ukjent">ikke pensum</span>: systemlysarket går bare ned til −1.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Privilegienivåer i eksamensformat</h4>
@@ -153,16 +153,16 @@
       <h4 class="sys-del">1 · Prosess, minne og bufferoverflyt <span class="tag">eksamensbasert</span></h4>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Systemarkitektur:</b> CPU-en utfører kode og regner på data. Disken lagrer programmer og data. Minnet holder aktiv kode og data for prosessene som kjører. ROM har statisk kode som UEFI, og koprosessorer som TPM støtter spesielle funksjoner. Alt henger sammen via systembussen (d08 s. 3).</li>
+          <li><b>Systemarkitektur:</b> CPU-en utfører kode og regner på data. Disken lagrer programmer og data. Minnet holder aktiv kode og data for prosessene som kjører. ROM har statisk kode som UEFI, og koprosessorer som TPM støtter spesielle funksjoner. Alt henger sammen via systembussen (systemlysarket s. 3).</li>
           <li><b>Kjørbar fil → prosess:</b> den kjørbare fila på disken har instruksjonene. Når den startes, lager OS-et en prosess, setter av minne og laster inn kode og data, og CPU-en utfører instruksjonene (H2022 2.1).</li>
-          <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR (Address Space Layout Randomization, tilfeldig plassering i adresserommet) er adressene de samme hver gang prosessen kjører (d08 s. 9).</li>
-          <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (d08 s. 9).
+          <li><b>Virtuelt minne:</b> hver 32-bits prosess har sitt eget virtuelle adresserom på 4 GB. CPU-en oversetter virtuelle adresser til fysiske. Alle prosesser bruker det samme virtuelle adresseområdet, men får hver sine fysiske områder, og en prosess når bare sine egne. Uten ASLR (Address Space Layout Randomization, tilfeldig plassering i adresserommet) er adressene de samme hver gang prosessen kjører (systemlysarket s. 9).</li>
+          <li><b>Minnekartet</b> fra lav til høy adresse: kodesegment (lese/kjøre), data og heap (lese/skrive), ledig minne, felles biblioteker (lese/kjøre), ledig minne og øverst stakken (lese/skrive) (systemlysarket s. 9).
             <ul>
               <li><b>Heap</b> er minnet programmet ber om underveis mens det kjører, for eksempel til en liste som vokser.</li>
               <li><b>Stakken</b> holder én <b>ramme</b> per funksjon som kjører: de lokale variablene og adressen programmet skal tilbake til når funksjonen er ferdig (returadressen).</li>
             </ul></li>
           <li><b>Bufferoverflyt:</b> programmet skriver mer data inn i en variabel (et buffer) enn den har plass til, så dataene renner over i nabominnet. På stakken kan det overskrive <b>returadressen</b>, og da kan angriperen styre hvor programmet fortsetter (H2022 2.3).</li>
-          <li><b>Mottiltak</b> (d08 s. 10):
+          <li><b>Mottiltak</b> (systemlysarket s. 10):
             <ul>
               <li><b>NX</b> (No eXecute) merker stakken ikke-kjørbar. Da nekter CPU-en å kjøre kode som angriperen har lagt inn på stakken.</li>
               <li>En <b>stakk-kanarifugl</b> er en tilfeldig verdi på stakken som sjekkes før funksjonen returnerer. Den ligger mellom lokale variabler og returadressen; plasseringen er vanlig fagkunnskap, utover lysarkteksten.</li>
@@ -196,7 +196,7 @@
             <li>Med NX kan ikke angrepskoden ligge i <code>navn[]</code>.</li>
             <li>Med ASLR vet angriperen ikke hvilken adresse som skal stå der.</li>
           </ul></li>
-        <li><b>Den egentlige rettingen:</b> lengdesjekk, eller et språk med grensesjekk (d08 s. 10: sikrere språk og bedre kode). I C kan det for eksempel gjøres med <code>fgets(navn, sizeof navn, stdin)</code>: funksjonen <code>fgets</code> leser fra tastaturet (<code>stdin</code>) og stopper når bufferet er fullt, fordi den får vite størrelsen (<code>sizeof navn</code>). Selve funksjonen er <span class="sys-ukjent">ikke pensum</span>.</li>
+        <li><b>Den egentlige rettingen:</b> lengdesjekk, eller et språk med grensesjekk (systemlysarket s. 10: sikrere språk og bedre kode). I C kan det for eksempel gjøres med <code>fgets(navn, sizeof navn, stdin)</code>: funksjonen <code>fgets</code> leser fra tastaturet (<code>stdin</code>) og stopper når bufferet er fullt, fordi den får vite størrelsen (<code>sizeof navn</code>). Selve funksjonen er <span class="sys-ukjent">ikke pensum</span>.</li>
       </ul>
 
       <h4 class="sys-del">4 · Feller <span class="tag">eksamensbasert</span></h4>
@@ -208,9 +208,9 @@
         <details class="grense"><summary>Hvorfor returadressen og ikke forrige rammepeker (H2022 2.3)?</summary>
           <p>Ikke rammepekeren, fordi den bare forteller hvor den forrige rammen ligger. Returadressen bestemmer hvor programmet fortsetter når funksjonen er ferdig, og angrepskoden ligger et annet sted i minnet, så det er dit hoppet må styres. Rammepekeren ligger bare i veien mellom bufferet og returadressen. Treffer du bare den, får du feil oppførsel, ikke kontroll.</p></details>
         <ul>
-          <li><b>To prosesser kan godt ha samme virtuelle adresse.</b> Adresserommene er separate (H2022 2.2, d08 s. 9).</li>
+          <li><b>To prosesser kan godt ha samme virtuelle adresse.</b> Adresserommene er separate (H2022 2.2, systemlysarket s. 9).</li>
           <li><b>Bufferoverflyt er ikke DDoS</b>, ikke «minnet er brukt opp» og ikke «data kommer for fort». Det er en programfeil der det skrives forbi en variabel.</li>
-          <li><b>Kanarifuglen hindrer ikke overskrivingen.</b> Den <i>oppdager</i> den ved retur og avslutter programmet (d08 s. 10).</li>
+          <li><b>Kanarifuglen hindrer ikke overskrivingen.</b> Den <i>oppdager</i> den ved retur og avslutter programmet (systemlysarket s. 10).</li>
           <li><b>«ASLR forhindrer bufferoverflyt»</b> er feil. NX, kanarifugl og ASLR gjør <i>utnyttelse</i> vanskeligere. Feilen i koden er der fortsatt.</li>
         </ul></div>
 
@@ -247,13 +247,13 @@
 
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Virtuell maskin (VM):</b> programvare som oppfører seg som en hel maskin med eget OS og egne apper. Flere VM-er deler én fysisk maskin gjennom en <b>hypervisor</b> (d08 s. 12).</li>
-          <li><b>Tradisjonell stakk:</b> maskinvare → OS (nivå 0) → apper (nivå 3) (d08 s. 13).</li>
-          <li><b>Type 1 (native):</b> hypervisoren kjører rett på maskinvaren på nivå −1. Gjeste-OS-ene kjører på nivå 0, slik de er laget for, og appene på 3. Den mest direkte og effektive formen (d08 s. 14).</li>
-          <li><b>Type 2 (vertsbasert):</b> hypervisoren installeres som et vanlig program på et vertsoperativsystem på nivå 0. Lett å installere, men mer overhead enn type 1, fordi verts-OS-et styrer ressursene og I/O går gjennom vertens drivere (d08 s. 15).</li>
-          <li><b>Container (Docker Engine):</b> en enhet med koden og alle avhengighetene (binærfiler og biblioteker), som kan flyttes mellom plattformer. Det trengs ikke noe gjeste-OS. Containere <b>deler kjerne med verten</b>, og isolasjonen er derfor svakere enn for VM-er (d08 s. 16–17).</li>
-          <li><b>Bruk:</b> skyleverandører gir hver kunde sin egen VM på delt maskinvare. Testing og skadevareanalyse gjøres i isolerte omgivelser med snapshot og tilbakerulling (d08 s. 18).</li>
-          <li><b>Sikkerhetsmål</b> (d08 s. 19): gjestene må
+          <li><b>Virtuell maskin (VM):</b> programvare som oppfører seg som en hel maskin med eget OS og egne apper. Flere VM-er deler én fysisk maskin gjennom en <b>hypervisor</b> (systemlysarket s. 12).</li>
+          <li><b>Tradisjonell stakk:</b> maskinvare → OS (nivå 0) → apper (nivå 3) (systemlysarket s. 13).</li>
+          <li><b>Type 1 (native):</b> hypervisoren kjører rett på maskinvaren på nivå −1. Gjeste-OS-ene kjører på nivå 0, slik de er laget for, og appene på 3. Den mest direkte og effektive formen (systemlysarket s. 14).</li>
+          <li><b>Type 2 (vertsbasert):</b> hypervisoren installeres som et vanlig program på et vertsoperativsystem på nivå 0. Lett å installere, men mer overhead enn type 1, fordi verts-OS-et styrer ressursene og I/O går gjennom vertens drivere (systemlysarket s. 15).</li>
+          <li><b>Container (Docker Engine):</b> en enhet med koden og alle avhengighetene (binærfiler og biblioteker), som kan flyttes mellom plattformer. Det trengs ikke noe gjeste-OS. Containere <b>deler kjerne med verten</b>, og isolasjonen er derfor svakere enn for VM-er (systemlysarket s. 16–17).</li>
+          <li><b>Bruk:</b> skyleverandører gir hver kunde sin egen VM på delt maskinvare. Testing og skadevareanalyse gjøres i isolerte omgivelser med snapshot og tilbakerulling (systemlysarket s. 18).</li>
+          <li><b>Sikkerhetsmål</b> (systemlysarket s. 19): gjestene må
             <ul>
               <li>ikke kunne nå eller påvirke hverandre</li>
               <li>ikke kunne påvirke hypervisoren</li>
@@ -281,12 +281,12 @@
         <details class="grense"><summary>Hvorfor har type 1 ikke noe verts-OS?</summary>
           <p>I type 1 kjører hypervisoren rett på maskinvaren. Verts-OS-et under hypervisoren er det som kjennetegner type 2 (H2022 2.4).</p></details>
         <details class="grense"><summary>Kjører gjeste-OS-ene på −1 i type 1?</summary>
-          <p>Nei, på 0, slik de er laget for. Hypervisoren er på −1 og er mer privilegert enn gjestene den styrer (d08 s. 14).</p></details>
+          <p>Nei, på 0, slik de er laget for. Hypervisoren er på −1 og er mer privilegert enn gjestene den styrer (systemlysarket s. 14).</p></details>
         <details class="grense"><summary>Hvorfor er type 2 tregere, når den er enklere?</summary>
-          <p>Enklere å installere, ikke enklere å kjøre. Verts-OS-et styrer ressursene, og I/O går gjennom vertens drivere. Det gir mer overhead (d08 s. 15).</p></details>
+          <p>Enklere å installere, ikke enklere å kjøre. Verts-OS-et styrer ressursene, og I/O går gjennom vertens drivere. Det gir mer overhead (systemlysarket s. 15).</p></details>
         <ul>
           <li><b>Containere har ikke eget gjeste-OS.</b> De deler kjernen til verts-OS-et (H2022 2.5).</li>
-          <li><b>Containere isolerer ikke like godt som VM-er</b> (d08 s. 17).</li>
+          <li><b>Containere isolerer ikke like godt som VM-er</b> (systemlysarket s. 17).</li>
           <li><b>VM-er er ikke immune mot virus</b> og hindrer ikke sosial manipulering. Skadevaren kan fortsatt kjøre inne i gjesten.</li>
           <li><b>Gjesten skal ikke vite at den er virtualisert.</b> Det er et av målene.</li>
           <li><b>Ikke bruk alle boksene i type 1.</b> H2022 2.4 har seks bokser til fire felt. Kontainer og Docker Engine er feil alternativer som ligner, fordi de hører til containerarkitekturen. I 2.5 er det fire bokser til fire felt, så alle brukes.</li>
@@ -295,9 +295,9 @@
       <div class="sys-forbehold">
         <p><b>Forbehold</b></p>
         <ul>
-          <li><b>Ringene i type 2:</b> d08 s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. Guiden følger figuren, og det er det du svarer på eksamen. d08 s. 15 nevner også at type 2 bruker maskinvarestøtte for virtualisering (VT-x hos Intel, AMD-V hos AMD: instruksjoner i CPU-en som lar en hypervisor kjøre gjester effektivt), selv om figuren setter hypervisoren på nivå 3.</li>
-          <li><span class="sys-ukjent">Ikke pensum:</span> i praksis installerer en type 2-hypervisor en driver i verts-OS-ets kjerne, som kjører på nivå 0 og bruker VT-x/AMD-V. Det står ikke på d08.</li>
-          <li><span class="sys-ukjent">Ikke pensum:</span> containere isoleres av kjernen med <b>navnerom</b> (namespaces: hver container ser bare sine egne prosesser, filer og nettverk) og <b>cgroups</b> (control groups: grenser for hvor mye CPU og minne hver container får bruke). Det står ikke på d08.</li>
+          <li><b>Ringene i type 2:</b> Systemlysarket s. 15 og eldre fasit setter hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. Guiden følger figuren, og det er det du svarer på eksamen. Systemlysarket s. 15 nevner også at type 2 bruker maskinvarestøtte for virtualisering (VT-x hos Intel, AMD-V hos AMD: instruksjoner i CPU-en som lar en hypervisor kjøre gjester effektivt), selv om figuren setter hypervisoren på nivå 3.</li>
+          <li><span class="sys-ukjent">Ikke pensum:</span> i praksis installerer en type 2-hypervisor en driver i verts-OS-ets kjerne, som kjører på nivå 0 og bruker VT-x/AMD-V. Det står ikke på systemlysarket.</li>
+          <li><span class="sys-ukjent">Ikke pensum:</span> containere isoleres av kjernen med <b>navnerom</b> (namespaces: hver container ser bare sine egne prosesser, filer og nettverk) og <b>cgroups</b> (control groups: grenser for hvor mye CPU og minne hver container får bruke). Det står ikke på systemlysarket.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Virtualisering og containere i eksamensformat</h4>
@@ -337,12 +337,12 @@
 
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Tiltrodd beregning</b> (trusted computing): deler av sikkerheten er forankret i maskinvare, fordi maskinvare regnes som mer robust mot angrep enn programvare. Eksempler: sikker oppstart med UEFI, TPM og TEE (d08 s. 20).</li>
-          <li><b>UEFI og sikker oppstart</b> (d08 s. 21): UEFI erstatter BIOS og styrer oppstarten. UEFI-koden ligger i flashminne, og programmodulene for oppstart er digitalt signert. Startknapp → CPU kjører UEFI-kode fra firmware → verifiserer signaturen på UEFI-driverne → laster dem → kjører dem, og de laster OS-et → OS-et overtar.</li>
+          <li><b>Tiltrodd beregning</b> (trusted computing): deler av sikkerheten er forankret i maskinvare, fordi maskinvare regnes som mer robust mot angrep enn programvare. Eksempler: sikker oppstart med UEFI, TPM og TEE (systemlysarket s. 20).</li>
+          <li><b>UEFI og sikker oppstart</b> (systemlysarket s. 21): UEFI erstatter BIOS og styrer oppstarten. UEFI-koden ligger i flashminne, og programmodulene for oppstart er digitalt signert. Startknapp → CPU kjører UEFI-kode fra firmware → verifiserer signaturen på UEFI-driverne → laster dem → kjører dem, og de laster OS-et → OS-et overtar.</li>
           <li><b>db, dbx og PK:</b> signaturene sjekkes mot en liste over godkjente nøkler (<b>db</b>) og en svarteliste (<b>dbx</b>). Plattformnøkkelen (<b>PK</b>) beskytter listene mot endring og er tillitsankeret. Feil signatur → oppstarten avbrytes.</li>
-          <li><b>TPM</b> (Trusted Platform Module): en sikkerhetsbrikke (koprosessor) i de fleste moderne PC-er. Den støtter <b>målt oppstart</b> (registrerer hva som startes), <b>attestering</b> (beviser oppstartstilstanden overfor en tredjepart) og <b>forsegling av nøkler</b>, for eksempel diskkrypteringsnøkkelen til BitLocker, diskkrypteringen i Windows (d08 s. 22). Forsegling betyr at nøkkelen er låst til målingene fra oppstarten: TPM-en gir den bare ut igjen når oppstarten måles likt som da nøkkelen ble forseglet.</li>
-          <li><b>Sikker oppstart stopper ukjent kode. Målt oppstart registrerer den</b> (d08 s. 22).</li>
-          <li><b>TEE</b> (Trusted Execution Environment): data og beregninger beskyttes av maskinvare i prosessoren. Selv et kompromittert OS eller en kompromittert hypervisor skal ikke kunne lese dataene. Eksempler: ARM TrustZone i mobiler, Intel SGX/TDX og AMD SEV i skyen (d08 s. 23).</li>
+          <li><b>TPM</b> (Trusted Platform Module): en sikkerhetsbrikke (koprosessor) i de fleste moderne PC-er. Den støtter <b>målt oppstart</b> (registrerer hva som startes), <b>attestering</b> (beviser oppstartstilstanden overfor en tredjepart) og <b>forsegling av nøkler</b>, for eksempel diskkrypteringsnøkkelen til BitLocker, diskkrypteringen i Windows (systemlysarket s. 22). Forsegling betyr at nøkkelen er låst til målingene fra oppstarten: TPM-en gir den bare ut igjen når oppstarten måles likt som da nøkkelen ble forseglet.</li>
+          <li><b>Sikker oppstart stopper ukjent kode. Målt oppstart registrerer den</b> (systemlysarket s. 22).</li>
+          <li><b>TEE</b> (Trusted Execution Environment): data og beregninger beskyttes av maskinvare i prosessoren. Selv et kompromittert OS eller en kompromittert hypervisor skal ikke kunne lese dataene. Eksempler: ARM TrustZone i mobiler, Intel SGX/TDX og AMD SEV i skyen (systemlysarket s. 23).</li>
         </ul></div>
       <div id="ex-tiltrodd"></div>
 
@@ -367,13 +367,13 @@
         <details class="grense"><summary>Er UEFI en sikkerhetsbrikke?</summary>
           <p>Nei. UEFI er firmware (programvare i flashminne) som erstatter BIOS. TPM er brikken (H2022 2.6).</p></details>
         <details class="grense"><summary>Er db svartelisten?</summary>
-          <p>Nei, db er godkjente nøkler. dbx er svartelisten. Tenk «x» for utelukket (d08 s. 21).</p></details>
+          <p>Nei, db er godkjente nøkler. dbx er svartelisten. Tenk «x» for utelukket (systemlysarket s. 21).</p></details>
         <details class="grense"><summary>Stopper TPM oppstarten når koden er feil?</summary>
           <p>Nei, det gjør UEFI-sikker oppstart. TPM måler og registrerer. Effekten kommer etterpå: forseglede nøkler slippes ikke ut, og attesteringen avslører avviket.</p></details>
         <ul>
           <li><b>Tiltrodd betyr ikke feilfritt.</b> Det betyr at sikkerheten er forankret i maskinvare, som regnes som mer robust.</li>
           <li><b>TPM erstatter ikke BIOS.</b> Det gjør UEFI.</li>
-          <li><b>TEE beskytter ikke mot alt.</b> d08 sier bare at OS og hypervisor ikke skal kunne lese dataene.</li>
+          <li><b>TEE beskytter ikke mot alt.</b> Systemlysarket sier bare at OS og hypervisor ikke skal kunne lese dataene.</li>
         </ul></div>
 
       <div class="sys-forbehold">
@@ -424,14 +424,14 @@
 
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Sidekanal:</b> en <b>utilsiktet</b> informasjonslekkasje som kommer av den fysiske implementasjonen, ikke av selve grensesnittet. Angriperen observerer bieffekter og trekker slutninger om hemmelige data. Eksempler: tidsforbruk (ulik behandlingstid kan avsløre bit i en kryptonøkkel), strømforbruk, lyd og elektromagnetisk stråling (d08 s. 24).</li>
-          <li><b>Skjult kanal:</b> en mekanisme som <b>ikke er laget for kommunikasjon</b>, men som <b>misbrukes bevisst</b> til å overføre informasjon mellom parter som ikke har lov til å utveksle dataene. Båndbredden er typisk svært lav. Eksempler (d08 s. 25):
+          <li><b>Sidekanal:</b> en <b>utilsiktet</b> informasjonslekkasje som kommer av den fysiske implementasjonen, ikke av selve grensesnittet. Angriperen observerer bieffekter og trekker slutninger om hemmelige data. Eksempler: tidsforbruk (ulik behandlingstid kan avsløre bit i en kryptonøkkel), strømforbruk, lyd og elektromagnetisk stråling (systemlysarket s. 24).</li>
+          <li><b>Skjult kanal:</b> en mekanisme som <b>ikke er laget for kommunikasjon</b>, men som <b>misbrukes bevisst</b> til å overføre informasjon mellom parter som ikke har lov til å utveksle dataene. Båndbredden er typisk svært lav. Eksempler (systemlysarket s. 25):
             <ul>
               <li>viftestøy eller blinkende lysdioder fra isolerte maskiner (air-gappede maskiner, som ikke er koblet til noe nettverk)</li>
               <li>to mobilapper som «snakker» via volumet</li>
               <li>DNS-tunnelering forbi brannmuren.</li>
             </ul></li>
-          <li><b>TEMPEST</b> er avlytting av elektromagnetisk stråling, altså en sidekanal (d01b s. 30).</li>
+          <li><b>TEMPEST</b> er avlytting av elektromagnetisk stråling, altså en sidekanal (lysarket om fysisk sikkerhet s. 30).</li>
         </ul></div>
       <div id="ex-kanaler"></div>
 
@@ -447,7 +447,7 @@
         <details class="grense"><summary>Er sidekanal og skjult kanal det samme, siden begge kan bruke tid?</summary>
           <p>Nei. Forskjellen er hensikten. I en sidekanal lekker offeret uten å vite det, og angriperen måler. I en skjult kanal sender en innsider, ofte skadevare, med vilje. Se på hensikten, ikke på mediet (H2021 2.2).</p></details>
         <details class="grense"><summary>Hvorfor er DNS-tunnelering en skjult kanal og ikke en sidekanal?</summary>
-          <p>Skadevaren legger data i DNS-oppslag med vilje for å komme forbi brannmuren. Ingen lekkasje er utilsiktet (d08 s. 25).</p></details>
+          <p>Skadevaren legger data i DNS-oppslag med vilje for å komme forbi brannmuren. Ingen lekkasje er utilsiktet (systemlysarket s. 25).</p></details>
         <ul>
           <li><b>En sidekanal er ikke en svakhet i algoritmen.</b> Den kommer av den fysiske implementasjonen. AES kan være matematisk sterk og likevel lekke.</li>
           <li><b>Skjulte kanaler har lav båndbredde</b>, men det holder for en nøkkel eller et passord.</li>
@@ -475,7 +475,7 @@
     <section data-panel="sarbarhet">
       <h3>Sårbarheter, oppdatering og tilnærminger</h3>
       <div class="callout snarvei"><span class="lbl">Hva eksamen spør om</span>
-        <p><span class="tag">pensum, ikke spurt før</span> Stoffet står på 2026-lysarket (d08 s. 2–6), men ingen oppgave i systemblokka H2021–H2025 har spurt om det.</p>
+        <p><span class="tag">pensum, ikke spurt før</span> Stoffet står på 2026-lysarket (systemlysarket s. 2–6), men ingen oppgave i systemblokka H2021–H2025 har spurt om det.</p>
         <ul>
           <li>Ingen oppgave i systemblokka H2021–H2025 spør om CVE, CVSS eller zero-day.</li>
           <li>Nulldagssårbarheter dukker opp i cyberops-oppgaven H2024 37: «Selge nulldagssårbarheter» er ett av de riktige alternativene i første delspørsmål.</li>
@@ -487,11 +487,11 @@
 
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
-          <li><b>Hvorfor systemsikkerhet:</b> god kommunikasjonssikkerhet er bortkastet hvis systemene i endene er svake. d08 s. 2 illustrerer det med et sitat av Eugene Spafford om en pansret bil mellom to pappesker.</li>
-          <li><b>Kontinuerlig oppdatering:</b> nye sårbarheter oppdages hele tiden. Oppdatering tar tid fordi den må testes og kan ødelegge for egne systemer. Derfor utnytter angripere ofte <b>kjente</b> sårbarheter (d08 s. 4).</li>
-          <li><b>Zero-day (nulldagssårbarhet):</b> en sårbarhet som leverandøren ikke kjenner til, eller som det ikke finnes noen tilgjengelig sikkerhetsoppdatering for (d08 s. 4).</li>
-          <li><b>CVE, NVD og CVSS</b> (d08 s. 5): den som finner sårbarheten, rapporterer den. <b>CVE</b> (Common Vulnerabilities and Exposures) registrerer den og gir en CVE-ID. <b>NVD</b> (National Vulnerability Database) gir retningslinjer og en <b>CVSS</b>-skår (Common Vulnerability Scoring System, et tall for hvor alvorlig sårbarheten er). Virksomhetene prioriterer etter alvorlighet. Skalaen går fra 0 til 10: <b>Kritisk 9,0–10 · Høy 7,0–8,9 · Middels 4,0–6,9 · Lav 0,1–3,9</b>.</li>
-          <li><b>Fem tilnærminger</b> (d08 s. 6):
+          <li><b>Hvorfor systemsikkerhet:</b> god kommunikasjonssikkerhet er bortkastet hvis systemene i endene er svake. Systemlysarket s. 2 illustrerer det med et sitat av Eugene Spafford om en pansret bil mellom to pappesker.</li>
+          <li><b>Kontinuerlig oppdatering:</b> nye sårbarheter oppdages hele tiden. Oppdatering tar tid fordi den må testes og kan ødelegge for egne systemer. Derfor utnytter angripere ofte <b>kjente</b> sårbarheter (systemlysarket s. 4).</li>
+          <li><b>Zero-day (nulldagssårbarhet):</b> en sårbarhet som leverandøren ikke kjenner til, eller som det ikke finnes noen tilgjengelig sikkerhetsoppdatering for (systemlysarket s. 4).</li>
+          <li><b>CVE, NVD og CVSS</b> (systemlysarket s. 5): den som finner sårbarheten, rapporterer den. <b>CVE</b> (Common Vulnerabilities and Exposures) registrerer den og gir en CVE-ID. <b>NVD</b> (National Vulnerability Database) gir retningslinjer og en <b>CVSS</b>-skår (Common Vulnerability Scoring System, et tall for hvor alvorlig sårbarheten er). Virksomhetene prioriterer etter alvorlighet. Skalaen går fra 0 til 10: <b>Kritisk 9,0–10 · Høy 7,0–8,9 · Middels 4,0–6,9 · Lav 0,1–3,9</b>.</li>
+          <li><b>Fem tilnærminger</b> (systemlysarket s. 6):
             <ul>
               <li>fjerne feil i OS-et (oppdateringer),</li>
               <li>sikkerhetsfunksjoner i OS og CPU (privilegienivåer, NX, ASLR),</li>
@@ -525,20 +525,20 @@
       <h4 class="sys-del">4 · Feller <span class="tag">pensum, ikke spurt før</span></h4>
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Betyr zero-day at sårbarheten ble funnet i dag?</summary>
-          <p>Nei. Det betyr at leverandøren ikke kjenner til den, eller at det ikke finnes noen oppdatering (d08 s. 4).</p></details>
+          <p>Nei. Det betyr at leverandøren ikke kjenner til den, eller at det ikke finnes noen oppdatering (systemlysarket s. 4).</p></details>
         <details class="grense"><summary>Er CVSS 7,0 Middels eller Høy?</summary>
           <p>Høy. Middels slutter på 6,9, og Høy går fra 7,0 til 8,9. Det samme mønsteret gjelder 4,0 (Middels) og 9,0 (Kritisk).</p></details>
         <ul>
           <li><b>God kryptering veier ikke opp for svake systemer.</b> Det er poenget med Spafford-sitatet.</li>
           <li><b>Oppdater ikke uten testing.</b> Oppdateringer kan ødelegge for egne systemer.</li>
-          <li><b>Angripere bruker ikke mest zero-days.</b> d08 sier de ofte bruker kjente sårbarheter, fordi oppdatering tar tid.</li>
+          <li><b>Angripere bruker ikke mest zero-days.</b> Systemlysarket sier de ofte bruker kjente sårbarheter, fordi oppdatering tar tid.</li>
           <li><b>CVE gir ikke CVSS-skåren.</b> CVE registrerer og gir ID, NVD gir skåren.</li>
         </ul></div>
 
       <div class="sys-forbehold">
         <p><b>Forbehold</b></p>
         <ul>
-          <li><b>CVSS 0,0</b> har ingen kategori på d08, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ikke pensum</span>.</li>
+          <li><b>CVSS 0,0</b> har ingen kategori på systemlysarket, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ikke pensum</span>.</li>
           <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er en kobling til risikoblokka som ikke står i kildene.</li>
         </ul></div>
 
@@ -575,37 +575,37 @@
         kort: "En kommune med egen driftsgruppe: skytjener med VM-er for 40 kunder, bibliotekets nettsted som 15 mikrotjenester i containere, VPN-gateway og intranett." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127m"></script>
-  <script src="assets/js/symboler.js?v=20261127m"></script>
-  <script src="assets/js/begreper-data.js?v=20261127m"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127m"></script>
-  <script src="assets/js/pseudocode.js?v=20261127m"></script>
-  <script src="assets/js/stepplayer.js?v=20261127m"></script>
-  <script src="assets/js/varline.js?v=20261127m"></script>
-  <script src="assets/js/inspera.js?v=20261127m"></script>
-  <script src="assets/js/dra.js?v=20261127m"></script>
-  <script src="assets/js/bank.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127m"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127m"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127m"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127m"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127m"></script>
-  <script src="assets/js/viz-system.js?v=20261127m"></script>
+  <script src="assets/js/core.js?v=20261127n"></script>
+  <script src="assets/js/symboler.js?v=20261127n"></script>
+  <script src="assets/js/begreper-data.js?v=20261127n"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127n"></script>
+  <script src="assets/js/pseudocode.js?v=20261127n"></script>
+  <script src="assets/js/stepplayer.js?v=20261127n"></script>
+  <script src="assets/js/varline.js?v=20261127n"></script>
+  <script src="assets/js/inspera.js?v=20261127n"></script>
+  <script src="assets/js/dra.js?v=20261127n"></script>
+  <script src="assets/js/bank.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127n"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127n"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127n"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127n"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127n"></script>
+  <script src="assets/js/viz-system.js?v=20261127n"></script>
   <script>
   (function () {
     "use strict";
@@ -617,17 +617,17 @@
       "ex-ringer": {
         eli5: "<p>Tenk på et hotell. Gjestene (appene) har nøkkel bare til sitt eget rom. Resepsjonen (operativsystemet) har nøkkel til alle gjesterommene. Eieren (hypervisoren) har nøkkel til alt, også resepsjonen. En nøkkel virker bare «nedover» i rang, aldri oppover. En tyv vil derfor helst stjele resepsjonens eller eierens nøkkel.</p>",
         normal: "<p>Hver prosess kjører på et privilegienivå. Jo lavere tall, desto mer makt: −1 hypervisor, 0 kjerne, 3 bruker. En prosess når ressursene på sitt eget nivå og på nivåer med høyere tall, men aldri på et nivå med lavere tall.</p><p>En brukerprosess som trenger noe fra kjernen, må be om det. Den kan ikke hente det selv. Derfor vil en angriper som har fått kode til å kjøre som vanlig bruker, prøve å komme seg til nivå 0. Det kalles privilegieeskalering.</p>",
-        teknisk: "<p>Det er CPU-en som håndhever nivåene i maskinvare. Overgangen fra nivå 3 til 0 skjer bare gjennom kontrollerte innganger (systemkall), der kjernen bestemmer hva som skjer, og tilsvarende fra 0 til −1 (hyperkall). Ordene «systemkall» og «hyperkall» står ikke på d08 og er en utdyping.</p><p>Uten virtualisering brukes i praksis bare nivå 0 og 3. Med type 1-virtualisering kjører gjeste-OS-ene på nivå 0, slik de er laget for, mens hypervisoren ligger på −1 og styrer dem (d08 s. 14). Pass på ordbruken: «lavere privilegienivå» betyr <i>mindre makt</i>, altså <i>høyere tall</i>.</p>"
+        teknisk: "<p>Det er CPU-en som håndhever nivåene i maskinvare. Overgangen fra nivå 3 til 0 skjer bare gjennom kontrollerte innganger (systemkall), der kjernen bestemmer hva som skjer, og tilsvarende fra 0 til −1 (hyperkall). Ordene «systemkall» og «hyperkall» står ikke på systemlysarket og er en utdyping.</p><p>Uten virtualisering brukes i praksis bare nivå 0 og 3. Med type 1-virtualisering kjører gjeste-OS-ene på nivå 0, slik de er laget for, mens hypervisoren ligger på −1 og styrer dem (systemlysarket s. 14). Pass på ordbruken: «lavere privilegienivå» betyr <i>mindre makt</i>, altså <i>høyere tall</i>.</p>"
       },
       "ex-minne": {
         eli5: "<p>Tenk deg et skjema med en rute til navnet ditt med plass til ti bokstaver. Rett over står «send pakken til: …». Skriver du et altfor langt navn uten at noen stopper deg, skriver du over adressen, og pakken havner der du vil.</p><p>Kanarifuglen er en liten lapp mellom navneruta og adressen. Er lappen ødelagt, stopper postmannen. ASLR er at adressefeltet flyttes til et tilfeldig sted hver gang. NX er en regel om at ingen pakker kan sendes fra navneruta.</p>",
         normal: "<p>Virtuelt minne gjør at prosesser ikke kan lese hverandres minne. To prosesser kan godt bruke samme virtuelle adresse, for den peker til ulike fysiske steder. Men en bufferoverflyt skjer <i>inne i én prosess</i>, så isolasjonen mellom prosesser hjelper ikke mot den.</p><p>Når et program kopierer input inn i et buffer uten å sjekke lengden, kan inputen skrive over returadressen på stakken. Da hopper programmet dit angriperen vil når funksjonen er ferdig. NX, kanarifugl og ASLR gjør dette vanskeligere hver på sin måte, men feilen i koden er der fortsatt. Bare bedre kode, sikrere språk og analyse fjerner selve feilen.</p>",
-        teknisk: "<p>Hver funksjon som kalles, får en ramme på stakken med returadresse, forrige rammepeker og lokale variabler. Bufferet fylles mot høyere adresser, mens nye rammer legges på mot lavere adresser. En overflyt treffer derfor først kanarifuglen (hvis den finnes), så forrige rammepeker og deretter returadressen (d08 s. 11, H2022 2.3).</p><ul><li>Kanarifuglen oppdager overskrivingen <i>ved retur</i>, før den falske returadressen brukes.</li><li>NX stopper kode som ligger <i>på stakken</i>, men ikke at angriperen hopper til kode som allerede finnes i et bibliotek. Det kalles return-to-libc eller ROP (ikke pensum).</li><li>ASLR flytter stakk, heap og biblioteker, så en hardkodet adresse blir feil.</li><li>Tiltakene utfyller hverandre, og derfor brukes alle tre samtidig.</li></ul>"
+        teknisk: "<p>Hver funksjon som kalles, får en ramme på stakken med returadresse, forrige rammepeker og lokale variabler. Bufferet fylles mot høyere adresser, mens nye rammer legges på mot lavere adresser. En overflyt treffer derfor først kanarifuglen (hvis den finnes), så forrige rammepeker og deretter returadressen (systemlysarket s. 11, H2022 2.3).</p><ul><li>Kanarifuglen oppdager overskrivingen <i>ved retur</i>, før den falske returadressen brukes.</li><li>NX stopper kode som ligger <i>på stakken</i>, men ikke at angriperen hopper til kode som allerede finnes i et bibliotek. Det kalles return-to-libc eller ROP (ikke pensum).</li><li>ASLR flytter stakk, heap og biblioteker, så en hardkodet adresse blir feil.</li><li>Tiltakene utfyller hverandre, og derfor brukes alle tre samtidig.</li></ul>"
       },
       "ex-virt": {
         eli5: "<p>Type 1 er en bygård der vaktmesteren bor i kjelleren rett på grunnmuren, og hver leilighet har sitt eget kjøkken (eget OS). Type 2 er at du bygger dukkehus inne i stua di: huset ditt (verts-OS-et) kommer først, og dukkehusene er gjester. Containere er rom i samme leilighet. De har egne møbler (biblioteker), men deler kjøkkenet (kjernen). Brenner det på kjøkkenet, rammes alle rommene.</p>",
         normal: "<p>I type 1 er det ikke noe vanlig OS under hypervisoren. Den sitter på −1 og styrer gjestene, som tror de har maskinen for seg selv på nivå 0. I type 2 starter du med et vanlig OS, installerer en hypervisor som et program og kjører gjestene oppå. Det er enkelt, men tregere.</p><p>Containere hopper over gjeste-OS-et helt. Docker Engine kjører på verts-OS-et, og hver container har bare appen og bibliotekene sine. Det er lett og raskt, men alle containerne bruker samme kjerne. En feil i kjernen kan ramme dem alle, og derfor sier kurset at isolasjonen er svakere.</p>",
-        teknisk: "<p>Isolasjonen i type 1 hviler på privilegienivåene. Gjeste-kjernen på nivå 0 når ikke hypervisoren på −1, og den når ikke andre gjester fordi hypervisoren styrer hvilket fysisk minne hver gjest får. Det er sikkerhetsmål 1 og 2 på d08 s. 19.</p><p>Mål 3, at gjesten ikke skal merke virtualiseringen, er viktig fordi skadevare ofte oppfører seg pent når den merker at den kjører i en analyse-VM. I type 2 tegner d08 s. 15 hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. Containere isoleres av mekanismer i kjernen (navnerom og cgroups), men det står ikke på d08.</p>"
+        teknisk: "<p>Isolasjonen i type 1 hviler på privilegienivåene. Gjeste-kjernen på nivå 0 når ikke hypervisoren på −1, og den når ikke andre gjester fordi hypervisoren styrer hvilket fysisk minne hver gjest får. Det er sikkerhetsmål 1 og 2 på systemlysarket s. 19.</p><p>Mål 3, at gjesten ikke skal merke virtualiseringen, er viktig fordi skadevare ofte oppfører seg pent når den merker at den kjører i en analyse-VM. I type 2 tegner systemlysarket s. 15 hypervisor, gjeste-OS og apper på nivå 3 og verts-OS-et på 0. Containere isoleres av mekanismer i kjernen (navnerom og cgroups), men det står ikke på systemlysarket.</p>"
       },
       "ex-tiltrodd": {
         eli5: "<p>Sikker oppstart er en dørvakt med gjesteliste. Den som ikke står på lista, kommer ikke inn, og festen starter ikke. TPM er en sekretær som skriver ned alle som kom inn, i en bok ingen kan viske i. Etterpå kan hun vise boka til andre («bare godkjente gjester kom»), og hun låser opp safen bare hvis boka ser ut som den skal. TEE er et lite pengeskap inne i prosessoren som selv huseieren ikke har nøkkel til.</p>",
@@ -637,12 +637,12 @@
       "ex-kanaler": {
         eli5: "<p>Sidekanal: du hører på naboens dør hvor lenge han fomler med kodelåsen, og gjetter koden. Han mente ikke å fortelle deg noe. Skjult kanal: du og vennen din har avtalt at lyset i vinduet blinker to ganger for «ja». Lyset er ikke laget for å sende beskjeder, men dere bruker det slik med vilje.</p>",
         normal: "<p>Spørsmålet som skiller dem, er: <i>ville noen at informasjonen skulle komme ut?</i></p><ul><li>I en sidekanal lekker offeret uten å vite det, og angriperen måler utenfra.</li><li>I en skjult kanal sender en innsider, ofte skadevare, data ut med vilje gjennom en vei som ikke var ment for det, til en mottaker som venter.</li><li>Begge kan bruke tid som bærer. Derfor må du se på hensikten, ikke på mediet.</li><li>Skjulte kanaler er langsomme, men det holder for å smugle ut en nøkkel eller et passord.</li></ul>",
-        teknisk: "<p>Sidekanaler angriper implementasjonen, ikke algoritmen. AES kan være matematisk sterk og likevel lekke nøkkelbit gjennom tidsbruk eller strømforbruk. Et mottiltak er kode som bruker konstant tid uansett nøkkel (ikke pensum, står ikke på d08).</p><p>Skjulte kanaler bryter en <b>policy</b> om hvem som får kommunisere med hvem, for eksempel en air-gap eller app-tillatelser. Derfor er de relevante for tilgangskontrollmodeller som Bell-LaPadula (ikke pensum: koblingen står ikke i kildene). DNS-tunnelering virker fordi DNS nesten alltid slippes gjennom brannmuren. MitM er ingen av delene: angriperen går aktivt inn i forbindelsen.</p>"
+        teknisk: "<p>Sidekanaler angriper implementasjonen, ikke algoritmen. AES kan være matematisk sterk og likevel lekke nøkkelbit gjennom tidsbruk eller strømforbruk. Et mottiltak er kode som bruker konstant tid uansett nøkkel (ikke pensum, står ikke på systemlysarket).</p><p>Skjulte kanaler bryter en <b>policy</b> om hvem som får kommunisere med hvem, for eksempel en air-gap eller app-tillatelser. Derfor er de relevante for tilgangskontrollmodeller som Bell-LaPadula (ikke pensum: koblingen står ikke i kildene). DNS-tunnelering virker fordi DNS nesten alltid slippes gjennom brannmuren. MitM er ingen av delene: angriperen går aktivt inn i forbindelsen.</p>"
       },
       "ex-sarbarhet": {
         eli5: "<p>Et hus får stadig nye sprekker. Noen ganger vet ingen om sprekken ennå, ikke engang snekkeren. Det er en nulldagssprekk. Når sprekkene blir kjent, får de et nummer i et felles register (CVE) og en karakter fra 0 til 10 for hvor farlige de er (CVSS). Du tetter de farligste først. Tyvene vet at det tar tid å tette, så de prøver gjerne de kjente sprekkene først.</p>",
-        normal: "<p>Sårbarheter er uunngåelige, så forsvaret er en prosess: finn ut hvilke sårbarheter som gjelder deg, prioriter etter CVSS og oppdater. Det tar tid fordi oppdateringer må testes. Mens du venter, er du sårbar for angrep på <i>kjente</i> hull, og det er dem de fleste angripere bruker.</p><p>Mot nulldagssårbarheter hjelper ikke oppdatering, for det finnes ingen ennå. Da trengs lagene fra d08 s. 6: NX, ASLR, privilegienivåer, overvåking, virtualisering og tiltrodd beregning, som begrenser skaden selv om én feil utnyttes.</p>",
-        teknisk: "<p>Hele blokka henger sammen gjennom d08 s. 6:</p><ul><li>sikkerhetsfunksjoner i OS og CPU er fane 1 og 2,</li><li>virtualisering er fane 3, og</li><li>tiltrodd beregning er fane 4.</li></ul><p>Overvåking (IDS, brannmur) behandles i nettverksblokka.</p><p>CVSS-skåren er en alvorlighetsgrad, ikke risikoen for akkurat din virksomhet. Om sårbarheten finnes hos deg, hvor utsatt systemet er og hva det beskytter, må vurderes i tillegg. Spafford-sitatet står på lysarket som motivasjon, ikke som definisjon: gjengi poenget med egne ord.</p>"
+        normal: "<p>Sårbarheter er uunngåelige, så forsvaret er en prosess: finn ut hvilke sårbarheter som gjelder deg, prioriter etter CVSS og oppdater. Det tar tid fordi oppdateringer må testes. Mens du venter, er du sårbar for angrep på <i>kjente</i> hull, og det er dem de fleste angripere bruker.</p><p>Mot nulldagssårbarheter hjelper ikke oppdatering, for det finnes ingen ennå. Da trengs lagene fra systemlysarket s. 6: NX, ASLR, privilegienivåer, overvåking, virtualisering og tiltrodd beregning, som begrenser skaden selv om én feil utnyttes.</p>",
+        teknisk: "<p>Hele blokka henger sammen gjennom systemlysarket s. 6:</p><ul><li>sikkerhetsfunksjoner i OS og CPU er fane 1 og 2,</li><li>virtualisering er fane 3, og</li><li>tiltrodd beregning er fane 4.</li></ul><p>Overvåking (IDS, brannmur) behandles i nettverksblokka.</p><p>CVSS-skåren er en alvorlighetsgrad, ikke risikoen for akkurat din virksomhet. Om sårbarheten finnes hos deg, hvor utsatt systemet er og hva det beskytter, må vurderes i tillegg. Spafford-sitatet står på lysarket som motivasjon, ikke som definisjon: gjengi poenget med egne ord.</p>"
       }
     };
     Object.keys(EX).forEach(function (id) {
@@ -658,85 +658,85 @@
     var QUIZ = {
       ringer: [
         { q: "Hvilket privilegienivå kjører en vanlig applikasjon på?", options: ["−1", "0", "3"], answer: 2,
-          explain: "<p>Applikasjoner kjører i brukermodus på nivå 3 (d08 s. 7).</p>" },
+          explain: "<p>Applikasjoner kjører i brukermodus på nivå 3 (systemlysarket s. 7).</p>" },
         { q: "En prosess kjører i kjernemodus. Hvilke nivåer når den?", options: ["Bare 0", "0, 1, 2 og 3", "−1, 0, 1, 2 og 3"], answer: 1,
-          explain: "<p>Eget nivå og alle med høyere tall. −1 er mer privilegert (d08 s. 8).</p>" },
+          explain: "<p>Eget nivå og alle med høyere tall. −1 er mer privilegert (systemlysarket s. 8).</p>" },
         { q: "Hvorfor trengs nivå −1 når maskinen kjører virtuelle maskiner?", options: ["Gjeste-OS-ene kjører på nivå 0, så hypervisoren må ligge på et nivå med mer makt for å styre dem", "Applikasjonene trenger et eget nivå under nivå 3", "Nivå −1 erstatter de ubrukte nivåene 1 og 2"], answer: 0,
-          explain: "<p>Gjeste-OS-ene er laget for å kjøre på nivå 0. Skal hypervisoren kunne styre og skille dem, må den ha mer makt enn dem, og derfor ligger den på −1 (d08 s. 7, s. 14).</p>" },
+          explain: "<p>Gjeste-OS-ene er laget for å kjøre på nivå 0. Skal hypervisoren kunne styre og skille dem, må den ha mer makt enn dem, og derfor ligger den på −1 (systemlysarket s. 7, s. 14).</p>" },
         { q: "Hva er angriperens mål når hen har fått kjørt kode som vanlig bruker?", options: ["Å komme til nivå 3", "Å komme til nivå 0 eller −1", "Å komme til nivå 2"], answer: 1,
-          explain: "<p>Der er makten. Nivå 3 er der angriperen ofte starter (d08 s. 8).</p>" },
+          explain: "<p>Der er makten. Nivå 3 er der angriperen ofte starter (systemlysarket s. 8).</p>" },
         { q: "Hvilke nivåer er som regel ubrukt?", options: ["1 og 2", "0 og 3", "−1 og 0"], answer: 0,
-          explain: "<p>Nivå 1 og 2 finnes i modellen, men brukes som regel ikke (d08 s. 7).</p>" }
+          explain: "<p>Nivå 1 og 2 finnes i modellen, men brukes som regel ikke (systemlysarket s. 7).</p>" }
       ],
       minne: [
         { q: "Hva gjør NX?", options: ["Stokker adressene", "Merker stakken som ikke-kjørbar", "Legger en tilfeldig verdi på stakken"], answer: 1,
-          explain: "<p>CPU-en nekter å kjøre kode som ligger på stakken (d08 s. 10). Stokking er ASLR, og den tilfeldige verdien er kanarifuglen.</p>" },
+          explain: "<p>CPU-en nekter å kjøre kode som ligger på stakken (systemlysarket s. 10). Stokking er ASLR, og den tilfeldige verdien er kanarifuglen.</p>" },
         { q: "Hvor ligger kanarifuglen?", options: ["Mellom lokale variabler og returadressen", "Øverst i heapen", "I kodesegmentet"], answer: 0,
-          explain: "<p>Der må en overflyt passere den før den når returadressen. d08 s. 10 sier at verdien lagres på stakken og sjekkes før retur, og figuren på d08 s. 11 viser at den ligger foran returadressen.</p>" },
+          explain: "<p>Der må en overflyt passere den før den når returadressen. Systemlysarket s. 10 sier at verdien lagres på stakken og sjekkes før retur, og figuren på systemlysarket s. 11 viser at den ligger foran returadressen.</p>" },
         { q: "Hvor stort er det virtuelle adresserommet til en 32-bits prosess?", options: ["2 GB", "4 GB", "16 GB"], answer: 1,
-          explain: "<p>En 32-bits adresse kan peke på 2³² ulike byte, og 2³² byte = 4 GB. Det gjelder hver prosess, uansett hvor mye fysisk minne maskinen har (d08 s. 9).</p>" },
+          explain: "<p>En 32-bits adresse kan peke på 2³² ulike byte, og 2³² byte = 4 GB. Det gjelder hver prosess, uansett hvor mye fysisk minne maskinen har (systemlysarket s. 9).</p>" },
         { q: "Hvilket felt må angriperen overskrive for å styre hvor programmet fortsetter?", options: ["Forrige rammepeker", "Returadressen", "main()-rammen"], answer: 1,
           explain: "<p>Returadressen bestemmer hvor programmet hopper når funksjonen er ferdig (H2022 2.3).</p>" },
         { q: "Hvilket tiltak retter selve feilen?", options: ["ASLR", "Kanarifugl", "Lengdesjekk og sikrere programmeringsspråk"], answer: 2,
-          explain: "<p>ASLR og kanarifugl gjør utnyttelse vanskeligere. Bare bedre kode fjerner feilen (d08 s. 10).</p>" }
+          explain: "<p>ASLR og kanarifugl gjør utnyttelse vanskeligere. Bare bedre kode fjerner feilen (systemlysarket s. 10).</p>" }
       ],
       virt: [
         { q: "Hvilket privilegienivå har gjeste-OS-ene i type 1?", options: ["−1", "0", "3"], answer: 1,
-          explain: "<p>De kjører på 0, slik de er laget for. Hypervisoren er på −1 (d08 s. 14).</p>" },
+          explain: "<p>De kjører på 0, slik de er laget for. Hypervisoren er på −1 (systemlysarket s. 14).</p>" },
         { q: "Hva ligger rett over maskinvaren i type 2?", options: ["Hypervisor", "Verts-OS", "Gjeste-OS"], answer: 1,
-          explain: "<p>Hypervisoren er et program på verts-OS-et (d08 s. 15).</p>" },
+          explain: "<p>Hypervisoren er et program på verts-OS-et (systemlysarket s. 15).</p>" },
         { q: "Hvorfor har containere svakere isolasjon enn VM-er?", options: ["De deler kjerne med verten", "De mangler biblioteker", "De kjører på nivå −1"], answer: 0,
-          explain: "<p>En feil i den felles kjernen kan ramme alle containerne (d08 s. 17).</p>" },
+          explain: "<p>En feil i den felles kjernen kan ramme alle containerne (systemlysarket s. 17).</p>" },
         { q: "Hvilket er <i>ikke</i> et sikkerhetsmål for virtualisering?", options: ["Gjestene skal ikke påvirke hypervisoren", "Gjestene skal ikke oppdage at de er virtualisert", "Gjestene skal dele minne for å spare plass"], answer: 2,
-          explain: "<p>Delt minne ville stride mot målet om at gjestene ikke skal nå hverandre (d08 s. 19).</p>" },
+          explain: "<p>Delt minne ville stride mot målet om at gjestene ikke skal nå hverandre (systemlysarket s. 19).</p>" },
         { q: "Hvorfor er virtualisering nyttig ved skadevareanalyse?", options: ["Snapshot gjør at systemet kan rulles tilbake", "VM-er gjør skadevaren harmløs", "Hypervisoren fjerner skadevaren"], answer: 0,
-          explain: "<p>Analysen gjøres isolert, og maskinen rulles tilbake etterpå (d08 s. 18). Skadevaren kan fortsatt gjøre skade inne i VM-en.</p>" }
+          explain: "<p>Analysen gjøres isolert, og maskinen rulles tilbake etterpå (systemlysarket s. 18). Skadevaren kan fortsatt gjøre skade inne i VM-en.</p>" }
       ],
       tiltrodd: [
         { q: "Hva beskytter plattformnøkkelen (PK)?", options: ["Listene db og dbx mot endring", "BitLocker-nøkkelen", "TPM-brikken mot fysisk angrep"], answer: 0,
-          explain: "<p>PK er tillitsankeret for sikker oppstart (d08 s. 21).</p>" },
+          explain: "<p>PK er tillitsankeret for sikker oppstart (systemlysarket s. 21).</p>" },
         { q: "Hvilken TPM-tjeneste beviser oppstartstilstanden overfor en tredjepart?", options: ["Forsegling", "Attestering", "Sikker oppstart"], answer: 1,
-          explain: "<p>TPM-en signerer målingene og sender dem (d08 s. 22). Sikker oppstart er UEFI, ikke TPM.</p>" },
+          explain: "<p>TPM-en signerer målingene og sender dem (systemlysarket s. 22). Sikker oppstart er UEFI, ikke TPM.</p>" },
         { q: "Hva skjer i UEFI-sikker oppstart når en signatur er feil?", options: ["Hendelsen logges, og oppstarten fortsetter", "Oppstarten avbrytes", "Modulen signeres på nytt"], answer: 1,
-          explain: "<p>Sikker oppstart håndhever. Det er målt oppstart som bare registrerer (d08 s. 21–22).</p>" },
+          explain: "<p>Sikker oppstart håndhever. Det er målt oppstart som bare registrerer (systemlysarket s. 21–22).</p>" },
         { q: "Hvilket eksempel er en TEE brukt i mobiltelefoner?", options: ["ARM TrustZone", "AMD SEV", "Docker Engine"], answer: 0,
-          explain: "<p>TrustZone brukes for eksempel til fingeravtrykk og betaling. SEV er for skyen (d08 s. 23).</p>" },
+          explain: "<p>TrustZone brukes for eksempel til fingeravtrykk og betaling. SEV er for skyen (systemlysarket s. 23).</p>" },
         { q: "Hvilken nøkkel er et typisk eksempel på forsegling av nøkler i TPM?", options: ["Den offentlige nøkkelen i et nettsteds sertifikat", "Diskkrypteringsnøkkelen til BitLocker", "Kanariverdien på stakken"], answer: 1,
-          explain: "<p>Nøkkelen frigis bare når målingene er som forventet (d08 s. 22).</p>" }
+          explain: "<p>Nøkkelen frigis bare når målingene er som forventet (systemlysarket s. 22).</p>" }
       ],
       kanaler: [
         { q: "Hva kjennetegner en sidekanal?", options: ["Bevisst kommunikasjon mellom to parter", "Utilsiktet lekkasje fra den fysiske implementasjonen", "En kryptert tunnel"], answer: 1,
-          explain: "<p>Angriperen observerer bieffekter som ingen mente å lekke (d08 s. 24).</p>" },
+          explain: "<p>Angriperen observerer bieffekter som ingen mente å lekke (systemlysarket s. 24).</p>" },
         { q: "Hvilket er en skjult kanal?", options: ["Måle strømforbruket til et smartkort", "To apper som «snakker» via telefonens volum", "Lytte på tastaturlyd"], answer: 1,
-          explain: "<p>Volumet er ikke laget for kommunikasjon, men brukes bevisst. De to andre er sidekanaler (d08 s. 25).</p>" },
+          explain: "<p>Volumet er ikke laget for kommunikasjon, men brukes bevisst. De to andre er sidekanaler (systemlysarket s. 25).</p>" },
         { q: "Hva er typisk for båndbredden til en skjult kanal?", options: ["Svært begrenset", "Like høy som nettverket", "Ubegrenset"], answer: 0,
-          explain: "<p>Lav, men nok for små hemmeligheter (d08 s. 25).</p>" },
+          explain: "<p>Lav, men nok for små hemmeligheter (systemlysarket s. 25).</p>" },
         { q: "Hvorfor brukes DNS til tunnelering?", options: ["DNS er kryptert", "DNS-oppslag slippes ofte gjennom brannmuren", "DNS har høy båndbredde"], answer: 1,
-          explain: "<p>Nesten alle nett må slippe DNS ut (d08 s. 25).</p>" },
+          explain: "<p>Nesten alle nett må slippe DNS ut (systemlysarket s. 25).</p>" },
         { q: "Hvilken av disse er <i>ikke</i> en sidekanal?", options: ["Tidsforbruk", "Lyd", "Antall brukere i systemet"], answer: 2,
-          explain: "<p>Sidekanaler er fysiske bieffekter av selve beregningen: tid, strøm, lyd og elektromagnetisk stråling (d08 s. 24). Antall brukere er ingen bieffekt av implementasjonen.</p>" }
+          explain: "<p>Sidekanaler er fysiske bieffekter av selve beregningen: tid, strøm, lyd og elektromagnetisk stråling (systemlysarket s. 24). Antall brukere er ingen bieffekt av implementasjonen.</p>" }
       ],
       sarbarhet: [
         { q: "Hvilken kategori har CVSS 9,0?", options: ["Høy", "Kritisk", "Middels"], answer: 1,
-          explain: "<p>Kritisk er 9,0–10. Høy slutter på 8,9 (d08 s. 5).</p>" },
+          explain: "<p>Kritisk er 9,0–10. Høy slutter på 8,9 (systemlysarket s. 5).</p>" },
         { q: "Hva er en zero-day?", options: ["En sårbarhet uten tilgjengelig oppdatering, eller som leverandøren ikke kjenner til", "En sårbarhet som er rettet samme dag", "Et angrep som varer under ett døgn"], answer: 0,
-          explain: "<p>Definisjonen handler om at det ikke finnes noen rettelse (d08 s. 4).</p>" },
+          explain: "<p>Definisjonen handler om at det ikke finnes noen rettelse (systemlysarket s. 4).</p>" },
         { q: "Hvorfor utnytter angripere ofte kjente sårbarheter?", options: ["Oppdatering tar tid", "Kjente sårbarheter har høyere CVSS", "Zero-days er ulovlige"], answer: 0,
-          explain: "<p>Oppdateringer må testes, så mange systemer er sårbare en stund etter at feilen er kjent (d08 s. 4).</p>" },
+          explain: "<p>Oppdateringer må testes, så mange systemer er sårbare en stund etter at feilen er kjent (systemlysarket s. 4).</p>" },
         { q: "Hvilken tilnærming til systemsikkerhet hører NX og ASLR til?", options: ["Monitorering", "Sikkerhetsfunksjoner i OS og CPU", "Virtualisering"], answer: 1,
-          explain: "<p>Samme gruppe som privilegienivåene (d08 s. 6).</p>" },
+          explain: "<p>Samme gruppe som privilegienivåene (systemlysarket s. 6).</p>" },
         { q: "Hvem gir en sårbarhet en CVSS-skår i flyten fra funn til retting?", options: ["Leverandøren", "NVD", "Virksomheten"], answer: 1,
-          explain: "<p>CVE registrerer og gir ID, NVD gir retningslinjer og skår (d08 s. 5).</p>" }
+          explain: "<p>CVE registrerer og gir ID, NVD gir retningslinjer og skår (systemlysarket s. 5).</p>" }
       ]
     };
     /* Kilder per fane for quiz og sant/usant (opts.opphav, én linje per liste) */
     var KILDER = {
-      ringer: ["d08 s. 6–8", "d08 s. 14"],
-      minne: ["d08 s. 9–11", "t05 oppg. 5"],
-      virt: ["d08 s. 12–19"],
-      tiltrodd: ["d08 s. 20–23"],
-      kanaler: ["d08 s. 24–25", "d01b s. 30"],
-      sarbarhet: ["d08 s. 2–6"]
+      ringer: ["systemlysarket s. 6–8", "systemlysarket s. 14"],
+      minne: ["systemlysarket s. 9–11", "ukesoppgaven om pentesting, oppg. 5"],
+      virt: ["systemlysarket s. 12–19"],
+      tiltrodd: ["systemlysarket s. 20–23"],
+      kanaler: ["systemlysarket s. 24–25", "lysarket om fysisk sikkerhet s. 30"],
+      sarbarhet: ["systemlysarket s. 2–6"]
     };
     function opphavFor(fane) { return { type: "egen", kilder: KILDER[fane] }; }
     Object.keys(QUIZ).forEach(function (fane) {
@@ -746,52 +746,52 @@
     /* ---------- Sant/usant per fane ---------- */
     var TF = {
       ringer: [
-        { s: "Nivå 0 er mer privilegert enn nivå 3.", answer: true, explain: "<p>Lavere tall gir mer makt (d08 s. 7).</p>" },
-        { s: "En prosess i brukermodus kan endre data som tilhører kjernen.", answer: false, explain: "<p>Kjernen på 0 har mer makt enn brukerprosessen på 3 (d08 s. 8).</p>" },
+        { s: "Nivå 0 er mer privilegert enn nivå 3.", answer: true, explain: "<p>Lavere tall gir mer makt (systemlysarket s. 7).</p>" },
+        { s: "En prosess i brukermodus kan endre data som tilhører kjernen.", answer: false, explain: "<p>Kjernen på 0 har mer makt enn brukerprosessen på 3 (systemlysarket s. 8).</p>" },
         { s: "En prosess i hypervisormodus kan få tilgang til ressurser på nivå 0.", answer: true, explain: "<p>Hypervisoren på −1 er mest privilegert. En prosess når sitt eget nivå og alle nivåer med høyere tall, og 0 er høyere enn −1.</p>" },
-        { s: "En prosess i kjernemodus kan få tilgang til ressurser på nivå −1.", answer: false, explain: "<p>−1 er mer privilegert enn 0 (d08 s. 8).</p>" },
-        { s: "Ringmodellen plasserer Unix-root og Windows-administrator på nivå 0, kjernemodus.", answer: true, explain: "<p>OS-et med Unix root og Windows administrator står på nivå 0 (d08 s. 7). Det er en forenkling: strengt tatt er det kjernen som kjører på nivå 0, ikke brukerkontoen.</p>" },
-        { s: "Privilegienivåene håndheves av operativsystemet alene, uten hjelp fra maskinvaren.", answer: false, explain: "<p>De er en del av CPU-arkitekturen (d08 s. 6–7).</p>" }
+        { s: "En prosess i kjernemodus kan få tilgang til ressurser på nivå −1.", answer: false, explain: "<p>−1 er mer privilegert enn 0 (systemlysarket s. 8).</p>" },
+        { s: "Ringmodellen plasserer Unix-root og Windows-administrator på nivå 0, kjernemodus.", answer: true, explain: "<p>OS-et med Unix root og Windows administrator står på nivå 0 (systemlysarket s. 7). Det er en forenkling: strengt tatt er det kjernen som kjører på nivå 0, ikke brukerkontoen.</p>" },
+        { s: "Privilegienivåene håndheves av operativsystemet alene, uten hjelp fra maskinvaren.", answer: false, explain: "<p>De er en del av CPU-arkitekturen (systemlysarket s. 6–7).</p>" }
       ],
       minne: [
-        { s: "Uten ASLR har en prosess de samme virtuelle adressene hver gang den kjører.", answer: true, explain: "<p>Det er nettopp dette ASLR endrer (d08 s. 9).</p>" },
-        { s: "En prosess kan lese de fysiske adressene til en annen prosess hvis den kjenner den virtuelle adressen.", answer: false, explain: "<p>Samme virtuelle adresse peker til ulike fysiske steder i hver prosess (d08 s. 9).</p>" },
-        { s: "Kodesegmentet er merket lese/kjøre, mens stakken er lese/skrive.", answer: true, explain: "<p>Koden skal kjøres, men ikke endres. Stakken skal endres, men ikke kjøres, og det er grunnen til at angrepskode lagt på stakken kan nektes kjørt (d08 s. 9).</p>" },
+        { s: "Uten ASLR har en prosess de samme virtuelle adressene hver gang den kjører.", answer: true, explain: "<p>Det er nettopp dette ASLR endrer (systemlysarket s. 9).</p>" },
+        { s: "En prosess kan lese de fysiske adressene til en annen prosess hvis den kjenner den virtuelle adressen.", answer: false, explain: "<p>Samme virtuelle adresse peker til ulike fysiske steder i hver prosess (systemlysarket s. 9).</p>" },
+        { s: "Kodesegmentet er merket lese/kjøre, mens stakken er lese/skrive.", answer: true, explain: "<p>Koden skal kjøres, men ikke endres. Stakken skal endres, men ikke kjøres, og det er grunnen til at angrepskode lagt på stakken kan nektes kjørt (systemlysarket s. 9).</p>" },
         { s: "Bufferoverflyt kan oppdages med fuzzing.", answer: true, explain: "<p>Fuzzing sender mye rar og lang input og ser etter krasj.</p>" },
-        { s: "En stakk-kanarifugl avslutter programmet hvis verdien er endret når funksjonen returnerer.", answer: true, explain: "<p>Kanarifuglen ligger foran returadressen, så en overflyt må skrive over den først. Sjekken ved retur oppdager det før programmet hopper til den falske adressen (d08 s. 10).</p>" },
+        { s: "En stakk-kanarifugl avslutter programmet hvis verdien er endret når funksjonen returnerer.", answer: true, explain: "<p>Kanarifuglen ligger foran returadressen, så en overflyt må skrive over den først. Sjekken ved retur oppdager det før programmet hopper til den falske adressen (systemlysarket s. 10).</p>" },
         { s: "ASLR gjør at bufferoverflyt ikke lenger er en sårbarhet.", answer: false, explain: "<p>ASLR gjør utnyttelse vanskeligere. Feilen er der fortsatt.</p>" }
       ],
       virt: [
-        { s: "Type 1-virtualisering er den mest direkte og effektive måten å kjøre VM-er på.", answer: true, explain: "<p>Hypervisoren kjører rett på maskinvaren (d08 s. 14).</p>" },
-        { s: "I type 2 installeres hypervisoren som et vanlig program på verts-OS-et.", answer: true, explain: "<p>Derfor er den lett å installere (d08 s. 15).</p>" },
-        { s: "Docker Engine gjør gjeste-OS unødvendig.", answer: true, explain: "<p>Containerne deler verts-OS-ets kjerne (d08 s. 16).</p>" },
-        { s: "I en skytjeneste med VM-er får hver kunde sin egen fysiske maskin.", answer: false, explain: "<p>Mange kunder deler maskinvaren, hver med sin VM (d08 s. 18).</p>" },
-        { s: "En gjest i type 1 kan endre minnet til hypervisoren fordi begge kjører på samme maskin.", answer: false, explain: "<p>Hypervisoren på −1 er mer privilegert, og målet er at gjestene ikke påvirker den (d08 s. 14, s. 19).</p>" },
-        { s: "En container inneholder appen og alle dens avhengigheter.", answer: true, explain: "<p>Binærfiler og biblioteker følger med (d08 s. 17).</p>" }
+        { s: "Type 1-virtualisering er den mest direkte og effektive måten å kjøre VM-er på.", answer: true, explain: "<p>Hypervisoren kjører rett på maskinvaren (systemlysarket s. 14).</p>" },
+        { s: "I type 2 installeres hypervisoren som et vanlig program på verts-OS-et.", answer: true, explain: "<p>Derfor er den lett å installere (systemlysarket s. 15).</p>" },
+        { s: "Docker Engine gjør gjeste-OS unødvendig.", answer: true, explain: "<p>Containerne deler verts-OS-ets kjerne (systemlysarket s. 16).</p>" },
+        { s: "I en skytjeneste med VM-er får hver kunde sin egen fysiske maskin.", answer: false, explain: "<p>Mange kunder deler maskinvaren, hver med sin VM (systemlysarket s. 18).</p>" },
+        { s: "En gjest i type 1 kan endre minnet til hypervisoren fordi begge kjører på samme maskin.", answer: false, explain: "<p>Hypervisoren på −1 er mer privilegert, og målet er at gjestene ikke påvirker den (systemlysarket s. 14, s. 19).</p>" },
+        { s: "En container inneholder appen og alle dens avhengigheter.", answer: true, explain: "<p>Binærfiler og biblioteker følger med (systemlysarket s. 17).</p>" }
       ],
       tiltrodd: [
-        { s: "Maskinvare anses som mer robust mot sikkerhetstrusler enn programvare.", answer: true, explain: "<p>Det er grunnen til at tiltrodd beregning forankres i maskinvare (d08 s. 20).</p>" },
-        { s: "Målt oppstart stopper ukjent kode.", answer: false, explain: "<p>Den registrerer. Det er sikker oppstart som stopper (d08 s. 22).</p>" },
-        { s: "UEFI-koden som starter oppstarten, ligger i flashminne.", answer: true, explain: "<p>UEFI er fastvare i flashminne på hovedkortet, ikke på disken. Derfor kan den kjøre og sjekke signaturer før noe operativsystem er lastet (d08 s. 21).</p>" },
-        { s: "TPM er en koprosessor som finnes i de fleste moderne PC-er.", answer: true, explain: "<p>TPM er en egen liten sikkerhetsbrikke ved siden av hovedprosessoren. Den lagrer nøkler og måleverdier som vanlig programvare ikke kan endre direkte (d08 s. 22).</p>" },
-        { s: "Med en TEE skal ikke engang en kompromittert hypervisor kunne lese dataene.", answer: true, explain: "<p>Beskyttelsen ligger i prosessoren (d08 s. 23).</p>" },
+        { s: "Maskinvare anses som mer robust mot sikkerhetstrusler enn programvare.", answer: true, explain: "<p>Det er grunnen til at tiltrodd beregning forankres i maskinvare (systemlysarket s. 20).</p>" },
+        { s: "Målt oppstart stopper ukjent kode.", answer: false, explain: "<p>Den registrerer. Det er sikker oppstart som stopper (systemlysarket s. 22).</p>" },
+        { s: "UEFI-koden som starter oppstarten, ligger i flashminne.", answer: true, explain: "<p>UEFI er fastvare i flashminne på hovedkortet, ikke på disken. Derfor kan den kjøre og sjekke signaturer før noe operativsystem er lastet (systemlysarket s. 21).</p>" },
+        { s: "TPM er en koprosessor som finnes i de fleste moderne PC-er.", answer: true, explain: "<p>TPM er en egen liten sikkerhetsbrikke ved siden av hovedprosessoren. Den lagrer nøkler og måleverdier som vanlig programvare ikke kan endre direkte (systemlysarket s. 22).</p>" },
+        { s: "Med en TEE skal ikke engang en kompromittert hypervisor kunne lese dataene.", answer: true, explain: "<p>Beskyttelsen ligger i prosessoren (systemlysarket s. 23).</p>" },
         { s: "Både TPM og UEFI kan brukes for å bedre sikkerheten ved oppstart.", answer: true, explain: "<p>UEFI håndhever signaturer, TPM måler. Begge bidrar.</p>" }
       ],
       kanaler: [
-        { s: "Ulik behandlingstid kan avsløre bit i en kryptonøkkel.", answer: true, explain: "<p>Tid er en klassisk sidekanal (d08 s. 24).</p>" },
-        { s: "En skjult kanal bruker en mekanisme som er laget for kommunikasjon.", answer: false, explain: "<p>Mekanismen er nettopp <i>ikke</i> laget for det (d08 s. 25).</p>" },
-        { s: "I en skjult kanal kommuniserer parter som ikke har lov til å utveksle dataene.", answer: true, explain: "<p>Policyen sier at de ikke skal utveksle dataene. Den skjulte kanalen omgår det med en mekanisme som ikke er laget for kommunikasjon (d08 s. 25).</p>" },
-        { s: "Elektromagnetisk stråling kan være en sidekanal.", answer: true, explain: "<p>Strålingen er en utilsiktet bieffekt av den fysiske implementasjonen og kan fanges opp utenfra. Det heter TEMPEST (d08 s. 24, d01b s. 30).</p>" },
+        { s: "Ulik behandlingstid kan avsløre bit i en kryptonøkkel.", answer: true, explain: "<p>Tid er en klassisk sidekanal (systemlysarket s. 24).</p>" },
+        { s: "En skjult kanal bruker en mekanisme som er laget for kommunikasjon.", answer: false, explain: "<p>Mekanismen er nettopp <i>ikke</i> laget for det (systemlysarket s. 25).</p>" },
+        { s: "I en skjult kanal kommuniserer parter som ikke har lov til å utveksle dataene.", answer: true, explain: "<p>Policyen sier at de ikke skal utveksle dataene. Den skjulte kanalen omgår det med en mekanisme som ikke er laget for kommunikasjon (systemlysarket s. 25).</p>" },
+        { s: "Elektromagnetisk stråling kan være en sidekanal.", answer: true, explain: "<p>Strålingen er en utilsiktet bieffekt av den fysiske implementasjonen og kan fanges opp utenfra. Det heter TEMPEST (systemlysarket s. 24, lysarket om fysisk sikkerhet s. 30).</p>" },
         { s: "Å opptre som både avsender og mottaker i en kryptert forbindelse er en skjult kanal.", answer: false, explain: "<p>Angriperen sitter aktivt midt i forbindelsen, og det er mann-i-midten. En skjult kanal er parter som bevisst kommuniserer gjennom noe som ikke er laget for det.</p>" },
         { s: "En sidekanal krever at angriperen har innsidekode på systemet.", answer: false, explain: "<p>Angriperen observerer bieffekter, ofte utenfra.</p>" }
       ],
       sarbarhet: [
-        { s: "CVSS-skalaen går fra 0 til 10.", answer: true, explain: "<p>0 betyr ingen alvorlighet og 10 maksimal. Kategoriene er Lav 0,1–3,9, Middels 4,0–6,9, Høy 7,0–8,9 og Kritisk 9,0–10 (d08 s. 5).</p>" },
+        { s: "CVSS-skalaen går fra 0 til 10.", answer: true, explain: "<p>0 betyr ingen alvorlighet og 10 maksimal. Kategoriene er Lav 0,1–3,9, Middels 4,0–6,9, Høy 7,0–8,9 og Kritisk 9,0–10 (systemlysarket s. 5).</p>" },
         { s: "En sårbarhet med CVSS 4,0 er Lav.", answer: false, explain: "<p>Den er Middels. Lav slutter på 3,9.</p>" },
-        { s: "Oppdateringer bør testes fordi de kan ødelegge for egne systemer.", answer: true, explain: "<p>Det er derfor oppdatering tar tid (d08 s. 4).</p>" },
-        { s: "Antivirus og inntrengingsdeteksjon er eksempler på monitorering av systemsikkerhet.", answer: true, explain: "<p>Begge følger med på hva som skjer, og varsler eller reagerer. De retter ikke feilene i systemet, så de er monitorering (d08 s. 6).</p>" },
-        { s: "Sterk kommunikasjonssikkerhet gjør systemsikkerhet mindre viktig.", answer: false, explain: "<p>En sikker kanal mellom to svake endepunkter hjelper lite (d08 s. 2).</p>" },
-        { s: "Virtualisering er en tilnærming for å styrke systemsikkerheten.", answer: true, explain: "<p>Prosesser skilles i separate VM-er (d08 s. 6).</p>" }
+        { s: "Oppdateringer bør testes fordi de kan ødelegge for egne systemer.", answer: true, explain: "<p>Det er derfor oppdatering tar tid (systemlysarket s. 4).</p>" },
+        { s: "Antivirus og inntrengingsdeteksjon er eksempler på monitorering av systemsikkerhet.", answer: true, explain: "<p>Begge følger med på hva som skjer, og varsler eller reagerer. De retter ikke feilene i systemet, så de er monitorering (systemlysarket s. 6).</p>" },
+        { s: "Sterk kommunikasjonssikkerhet gjør systemsikkerhet mindre viktig.", answer: false, explain: "<p>En sikker kanal mellom to svake endepunkter hjelper lite (systemlysarket s. 2).</p>" },
+        { s: "Virtualisering er en tilnærming for å styrke systemsikkerheten.", answer: true, explain: "<p>Prosesser skilles i separate VM-er (systemlysarket s. 6).</p>" }
       ]
     };
     Object.keys(TF).forEach(function (fane) {
@@ -806,7 +806,7 @@
         rader: [
           { s: "Prosess i kjernemodus → nivå 3", svar: [0], explain: "<p>Nivå 3 har mindre makt enn 0. Kjernen når brukerprosessene.</p>" },
           { s: "Prosess i kjernemodus → nivå 0", svar: [0], explain: "<p>En prosess når alltid sitt eget nivå. Kjernen på 0 kan lese og endre sine egne data.</p>" },
-          { s: "Prosess i kjernemodus → nivå −1", svar: [1], explain: "<p>Hypervisoren har mer makt enn kjernen (d08 s. 8).</p>" },
+          { s: "Prosess i kjernemodus → nivå −1", svar: [1], explain: "<p>Hypervisoren har mer makt enn kjernen (systemlysarket s. 8).</p>" },
           { s: "Prosess i brukermodus → nivå 3", svar: [0], explain: "<p>Brukerprosessen når sitt eget nivå, 3. Det er de lavere tallene, 0 og −1, den ikke når.</p>" },
           { s: "Prosess i brukermodus → nivå 0", svar: [1], explain: "<p>Kjernen har mer makt. Brukerprosessen må be om tjenester, ikke hente selv.</p>" },
           { s: "Prosess i hypervisormodus → nivå 0", svar: [0], explain: "<p>−1 er mest privilegert og når gjeste-OS-ene på nivå 0.</p>" } ] } },
@@ -817,15 +817,15 @@
           { etikett: "Applikasjoner", valg: ["−1", "0", "3"], svar: 2, explain: "<p>Vanlige programmer kjører i brukermodus, på nivå 3, med minst makt. Da kan en feil i appen ikke gå rett på kjernen.</p>" },
           { etikett: "Kjerne", valg: ["−1", "0", "3"], svar: 1, explain: "<p>Kjernen kjører i kjernemodus, på nivå 0. Den har mer makt enn appene på 3, men mindre enn en hypervisor på −1.</p>" },
           { etikett: "Mest privilegert", valg: ["3", "0", "−1"], svar: 2, explain: "<p>Lavere tall gir mer makt, og −1 er lavest.</p>" },
-          { etikett: "Kjører der", valg: ["hypervisoren", "nettleseren", "UEFI-driverne"], svar: 0, explain: "<p>Nivå −1 kom rundt 2006 for hypervisoren (d08 s. 7).</p>" } ] } },
+          { etikett: "Kjører der", valg: ["hypervisoren", "nettleseren", "UEFI-driverne"], svar: 0, explain: "<p>Nivå −1 kom rundt 2006 for hypervisoren (systemlysarket s. 7).</p>" } ] } },
       { key: "ov-system-3", title: "Tiltak mot bufferoverflyt", points: 2.5, inspera: { type: "M", multi: false,
         kolonner: ["NX", "Stakk-kanarifugl", "ASLR", "Virtuelt minne"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2,5, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
-          { s: "Angriperen vet ikke lenger hvor biblioteket ligger i minnet", svar: [2], explain: "<p>Adressene stokkes for hver kjøring (d08 s. 10).</p>" },
+          { s: "Angriperen vet ikke lenger hvor biblioteket ligger i minnet", svar: [2], explain: "<p>Adressene stokkes for hver kjøring (systemlysarket s. 10).</p>" },
           { s: "Angrepskode som ligger i bufferet på stakken, nektes kjørt av CPU-en", svar: [0], explain: "<p>NX merker stakken som data, ikke kode. CPU-en nekter da å kjøre noe derfra, selv om angrepskoden har kommet inn i bufferet.</p>" },
-          { s: "Programmet avslutter fordi en tilfeldig verdi før returadressen er endret", svar: [1], explain: "<p>Sjekken skjer før funksjonen returnerer (d08 s. 11).</p>" },
-          { s: "Nettleseren kan ikke lese minnet til passordbanken", svar: [3], explain: "<p>Hver prosess har sitt eget fysiske adresseområde (d08 s. 9).</p>" },
+          { s: "Programmet avslutter fordi en tilfeldig verdi før returadressen er endret", svar: [1], explain: "<p>Sjekken skjer før funksjonen returnerer (systemlysarket s. 11).</p>" },
+          { s: "Nettleseren kan ikke lese minnet til passordbanken", svar: [3], explain: "<p>Hver prosess har sitt eget fysiske adresseområde (systemlysarket s. 9).</p>" },
           { s: "Overskrivingen oppdages, men først når funksjonen er ferdig", svar: [1], explain: "<p>Kanarifuglen sjekkes ved retur, ikke i det den overskrives.</p>" } ] } },
       { key: "ov-system-4", title: "Påstander om bufferoverflyt", points: 3, inspera: { type: "FF",
         regelTekst: "1 for hver korrekt, -1 for hver feil, maks 3, minimum 0.", regel: { riktig: 1, feil: -1, blankt: 0, min: 0, maks: 3 },
@@ -843,7 +843,7 @@
           "Feil: overflyten skjer inne i én prosess. Virtuelt minne isolerer bare prosessene fra hverandre (H2022 2.2).",
           "Riktig: returadressen bestemmer hvor programmet fortsetter (H2022 2.3).",
           "Feil: ASLR gjør adressen vanskeligere å gjette. Feilen er der fortsatt.",
-          "Riktig: tiltakene er hindringer, ikke rettinger (d08 s. 10).",
+          "Riktig: tiltakene er hindringer, ikke rettinger (systemlysarket s. 10).",
           "Feil: det handler om å skrive forbi en variabel, ikke om å fylle opp minnet." ] } },
       { key: "ov-system-5", title: "Type 2-stakken", points: 2.5, inspera: { type: "D",
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2,5, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
@@ -853,51 +853,51 @@
         felt: [
           { etikett: "Øverste lag", svar: 0, explain: "<p>Appene kjører øverst, inne i gjeste-OS-et.</p>" },
           { etikett: "Lag 2", svar: 1, explain: "<p>I en VM kjører appen inne i et eget gjeste-OS. Det skiller VM fra container, der appene deler verts-OS-ets kjerne.</p>" },
-          { etikett: "Lag 3", svar: 2, explain: "<p>I type 2 er hypervisoren et program på verts-OS-et (d08 s. 15).</p>" },
+          { etikett: "Lag 3", svar: 2, explain: "<p>I type 2 er hypervisoren et program på verts-OS-et (systemlysarket s. 15).</p>" },
           { etikett: "Lag 4", svar: 3, explain: "<p>Verts-OS-et kjører på nivå 0 og styrer ressursene.</p>" },
           { etikett: "Nederste lag", svar: 4, explain: "<p>Alt hviler på den fysiske maskinvaren. I type 2 ligger verts-OS-et mellom maskinvaren og hypervisoren; i type 1 kjører hypervisoren rett på maskinvaren.</p>" } ] } },
       { key: "ov-system-6", title: "VM eller container", points: 2, inspera: { type: "M", multi: false,
         kolonner: ["Bare type 1-VM", "Bare container", "Begge", "Ingen"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         rader: [
-          { s: "Har et eget gjeste-OS", svar: [0], explain: "<p>Containere har ikke gjeste-OS (d08 s. 16).</p>" },
-          { s: "Deler kjerne med verten", svar: [1], explain: "<p>Det er derfor isolasjonen er svakere (d08 s. 17).</p>" },
+          { s: "Har et eget gjeste-OS", svar: [0], explain: "<p>Containere har ikke gjeste-OS (systemlysarket s. 16).</p>" },
+          { s: "Deler kjerne med verten", svar: [1], explain: "<p>Det er derfor isolasjonen er svakere (systemlysarket s. 17).</p>" },
           { s: "Kan brukes til å isolere programmer fra hverandre", svar: [2], explain: "<p>Begge isolerer, men VM-en sterkest: den har eget gjeste-OS, mens containere deler kjernen med verten.</p>" },
           { s: "Gjør at skadevare inne i den ikke kan gjøre noen skade", svar: [3], explain: "<p>Skadevaren kan fortsatt gjøre skade inne i VM-en eller containeren og bruke nettet derfra.</p>" } ] } },
       { key: "ov-system-7", title: "TPM, UEFI, begge eller ingen", points: 2.5, inspera: { type: "M", multi: false,
         kolonner: ["Begge", "Bare TPM", "Ingen", "Bare UEFI"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, 2,5 for alle riktig, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
-          { s: "Avbryter oppstarten hvis en modul har feil digital signatur", svar: [3], explain: "<p>Sikker oppstart håndhever signaturene (d08 s. 21).</p>" },
-          { s: "Registrerer hva som startes, uten å stoppe noe", svar: [1], explain: "<p>Det er målt oppstart: TPM registrerer en måling av hvert steg, men stopper ingenting. Å stoppe er sikker oppstart i UEFI (d08 s. 22).</p>" },
-          { s: "Kan holde tilbake diskkrypteringsnøkkelen hvis oppstarten er endret", svar: [1], explain: "<p>Forsegling av nøkler, for eksempel BitLocker (d08 s. 22).</p>" },
-          { s: "Er en del av tiltrodd beregning", svar: [0], explain: "<p>Begge forankrer sikkerheten i maskinvare og fastvare: UEFI med sikker oppstart, TPM med måling og nøkkellagring. Begge står under tiltrodd beregning (d08 s. 20).</p>" },
-          { s: "Hindrer at en kompromittert hypervisor leser data mens de behandles", svar: [2], explain: "<p>Det er TEE (SGX/TDX, SEV), ikke TPM eller UEFI (d08 s. 23).</p>" } ] } },
+          { s: "Avbryter oppstarten hvis en modul har feil digital signatur", svar: [3], explain: "<p>Sikker oppstart håndhever signaturene (systemlysarket s. 21).</p>" },
+          { s: "Registrerer hva som startes, uten å stoppe noe", svar: [1], explain: "<p>Det er målt oppstart: TPM registrerer en måling av hvert steg, men stopper ingenting. Å stoppe er sikker oppstart i UEFI (systemlysarket s. 22).</p>" },
+          { s: "Kan holde tilbake diskkrypteringsnøkkelen hvis oppstarten er endret", svar: [1], explain: "<p>Forsegling av nøkler, for eksempel BitLocker (systemlysarket s. 22).</p>" },
+          { s: "Er en del av tiltrodd beregning", svar: [0], explain: "<p>Begge forankrer sikkerheten i maskinvare og fastvare: UEFI med sikker oppstart, TPM med måling og nøkkellagring. Begge står under tiltrodd beregning (systemlysarket s. 20).</p>" },
+          { s: "Hindrer at en kompromittert hypervisor leser data mens de behandles", svar: [2], explain: "<p>Det er TEE (SGX/TDX, SEV), ikke TPM eller UEFI (systemlysarket s. 23).</p>" } ] } },
       { key: "ov-system-8", title: "Oppstartsflyten", points: 2, inspera: { type: "N",
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         tekst: "<p>Når maskinen startes, kjører CPU-en {0} fra firmware. Signaturen på driverne sjekkes mot listen {1}, og listene er beskyttet av {2}. Samtidig kan {3} måle hvert steg.</p>",
         felt: [
-          { etikett: "Kode fra firmware", valg: ["UEFI-kode", "OS-kjernen", "hypervisoren"], svar: 0, explain: "<p>UEFI-kode i flashminne starter sekvensen (d08 s. 21).</p>" },
+          { etikett: "Kode fra firmware", valg: ["UEFI-kode", "OS-kjernen", "hypervisoren"], svar: 0, explain: "<p>UEFI-kode i flashminne starter sekvensen (systemlysarket s. 21).</p>" },
           { etikett: "Liste", valg: ["dbx over godkjente nøkler", "db over godkjente nøkler", "CRL"], svar: 1, explain: "<p>db er godkjente nøkler, dbx er svartelisten.</p>" },
           { etikett: "Beskyttet av", valg: ["plattformnøkkelen (PK)", "BitLocker", "ASLR"], svar: 0, explain: "<p>Plattformnøkkelen er tillitsankeret øverst i sikker oppstart, og listene kan bare endres med signaturer som kan føres tilbake til den. BitLocker og ASLR har ingenting med listene å gjøre.</p>" },
-          { etikett: "Måler", valg: ["TPM", "TEE", "Docker Engine"], svar: 0, explain: "<p>Målt oppstart er en TPM-tjeneste (d08 s. 22).</p>" } ] } },
+          { etikett: "Måler", valg: ["TPM", "TEE", "Docker Engine"], svar: 0, explain: "<p>Målt oppstart er en TPM-tjeneste (systemlysarket s. 22).</p>" } ] } },
       { key: "ov-system-9", title: "Sidekanal, skjult kanal eller MitM", points: 2.5, inspera: { type: "M", multi: false,
         kolonner: ["Skjult kanal", "Ingen", "MitM", "Sidekanal"],
         regelTekst: "0,5 for hver korrekt, -0,5 for hver feil, 0 for intet valg, maks 2,5, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
         rader: [
-          { s: "Lytte på lyden fra en skriver for å gjenskape det som skrives ut", svar: [3], explain: "<p>Lyd som lekker utilsiktet fra implementasjonen (d08 s. 24).</p>" },
-          { s: "Skadevare blinker med en lysdiode på en isolert maskin for å sende ut en nøkkel", svar: [0], explain: "<p>Bevisst misbruk av en mekanisme som ikke er laget for kommunikasjon (d08 s. 25).</p>" },
+          { s: "Lytte på lyden fra en skriver for å gjenskape det som skrives ut", svar: [3], explain: "<p>Lyd som lekker utilsiktet fra implementasjonen (systemlysarket s. 24).</p>" },
+          { s: "Skadevare blinker med en lysdiode på en isolert maskin for å sende ut en nøkkel", svar: [0], explain: "<p>Bevisst misbruk av en mekanisme som ikke er laget for kommunikasjon (systemlysarket s. 25).</p>" },
           { s: "Bruke VPN fra et hotell", svar: [1], explain: "<p>VPN er et sikkerhetstiltak, ikke et angrep.</p>" },
           { s: "Et falskt tilgangspunkt videresender og leser trafikken mellom offer og nettsted", svar: [2], explain: "<p>Angriperen står aktivt midt i forbindelsen og leser og videresender. Det er MitM: ingen utilsiktet lekkasje (sidekanal) og ingen bevisst skjult kommunikasjon.</p>" },
-          { s: "Måle strømforbruket til et betalingskort mens det signerer", svar: [3], explain: "<p>Strømforbruk er en sidekanal (d08 s. 24).</p>" } ] } },
+          { s: "Måle strømforbruket til et betalingskort mens det signerer", svar: [3], explain: "<p>Strømforbruk er en sidekanal (systemlysarket s. 24).</p>" } ] } },
       { key: "ov-system-10", title: "Definisjonene", points: 2, inspera: { type: "N",
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2 },
         tekst: "<p>En sidekanal er en {0} lekkasje som skyldes {1}. En skjult kanal er en mekanisme som {2}, og båndbredden er typisk {3}.</p>",
         felt: [
           { etikett: "Lekkasje", valg: ["bevisst", "utilsiktet", "kryptert"], svar: 1, explain: "<p>Ingen ønsket at informasjonen skulle komme ut.</p>" },
-          { etikett: "Skyldes", valg: ["den fysiske implementasjonen", "grensesnittet", "brukerens passord"], svar: 0, explain: "<p>Lekkasjen oppstår i den fysiske gjennomføringen, som tid, strøm, lyd og stråling. Selve grensesnittet kan være helt korrekt (d08 s. 24).</p>" },
-          { etikett: "Mekanisme", valg: ["er laget for kommunikasjon", "ikke er laget for kommunikasjon, men misbrukes til det", "bare finnes i nettverk"], svar: 1, explain: "<p>Kjennetegnet er misbruk: viften, volumet eller lysdioden er ikke laget for å sende data, men brukes bevisst til det (d08 s. 25).</p>" },
-          { etikett: "Båndbredde", valg: ["svært begrenset", "høy", "ubegrenset"], svar: 0, explain: "<p>Å sende ved å blinke eller endre viftelyd går sakte. Det holder likevel til å lekke små hemmeligheter som en nøkkel (d08 s. 25).</p>" } ] } },
+          { etikett: "Skyldes", valg: ["den fysiske implementasjonen", "grensesnittet", "brukerens passord"], svar: 0, explain: "<p>Lekkasjen oppstår i den fysiske gjennomføringen, som tid, strøm, lyd og stråling. Selve grensesnittet kan være helt korrekt (systemlysarket s. 24).</p>" },
+          { etikett: "Mekanisme", valg: ["er laget for kommunikasjon", "ikke er laget for kommunikasjon, men misbrukes til det", "bare finnes i nettverk"], svar: 1, explain: "<p>Kjennetegnet er misbruk: viften, volumet eller lysdioden er ikke laget for å sende data, men brukes bevisst til det (systemlysarket s. 25).</p>" },
+          { etikett: "Båndbredde", valg: ["svært begrenset", "høy", "ubegrenset"], svar: 0, explain: "<p>Å sende ved å blinke eller endre viftelyd går sakte. Det holder likevel til å lekke små hemmeligheter som en nøkkel (systemlysarket s. 25).</p>" } ] } },
       { key: "ov-system-11", title: "CVSS-kategorier", points: 2.5, inspera: { type: "M", multi: false,
         kolonner: ["Lav", "Middels", "Høy", "Kritisk"],
         regelTekst: "0,5 for hver riktig, -0,5 for hver feil, 0 for ubesvart, maks 2,5, minimum 0.", regel: { riktig: 0.5, feil: -0.5, blankt: 0, min: 0, maks: 2.5 },
@@ -919,18 +919,18 @@
     ];
     /* Opphav per øving (IN.opphavTekst i core.js): laget for guiden, eventuelt i samme format som en eksamensoppgave. */
     var OPPHAV = {
-      "ov-system-1": { type: "egen", variantAv: ["H2025-5", "H2024-5", "H2023-5"], kilder: ["d08 s. 7–8"], merknad: "Eksamen spør om én modus om gangen, her er det tre" },
-      "ov-system-2": { type: "egen", kilder: ["d08 s. 7"] },
-      "ov-system-3": { type: "egen", kilder: ["d08 s. 9–11"] },
-      "ov-system-4": { type: "egen", variantAv: ["H2020-5.2"], kilder: ["d08 s. 10"], merknad: "Her skal du velge tre korrekte utsagn, ikke fire" },
-      "ov-system-5": { type: "egen", variantAv: ["H2022-2.4"], kilder: ["d08 s. 15"], merknad: "Her med type 2 i stedet for type 1" },
-      "ov-system-6": { type: "egen", kilder: ["d08 s. 16–17"] },
-      "ov-system-7": { type: "egen", variantAv: ["H2022-2.6"], kilder: ["d08 s. 20–23"] },
-      "ov-system-8": { type: "egen", kilder: ["d08 s. 21–22"] },
-      "ov-system-9": { type: "egen", variantAv: ["H2021-2.2"], kilder: ["d08 s. 24–25"] },
-      "ov-system-10": { type: "egen", kilder: ["d08 s. 24–25"] },
-      "ov-system-11": { type: "egen", kilder: ["d08 s. 5"] },
-      "ov-system-12": { type: "egen", kilder: ["d08 s. 6"] }
+      "ov-system-1": { type: "egen", variantAv: ["H2025-5", "H2024-5", "H2023-5"], kilder: ["systemlysarket s. 7–8"], merknad: "Eksamen spør om én modus om gangen, her er det tre" },
+      "ov-system-2": { type: "egen", kilder: ["systemlysarket s. 7"] },
+      "ov-system-3": { type: "egen", kilder: ["systemlysarket s. 9–11"] },
+      "ov-system-4": { type: "egen", variantAv: ["H2020-5.2"], kilder: ["systemlysarket s. 10"], merknad: "Her skal du velge tre korrekte utsagn, ikke fire" },
+      "ov-system-5": { type: "egen", variantAv: ["H2022-2.4"], kilder: ["systemlysarket s. 15"], merknad: "Her med type 2 i stedet for type 1" },
+      "ov-system-6": { type: "egen", kilder: ["systemlysarket s. 16–17"] },
+      "ov-system-7": { type: "egen", variantAv: ["H2022-2.6"], kilder: ["systemlysarket s. 20–23"] },
+      "ov-system-8": { type: "egen", kilder: ["systemlysarket s. 21–22"] },
+      "ov-system-9": { type: "egen", variantAv: ["H2021-2.2"], kilder: ["systemlysarket s. 24–25"] },
+      "ov-system-10": { type: "egen", kilder: ["systemlysarket s. 24–25"] },
+      "ov-system-11": { type: "egen", kilder: ["systemlysarket s. 5"] },
+      "ov-system-12": { type: "egen", kilder: ["systemlysarket s. 6"] }
     };
     OV.forEach(function (o) { o.opphav = OPPHAV[o.key]; safe(o.key, function () { IN.inspera("#" + o.key, o); }); });
 

@@ -47,7 +47,7 @@
     clear(host);
     return IN.bucketTask(host, {
       id: "nett-stakk",
-      opphav: { type: "egen", variantAv: ["H2025-22", "H2024-28"], kilder: ["d09 s. 3–9"] },
+      opphav: { type: "egen", variantAv: ["H2025-22", "H2024-28"], kilder: ["nettverkslysarket s. 3–9"] },
       prompt: {
         eli5: "Hver protokoll hører hjemme i én etasje i stakken. Legg hver brikke i riktig etasje. Programmet du bruker, står over hele stakken.",
         normal: "Legg hver protokoll i laget den hører til i internettstakken, slik kursets fasit plasserer dem. Programmer står over stakken («App»).",
@@ -72,7 +72,7 @@
         { id: "dnssec", html: "DNSSEC", forklaring: {
           normal: "DNSSEC er en utvidelse av DNS med digitale signaturer på svarene. DNS er en applikasjonstjeneste, så DNSSEC hører også til applikasjonslaget.",
           teknisk: "DNSSEC gir integritet og autentisitet for DNS-data (signaturer og en egen PKI, se blokk 3), men ingen konfidensialitet. Den ligger der DNS ligger: i applikasjonslaget." } },
-        { id: "tlsh", html: "TLS Handshake", forklaring: "Kurset legger Handshake i applikasjonslaget, sammen med HTTP (lysark uke 9, s. 12). Den forhandler algoritmer og etablerer øktnøkkelen." },
+        { id: "tlsh", html: "TLS Handshake", forklaring: "Kurset legger Handshake i applikasjonslaget, sammen med HTTP (nettverkslysarket s. 12). Den forhandler algoritmer og etablerer øktnøkkelen." },
         { id: "tlsr", html: "TLS Record", forklaring: "Record sitter rett over TCP og regnes til transportlaget. Den krypterer med nøkkelen Handshake etablerte." },
         { id: "tcp", html: "TCP", forklaring: "TCP leverer til riktig program via porter og sørger for at alt kommer fram i riktig rekkefølge. Det er transportlaget, men uten kryptografi." },
         { id: "udp", html: "UDP", forklaring: "Transport med porter, uten garantert levering. Ingen kryptografi, så ingen sikkerhetsprotokoll." },
@@ -94,7 +94,7 @@
         normal: "<p>Fellene:</p><ul><li>TLS er delt (Handshake i applikasjon, Record i transport),</li><li>IPsec har ingen port fordi den ligger under transportlaget,</li><li>og Outlook er et program over stakken.</li></ul>",
         teknisk: "<p>Fasitkonvensjonen: Handshake i applikasjonslaget, Record i transportlaget, IPsec i internettlaget. Sikkerhetsprotokoller per lag:</p><ul><li>applikasjon (SSH, DNSSEC, TLS Handshake),</li><li>transport (TLS Record),</li><li>internett (IPsec),</li><li>link (WPA, utenfor 2026-pensum).</li></ul>"
       },
-      kilde: { ref: "d09 s. 7–12; fasit H2022 7.1 og H2025 22", egneOrd: true }
+      kilde: { ref: "nettverkslysarket s. 7–12; fasit H2022 7.1 og H2025 22", egneOrd: true }
     }, { instant: false });
   };
 
@@ -291,7 +291,7 @@
         if (hit < 0) steps.push({ pk: pk, rs: rs, at: rs.length, implicit: true, text: {
           eli5: "Ingen linje passet. Denne dørvakten slipper da folk inn. Derfor bør siste linje være «alle andre: nei».",
           normal: "Ingen regel traff. iptables har implisitt ACCEPT, så pakken <b>slipper gjennom</b>. Med en eksplisitt DROP til slutt hadde den blitt stoppet.",
-          teknisk: "Ingen regel matchet, og standardpolicy ACCEPT gjelder (lysark uke 9, s. 48). En eksplisitt <code>-j DROP</code> sist gir minste privilegium. Merk: H2025 24-fasiten antar at trafikk uten treff blir stoppet." } });
+          teknisk: "Ingen regel matchet, og standardpolicy ACCEPT gjelder (nettverkslysarket s. 48). En eksplisitt <code>-j DROP</code> sist gir minste privilegium. Merk: H2025 24-fasiten antar at trafikk uten treff blir stoppet." } });
         // Gjett før svaret: spørsmålet vises på første steg, før regel 1 sjekkes
         var dom = hit >= 0 ? rs[hit].j : "ACCEPT";
         if (steps[1]) steps[1].spor = {
@@ -366,11 +366,11 @@
     clear(host);
     return IN.bucketTask(host, {
       id: "nett-dmz",
-      opphav: { type: "egen", kilder: ["d09 s. 36–55", "t10 oppg. 7"] },
+      opphav: { type: "egen", kilder: ["nettverkslysarket s. 36–55", "ukesoppgaven om nettverkssikkerhet, oppg. 7"] },
       prompt: {
         eli5: "En borg har forgård og tronsal. Det besøkende må nå, står i forgården (DMZ). Det verdifulle står innerst. Hvor hører hver ting hjemme?",
         normal: "Virksomheten har en ytre brannmur mot Internett, en DMZ og en indre brannmur foran det indre nettet. Plasser hver maskin eller tjeneste der den bør stå.",
-        teknisk: "Arkitektur som på lysark uke 9, s. 41: ytre brannmur, DMZ (eksponert segment) og indre brannmur foran indre segment. Plasser etter hvem som må nå tjenesten, og hva et kompromiss koster."
+        teknisk: "Arkitektur som på nettverkslysarket s. 41: ytre brannmur, DMZ (eksponert segment) og indre brannmur foran indre segment. Plasser etter hvem som må nå tjenesten, og hva et kompromiss koster."
       },
       zones: [
         { id: "ute", label: "Internett", hint: "utenfor ytre brannmur" },
@@ -395,7 +395,7 @@
         normal: "Tommelfingerregel: må tjenesten nås utenfra, står den i DMZ. Alt annet står i det indre nettet. Da blir et innbrudd i DMZ ikke et innbrudd i hele nettet.",
         teknisk: "Den ytre brannmuren slipper inn bare 80/443 til web, 25 til e-post og 53 til DNS. Den indre slipper nesten ingenting inn, kanskje web → database. NIDS står utenfor, i DMZ og i det indre nettet, så alarmene kan sammenstilles."
       },
-      kilde: { ref: "d09 s. 39–41; t10 O7", egneOrd: true }
+      kilde: { ref: "nettverkslysarket s. 39–41; ukesoppgaven om nettverkssikkerhet, oppg. 7", egneOrd: true }
     }, { instant: false });
   };
 
@@ -633,7 +633,7 @@
       { t: "Kjent skadevare, sendt ukryptert, i et vanlig mønster", d: "Skadevaren har en kjent signatur. Den lastes ned over http, i en mengde og på en tid som ligner vanlig trafikk.", a: [true, false],
         f: { eli5: "Tyven står på plakaten, men oppfører seg helt vanlig. Bare plakat-alarmen piper.", normal: "Signaturen treffer på innholdet. Trafikkmønsteret er normalt, så anomalibasert ser ingenting.", teknisk: "Signaturbasert trenger ofte å se innholdet. Her er det synlig." } },
       { t: "Den samme skadevaren, men over HTTPS", d: "Nå lastes den ned over TLS, uten TLS-inspeksjon, fortsatt i et vanlig mønster.", a: [false, false],
-        f: { eli5: "Tyven har på seg maske og oppfører seg vanlig. Ingen alarm piper.", normal: "TLS skjuler innholdet, så signaturen finner ingenting å treffe på (lysark uke 9, s. 59). Mønsteret er normalt, så anomalibasert er også stille.", teknisk: "TLS gjør signaturbasert IDS mindre effektiv. Motmidler: TLS-inspeksjon i proxyen, eller HIDS på endepunktet der innholdet er dekryptert." } },
+        f: { eli5: "Tyven har på seg maske og oppfører seg vanlig. Ingen alarm piper.", normal: "TLS skjuler innholdet, så signaturen finner ingenting å treffe på (nettverkslysarket s. 59). Mønsteret er normalt, så anomalibasert er også stille.", teknisk: "TLS gjør signaturbasert IDS mindre effektiv. Motmidler: TLS-inspeksjon i proxyen, eller HIDS på endepunktet der innholdet er dekryptert." } },
       { t: "Etter trening under pentest", d: "Anomali-IDS-en ble trent i mars mens en pentest pågikk. I april kartlegger en ekte angriper nettet på samme måte. Ingen signatur passer.", a: [false, false],
         f: { eli5: "Vakthunden lærte at tyver hører til i huset, så den bjeffer ikke.", normal: "Modellen lærte at kartlegging er normalt, og varsler ikke om den nå. Ingen signatur passer heller (H2025 21).", teknisk: "Forgiftet baseline gir falske negative. Tren på en periode du vet er ren." } }
     ];
@@ -733,7 +733,7 @@
     host.appendChild(hT);
     var vpn = IN.matrise(hV, {
       id: "nett-mat-vpn",
-      opphav: { type: "egen", kilder: ["d09 s. 26–35"] },
+      opphav: { type: "egen", kilder: ["nettverkslysarket s. 26–35"] },
       sporsmal: {
         eli5: "Du går på nett gjennom en låst gang til en VPN-tjeneste. Hvem kan se hva? Kryss av, og trykk «Sjekk svar».",
         normal: "Du bruker en sky-VPN og besøker et nettsted med TLS (https). Fyll ut hva hver aktør ser, og trykk «Sjekk svar». Prøv så bryteren.",
@@ -758,7 +758,7 @@
     });
     var tor = IN.matrise(hT, {
       id: "nett-mat-tor",
-      opphav: { type: "egen", kilder: ["d09 s. 26–35"] },
+      opphav: { type: "egen", kilder: ["nettverkslysarket s. 26–35"] },
       sporsmal: {
         eli5: "Nå sender du gjennom tre stasjoner med tre låste esker. Hvem ser hva?",
         normal: "Du bruker Tor (inngang, midt, utgang) og besøker et nettsted med TLS. Fyll ut, sjekk, og prøv bryteren.",
@@ -815,7 +815,7 @@
     var STED = ["Før krypteringen", "På strekningen", "Etter dekrypteringen"];
     return IN.matrise(mh, {
       id: "nett-mat-hvemser",
-      opphav: { type: "egen", kilder: ["d09 s. 10–25"], merknad: "Samme tankegang som Bobs passord i H2025 37, med andre personer" },
+      opphav: { type: "egen", kilder: ["nettverkslysarket s. 10–25"], merknad: "Samme tankegang som Bobs passord i H2025 37, med andre personer" },
       sporsmal: {
         eli5: "Ida skriver passordet sitt. Hvem kan lese det? Finn først ut hvor hver person står: før låsen, på veien eller etter at låsen er åpnet.",
         normal: "Ida logger inn på https://skole.example. HSTS er satt, og det er ikke første besøk. Fyll ut begge kolonnene for hver person, og trykk «Sjekk». Prøv så bryterne.",
@@ -891,7 +891,7 @@
       "Ser ikke inn i kryptert trafikk uten å bryte TLS"];
     return IN.matrise(host, {
       id: "nett-mat-forsvar",
-      opphav: { type: "egen", kilder: ["d09 s. 36–71"] },
+      opphav: { type: "egen", kilder: ["nettverkslysarket s. 36–71"] },
       sporsmal: {
         eli5: "Fem vakter med ulike jobber. Hvem kan stoppe noen selv, hvem leser brevene, og hvem husker hvem som har vært innom?",
         normal: "Sammenlign verktøyene som brukes i lagdelt forsvar: stopper verktøyet trafikk selv, kan det lese innholdet (brukerdataene), og husker det forbindelser (økter)? Fyll ut, og trykk «Sjekk svar». Celler merket som ikke telt, har ingen fasit i kurset.",
@@ -938,7 +938,7 @@
     clear(host);
     return IN.scenario(host, {
       id: "nett-scen-pentest",
-      opphav: { type: "egen", kilder: ["d05 s. 6", "d09 s. 56–71"] },
+      opphav: { type: "egen", kilder: ["pentestlysarket s. 6", "nettverkslysarket s. 56–71"] },
       tittel: "Du er på vakt i sikkerhetsteamet. Denne uka er det avtalt pentest.",
       start: "alarm",
       noder: {
@@ -1009,7 +1009,7 @@
     clear(host);
     return IN.scenario(host, {
       id: "nett-scen-bob",
-      opphav: { type: "eksamen", variantAv: "H2025-37", kilder: ["d09 s. 10–25"], merknad: "Spørsmålene om tiltak etterpå er laget for guiden" },
+      opphav: { type: "eksamen", variantAv: "H2025-37", kilder: ["nettverkslysarket s. 10–25"], merknad: "Spørsmålene om tiltak etterpå er laget for guiden" },
       tittel: "Du er sikkerhetsrådgiver i Bob Inc. Situasjonen er den fra H2025 oppgave 37.",
       start: "hvem",
       noder: {

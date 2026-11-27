@@ -10,7 +10,7 @@
    IN.angrep.logg(host)     fire små logger med egne data; tellerne skiller mønstrene.
 
    Øvinger bygd på dra.js og ovelse.js (lastes før denne fila):
-   IN.angrep.faserSort(host)      IN.sortTask: stadiene i rekkefølge (d05 s. 16)
+   IN.angrep.faserSort(host)      IN.sortTask: stadiene i rekkefølge (pentestlysarket s. 16)
    IN.angrep.bokser(host)         IN.matrise: boksfarge × hva testeren vet og hva det gir
    IN.angrep.phishing(host)       IN.bucketTask: meldinger → kursets fire phishingtyper
    IN.angrep.skadevare(host)      IN.matrise: skadevaretype × kjennetegn i definisjonen
@@ -352,14 +352,14 @@
   /* =====================================================================
      Øvinger (dra.js og ovelse.js)
      ===================================================================== */
-  var KILDE_PENTEST = { ref: "Forelesning om pentesting (d05)", egneOrd: true };
-  var KILDE_T04 = { ref: "Ukesoppgaver t04 og eksamen H2022–H2025", egneOrd: true };
+  var KILDE_PENTEST = { ref: "Forelesning om pentesting (pentestlysarket)", egneOrd: true };
+  var KILDE_T04 = { ref: "ukesoppgaven om angrepsvektorer og eksamen H2022–H2025", egneOrd: true };
   var D = (A.DATA = A.DATA || {});
 
   /* ---------- Stadiene i rekkefølge ---------- */
   D.faserSort = {
     id: "angrep-sort-faser",
-    opphav: { type: "egen", kilder: ["d05 s. 16"] },
+    opphav: { type: "egen", kilder: ["pentestlysarket s. 16"] },
     prompt: {
       eli5: "Et avtalt innbrudd skjer i en fast rekkefølge. Sett stegene i riktig rekkefølge, fra avtalen til rapporten.",
       normal: "Sett de sju stadiene i en penetrasjonstest i riktig rekkefølge.",
@@ -379,7 +379,7 @@
     ],
     answer: ["plan", "rek", "innl", "utv", "fot", "gev", "rap"],
     oppsummering: "Huskeregel: avtale → finn ut → kom inn → få mer → bli værende → vis det → skriv det. Tidslinja i del 3 viser hva forsvareren kan gjøre i hvert av dem.",
-    kilde: { ref: "Forelesning om pentesting (d05), lysark 16", egneOrd: true }
+    kilde: { ref: "Forelesning om pentesting (pentestlysarket), lysark 16", egneOrd: true }
   };
   A.faserSort = function (host) { return IN.sortTask(host, D.faserSort, { instant: false }); };
 
@@ -387,7 +387,7 @@
   var JN = ["Ja", "Nei"];
   D.bokser = {
     id: "angrep-mat-boks",
-    opphav: { type: "egen", kilder: ["d05 s. 11–12"], merknad: "Svartboks er spurt om som flervalg i H2023 oppgave 4 og H2025 oppgave 4" },
+    opphav: { type: "egen", kilder: ["pentestlysarket s. 11–12"], merknad: "Svartboks er spurt om som flervalg i H2023 oppgave 4 og H2025 oppgave 4" },
     sporsmal: {
       eli5: "Testeren kan få vite ingenting, litt eller alt på forhånd. Fyll ut hva det betyr for hver boksfarge.",
       normal: "Fyll ut tabellen: hva vet testeren på forhånd, og hva følger av det? «Vis fasit» viser hvorfor i hver celle.",
@@ -433,7 +433,7 @@
   /* ---------- Phishingtypene ---------- */
   D.phishing = {
     id: "angrep-dra-phish",
-    opphav: { type: "egen", kilder: ["d05 s. 23–24", "t04 oppg. 1"] },
+    opphav: { type: "egen", kilder: ["pentestlysarket s. 23–24", "ukesoppgaven om angrepsvektorer, oppg. 1"] },
     prompt: {
       eli5: "Hvem er meldingen laget for, og er den en kopi av noe ekte? Legg hver melding i riktig type.",
       normal: "Legg hver melding i riktig phishingtype. Spør deg selv: hvem er den laget for, og er den en kopi av en melding mottakeren faktisk har fått?",
@@ -480,7 +480,7 @@
   var SPRER = ["Av seg selv over nettet", "Via en vert (et annet program)", "Brukeren installerer den selv", "Ikke en del av definisjonen"];
   D.skadevare = {
     id: "angrep-mat-skadevare",
-    opphav: { type: "egen", kilder: ["t04"] },
+    opphav: { type: "egen", kilder: ["ukesoppgaven om angrepsvektorer"] },
     sporsmal: {
       eli5: "Hver type har ett kjennetegn som gir den navnet. Fyll ut hva som hører til hvilken.",
       normal: "Fyll ut hva som er en del av <i>definisjonen</i> av hver type, slik kurset bruker dem. I praksis kan én skadevare være flere typer samtidig, men her spør vi om hva som gir navnet.",
@@ -602,7 +602,7 @@
   /* ---------- Finn feilen: sudoers ---------- */
   D.sudo = {
     id: "angrep-feil-sudo",
-    opphav: { type: "egen", kilder: ["d05 s. 36–40"], merknad: "Samme tema som H2023 oppgave 29 og H2022 oppgave 4.4, men her finner du de farlige linjene selv" },
+    opphav: { type: "egen", kilder: ["pentestlysarket s. 36–40"], merknad: "Samme tema som H2023 oppgave 29 og H2022 oppgave 4.4, men her finner du de farlige linjene selv" },
     tittel: "/etc/sudoers (utdrag)",
     sporsmal: {
       eli5: "Driftsbrukeren skal bare ta sikkerhetskopi og se én loggfil. To av linjene gir ham i praksis nøkkelen til hele huset. Finn dem.",

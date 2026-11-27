@@ -2014,16 +2014,21 @@
     return '<a href="' + p.href + "#fane=eksamen&amp;oppg=o-" + String(key).replace(/[^A-Za-z0-9_-]/g, "_") + '">' + esc(tekst) + "</a>";
   };
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  /* Kildeforkortelser i opphav.kilder → lesbar tekst (d01a s. 20 → «lysark 1a (2026) s. 20»). */
-  var KILDE_NAVN = { ism: "ISMS-lysarkene", ba: "lysarkene om brukerautentisering", iam: "IAM-lysarkene",
-    co: "lysarkene om cyberoperasjoner", ki: "lysarkene om KI-sikkerhet" };
+  /* Kildeforkortelser i opphav.kilder → lesbar tekst med temanavn (d02 s. 16 → «kryptolysarket s. 16»,
+     t03 O6b → «ukesoppgaven om PKI, oppg. 6b»). Kildene skrives nå med navn; dette er reserven. */
+  var KILDE_NAVN = { ism: "ISMS-lysarket", ba: "autentiseringslysarket", iam: "IAM-lysarket",
+    co: "cyberops-lysarket", cyberops: "cyberops-lysarket", ki: "KI-lysarket" };
+  var LYSARK_NAVN = { "1": "introlysarket", "1a": "introlysarket", "1b": "lysarket om fysisk sikkerhet", "2": "kryptolysarket",
+    "3": "PKI-lysarket", "5": "pentestlysarket", "8": "systemlysarket", "9": "nettverkslysarket", "13": "eksamenslysarket" };
+  var UKE_NAVN = { "2": "kryptografi", "3": "PKI", "4": "angrepsvektorer", "5": "pentesting", "6": "risikostyring",
+    "7": "brukerautentisering", "9": "IAM", "10": "nettverkssikkerhet", "11": "cyberoperasjoner" };
   /* Gir HTML (escapet tekst, eller lenke for H2025-1). */
   IN.kildeNavn = function (k) {
     k = String(k || "").trim();
     var m = /^d0*(\d+)([a-z]?)(.*)$/.exec(k);
-    if (m) return esc("lysark " + m[1] + m[2] + " (2026)" + m[3]);
-    m = /^t0*(\d+)(.*)$/.exec(k);
-    if (m) return esc("ukesoppgave " + m[1] + m[2]);
+    if (m) return esc((LYSARK_NAVN[m[1] + m[2]] || LYSARK_NAVN[m[1]] || "lysark " + m[1] + m[2]) + m[3]);
+    m = /^t0*(\d+)(?: (?:O|oppg\. ?)(.+))?$/.exec(k);
+    if (m) return esc((UKE_NAVN[m[1]] ? "ukesoppgaven om " + UKE_NAVN[m[1]] : "ukesoppgave " + m[1]) + (m[2] ? ", oppg. " + m[2].replace(/O(\d)/g, "$1") : ""));
     m = /^([a-z]+)(.*)$/.exec(k);
     if (m && KILDE_NAVN[m[1]]) return esc(KILDE_NAVN[m[1]] + m[2]);
     m = /^H(\d{4})-(.+)$/.exec(k);

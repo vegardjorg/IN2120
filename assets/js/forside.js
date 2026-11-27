@@ -60,7 +60,7 @@
     var lo = Math.min.apply(null, a), hi = Math.max.apply(null, a);
     return lo === hi ? num(lo) : num(lo) + "–" + num(hi);
   }
-  function shortY(y) { return "H" + y.slice(3); }
+  function shortY(y) { return "H" + y.slice(1); }
   function nrOf(o) { return String(o.key).replace(/^H\d{4}-/, ""); }
   /* Dyplenke til kortet på blokksiden: samme id som bank.js gir kortet («.» → «_») */
   function cardId(key) { return "o-" + String(key).replace(/[^A-Za-z0-9_-]/g, "_"); }
@@ -93,7 +93,7 @@
       ["Tid", "4 timer"],
       ["Sted", "Silurveien"],
       ["Hjelpemidler", String(last.hjelpemidler || "ingen").toLowerCase()],
-      ["Format", "Inspera, 9 deler, 100 poeng (d13 s. 9)" + (counts.length ? "; eldre sett hadde " + range(counts) + " oppgaver" : "")]
+      ["Format", "Inspera, 9 deler, 100 poeng (eksamenslysarket s. 9)" + (counts.length ? "; eldre sett hadde " + range(counts) + " oppgaver" : "")]
     ];
     facts.forEach(function (f) { host.appendChild(el("dt", { text: f[0] })); host.appendChild(el("dd", { text: f[1] })); });
   })();
@@ -274,7 +274,7 @@
       YEARS.forEach(function (y) {
         var v = PTS[p][y] || 0, i = el("i", { title: shortY(y) + ": " + num(v) + " p" });
         i.style.height = Math.max(v ? 8 : 0, Math.round(v / (maxY || 1) * 100)) + "%";
-        spark.appendChild(el("span", { class: "fs-sparkc" }, [i, el("b", { text: shortY(y).slice(1) })]));
+        spark.appendChild(el("span", { class: "fs-sparkc" }, [i, el("b", { text: y.slice(3) })]));
       });
       // Hyppigste stikkord (tema) i blokkens oppgaver
       var tags = {};

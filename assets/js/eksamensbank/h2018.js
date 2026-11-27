@@ -463,7 +463,7 @@
     },
     avvik: null,
     losning: ["Sertifikat = signert binding mellom (domene)navn og offentlig nøkkel.", "CA sjekker domenekontroll før signering. Nettleser-PKI har mange rot-CA-er.", "Sertifikat gir autentisitet, ikke pålitelighet, og har aldri private nøkler."],
-    tips: [UTENFOR + "Certificate Transparency og EV-sertifikater står ikke på 2026-lysarkene (bare i t03 fra 2025). Resten (binding navn–nøkkel, mange rot-CA-er, tillitsforvirring) er pensum.", "Utskriften har en liten ekstra strek etter haken ved alternativ 5; det er en utskriftsfeil, ikke en ekstra markering."]
+    tips: [UTENFOR + "Certificate Transparency og EV-sertifikater står ikke på 2026-lysarkene (bare i ukesoppgaven om PKI fra 2025). Resten (binding navn–nøkkel, mange rot-CA-er, tillitsforvirring) er pensum.", "Utskriften har en liten ekstra strek etter haken ved alternativ 5; det er en utskriftsfeil, ikke en ekstra markering."]
   });
   hv("H2018-3.3",
     "<p>Et sertifikat er som et ID-kort for en nettside: det viser at nettstedet virkelig heter det det sier. Men et ID-kort sier ingenting om personen er ærlig.</p>",
@@ -491,7 +491,7 @@
     },
     avvik: null,
     losning: ["OCSP = nettbasert statussjekk av ett sertifikat: gyldig, tilbakekalt eller ukjent."],
-    tips: [UTENFOR + "OCSP og revokering står ikke på 2026-lysarkene (bare t03 fra 2025).", "Distraktoren «Revocation of certificates» er nær, men OCSP tilbakekaller ikke; den spør om status."]
+    tips: [UTENFOR + "OCSP og revokering står ikke på 2026-lysarkene (bare ukesoppgaven om PKI fra 2025).", "Distraktoren «Revocation of certificates» er nær, men OCSP tilbakekaller ikke; den spør om status."]
   });
   hv("H2018-3.4",
     "<p>Før du godtar et førerkort, kan du ringe politiet og spørre: «Er dette kortet fortsatt gyldig, eller er det inndratt?» OCSP er den telefonen.</p>",

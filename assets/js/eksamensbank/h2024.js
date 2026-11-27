@@ -116,7 +116,7 @@
           multi: false,
           rader: [
             { s: "Safety", svar: [2], explain: "<p>Safety handler om vern mot ulykker og utilsiktede hendelser. Det norske ordet er trygghet.</p>" },
-            { s: "Assurance", svar: [1], explain: "<p>Assurance er tilliten til at sikkerhetstiltakene faktisk virker som de skal. Eksamen (H23–H25) oversetter det med garanti.</p>" },
+            { s: "Assurance", svar: [1], explain: "<p>Assurance er tilliten til at sikkerhetstiltakene faktisk virker som de skal. Eksamen (H2023–H2025) oversetter det med garanti.</p>" },
             { s: "Security", svar: [3], explain: "<p>Security er vern mot tilsiktede, ondsinnede handlinger. Det er sikkerhet.</p>" },
             { s: "Certainty", svar: [0], explain: "<p>Certainty betyr å vite noe sikkert. Det norske ordet er visshet.</p>" }
           ]
@@ -576,7 +576,7 @@
               explain: "Trygge valg er RSA, DSA, ECDSA eller EdDSA, som alle er signaturalgoritmer. Lista godtar også DH og MQV, selv om de egentlig er nøkkelutveksling." }
           ]
         },
-        avvik: ["Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Det tryggeste er å svare RSA eller ECDSA.", "FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC.", "Lista forklares trolig av at kurset (d02, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon."],
+        avvik: ["Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Det tryggeste er å svare RSA eller ECDSA.", "FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC.", "Lista forklares trolig av at kurset (kryptolysarket, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon."],
         merknad: "«Fyll in» og mellomrommet før spørsmålstegnet står slik i arket.",
         losning: ["Felt 1: X.509.", "Felt 2: RSA (eller ECDSA/EdDSA/DSA)."],
         tips: ["Skriv bare én algoritme i felt 2. Feltet rettes automatisk mot lista."]
@@ -806,7 +806,7 @@
         },
         avvik: "Verdiene i utskriften (Authentication Id, bruker, domene, SID og hasher) er byttet ut med oppdiktede, forkortede eksempelverdier, og passordverdien er skjult (••••••••), fordi guiden ikke gjengir innloggingsdata. Kommandoene og strukturen er som på arket.",
         losning: ["Modulnavn med dobbelt kolon (sekurlsa::) og utdata med NTLM-hasher og passord = mimikatz."],
-        tips: ["Hintet sier at kiwi «bruker dette programmet»: Kiwi er en modul som bygger på mimikatz (lysark d05 s. 45 lister «Kiwi (Metasploit)» ved siden av Mimikatz). Spørsmålet gjelder programmet selv."]
+        tips: ["Hintet sier at kiwi «bruker dette programmet»: Kiwi er en modul som bygger på mimikatz (pentestlysarket s. 45 lister «Kiwi (Metasploit)» ved siden av Mimikatz). Spørsmålet gjelder programmet selv."]
       },
       /* ---------------------------------------------------------------- 25 */
       {
@@ -933,7 +933,7 @@
             { etikett: "OSI 1", svar: 4, godta: [], explain: "Lag 1 er det fysiske laget." }
           ]
         },
-        avvik: "Eksamensarket (og kursets lysark d09 s. 7) tegner internett-stakken med applikasjon ved OSI 7–6 og transport ved OSI 5–4. Standard OSI-tilordning er applikasjon = OSI 7–5 og transport = OSI 4, og figuren her er tegnet slik. Poengene gis bare for lagnavnene, så svaret blir det samme.",
+        avvik: "Eksamensarket (og kursets nettverkslysarket s. 7) tegner internett-stakken med applikasjon ved OSI 7–6 og transport ved OSI 5–4. Standard OSI-tilordning er applikasjon = OSI 7–5 og transport = OSI 4, og figuren her er tegnet slik. Poengene gis bare for lagnavnene, så svaret blir det samme.",
         losning: [
           "OSI ovenfra: Applikasjon, Presentasjon, Sesjon, Transport, Nettverk, Link, Fysisk.",
           "Internett ovenfra: Applikasjon, Transport, Internett, Link, Fysisk.",
@@ -1355,7 +1355,7 @@
   P["H2024-14"] = { type: "eksamen", hvorfor: {
     eli5: "<p>En ekte underskrift beviser hvem som skrev. Et gammelt skranglete lås (SHA-1) stoler man ikke på. Og å avtale et hemmelig ord med noen du ikke har sjekket hvem er, kan gjøre at du egentlig snakker med en mellommann.</p>",
     normal: "<p>Asymmetrisk signatur beviser avsender overfor tredjepart. SHA-1 er usikker. Diffie-Hellman uten signatur er sårbar for mann-i-midten.</p>",
-    teknisk: "<ul><li>Bare eieren av K<sup>A</sup><sub>priv</sub> kan signere, så signaturen er ubenektelig.</li><li>SHA-1 har praktiske kollisjoner, og dermed kan to dokumenter dele signatur.</li><li>DH gir en felles nøkkel gᵃᵇ [mod p], men uten signaturene Sig(gᵃᵇ, K<sup>A</sup><sub>priv</sub>) og Sig(gᵃᵇ, K<sup>B</sup><sub>priv</sub>) vet ingen av partene hvem de har utvekslet med (kursets fremstilling, d02 s. 63; i praktiske protokoller som TLS 1.3 signeres de utvekslede verdiene eller hele håndtrykket, ikke selve gᵃᵇ).</li></ul>" } };
+    teknisk: "<ul><li>Bare eieren av K<sup>A</sup><sub>priv</sub> kan signere, så signaturen er ubenektelig.</li><li>SHA-1 har praktiske kollisjoner, og dermed kan to dokumenter dele signatur.</li><li>DH gir en felles nøkkel gᵃᵇ [mod p], men uten signaturene Sig(gᵃᵇ, K<sup>A</sup><sub>priv</sub>) og Sig(gᵃᵇ, K<sup>B</sup><sub>priv</sub>) vet ingen av partene hvem de har utvekslet med (kursets fremstilling, kryptolysarket s. 63; i praktiske protokoller som TLS 1.3 signeres de utvekslede verdiene eller hele håndtrykket, ikke selve gᵃᵇ).</li></ul>" } };
 
   P["H2024-15"] = { type: "eksamen", hvorfor: {
     eli5: "<p>Rektor (rot) gir læreren (mellomliggende) lov til å skrive vitnemål, og læreren skriver vitnemålet til eleven (inspera.no).</p>",

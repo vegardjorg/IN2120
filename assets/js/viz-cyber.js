@@ -317,7 +317,7 @@
     var task = draOppg("matchTask", taskHost, {
       prompt: "Hendelsene i Grågås-angrepet står i stokket rekkefølge. Legg hver hendelse på trinnet den hører til.",
       cards: cards, zones: zones, poolLabel: "Hendelser som ikke er plassert", cls: "cy-kc-dra",
-      opphav: { type: "egen", variantAv: "H2021-10.1", kilder: ["co s. 17"] }
+      opphav: { type: "egen", variantAv: "H2021-10.1", kilder: ["cyberops-lysarket s. 17"] }
     }, {
       checkLabel: "Sjekk svar",
       result: function (c) {
@@ -432,7 +432,7 @@
     var task = draOppg("bucketTask", taskHost, {
       prompt: "Kortene er det Fjordnett deler etter angrepet.",
       cards: CTI_KORT, zones: CTI.map(function (c) { return { id: c.id, label: esc(c.navn), hint: esc(c.om) }; }),
-      opphav: { type: "egen", kilder: ["co s. 25–26"], merknad: "Samme tre CTI-nivåer som i H2024 36" }
+      opphav: { type: "egen", kilder: ["cyberops-lysarket s. 25–26"], merknad: "Samme tre CTI-nivåer som i H2024 36" }
     });
 
     function mark(i) {

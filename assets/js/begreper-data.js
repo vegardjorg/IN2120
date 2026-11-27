@@ -189,13 +189,13 @@
     x509: { ord: "X.509", b: 3, mc: ["X\\.509(?:-sertifikat(?:et|er|ene)?)?"],
       txt: "Standardformatet for sertifikater: navn, offentlig nøkkel, gyldighetstid, utvidelser og CA-ens signatur (RFC 5280)." },
     crl: { ord: "CRL", full: "certificate revocation list", b: 3, mc: A("CRL"),
-      txt: "Liste over tilbakekalte sertifikater, signert og publisert av CA-en. Ikke pensum: ordet CRL står ikke i 2026-kildene, men revokering er med i ukesoppgave 2025 (t03)." },
+      txt: "Liste over tilbakekalte sertifikater, signert og publisert av CA-en. Ikke pensum: ordet CRL står ikke i 2026-kildene, men revokering er med i ukesoppgave 2025 (ukesoppgaven om PKI)." },
     ocsp: { ord: "OCSP", full: "Online Certificate Status Protocol", b: 3, mc: ["OCSP(?:-stifting(?:en)?)?"],
       txt: "Spør CA-en om ett sertifikat fortsatt er gyldig (RFC 6960). Ved OCSP-stifting legger tjeneren selv ved et ferskt, signert svar. Står i ukesoppgave 2025, ikke på 2026-lysarkene." },
     ct: { ord: "CT", full: "Certificate Transparency (sertifikattransparens)", b: 3, mc: ["CT"],
-      txt: "Offentlige logger der sertifikater bare kan legges til (RFC 6962; versjon 2 i RFC 9162). Domeneeiere kan dermed oppdage sertifikater de ikke har bedt om. Står i ukesoppgave 2025 (t03) som sertifikat-transparens, ikke på 2026-lysarkene." },
+      txt: "Offentlige logger der sertifikater bare kan legges til (RFC 6962; versjon 2 i RFC 9162). Domeneeiere kan dermed oppdage sertifikater de ikke har bedt om. Står i ukesoppgave 2025 (ukesoppgaven om PKI) som sertifikat-transparens, ikke på 2026-lysarkene." },
     caa: { ord: "CAA", full: "Certification Authority Authorization", b: 3, mc: A("CAA"),
-      txt: "DNS-record der domeneeieren skriver hvilke CA-er som får utstede sertifikater for domenet (RFC 8659). Står i ukesoppgave 2025 (t03), ikke på 2026-lysarkene." },
+      txt: "DNS-record der domeneeieren skriver hvilke CA-er som får utstede sertifikater for domenet (RFC 8659). Står i ukesoppgave 2025 (ukesoppgaven om PKI), ikke på 2026-lysarkene." },
     dv: { ord: "DV", full: "domain validation", b: 3, mc: ["DV"],
       txt: "Sertifikat der CA-en bare har sjekket at søkeren styrer domenet. Ikke pensum." },
     ov: { ord: "OV", full: "organization validation", b: 3, mc: ["OV(?= (?:ECC|RSA|RCC) CA)"],
@@ -861,7 +861,7 @@
     skaare: { ord: "skåre", full: "score, S", b: 7, m: ["skår(?:e|en|er|ene)"], ctx: "biometri|FMR|FNMR|terskel|fingeravtrykk|ansikt",
       txt: "Tall S for hvor lik en biometrisk prøve er den lagrede malen. Høy skåre betyr stor likhet. Sammenlignes med terskelen T." },
 
-    /* ---------- Operasjonsmoduser (lagt til 2026-11-27, UI/UX-runden i fanen Moduser; kilde d02 s. 28–34) ---------- */
+    /* ---------- Operasjonsmoduser (lagt til 2026-11-27, UI/UX-runden i fanen Moduser; kilde kryptolysarket s. 28–34) ---------- */
     opmodus: { ord: "operasjonsmodus", full: "mode of operation", b: 2, m: ["operasjonsmodus(?:en|er|ene)?", "blokkmodus(?:en|er|ene)?"],
       txt: "Regelen for hvordan et blokkchiffer brukes på en melding som er lengre enn én blokk. Kurset nevner ECB (usikker) og CTR, CBC, OFB og CFB (sikre)." },
     klartekstblokk: { ord: "klartekstblokk", full: "M₁, M₂ …", b: 2, m: ["klartekstblokk(?:a|en|er|ene)?"],

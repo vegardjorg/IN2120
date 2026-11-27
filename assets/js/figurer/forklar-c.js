@@ -108,12 +108,12 @@
 
   /* ---------- ttp-hierarki: taktikk → teknikk → prosedyre ----------
      Kilde: MITRE ATT&CK FAQ, avsnittene «What are tactics / techniques / procedures?» (taktikk = «why», teknikk = «how»,
-     prosedyre = «specific implementation»). Kurset (CO, t11) sier at taktikken er hva angriperen vil oppnå (delmålet):
+     prosedyre = «specific implementation»). Kurset (CO, ukesoppgaven om cyberoperasjoner) sier at taktikken er hva angriperen vil oppnå (delmålet):
      kursets ord brukes. Undertekniker (sub-techniques) finnes hos MITRE, men ikke i kurset: utelatt. Ingen tall på
      taktikker og teknikker, de endres mellom versjoner. Eksempelet er oppdiktet. */
   IN.FORKLAR["ttp-hierarki"] = function (host) {
     var hh = ramme(host, "ttp-hierarki", lenke("https://attack.mitre.org/resources/faq/", "MITRE ATT&amp;CK FAQ, «tactics», «techniques» og «procedures»") +
-      " · kursets ord (CO, t11), oppdiktet eksempel",
+      " · kursets ord (CO, ukesoppgaven om cyberoperasjoner), oppdiktet eksempel",
       "middels – ATT&CK og CTI-nivåene var med i H2021 10.3 og H2024 36, men ATT&CK står ikke på 2026-lysarket.");
     if (!hh) return;
     var s = F().svg(hh, { w: 340, h: 368, maks: 480, tittel: "TTP: taktikk, teknikk og prosedyre",
@@ -142,11 +142,11 @@
 
   /* ---------- skall-zt: skallmodell mot zero trust ----------
      Kilde: NIST ZTA (SP 1800-35) ordliste (PDP = PE + PA, PEP håndhever, «trust is never granted implicitly») og
-     Volume B «Architecture», forespørselsflyten I(1)–I(5) og løpende revurdering. Kursets ord (d09 s. 3–5): skallmodell,
+     Volume B «Architecture», forespørselsflyten I(1)–I(5) og løpende revurdering. Kursets ord (nettverkslysarket s. 3–5): skallmodell,
      «stol aldri, verifiser alltid». PDP/PEP som i IAM-fanen. Kurset nevner ikke PE/PA: de står i parentes. */
   IN.FORKLAR["skall-zt"] = function (host) {
     var hh = ramme(host, "skall-zt", lenke("https://pages.nist.gov/zero-trust-architecture/glossary.html", "NIST ZTA-ordlista (PDP, PEP, PE, PA)") + " · " +
-      lenke("https://pages.nist.gov/zero-trust-architecture/VolumeB/architecture.html", "NIST ZTA Volume B, «core components» og forespørselsflyten") + " · kursets ord (d09 s. 3–5)",
+      lenke("https://pages.nist.gov/zero-trust-architecture/VolumeB/architecture.html", "NIST ZTA Volume B, «core components» og forespørselsflyten") + " · kursets ord (nettverkslysarket s. 3–5)",
       "lav – lagdelt forsvar har bare vært et feilalternativ (H2023 9); zero trust, PEP og PDP er ikke spurt om (H2021–H2025).");
     if (!hh) return;
     var c = F().celler(hh, 2, { kol: 2 });
@@ -204,11 +204,11 @@
 
   /* ---------- faktorer: vet, har, er (/gjør) ----------
      Kilde: NIST SP 800-63B-4 §3.1 (passord = «something you know», OTP, out-of-band og kryptografiske autentikatorer =
-     «something you have») og §3.2.3 (biometri bare som del av MFA med en fysisk autentikator). Kurset (BA, t07) har
-     vet/har/er (/gjør) og regner sekundærkanaler som SMS som «har»: kursets inndeling brukes. Lapp: vet eller har (t07). */
+     «something you have») og §3.2.3 (biometri bare som del av MFA med en fysisk autentikator). Kurset (BA, ukesoppgaven om brukerautentisering) har
+     vet/har/er (/gjør) og regner sekundærkanaler som SMS som «har»: kursets inndeling brukes. Lapp: vet eller har (ukesoppgaven om brukerautentisering). */
   IN.FORKLAR["faktorer"] = function (host) {
     var hh = ramme(host, "faktorer", lenke("https://pages.nist.gov/800-63-4/sp800-63b/authenticators/", "NIST SP 800-63B-4 §3.1 og §3.2.3") +
-      " · kursets inndeling (BA, t07)",
+      " · kursets inndeling (BA, ukesoppgaven om brukerautentisering)",
       "middels – sjelden direkte; nærmest kommer autentiseringsenhetene i H2021 6.3 og 1-faktor i silo-domener (H2023 34).");
     if (!hh) return;
     var s = F().svg(hh, { w: 340, h: 330, maks: 480, tittel: "Tre autentiseringsfaktorer",
@@ -237,11 +237,11 @@
 
   /* ---------- xss-typer: lagret og reflektert ----------
      Kilde: OWASP «Types of Cross-Site Scripting» (Stored: lagres på tjeneren og hentes senere av offeret; Reflected:
-     kommer med forespørselen og speiles i svaret uten å lagres). Kursets ord (t04): XSS rammer brukerne via tjeneren.
+     kommer med forespørselen og speiles i svaret uten å lagres). Kursets ord (ukesoppgaven om angrepsvektorer): XSS rammer brukerne via tjeneren.
      OWASP nummererer typene ulikt (Type I/II): bare navnene brukes. DOM-basert XSS er utelatt (ikke i kurset). */
   IN.FORKLAR["xss-typer"] = function (host) {
     var hh = ramme(host, "xss-typer", lenke("https://community.owasp.org/Types_of_Cross-Site_Scripting", "OWASP: Types of Cross-Site Scripting, «Stored» og «Reflected»") +
-      " · kursets ord (t04)",
+      " · kursets ord (ukesoppgaven om angrepsvektorer)",
       "middels – XSS dukker opp i vektor- og OWASP-oppgaver (H2022 3.6, H2023 30, H2024 25), men lagret mot reflektert er ikke spurt om direkte.");
     if (!hh) return;
     var c = F().celler(hh, 2, { kol: 2 }), X = [52, 170, 288];
@@ -325,12 +325,12 @@
   /* ---------- nulldag: tidslinje fra feil til installert rettelse ----------
      Kilde: NIST SP 800-40r4 §2.1 (ukjente sårbarheter som utnyttes = «zero-day attack»; risikoen øker når sårbarheten blir
      kjent; en rettelse kan komme dager, uker eller måneder etter kunngjøringen; installasjon må ofte vente på test og
-     vedlikeholdsvindu). Kursets definisjon (d08 s. 4): leverandøren kjenner ikke til den, eller det finnes ingen
+     vedlikeholdsvindu). Kursets definisjon (systemlysarket s. 4): leverandøren kjenner ikke til den, eller det finnes ingen
      tilgjengelig oppdatering. Kursets ord: nulldagssårbarhet. Rekkefølgen «kjent» og «angriper finner» kan byttes i
      virkeligheten; figuren viser det vanlige nulldagsløpet. */
   IN.FORKLAR["nulldag"] = function (host) {
     var hh = ramme(host, "nulldag", lenke("https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf", "NIST SP 800-40r4 §2.1") +
-      " · kursets definisjon (d08 s. 4)",
+      " · kursets definisjon (systemlysarket s. 4)",
       "lav – nulldag gir sjelden egne oppgaver; begrepet dukker opp i påstander og bak CVSS-prioriteringen.");
     if (!hh) return;
     var s = F().svg(hh, { w: 340, h: 380, maks: 480, tittel: "Fra sårbarhet til installert rettelse",
@@ -367,11 +367,11 @@
   /* ---------- ocsp-stifting: uten og med stifting ----------
      Kilde: RFC 6960 §2 (klienten spør en OCSP-tjener om ett sertifikat; svaret er signert av CA-en eller en autorisert
      svarer og har status good/revoked/unknown og tidsfeltene thisUpdate/nextUpdate) og RFC 6066 §8 (status_request i
-     ClientHello; tjeneren sender OCSP-svaret i CertificateStatus rett etter sertifikatet). Kurset (t03 O6c, O9b):
+     ClientHello; tjeneren sender OCSP-svaret i CertificateStatus rett etter sertifikatet). Kurset (ukesoppgaven om PKI, oppg. 6c, 9b):
      personvernulempen ved OCSP og «must-staple». Utenfor 2026-lysarkene. */
   IN.FORKLAR["ocsp-stifting"] = function (host) {
     var hh = ramme(host, "ocsp-stifting", lenke("https://www.rfc-editor.org/rfc/rfc6960", "RFC 6960 §2") + " · " +
-      lenke("https://datatracker.ietf.org/doc/html/rfc6066#section-8", "RFC 6066 §8 (status_request)") + " · t03 O6c og O9b · utenfor 2026-lysarkene",
+      lenke("https://datatracker.ietf.org/doc/html/rfc6066#section-8", "RFC 6066 §8 (status_request)") + " · ukesoppgaven om PKI, oppg. 6c og 9b · utenfor 2026-lysarkene",
       "lav – revokering har bare vært med som delspørsmål (X18, X24), og OCSP står ikke på 2026-lysarkene.");
     if (!hh) return;
     var c = F().celler(hh, 2, { kol: 2 }), X = [52, 170, 288];
@@ -456,12 +456,12 @@
   /* ---------- aktorkart: ressurser mot motiv ----------
      Kilde: ENISA Threat Landscape 2025 §4.4 «Threat groups converging» (grensene mellom hacktivisme, kriminalitet og
      statlig aktivitet viskes ut; faketivisme = statlige aktører bak hacktivist-masker; hacktivister tar i bruk
-     løsepengevirus) og kapittel 6, 7 og 9 (kriminalitet, statlige aktører, hacktivisme). Kurset (t04, CO): tre nivåer
+     løsepengevirus) og kapittel 6, 7 og 9 (kriminalitet, statlige aktører, hacktivisme). Kurset (ukesoppgaven om angrepsvektorer, CO): tre nivåer
      amatør, cyberkriminell og APT, og innsidere. Kursets nivåer brukes; ENISAs «hacktivister» står inne i amatørfeltet
      ved ideologi. Myke felt, ikke skarpe bokser. */
   IN.FORKLAR["aktorkart"] = function (host) {
     var hh = ramme(host, "aktorkart", lenke("https://www.enisa.europa.eu/sites/default/files/2025-11/ENISA%20Threat%20Landscape%202025.pdf", "ENISA Threat Landscape 2025 §4.4, kap. 6, 7 og 9") +
-      " · kursets tre nivåer (t04, CO)",
+      " · kursets tre nivåer (ukesoppgaven om angrepsvektorer, CO)",
       "lav – trusselaktørene har ikke hatt egen oppgave i H2021–H2025, bare som del av andre oppgaver.");
     if (!hh) return;
     var s = F().svg(hh, { w: 340, h: 340, maks: 520, tittel: "Trusselaktører: ressurser mot motiv",
