@@ -58,7 +58,7 @@
     ] },
 
     /* ===================== 1 · DEL 1: GENERELT ===================== */
-    { nr: 1, navn: "Del 1 · Generelt", hvor: "Først i settet, 13–40 p", steg: [
+    { nr: 1, navn: "Del 1 · Generelt", hvor: "Først i settet, 10–40 p (13–40 p i H2023–H2025)", steg: [
       { id: "1a", tittel: "KIT-matrisen og sikkerhetsordene", vekt: 5, min: "E", tid: 5,
         les: [["grunnbegreper", "kit", "Blokk 1 → KIT og tjenestene"], ["grunnbegreper", "trygghet", "Sikkerhet, trygghet, visshet"]],
         hvorfor: "«Hvilket KIT-mål brytes?» har kommet alle fem år (H2021–H2025). Ordene sikkerhet, trygghet og visshet kom H2023–H2025.",
@@ -177,7 +177,7 @@
         ],
         feller: [
           "«SHA-256 krypterer»: en hash har ingen nøkkel og er ikke kryptering.",
-          "«AES-512» og «symmetrisk modus» er distraktorer på arket."
+          "«Symmetrisk modus» er en distraktor (H2021 3.2). «AES-512» finnes ikke, men i H2025 6 var fasiten likevel symmetrisk kryptering."
         ],
         forklar: ["hashkrav"],
         kort: { E: ["H2025-6", "H2024-18"], S: ["H2025-10", "H2025-11", "H2025-3"], G: ["H2021-3.1", "H2021-3.4", "H2022-5.2", "H2023-21", "H2023-6", "H2024-6", "H2021-4.1"] } },
@@ -512,7 +512,7 @@
         kjerne: t(
           "<p>Liv og helse kommer først. Før en farlig jobb deler du den opp i små biter og spør: hva kan gå galt her, og hvordan hindrer vi det?</p>",
           "<p>SJA står for sikker jobbanalyse. Du deler en farlig arbeidsoppgave opp i trinn, vurderer risikoen for hvert trinn og bestemmer tiltak før arbeidet starter. TEMPEST handler om avlytting av elektromagnetisk stråling fra utstyr. Forsvar i dybden med flere lag kjøper tid og øker sjansen for å oppdage innbrudd.</p>",
-          "<p>Arbeidsgiveren har HMS-ansvaret. Ved arbeid i høyden (lift, personløfter) må det være minst én person på bakken i tillegg til den som jobber, slik at noen kan varsle og hjelpe. Les oppgaveteksten nøye for antallet. Andre stikkord: tailgating og sluser, kald, varm og het reservelokasjon, sikkerhetsklarering for personell.</p>"),
+          "<p>Arbeidsgiveren har HMS-ansvaret. Ved arbeid i høyden (lift, personløfter) må det være minst én person på bakken i tillegg til den som jobber, slik at noen kan varsle og hjelpe. Les oppgaveteksten nøye for antallet. Begge må ha gyldig opplæring i bruk av lift (1 av 4 p i H2025 36). Andre stikkord: tailgating og sluser, kald, varm og het reservelokasjon, sikkerhetsklarering for personell.</p>"),
         kunne: [
           "SJA = sikker jobbanalyse: del opp oppgaven, vurder risiko per trinn og bestem tiltak før start.",
           "TEMPEST = avlytting av elektromagnetisk stråling (og vern mot det).",

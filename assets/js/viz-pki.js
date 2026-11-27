@@ -279,7 +279,7 @@
         slutt: { slutt: true, oppsummering: {
           eli5: "<p>Med Bobs nøkkel kan Alice åpne det som sendes <b>til</b> Bob, og stemple som om hun var Bob. Hun kan ikke åpne det Bob sender til andre. Bob må slutte å bruke nøkkelen og få en ny.</p>" + tyveriTabell(),
           normal: "<p>Lese: bare det som sendes <b>til</b> Bob (og til Alice selv). Signere: bare <b>som</b> Bob (og som Alice selv). Det Bob sender til Charlie, er kryptert med Charlies nøkkel. Tiltak: stopp beskyttelse, varsle, tilbakekall sertifikatet og lag nytt nøkkelpar.</p>" + tyveriTabell(),
-          teknisk: "<p>" + K("B", "priv") + " gir D(·) for alt kryptert med " + K("B", "pub") + " og Sig(·) i Bobs navn. Det gir ikke " + K("C", "priv") + ". I H2022 6.1 er riktige alternativer 3, 4 og 6. Alternativ 6 (Alice signerer som seg selv) er trivielt sant, og det er lett å overse (H2021 4.4, H2022 6.2). Signaturer uten klarert tidsstempel fra før kompromitteringen kan ikke lenger stoles på.</p>" + tyveriTabell()
+          teknisk: "<p>" + K("B", "priv") + " gir D(·) for alt kryptert med " + K("B", "pub") + " og Sig(·) i Bobs navn. Det gir ikke " + K("C", "priv") + ". I H2022 6.1 er riktige alternativer 3, 4 og 6. Alternativ 6 (Alice signerer som seg selv) er trivielt sant, og det er lett å overse (samme situasjon i H2024 7). Signaturer uten klarert tidsstempel fra før kompromitteringen kan ikke lenger stoles på.</p>" + tyveriTabell()
         } }
       }
     };

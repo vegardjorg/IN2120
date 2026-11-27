@@ -38,7 +38,7 @@
   var FASER = [
     { navn: "Planlegging", kort: "Avtale",
       skjer: "Testeren og virksomheten avtaler mål (hvilke kjerneverdier testen skal prøve å ramme), omfang (hva som er med og ikke), tidsrom, kontaktperson ved driftsstans og boksfarge. Tillatelsen gis skriftlig, på forhånd, av noen med myndighet over systemet.",
-      forsvar: "Velg kjerneverdiene som betyr mest (økonomi, sensitive data, tilgjengelighet). Sørg for at den som signerer faktisk har myndighet over systemet (kurset knytter dette til legalitetsprinsippet i forvaltningen, forenklet d05 s. 8).",
+      forsvar: "Velg kjerneverdiene som betyr mest (økonomi, sensitive data, tilgjengelighet). Sørg for at den som signerer faktisk har myndighet over systemet (kurset knytter dette til legalitetsprinsippet i forvaltningen, forenklet d05 s. 8–9).",
       eks: [["H2022-3.3", "§ 204"], ["H2025-13", "§ 204"], ["H2022-4.3", "hvitboks"], ["H2023-4", "svartboks"], ["H2024-4", "gråboks"], ["H2025-4", "svartboks"]] },
     { navn: "Rekognosering", kort: "Finn ut mest mulig",
       skjer: "Først passiv innsamling fra åpne kilder (OSINT): nettsider, stillingsannonser, sosiale medier, offentlige registre over domener og IP-adresser. Deretter kartlegging av hvilke maskiner og tjenester som svarer.",
@@ -57,7 +57,7 @@
       forsvar: "Deteksjon og respons: logger samlet utenfor maskinene, varsling på nye kontoer og tjenester. En maskin som har hatt rootkit, reinstalleres.",
       eks: [["H2025-19", "rootkit-scenario"]] },
     { navn: "Gevinst", kort: "Vis at det går",
-      skjer: "Vise at kjerneverdiene kan rammes uten å gjøre skade: vise eller endre en avtalt fil, eller hente ut usensitive data, gjerne via en sidekanal som DNS-oppslag.",
+      skjer: "Vise at kjerneverdiene kan rammes uten å gjøre skade: vise eller endre en avtalt fil, eller hente ut usensitive data, gjerne via en skjult kanal som DNS-oppslag.",
       forsvar: "Følg med på uvanlig utgående trafikk, også DNS. Det testeren klarer her, er det en ekte angriper også kan.",
       eks: [] },
     { navn: "Rapport", kort: "Produktet",

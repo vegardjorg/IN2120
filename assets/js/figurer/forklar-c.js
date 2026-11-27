@@ -142,11 +142,11 @@
 
   /* ---------- skall-zt: skallmodell mot zero trust ----------
      Kilde: NIST ZTA (SP 1800-35) ordliste (PDP = PE + PA, PEP håndhever, «trust is never granted implicitly») og
-     Volume B «Architecture», forespørselsflyten I(1)–I(5) og løpende revurdering. Kursets ord (d09 s. 2–4): skallmodell,
+     Volume B «Architecture», forespørselsflyten I(1)–I(5) og løpende revurdering. Kursets ord (d09 s. 3–5): skallmodell,
      «stol aldri, verifiser alltid». PDP/PEP som i IAM-fanen. Kurset nevner ikke PE/PA: de står i parentes. */
   IN.FORKLAR["skall-zt"] = function (host) {
     var hh = ramme(host, "skall-zt", lenke("https://pages.nist.gov/zero-trust-architecture/glossary.html", "NIST ZTA-ordlista (PDP, PEP, PE, PA)") + " · " +
-      lenke("https://pages.nist.gov/zero-trust-architecture/VolumeB/architecture.html", "NIST ZTA Volume B, «core components» og forespørselsflyten") + " · kursets ord (d09 s. 2–4)",
+      lenke("https://pages.nist.gov/zero-trust-architecture/VolumeB/architecture.html", "NIST ZTA Volume B, «core components» og forespørselsflyten") + " · kursets ord (d09 s. 3–5)",
       "lav – lagdelt forsvar har bare vært et feilalternativ (H2023 9); zero trust, PEP og PDP er ikke spurt om (H2021–H2025).");
     if (!hh) return;
     var c = F().celler(hh, 2, { kol: 2 });

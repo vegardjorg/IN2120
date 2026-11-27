@@ -158,7 +158,7 @@
 
     var rfBit = IN.regnForst(h1, {
       id: "krypto-nokkelrom-bit",
-      opphav: { type: "egen", kilder: ["d02 s. 4–12"] },
+      opphav: { type: "egen", kilder: ["d02 s. 16"] },
       sporsmal: function (inn) {
         return "En nøkkel har <b>" + inn.n + " bit</b>. Hvor mange nøkler må en angriper <b>i snitt</b> prøve ved fullt nøkkelsøk?";
       },
@@ -187,7 +187,7 @@
     var TRINN = IN.regnForst.tidstrinn ? IN.regnForst.tidstrinn() : null;
     var rfTid = TRINN && IN.regnForst(h1t, {
       id: "krypto-nokkelrom-tid",
-      opphav: { type: "egen", kilder: ["d02 s. 4–12"] },
+      opphav: { type: "egen", kilder: ["d02 s. 16"] },
       sporsmal: function (inn) {
         return "Samme nøkkel på <b>" + inn.n + " bit</b> som i a). Angriperen prøver <b>10" + sup(inn.v) + " nøkler per sekund</b>. Hvor lang tid tar fullt nøkkelsøk <b>i snitt</b>? Regn ut tiden og velg størrelsesorden.";
       },
@@ -217,7 +217,7 @@
 
     IN.regnForst(h2, {
       id: "krypto-nokkelrom-alf",
-      opphav: { type: "egen", variantAv: ["H2025-11"], kilder: ["d02 s. 4–12"], merknad: "Regnedelen av H2025 11, med tall du kan endre" },
+      opphav: { type: "egen", variantAv: ["H2025-11"], kilder: ["d02 s. 16–18"], merknad: "Regnedelen av H2025 11, med tall du kan endre" },
       sporsmal: function (inn) {
         return "Nøkkelen er et kodeord på <b>" + inn.L + "</b> tegn, og hvert tegn velges fritt blant <b>" + inn.A + "</b> tegn" + (inn.A === 29 ? " (det norske alfabetet)" : inn.A === 26 ? " (det engelske alfabetet)" : "") + ". Hvor mange ulike nøkler finnes?";
       },
@@ -1161,7 +1161,7 @@
   /* ---------- Postkvante: hvem rammes, og hva erstatter dem (IN.bucketTask) ---------- */
   KR.pqcSpec = {
     id: "krypto-pqc-sorter",
-    opphav: { type: "egen", kilder: ["d02 s. 64–72"] },
+    opphav: { type: "egen", kilder: ["d02 s. 64–72", "d03 s. 20"] },
     prompt: {
       eli5: "En stor kvantedatamaskin kan dirke opp noen låser, men ikke alle. Legg hver algoritme i riktig gruppe.",
       normal: "Legg hver algoritme i riktig gruppe: rammes den av en stor kvantedatamaskin, rammes den lite, eller er den en postkvantealgoritme som erstatter de sårbare?",
@@ -1177,7 +1177,7 @@
       { id: "rsa", html: "RSA", forklaring: "Tradisjonell asymmetrisk. Faktorisering kan løses av en stor kvantedatamaskin." },
       { id: "dh", html: "Diffie–Hellman", forklaring: "Diskret logaritme kan løses av en kvantedatamaskin. Erstattes av ML-KEM til nøkkeletablering." },
       { id: "dsa", html: "DSA (signatur)", forklaring: "Lysarket nevner DSA sammen med RSA og DH som tradisjonell asymmetrisk krypto som kan knekkes. Erstattes av ML-DSA eller SLH-DSA." },
-      { id: "ecc", html: "ECC", forklaring: "Tradisjonell asymmetrisk krypto, som RSA. Lysarket om kvante nevner ikke ECC, men den bygger på diskret logaritme (på elliptiske kurver) og knekkes på samme måte (NIST IR 8547)." },
+      { id: "ecc", html: "ECC", forklaring: "Tradisjonell asymmetrisk krypto, som RSA. Kvantearkene i d02 nevner bare RSA, DSA og DH, men d03 s. 20 lister også elliptisk kurvekryptografi (ECDSA). Den bygger på diskret logaritme (på elliptiske kurver) og knekkes på samme måte (NIST IR 8547)." },
       { id: "aes", html: "AES-256", forklaring: "Symmetrisk. Rammes lite; lang nøkkel holder." },
       { id: "sha", html: "SHA-256", forklaring: "Hash. Rammes lite; lengre hash (SHA-512) gir mer margin." },
       { id: "mlkem", html: "ML-KEM (FIPS 203)", forklaring: "«Kyber». Gitterbasert nøkkelinnkapsling, til nøkkeletablering." },

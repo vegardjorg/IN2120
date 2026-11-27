@@ -548,7 +548,7 @@
     if (!angrep) return [["", ""], ["", ""], ["", ""]];
     if (f === "trad") return [["gra", "Ingen gjester i denne arkitekturen."], ["gra", ""], ["gra", ""]];
     if (f === "cont") return [["nei", "Svakere: en kjernefeil kan la én container nå en annen."], ["gra", "Ingen hypervisor, men verts-kjernen er felles."], ["gra", "Ikke vist i scenarioet."]];
-    return [["ok", "Stoppet ved hypervisoren."], ["ok", "Gjesten på nivå 0 når ikke hypervisoren" + (f === "type1" ? " på −1." : ".")], ["gra", "Ikke vist i scenarioet. Viktig fordi skadevare ofte oppfører seg pent i en analyse-VM."]];
+    return [["ok", "Stoppet ved hypervisoren."], ["ok", f === "type1" ? "Gjesten på nivå 0 når ikke hypervisoren på −1." : "Gjeste-OS-et kjører på nivå 3 (d08 s. 15) og når ikke naboen."], ["gra", "Ikke vist i scenarioet. Viktig fordi skadevare ofte oppfører seg pent i en analyse-VM."]];
   }
   function angrepFig(f) {
     var cont = f === "cont";

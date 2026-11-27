@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Angrepsvektorer, skadevare og pentesting i IN2120, sett fra forsvareren: trusselaktører, phishingtypene, skadevaretypene, leveransekjede og andre vektorer, pentestens stadier og boksfarger, straffeloven § 204, SQL-injeksjon som kode mot data, OSINT, sudo og logganalyse – med øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127g">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127g">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127g">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127g">
-  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261127g">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127g">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127h">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127h">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127h">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127h">
+  <link rel="stylesheet" href="assets/css/blokk-angrep.css?v=20261127h">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127h">
 </head>
 <body data-page="angrep">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -370,7 +370,7 @@
           <li>En privatperson kan gjøre alt som ikke er forbudt.</li>
           <li>En ansatt i forvaltningen kan bare gjøre det som er eksplisitt tillatt.</li>
         </ul>
-        <p>Skal en offentlig virksomhet pentestes, må tillatelsen derfor komme fra noen med reell myndighet (d05 s. 8).</p>
+        <p>Skal en offentlig virksomhet pentestes, må tillatelsen derfor komme fra noen med reell myndighet (d05 s. 8–9). Den skriftlige tillatelsen kalles gjerne et «get out of jail free card» (d05 s. 8).</p>
         <p>Dette er kursets forenklede regel: legalitetsprinsippet (Grunnloven § 113) gjelder egentlig inngrep overfor enkeltpersoner. I praksis trengs en skriftlig fullmakt fra den som har myndighet over systemet, i offentlig og privat sektor.</p></div>
 
       <p class="case-ctx" data-case="brodkassa"></p>
@@ -433,7 +433,7 @@
             <li>boksfargen,</li>
             <li>og hvordan funn skal rapporteres.</li>
           </ul>
-          <p><b>B)</b> Den som gir tillatelsen, må ha myndighet over systemet. Ellers er tilgangen fortsatt uberettiget etter § 204. I forvaltningen trekker kurset i tillegg inn legalitetsprinsippet (forenklet, d05 s. 8): tillatelsen må komme fra noen som har myndighet til å gi den.</p>
+          <p><b>B)</b> Den som gir tillatelsen, må ha myndighet over systemet. Ellers er tilgangen fortsatt uberettiget etter § 204. I forvaltningen trekker kurset i tillegg inn legalitetsprinsippet (forenklet, d05 s. 9): tillatelsen må komme fra noen som har myndighet til å gi den.</p>
         </div></details>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Pentest</h4>
@@ -548,7 +548,7 @@
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor kan ikke IDS oppdage OSINT?</summary>
-          <p>Det sendes ingen trafikk til målets systemer. Alt hentes fra tredjeparter og offentlige kilder. Forsvareren kan bare begrense hva som ligger ute.</p></details>
+          <p>OSINT sender ingen angreps- eller skannetrafikk mot målet. Det meste hentes fra tredjeparter og offentlige kilder, og et besøk på virksomhetens egne nettsider (d05 s. 18) ser ut som vanlig trafikk. Forsvareren kan bare begrense hva som ligger ute.</p></details>
         <details class="grense"><summary>Er OSINT ulovlig hacking?</summary>
           <p>Innsamling fra åpne kilder er ikke datainnbrudd etter § 204, fordi offentlig informasjon ikke gir uberettiget tilgang til et datasystem, verken ved å bryte en beskyttelse eller på annen uberettiget måte. Personvernregler kan likevel gjelde for hvordan opplysningene brukes, men det er ikke pensum her.</p></details>
         <ul>
@@ -665,7 +665,7 @@
     </section>
   </main>
 
-  <footer class="footer">IN2120-guide · Blokk 4 · Angrep, skadevare og pentest · <a href="index.html">Til forsiden</a></footer>
+  <footer class="footer">IN2120-guide · Blokk 4 · Angrep, skadevare og pentest · <a href="05-system.html">Neste: blokk 5, systemsikkerhet</a></footer>
 
   <script>
     /* Gjennomgående case på denne siden (vises med <p class="case-ctx" data-case="…"> der caset brukes) */
@@ -674,39 +674,39 @@
         kort: "Et bakeri med nettbutikk, kassasystemer, kontornett og en utviklingsavdeling for oppskrifter. Jonas jobber i regnskap." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127g"></script>
-  <script src="assets/js/symboler.js?v=20261127g"></script>
-  <script src="assets/js/begreper-data.js?v=20261127g"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127g"></script>
-  <script src="assets/js/pseudocode.js?v=20261127g"></script>
-  <script src="assets/js/stepplayer.js?v=20261127g"></script>
-  <script src="assets/js/varline.js?v=20261127g"></script>
-  <script src="assets/js/inspera.js?v=20261127g"></script>
-  <script src="assets/js/dra.js?v=20261127g"></script>
-  <script src="assets/js/ovelse.js?v=20261127g"></script>
-  <script src="assets/js/bank.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127g"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127g"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127g"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127g"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127g"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127g"></script>
-  <script src="assets/js/viz-angrep.js?v=20261127g"></script>
+  <script src="assets/js/core.js?v=20261127h"></script>
+  <script src="assets/js/symboler.js?v=20261127h"></script>
+  <script src="assets/js/begreper-data.js?v=20261127h"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127h"></script>
+  <script src="assets/js/pseudocode.js?v=20261127h"></script>
+  <script src="assets/js/stepplayer.js?v=20261127h"></script>
+  <script src="assets/js/varline.js?v=20261127h"></script>
+  <script src="assets/js/inspera.js?v=20261127h"></script>
+  <script src="assets/js/dra.js?v=20261127h"></script>
+  <script src="assets/js/ovelse.js?v=20261127h"></script>
+  <script src="assets/js/bank.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127h"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127h"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127h"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127h"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127h"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127h"></script>
+  <script src="assets/js/viz-angrep.js?v=20261127h"></script>
   <script>
   (function () {
     "use strict";
@@ -931,7 +931,7 @@
         [false, "Klientsidevalidering er nok så lenge den er godt skrevet.", "Den kan omgås (H2024 23 C)."]
       ],
       osint: [
-        [true, "OSINT er en del av rekognoseringen i en pentest.", "Rekognosering er det første stadiet, og OSINT er den delen som ikke berører målets systemer i det hele tatt."],
+        [true, "OSINT er en del av rekognoseringen i en pentest.", "Rekognosering er stadiet rett etter planleggingen, og OSINT er den delen som ikke berører målets systemer i det hele tatt."],
         [true, "Stillingsannonser kan avsløre hvilken teknologi en virksomhet bruker.", "Produktnavn og versjoner kan slås opp mot kjente sårbarheter."],
         [false, "OSINT krever at man skanner målets maskiner.", "OSINT bruker åpne kilder. Skanning er kartlegging."],
         [true, "Informasjon fra OSINT brukes ofte til å lage troverdig phishing.", "Navn, roller og aktuelle prosjekter."],
