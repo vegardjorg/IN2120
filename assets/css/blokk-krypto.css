@@ -194,6 +194,79 @@ button.kr-bit.flipped { outline: 2px solid var(--color-on-tone-danger); outline-
 @keyframes dhf-inn { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
 @keyframes dhf-hoyre { from { transform: translateX(-40px); opacity: .3; } to { transform: none; opacity: 1; } }
 @keyframes dhf-venstre { from { transform: translateX(40px); opacity: .3; } to { transform: none; opacity: 1; } }
+/* Modus (full demo / test) — spillerens egen gjettebryter er skjult, modusen styrer */
+.dhf-host .sp-gjett-tog { display: none !important; }
+.dhf-modus { display: inline-flex; border: 1px solid var(--color-outline-variant); border-radius: 999px; overflow: hidden; flex-basis: 100%; max-width: max-content; }
+.dhf-modus-k { font: inherit; font-size: var(--text-sm); font-weight: 600; padding: 5px 12px; border: 0; cursor: pointer;
+  background: var(--color-surface); color: var(--color-on-surface); }
+.dhf-modus-k + .dhf-modus-k { border-left: 1px solid var(--color-outline-variant); }
+.dhf-modus-k[aria-pressed="true"] { background: var(--color-primary); color: var(--color-on-primary); }
+.dhf-modus-k:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+/* Kompakt «Hvem kjenner hva?» (smal skjerm): én rad per person, én kolonne per verdi */
+.dhf-kt { width: 100%; }
+.dhf-kt-h { font-weight: 700; font-size: var(--text-sm); margin-bottom: 2px; }
+.dhf-kt-grid { display: grid; gap: 3px 2px; align-items: center; }
+.dhf-kt-hj { text-align: center; font-size: .72rem; font-weight: 700; border-radius: 999px; padding: 1px 0; }
+.dhf-kt-hj.dhf-st-off { background: var(--color-tone-info); color: var(--color-on-tone-info); }
+.dhf-kt-hj.dhf-st-hem { background: var(--color-tone-heavy); color: var(--color-on-tone-heavy); }
+.dhf-kt-hj.dhf-st-feil { background: var(--color-tone-danger); color: var(--color-on-tone-danger); }
+.dhf-kt-p { font-size: .78rem; font-weight: 700; padding: 0 2px; }
+.dhf-kt-p.dhf-p-eve { border-radius: 6px; padding: 2px 4px; }
+.dhf-kt-c { display: flex; justify-content: center; align-items: center; height: 31px; padding: 0; border: 0; border-radius: 6px;
+  background: transparent; cursor: pointer; }
+.dhf-kt-c.dhf-kc-eve { background: color-mix(in srgb, var(--color-tone-danger) 45%, transparent); }
+.dhf-kt-c.ny { background: var(--color-tone-warn); }
+.dhf-kt-c.valgt { outline: 2px solid var(--color-primary); outline-offset: -1px; }
+.dhf-kt-c:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -1px; }
+.dhf-pr-k { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: .72rem; font-weight: 700; }
+.dhf-pr-k.dhf-ukj { font-size: .72rem; }
+.dhf-kt-c.ny .dhf-pr { animation: dhf-inn .35s ease-out; }
+.dhf-kt-info { margin: 4px 0 0; min-height: 2.7em; font-size: .78rem; line-height: 1.35; color: var(--color-on-surface-variant); }
+.dhf-kt-info b { color: var(--color-on-surface); }
+/* Smal blandeanimasjon: ingredienser i en kolonne til venstre, så bøtte og resultat */
+.dhf-ascene { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.dhf-anim.smal { gap: 5px; }
+.dhf-anim.smal .dhf-ascene { flex-direction: row; justify-content: center; gap: 4px; width: 100%; }
+.dhf-anim.smal .dhf-ingr { flex-direction: column; gap: 0; flex-wrap: nowrap; }
+.dhf-anim.smal .dhf-ingr .dhf-op { line-height: 1; font-size: 1rem; }
+.dhf-anim.smal .dhf-ingr .dhf-fig.aktiv { transform: translateX(4px); }
+.dhf-anim.smal .dhf-pr-m { width: 28px; height: 28px; }
+.dhf-anim.smal .dhf-pr-l { width: 36px; height: 36px; }
+.dhf-anim.smal .dhf-fig-t { font-size: .68rem; line-height: 1.2; max-width: 8.5em; }
+.dhf-anim.smal .dhf-helt, .dhf-anim.smal .dhf-paren { display: none; }
+.dhf-anim.smal .dhf-brad { flex-wrap: nowrap; gap: 4px; }
+.dhf-anim.smal .dhf-botte { width: 76px; height: 60px; }
+.dhf-anim.smal .dhf-ror { width: 50px; height: 20px; margin: -10px 0 0 -25px; }
+.dhf-anim.smal .dhf-fase-t { min-height: 0; font-size: .78rem; }
+.dhf-anim.smal .dhf-regn { padding: 3px 8px; font-size: .78rem; }
+.dhf-anim.smal .dhf-oppskrift { max-width: 260px; }
+.dhf-anim.smal .dhf-opp-bar { height: 12px; }
+.dhf-anim.smal .dhf-opp-h { display: none; }
+.dhf-anim.smal .dhf-faser { flex-wrap: nowrap; gap: 3px; }
+.dhf-anim.smal .dhf-fase { padding: 2px 7px; }
+@media (max-width: 559px) {
+  .dhf-host .sp-stage { padding: 6px; }
+  .dhf2.smal .dhf-tekst { font-size: .82rem; line-height: 1.4; }
+  .dhf2.smal .dhf-tag { font-size: .9rem; }
+  .dhf2.smal .dhf-akt { padding: 6px 4px; gap: 5px; margin-bottom: 6px; }
+  .dhf2.smal .dhf-akt-t { font-size: .78rem; margin: 0; }
+  .dhf2.smal .dhf-regn { font-size: .78rem; padding: 3px 8px; }
+  .dhf2.smal .dhf-pr-l { width: 36px; height: 36px; }
+  .dhf2.smal .dhf-fig-t { font-size: .7rem; }
+}
+/* Tallvisning («Vis tall»): tallet ved hver fargeprøve, og en regnelinje */
+.dhf-tallbryter { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--color-outline-variant); background: var(--color-surface); }
+.dhf-tallbryter input { width: 16px; height: 16px; margin: 0; accent-color: var(--color-primary); }
+.dhf-ci { display: inline-flex; align-items: center; gap: 3px; }
+.dhf-tall { font-family: var(--font-mono, ui-monospace, monospace); font-size: .78rem; font-weight: 700; min-width: 1.4em; text-align: left; }
+.dhf-tall-t { display: block; font-family: var(--font-mono, ui-monospace, monospace); font-size: .75rem; font-weight: 700; color: var(--color-on-surface); }
+.dhf-regn { margin: 0; padding: 6px 10px; border-radius: 8px; text-align: center; max-width: 420px;
+  background: var(--color-tone-info); color: var(--color-on-tone-info); font-size: var(--text-sm); line-height: 1.45; }
+.dhf-regn sup { font-size: .72em; }
+.dhf-pakke-tall { font-family: var(--font-mono, ui-monospace, monospace); font-size: .8rem; }
+.dhf-host .sp-stage { align-content: start; }
 /* Blandeanimasjonen: ingredienser → bøtte med lag → røring → resultat */
 .dhf-anim { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
 .dhf-ingr .dhf-fig { position: relative; transition: opacity .3s, transform .3s; }
@@ -236,3 +309,8 @@ button.kr-bit.flipped { outline: 2px solid var(--color-on-tone-danger); outline-
 details.kr-pqc-eks { margin: .6rem 0 1rem; }
 details.kr-pqc-eks > summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); min-height: 44px; display: list-item; padding: .6rem 0; box-sizing: border-box; }
 details.kr-pqc-eks > summary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* «Kan ikke skilles»: kake, mange muligheter, store tall */
+.dhf-hvorfor { margin: 0; padding-left: 1.2em; font-size: var(--text-sm); display: grid; gap: .25rem; text-align: left; max-width: 36rem; }
+.dhf-hvorfor li { line-height: 1.4; }
+.dhf2.smal .dhf-hvorfor { font-size: .78rem; gap: .15rem; }

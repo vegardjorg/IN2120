@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127c">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127c">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127c">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127c">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127c">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127c">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127d">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127d">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127d">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127d">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127d">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127d">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -418,7 +418,7 @@
       <div id="ex-dh"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Diffie–Hellman som fargeblanding</h4>
-      <p class="ov-intro">Alice og Bob lager en felles hemmelig farge over en linje der Eve ser alt. Gå gjennom de 14 stegene med «Neste». Øverst i hvert steg ser du hva som skjer. Når noen blander, spilles blandingen av: fargene helles i bøtta én om gangen, ligger først i hvert sitt lag og røres så sammen. Knappene under bøtta viser hver fase for seg, og «Spill igjen» starter på nytt. Under står tabellen «Hvem kjenner hva?»: en fargeprøve betyr at personen kjenner fargen, «?» at hun ikke gjør det, og gult felt at det er nytt i dette steget. Med «Gjett før hvert steg» på stopper spilleren tre ganger og spør deg først.</p>
+      <p class="ov-intro">Alice og Bob lager en felles hemmelig farge over en linje der Eve ser alt. Gå gjennom de 14 stegene med «Neste». Øverst i hvert steg ser du hva som skjer. Når noen blander, spilles blandingen av: fargene helles i bøtta én om gangen, ligger først i hvert sitt lag og røres så sammen. Knappene under bøtta viser hver fase for seg, og «Spill igjen» starter på nytt. Med «Vis tall» på står hver farge også som et lite tall (p = 23, g = 5), både i bøtta og i tabellen, så du ser at fargeblandingen og utregningen g<sup>a</sup> mod p går i takt. Under står tabellen «Hvem kjenner hva?»: en fargeprøve betyr at personen kjenner fargen, «?» at hun ikke gjør det, og gult felt at det er nytt i dette steget. På mobil er tabellen en kompakt rute; trykk på en rute for å se hva den er. «Full demo» går gjennom alt uten stopp. «Test: hva skjer neste?» stopper før ni av stegene og lar deg gjette først.</p>
       <p class="small muted">Velg gjerne andre hemmelige farger for Alice og Bob. Fargene er bilder på tall: å blande er lett, men å skille en blanding ut igjen er praktisk umulig, akkurat som g<sup>a</sup> mod p er lett å regne ut, mens a er vanskelig å finne. Bytt nivå for å se matematikken bak hvert steg.</p>
       <div id="viz-dhfarge"></div>
 
@@ -616,38 +616,38 @@
         kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127c"></script>
-  <script src="assets/js/symboler.js?v=20261127c"></script>
-  <script src="assets/js/begreper-data.js?v=20261127c"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127c"></script>
-  <script src="assets/js/pseudocode.js?v=20261127c"></script>
-  <script src="assets/js/stepplayer.js?v=20261127c"></script>
-  <script src="assets/js/varline.js?v=20261127c"></script>
-  <script src="assets/js/inspera.js?v=20261127c"></script>
-  <script src="assets/js/dra.js?v=20261127c"></script>
-  <script src="assets/js/ovelse.js?v=20261127c"></script>
-  <script src="assets/js/bank.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127c"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127c"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127c"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127c"></script>
-  <script src="assets/js/viz-krypto.js?v=20261127c"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261127c"></script>
+  <script src="assets/js/core.js?v=20261127d"></script>
+  <script src="assets/js/symboler.js?v=20261127d"></script>
+  <script src="assets/js/begreper-data.js?v=20261127d"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127d"></script>
+  <script src="assets/js/pseudocode.js?v=20261127d"></script>
+  <script src="assets/js/stepplayer.js?v=20261127d"></script>
+  <script src="assets/js/varline.js?v=20261127d"></script>
+  <script src="assets/js/inspera.js?v=20261127d"></script>
+  <script src="assets/js/dra.js?v=20261127d"></script>
+  <script src="assets/js/ovelse.js?v=20261127d"></script>
+  <script src="assets/js/bank.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127d"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127d"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127d"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127d"></script>
+  <script src="assets/js/viz-krypto.js?v=20261127d"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261127d"></script>
   <script>
   (function () {
     "use strict";

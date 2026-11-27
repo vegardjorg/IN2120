@@ -14,7 +14,7 @@
        pseudo: handle, legend:[{cls,label}], speed, parseInput, inputLabel,
        inputAria (standard «Egen input»), customInput:false (skjul «Eget:»-feltet),
        countControl:{min,max,unit} (unit standard «elementer»),
-       gjett: true|false (standard true når minst ett steg har spor),
+       gjett: true|false (standard true når minst ett steg har spor; selve avkrysningen er av til den slås på),
        fit: true|false (standard true: skaler ned innhold som er bredere enn scenen),
        fitMin: tall (nedre grense for skaleringen, standard 0.7),
        kontroller: "auto"|true|false (standard "auto": Forrige/Neste/Spill av, «Steg x av y» og
@@ -29,7 +29,7 @@
        spor: { sporsmal, tall: true, fasit: tall, toleranse?, forklaring? }
      Står studenten på steget FØR et steg med spor, vises spørsmålet, og «Neste», autospill og → er låst
      til studenten svarer eller trykker «Hopp over». Svar huskes per spiller (til ny input / Nullstill).
-     Avkrysningen «Gjett før hvert steg» over spilleren lagres i in2120:gjett ("1"/"0"). */
+     Avkrysningen «Gjett før hvert steg» over spilleren lagres i in2120:gjett ("1"/"0"), og er av til studenten krysser den på. */
   /* Stiler for breddetilpasningen. Legges inn én gang her, så alle sider får dem uten egen css
      (kan flyttes til styles.css ved neste opprydding). */
   function fitCss() {
@@ -62,7 +62,7 @@
 
     // «Gjett før hvert steg» (vises bare når minst ett steg har spor)
     var GKEY = "in2120:gjett";
-    var gjettOn = IN.store ? IN.store.get(GKEY, "1") !== "0" : true;
+    var gjettOn = IN.store ? IN.store.get(GKEY, "0") === "1" : false;
     var gTog = el("input", { type: "checkbox" });
     gTog.checked = gjettOn;
     var gRow = el("label", { class: "sp-gjett-tog small", hidden: true }, [gTog, el("span", { text: " Gjett før hvert steg" })]);
