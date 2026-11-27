@@ -15,13 +15,16 @@
   // Hver farge står for et lite tall (t), så samme steg kan vises med tall: p = 23, g = 5.
   // Tallene er valgt slik at A, B, K og Eves forsøk er ulike for alle 16 par, og K aldri blir 1 eller 22.
   var P = 23, G = 5;
+  // Alice har varme farger, Bob kalde. Paletten er valgt (CIE Lab-avstand) slik at ingen blanding ligner
+  // en av sine egne ingredienser eller en annen farge i paletten: gul + rød blir oransje, gul + blå
+  // blir grågrønn. (Med f.eks. oransje som hemmelig farge ble blandingen bare «en annen oransje».)
   var ALICE = [
-    { navn: "oransje", hex: "#ff5a1f", t: 6 }, { navn: "rød", hex: "#d7263d", t: 9 },
-    { navn: "lilla", hex: "#7b3fa0", t: 13 }, { navn: "grønn", hex: "#2e9b4a", t: 10 }
+    { navn: "rød", hex: "#d7263d", t: 6 }, { navn: "rosa", hex: "#e26fb0", t: 9 },
+    { navn: "magenta", hex: "#c81ea0", t: 13 }, { navn: "vinrød", hex: "#8c1432", t: 10 }
   ];
   var BOB = [
-    { navn: "turkis", hex: "#3fc1c9", t: 15 }, { navn: "blå", hex: "#2f6fd6", t: 3 },
-    { navn: "rosa", hex: "#e26fb0", t: 8 }, { navn: "svart", hex: "#222222", t: 7 }
+    { navn: "blå", hex: "#2f6fd6", t: 15 }, { navn: "mørkeblå", hex: "#1e328c", t: 3 },
+    { navn: "cyan", hex: "#00aadc", t: 8 }, { navn: "fiolett", hex: "#5a3cc8", t: 7 }
   ];
   function powmod(b, e, m) { var r = 1; b %= m; while (e > 0) { if (e & 1) r = r * b % m; b = b * b % m; e >>= 1; } return r; }
   // «Vis tall»: lagres per fag. Standard på.
@@ -575,6 +578,17 @@
   function bygg(s, level, smal) {
     SMAL = !!smal;
     var g = el("div", { class: "dhf2" + (SMAL ? " smal" : "") });
+    if (SMAL) {
+      // Mobil: tittel, bilde (fast høyde), tabell og så teksten nederst. Teksten varierer mest i
+      // høyde, så den står sist; da flytter verken knappene (over scenen) eller bildet og tabellen seg.
+      g.appendChild(el("div", { class: "dhf-tag", text: s.tag }));
+      var hb = handling(s); hb.classList.add("dhf-bilde"); g.appendChild(hb);
+      g.appendChild(kompakt(s));
+      var t = el("div", { class: "dhf-tekst", "aria-live": "polite" });
+      t.appendChild(el("div", { html: IN.level.pick(s.text, level) || "" }));
+      g.appendChild(t);
+      return g;
+    }
     // Stegteksten står i scenen, rett over bildet, så tekst, bilde og tabell sees sammen.
     // (Spillerens egen forklaringsboks er skjult for denne verten i CSS.)
     var v = el("div", { class: "dhf-venstre" });
@@ -597,16 +611,20 @@
     var smal = bredde < SMAL_GRENSE;
     var key = [Math.round(bredde), ctx.level, TALL, ai, bi].join("|");
     if (st.getAttribute("data-dhf-h") === key) return;
+    // Mobil: bare bildet får fast høyde (det høyeste bildet); teksten nederst får variere.
     var m = el("div", { class: "dhf-maal", "aria-hidden": "true" });
     m.style.cssText = "position:absolute;left:-10000px;top:0;visibility:hidden;pointer-events:none;width:" + bredde + "px";
     st.parentNode.appendChild(m);
     var maks = 0;
     generate([ai, bi]).forEach(function (t) {
       IN.clear(m); m.appendChild(bygg(t, ctx.level, smal));
-      maks = Math.max(maks, m.offsetHeight);
+      var maalt = smal ? m.querySelector(".dhf-bilde") : m;
+      maks = Math.max(maks, maalt ? maalt.offsetHeight : 0);
     });
     m.parentNode.removeChild(m);
     st.setAttribute("data-dhf-h", key);
+    if (smal) { st.style.minHeight = ""; st.style.setProperty("--dhf-bilde-h", Math.ceil(maks) + "px"); return; }
+    st.style.removeProperty("--dhf-bilde-h");
     var ekstra = cs.boxSizing === "border-box" ? parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) : 0;
     st.style.minHeight = Math.ceil(maks + ekstra) + "px";
   }
@@ -614,7 +632,9 @@
     var st = ctx.stage; IN.clear(st);
     var cs = getComputedStyle(st);
     var bredde = st.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    st.appendChild(bygg(s, ctx.level, bredde > 0 && bredde < SMAL_GRENSE));
+    var smal = bredde > 0 && bredde < SMAL_GRENSE, vert = st.closest(".dhf-host");
+    if (vert) vert.classList.toggle("dhf-smal", smal);
+    st.appendChild(bygg(s, ctx.level, smal));
     fastHoyde(s, ctx);
     // Testmodus: spørsmålet står under knappene. Havner det under skjermkanten, rulles det fram.
     if (MODUS === "test") setTimeout(function () {

@@ -314,3 +314,18 @@ details.kr-pqc-eks > summary:focus-visible { outline: 2px solid var(--color-prim
 .dhf-hvorfor { margin: 0; padding-left: 1.2em; font-size: var(--text-sm); display: grid; gap: .25rem; text-align: left; max-width: 36rem; }
 .dhf-hvorfor li { line-height: 1.4; }
 .dhf2.smal .dhf-hvorfor { font-size: .78rem; gap: .15rem; }
+
+/* Mobil: knappene øverst, så «Steg x av 14», tittel, bilde, tabell og teksten nederst.
+   Knappene, bildet og tabellen står da på samme sted i alle steg; bare teksten under varierer. */
+.dhf-host.dhf-smal .stepplayer { display: flex; flex-direction: column; }
+.dhf-host.dhf-smal .stepplayer > * { order: 5; }
+.dhf-host.dhf-smal .stepplayer > .sp-gjett-tog { order: 0; }
+.dhf-host.dhf-smal .stepplayer > .sp-controls { order: 1; margin: 0 0 .4rem; flex-wrap: nowrap; }
+.dhf-host.dhf-smal .stepplayer > .sp-lashint { order: 2; margin: 0 0 .3rem; }
+.dhf-host.dhf-smal .stepplayer > .sp-gjett { order: 3; margin: 0 0 .5rem; }
+.dhf-host.dhf-smal .stepplayer > .sp-frame { order: 4; display: flex; flex-direction: column; }
+.dhf-host.dhf-smal .sp-frame > .sp-foot { order: -1; padding-top: .35rem; }
+.dhf-host.dhf-smal .sp-frame > .sp-stage { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.dhf-host.dhf-smal .sp-controls .btn { flex: 1 1 auto; min-width: 0; }
+.dhf2.smal .dhf-tag { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
+.dhf2.smal .dhf-bilde { box-sizing: border-box; min-height: var(--dhf-bilde-h, 0px); justify-content: center; margin-bottom: 0; }
