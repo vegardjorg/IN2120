@@ -2074,6 +2074,8 @@ body.has-crash-ret .ny-versjon{bottom:72px}
 .qz-inline.qz-mc .qz-choice { margin-top: 0; border-radius: var(--radius-md); }
 /* Flervalg: «Forklaring»/«Vis fasit» flyter høyrestilt øverst i spørsmålet (ingen egen rad).
    Synlig høyde 30 px, men trykkflaten utvides med ::after (minst 44 px på berøring). */
+/* Spørsmålslinja rommer «Vis fasit»-knappen, så svarlista alltid starter under den i full bredde */
+.qz-mc .qz-prompt { display: flow-root; }
 .qz .qz-exp-float { float: right; position: relative; min-height: 30px; margin: -4px -4px 0 8px; font-weight: 600; }
 .qz .qz-exp-float::after { content: ""; position: absolute; inset: -7px -4px; }
 .qz-foot { margin-top: 6px; }
