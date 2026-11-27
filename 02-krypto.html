@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127q">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127q">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127q">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127q">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127q">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127q">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127s">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127s">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127s">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127s">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127s">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127s">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -389,17 +389,46 @@
         <p><b>Hvorfor trengs hash?</b> Hashen er et kort fingeravtrykk av dataene. Den brukes til filsammenligning, passordlagring, integritetssjekk, MAC, signatur, kryptovaluta, tilfeldige tall og nøkkelgenerering.</p></div>
       <div id="ex-hash"></div>
 
-      <h4 class="kr-del">2 · Enveis, svak og sterk kollisjonsresistens i figur <span class="tag tag-kjerne">kommer ofte</span></h4>
+      <h4 class="kr-del">2 · Svak og sterk kollisjonsresistens, enkelt forklart <span class="tag tag-kjerne">kommer ofte</span></h4>
+      <div class="callout begrep"><span class="lbl">Forklart enkelt</span>
+        <p>Tenk på hashen som et <b>fingeravtrykk</b> av en fil: kort, og alltid det samme for den samme fila. En <b>kollisjon</b> er to ulike filer med samme fingeravtrykk.</p>
+        <ul>
+          <li><b>Svak kollisjonsresistens:</b> Du har <i>én bestemt</i> fil. Det skal være praktisk umulig å lage en <i>annen</i> fil med nøyaktig det samme fingeravtrykket.</li>
+          <li><b>Sterk kollisjonsresistens:</b> Det skal være praktisk umulig å finne <i>to filer, hvilke som helst</i>, med det samme fingeravtrykket.</li>
+        </ul>
+        <p>Forskjellen er hvem som velger filene. Ved svak er den ene fila bestemt på forhånd. Ved sterk velger angriperen begge selv, og da er det mye lettere å lykkes. Derfor er sterk kollisjonsresistens det strengeste kravet å oppfylle.</p></div>
+
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Bursdagsklassen: din bursdag eller to hvilke som helst?</h4>
+      <p class="fig-vis-led">Kryptolysarket bruker bursdager som bilde. Hver rute er en dag i året, og hver farget rute er en elev. <b>Svak:</b> har noen i klassen <i>din</i> bursdag? Det er sjeldent, fordi bare én bestemt dag teller. <b>Sterk:</b> har <i>to hvilke som helst</i> samme bursdag? Det er vanlig, fordi alle par av elever teller. Bytt mellom de to, endre antall elever og trykk «Prøv 100 klasser».</p>
+      <div id="viz-bursdag"></div>
+      <p class="small muted">Overført til hash: dagene er de mulige hashverdiene, og elevene er filer. Klassen har bare 365 mulige dager. SHA-256 har 2²⁵⁶ mulige hashverdier, og derfor er begge kravene praktisk umulige å bryte der. Kilde: kryptolysarket s. 43–44 (bursdagseksemplet); tallene er egne beregninger.</p>
+
+      <p>Tabellen viser de tre kravene side om side, i samme rekkefølge som figuren i del 3 lenger ned.</p>
+      <div class="table-wrap"><table class="kr-motab kr-krav">
+        <thead><tr><th scope="col"></th><th scope="col">Enveis</th><th scope="col">Svak kollisjons&shy;resistens</th><th scope="col">Sterk kollisjons&shy;resistens</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Angriperen får</th><td>hashverdien y</td><td>én bestemt fil x</td><td>ingenting</td></tr>
+          <tr><th scope="row">Angriperen må finne</th><td>en x med Hash(x) = y</td><td>en <i>annen</i> x′ med samme hash som x</td><td><i>et hvilket som helst</i> par x ≠ x′ med samme hash</td></tr>
+          <tr><th scope="row">Bursdag</th><td>–</td><td>noen har <i>din</i> bursdag</td><td>to hvilke som helst deler bursdag</td></tr>
+          <tr><th scope="row">Hvis kravet brytes</th><td>Fra en lagret passordhash kan angriperen finne et passord som virker.</td><td>Angriperen kan bytte ut en bestemt fil eller et signert dokument med en annen som har samme hash.</td><td>Angriperen lager to kontrakter med samme hash, én ærlig og én falsk, og får offeret til å signere den ærlige. Signaturen gjelder da også den falske («hashkollisjoner i signaturer», H2024 og H2025).</td></tr>
+        </tbody></table></div>
+
+      <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Lekehash med 16 farger: prøv å lage en kollisjon</h4>
+      <p class="fig-vis-led">Lekehashen gir hvert ord én av bare 16 farger. <b>Svak:</b> finn et annet ord med samme farge som «katt». <b>Sterk:</b> skriv ord til to av dem får samme farge, uansett hvilke. Sterk lykkes som regel etter 4–6 ord, svak trenger i snitt rundt 16.</p>
+      <div id="viz-lekehash"></div>
+      <p class="small muted">Lekehashen er første tegn i SHA-256 av ordet. Den er bare til illustrasjon: med 16 verdier er begge kravene lette å bryte.</p>
+
+      <h4 class="kr-del">3 · Enveis, svak og sterk kollisjonsresistens i figur <span class="tag tag-kjerne">kommer ofte</span></h4>
       <p class="fig-vis-led">Krav 3–5 skilles på hva angriperen får gitt, og hva angriperen må finne. Figuren har tre deler, fra venstre: enveis, svak og sterk kollisjonsresistens. Bokser med tynn, hel kant er gitt. Bokser med tykk, stiplet kant og spørsmålstegn (x ?, x′ ?) er det angriperen må finne. «samme» betyr at de to inndataene skal gi samme hashverdi.</p>
       <div id="fk-hashkrav"></div>
 
-      <h4 class="kr-del">3 · Prøv kravene på dårlige hashfunksjoner <span class="tag">eksamensbasert</span></h4>
+      <h4 class="kr-del">4 · Prøv kravene på dårlige hashfunksjoner <span class="tag">eksamensbasert</span></h4>
       <p>Samme type spørsmål som H2023 21 og H2024 18: hvilke krav oppfyller en funksjon som ikke er en ekte hash?</p>
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Prøv selv: holder kravene?</h4>
       <p class="small muted">To «hashfunksjoner» som feiler på hver sin måte, og SHA-256 til sammenligning. Fyll ut og trykk «Sjekk svar»; forklaringen kommer i hver rute.</p>
       <div id="viz-hashtest"></div>
 
-      <h4 class="kr-del">4 · Én liten endring endrer rundt halvparten <span class="tag">eksamensbasert</span></h4>
+      <h4 class="kr-del">5 · Én liten endring endrer rundt halvparten <span class="tag">eksamensbasert</span></h4>
       <p>«Én endret bit endrer alle bitene i hashen» er en vanlig felle. Riktig er omtrent halvparten. Prøv selv med ekte SHA-256.</p>
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Ekte SHA-256: én liten endring, rundt halvparten av bitene</h4>
       <p class="small muted">Skriv to tekster i A og B, eller trykk på et av forslagene. Hashene regnes ut i nettleseren, og tegn som er ulike i hash B, er uthevet.</p>
@@ -409,7 +438,7 @@
         <details class="grense"><summary>Hvorfor «praktisk» og ikke «teoretisk» umulig å invertere?</summary>
           <p>Uendelig mange inndata deles på 2ⁿ verdier, så kollisjoner og inverser finnes alltid. De skal bare ikke kunne finnes. «Teoretisk mulig å invertere» var sant i H2021 3.4.</p></details>
         <details class="grense"><summary>Hvorfor er sterk og ikke svak kollisjonsresistens vanskeligst å oppfylle?</summary>
-          <p>Angriperen kan fritt velge begge inndata. Bursdagsbildet: at noen i klassen har <i>din</i> bursdag, er sjeldent (svak), men at <i>to vilkårlige</i> deler bursdag, er vanlig (sterk).</p></details>
+          <p>Angriperen kan fritt velge begge inndata. Se bursdagsklassen i del 2: at noen har <i>din</i> bursdag, er sjeldent (svak), men at <i>to hvilke som helst</i> deler bursdag, er vanlig (sterk).</p></details>
         <ul>
           <li>«SHA-256 krypterer» / «hash kan dekrypteres» → hash er enveis og har ingen nøkkel.</li>
           <li>Salt, «liten offentlig nøkkel» og «tung, men sterk kryptering» er ikke hashkrav (H2024 18). Salt er en tilfeldig verdi som legges til et passord før det hashes, slik at like passord får ulik hash (blokk 7). Det er en måte å <i>bruke</i> hash på, ikke et krav til hashfunksjonen.</li>
@@ -422,6 +451,7 @@
         <ol>
           <li><b>Fem krav:</b> lett å beregne, komprimering, enveis, svak og sterk kollisjonsresistens.</li>
           <li><b>Se på hva angriperen får gitt.</b> Gitt y: enveis. Gitt x: svak. Ingenting gitt: sterk.</li>
+          <li><b>Bursdag:</b> noen har <i>din</i> bursdag = svak. To hvilke som helst deler bursdag = sterk.</li>
           <li><b>«Praktisk umulig», ikke «teoretisk umulig».</b></li>
           <li><b>Én endret bit endrer omtrent halvparten av bitene.</b></li>
           <li><b>Hash har ingen nøkkel</b> og er ikke kryptering.</li>
@@ -853,39 +883,39 @@
         kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127q"></script>
-  <script src="assets/js/symboler.js?v=20261127q"></script>
-  <script src="assets/js/begreper-data.js?v=20261127q"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127q"></script>
-  <script src="assets/js/pseudocode.js?v=20261127q"></script>
-  <script src="assets/js/stepplayer.js?v=20261127q"></script>
-  <script src="assets/js/varline.js?v=20261127q"></script>
-  <script src="assets/js/inspera.js?v=20261127q"></script>
-  <script src="assets/js/dra.js?v=20261127q"></script>
-  <script src="assets/js/ovelse.js?v=20261127q"></script>
-  <script src="assets/js/bank.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127q"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127q"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127q"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127q"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127q"></script>
-  <script src="assets/js/viz-krypto.js?v=20261127q"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261127q"></script>
+  <script src="assets/js/core.js?v=20261127s"></script>
+  <script src="assets/js/symboler.js?v=20261127s"></script>
+  <script src="assets/js/begreper-data.js?v=20261127s"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127s"></script>
+  <script src="assets/js/pseudocode.js?v=20261127s"></script>
+  <script src="assets/js/stepplayer.js?v=20261127s"></script>
+  <script src="assets/js/varline.js?v=20261127s"></script>
+  <script src="assets/js/inspera.js?v=20261127s"></script>
+  <script src="assets/js/dra.js?v=20261127s"></script>
+  <script src="assets/js/ovelse.js?v=20261127s"></script>
+  <script src="assets/js/bank.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127s"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127s"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127s"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127s"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127s"></script>
+  <script src="assets/js/viz-krypto.js?v=20261127s"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261127s"></script>
   <script>
   (function () {
     "use strict";
@@ -997,6 +1027,8 @@
     safe("viz-pingvin", function () { KR.pingvin("#viz-pingvin"); });
     safe("viz-hashtest", function () { KR.hashTest("#viz-hashtest"); });
     safe("viz-skred", function () { KR.skred("#viz-skred"); });
+    safe("viz-bursdag", function () { KR.bursdag("#viz-bursdag"); });
+    safe("viz-lekehash", function () { KR.lekehash("#viz-lekehash"); });
     safe("viz-mac", function () { KR.mac("#viz-mac"); });
     safe("viz-hybrid", function () { KR.hybrid("#viz-hybrid"); });
     safe("viz-lekk", function () { KR.lekk("#viz-lekk"); });

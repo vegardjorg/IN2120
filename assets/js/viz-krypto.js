@@ -14,6 +14,8 @@
    IN.krypto.pingvin(host)             klartekst / ECB / CTR som 8×8-bilde
    IN.krypto.hashTest(host)            IN.matrise: x + 1, x mod 16 og SHA-256 mot de fem kravene
    IN.krypto.skred(host)               SHA-256 av to tekster og antall bit som er ulike
+   IN.krypto.bursdag(host)             bursdagsklassen: svak (din bursdag) mot sterk (to hvilke som helst) kollisjonsresistens
+   IN.krypto.lekehash(host)            lekehash med 16 farger: finn kollisjon, svak mot sterk
    IN.krypto.mac(host)                 stegspiller: MAC-flyt (ærlig, Mallory, dommer), med spor
    IN.krypto.hybrid(host)              stegspiller: hybrid kryptering og lekket privatnøkkel
    IN.krypto.lekk(host)                hybrid mot DH når langtidsnøkkelen lekker (forutsi først)
@@ -1304,4 +1306,181 @@
     clear(host);
     return IN.bucketTask(host, KR.pqcSpec, { instant: false });
   };
+  /* ======================================================
+     Svak og sterk kollisjonsresistens, enkelt forklart
+     KR.bursdag(host)    bursdagsklassen fra kryptolysarket: din bursdag (svak) mot to hvilke som helst (sterk)
+     KR.lekehash(host)   lekehash med 16 farger: finn kollisjon med et gitt ord (svak) eller to fritt valgte (sterk)
+     ====================================================== */
+  function escH(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var MND = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"];
+  var DAGER = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  function dagNavn(d) {   // 0–364 → «17. mai»
+    for (var m = 0; m < 12; m++) { if (d < DAGER[m]) return (d + 1) + ". " + MND[m]; d -= DAGER[m]; }
+    return "";
+  }
+  function pst(p) { var v = p * 100; return (v < 10 ? v.toFixed(1) : Math.round(v)).toString().replace(".", ",") + " %"; }
+  // Sannsynlighet for minst ett treff i en klasse på n elever (du er én av dem). Ikke pensum: bare for å vise forskjellen.
+  KR.pSvak = function (n) { return 1 - Math.pow(364 / 365, Math.max(0, n - 1)); };
+  KR.pSterk = function (n) { var q = 1; for (var i = 0; i < n; i++) q *= (365 - i) / 365; return 1 - q; };
+  function trekk(n) { var a = []; for (var i = 0; i < n; i++) a.push(Math.floor(Math.random() * 365)); return a; }
+  // Treff i en klasse (dager[0] er deg): svak = en annen har din dag; sterk = minst to deler en dag.
+  KR.bursdagTreff = function (dager, modus) {
+    var telle = {};
+    dager.forEach(function (d) { telle[d] = (telle[d] || 0) + 1; });
+    if (modus === "svak") return telle[dager[0]] > 1 ? [dager[0]] : [];
+    return Object.keys(telle).filter(function (d) { return telle[d] > 1; }).map(Number);
+  };
+
+  KR.bursdag = function (host) {
+    host = host$(host); if (!host) return;
+    clear(host);
+    var modus = "svak", n = 23, dager = trekk(n), sim = null;
+    var bSvak = el("button", { class: "btn", type: "button", text: "Svak: har noen din bursdag?" });
+    var bSterk = el("button", { class: "btn", type: "button", text: "Sterk: deler to hvilke som helst bursdag?" });
+    var rng = el("input", { type: "range", min: "2", max: "60", value: String(n), "aria-label": "Antall elever i klassen" });
+    var nTxt = el("b", { text: String(n) });
+    var bNy = el("button", { class: "btn", type: "button", text: "Ny klasse" });
+    var bSim = el("button", { class: "btn", type: "button", text: "Prøv 100 klasser" });
+    var grid = el("div", { class: "kb-grid", "aria-hidden": "true" });
+    var ut = el("div", { class: "kb-ut", "aria-live": "polite" });
+    host.appendChild(el("div", { class: "btn-row kb-modus", role: "group", "aria-label": "Velg krav" }, [bSvak, bSterk]));
+    host.appendChild(el("div", { class: "kr-ctl" }, [el("label", {}, [el("span", { text: "Elever i klassen: " }), nTxt, rng])]));
+    host.appendChild(el("div", { class: "btn-row" }, [bNy, bSim]));
+    host.appendChild(grid);
+    host.appendChild(el("p", { class: "small muted kb-forkl", html:
+      "<span class=\"kb-sw kb-elev\"></span> elev · <span class=\"kb-sw kb-du\"></span> deg · <span class=\"kb-sw kb-treff\"></span> treff (samme dag)" }));
+    host.appendChild(ut);
+
+    function tegn() {
+      clear(grid);
+      var telle = {}; dager.forEach(function (d) { telle[d] = (telle[d] || 0) + 1; });
+      var treff = KR.bursdagTreff(dager, modus), tr = {}; treff.forEach(function (d) { tr[d] = 1; });
+      var d0 = 0;
+      for (var m = 0; m < 12; m++) {
+        grid.appendChild(el("span", { class: "kb-mnd", text: MND[m] }));
+        for (var i = 0; i < 31; i++) {
+          if (i >= DAGER[m]) { grid.appendChild(el("span", { class: "kb-tom" })); continue; }
+          var d = d0 + i, c = "kb-dag";
+          if (telle[d]) c += " kb-elev";
+          if (modus === "svak" && d === dager[0]) c += " kb-du";
+          if (tr[d]) c += " kb-treff";
+          grid.appendChild(el("span", { class: c, title: dagNavn(d) + (telle[d] ? ": " + telle[d] + (telle[d] === 1 ? " elev" : " elever") : "") }));
+        }
+        d0 += DAGER[m];
+      }
+      var s;
+      if (modus === "svak") {
+        var antall = dager.filter(function (d, i) { return i > 0 && d === dager[0]; }).length;
+        s = "<p><b>Svak:</b> Din bursdag er " + dagNavn(dager[0]) + ". " +
+          (antall ? "<span class=\"kr-bad\"><b>Treff:</b> " + antall + (antall === 1 ? " annen elev har" : " andre elever har") + " samme bursdag som deg.</span>"
+            : "<span class=\"kr-ok\">Ingen av de " + (n - 1) + " andre har din bursdag.</span>") + "</p>";
+      } else {
+        s = "<p><b>Sterk:</b> " + (treff.length
+          ? "<span class=\"kr-bad\"><b>Treff:</b> " + treff.length + (treff.length === 1 ? " dag" : " dager") + " med to eller flere elever (" + treff.slice(0, 4).map(dagNavn).join(", ") + (treff.length > 4 ? " …" : "") + ").</span>"
+          : "<span class=\"kr-ok\">Ingen av de " + n + " elevene deler bursdag.</span>") + "</p>";
+      }
+      s += "<p>Sjansen for minst ett treff i en klasse på " + n + ": <b>svak " + pst(KR.pSvak(n)) + "</b>, <b>sterk " + pst(KR.pSterk(n)) + "</b>. " +
+        "<span class=\"tag\">Ikke pensum</span> (tallene; selve eksemplet er fra lysarket)</p>";
+      if (sim) s += "<p><b>100 klasser med " + sim.n + " elever:</b> svak treff i " + sim.svak + " klasser, sterk treff i " + sim.sterk + " klasser.</p>";
+      ut.innerHTML = s;
+      bSvak.setAttribute("aria-pressed", modus === "svak" ? "true" : "false");
+      bSterk.setAttribute("aria-pressed", modus === "sterk" ? "true" : "false");
+    }
+    bSvak.onclick = function () { modus = "svak"; tegn(); };
+    bSterk.onclick = function () { modus = "sterk"; tegn(); };
+    bNy.onclick = function () { dager = trekk(n); sim = null; tegn(); };
+    bSim.onclick = function () {
+      var a = 0, b = 0;
+      for (var k = 0; k < 100; k++) { var x = trekk(n); if (KR.bursdagTreff(x, "svak").length) a++; if (KR.bursdagTreff(x, "sterk").length) b++; }
+      sim = { n: n, svak: a, sterk: b }; tegn();
+    };
+    rng.addEventListener("input", function () { n = +rng.value; nTxt.textContent = String(n); dager = trekk(n); sim = null; tegn(); });
+    tegn();
+  };
+
+  /* Lekehash: første hekssiffer i SHA-256 av ordet → én av 16 farger. */
+  KR.LEKEFARGER = [["rød", "#d62828"], ["oransje", "#f77f00"], ["gul", "#f6c90e"], ["lime", "#9bd13b"], ["grønn", "#2a9d3f"],
+    ["turkis", "#2ec4b6"], ["himmelblå", "#4cc9f0"], ["blå", "#1d4ed8"], ["indigo", "#4338ca"], ["lilla", "#8e44ad"],
+    ["rosa", "#f472b6"], ["vinrød", "#8b1e3f"], ["brun", "#8d5524"], ["grå", "#8a8f98"], ["svart", "#1f2023"], ["hvit", "#ffffff"]];
+  KR.lekehashVerdi = function (ord) { return parseInt(KR.sha256(String(ord).trim().toLowerCase()).charAt(0), 16); };
+  KR.LEKEORD = ["hund", "mus", "hest", "ku", "sau", "gris", "geit", "rev", "ulv", "bjørn", "elg", "hare", "ugle", "ørn", "laks", "torsk",
+    "eple", "pære", "banan", "plomme", "kirsebær", "jordbær", "bringebær", "tomat", "gulrot", "potet", "løk", "brød", "ost", "melk",
+    "sol", "måne", "stjerne", "sky", "regn", "snø", "vind", "storm", "hav", "fjell", "skog", "elv", "innsjø", "øy", "strand", "dal",
+    "bil", "buss", "tog", "fly", "båt", "sykkel", "hus", "dør", "vindu", "stol", "bord", "seng", "lampe", "bok", "penn", "papir"];
+
+  KR.lekehash = function (host) {
+    host = host$(host); if (!host) return;
+    clear(host);
+    var GITT = "katt";
+    var modus = "svak", liste = [], ferdig = null, pool = [];
+    var bSvak = el("button", { class: "btn", type: "button", text: "Svak: samme farge som «katt»" });
+    var bSterk = el("button", { class: "btn", type: "button", text: "Sterk: to ord med samme farge" });
+    var inp = el("input", { type: "text", class: "kr-txt", placeholder: "Skriv et ord", "aria-label": "Ord å hashe", maxlength: "40" });
+    var bProv = el("button", { class: "btn primary", type: "button", text: "Hash ordet" });
+    var bAuto = el("button", { class: "btn", type: "button", text: "Prøv 5 tilfeldige ord" });
+    var bNull = el("button", { class: "btn", type: "button", text: "Nullstill" });
+    var gitt = el("div", { class: "lh-gitt" });
+    var ul = el("ul", { class: "lh-liste" });
+    var ut = el("div", { class: "lh-ut", "aria-live": "polite" });
+    host.appendChild(el("div", { class: "btn-row", role: "group", "aria-label": "Velg krav" }, [bSvak, bSterk]));
+    host.appendChild(gitt);
+    host.appendChild(el("div", { class: "kr-ctl" }, [inp, bProv]));
+    host.appendChild(el("div", { class: "btn-row" }, [bAuto, bNull]));
+    host.appendChild(ut);
+    host.appendChild(ul);
+
+    function swatch(v) { return el("span", { class: "lh-sw", style: "background:" + KR.LEKEFARGER[v][1] }); }
+    function nyttOrd() {
+      if (!pool.length) pool = KR.LEKEORD.slice().sort(function () { return Math.random() - .5; });
+      var o = pool.pop();
+      return liste.some(function (x) { return x.ord === o; }) ? (pool.length ? nyttOrd() : null) : o;
+    }
+    function legg(ord) {
+      ord = String(ord || "").trim().toLowerCase();
+      if (!ord || ferdig) return;
+      if (modus === "svak" && ord === GITT) { ut.innerHTML = "<p>Det må være et <b>annet</b> ord enn «katt».</p>"; return; }
+      if (liste.some(function (x) { return x.ord === ord; })) { ut.innerHTML = "<p>«" + escH(ord) + "» er allerede prøvd. Samme ord gir alltid samme hash.</p>"; return; }
+      var v = KR.lekehashVerdi(ord), hit = null;
+      if (modus === "svak") { if (v === KR.lekehashVerdi(GITT)) hit = GITT; }
+      else liste.forEach(function (x) { if (!hit && x.v === v) hit = x.ord; });
+      liste.push({ ord: ord, v: v, hit: !!hit });
+      if (hit) {
+        liste.forEach(function (x) { if (x.ord === hit) x.hit = true; });
+        ferdig = { a: hit, b: ord, v: v };
+      }
+      tegn();
+    }
+    function tegn() {
+      clear(gitt);
+      if (modus === "svak") {
+        var gv = KR.lekehashVerdi(GITT);
+        gitt.appendChild(el("p", {}, [el("span", { text: "Gitt: «katt» har farge " }), swatch(gv), el("b", { text: " " + KR.LEKEFARGER[gv][0] }),
+          el("span", { text: ". Finn et annet ord med samme farge." })]));
+      } else gitt.appendChild(el("p", { text: "Ingenting er gitt. Skriv ord til to av dem får samme farge, uansett hvilke." }));
+      clear(ul);
+      liste.slice().reverse().forEach(function (x) {
+        ul.appendChild(el("li", { class: x.hit ? "lh-hit" : "" }, [swatch(x.v), el("span", { text: x.ord + " → " + KR.LEKEFARGER[x.v][0] })]));
+      });
+      var s = "<p>Forsøk: <b>" + liste.length + "</b></p>";
+      if (ferdig) {
+        s = "<p class=\"kr-bad\"><b>Kollisjon etter " + liste.length + (liste.length === 1 ? " forsøk" : " forsøk") + ":</b> «" + escH(ferdig.a) + "» og «" + escH(ferdig.b) +
+          "» har begge farge " + KR.LEKEFARGER[ferdig.v][0] + ".</p><p>" + (modus === "svak"
+            ? "Med 16 farger trengs i snitt rundt 16 forsøk når målet er bestemt på forhånd. Prøv «Sterk» og se hvor fort det går når du velger begge ordene selv."
+            : "Med 16 farger kommer en kollisjon som regel etter 4–6 ord, mye tidligere enn ved svak. Du sammenligner hvert nytt ord med <i>alle</i> ordene du har, ikke bare med ett.") + "</p>";
+      }
+      ut.innerHTML = s;
+      inp.disabled = bProv.disabled = bAuto.disabled = !!ferdig;
+      bSvak.setAttribute("aria-pressed", modus === "svak" ? "true" : "false");
+      bSterk.setAttribute("aria-pressed", modus === "sterk" ? "true" : "false");
+    }
+    function nullstill() { liste = []; ferdig = null; inp.value = ""; tegn(); }
+    bSvak.onclick = function () { modus = "svak"; nullstill(); };
+    bSterk.onclick = function () { modus = "sterk"; nullstill(); };
+    bProv.onclick = function () { legg(inp.value); inp.value = ""; inp.focus(); };
+    inp.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); bProv.onclick(); } });
+    bAuto.onclick = function () { for (var i = 0; i < 5 && !ferdig; i++) { var o = nyttOrd(); if (o) legg(o); } };
+    bNull.onclick = nullstill;
+    tegn();
+  };
+
 })();
