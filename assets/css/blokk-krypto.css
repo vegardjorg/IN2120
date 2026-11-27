@@ -32,6 +32,16 @@
 .kr-bit.strike { text-decoration: line-through; opacity: .45; }
 button.kr-bit { cursor: pointer; }
 button.kr-bit.flipped { outline: 2px solid var(--color-on-tone-danger); outline-offset: 1px; }
+/* Bit-flipping: raden som kan klikkes, skal synes uten at man prøver seg fram */
+.kr-klikkrad { padding: 6px 8px; margin: 2px -8px; border-radius: var(--radius); background: var(--color-surface-container); outline: 1px dashed var(--color-primary); }
+.kr-klikkrad .kr-bitlbl { display: inline-flex; flex-direction: column; line-height: 1.2; }
+.kr-klikkhint { font-family: var(--font-sans, inherit); font-weight: 400; font-size: var(--text-xs, .75rem); color: var(--color-primary); }
+button.kr-bit.kr-snu { box-shadow: inset 0 0 0 2px var(--color-primary); transition: transform .1s; }
+button.kr-bit.kr-snu:hover { transform: translateY(-2px); }
+button.kr-bit.kr-snu:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+button.kr-bit.kr-snu.flipped { box-shadow: inset 0 0 0 2px var(--color-on-tone-danger); }
+.kr-bit.endret { outline: 2px solid var(--color-on-tone-danger); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { button.kr-bit.kr-snu { transition: none; } button.kr-bit.kr-snu:hover { transform: none; } }
 .kr-bitrow.res .kr-bitlbl { color: var(--color-on-surface); font-weight: 600; }
 .kr-bitrow.bad .kr-bitlbl, .kr-bitrow.bad .kr-bitnote { color: var(--color-on-tone-danger); }
 .kr-bitrow.ok .kr-bitlbl { color: var(--color-on-tone-ok); }

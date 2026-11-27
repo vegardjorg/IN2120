@@ -429,7 +429,7 @@
     clear(host);
     var M = 5, S = pb("10110010"), C = M ^ S, flip = 0;
     var wrap = el("div", { class: "kr-flip" });
-    var info = el("p", { class: "small muted", html: "Alice sender beløpet M = 5 kr som 8 bit, kryptert med nøkkelstrømmen " + bits(S, 8) + ". Klikk på en bit i chifferteksten for å snu den slik Mallory kan." });
+    var info = el("p", { class: "small muted", html: "Alice sender beløpet M = 5 kr som 8 bit, kryptert med nøkkelstrømmen " + bits(S, 8) + ". Mallory sitter mellom Alice og Bob og kan snu bit i chifferteksten underveis, uten å kjenne nøkkelen. <b>Klikk på bitene med ramme i raden «C hos Bob»</b> for å snu dem, og se hva Bob får." });
     var rows = el("div", { class: "kr-bits" });
     var out = el("p", { class: "kr-flip-out" });
     var reset = el("button", { class: "btn sm", type: "button", text: "↺ Nullstill", onclick: function () { flip = 0; paint(); } });
@@ -441,21 +441,23 @@
       rows.appendChild(bitRow("nøkkelstrøm", bits(S, 8)));
       rows.appendChild(bitRow("C", bits(C, 8), { cls: "res" }));
       var C2 = C ^ flip, cs = bits(C2, 8);
-      var r = el("div", { class: "kr-bitrow res" });
-      r.appendChild(el("span", { class: "kr-bitlbl", text: "C hos Bob" }));
+      var r = el("div", { class: "kr-bitrow res kr-klikkrad" });
+      r.appendChild(el("span", { class: "kr-bitlbl", html: "C hos Bob<span class=\"kr-klikkhint\">klikk for å snu</span>" }));
       for (var i = 0; i < 8; i++) {
         (function (i) {
           var mask = 1 << (7 - i), on = (flip & mask) !== 0;
-          r.appendChild(el("button", { type: "button", class: "kr-bit " + (cs[i] === "1" ? "one" : "zero") + (on ? " flipped" : ""), text: cs[i], "aria-label": "Snu bit " + (i + 1), "aria-pressed": on ? "true" : "false",
+          r.appendChild(el("button", { type: "button", class: "kr-bit kr-snu " + (cs[i] === "1" ? "one" : "zero") + (on ? " flipped" : ""), text: cs[i], title: on ? "Snudd av Mallory. Klikk for å snu tilbake." : "Klikk for å snu denne biten", "aria-label": "Snu bit " + (i + 1) + " i chifferteksten", "aria-pressed": on ? "true" : "false",
             onclick: function () { flip ^= mask; paint(); } }));
         })(i);
       }
       rows.appendChild(r);
       var Mb = C2 ^ S;
-      rows.appendChild(bitRow("Bob får", bits(Mb, 8), { cls: flip ? "bad" : "ok" }));
+      var rb = bitRow("Bob får", bits(Mb, 8), { cls: flip ? "bad" : "ok" });
+      Array.prototype.forEach.call(rb.querySelectorAll(".kr-bit"), function (sp, i) { if (flip & (1 << (7 - i))) sp.classList.add("endret"); });
+      rows.appendChild(rb);
       out.innerHTML = flip
         ? "Bob dekrypterer til <b>" + Mb + " kr</b> i stedet for 5 kr. Hver bit Mallory snur i C, snus i klarteksten. Ingen alarm går, fordi kryptering ikke sjekker integritet."
-        : "Bob dekrypterer til <b>" + Mb + " kr</b>. Prøv å snu den første biten: da blir det " + ((C ^ 128) ^ S) + " kr.";
+        : "Bob dekrypterer til <b>" + Mb + " kr</b>. Prøv å klikke på den første biten i «C hos Bob»: da blir det " + ((C ^ 128) ^ S) + " kr.";
     }
     paint();
   };

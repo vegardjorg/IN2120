@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Kryptografi i IN2120: styrke og nøkkelrom, XOR og engangsnøkkel, ECB, CBC og CTR steg for steg, hashfunksjoner, MAC, asymmetrisk og hybrid kryptering, Diffie–Hellman og fremoverhemmelighold, digital signatur og postkvantekrypto – med stegspillere, Inspera-øvinger og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127h">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127h">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127h">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127h">
-  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127h">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127h">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/blokk-krypto.css?v=20261127k">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127k">
 </head>
 <body data-page="krypto">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -112,7 +112,7 @@
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Symmetrisk kryptering:</b> samme hemmelige nøkkel K brukes til å kryptere, C = E(M, K), og dekryptere, M = D(C, K). Nøkkelen er delt i hemmelighet mellom dem som skal ha tilgang.</li>
-          <li><b>XOR (⊕):</b> 0 når bitene er like, 1 når de er ulike. Viktig: M ⊕ U ⊕ U = M.</li>
+          <li><b>XOR (⊕):</b> 0 når bitene er like, 1 når de er ulike. Viktig: M ⊕ U ⊕ U = M. To XOR med samme verdi opphever hverandre, så den som kjenner U, får M tilbake. Derfor dekrypterer engangsnøkkel og strømchiffer med den samme nøkkelen som de krypterer med.</li>
           <li><b>Engangsnøkkel</b> (OTP, Vernam 1917): C = M ⊕ K. Perfekt sikker hvis nøkkelen er helt tilfeldig, like lang som meldingen og bare brukes én gang.</li>
           <li><b>Strømchiffer</b> XOR-er klarteksten med en nøkkelstrøm.</li>
           <li><b>Blokkchiffer</b> krypterer en blokk med fast størrelse om gangen.</li>
@@ -139,11 +139,13 @@
 
       <div class="callout felle"><span class="lbl">Feller</span>
         <details class="grense"><summary>Hvorfor trengs MAC i tillegg til kryptering?</summary>
-          <p>Kryptering skjuler bare innholdet. Den oppdager ikke endringer: i OTP og strømchiffer snur hver bit angriperen snur i C, den samme biten i klarteksten.</p></details>
+          <p>Kryptering skjuler bare innholdet. Den sier ikke fra om noen har endret meldingen underveis.</p>
+          <p>Eksempel: i engangsnøkkel og strømchiffer er chifferteksten C bare klarteksten M XOR-et med nøkkelstrømmen. Snur angriperen en bit i C, snur den samme biten seg i M når mottakeren dekrypterer. Mottakeren får en annen melding enn den som ble sendt, og merker ingenting. Angriperen trenger ikke nøkkelen for å gjøre dette (se demoen over).</p>
+          <p>En MAC (meldingsautentiseringskode) løser dette. Avsenderen regner ut en kort kontrollverdi av meldingen og en hemmelig nøkkel som bare avsender og mottaker kjenner, og sender den med. Mottakeren regner ut verdien på nytt. Er den ulik, er meldingen endret. Uten nøkkelen kan ikke angriperen lage en ny, riktig MAC. Altså: kryptering gir konfidensialitet (ingen kan lese), og MAC gir integritet (ingen kan endre uten at det oppdages).</p></details>
         <ul>
           <li>«OTP er perfekt uansett» → bare med tilfeldig, like lang nøkkel som brukes én gang.</li>
           <li>«AES-512» finnes ikke. H2025 6 brukte det likevel som rad, og riktig svar var symmetrisk kryptering.</li>
-          <li>Ikke bland blokkstørrelse og nøkkelstørrelse.</li>
+          <li>Ikke bland blokkstørrelse og nøkkelstørrelse. Blokkstørrelsen er hvor mange bit av meldingen et blokkchiffer krypterer om gangen. Nøkkelstørrelsen er hvor lang den hemmelige nøkkelen er, og den avgjør hvor mange nøkler en angriper må prøve. AES har alltid 128-bits blokk, men nøkkelen kan være 128, 192 eller 256 bit. «AES-256» betyr altså 256-bits nøkkel, ikke 256-bits blokk.</li>
           <li>Cæsar og AES er symmetriske; RSA og ECC er asymmetriske (H2025 3).</li>
         </ul></div>
 
@@ -617,39 +619,39 @@
         kort: "Blokk og nøkkel er 4 bit. E(X, K): ta X ⊕ K og roter én plass mot venstre. D(Y, K): roter én plass mot høyre, så ⊕ K. Fast nøkkel K = 0111." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127h"></script>
-  <script src="assets/js/symboler.js?v=20261127h"></script>
-  <script src="assets/js/begreper-data.js?v=20261127h"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127h"></script>
-  <script src="assets/js/pseudocode.js?v=20261127h"></script>
-  <script src="assets/js/stepplayer.js?v=20261127h"></script>
-  <script src="assets/js/varline.js?v=20261127h"></script>
-  <script src="assets/js/inspera.js?v=20261127h"></script>
-  <script src="assets/js/dra.js?v=20261127h"></script>
-  <script src="assets/js/ovelse.js?v=20261127h"></script>
-  <script src="assets/js/bank.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127h"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127h"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127h"></script>
-  <script src="assets/js/figurer/forklar-a.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127h"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127h"></script>
-  <script src="assets/js/viz-krypto.js?v=20261127h"></script>
-  <script src="assets/js/viz-dhfarge.js?v=20261127h"></script>
+  <script src="assets/js/core.js?v=20261127k"></script>
+  <script src="assets/js/symboler.js?v=20261127k"></script>
+  <script src="assets/js/begreper-data.js?v=20261127k"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127k"></script>
+  <script src="assets/js/pseudocode.js?v=20261127k"></script>
+  <script src="assets/js/stepplayer.js?v=20261127k"></script>
+  <script src="assets/js/varline.js?v=20261127k"></script>
+  <script src="assets/js/inspera.js?v=20261127k"></script>
+  <script src="assets/js/dra.js?v=20261127k"></script>
+  <script src="assets/js/ovelse.js?v=20261127k"></script>
+  <script src="assets/js/bank.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127k"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127k"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127k"></script>
+  <script src="assets/js/figurer/forklar-a.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127k"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127k"></script>
+  <script src="assets/js/viz-krypto.js?v=20261127k"></script>
+  <script src="assets/js/viz-dhfarge.js?v=20261127k"></script>
   <script>
   (function () {
     "use strict";

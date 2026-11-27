@@ -1635,8 +1635,31 @@
      Ett felles tips (#sym-tip) med delegerte lyttere på document, så ingen lyttere per symbol:
      hover (mus), fokus (tastatur: første forekomst av hvert symbol per boks får tabindex), trykk (touch).
      Tipset legges OVER symbolet, så det ikke kolliderer med linjetipset (#pc-tip) under pseudokodelinja. */
-  var SYM_BOX = ".sp-explain, .callout, .explain-body, .et-content, .et-pf-body, .qz-exp, .qz-prompt, .pc-exp-body, .bigo-why";
-  var SYM_SKIP = "code, kbd, pre, samp, a, button, input, textarea, select, label, svg, script, style, .sym, .pseudo, .parsons, .kbd, .tagline, [contenteditable]";
+  /* Boksene er de samme som prosaen begrepstipsene ser på (begrep-tips.js ALLOW), så formler i vanlige
+     avsnitt, lister og tabeller også får tips. Overskrifter, svaralternativer og dra-oppgaver hoppes over. */
+  var SYM_BOX = "p, li, td, dd, dt, figcaption, blockquote, .lead, .sp-explain, .callout, .explain-body, .et-content, .et-pf-body, .qz-exp, .qz-prompt, .pc-exp-body, .bigo-why";
+  var SYM_SKIP = "code, kbd, pre, samp, a, button, input, textarea, select, option, label, svg, script, style, h1, h2, h3, h4, h5, h6, nav, header, footer, " +
+    ".sym, .pseudo, .parsons, .kbd, .tagline, .qz-choices, .qz-choice, .insp-opt, .insp-slot, .insp-fasit, .dra-chip, .dra-board, [contenteditable]";
+  /* Formler som er delt over flere tagger: K<sup>A</sup><sub>priv</sub> (kpriv/kpub, arg = eieren) og g<sup>a</sup> (dh). */
+  function symTagged(box, seen) {
+    qsa("sup", box).forEach(function (sup) {
+      if (sup.closest(SYM_SKIP)) return;
+      var prev = sup.previousSibling, nx = sup.nextSibling, sTxt = sup.textContent.trim(), id = null, parts = [sup];
+      if (!prev || prev.nodeType !== 3) return;
+      if (/K$/.test(prev.nodeValue) && nx && nx.nodeType === 1 && nx.tagName === "SUB" && /^(priv|pub)$/.test(nx.textContent.trim())) {
+        id = nx.textContent.trim() === "priv" ? "kpriv" : "kpub"; parts.push(nx);
+      } else if (/(?:^|[^A-Za-zÆØÅæøå])g$/.test(prev.nodeValue) && /^[ab]{1,2}$/.test(sTxt)) {
+        id = "dh"; sTxt = "";
+      }
+      if (!id) return;
+      prev.nodeValue = prev.nodeValue.slice(0, -1);
+      var s = el("span", { class: "sym", "data-sym": id, "data-arg": sTxt || null, text: id === "dh" ? "g" : "K" });
+      sup.parentNode.insertBefore(s, sup);
+      parts.forEach(function (p) { s.appendChild(p); });
+      var k = id + sTxt;
+      if (!seen[k]) { seen[k] = 1; s.tabIndex = 0; }
+    });
+  }
   var symSt = { tip: null, cur: null, at: 0, ptr: "mouse", bound: false };
   IN.symbolTips = function (root) {
     var SY = IN.SYMBOLER;
@@ -1644,10 +1667,12 @@
     symTipBind();
     if (symSt.cur && !symSt.cur.isConnected) symHide();      // steget ble tegnet på nytt under tipset
     var inBox = root.nodeType === 1 && (root.matches(SYM_BOX) || root.closest(SYM_BOX));
-    var boxes = inBox ? [root] : qsa(SYM_BOX, root);
+    // Bare ytterste boks: et <p> inne i en .callout skannes som en del av calloutet.
+    var boxes = inBox ? [root] : qsa(SYM_BOX, root).filter(function (b) { return !(b.parentElement && b.parentElement.closest(SYM_BOX)); });
     boxes.forEach(function (box) {
       var seen = {}, todo = [], n;
       qsa(".sym[tabindex]", box).forEach(function (s) { seen[s.getAttribute("data-sym") + (s.getAttribute("data-arg") || "")] = 1; });
+      symTagged(box, seen);
       var w = document.createTreeWalker(box, NodeFilter.SHOW_TEXT, null);
       while ((n = w.nextNode())) {
         var hits = SY.scan(n.nodeValue);
