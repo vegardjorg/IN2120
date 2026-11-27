@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Systemsikkerhet i IN2120: privilegienivåer (ringer), prosess og virtuelt minne, bufferoverflyt med kanarifugl, NX og ASLR, virtualisering og containere, sikker oppstart med UEFI, TPM og TEE, sidekanaler og skjulte kanaler, og sårbarheter med zero-day og CVSS – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/blokk-system.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127b">
 </head>
 <body data-page="system">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -501,7 +501,7 @@
         <p><b>Forbehold</b></p>
         <ul>
           <li><b>CVSS 0,0</b> har ingen kategori på d08, som starter Lav på 0,1. I CVSS-standarden heter 0,0 «None», men det er <span class="sys-ukjent">ukjent i kildene</span>.</li>
-          <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er vår egen kobling til risikoblokka.</li>
+          <li>At CVSS er alvorlighet og ikke risiko for akkurat din virksomhet, er en kobling til risikoblokka som ikke står i kildene.</li>
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Test deg selv</span> Sårbarheter og CVSS</h4>
@@ -515,7 +515,7 @@
     <!-- ===================== EKSAMEN ===================== -->
     <section data-panel="eksamen">
       <h3>Eksamensoppgaver</h3>
-      <p class="muted small">Systemsikkerhetsoppgavene fra eksamenene i banken, med øving i Inspera-format og perfekt svar. H2021 2.2 om sidekanal, skjult kanal og MitM ligger i <a href="04-angrep.html#fane=eksamen&amp;oppg=o-H2021-2_2">blokk 4</a>.</p>
+      <p class="muted small">Systemsikkerhetsoppgavene fra eksamenene i banken, med øving i Inspera-format og anbefalt løsning. H2021 2.2 om sidekanal, skjult kanal og MitM ligger i <a href="04-angrep.html#fane=eksamen&amp;oppg=o-H2021-2_2">blokk 4</a>.</p>
       <div id="bank-system"></div>
     </section>
   </main>
@@ -529,36 +529,36 @@
         kort: "En kommune med egen driftsgruppe: skytjener med VM-er for 40 kunder, bibliotekets nettsted som 15 mikrotjenester i containere, VPN-gateway og intranett." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126n"></script>
-  <script src="assets/js/symboler.js?v=20261126n"></script>
-  <script src="assets/js/begreper-data.js?v=20261126n"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126n"></script>
-  <script src="assets/js/pseudocode.js?v=20261126n"></script>
-  <script src="assets/js/stepplayer.js?v=20261126n"></script>
-  <script src="assets/js/varline.js?v=20261126n"></script>
-  <script src="assets/js/inspera.js?v=20261126n"></script>
-  <script src="assets/js/dra.js?v=20261126n"></script>
-  <script src="assets/js/bank.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126n"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126n"></script>
-  <script src="assets/js/viz-system.js?v=20261126n"></script>
+  <script src="assets/js/core.js?v=20261127b"></script>
+  <script src="assets/js/symboler.js?v=20261127b"></script>
+  <script src="assets/js/begreper-data.js?v=20261127b"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127b"></script>
+  <script src="assets/js/pseudocode.js?v=20261127b"></script>
+  <script src="assets/js/stepplayer.js?v=20261127b"></script>
+  <script src="assets/js/varline.js?v=20261127b"></script>
+  <script src="assets/js/inspera.js?v=20261127b"></script>
+  <script src="assets/js/dra.js?v=20261127b"></script>
+  <script src="assets/js/bank.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127b"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127b"></script>
+  <script src="assets/js/viz-system.js?v=20261127b"></script>
   <script>
   (function () {
     "use strict";
@@ -590,7 +590,7 @@
       "ex-kanaler": {
         eli5: "<p>Sidekanal: du hører på naboens dør hvor lenge han fomler med kodelåsen, og gjetter koden. Han mente ikke å fortelle deg noe. Skjult kanal: du og vennen din har avtalt at lyset i vinduet blinker to ganger for «ja». Lyset er ikke laget for å sende beskjeder, men dere bruker det slik med vilje.</p>",
         normal: "<p>Spørsmålet som skiller dem, er: <i>ville noen at informasjonen skulle komme ut?</i></p><ul><li>I en sidekanal lekker offeret uten å vite det, og angriperen måler utenfra.</li><li>I en skjult kanal sender en innsider, ofte skadevare, data ut med vilje gjennom en vei som ikke var ment for det, til en mottaker som venter.</li><li>Begge kan bruke tid som bærer. Derfor må du se på hensikten, ikke på mediet.</li><li>Skjulte kanaler er langsomme, men det holder for å smugle ut en nøkkel eller et passord.</li></ul>",
-        teknisk: "<p>Sidekanaler angriper implementasjonen, ikke algoritmen. AES kan være matematisk sterk og likevel lekke nøkkelbit gjennom tidsbruk eller strømforbruk. Et mottiltak er kode som bruker konstant tid uansett nøkkel, men det står ikke på d08.</p><p>Skjulte kanaler bryter en <b>policy</b> om hvem som får kommunisere med hvem, for eksempel en air-gap eller app-tillatelser. Derfor er de relevante for tilgangskontrollmodeller som Bell-LaPadula (koblingen er vår egen). DNS-tunnelering virker fordi DNS nesten alltid slippes gjennom brannmuren. MitM er ingen av delene: angriperen går aktivt inn i forbindelsen.</p>"
+        teknisk: "<p>Sidekanaler angriper implementasjonen, ikke algoritmen. AES kan være matematisk sterk og likevel lekke nøkkelbit gjennom tidsbruk eller strømforbruk. Et mottiltak er kode som bruker konstant tid uansett nøkkel, men det står ikke på d08.</p><p>Skjulte kanaler bryter en <b>policy</b> om hvem som får kommunisere med hvem, for eksempel en air-gap eller app-tillatelser. Derfor er de relevante for tilgangskontrollmodeller som Bell-LaPadula (koblingen står ikke i kildene). DNS-tunnelering virker fordi DNS nesten alltid slippes gjennom brannmuren. MitM er ingen av delene: angriperen går aktivt inn i forbindelsen.</p>"
       },
       "ex-sarbarhet": {
         eli5: "<p>Et hus får stadig nye sprekker. Noen ganger vet ingen om sprekken ennå, ikke engang snekkeren. Det er en nulldagssprekk. Når sprekkene blir kjent, får de et nummer i et felles register (CVE) og en karakter fra 0 til 10 for hvor farlige de er (CVSS). Du tetter de farligste først. Tyvene vet at det tar tid å tette, så de prøver gjerne de kjente sprekkene først.</p>",

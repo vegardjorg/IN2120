@@ -1267,7 +1267,7 @@
     var ours = el("div", { class: "et-pf-ours" });
     // Ingen overskrift «Vårt fullpoengssvar»: fanen heter «Løsning».
     if (type === "skjonn") ours.appendChild(el("p", { class: "et-pf-note", text: "Sensor vurderer denne oppgaven etter skjønn. Det finnes ikke ett fasitsvar, så dette er ett eksempel på et svar som dekker kriteriene." }));
-    if (type === "mock") ours.appendChild(el("p", { class: "et-pf-note", text: "Dette er en øvingsoppgave laget for guiden, ikke en eksamensoppgave. Svaret og poengfordelingen er vårt eget anslag, ikke en sensorveiledning." }));
+    if (type === "mock") ours.appendChild(el("p", { class: "et-pf-note", text: "Dette er en øvingsoppgave laget for guiden, ikke en eksamensoppgave. Svaret og poengfordelingen er et anslag, ikke en sensorveiledning." }));
     if (pf.intro) ours.appendChild(el("div", { class: "et-pf-intro", html: proseHTML(pf.intro) }));
     filterDeler(pf.svar, deler).forEach(function (sv) {
       var box = el("div", { class: "et-pf-del" });
@@ -1293,7 +1293,7 @@
     });
     if (pf.hvorfor) { var wh = el("div", { class: "et-pf-why" }); ours.appendChild(wh); IN.explain(wh, pf.hvorfor, { label: "Hvorfor dette gir full pott:", noSwitch: true }); }
     if (type === "mock" && pf.anslag) {
-      var an = el("div", { class: "et-pf-anslag" }, [el("div", { class: "et-pf-anslag-lbl", text: "Vårt anslag over poengfordelingen" })]);
+      var an = el("div", { class: "et-pf-anslag" }, [el("div", { class: "et-pf-anslag-lbl", text: "Et anslag over poengfordelingen" })]);
       var al = listOrText(pf.anslag); if (al) an.appendChild(al);
       ours.appendChild(an);
     }
@@ -1306,7 +1306,7 @@
     var y = examYear(d), nr = oppgNr(d);
     var src = sv.kilde || ("Kilde: sensorveiledning IN2120" + (y ? " " + y : "") + (nr ? ", oppgave " + nr : ""));
     host.appendChild(el("p", { class: "et-pf-src", text: src }));
-    host.appendChild(el("p", { class: "et-lead", text: "Ordrett fra sensorveiledningen." + (harLosning ? " Vårt eget svar står under «Løsning»." : "") }));
+    host.appendChild(el("p", { class: "et-lead", text: "Ordrett fra sensorveiledningen." + (harLosning ? " Anbefalt løsning står under «Løsning»." : "") }));
     var bq = el("blockquote", { class: "sensor" });
     function sensorPart(p) {
       var w = el("div", { class: "et-sv-del" });

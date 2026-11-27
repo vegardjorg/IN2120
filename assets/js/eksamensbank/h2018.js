@@ -48,7 +48,7 @@
       type: "K",
       regelTekst: "Points: max 2 total score",
       regel: { min: 0, maks: 2 },
-      regelMerknad: "Manuell retting. Arket gir bare maks 2; poengfordelingen i sjekklisten er vår egen.",
+      regelMerknad: "Manuell retting. Arket gir bare maks 2; poengfordelingen i sjekklisten er et forslag (ikke fra arket).",
       deler: [{ del: "", poeng: 2, grense: "én setning" }]
     },
     avvik: null,
@@ -61,7 +61,7 @@
   P("H2018-1.1",
     [{ del: "", tekst: "<p>Informasjonssikkerhet er å bevare (ivareta) konfidensialitet, integritet og tilgjengelighet til informasjon.</p>", poeng: ["Nevner konfidensialitet, integritet og tilgjengelighet (1,5p)", "Som egenskaper ved informasjon som skal bevares (0,5p)"] }],
     [{ del: "", fasit: "<p>Preservation of confidentiality, integrity and availability of information</p>", kriterier: "<p>Points: max 2 total score</p>" }],
-    "Arket har bare modellsvaret i svarfeltet, ingen poengfordeling. Fordelingen 1,5 + 0,5 i vårt svar er vårt eget forslag.");
+    "Arket har bare modellsvaret i svarfeltet, ingen poengfordeling. Fordelingen 1,5 + 0,5 i det anbefalte svaret er et forslag (ikke fra arket).");
   hv("H2018-1.1",
     "<p>Tenk på en dagbok. Den er trygg når bare du kan lese den, når ingen har skrevet i den bak ryggen din, og når du finner den når du trenger den.</p>",
     "<p>Informasjonssikkerhet handler om tre mål for informasjon: konfidensialitet (bare de som har lov får se), integritet (informasjonen er korrekt og uendret) og tilgjengelighet (den kan brukes når den trengs). ISO 27000 sier at sikkerheten er å bevare disse tre.</p>",
@@ -181,7 +181,7 @@
       { del: "A)", fasit: "<p>Vulnerability: \"Humans\".<br>Humans are curious and can not distinguish between phishing and harmless emails.</p>", kriterier: "<p>Points: max 3</p>" },
       { del: "B)", fasit: "<p>Awareness training, email filtering (removal of links, scanning/removing attachments)</p>", kriterier: "<p>Points: max 3</p>" }
     ],
-    "Poenglinja gjelder hele oppgaven (maks 3). Fordelingen 1 + 2 er vår antakelse.");
+    "Poenglinja gjelder hele oppgaven (maks 3). Fordelingen 1 + 2 er antatt.");
   hv("H2018-1.5",
     "<p>En svindler som ringer på døra og sier han er fra strømselskapet, prøver ikke å dirke opp låsen. Han prøver å få deg til å åpne selv. Phishing gjør det samme på e-post.</p>",
     "<p>Phishing utnytter mennesker, ikke tekniske feil: nysgjerrighet, tillit, tidspress og frykt. Derfor virker det best å kombinere tiltak mot mennesket (opplæring, øvelser) med tekniske tiltak som stopper e-posten eller lenken før brukeren må ta stilling (filtrering, skanning av vedlegg).</p>",
@@ -235,7 +235,7 @@
   P("H2018-2.1",
     [{ del: "", tekst: "<p>Diffie-Hellman-nøkkelutveksling (DH). Formålet er at to parter blir enige om en felles hemmelighet (f.eks. en symmetrisk nøkkel) over en usikker kanal, uten at hemmeligheten selv sendes.</p>", poeng: ["Diffie-Hellman-nøkkelutveksling (0,5p)", "Felles hemmelig nøkkel over usikker kanal (0,5p)"] }],
     [{ del: "", fasit: "<p>DHE: Diffie Hellman key exchange<br>Two parties securely exchange a common secret (e.g. symmetric key) over an insecure channel</p>", kriterier: "<p>Points: max 1</p>" }],
-    "Fordelingen 0,5 + 0,5 er vår antakelse.");
+    "Fordelingen 0,5 + 0,5 er antatt.");
   hv("H2018-2.1",
     "<p>To venner blander hver sin hemmelige farge inn i en felles malingsspann alle kan se. Når de bytter blandingene og tilsetter sin hemmelige farge igjen, ender begge med samme farge. Den som bare så blandingene, klarer ikke å lage den.</p>",
     "<p>Diffie-Hellman lar Alice og Bob regne seg fram til den samme hemmelige verdien ved å sende hverandre offentlige verdier. Den felles hemmeligheten brukes deretter som (grunnlag for) en symmetrisk øktnøkkel. En som avlytter, ser bare de offentlige verdiene.</p>",
@@ -281,7 +281,7 @@
       type: "K",
       regelTekst: "Points: max 2",
       regel: { min: 0, maks: 2 },
-      regelMerknad: "Manuell retting. Ett poeng per bruksområde (vår antakelse; arket gir bare maks 2).",
+      regelMerknad: "Manuell retting. Ett poeng per bruksområde (antatt; arket gir bare maks 2).",
       deler: [{ del: "", poeng: 2, grense: "to bruksområder" }]
     },
     avvik: null,
@@ -291,7 +291,7 @@
   P("H2018-2.3",
     [{ del: "", tekst: "<ol><li>Digital signatur: man signerer hashen av meldingen i stedet for hele meldingen.</li><li>Passordlagring: tjeneren lagrer en (saltet) hash av passordet, ikke passordet selv.</li></ol>", poeng: ["Første bruksområde (1p)", "Andre bruksområde (1p)"] }],
     [{ del: "", fasit: "<p>HMAC, Digital signature, password storage, challenge response protocols</p>", kriterier: "<p>Points: max 2</p>" }],
-    "Fordelingen 1 + 1 er vår antakelse.");
+    "Fordelingen 1 + 1 er antatt.");
   hv("H2018-2.3",
     "<p>Et fingeravtrykk er lite, men passer bare til én person. En hash er et slikt fingeravtrykk av data, og det kan brukes overalt der man vil sjekke at noe er det samme som før.</p>",
     "<p>Fordi hashen er kort og endrer seg fullstendig ved den minste endring, brukes den til å representere data: i digitale signaturer (signer hashen), i HMAC (hash med hemmelig nøkkel), til passordlagring (sammenlign hasher, ikke passord) og i utfordring–svar (svar med hash av utfordring og hemmelighet).</p>",
@@ -551,7 +551,7 @@
       type: "K",
       regelTekst: "Points: max 2",
       regel: { min: 0, maks: 2 },
-      regelMerknad: "Manuell retting. Ett poeng per problem (vår antakelse; arket gir bare maks 2).",
+      regelMerknad: "Manuell retting. Ett poeng per problem (antatt; arket gir bare maks 2).",
       deler: [{ del: "", poeng: 2, grense: "to problemer" }]
     },
     avvik: null,
@@ -561,7 +561,7 @@
   P("H2018-4.2",
     [{ del: "", tekst: "<ol><li>TLS hviler på nettleser-PKI-en: én kompromittert eller uforsiktig CA kan utstede falske sertifikater for hvilket som helst domene.</li><li>Gamle og svake algoritmer og protokollversjoner (f.eks. RC4, SHA-1, SSL) må støttes for kompatibilitet og har gitt nedgraderingsangrep.</li></ol>", poeng: ["Første problem (1p)", "Andre problem (1p)"] }],
     [{ del: "", fasit: "<p>Old/broken algorithms (e.g. RC4, SHA-1); relying on (vulnerable) browser PKI/CA/certificate system; vulnerabilities/attacks in/on protocol (e.g. FREAK, Logjam, BEAST, DROWN, ...)</p>", kriterier: "<p>Points: max 2</p>" }],
-    "Fordelingen 1 + 1 er vår antakelse.");
+    "Fordelingen 1 + 1 er antatt.");
   hv("H2018-4.2",
     "<p>En sikker lås hjelper lite hvis noen av nøklesmedene du stoler på, lager nøkler til hvem som helst, eller hvis låsen fortsatt kan byttes til en gammel og dårlig modell.</p>",
     "<p>TLS er ikke sterkere enn delene det bygger på. Det stoler på mange CA-er, det har måttet støtte eldre og svakere algoritmer, og selve protokollen har hatt feil som er utnyttet i navngitte angrep. Derfor er nye versjoner (TLS 1.3) strammet inn.</p>",
@@ -738,7 +738,7 @@
       type: "K",
       regelTekst: "Points: max 3 / Points: max 1",
       regel: { min: 0, maks: 4 },
-      regelMerknad: "Manuell retting: A) maks 3 (ett poeng per tjeneste, vår antakelse), B) maks 1.",
+      regelMerknad: "Manuell retting: A) maks 3 (ett poeng per tjeneste, antatt), B) maks 1.",
       deler: [
         { del: "A)", poeng: 3, sporsmal: "<p>List these three main <strong>TPM-supported services</strong>:<br><em>Points: max 3</em></p>", grense: "tre tjenester" },
         { del: "B)", poeng: 1, sporsmal: "<p>Which of these services is used by the Windows Bitlocker <strong>disk encryption</strong> application?<br><em>Points: max 1</em></p>", grense: "én tjeneste" }
@@ -757,7 +757,7 @@
       { del: "A)", fasit: "<p>– Authenticated/measured boot,<br>– Sealed Storage / Encryption<br>– Remote attestation</p>", kriterier: "<p>Points: max 3</p>" },
       { del: "B)", fasit: "<p>– Sealed Storage / Encryption</p>", kriterier: "<p>Points: max 1</p>" }
     ],
-    "Fordelingen ett poeng per tjeneste i A) er vår antakelse.");
+    "Fordelingen ett poeng per tjeneste i A) er antatt.");
   hv("H2018-5.3",
     "<p>TPM-en er en liten safe på hovedkortet med en dagbok. Den skriver ned alt som starter (målt oppstart), låser bare opp safen hvis dagboken ser normal ut (forsegling), og kan vise dagboken med sitt eget stempel til andre (attestering).</p>",
     "<p>En TPM er en sikkerhetsbrikke som måler oppstarten, kan forsegle hemmeligheter til en bestemt systemtilstand og kan attestere tilstanden overfor andre. BitLocker forsegler disknøkkelen i TPM-en: hvis noen har tuklet med oppstarten, stemmer ikke målingene, og nøkkelen frigis ikke.</p>",
@@ -1386,7 +1386,7 @@
       { del: "A)", fasit: "<p>The WHERE statement is evaluated to \"TRUE\", SQL statement returns the complete userid table and the attacker is authenticated as admin.</p>", kriterier: "<p>Points: max 2</p>" },
       { del: "B)", fasit: "<p>SQL injection</p>", kriterier: "<p>Points: max 1</p>" }
     ],
-    "Fordelingen 1 + 1 i A) er vår antakelse. Passordinndata fra arket er maskert.");
+    "Fordelingen 1 + 1 i A) er antatt. Passordinndata fra arket er maskert.");
   hv("H2018-10.2",
     "<p>Tenk deg en vakt som leser lappen din høyt som en ordre: «Slipp inn hvis e-posten er ___ og passordet er ___.» Skriver du noe i passordfeltet som endrer selve ordren til «… eller slipp inn uansett», slipper du inn uten passord.</p>",
     "<p>Applikasjonen limer brukerens tekst rett inn i SQL-setningen. Tegn i inndata kan da endre betydningen av setningen: en apostrof avslutter strengen, og en OR-betingelse som alltid er sann, gjør hele WHERE-uttrykket sant. Spørringen gir da treff, og applikasjonen tror innloggingen lyktes. Dette heter SQL-injeksjon.</p>",
@@ -1461,6 +1461,7 @@
   /* ============================ SETT SAMMEN ============================ */
 
   BANK["H2018"] = {
+    sprak: "engelsk",   // settet ble gitt på engelsk; vises som merknad på kort og forside
     year: "H2018", dato: "11.12.2018", varighet: "4 timer", hjelpemidler: "Ingen",
     forside: "<p><strong>University of Oslo - Faculty of Mathematics and Natural Sciences</strong></p><p><strong>Digital exam in IN2120 \"Informasjonssikkerhet\" (Autumn 2018)</strong></p><p><strong>Date and time: 11 December 2018, 14:30h - 18:30h</strong></p><p><strong>Permitted materials: None</strong></p><p>Please regard the following directions:</p><ul><li>The exam contains 44 questions with a total of 100 points (= 100 %).</li><li>The questions are grouped under 10 parts that correspond approximately to 10 of the lectures in this course.</li><li>Each question states explicitly the marking scheme. <strong>There can be negative points for incorrect answers/selections.</strong> However, the overall score for the total question is always at least 0 points (even if the sum over all answers is negative).</li><li>Be concise. When answering a question, it is often sufficient to write a single expression or sentence to describe each concept that the question asks for.</li><li>In the navigation bar on the bottom of the screen, blue bars indicate completed questions/parts.</li><li>Answers can be written in English or in Norwegian.</li></ul>",
     deler: [

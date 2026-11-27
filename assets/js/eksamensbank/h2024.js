@@ -576,7 +576,7 @@
               explain: "Trygge valg er RSA, DSA, ECDSA eller EdDSA, som alle er signaturalgoritmer. Lista godtar også DH og MQV, selv om de egentlig er nøkkelutveksling." }
           ]
         },
-        avvik: ["Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Vårt råd er å svare RSA eller ECDSA.", "FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC.", "Lista forklares trolig av at kurset (d02, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon."],
+        avvik: ["Lista over godkjente signaturalgoritmer omfatter DH og MQV, som er algoritmer for nøkkelutveksling, ikke signering. Det tryggeste er å svare RSA eller ECDSA.", "FFC og IFC er familier (endelig-kropp- og faktoriseringsbasert krypto), ikke enkeltalgoritmer, og det samme gjelder ECC.", "Lista forklares trolig av at kurset (d02, lysarket om kvantetrusselen) setter «RSA, DSA, Diffie-Hellman» sammen under digital signatur, PKI og nøkkeldistribusjon."],
         merknad: "«Fyll in» og mellomrommet før spørsmålstegnet står slik i arket.",
         losning: ["Felt 1: X.509.", "Felt 2: RSA (eller ECDSA/EdDSA/DSA)."],
         tips: ["Skriv bare én algoritme i felt 2. Feltet rettes automatisk mot lista."]
@@ -1416,7 +1416,7 @@
         { del: "B)", fasit: "<p>Angrep:   A' or 2==2.</p>", kriterier: "<p>B) 2p for å lage et angrep som omgår filteret: Her trengs et korrekt logisk uttrykk som passer i et angrep som f.eks. 2==2, eller 345&gt;343.</p>", kode: "A' or 2==2." },
         { del: "C)", fasit: "", kriterier: "<p>C) 3p<br>0,5p for å bare svare \"nei\".</p><p>2p for å begrunne påstanden med noe à la:<br>\"Bruker har kontroll over hva som kjører på sin maskin,<br>og kan dermed omgå, eller la være å kjøre skriptet.\"</p><p>3p for å begrunne påstanden og samtidig å si noe om at dette gjøres<br>gjennom en Proxy, eksempelvis Burp eller Zap (trenger ikke navngi).</p>" }
       ],
-      merknad: "Retteinstruksen står i svarfeltet i qa-fila. Vårt svar på B bruker samme mønster som modellsvaret."
+      merknad: "Retteinstruksen står i svarfeltet i qa-fila. Det anbefalte svaret på B bruker samme mønster som modellsvaret."
     }
   };
 
@@ -1460,7 +1460,7 @@
       deler: [
         { del: "", fasit: "", kriterier: "<p>Oppgaven gir totalt 4 poeng.</p><p>1p for å navngi, eller beskrive at dette er en honeypotløsning,<br>men 0p hvis svaret tydeligvis viser forvirring mellom dette,<br>og ekte honeypotter (altså faktiske maskiner som er satt opp<br>og som angriperen faktisk kan interagere med).</p><p>1p for å nevne at hensikten med dette er deteksjon.</p><p>1p for å si at deteksjon gjøres enkelt fordi all trafikk mot<br>IP-adressene er illegitim.</p><p>1p for å skrive noe om at dette er en effektiv måte å finne<br>kompromitterte klienter i et nett.</p>" }
       ],
-      merknad: "Vårt svar har 24 ord og dekker alle fire kriteriene."
+      merknad: "Det anbefalte svaret har 24 ord og dekker alle fire kriteriene."
     }
   };
 

@@ -36,8 +36,10 @@
     return out.sort(function (a, b) { return yearKey(b.y) - yearKey(a.y); });
   }
 
+  IN.SPRAK_MERKNAD = "Settet ble gitt på engelsk, og teksten står ordrett. Fra H2020 er eksamen på norsk.";
   function oppgaveNode(x) {
     var o = x.o, wrap = el("div", { class: "bank-oppg" }), api = null;
+    if (x.ex && x.ex.sprak === "engelsk" && !x.utenSprak) wrap.appendChild(el("p", { class: "bank-sprak small muted", text: IN.SPRAK_MERKNAD }));
     if (o.oppgave) { var t = el("div", { class: "bank-otekst" }); t.innerHTML = o.oppgave; wrap.appendChild(t); }
     if (IN.insperaFig) IN.insperaFig(wrap, o);
     if (o.inspera && IN.inspera) {

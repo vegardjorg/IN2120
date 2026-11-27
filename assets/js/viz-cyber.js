@@ -363,7 +363,7 @@
       else if (knert === 5) linje([el("b", { text: "Stoppet: " }), "trinn 7, " + KC[6].no.toLowerCase() + ", når aldri fram."]);
       else linje([el("b", { text: "Stoppet: " }), "trinn " + (knert + 2) + " til 7 når aldri fram, så angrepet stopper før " + KC[knert + 1].no.toLowerCase() + "."]);
       linje([el("b", { text: "Tiltak: " }), KC[knert].knert]);
-      linje(["Tiltakene er våre egne eksempler, ikke en liste fra kildene."], "small muted");
+      linje(["Tiltakene er eksempler laget for guiden, ikke en liste fra kildene."], "small muted");
     }
     tegnKnert();
     return { check: task && task.check, reset: task && task.reset, task: task,
@@ -414,7 +414,7 @@
       var r = el("li", { class: "cy-dml-r" }, [el("span", { class: "cy-dml-n", text: "DML-" + k }), el("span", { text: DML[k] })]);
       rungs[k] = r; lad.appendChild(r);
     }
-    grid.appendChild(el("div", { class: "cy-dml-w" }, [el("p", { class: "small muted", text: "Deteksjonsnivåer (KI-lysarket). Koblingen til lagene i pyramiden er vår lesning." }), lad]));
+    grid.appendChild(el("div", { class: "cy-dml-w" }, [el("p", { class: "small muted", text: "Deteksjonsnivåer (KI-lysarket). Koblingen til lagene i pyramiden er en tolkning." }), lad]));
     wrap.appendChild(grid);
 
     var sl = el("input", { type: "range", min: "0", max: "52", step: "1", value: "0", id: nid("uke") });
@@ -669,7 +669,7 @@
   var KI_KORT = [
     { id: "a1", text: "Forgiftning av læringsdata", ans: "data", why: "Ondsinnede eller feilmerkede data havner i treningen, og modellen lærer feil." },
     { id: "a2", text: "Bakdør plantet ved finjustering", ans: "data", why: "Lysarket viser bakdører på datasiden i treningen. Modellen oppfører seg normalt til en utløser dukker opp." },
-    { id: "a3", text: "Synsbedrag: usynlig støy på et bilde", ans: "input", why: "Støyen legges på bildet modellen får ved bruk. Lysarket viser den etter datasiden, så plasseringen her er vår tolkning." },
+    { id: "a3", text: "Synsbedrag: usynlig støy på et bilde", ans: "input", why: "Støyen legges på bildet modellen får ved bruk. Lysarket viser den etter datasiden, så plasseringen her er en tolkning." },
     { id: "a4", text: "Ferdigtrent modell fra en hacket leverandør", ans: "kjede", why: "Tillitsforholdet til leverandøren gjør en hendelse hos dem til en hendelse hos virksomheten." },
     { id: "a5", text: "Jailbreak med kamuflert tekst", ans: "input", why: "Brukeren formulerer spørsmålet til den ferdige modellen slik at sikkerhetsreglene omgås." },
     { id: "a6", text: "Prompt injection via en nettside agenten leser", ans: "input", why: "Instruksjonene kommer inn som data under bruk. Modellen skiller ikke sikkert mellom instruksjoner og data." }
@@ -754,7 +754,7 @@
     };
     if (bekreft) s.push({ k: 4, blocked: true, spor: spor4, text: {
       eli5: "Før Fjordhjelp får sende noe, spør den Ingrid. Ingrid ser at mottakeren er ukjent og sier nei. Fila blir hjemme.",
-      normal: "Pil 4 stoppes: Ingrid må bekrefte e-posten, ser en ukjent mottaker og avviser. Tiltaket er vår egen idé, lysarket gir ingen tiltak.",
+      normal: "Pil 4 stoppes: Ingrid må bekrefte e-posten, ser en ukjent mottaker og avviser. Tiltaket er ikke fra lysarket, som ikke gir tiltak.",
       teknisk: "Et menneske i løkka før handlinger som sender data ut. Andre tiltak er minste privilegium for verktøyene og å behandle eksternt innhold som upålitelig. Alt dette er generell kunnskap, ukjent i kildene." } });
     else s.push({ k: 4, spor: spor4, text: {
       eli5: "Fjordhjelp sender fila til skurken. Ingrid merker ingenting.",

@@ -490,7 +490,7 @@
       "Hybrid: alle øktnøkler sendes kryptert med mottakers samme offentlige nøkkel. Lekker den private nøkkelen senere, kan alle lagrede økter dekrypteres."
     ],
     tips: ["Sensor gir poeng for: øktnøkler, at de er uavhengige, og at én nøkkel ikke kan brukes til å utlede andre. Få med alle tre.", "Si også hvorfor hybrid ikke gir det; det er halve spørsmålet."],
-    avvik: "Modellsvaret forklarer bare DH-delen (unike, uavhengige øktnøkler) og nevner verken hybrid kryptering eller at en langtidsnøkkel som lekker senere ikke avslører gamle økter. Vårt svar dekker begge."
+    avvik: "Modellsvaret forklarer bare DH-delen (unike, uavhengige øktnøkler) og nevner verken hybrid kryptering eller at en langtidsnøkkel som lekker senere ikke avslører gamle økter. Det anbefalte svaret dekker begge."
   });
   P("12", {
     type: "skjonn",
@@ -815,7 +815,7 @@
         fasit: "<p>alert tcp 10.10.23.23 22 -&gt; any any (msg “Utgående SSH-trafikk mot DC“)</p>",
         kriterier: "<p>Det svaret gir to poeng, se bort fra enkle syntaksfeil (feil retning for trafikken er helt feil svar, og gir null poeng) og feil rekkefølge i brukte parametere. Trekk dem ett poeg for mangel på følgende ord: \"alert\", \"tcp\" og mangel på, eller bruk av feil portnr (som skal være 22).</p>",
         kode: "alert tcp 10.10.23.23 22 -> any any (msg “Utgående SSH-trafikk mot DC“)" }],
-      merknad: "Meldingen i fasit sier «mot DC», selv om regelen gjelder trafikk fra DC. Se også avvik om kildeport/målport. I vårt svar er «å» skrevet som «aa» i kodefeltet for å unngå tegnsettproblemer i Snort-regler; «Utgående» er like gyldig."
+      merknad: "Meldingen i fasit sier «mot DC», selv om regelen gjelder trafikk fra DC. Se også avvik om kildeport/målport. I det anbefalte svaret er «å» skrevet som «aa» i kodefeltet for å unngå tegnsettproblemer i Snort-regler; «Utgående» er like gyldig."
     }
   });
 

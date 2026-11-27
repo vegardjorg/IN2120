@@ -44,7 +44,7 @@
       type: "K",
       regelTekst: "Points: max 2 total score",
       regel: { min: 0, maks: 2 },
-      regelMerknad: "Manuell retting. Arket oppgir ingen poengfordeling; trolig om lag 1,5 for de tre egenskapene og 0,5 for den ekstra (vår antakelse).",
+      regelMerknad: "Manuell retting. Arket oppgir ingen poengfordeling; trolig om lag 1,5 for de tre egenskapene og 0,5 for den ekstra (antatt).",
       deler: [{ del: "", poeng: 2, grense: "fire ord" }]
     },
     avvik: "Fasiten nevner «privacy» som ekstra egenskap. ISO 27000 nevner i sin definisjon autentisitet, ansvarlighet (accountability), ubenektelighet og pålitelighet (reliability), ikke personvern. Svar heller med en av disse fire.",
@@ -57,7 +57,7 @@
       poeng: ["Konfidensialitet, integritet og tilgjengelighet skrevet fullt ut (1,5p)", "Én ekstra egenskap fra standarden, f.eks. autentisitet eller ubenektelighet (0,5p)"] }],
     sensor: {
       deler: [{ del: "", fasit: "<p>- Confidentiality, Integrity, Availability<br>- privacy, non-repudiation, authentication, or ...</p>", kriterier: "<p>Points: max 2 total score</p>" }],
-      merknad: "Modellsvaret står grønt i svarfeltet. Poengfordelingen i svarfeltet over (1,5 + 0,5) er vår antakelse; arket sier bare «max 2». «privacy» og «authentication» er fasitens ord; standarden bruker «authenticity»."
+      merknad: "Modellsvaret står grønt i svarfeltet. Poengfordelingen i svarfeltet over (1,5 + 0,5) er antatt; arket sier bare «max 2». «privacy» og «authentication» er fasitens ord; standarden bruker «authenticity»."
     }
   };
   hv("H2019-1.1",
@@ -75,7 +75,7 @@
       type: "K",
       regelTekst: "Points: max 2",
       regel: { min: 0, maks: 2 },
-      regelMerknad: "Manuell retting. Trolig 1 for definisjonen og 1 for tiltaket (vår antakelse).",
+      regelMerknad: "Manuell retting. Trolig 1 for definisjonen og 1 for tiltaket (antatt).",
       deler: [{ del: "", poeng: 2, grense: "to setninger" }]
     },
     avvik: "Modellsvaret i arket har bare definisjonen og mangler eksempelet på et tiltak som oppgaven også ber om. Ta med et tiltak, f.eks. kryptering eller tilgangskontroll.",
@@ -88,7 +88,7 @@
       poeng: ["Definisjon: ikke avslørt for uautoriserte (1p)", "Et relevant tiltak, f.eks. kryptering eller tilgangskontroll (1p)"] }],
     sensor: {
       deler: [{ del: "", fasit: "<p>Information is not disclosed to unauthorized entities.</p>", kriterier: "<p>Points: max 2</p>" }],
-      merknad: "Arkets modellsvar har bare definisjonen; eksempelet på tiltak mangler. Fordelingen 1 + 1 er vår antakelse."
+      merknad: "Arkets modellsvar har bare definisjonen; eksempelet på tiltak mangler. Fordelingen 1 + 1 er antatt."
     }
   };
   hv("H2019-1.2",
@@ -901,7 +901,7 @@
       type: "E",
       regelTekst: "Points: 0.5 for each correct factor, 0.5 for each correct example, 0 for wrong/no answer, max 3 total · Points: 1 for correct answer, 0 for wrong, 0 for no answer",
       regel: { min: 0, maks: 4 },
-      regelMerknad: "Manuell retting. To svarfelt: faktorer med eksempler (3) og tofaktorsystem (1). Delbetegnelsene 1 og 2 er våre.",
+      regelMerknad: "Manuell retting. To svarfelt: faktorer med eksempler (3) og tofaktorsystem (1). Delbetegnelsene 1 og 2 er lagt til i guiden.",
       deler: [
         { del: "1.", poeng: 3, sporsmal: "<p>Name the three (3) general credential categories (called authentication factors) and give one example for each of them</p>", grense: "tre linjer" },
         { del: "2.", poeng: 1, sporsmal: "<p>Give one (1) example of a wide-spread commercial 2-factor authentication system and name the involved factors.</p>", grense: "én linje" }
@@ -1211,7 +1211,7 @@
       poeng: ["Tillatelse/avtale vs. ingen tillatelse (1p)", "Mål og praksis: finne alt + rapport for å forbedre vs. skade/stjele/presse (1p)"] }],
     sensor: {
       deler: [{ del: "", fasit: "<p>Ethical Hacker: has a contract with the company, checks for all vulnerabilities, writes a report. Goal is to improve security. Motivation: professional<br>Illegal Hacker: has no contract, use first or easiest way in, writes no report. Goal is to do damage, extract information or blackmail / make service unavailable. Motivation: criminal</p>", kriterier: "<p>Points: max 2</p>" }],
-      merknad: "Poengfordelingen i vårt svar (1 + 1) er vår antakelse; arket sier bare «max 2»."
+      merknad: "Poengfordelingen i det anbefalte svaret (1 + 1) er antatt; arket sier bare «max 2»."
     }
   };
   hv("H2019-9.1",
@@ -1415,7 +1415,7 @@
       type: "E",
       regelTekst: "Points: max 2 · Points: max 2",
       regel: { min: 0, maks: 4 },
-      regelMerknad: "Manuell retting, to svarfelt à maks 2. Delbetegnelsene 1 og 2 er våre.",
+      regelMerknad: "Manuell retting, to svarfelt à maks 2. Delbetegnelsene 1 og 2 er lagt til i guiden.",
       deler: [
         { del: "1.", poeng: 2, sporsmal: "<p>Name one technical and one business benefit of DevSecOps.</p>", grense: "to korte punkter" },
         { del: "2.", poeng: 2, sporsmal: "<p>Explain (shortly) the meaning of Shift-Left in DevSecOps.</p>", grense: "én til to setninger" }
@@ -1438,7 +1438,7 @@
         { del: "1.", fasit: "<p>technical: e.g. less complex problems to fix, faster resolution of issues when they arise<br>business: e.g. faster delivery of features, more time available to add value</p>", kriterier: "<p>Points: max 2</p>" },
         { del: "2.", fasit: "<p>Shift-left means integrating security in the development phase in contrast to removing vulnerabilities in code during the operations phase.</p>", kriterier: "<p>Points: max 2</p>" }
       ],
-      merknad: "Fordelingen 1 + 1 innen hver del er vår antakelse; arket sier bare «max 2» per del."
+      merknad: "Fordelingen 1 + 1 innen hver del er antatt; arket sier bare «max 2» per del."
     }
   };
   hv("H2019-10.4",
@@ -1449,6 +1449,7 @@
   /* ============================ SETT SAMMEN ============================ */
 
   BANK["H2019"] = {
+    sprak: "engelsk",   // settet ble gitt på engelsk; vises som merknad på kort og forside
     year: "H2019", dato: "11.12.2019", varighet: "4 timer", hjelpemidler: "Translation of security terms",
     forside: "<p><strong>University of Oslo - Faculty of Mathematics and Natural Sciences</strong><br><strong>Digital exam in IN2120 \"Informasjonssikkerhet\" (Autumn 2019)</strong></p><p><strong>Date and time:</strong> 11 December 2019, 09:00h - 13:00h</p><p><strong>Permitted materials:</strong> Translation of security terms</p><p>Please regard the following directions:</p><ul><li>The exam contains 43 questions with a total of 100 points (= 100 %).</li><li>The questions are grouped under 10 parts that correspond approximately to 10 of the lectures in this course.</li><li>Each question states explicitly the marking scheme. There can be negative points for incorrect answers/selections. However, the overall score for the total question is always at least 0 points (even if the sum over all answers is negative).</li><li>Be concise. When answering a question, it is often sufficient to write a single expression or sentence to describe each concept that the question asks for.</li><li>In the navigation bar on the bottom of the screen, blue bars indicate completed questions/parts.</li><li>Answers can be written in English or in Norwegian.</li></ul>",
     deler: [

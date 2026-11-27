@@ -144,7 +144,7 @@
         så sensors retteinstruks (sensor.deler[].kriterier, deretter fasit): «X poeng for …», «… (Xp)», tallord
         («Ett poeng for …»), og punkt-/nummerlister. Punkter uten tall deler det som er igjen av delens poeng.
         Overstiger summen delens poeng og ett punkt alene gir full pott, er punktene trinn (høyeste teller).
-     3) Ingen punkter i en del: ett punkt «Dekker svaret hovedpoengene i perfekt svar?» med delens poeng.
+     3) Ingen punkter i en del: ett punkt «Dekker svaret hovedpoengene i den anbefalte løsningen?» med delens poeng.
         Ingen punkter i noen del: ett slikt punkt for hele oppgaven. */
   var TALLORD = { en: 1, ett: 1, "én": 1, to: 2, tre: 3, fire: 4, fem: 5, seks: 6 };
   var NUMRE = "(\\d+(?:[.,]\\d+)?|ett|én|en|to|tre|fire|fem|seks)";
@@ -208,7 +208,7 @@
     items.forEach(function (x) { if (x.poeng == null) x.poeng = ukjent ? r2(rest / ukjent) : 0; });
     // Alle punkter har tall, men summen når ikke delens poeng: resten som eget punkt, så full pott er mulig
     if (!utenRest && !ukjent && P != null && kjent < P - 1e-9 && items.length && items[0].punkt !== FALLBACK)
-      items.push({ punkt: "Resten: dekker svaret ellers hovedpoengene i perfekt svar?", poeng: r2(P - kjent), del: items[0].del, nokkelord: [] });
+      items.push({ punkt: "Resten: dekker svaret ellers hovedpoengene i den anbefalte løsningen?", poeng: r2(P - kjent), del: items[0].del, nokkelord: [] });
     var sum = items.reduce(function (s, x) { return s + x.poeng; }, 0), topp = Math.max.apply(null, items.map(function (x) { return x.poeng; }));
     return { poeng: P, nivaa: P != null && sum > P + 1e-9 && topp >= P - 1e-9 && items.length > 1 };
   }
@@ -219,7 +219,7 @@
     if (n === 1 && list.length === 1) return list;
     return [];
   }
-  var FALLBACK = "Dekker svaret hovedpoengene i perfekt svar?";
+  var FALLBACK = "Dekker svaret hovedpoengene i den anbefalte løsningen?";
   function sjekkliste(o) {
     var q = o.inspera || {}, pf = (o.key && IN.PERFEKT && IN.PERFEKT[o.key]) || o.perfekt || {};
     var deler = q.deler && q.deler.length ? q.deler : [{ del: "", poeng: o.points != null ? +o.points : null }];
@@ -274,10 +274,10 @@
     if (!pf) return null;
     var prose = function (v) { var s = String(v); return /^\s*</.test(s) ? s : "<p>" + s + "</p>"; };
     var det = el("details", { class: "insp-pf", open: "" });
-    det.appendChild(el("summary", { text: "Perfekt svar og sensorveiledningen" }));
+    det.appendChild(el("summary", { text: "Anbefalt løsning og sensorveiledningen" }));
     if (pf.svar && pf.svar.length) {
       var ours = el("div", { class: "insp-pf-ours" });
-      ours.appendChild(el("p", { class: "insp-pf-h", html: "<b>Perfekt svar</b> " + (pf.type === "skjonn" ? '<span class="muted small">(ett eksempel, sensor vurderer etter skjønn)</span>' : '<span class="muted small">(vårt fullpoengssvar)</span>') }));
+      ours.appendChild(el("p", { class: "insp-pf-h", html: "<b>Anbefalt løsning</b> " + (pf.type === "skjonn" ? '<span class="muted small">(ett eksempel, sensor vurderer etter skjønn)</span>' : '<span class="muted small">(fullpoengssvar)</span>') }));
       pf.svar.forEach(function (s) {
         var b = el("div", { class: "insp-pf-del" });
         if (s.del) b.appendChild(el("div", { class: "insp-pf-dl", text: s.del }));
@@ -331,7 +331,7 @@
         box.hidden = true;
       } });
     }
-    if (harSv) box.appendChild(knapp("losning", "Perfekt svar (Løsning)"));
+    if (harSv) box.appendChild(knapp("losning", "Anbefalt løsning"));
     if (harSensor) box.appendChild(knapp("sensor", "Sensors retteinstrukser (Sensorveiledning)"));
     return box;
   }
@@ -647,7 +647,7 @@
       });
       sj = sjekkliste(o);
       body.appendChild(el("p", { class: "insp-man small muted", html: "Rettes ikke automatisk. Skriv svaret, trykk <b>«Vurder svaret mitt»</b> og kryss av det svaret ditt dekker. " +
-        (opts.iKort ? "Perfekt svar og sensors retteinstrukser står i fanene <b>«Løsning»</b> og <b>«Sensorveiledning»</b>." : "Da ser du også <b>«Perfekt svar»</b> og sensors retteinstrukser.") }));
+        (opts.iKort ? "Anbefalt løsning og sensors retteinstrukser står i fanene <b>«Løsning»</b> og <b>«Sensorveiledning»</b>." : "Da ser du også <b>«Anbefalt løsning»</b> og sensors retteinstrukser.") }));
     }
 
     /* --- Knapper, resultat og fasit --- */
@@ -756,8 +756,8 @@
       IN.clear(vurd); hintNodes = [];
       var fs = el("fieldset", { class: "insp-sj" });
       fs.appendChild(el("legend", { text: "Hva dekker svaret ditt?" }));
-      var kildeTxt = { egen: "", svar: "Punktene er hentet fra vårt fullpoengssvar.", sensor: "Punktene er hentet ordrett fra sensorveiledningen.", blandet: "Punktene er hentet fra vårt fullpoengssvar og (ordrett) fra sensorveiledningen.", fallback: "" }[sj.kilde] || "";
-      fs.appendChild(el("p", { class: "small muted insp-sj-intro", text: "Kryss av det svaret ditt faktisk dekker. Sammenlign med perfekt svar og sensorveiledningen " + (opts.iKort ? "(knappene under åpner fanene i kortet). " : "under. ") + kildeTxt }));
+      var kildeTxt = { egen: "", svar: "Punktene er hentet fra den anbefalte løsningen.", sensor: "Punktene er hentet ordrett fra sensorveiledningen.", blandet: "Punktene er hentet fra den anbefalte løsningen og (ordrett) fra sensorveiledningen.", fallback: "" }[sj.kilde] || "";
+      fs.appendChild(el("p", { class: "small muted insp-sj-intro", text: "Kryss av det svaret ditt faktisk dekker. Sammenlign med den anbefalte løsningen og sensorveiledningen " + (opts.iKort ? "(knappene under åpner fanene i kortet). " : "under. ") + kildeTxt }));
       if (!norm(allText())) fs.appendChild(el("p", { class: "small insp-sj-tom", text: "Du har ikke skrevet noe ennå. Skriv et svar først, så blir vurderingen ærligere." }));
       var i = 0;
       sj.grupper.forEach(function (g) {

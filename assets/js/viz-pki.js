@@ -893,7 +893,7 @@
         tekst: "<p>En angriper har tatt kontroll over Nordkapp CA og utsteder et sertifikat for bibliotek.lerkedal.no, selv om CAA sier nei. Hva gjelder nå?</p>",
         valg: [
           { tekst: "CAA stoppet ikke dette. Utstedelsen må oppdages i ettertid, for eksempel gjennom sertifikattransparens, og så må sertifikatet tilbakekalles", til: "slutt", poeng: 2, kit: { K: "truet", I: "truet" },
-            konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. t03 O6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er vår presisering og lærebokstoff." },
+            konsekvens: "<b>Riktig.</b> CAA virker bare når CA-en følger regelen. t03 O6a sier at CAA og CT <i>sammen</i> motvirker falske sertifikater. At CT gjør utstedelsen synlig i ettertid, er en presisering og lærebokstoff." },
           { tekst: "Nettleseren slår opp CAA-recorden og avviser sertifikatet", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },
             konsekvens: "<b>Nei.</b> CAA sjekkes av CA-en når den utsteder, ikke av nettleseren. Sertifikatet har en gyldig kjede og godtas. (RFC 8659; står ikke i kurskildene.)" },
           { tekst: "Ingenting kan skje: CAA gjør det umulig å utstede", til: "slutt", poeng: -1, kit: { K: "brutt", I: "brutt" },

@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127b">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -148,7 +148,7 @@
       <ol>
         <li>Signering stopper samme dag, og innbyggerne varsles.</li>
         <li>Vedtak signert før 01.06.2027 kan fortsatt valideres hvis policyen godtar det. Etter lekkasjen kan en angriper lage signaturer som ser like ekte ut.</li>
-        <li>Derfor bør vedtakene også ha et tidsstempel fra en tredjepart. Det er vår egen tilføyelse og står ikke i d03.</li>
+        <li>Derfor bør vedtakene også ha et tidsstempel fra en tredjepart. Det er en tilføyelse som ikke står i d03.</li>
       </ol>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -525,7 +525,7 @@
     <!-- ===================== EKSAMEN ===================== -->
     <section data-panel="eksamen">
       <h3>Eksamensoppgaver</h3>
-      <p class="muted small">PKI-oppgavene fra eksamenene i banken, med øving i Inspera-format og perfekt svar. Nøkkeloppgavene H2024 7, H2024 12 og H2023 15 og begrepsmatrisene ligger i <a href="02-krypto.html#fane=eksamen">blokk 2</a>.</p>
+      <p class="muted small">PKI-oppgavene fra eksamenene i banken, med øving i Inspera-format og anbefalt løsning. Nøkkeloppgavene H2024 7, H2024 12 og H2023 15 og begrepsmatrisene ligger i <a href="02-krypto.html#fane=eksamen">blokk 2</a>.</p>
       <div id="bank-pki"></div>
     </section>
   </main>
@@ -539,37 +539,37 @@
         kort: "Lerkedal bibliotek har nettstedet bibliotek.lerkedal.no. Sertifikatstien er Fjellvik Root R1 (rot) → Fjellvik TLS CA 2 (mellomliggende CA) → bibliotek.lerkedal.no (subjektsertifikat)." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126n"></script>
-  <script src="assets/js/symboler.js?v=20261126n"></script>
-  <script src="assets/js/begreper-data.js?v=20261126n"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126n"></script>
-  <script src="assets/js/pseudocode.js?v=20261126n"></script>
-  <script src="assets/js/stepplayer.js?v=20261126n"></script>
-  <script src="assets/js/varline.js?v=20261126n"></script>
-  <script src="assets/js/inspera.js?v=20261126n"></script>
-  <script src="assets/js/dra.js?v=20261126n"></script>
-  <script src="assets/js/ovelse.js?v=20261126n"></script>
-  <script src="assets/js/bank.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126n"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126n"></script>
-  <script src="assets/js/viz-pki.js?v=20261126n"></script>
+  <script src="assets/js/core.js?v=20261127b"></script>
+  <script src="assets/js/symboler.js?v=20261127b"></script>
+  <script src="assets/js/begreper-data.js?v=20261127b"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127b"></script>
+  <script src="assets/js/pseudocode.js?v=20261127b"></script>
+  <script src="assets/js/stepplayer.js?v=20261127b"></script>
+  <script src="assets/js/varline.js?v=20261127b"></script>
+  <script src="assets/js/inspera.js?v=20261127b"></script>
+  <script src="assets/js/dra.js?v=20261127b"></script>
+  <script src="assets/js/ovelse.js?v=20261127b"></script>
+  <script src="assets/js/bank.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127b"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127b"></script>
+  <script src="assets/js/viz-pki.js?v=20261127b"></script>
   <script>
   (function () {
     "use strict";
@@ -607,7 +607,7 @@
       "ex-revokering": {
         eli5: "<p>Mister du bankkortet, sperrer du det, selv om det står «gyldig til 2028» på kortet. Butikken må kunne sjekke om kortet er sperret. Den kan slå opp i en liste over sperrede kort, ringe banken, eller få en fersk lapp fra banken som kunden har med seg. Den siste måten er OCSP-stifting.</p>",
         normal: "<p>Utløpsdatoen er ikke nok. Lekker den private nøkkelen, må sertifikatet stoppes med en gang. Nettleseren kan spørre CA-en direkte (OCSP), men da ser CA-en hvor du surfer. Med stifting legger tjeneren ved et ferskt, signert «fortsatt gyldig»-svar.</p><p>CAA og CT angriper et annet problem: CA-er som utsteder sertifikater de ikke skulle ha utstedt. CAA sier «bare disse CA-ene får utstede for meg», og CT gjør utstedelsene synlige.</p>",
-        teknisk: "<p>Statussvaret ved stifting er signert av CA-en (eller dens OCSP-responder), så tjeneren kan ikke forfalske det, og det er ferskt, så tjeneren kan ikke bruke et gammelt «gyldig»-svar etter tilbakekallingen. Must-staple gjør at et sertifikat som kommer <i>uten</i> statussvar, avvises. Ellers kunne en angriper med stjålet nøkkel bare utelate svaret.</p><p>Revokeres et mellomliggende CA-sertifikat, faller alle subjektsertifikater under det, fordi tilliten er avledet (fanen Sertifikatkjeden).</p><p>CAA hindrer en <i>ærlig</i> CA i å utstede feil. En CA som ignorerer CAA, stoppes bare av at det oppdages i ettertid, og der kommer CT inn. Den presiseringen er vår egen: t03 O6a sier kort at CAA forhindrer falske sertifikater. Et tilbakekalt sertifikat svarer til at nøkkelparet går til «kompromittert» (fanen Nøkkelens livssyklus).</p>"
+        teknisk: "<p>Statussvaret ved stifting er signert av CA-en (eller dens OCSP-responder), så tjeneren kan ikke forfalske det, og det er ferskt, så tjeneren kan ikke bruke et gammelt «gyldig»-svar etter tilbakekallingen. Must-staple gjør at et sertifikat som kommer <i>uten</i> statussvar, avvises. Ellers kunne en angriper med stjålet nøkkel bare utelate svaret.</p><p>Revokeres et mellomliggende CA-sertifikat, faller alle subjektsertifikater under det, fordi tilliten er avledet (fanen Sertifikatkjeden).</p><p>CAA hindrer en <i>ærlig</i> CA i å utstede feil. En CA som ignorerer CAA, stoppes bare av at det oppdages i ettertid, og der kommer CT inn. Den presiseringen er ikke hentet fra t03, der O6a sier kort at CAA forhindrer falske sertifikater. Et tilbakekalt sertifikat svarer til at nøkkelparet går til «kompromittert» (fanen Nøkkelens livssyklus).</p>"
       }
     };
     Object.keys(EX).forEach(function (id) {

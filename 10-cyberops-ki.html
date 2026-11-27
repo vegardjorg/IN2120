@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Cyberoperasjoner og KI i IN2120: trusselaktører og sporing, Cyber Kill Chain og MITRE ATT&amp;CK, TTP og CTI, cyberoperasjoner og avskrekking, KI i angrep og forsvar, sårbarheter i KI og EUs KI-forordning – med visualiseringer, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261126n">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261126n">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/blokk-cyber.css?v=20261127b">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127b">
 </head>
 <body data-page="cyberops">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -168,7 +168,7 @@
           <tr><td>6</td><td>Bakdøra kontakter en VPS hver time for nye ordre</td><td>Kommando og kontroll</td><td>Overvåke utgående trafikk, blokkere kjente C2-adresser</td></tr>
           <tr><td>7</td><td>Anbudsdokumentene kopieres ut</td><td>Aksjon (måloppnåelse)</td><td>Varsle ved store, uvanlige uttrekk</td></tr>
         </tbody></table></div>
-      <p>Stopper e-postfilteret vedlegget i trinn 3, når angrepet aldri trinn 4–7. Det er hele poenget med «kill». Tiltakskolonnen er våre egne eksempler og er ukjent i kildene som liste.</p>
+      <p>Stopper e-postfilteret vedlegget i trinn 3, når angrepet aldri trinn 4–7. Det er hele poenget med «kill». Tiltakskolonnen er eksempler laget for guiden og finnes ikke som liste i kildene.</p>
       </details>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -392,7 +392,7 @@
     <!-- ===================== 5 · KI ===================== -->
     <section data-panel="ki">
       <h3>KI: grunnbegreper, offensiv og defensiv KI</h3>
-      <p class="cy-ny"><b>Ny i 2026, ingen tidligere eksamen.</b> Det finnes heller ingen ukesoppgave om KI. Kilden er bare KI-lysarket, og alle øvingene her er våre egne.</p>
+      <p class="cy-ny"><b>Ny i 2026, ingen tidligere eksamen.</b> Det finnes heller ingen ukesoppgave om KI. Kilden er bare KI-lysarket, og alle øvingene her er laget for guiden.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Fire nivåer inni hverandre:</b>
@@ -435,7 +435,7 @@
       <ul>
         <li><b>Klassifisering:</b> normal 31 %, DoS 3 %, eksfiltrering 66 %. Høyeste klasse er eksfiltrering, så det går et varsel.</li>
         <li><b>Autoenkoder:</b> modellen gjenskaper posten som «2,0 s, 1 200 bytes, TCP, 443». 48 000 mot 1 200 bytes gir stor rekonstruksjonsfeil, over terskelen, så posten merkes som anomali.</li>
-        <li><b>Deepfake-svindel:</b> økonomisjefen får en videosamtale fra «direktøren» om en hasteoverføring. Rutinen «alle overføringer over 100 000 kr bekreftes på et kjent nummer» stopper svindelen uten noen deteksjonsprogramvare. Rutinen er vår egen, men bygger på poenget om at deteksjon er uløselig.</li>
+        <li><b>Deepfake-svindel:</b> økonomisjefen får en videosamtale fra «direktøren» om en hasteoverføring. Rutinen «alle overføringer over 100 000 kr bekreftes på et kjent nummer» stopper svindelen uten noen deteksjonsprogramvare. Rutinen er ikke hentet fra lysarket, men bygger på poenget om at deteksjon er uløselig.</li>
       </ul>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Klassifisering mot autoenkoder</h4>
@@ -481,13 +481,13 @@
     <!-- ===================== 6 · SÅRBARHETER I KI OG AI ACT ===================== -->
     <section data-panel="kisarbar">
       <h3>Sårbarheter i KI og EUs KI-forordning (AI Act)</h3>
-      <p class="cy-ny"><b>Ny i 2026, ingen tidligere eksamen.</b> Kilden er bare KI-lysarket, som viser angrepene med bilder og eksempler, uten tiltak. Tiltakene som nevnes her, er våre egne og ukjent i kildene.</p>
+      <p class="cy-ny"><b>Ny i 2026, ingen tidligere eksamen.</b> Kilden er bare KI-lysarket, som viser angrepene med bilder og eksempler, uten tiltak. Tiltakene som nevnes her, er ikke hentet fra kildene.</p>
       <div class="callout begrep"><span class="lbl">Begrep</span>
         <ul>
           <li><b>Hvor KI kan angripes:</b> i <b>dataene</b> under trening, i <b>modellen</b> under trening og inferens, og i <b>hele leveransekjeden</b>.</li>
           <li><b>Forgiftning av læringsdata:</b> ondsinnede eller feilmerkede data havner i treningen, og modellen lærer feil.</li>
           <li><b>Bakdør:</b> en skjult oppførsel plantes i modellen, for eksempel ved finjustering. Lysarkets eksempel er en språkmodell som skriver trygg kode til vanlig, men utrygg kode når en bestemt betingelse er oppfylt. Bakdøra overlevde vanlig sikkerhetstrening.</li>
-          <li><b>Synsbedrag</b> (adversarial examples): en liten, nøye beregnet støy som mennesker ikke ser, får modellen til å klassifisere bildet feil, for eksempel si «hund» om en katt (eksempelet er vårt eget; lysarket viser angrepet med bilder).</li>
+          <li><b>Synsbedrag</b> (adversarial examples): en liten, nøye beregnet støy som mennesker ikke ser, får modellen til å klassifisere bildet feil, for eksempel si «hund» om en katt (eksempelet er ikke hentet fra kildene; lysarket viser angrepet med bilder).</li>
           <li><b>Angrep på leveransekjeden:</b> en virksomhet stoler på en leverandør av modeller, datasett eller KI-tjenester. En hendelse hos leverandøren blir en hendelse hos virksomheten gjennom tillitsforholdet.</li>
           <li><b>Jailbreak:</b> brukeren formulerer en forespørsel slik at språkmodellen omgår sine egne sikkerhetsregler.</li>
           <li><b>Prompt injection:</b> en KI-agent får en ufarlig oppgave, men leser data med skjulte instruksjoner og følger dem, for eksempel ved å hente en hemmelig fil og sende den ut. Kjernen er at modellen ikke skiller sikkert mellom <i>instruksjoner</i> og <i>data</i>.</li>
@@ -529,7 +529,7 @@
       <div id="viz-kiangrep"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Prompt injection steg for steg</h4>
-      <p class="ov-intro">Ingrid ber KI-assistenten Fjordhjelp oppsummere en nettside som har skjulte instruksjoner. Velg scenario og gå gjennom de fire pilene med «Neste». Ved ett steg må du gjette før du får gå videre. Bekreftelse før e-post er vår egen idé, ikke et tiltak fra lysarket.</p>
+      <p class="ov-intro">Ingrid ber KI-assistenten Fjordhjelp oppsummere en nettside som har skjulte instruksjoner. Velg scenario og gå gjennom de fire pilene med «Neste». Ved ett steg må du gjette før du får gå videre. Bekreftelse før e-post er ikke et tiltak fra lysarket.</p>
       <div id="sp-injeksjon"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> AI Act-pyramiden</h4>
@@ -548,7 +548,7 @@
         </ul>
         <div class="cy-forbehold"><span class="lbl">Forbehold</span>
           <ul>
-            <li>Lysarket plasserer synsbedrag etter datasiden. Siden angrepet skjer på input ved inferens, plasserer øvingene det der. Det er vår tolkning.</li>
+            <li>Lysarket plasserer synsbedrag etter datasiden. Siden angrepet skjer på input ved inferens, plasserer øvingene det der. Det er en tolkning.</li>
             <li>Siden om angrep på selve modellen er skjult i PDF-en, så hva den dekket, er ukjent i kildene.</li>
             <li>Tiltak som
               <ul>
@@ -604,36 +604,36 @@
         kort: "Firmaet i eksemplene på denne siden. Det rammes av tre aktører: amatøren «Pixelulv», en løsepengegruppe og APT-en «Grågås», som stjeler anbudsdokumenter i 14 måneder via en kjede av VPS-er." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261126n"></script>
-  <script src="assets/js/symboler.js?v=20261126n"></script>
-  <script src="assets/js/begreper-data.js?v=20261126n"></script>
-  <script src="assets/js/begrep-tips.js?v=20261126n"></script>
-  <script src="assets/js/pseudocode.js?v=20261126n"></script>
-  <script src="assets/js/stepplayer.js?v=20261126n"></script>
-  <script src="assets/js/varline.js?v=20261126n"></script>
-  <script src="assets/js/inspera.js?v=20261126n"></script>
-  <script src="assets/js/dra.js?v=20261126n"></script>
-  <script src="assets/js/bank.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261126n"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261126n"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261126n"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261126n"></script>
-  <script src="assets/js/viz-cyber.js?v=20261126n"></script>
+  <script src="assets/js/core.js?v=20261127b"></script>
+  <script src="assets/js/symboler.js?v=20261127b"></script>
+  <script src="assets/js/begreper-data.js?v=20261127b"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127b"></script>
+  <script src="assets/js/pseudocode.js?v=20261127b"></script>
+  <script src="assets/js/stepplayer.js?v=20261127b"></script>
+  <script src="assets/js/varline.js?v=20261127b"></script>
+  <script src="assets/js/inspera.js?v=20261127b"></script>
+  <script src="assets/js/dra.js?v=20261127b"></script>
+  <script src="assets/js/bank.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127b"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127b"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127b"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127b"></script>
+  <script src="assets/js/viz-cyber.js?v=20261127b"></script>
   <script>
   (function () {
     "use strict";
@@ -650,7 +650,7 @@
       "ex-killchain": {
         eli5: "<p>Et innbrudd har sju trinn:</p><ol><li>speide på huset</li><li>lage et dirkesett</li><li>gå bort til døra</li><li>dirke opp låsen</li><li>gjemme en ekstra nøkkel</li><li>ringe kompisen ute for å få beskjed</li><li>og til slutt ta med sølvtøyet.</li></ol><p>Stopper du tyven på ett av trinnene, blir det ikke noe innbrudd. Jo tidligere, jo mindre skade.</p>",
         normal: "<p>Kill chain er et verktøy for forsvareren. For hvert trinn kan man spørre: «Hvordan oppdager og stopper vi angrepet her?» De to første trinnene skjer mest hos angriperen og er vanskelige å se. Fra overlevering og utover etterlater angrepet spor.</p><p>MITRE ATT&amp;CK er mer detaljert. Den lister angripernes delmål (taktikker) og de mange måtene å nå hvert delmål på (teknikker), basert på det som er observert hos ekte grupper.</p>",
-        teknisk: "<p>Kill chain er lineær med sju grove trinn og egner seg til å planlegge forsvar langs angrepet. ATT&amp;CK er en matrise der taktikkene ikke har noen streng rekkefølge, og under dem ligger mange teknikker og underteknikker. ATT&amp;CK beskriver også det som skjer <i>inne</i> i nettet etter innbruddet, mens kill chain samler alt det i trinn 5–7. Sammenstillingen er vår egen; ukesoppgaven sier bare at det finnes likheter og ulikheter.</p><p>Begge beskriver angriperens atferd, ikke tiltakene. Forsvareren bruker dem til å kartlegge hvilke trinn og teknikker hen kan oppdage. Bevæpning er bygging av verktøyet, kjøringen er utførelse, og fysisk levering som en minnepinne er overlevering.</p>"
+        teknisk: "<p>Kill chain er lineær med sju grove trinn og egner seg til å planlegge forsvar langs angrepet. ATT&amp;CK er en matrise der taktikkene ikke har noen streng rekkefølge, og under dem ligger mange teknikker og underteknikker. ATT&amp;CK beskriver også det som skjer <i>inne</i> i nettet etter innbruddet, mens kill chain samler alt det i trinn 5–7. Sammenstillingen står ikke i kildene; ukesoppgaven sier bare at det finnes likheter og ulikheter.</p><p>Begge beskriver angriperens atferd, ikke tiltakene. Forsvareren bruker dem til å kartlegge hvilke trinn og teknikker hen kan oppdage. Bevæpning er bygging av verktøyet, kjøringen er utførelse, og fysisk levering som en minnepinne er overlevering.</p>"
       },
       "ex-cti": {
         eli5: "<p>Tenk deg at alle butikkene i en by deler bilder av tyver med hverandre. Bildet av ansiktet er nyttig lenge, for ansiktet er vanskelig å bytte. Bilnummeret er nyttig bare en dag eller to, for tyven bytter bil. Byens politi samler alt og sier fra når en ny bande dukker opp.</p>",
@@ -943,7 +943,7 @@
         regelTekst: M05, regel: rm(2.5),
         rader: [
           { s: "Forgiftning av læringsdata", svar: [0], explain: "<p>Angrepet ligger i dataene modellen trenes på.</p>" },
-          { s: "Synsbedrag: liten støy på et bilde gir feil klasse", svar: [1], explain: "<p>Støyen legges på bildet som gis modellen ved bruk. Lysarket viser den etter datasiden, så dette er vår tolkning.</p>" },
+          { s: "Synsbedrag: liten støy på et bilde gir feil klasse", svar: [1], explain: "<p>Støyen legges på bildet som gis modellen ved bruk. Lysarket viser den etter datasiden, så dette er en tolkning.</p>" },
           { s: "Prompt injection via en nettside som agenten leser", svar: [1], explain: "<p>Instruksjonene kommer inn som data under bruk.</p>" },
           { s: "En ferdigtrent modell fra en hacket leverandør", svar: [2], explain: "<p>Tillitsforholdet til leverandøren gjør hendelse 1 til hendelse 2.</p>" },
           { s: "Jailbreak: brukeren omgår modellens sikkerhetsregler med kamuflert tekst", svar: [1], explain: "<p>Det skjer i spørsmålet som gis den ferdige modellen.</p>" } ] } }
