@@ -1006,52 +1006,86 @@
     return player(host, { generate: KR.genHybrid, render: KR.vizSeq, presets: { "Hybrid kryptering": ["h"] }, customInput: false });
   };
 
-  /* Lekket langtidsnøkkel: studenten forutsier konsekvensen før den vises */
-  KR.lekkValg = ["Alle tre kan dekrypteres", "Ingen av dem kan dekrypteres", "Bare den siste økta kan dekrypteres"];
+  /* Lekket langtidsnøkkel: studenten forutsier konsekvensen før den vises.
+     Svaret (riktig/ikke riktig) vises i en egen boks. Øktene merkes med hva Eve kan lese,
+     uten ✓/✗, så utfallet for øktene ikke forveksles med om svaret var riktig. */
+  KR.lekkValg = ["Eve kan lese alle tre", "Eve kan ikke lese noen av dem", "Eve kan bare lese den siste"];
   KR.lekkFasit = { hybrid: 0, dh: 1 };
   KR.lekk = function (host) {
     host = host$(host); if (!host) return;
     clear(host);
+    var NAVN = { hybrid: "Hybrid kryptering", dh: "Signert DH" };
     var mode = "hybrid", svar = { hybrid: null, dh: null };
-    var bH = el("button", { class: "btn sm", type: "button", text: "Hybrid kryptering" });
-    var bD = el("button", { class: "btn sm", type: "button", text: "Signert DH" });
-    var bR = el("button", { class: "btn sm", type: "button", text: "↺ Før lekkasjen" });
-    var list = el("ul", { class: "kr-okter" });
+    var bH = el("button", { class: "btn sm", type: "button" });
+    var bD = el("button", { class: "btn sm", type: "button" });
+    var tid = el("ol", { class: "kr-lekk-tid" });
     var q = el("div", { class: "kr-lekk-q", role: "group", "aria-label": "Forutsi hva som skjer" });
-    var note = el("p", { class: "small", "aria-live": "polite" });
-    host.appendChild(el("div", { class: "btn-row" }, [el("span", { class: "small muted", text: "Velg protokoll:" }), bH, bD]));
-    host.appendChild(list); host.appendChild(q); host.appendChild(note);
-    host.appendChild(el("div", { class: "btn-row" }, [bR]));
+    var fb = el("div", { class: "kr-lekk-fb", "aria-live": "polite" });
+    var okH = el("p", { class: "kr-lekk-okh" });
+    var list = el("ul", { class: "kr-okter" });
+    var neste = el("div", { class: "btn-row" });
+    var samlet = el("div", { class: "kr-lekk-samlet" });
+    host.appendChild(el("div", { class: "btn-row kr-lekk-proto" }, [el("span", { class: "small muted", text: "Protokoll:" }), bH, bD]));
+    [tid, q, fb, okH, list, neste, samlet].forEach(function (x) { host.appendChild(x); });
+    function okt(i) {
+      return mode === "hybrid" ? "Opptaket inneholder E(K" + sub(i) + ", K<sup>B</sup><sub>pub</sub>) og dataene kryptert med K" + sub(i) + "."
+        : "Opptaket inneholder g<sup>a</sup>, g<sup>b</sup> og signaturen. Nøkkelen g<sup>ab</sup> ble aldri sendt, og a og b ble slettet etter økta.";
+    }
     function paint() {
-      var leaked = svar[mode] != null, riktig = svar[mode] === KR.lekkFasit[mode];
+      var gitt = svar[mode], leaked = gitt != null, riktig = gitt === KR.lekkFasit[mode];
+      bH.innerHTML = "1 · " + NAVN.hybrid + (svar.hybrid != null ? " ✔" : "");
+      bD.innerHTML = "2 · " + NAVN.dh + (svar.dh != null ? " ✔" : "");
       bH.setAttribute("aria-pressed", mode === "hybrid" ? "true" : "false");
       bD.setAttribute("aria-pressed", mode === "dh" ? "true" : "false");
-      bR.hidden = !leaked;
-      clear(list);
-      for (var i = 1; i <= 3; i++) {
-        var bad = leaked && mode === "hybrid";
-        list.appendChild(el("li", { class: leaked ? (bad ? "bad" : "ok") : "", html: (leaked ? (bad ? "✗ " : "✓ ") : "") + "Økt " + i + ": " + (mode === "hybrid" ? "øktnøkkel K" + sub(i) + " sendt som E(K" + sub(i) + ", K<sup>B</sup><sub>pub</sub>)" : "nøkkel g<sup>ab</sup> mod p med nye a og b, slettet etterpå") + (leaked ? (bad ? " – kan dekrypteres nå" : " – fortsatt hemmelig") : "") + ". Eve har lagret trafikken." }));
-      }
+      clear(tid);
+      [["I dag", "Alice og Bob har tre økter med " + (mode === "hybrid" ? "hybrid kryptering" : "signert Diffie–Hellman") + ". Eve tar opp all trafikken, men kan ikke lese den."],
+       ["Om to år", "Eve stjeler Bobs langtidsnøkkel " + KPRIV("B") + "." + (mode === "dh" ? " Den ble bare brukt til å signere DH-nøkkelen (kursnotasjon; i praksis signeres DH-verdiene eller håndtrykket)." : " Den ble brukt til å kryptere øktnøklene.")],
+       ["Spørsmål", "Kan Eve nå lese de tre gamle øktene hun tok opp?"]].forEach(function (r) {
+        tid.appendChild(el("li", { html: "<b>" + r[0] + ":</b> " + r[1] }));
+      });
       clear(q);
+      var row = el("div", { class: "btn-row" });
+      KR.lekkValg.forEach(function (t, i) {
+        var b = el("button", { class: "btn sm", type: "button", text: t, onclick: function () { svar[mode] = i; paint(); } });
+        if (leaked) {
+          b.disabled = true;
+          if (i === KR.lekkFasit[mode]) b.classList.add("kr-lekk-fasit");
+          else if (i === gitt) b.classList.add("kr-lekk-feil");
+          if (i === gitt) { b.setAttribute("aria-pressed", "true"); b.textContent = t + " (ditt svar)"; }
+        }
+        row.appendChild(b);
+      });
+      q.appendChild(el("p", { class: "kr-lekk-sp", html: "<b>Ditt svar:</b>" }));
+      q.appendChild(row);
+      clear(fb); clear(list); clear(neste); clear(samlet);
       if (!leaked) {
-        q.appendChild(el("p", { class: "kr-lekk-sp", html: "<b>Forutsi:</b> Bobs langtidsnøkkel " + KPRIV("B") + " blir stjålet. " + (mode === "dh" ? "Den ble bare brukt til å signere DH-nøkkelen (kursnotasjon; i praksis signeres DH-verdiene eller håndtrykket). " : "") + "Hva skjer med de tre gamle øktene?" }));
-        var row = el("div", { class: "btn-row" });
-        KR.lekkValg.forEach(function (t, i) {
-          row.appendChild(el("button", { class: "btn sm", type: "button", text: t, onclick: function () { svar[mode] = i; paint(); } }));
-        });
-        q.appendChild(row);
-        note.className = "small muted";
-        note.innerHTML = "Svar først, så vises konsekvensen.";
+        fb.className = "kr-lekk-fb small muted"; fb.textContent = "Svar først. Så vises hva Eve kan lese.";
+        okH.textContent = ""; okH.hidden = true;
         return;
       }
-      note.className = "small " + (riktig ? "kr-ok" : "kr-bad");
-      note.innerHTML = (riktig ? "<b>Riktig.</b> " : "<b>Ikke riktig.</b> Du svarte «" + KR.lekkValg[svar[mode]] + "». ") +
-        (mode === "hybrid" ? "Alle gamle økter faller: hver øktnøkkel ble sendt kryptert med den samme nøkkelen som nå er stjålet. Hybrid kryptering gir ikke fremoverhemmelighold." :
-          "Langtidsnøkkelen ble bare brukt til å signere. Øktnøklene ble aldri sendt, og a og b er slettet. Tyven kan utgi seg for eieren i <i>nye</i> økter, men ikke lese gamle. Det er fremoverhemmelighold.");
+      fb.className = "kr-lekk-fb " + (riktig ? "ok" : "bad");
+      fb.innerHTML = (riktig ? "<b>✓ Riktig svar.</b> " : "<b>✗ Ikke riktig.</b> Du svarte «" + KR.lekkValg[gitt] + "». Riktig er «" + KR.lekkValg[KR.lekkFasit[mode]] + "». ") +
+        (mode === "hybrid" ? "Hver øktnøkkel ble sendt kryptert med den samme nøkkelen som nå er stjålet. Eve åpner K₁, K₂ og K₃ og deretter dataene. Hybrid kryptering gir ikke fremoverhemmelighold." :
+          "Langtidsnøkkelen ble bare brukt til å signere. Øktnøklene ble aldri sendt, og a og b er slettet. Tyven kan utgi seg for Bob i <i>nye</i> økter, men kan ikke lese gamle. Det er fremoverhemmelighold.");
+      okH.hidden = false; okH.innerHTML = "<b>Dette kan Eve lese nå</b> (gjelder øktene, ikke svaret ditt):";
+      var lesbar = mode === "hybrid";
+      for (var i = 1; i <= 3; i++) {
+        list.appendChild(el("li", {}, [
+          el("span", { class: "kr-lekk-chip " + (lesbar ? "apen" : "last"), text: lesbar ? "Eve kan lese" : "Fortsatt hemmelig" }),
+          el("span", { html: " <b>Økt " + i + ".</b> " + okt(i) })
+        ]));
+      }
+      var annen = mode === "hybrid" ? "dh" : "hybrid";
+      if (svar[annen] == null) {
+        neste.appendChild(el("button", { class: "btn sm primary", type: "button", text: "Neste: prøv " + NAVN[annen].toLowerCase().replace("dh", "DH") + " →", onclick: function () { mode = annen; paint(); } }));
+      }
+      neste.appendChild(el("button", { class: "btn sm", type: "button", text: "↺ Svar på nytt", onclick: function () { svar[mode] = null; paint(); } }));
+      if (svar.hybrid != null && svar.dh != null) {
+        samlet.appendChild(el("p", { html: "<b>Begge protokollene, side om side:</b> med hybrid kryptering kan Eve lese alle tre gamle økter. Med signert DH kan hun ikke lese noen av dem. Forskjellen heter <b>fremoverhemmelighold</b>: gamle øktnøkler forblir hemmelige selv om langtidsnøkkelen lekker senere." }));
+      }
     }
     bH.addEventListener("click", function () { mode = "hybrid"; paint(); });
     bD.addEventListener("click", function () { mode = "dh"; paint(); });
-    bR.addEventListener("click", function () { svar[mode] = null; paint(); });
     paint();
   };
 
