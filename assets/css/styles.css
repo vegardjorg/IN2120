@@ -288,7 +288,7 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
    inne i kortet én fanerad med fast fargekode og høyst ett kantnivå. */
 .examtask {
   border: 1px solid var(--color-outline-variant); border-radius: var(--radius-lg);
-  background: var(--color-surface-container-lowest); margin: var(--d-sm) 0; scroll-margin-top: 7.5rem;
+  background: var(--color-surface-container-lowest); margin: var(--d-sm) 0; scroll-margin-top: var(--stick-h, 7.5rem);
 }
 .examtask + .examtask { margin-top: var(--d-sm); }
 .examtask[open] { border-color: var(--color-outline); }
@@ -351,7 +351,7 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
    Prikken vises alltid; valgt fane får svak tonebakgrunn og strek i fargen, panelet en tynn strek øverst. */
 .et-tabs {
   display: flex; gap: .15rem; margin: 0 .9rem; border-bottom: 1px solid var(--color-outline-variant);
-  overflow-x: auto; scrollbar-width: none; scroll-margin-top: 7.5rem;
+  overflow-x: auto; scrollbar-width: none; scroll-margin-top: var(--stick-h, 7.5rem);
 }
 .et-tabs::-webkit-scrollbar { display: none; }
 .et-fane {
@@ -370,7 +370,7 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
   margin-right: .4em; vertical-align: .05em; background: var(--t-fg, var(--color-outline)); }
 .et-fane[aria-selected="true"] { font-weight: 600; background: var(--t-bg, transparent); color: var(--t-fg, var(--color-on-surface));
   box-shadow: inset 0 -2px 0 var(--t-fg, var(--color-primary)); }
-.et-pane { padding: .8rem .9rem .9rem; min-width: 0; scroll-margin-top: 7.5rem; }
+.et-pane { padding: .8rem .9rem .9rem; min-width: 0; scroll-margin-top: var(--stick-h, 7.5rem); }
 [role="tabpanel"].et-pane { padding: .8rem .9rem .9rem; }
 .et-pane[hidden] { display: none; }
 .et-pane:focus-visible { outline: var(--focus); outline-offset: -2px; }
@@ -527,9 +527,10 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 /* ---------- Layout ---------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: var(--d-lg) var(--d-md) 4rem; }
 .pagehead { margin: .5rem 0 1.25rem; }
+.pagehead-info { margin: 1rem 0 1.25rem; }
 .pagehead .lead { color: var(--color-on-surface-variant); font-size: 1.05rem; margin: .3rem 0 .8rem; }
 /* Eksamensvekt per blokk: snitt av andelen per eksamen og trend (tall fra eksamensbanken). */
-.pagehead .lead + .blokk-vekt { font-size: var(--text-sm, .9rem); color: var(--color-on-surface-variant); margin: -.4rem 0 .8rem;
+.pagehead-info .blokk-vekt { font-size: var(--text-sm, .9rem); color: var(--color-on-surface-variant); margin: -.4rem 0 .8rem;
   display: flex; flex-wrap: wrap; align-items: flex-end; gap: .3rem .9rem; }
 /* Samme stolper som forsidens temaliste (forside.css .fs-spark), i sidens primærfarge. */
 .bv-spark { display: inline-flex; gap: 2px; align-items: flex-end; height: 2.4rem; padding-top: 2px; flex: none; }
@@ -547,7 +548,18 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 .badge .pts { color: var(--color-on-surface); font-weight: 600; } /* poeng er ingen tilstand: nøytral og halvfet (IN2010) */
 
 /* ---------- Faner (tabs, underlinjestil) ---------- */
-.tabs { display: flex; flex-wrap: wrap; gap: var(--d-xs); border-bottom: 1px solid var(--color-outline-variant); margin: 1rem 0 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: var(--d-xs); border-bottom: 1px solid var(--color-outline-variant); margin: 0; }
+/* Fanelinja står fast under toppmenyen (og nivålinja) når man scroller. --tabs-top settes av IN.tabs. */
+.tabs {
+  position: sticky; top: var(--tabs-top, 52px); z-index: 48;
+  background: var(--color-surface-container-low); padding-top: .25rem;
+}
+.tabs.stuck { box-shadow: 0 8px 10px -8px rgba(0, 0, 0, .28); }
+/* Mobil: fanelinja ruller sideveis. En skygge i kanten viser at det finnes flere faner (bakgrunnen er fortsatt tett). */
+.tabs { --tab-skygge: color-mix(in srgb, var(--color-on-surface) 30%, transparent); background-repeat: no-repeat; background-size: 1.4rem 100%; }
+.tabs.fade-r { background-image: linear-gradient(to left, var(--tab-skygge), transparent); background-position: right center; }
+.tabs.fade-l { background-image: linear-gradient(to right, var(--tab-skygge), transparent); background-position: left center; }
+.tabs.fade-l.fade-r { background-image: linear-gradient(to right, var(--tab-skygge), transparent), linear-gradient(to left, var(--tab-skygge), transparent); background-position: left center, right center; }
 .tabs button[role="tab"] {
   background: none; border: none; color: var(--color-on-surface-variant);
   padding: var(--d-sm) var(--d-sm); font-size: var(--text-sm); font-weight: 400; cursor: pointer;
@@ -583,7 +595,7 @@ th.has-tip { text-decoration: underline dotted; text-underline-offset: 3px;
 /* Bredere demo-kolonne (bøtte/radix trenger plass til mange bøtter) */
 .grid.cols-2.demo-wide { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
 /* Eksamensoppgavene nederst i fanen: hoppmål som ikke havner under den faste toppen */
-.exam-anchor { scroll-margin-top: 7.5rem; }
+.exam-anchor { scroll-margin-top: var(--stick-h, 7.5rem); }
 .exam-jump a { font-weight: 600; white-space: nowrap; }
 
 /* ---------- Callouts ----------
@@ -924,8 +936,8 @@ hr { border: none; border-top: 1px solid var(--color-outline-variant); margin: 1
 .skip-link:focus { left: 0; }
 
 /* Ankere skal ikke havne bak den klebrige toppmenyen (~52px + luft) */
-:target { scroll-margin-top: 68px; }
-h2, h3, h4, section[id], .card[id], .panel[id], main { scroll-margin-top: 68px; }
+:target { scroll-margin-top: var(--stick-h, 68px); }
+h2, h3, h4, section[id], .card[id], .panel[id], main { scroll-margin-top: var(--stick-h, 68px); }
 
 /* ---------- Responsivt ---------- */
 @media (max-width: 760px) {
@@ -1822,7 +1834,7 @@ body.has-crash-ret .ny-versjon{bottom:72px}
 .cr-etog { margin-top: .3rem; }
 
 .cr-steps { display: flex; flex-direction: column; gap: .4rem; }
-.cr-step { border: 1px solid var(--color-outline-variant); border-radius: var(--radius-md); background: var(--color-surface); scroll-margin-top: 7.5rem; }
+.cr-step { border: 1px solid var(--color-outline-variant); border-radius: var(--radius-md); background: var(--color-surface); scroll-margin-top: var(--stick-h, 7.5rem); }
 .cr-step.cr-ekstra-steg { border-style: dashed; }
 .cr-step[open] { border-color: var(--color-outline); }
 .cr-ssum { display: grid; grid-template-columns: auto auto minmax(0, 1fr); grid-template-areas: "ico id tit" ". . meta"; align-items: center; gap: .15rem .5rem; padding: .55rem .7rem; cursor: pointer; list-style: none; min-height: 44px; }

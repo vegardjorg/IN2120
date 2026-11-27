@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nøkkelhåndtering og PKI i IN2120: nøkkelens livssyklus og NIST-tilstander, kryptoperioder og kompromitterte nøkler, X.509 og hva signaturen dekker, sertifikatkjede og validering steg for steg, tillitsmodeller og tillitsforvirring, og tilbakekalling – med klikkbar sertifikatkjede, øving og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127o">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127o">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127o">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127o">
-  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261127o">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127o">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127q">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127q">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127q">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127q">
+  <link rel="stylesheet" href="assets/css/blokk-pki.css?v=20261127q">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127q">
 </head>
 <body data-page="pki">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -21,16 +21,6 @@
     <div class="pagehead">
       <h1>Blokk 3 · PKI</h1>
       <p class="lead">Asymmetrisk krypto løser problemet med å dele hemmeligheter, men skaper et nytt: hvordan vet du at en offentlig nøkkel er ekte? Her går vi gjennom nøkkelens livssyklus, kryptoperioder, X.509-sertifikatet, sertifikatkjeden og hvordan den valideres, tillitsmodellene og tilbakekalling. Gjengangerne på eksamen er matrisen over rot-, mellomliggende og subjektsertifikat, sertifikatstien og kryptoperiodene.</p>
-      <p class="blokk-vekt"><span class="bv-tekst"><b>Eksamensvekt H2021–H2025:</b> i snitt 5 % av poengene per eksamen. Stolpene viser poeng per år.</span></p>
-      <div class="badges">
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-4_4"><b>H2021</b> · Rot, mellomliggende, subjekt · <span class="pts">3p</span></a>
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-6_1"><b>H2022</b> · Stjålet privat nøkkel · <span class="pts">3p</span></a>
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-4_3"><b>H2021</b> · Kryptoperioder · <span class="pts">3p</span></a>
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-18"><b>H2023</b> · Sertifikatsti · <span class="pts">2p</span></a>
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-6_3"><b>H2022</b> · PKI og tillit · <span class="pts">2p</span></a>
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-6_4"><b>H2022</b> · Sertifikatet for uio.no · <span class="pts">2p</span></a>
-        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-16"><b>H2024</b> · X.509 og signaturalgoritme · <span class="pts">2p</span></a>
-      </div>
     </div>
 
     <div class="tabs" role="tablist" aria-label="PKI">
@@ -41,6 +31,19 @@
       <button data-tab="tillit">Tillitsmodeller</button>
       <button data-tab="revokering">Tilbakekalling</button>
       <button data-tab="eksamen">Eksamensoppgaver</button>
+    </div>
+
+    <div class="pagehead-info">
+      <p class="blokk-vekt"><span class="bv-tekst"><b>Eksamensvekt H2021–H2025:</b> i snitt 5 % av poengene per eksamen. Stolpene viser poeng per år.</span></p>
+      <div class="badges">
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-4_4"><b>H2021</b> · Rot, mellomliggende, subjekt · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-6_1"><b>H2022</b> · Stjålet privat nøkkel · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2021-4_3"><b>H2021</b> · Kryptoperioder · <span class="pts">3p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2023-18"><b>H2023</b> · Sertifikatsti · <span class="pts">2p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-6_3"><b>H2022</b> · PKI og tillit · <span class="pts">2p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2022-6_4"><b>H2022</b> · Sertifikatet for uio.no · <span class="pts">2p</span></a>
+        <a class="badge" href="#fane=eksamen&amp;oppg=o-H2024-16"><b>H2024</b> · X.509 og signaturalgoritme · <span class="pts">2p</span></a>
+      </div>
     </div>
 
     <!-- ===================== 1 · LIVSSYKLUS ===================== -->
@@ -564,38 +567,38 @@
         kort: "Lerkedal bibliotek har nettstedet bibliotek.lerkedal.no. Sertifikatstien er Fjellvik Root R1 (rot) → Fjellvik TLS CA 2 (mellomliggende CA) → bibliotek.lerkedal.no (subjektsertifikat)." }
     };
   </script>
-  <script src="assets/js/core.js?v=20261127o"></script>
-  <script src="assets/js/symboler.js?v=20261127o"></script>
-  <script src="assets/js/begreper-data.js?v=20261127o"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127o"></script>
-  <script src="assets/js/pseudocode.js?v=20261127o"></script>
-  <script src="assets/js/stepplayer.js?v=20261127o"></script>
-  <script src="assets/js/varline.js?v=20261127o"></script>
-  <script src="assets/js/inspera.js?v=20261127o"></script>
-  <script src="assets/js/dra.js?v=20261127o"></script>
-  <script src="assets/js/ovelse.js?v=20261127o"></script>
-  <script src="assets/js/bank.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127o"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127o"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127o"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127o"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127o"></script>
-  <script src="assets/js/viz-pki.js?v=20261127o"></script>
+  <script src="assets/js/core.js?v=20261127q"></script>
+  <script src="assets/js/symboler.js?v=20261127q"></script>
+  <script src="assets/js/begreper-data.js?v=20261127q"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127q"></script>
+  <script src="assets/js/pseudocode.js?v=20261127q"></script>
+  <script src="assets/js/stepplayer.js?v=20261127q"></script>
+  <script src="assets/js/varline.js?v=20261127q"></script>
+  <script src="assets/js/inspera.js?v=20261127q"></script>
+  <script src="assets/js/dra.js?v=20261127q"></script>
+  <script src="assets/js/ovelse.js?v=20261127q"></script>
+  <script src="assets/js/bank.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127q"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127q"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127q"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127q"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127q"></script>
+  <script src="assets/js/viz-pki.js?v=20261127q"></script>
   <script>
   (function () {
     "use strict";
