@@ -18,7 +18,14 @@
        fit: true|false (standard true: skaler ned innhold som er bredere enn scenen),
        fitMin: tall (nedre grense for skaleringen, standard 0.7),
        kontroller: "auto"|true|false (standard "auto": Forrige/Neste/Spill av, «Steg x av y» og
-         stegtipset skjules når gjeldende input bare gir ett steg; false skjuler dem alltid) }
+         stegtipset skjules når gjeldende input bare gir ett steg; false skjuler dem alltid),
+       navTopp: true (knappene over scenen, «Steg x av y» rett under dem, forklaringen under scenen;
+         knappene står da stille uansett hvor høy scenen eller forklaringen er),
+       fastHoyde: true (scenen får høyden til det høyeste steget for gjeldende input, bredde og nivå:
+         alle steg tegnes og måles skjult én gang per input/bredde/nivå. render må tåle å kalles for
+         hvert steg uten bivirkninger) }
+     Regel for nye demoer: noe som kommer til senere i stegene (rader, resultatlinje, tillegg), tegnes fra
+     første steg og skjules med visibility:hidden, så høyden ikke endrer seg (se KR.vizSeq).
      Når «Neste» er låst av et gjett, står en kort forklaring ved knappene (sp-lashint).
      Tilpasning til bredden: etter hver render måles barna i ctx.stage. Er et barn bredere enn scenen,
      får det CSS-zoom ned til fitMin. Er det fortsatt for bredt, scroller scenen og rammen viser et
@@ -58,7 +65,7 @@
               .filter(function (x) { return !isNaN(x); }).slice(0, 10);
     };
 
-    var wrap = el("div", { class: "stepplayer" });
+    var wrap = el("div", { class: "stepplayer" + (opts.navTopp ? " sp-navtopp" : "") });
 
     // «Gjett før hvert steg» (vises bare når minst ett steg har spor)
     var GKEY = "in2120:gjett";
@@ -276,8 +283,9 @@
 
     function renderStep() {
       var s = steps[idx] || {};
-      opts.render(s, { stage: stage, level: scope.get(), index: idx, total: steps.length, width: innerW() });
+      opts.render(s, ctxFor(idx));
       fit();
+      if (FAST) maalHoyde();
       if (opts.pseudo && s.line != null) opts.pseudo.highlight(s.line);
       else if (opts.pseudo) opts.pseudo.clear();
       paintExplain(s);
@@ -298,6 +306,23 @@
       lockHint.hidden = !lock;
       stegKontroller();
       gBox.classList.toggle("is-locked", lock);
+    }
+    function ctxFor(i) { return { stage: stage, level: scope.get(), index: i, total: steps.length, width: innerW() }; }
+    /* ---------- Fast høyde (opts.fastHoyde) ---------- */
+    var FAST = !!opts.fastHoyde, hSteps = null, hKey = null;
+    function maalHoyde() {
+      var w = innerW();
+      if (!w || !steps.length) return;
+      var key = Math.round(w) + "|" + scope.get();
+      if (hSteps === steps && hKey === key) return;
+      hSteps = steps; hKey = key;
+      var h0 = stage.style.height;
+      stage.style.minHeight = ""; stage.style.height = "auto";
+      var maks = 0;
+      steps.forEach(function (st, i) { opts.render(st, ctxFor(i)); fit(); maks = Math.max(maks, stage.offsetHeight); });
+      stage.style.height = h0;
+      stage.style.minHeight = Math.ceil(maks) + "px";
+      opts.render(steps[idx] || {}, ctxFor(idx)); fit();
     }
     /* ---------- Tilpasning til bredden ---------- */
     var FIT = opts.fit !== false, FITMIN = +opts.fitMin || 0.7;

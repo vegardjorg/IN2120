@@ -696,16 +696,16 @@
            "Tre parter: brukeren, klienten (enheten som lagrer passnøklene) og autentiseringstjeneren, som bare har de offentlige nøklene.",
            "Klienten har én passnøkkel per tjener, en privat nøkkel bundet til tjenerens domenenavn. Tjeneren har bare den tilsvarende offentlige nøkkelen, så det finnes ingen delt hemmelighet å stjele hos tjeneren."),
         t3("Banken sender et tilfeldig tall som mobilen skal «skrive under på».",
-           "Steg 1: tjeneren sender en ny, tilfeldig utfordring C. Den er ny hver gang, så et gammelt svar kan ikke brukes om igjen.",
-           "Steg 1: challenge C. Ferskheten hindrer avspilling, og C blir det klienten signerer i steg 3."),
+           "Pil 1: tjeneren sender en ny, tilfeldig utfordring C. Den er ny hver gang, så et gammelt svar kan ikke brukes om igjen.",
+           "Pil 1: challenge C. Ferskheten hindrer avspilling, og C blir det klienten signerer i steg 3."),
         t3("Mobilen spør om PIN eller fingeren din, så den vet at det er deg som holder den.",
-           "Steg 2, første etappe (lokal): brukeren autentiserer seg til klienten med PIN eller biometri. Dette forlater aldri enheten.",
+           "Pil 2, første etappe (lokal): brukeren autentiserer seg til klienten med PIN eller biometri. Dette forlater aldri enheten.",
            "Første etappe er lokal: PIN-en eller malen sammenlignes i enheten og sendes ikke til tjeneren. Det er det som gjør at enheten «låses opp» for akkurat denne brukeren."),
         t3("Mobilen sjekker navnet på døra: står det fjellbank.no, finner den riktig nøkkel og skriver under.",
            "Klienten, ikke brukeren, sjekker at domenet er fjellbank.no, velger passnøkkelen for akkurat det domenet og signerer C.",
            "R = Sig(C, K<sup>Jonas</sup><sub>priv</sub>) med nøkkelen for fjellbank.no. Domenesjekken gjøres av klienten og kan ikke overstyres av brukeren. Det er kjernen i phishingresistensen."),
         t3("Mobilen sender underskriften til banken.",
-           "Steg 3, andre etappe (online): klienten sender den signerte responsen R til tjeneren. Ingen hemmelighet sendes over nettet.",
+           "Pil 3, andre etappe (online): klienten sender den signerte responsen R til tjeneren. Ingen hemmelighet sendes over nettet.",
            "Andre etappe er challenge–respons mellom klient og tjener. Den private nøkkelen forlater ikke klienten; bare signaturen sendes."),
         t3("Banken sjekker underskriften med låsen sin. Den passer, og Jonas er logget inn.",
            "Tjeneren verifiserer R med den offentlige nøkkelen den lagret ved registreringen. Stemmer den, er Jonas logget inn.",
@@ -857,7 +857,15 @@
       speed: 2200,
       generate: function (inp) {
         var sc = SCEN[inp[0]] || SCEN.ekte;
-        return sc.steps.map(function (txt, i) { return { sc: sc, upto: i, text: txt, tag: i ? "Steg " + i : "Oversikt", spor: sc.spor && sc.spor[i] || undefined }; });
+        // Etiketten følger pilnumrene i figuren («Pil 3»), ikke spillerens stegnummer, så de ikke kolliderer.
+        function etikett(i) {
+          if (!i) return "Oversikt";
+          var ms = sc.msgs.filter(function (m) { return m.s === i; });
+          for (var k = 0; k < ms.length; k++) { var mm = /^(\d+)\s+(.*)$/.exec(ms[k].l); if (mm) return "Pil " + mm[1] + ": " + mm[2]; }
+          var l = ms.length ? ms[0].l.split(" · ")[0] : "";
+          return l ? l.charAt(0).toUpperCase() + l.slice(1) : "Steg " + i;
+        }
+        return sc.steps.map(function (txt, i) { return { sc: sc, upto: i, text: txt, tag: etikett(i), spor: sc.spor && sc.spor[i] || undefined }; });
       },
       render: function (step, ctx) {
         clear(ctx.stage);

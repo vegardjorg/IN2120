@@ -2570,3 +2570,17 @@ body[data-page="crash"] .cr-step { scroll-margin-top: 0; }
 /* B8: egenvurderingen er skjult til kortet er rettet eller vurdert. Tom bunnlinje skjules. */
 .et-self[hidden] { display: none; }
 .et-foot:not(:has(> :not([hidden]))) { display: none; }
+
+/* Stegspiller med navTopp: knappene øverst, så «Steg x av y», scenen og forklaringen.
+   Knappene står da stille i alle steg. Spørsmålet (gjett) kommer rett under knappene. */
+.stepplayer.sp-navtopp { display: flex; flex-direction: column; }
+.stepplayer.sp-navtopp > * { order: 6; }
+.stepplayer.sp-navtopp > .sp-gjett-tog, .stepplayer.sp-navtopp > .sp-presets { order: 0; }
+.stepplayer.sp-navtopp > .sp-controls { order: 1; margin: .3rem 0 .4rem; }
+.stepplayer.sp-navtopp > .sp-lashint { order: 2; }
+.stepplayer.sp-navtopp > .sp-gjett { order: 3; margin: 0 0 .5rem; }
+.stepplayer.sp-navtopp > .sp-frame { order: 4; display: flex; flex-direction: column; }
+.stepplayer.sp-navtopp > .sp-frame > .sp-foot { order: -1; padding-top: .3rem; }
+.stepplayer.sp-navtopp > .sp-frame > .sp-stage { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.stepplayer.sp-navtopp > .sp-explain { order: 5; }
+.sp-skjult { visibility: hidden; }

@@ -198,3 +198,17 @@ a.badge { text-decoration: none; }
 .sys-gjett { display: flex; flex-direction: column; gap: .4rem; }
 .sys-verktoy { display: flex; flex-direction: column; gap: .4rem; margin-top: .3rem; }
 .sys-verktoy[hidden] { display: none; }
+.sys-fr-til { display: block; }
+.sys-res-venter { color: var(--color-on-surface-variant); }
+/* Smal skjerm: navn med adressen under i venstre kolonne, verdien til høyre, tiltakene som brikker på én rad.
+   Holder ett steg innenfor én mobilskjerm. */
+@media (max-width: 640px) {
+  .sys-fr { grid-template-columns: 7.6em minmax(0, 1fr); grid-template-areas: "n v" "a v"; gap: 0 .5rem; padding: .25rem 0 .25rem .5rem; }
+  .sys-fr-n { grid-area: n; }
+  .sys-fr-adr { grid-area: a; font-size: 10.5px; }
+  .sys-fr-v { grid-area: v; align-self: center; font-size: 12.5px; }
+  .sys-fr-til { font-size: 11.5px; }
+  .sys-stakk-res { flex-direction: row; flex-wrap: wrap; gap: .25rem .7rem; align-items: baseline; }
+  .sys-stakk-res .sys-k { flex-basis: 100%; }
+  .sys-stakk-res .sys-res { flex-basis: 100%; }
+}

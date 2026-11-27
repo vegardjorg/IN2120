@@ -377,7 +377,8 @@
         else if (f.type === "rfp") verdi = "peker til A()-rammen";
         else verdi = "";
         var cls = "sys-fr sys-fr-" + f.type + (st.fylt[f.id] != null ? (f.type === "buf" ? " fylt" : " over") : "") + (st.skriver === f.id ? " aktiv" : "");
-        if (f.type === "ret" && st.fylt.ret != null) verdi += " → angriperens adresse " + hex8(STAKK_BASE);
+        // Tillegget står på egen linje og er reservert i alle steg, så raden ikke blir høyere når det kommer.
+        if (f.type === "ret") verdi += "<span class=\"sys-fr-til" + (st.fylt.ret != null ? "" : " sp-skjult") + "\">→ angriperens adresse " + hex8(STAKK_BASE) + "</span>";
         var r = el("div", { class: cls });
         r.appendChild(H("span", "sys-fr-adr sys-mono", adr));
         r.appendChild(H("span", "sys-fr-n", f.navn));
@@ -391,10 +392,11 @@
       res.appendChild(H("div", "sys-chip" + (st.vern.kanari ? " pa" : ""), "Kanarifugl " + (st.vern.kanari ? "på" : "av")));
       res.appendChild(H("div", "sys-chip" + (st.vern.nx ? " pa" : ""), "NX " + (st.vern.nx ? "på (stakken ikke-kjørbar)" : "av")));
       res.appendChild(H("div", "sys-chip" + (st.vern.aslr ? " pa" : ""), "ASLR " + (st.vern.aslr ? "på (stakken på " + hex8(st.base) + ")" : "av (stakken alltid på " + hex8(STAKK_BASE) + ")")));
-      if (st.res) {
+      {
         var TXT = { ok: ["ok", "Normal retur til A()"], kanari: ["stopp", "Kanarifugl endret – programmet avsluttes"], krasj: ["stopp", "Feil oppførsel eller krasj"],
           aslr: ["stopp", "ASLR: hoppet treffer feil minne"], nx: ["stopp", "NX: stakken er ikke-kjørbar"], kapret: ["nei", "Programmet fortsetter i angriperens kode"] };
-        var t = TXT[st.res];
+        // Resultatet har plass fra første steg («Retur: ?»), så knappene og tiltakene ikke flytter seg.
+        var t = st.res ? TXT[st.res] : ["venter", "Retur: ?"];
         res.appendChild(H("div", "sys-res sys-res-" + t[0], "<b>" + t[1] + "</b>"));
       }
       box.appendChild(res);
@@ -412,7 +414,7 @@
       parseInput: function (s) { return String(s).split("").slice(0, 24); },
       generate: generate,
       render: render,
-      speed: 1200
+      speed: 1200, navTopp: true, fastHoyde: true
     });
     nyKjoring();
 

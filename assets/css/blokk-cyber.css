@@ -216,3 +216,4 @@
 @media (prefers-reduced-motion: reduce) {
   .cy-node, .cy-kc-step, .cy-life-bar, .cy-bar-f { transition: none; }
 }
+.cy-pi-scene { width: 100%; min-width: 0; }

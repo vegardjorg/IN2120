@@ -760,6 +760,7 @@
       eli5: "Fjordhjelp sender fila til skurken. Ingrid merker ingenting.",
       normal: "Pil 4: fila sendes ut. Konfidensialiteten er brutt, og Ingrid ba aldri om det.",
       teknisk: "Pil 4: eksfiltrering via agentens eget e-postverktøy. Konfidensialitet er brutt (K i KIT)." } });
+    s.forEach(function (x) { x.bekreft = bekreft; });
     return s;
   }
   V.injeksjon = function (host) {
@@ -767,11 +768,12 @@
     if (!IN.stepPlayer) return null;
     return IN.stepPlayer(host, {
       presets: { "Uten bekreftelse": [0], "Med bekreftelse før e-post": [1] },
-      customInput: false,
+      customInput: false, navTopp: true, fastHoyde: true,
       generate: piSteg,
       render: function (step, ctx) {
-        var stage = ctx.stage;
-        clear(stage);
+        clear(ctx.stage);
+        // Én blokk i scenen (som er en flex-rad), så lista og linjene under stables også på mobil.
+        var stage = el("div", { class: "cy-pi-scene" }); ctx.stage.appendChild(stage);
         var ol = el("ol", { class: "cy-pi" });
         PI_PIL.forEach(function (p, i) {
           var n = i + 1, cls = "cy-pi-r";
@@ -786,11 +788,12 @@
           ol.appendChild(li);
         });
         stage.appendChild(ol);
-        if (step.k >= 2) stage.appendChild(el("p", { class: "cy-pi-skjult small" }, [el("b", { text: "Skjult på nettsiden: " }),
+        // Linjene under tegnes i alle steg og skjules til de er nådd, så høyden står stille.
+        stage.appendChild(el("p", { class: "cy-pi-skjult small" + (step.k >= 2 ? "" : " sp-skjult") }, [el("b", { text: "Skjult på nettsiden: " }),
           "hvit tekst på hvit bakgrunn som ber assistenten sende den siste anbudskalkylen til en ekstern adresse."]));
-        if (step.blocked) stage.appendChild(el("p", { class: "cy-pi-dlg" }, [el("b", { text: "Fjordhjelp vil sende anbudskalkyle.xlsx til innkjop@fjordnet.example. Tillate? " }),
+        if (step.k < 4 ? step.bekreft : step.blocked) stage.appendChild(el("p", { class: "cy-pi-dlg" + (step.k < 4 ? " sp-skjult" : "") }, [el("b", { text: "Fjordhjelp vil sende anbudskalkyle.xlsx til innkjop@fjordnet.example. Tillate? " }),
           "Ingrid trykker «Avvis»."]));
-        else if (step.k === 4) stage.appendChild(el("p", { class: "cy-pi-brudd" }, [el("b", { text: "Sendt. " }), "Anbudskalkylen har forlatt Fjordnett."]));
+        else stage.appendChild(el("p", { class: "cy-pi-brudd" + (step.k < 4 ? " sp-skjult" : "") }, [el("b", { text: "Sendt. " }), "Anbudskalkylen har forlatt Fjordnett."]));
       }
     });
   };

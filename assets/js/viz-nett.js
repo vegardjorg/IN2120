@@ -265,7 +265,7 @@
     Object.keys(cfg.pakker).forEach(function (k) { presets[k + ") " + cfg.pakker[k].kort] = [k]; });
     var w = wrapPlayer(host), cur = null;
     var sp = IN.stepPlayer(w, {
-      presets: presets, customInput: false,
+      presets: presets, customInput: false, navTopp: true, fastHoyde: true,
       legend: [{ label: "feltet passer", color: "var(--nt-ok)" }, { label: "feltet passer ikke", color: "var(--nt-bad)" }, { label: "ikke oppgitt i regelen = hva som helst", color: "var(--color-outline)" }],
       generate: function (inp) {
         cur = inp;
@@ -310,6 +310,24 @@
         var box = el("div", { class: "nt-scene" });
         var pk = s.pk;
         box.appendChild(H("p", "nt-fw-pk", "<b>Pakke:</b> <span class=\"mono\">" + pk.p.toUpperCase() + " " + pk.s + " → " + pk.d + ":" + pk.dport + "</span> <span class=\"muted small\">(kjede " + pk.kjede + ")</span>"));
+        // Smal scene: hver regel som en kompakt linje med felt-brikker i stedet for en tabell (409 px).
+        if (ctx.width > 0 && ctx.width < 440) {
+          var liste = el("ol", { class: "nt-fw-kort", "aria-label": "Regler, leses ovenfra" });
+          s.rs.forEach(function (r, i) {
+            var li = el("li", { class: i === s.at ? (s.ok ? "nt-hit" : "nt-cur") : i < s.at ? "nt-done" : "" });
+            li.appendChild(H("span", "nt-fw-nr mono", String(r.nr)));
+            FELT.forEach(function (f, k) {
+              if (r[f[0]] == null) return;
+              var cls = "nt-fw-b mono";
+              if (i === s.at && s.res) cls += " nt-m-" + s.res[k];
+              else if (i < s.at) cls += " nt-m-" + treff(r, pk, f[0]) + " nt-dim";
+              li.appendChild(H("span", cls, "<span class=\"nt-fw-l\">" + f[1] + "</span> " + String(r[f[0]])));
+            });
+            li.appendChild(H("span", "nt-fw-b mono nt-j-" + r.j.toLowerCase(), "-j " + r.j));
+            liste.appendChild(li);
+          });
+          box.appendChild(liste);
+        } else {
         var tw = el("div", { class: "table-wrap" }), t = el("table", { class: "nt-fw" });
         var hr = el("tr", {}, [H("th", null, "#")].concat(FELT.map(function (f) { return H("th", "mono", f[1]); })).concat([H("th", "mono", "-j")]));
         t.appendChild(el("thead", {}, [hr]));
@@ -328,10 +346,12 @@
           tb.appendChild(tr);
         });
         t.appendChild(tb); tw.appendChild(t); box.appendChild(tw);
+        }
+        // Resultatlinja står i alle steg («?» til svaret er klart), så høyden ikke endrer seg.
         var verdict = null;
         if (s.ok) verdict = s.rs[s.at].j;
         if (s.implicit) verdict = "ACCEPT (implisitt)";
-        if (verdict) box.appendChild(H("p", "nt-verdict " + (/ACCEPT/.test(verdict) ? "nt-ok" : "nt-bad"), "Resultat: <b>" + verdict + "</b>"));
+        box.appendChild(H("p", "nt-verdict " + (!verdict ? "nt-venter" : /ACCEPT/.test(verdict) ? "nt-ok" : "nt-bad"), "Resultat: <b>" + (verdict || "?") + "</b>"));
         ctx.stage.appendChild(box);
       }
     });
@@ -610,28 +630,30 @@
         f: { eli5: "Vakthunden lærte at tyver hører til i huset, så den bjeffer ikke.", normal: "Modellen lærte at kartlegging er normalt, og varsler ikke om den nå. Ingen signatur passer heller (H2025 21).", teknisk: "Forgiftet baseline gir falske negative. Tren på en periode du vet er ren." } }
     ];
     var steg = [{ k: -1, text: {
-      eli5: "To slags alarmer: den ene har bilder av kjente tyver, den andre vet hvordan en vanlig dag ser ut. Gjett hvilken som piper.",
-      normal: "For hver hendelse: gjett om den signaturbaserte, den anomalibaserte, begge eller ingen gir alarm. Trykk «Neste» for å se svaret.",
+      eli5: "To slags alarmer: den ene har bilder av kjente tyver, den andre vet hvordan en vanlig dag ser ut. Tenk over hvilken som piper før du ser svaret.",
+      normal: "For hver hendelse ser du først hva som skjer, med «?» for alarmene. Tenk over om den signaturbaserte, den anomalibaserte, begge eller ingen gir alarm, og trykk «Neste» for svaret.",
       teknisk: "Signaturbasert: kjente mønstre, ofte i innholdet. Anomalibasert: avvik fra lært normal oppførsel, ofte med maskinlæring. Forutsi alarmen for hver hendelse." } }];
     H5.forEach(function (h, i) {
       var fasit = []; if (h.a[0]) fasit.push(0); if (h.a[1]) fasit.push(1); if (!fasit.length) fasit.push(2);
-      steg.push({ k: i, text: h.f, tag: (i + 1) + ". " + h.t,
+      // To steg per hendelse: først hendelsen med «?», så svaret. Spørsmålet (testmodus) kommer før svaret.
+      steg.push({ k: i, skjul: true, tag: (i + 1) + ". " + h.t, text: "Hvem gir alarm, signaturbasert, anomalibasert, begge eller ingen? Trykk «Neste» for svaret." });
+      steg.push({ k: i, text: h.f, tag: (i + 1) + ". " + h.t + ": svar",
         spor: { sporsmal: "<b>Hendelse " + (i + 1) + ": " + h.t + ".</b> " + h.d + " Hvem gir alarm? Kryss av alt som passer.", valg: V, fasit: fasit } });
     });
     return IN.stepPlayer(w, {
-      initial: [1], customInput: false,
+      initial: [1], customInput: false, navTopp: true, fastHoyde: true,
       generate: function () { return steg; },
       render: function (s, ctx) {
         clear(ctx.stage);
         var box = el("div", { class: "nt-scene nt-ih" });
         if (s.k < 0) {
-          box.appendChild(H("p", "small muted", "Seks hendelser. Spørsmålet kommer før hver hendelse vises."));
+          box.appendChild(H("p", "small muted", "Seks hendelser. For hver ser du først hendelsen, så hvilke alarmer som går."));
         } else {
           var h = H5[s.k];
           box.appendChild(H("p", "nt-ih-t", "<b>Hendelse " + (s.k + 1) + ": " + h.t + "</b>"));
           box.appendChild(H("p", "small", h.d));
           ["Signaturbasert", "Anomalibasert"].forEach(function (n, j) {
-            box.appendChild(H("p", "nt-ih-r", "<span class=\"nt-ih-n\">" + n + "</span> " + (h.a[j] ? "<span class=\"nt-alarm\">🔔 alarm</span>" : "<span class=\"muted\">ingen alarm</span>")));
+            box.appendChild(H("p", "nt-ih-r", "<span class=\"nt-ih-n\">" + n + "</span> " + (s.skjul ? "<span class=\"muted\">?</span>" : h.a[j] ? "<span class=\"nt-alarm\">🔔 alarm</span>" : "<span class=\"muted\">ingen alarm</span>")));
           });
         }
         ctx.stage.appendChild(box);
@@ -662,7 +684,7 @@
     ];
     var farge = ["nt-tx", "nt-ty", "nt-tz"];
     return IN.stepPlayer(w, {
-      initial: [1], customInput: false,
+      initial: [1], customInput: false, fastHoyde: true,
       generate: function () { return steg; },
       render: function (s, ctx) {
         clear(ctx.stage);

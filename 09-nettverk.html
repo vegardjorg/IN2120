@@ -7,12 +7,12 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261127f">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261127f">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127f">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127f">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261127f">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261127g">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261127g">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261127g">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261127g">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261127g">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261127g">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -91,7 +91,7 @@
         </ul>
         <p>En ruter underveis ser bare IP-hodet og det som ligger utenfor krypteringen.</p></div>
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Lises forespørsel, hode for hode</h4>
-      <p class="ov-intro">Samme forespørsel som i eksempelet over. Trykk «Neste» for å legge på ett hode om gangen. Spilleren stiller spørsmål underveis; slå av «Gjett før hvert steg» hvis du bare vil se.</p>
+      <p class="ov-intro">Samme forespørsel som i eksempelet over. Trykk «Neste» for å legge på ett hode om gangen. Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis.</p>
       <div id="sp-innkapsling"></div>
 
       <div class="callout felle"><span class="lbl">Feller</span>
@@ -145,7 +145,7 @@
       <div id="ex-tls"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Håndtrykket steg for steg</h4>
-      <p class="ov-intro">Trykk «Neste» for én melding om gangen; ved noen steg må du gjette først. K = klient, T = tjener. Alt etter ServerHello går kryptert (grønne piler med lås). Hele håndtrykket tar én runde frem og tilbake.</p>
+      <p class="ov-intro">Trykk «Neste» for én melding om gangen. Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis. K = klient, T = tjener. Alt etter ServerHello går kryptert (grønne piler med lås). Hele håndtrykket tar én runde frem og tilbake.</p>
       <div id="sp-tls"></div>
 
       <h4 class="demo-h"><span class="ov-tag demo">Demo</span> Etterspill: noen stjeler tjenerens privatnøkkel</h4>
@@ -204,7 +204,7 @@
       <div id="ex-hsts"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Stripping, HSTS og inspeksjon i sekvensdiagram</h4>
-      <p class="ov-intro">Velg variant og trykk «Neste»; ved noen steg må du gjette først. A: stripping uten HSTS (eller første besøk uten preload). B: HSTS er husket. C: TLS-inspeksjon på jobben.</p>
+      <p class="ov-intro">Velg variant og trykk «Neste». Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis. A: stripping uten HSTS (eller første besøk uten preload). B: HSTS er husket. C: TLS-inspeksjon på jobben.</p>
       <div id="sp-hsts"></div>
 
       <h4>Eksempel: Nora på kafé, med og uten HSTS</h4>
@@ -380,7 +380,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <div id="viz-anomali"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Signatur eller anomali: gir hendelsen alarm?</h4>
-      <p class="ov-intro">Du får seks hendelser, én om gangen. For hver hendelse: gjett om en signaturbasert IDS, en anomalibasert IDS, begge eller ingen gir alarm. Kryss av, trykk «Svar», og gå videre med «Neste».</p>
+      <p class="ov-intro">Du får seks hendelser, én om gangen. For hver hendelse ser du først hva som skjer, og tenker over om en signaturbasert IDS, en anomalibasert IDS, begge eller ingen gir alarm. «Neste» viser svaret. Slå på «Gjett før hvert steg» hvis du vil krysse av og få svaret rettet.</p>
       <div id="sp-idshendelser"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Scenario</span> IDS-alarmer under en avtalt pentest</h4>
@@ -449,7 +449,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <div id="ex-ipsec"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> IPsec i tunnelmodus</h4>
-      <p class="ov-intro">En pakke fra kontor 1 til kontor 2 går gjennom to IPsec-gatewayer. Trykk «Neste» for ett steg om gangen; ved noen steg må du gjette først.</p>
+      <p class="ov-intro">En pakke fra kontor 1 til kontor 2 går gjennom to IPsec-gatewayer. Trykk «Neste» for ett steg om gangen. Slå på «Gjett før hvert steg» hvis du vil svare på spørsmål underveis.</p>
       <div id="sp-ipsec"></div>
       <ul class="small">
         <li>Gateway–gateway kobler to nett (for eksempel to kontorer).</li>
@@ -461,7 +461,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <div id="fk-ipsec-moduser"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Tor: ett skall per node</h4>
-      <p class="ov-intro">Les eksempelet, og gå så gjennom spilleren under med «Neste». Ved noen noder må du gjette hva noden får vite.</p>
+      <p class="ov-intro">Les eksempelet, og gå så gjennom spilleren under med «Neste». Slå på «Gjett før hvert steg» hvis du vil gjette hva noden får vite.</p>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         <p>Nora sender til Petter via nodene X → Y → Z.</p>
         <ul>
@@ -584,7 +584,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
       <div id="fk-skall-zt"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> En angriper kommer inn via phishing</h4>
-      <p class="ov-intro">Eksempelet sammenligner to skolenett. Gå gjennom angrepet med «Neste» i spilleren under; ved noen steg må du gjette i hvilke modeller angriperen lykkes.</p>
+      <p class="ov-intro">Eksempelet sammenligner to skolenett. Gå gjennom angrepet med «Neste» i spilleren under. Slå på «Gjett før hvert steg» hvis du vil gjette i hvilke modeller angriperen lykkes.</p>
       <div class="callout eksempel"><span class="lbl">Eksempel</span>
         <p>Et skolenett med én brannmur mot Internett og flatt innside (egg), mot samme nett med</p>
         <ul>
@@ -630,39 +630,39 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261127f"></script>
-  <script src="assets/js/symboler.js?v=20261127f"></script>
-  <script src="assets/js/begreper-data.js?v=20261127f"></script>
-  <script src="assets/js/begrep-tips.js?v=20261127f"></script>
-  <script src="assets/js/pseudocode.js?v=20261127f"></script>
-  <script src="assets/js/stepplayer.js?v=20261127f"></script>
-  <script src="assets/js/varline.js?v=20261127f"></script>
-  <script src="assets/js/inspera.js?v=20261127f"></script>
-  <script src="assets/js/dra.js?v=20261127f"></script>
-  <script src="assets/js/ovelse.js?v=20261127f"></script>
-  <script src="assets/js/bank.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261127f"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261127f"></script>
-  <script src="assets/js/blokkvekt.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261127f"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261127f"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261127f"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261127f"></script>
-  <script src="assets/js/viz-nett.js?v=20261127f"></script>
+  <script src="assets/js/core.js?v=20261127g"></script>
+  <script src="assets/js/symboler.js?v=20261127g"></script>
+  <script src="assets/js/begreper-data.js?v=20261127g"></script>
+  <script src="assets/js/begrep-tips.js?v=20261127g"></script>
+  <script src="assets/js/pseudocode.js?v=20261127g"></script>
+  <script src="assets/js/stepplayer.js?v=20261127g"></script>
+  <script src="assets/js/varline.js?v=20261127g"></script>
+  <script src="assets/js/inspera.js?v=20261127g"></script>
+  <script src="assets/js/dra.js?v=20261127g"></script>
+  <script src="assets/js/ovelse.js?v=20261127g"></script>
+  <script src="assets/js/bank.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261127g"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261127g"></script>
+  <script src="assets/js/blokkvekt.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261127g"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261127g"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261127g"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261127g"></script>
+  <script src="assets/js/viz-nett.js?v=20261127g"></script>
   <script>
   (function () {
     "use strict";

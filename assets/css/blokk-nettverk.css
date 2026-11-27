@@ -70,7 +70,8 @@
 .nt-seq-note { position: absolute; top: .35rem; text-align: center; font-size: 12.5px; font-style: italic; color: var(--color-on-surface-variant); }
 .nt-seq-note.nt-bad { color: var(--nt-bad); font-style: normal; font-weight: 600; }
 .nt-seq-note.nt-ok { color: var(--nt-ok); font-style: normal; font-weight: 600; }
-.nt-seq-row.nt-cur .nt-seq-lbl, .nt-seq-row.nt-cur .nt-seq-note { font-weight: 700; color: var(--color-on-surface); }
+/* Gjeldende rad: farge og bakgrunn, ikke fet skrift (fet tekst bryter annerledes og gjør raden høyere). */
+.nt-seq-row.nt-cur .nt-seq-lbl, .nt-seq-row.nt-cur .nt-seq-note { color: var(--color-on-surface); }
 .nt-seq-row.nt-cur .nt-bad .nt-seq-lbl, .nt-seq-row.nt-cur .nt-seq-note.nt-bad { color: var(--nt-bad); }
 .nt-seq-row.nt-cur .nt-seq-note.nt-ok { color: var(--nt-ok); }
 .nt-seq-row.nt-cur { background: color-mix(in srgb, var(--color-primary) 7%, transparent); }
@@ -100,7 +101,7 @@ table.nt-fw { border-collapse: collapse; font-size: 13px; width: 100%; }
 table.nt-fw th, table.nt-fw td { padding: .3rem .5rem; border-bottom: 1px solid var(--nt-line); text-align: left; }
 table.nt-fw thead th { border-bottom: 1px solid var(--color-outline); font-weight: 600; }
 table.nt-fw tr.nt-cur td { background: color-mix(in srgb, var(--nt-warn) 10%, transparent); }
-table.nt-fw tr.nt-hit td { background: color-mix(in srgb, var(--color-primary) 12%, transparent); font-weight: 600; }
+table.nt-fw tr.nt-hit td { background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
 table.nt-fw tr.nt-done td { color: var(--color-on-surface-variant); }
 .nt-m-ja { color: var(--nt-ok); font-weight: 600; }
 .nt-m-nei { color: var(--nt-bad); font-weight: 600; text-decoration: line-through; }
@@ -236,3 +237,12 @@ table.nt-fw tr.nt-sb-vil td:first-child { color: var(--nt-warn); font-weight: 70
 
 /* Regel- og kommandolister (iptables, Snort) i sidens eksempler: scroll i blokka, ikke hele siden */
 main pre.mono { max-width: 100%; overflow-x: auto; }
+/* Brannmurregler på smal scene: én linje per regel med felt-brikker. */
+.nt-fw-kort { list-style: none; margin: 0; padding: 0; font-size: 12.5px; }
+.nt-fw-kort li { display: flex; flex-wrap: wrap; gap: .25rem .35rem; align-items: baseline; padding: .3rem .35rem; border-bottom: 1px solid var(--nt-line); }
+.nt-fw-kort li.nt-cur { background: color-mix(in srgb, var(--nt-warn) 10%, transparent); }
+.nt-fw-kort li.nt-hit { background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
+.nt-fw-kort li.nt-done { color: var(--color-on-surface-variant); }
+.nt-fw-nr { font-weight: 700; min-width: 1.1rem; }
+.nt-fw-l { color: var(--color-on-surface-variant); font-weight: 400; }
+.nt-verdict.nt-venter b { color: var(--color-on-surface-variant); }

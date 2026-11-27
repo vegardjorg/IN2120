@@ -283,7 +283,7 @@
         text: "Eve regner C ⊕ C′ = " + C + " ⊕ " + C2 + " = <b class=\"mono\">" + bits(pb(C) ^ pb(C2)) + "</b>. Nøkkelen faller bort: C ⊕ C′ = M ⊕ K ⊕ M′ ⊕ K = M ⊕ M′." });
       steps.push({ n: 4, two: true, x: true, done: true, text: "Kontroll: M ⊕ M′ = " + M + " ⊕ " + M2 + " = " + bits(pb(M) ^ pb(M2)) + ". Eve vet nå hvilke biter som er ulike i de to meldingene, uten å kjenne K. Kjenner hun den ene meldingen, får hun den andre." });
     }
-    steps.forEach(function (s) { s.M = M; s.K = K; s.C = C; s.M2 = M2; s.C2 = C2; });
+    steps.forEach(function (s) { s.M = M; s.K = K; s.C = C; s.M2 = M2; s.C2 = C2; s.reuse = reuse; });
     return steps;
   };
   KR.vizXor = function (stage, s) {
@@ -292,15 +292,15 @@
     box.appendChild(bitRow("M", s.M, { hl: s.hl }));
     box.appendChild(bitRow("K", s.K, { hl: s.hl, strike: s.x }));
     box.appendChild(bitRow("C = M ⊕ K", partial(s.C, s.n), { hl: s.hl, cls: "res" }));
-    if (s.two) {
-      box.appendChild(el("hr", { class: "kr-sep" }));
-      box.appendChild(bitRow("M′", s.M2));
-      box.appendChild(bitRow("C′ = M′ ⊕ K", s.C2, { cls: "res", strike: s.x }));
-    }
-    if (s.x) {
-      box.appendChild(el("hr", { class: "kr-sep" }));
-      box.appendChild(bitRow("C ⊕ C′", bits(pb(s.C) ^ pb(s.C2)), { cls: "bad" }));
-      if (s.done) box.appendChild(bitRow("M ⊕ M′", bits(pb(s.M) ^ pb(s.M2)), { cls: "bad", note: "samme: nøkkelen er borte" }));
+    // Ved gjenbruk tegnes alle radene fra første steg og skjules til de er nådd (fast høyde).
+    function add(node, vis) { if (!vis) node.classList.add("kr-hid"); box.appendChild(node); }
+    if (s.reuse) {
+      add(el("hr", { class: "kr-sep" }), s.two);
+      add(bitRow("M′", s.M2), s.two);
+      add(bitRow("C′ = M′ ⊕ K", s.C2, { cls: "res", strike: s.x }), s.two);
+      add(el("hr", { class: "kr-sep" }), s.x);
+      add(bitRow("C ⊕ C′", bits(pb(s.C) ^ pb(s.C2)), { cls: "bad" }), s.x);
+      add(bitRow("M ⊕ M′", bits(pb(s.M) ^ pb(s.M2)), { cls: "bad", note: "samme: nøkkelen er borte" }), s.done);
     }
     stage.appendChild(box);
   };
@@ -491,9 +491,9 @@
   KR.genMode = function (inp) {
     var mode = inp[0], Ms = inp.slice(1).map(function (s) { return typeof s === "number" ? s : pb(s); });
     curMode = mode;
-    var B = KR.modeCalc(mode, Ms), steps = [], show = {};
+    var B = KR.modeCalc(mode, Ms), steps = [], show = {}, blk = 0;
     function snap(text, extra) {
-      var s = { mode: mode, B: B, show: JSON.parse(JSON.stringify(show)), text: text };
+      var s = { mode: mode, B: B, show: JSON.parse(JSON.stringify(show)), text: text, blk: blk };
       for (var k in extra || {}) s[k] = extra[k];
       steps.push(s);
     }
@@ -513,6 +513,7 @@
     snap(intro[mode]);
     B.forEach(function (b, i) {
       var j = sub(i + 1), jm = sub(i);
+      blk = i;   // blokken steget handler om (smal visning viser bare den)
       if (mode === "ECB") {
         on(i, "ein"); on(i, "x"); snap("Blokk " + (i + 1) + ": M" + j + " ⊕ K = " + bits(b.M) + " ⊕ " + kb + " = " + bits(b.x) + ".");
         on(i, "eout"); on(i, "out"); snap("Roter " + bits(b.x) + " én plass mot venstre: C" + j + " = <b class=\"mono\">" + bits(b.C) + "</b>.");
@@ -554,6 +555,7 @@
     if (!/-D$/.test(mode)) {
       if (same.length) {
         var p = same[0], leak = B[p[0]].C === B[p[1]].C;
+        blk = p[1];
         snap(leak
           ? "M" + sub(p[0] + 1) + " og M" + sub(p[1] + 1) + " er like, og C" + sub(p[0] + 1) + " og C" + sub(p[1] + 1) + " ble like: chifferteksten avslører mønsteret i klarteksten. " + (mode === "ECB" ? "Det er derfor ECB regnes som usikker." : "Her ble en chifferblokk tilfeldigvis lik IV eller forrige blokk, så den neste fikk samme inndata. Det skjer fordi lekechifferet bare har 4 bit (16 verdier). Med 128-bits blokker er det praktisk umulig.")
           : "M" + sub(p[0] + 1) + " og M" + sub(p[1] + 1) + " er like, men C" + sub(p[0] + 1) + " = " + bits(B[p[0]].C) + " og C" + sub(p[1] + 1) + " = " + bits(B[p[1]].C) + " er ulike. " + (mode === "CBC" ? "Kjedingen skjuler mønsteret." : "Telleren gir hver blokk sin egen nøkkelstrøm."),
@@ -579,8 +581,11 @@
     if (text != null) n.textContent = text;
     return n;
   }
-  KR.vizMode = function (stage, s) {
+  // Under denne scenebredden tegnes én blokk om gangen (ellers ble teksten ca. 6 px på mobil).
+  var MODE_SMAL = 520;
+  KR.vizMode = function (stage, s, ctx) {
     clear(stage);
+    var smal = !!(ctx && ctx.width > 0 && ctx.width < MODE_SMAL);
     var B = s.B, n = B.length, mode = s.mode, W = 200, x00 = 40;
     var before = mode === "CBC";                 // XOR før boksen
     var after = mode === "CTR" || mode === "CTR-D" || mode === "CBC-D";
@@ -631,6 +636,7 @@
         } else {
           svg.appendChild(svgEl("polyline", { points: (cx - W + 36) + ",262 " + (x0 + 20) + ",262 " + (x0 + 20) + ",80 " + (cx - 13) + ",80", class: "kr-ln kr-ghost" }));
         }
+        if (smal && i > 0) text(x0 - 16, 254, "C" + jm, "kr-small kr-mid", "start");   // kjeden kommer fra forrige blokk
         line([[cx, 91], [cx, 138]]);
         text(cx + 6, 118, val(i, "ein", b.ein), "kr-small kr-mid", "start");
         box(cx, 140, i, ["⊕K: " + val(i, "x", b.x), "rot ←: " + val(i, "eout", b.eout)]);
@@ -654,6 +660,7 @@
           line([[x0 + 20, 138], [x0 + 20, 160], [cx - 13, 160]], sh(i, "side") ? "" : "kr-ghost");
         } else {
           line([[cx - W + 52, 14], [x0 + 20, 14], [x0 + 20, 160], [cx - 13, 160]], sh(i, "side") ? "kr-chain" : "kr-ghost");
+          if (smal) text(x0 - 16, 30, "C" + jm, "kr-small kr-mid", "start");
         }
         line([[cx, 171], [cx, 214]]);
         var outV = mode === "CTR" ? b.C : b.M2, outN = mode === "CTR" ? "C" : "M";
@@ -661,6 +668,21 @@
       }
     });
     stage.appendChild(el("p", { class: "kr-mode-name", text: MODE_NAVN[mode] + (boxName === "E" && dec ? " · bare E brukes" : "") }));
+    if (smal) {
+      // Smal: oversikt over alle blokker som brikker (inn → ut), og figuren for blokken steget gjelder.
+      var bi = Math.max(0, Math.min(n - 1, s.blk || 0)), inN = dec ? "C" : "M", utN = dec ? "M" : "C";
+      var rad = el("div", { class: "kr-mode-brikker", role: "list", "aria-label": "Alle blokker" });
+      B.forEach(function (b, i) {
+        var hl = s.same && s.same.indexOf(i) >= 0 ? (s.leak ? " kr-same" : " kr-diff") : "";
+        var inn = dec ? b.C : b.M, ut = dec ? b.M2 : b.C;
+        rad.appendChild(el("span", { class: "kr-brikke mono" + (i === bi ? " cur" : "") + hl, role: "listitem",
+          html: inN + sub(i + 1) + " " + bits(inn) + " → " + utN + sub(i + 1) + " " + (sh(i, "out") ? bits(ut) : "?") }));
+      });
+      stage.appendChild(rad);
+      stage.appendChild(el("p", { class: "kr-mode-blk small", text: "Figuren: blokk " + (bi + 1) + " av " + n }));
+      svg.setAttribute("viewBox", (x00 + bi * W - 22) + " 0 214 " + H);
+      svg.classList.add("kr-mode-en");
+    }
     var sc = el("div", { class: "kr-svgwrap" }); sc.appendChild(svg); stage.appendChild(sc);
   };
   KR.moduser = function (host) {
@@ -674,7 +696,7 @@
         var m = String(str).match(/[01]{4}/g) || [];
         return m.length ? [curMode].concat(m.slice(0, 4)) : [];
       },
-      generate: KR.genMode, render: KR.vizMode,
+      generate: KR.genMode, render: KR.vizMode, navTopp: true, fastHoyde: true,
       legend: [{ label: "like chifferblokker (lekker mønster)", color: "var(--color-on-tone-danger)" }, { label: "like klartekstblokker, ulike chifferblokker", color: "var(--color-on-tone-ok)" }]
     });
   };
@@ -1002,8 +1024,8 @@
     return seqSteps(["Alice", "Mallory", "Bob"], rows, "Mallory prøver igjen, men nå signerer Alice DH-nøkkelen (Bob gjør det samme motsatt vei).");
   };
   KR.dh = function (host) {
-    var h = host$(host); if (h) h.classList.add("kr-navtopp");   // knappene øverst (CSS)
     return player(host, {
+      navTopp: true,
       presets: { "a = 6, b = 9": [6, 9], "Mallory (e = 3)": [6, 9, 3], "Mallory + signatur": [6, 9, 3, 1] },
       inputLabel: "a, b (eller a, b, e)", inputAria: "Hemmelige tall a, b og eventuelt Mallorys e",
       parseInput: function (s) { return String(s).split(/[,;\s]+/).map(function (x) { return parseInt(x, 10); }).filter(function (x) { return !isNaN(x); }).slice(0, 3); },

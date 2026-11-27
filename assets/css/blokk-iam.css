@@ -100,14 +100,19 @@
 .iam-l-ol { list-style: none; margin: 0; padding: 0; }
 .iam-l-msg { display: flex; gap: .55rem; align-items: flex-start; padding: .35rem .3rem; border-top: 1px solid var(--color-outline-variant); }
 .iam-l-msg.done { opacity: .6; }
-.iam-l-msg.cur { background: color-mix(in srgb, var(--color-primary) 9%, transparent); border-left: 3px solid var(--color-primary); padding-left: .4rem; }
+.iam-l-msg.cur { background: color-mix(in srgb, var(--color-primary) 9%, transparent); box-shadow: inset 3px 0 0 var(--color-primary); }
+.iam-l-msg.skjult { visibility: hidden; }
 .iam-l-nr { flex: 0 0 auto; display: inline-grid; place-items: center; width: 1.45rem; height: 1.45rem; border-radius: 50%; border: 1px solid var(--color-on-surface-variant); font-size: 11px; font-weight: 700; }
 .iam-l-msg.cur .iam-l-nr { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
 .iam-l-body { display: flex; flex-direction: column; min-width: 0; }
 .iam-l-hvem { font-size: var(--text-xs); color: var(--color-on-surface-variant); }
 .iam-l-hvem b { color: var(--color-on-surface); }
 .iam-l-txt { overflow-wrap: anywhere; }
-.iam-l-msg.cur .iam-l-txt { font-weight: 600; }
+/* Bare gjeldende melding vises i full lengde; de andre får én linje, så hele lista får plass på en mobilskjerm.
+   Ikke fet skrift på gjeldende: da bryter teksten annerledes. */
+.iam-l-msg:not(.cur) .iam-l-body { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.iam-l-msg:not(.cur) .iam-l-hvem::after { content: ": "; }
+.iam-l-msg { padding-top: .25rem; padding-bottom: .25rem; }
 .iam-l-merke { display: inline-block; font-size: 10px; font-weight: 700; padding: 0 5px; border-radius: 4px; background: var(--color-tone-warn); color: var(--color-on-tone-warn); }
 .iam-l-tom { margin: .6rem 0; }
 

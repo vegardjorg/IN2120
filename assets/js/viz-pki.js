@@ -482,31 +482,32 @@
           spor: { sporsmal: "Hvilke felt samler CA-en i recorden Rec som skal signeres?", valg: ["Alle unntatt signaturfeltet", "Bare Subject (navn og offentlig nøkkel)", "Alle, også signaturfeltet"], fasit: 0,
             forklaring: "Rec er alle feltene unntatt signaturen. Derfor kan ingen av dem endres uten at det oppdages." },
           text: { eli5: "Alt unntatt stempelfeltet legges i én bunke.",
-            normal: "Steg 1: CA-en samler alle feltene unntatt signaturen i en record Rec.",
+            normal: "Først samler CA-en alle feltene unntatt signaturen i en record Rec.",
             teknisk: "Rec omfatter også Validity, Issuer og Extensions. Derfor kan ingen av dem endres uten at signaturen slutter å stemme." } },
         { rec: true, sig: "tom", vis: "H = Hash(Rec) = " + RSA.h, text: { eli5: "Bunken kjøres gjennom en kvern som lager et kort fingeravtrykk.",
-            normal: "Steg 2: H = Hash(Rec). I leketøyet her sier vi at H = " + RSA.h + ".",
+            normal: "Så hashes recorden: H = Hash(Rec). I leketøyet her sier vi at H = " + RSA.h + ".",
             teknisk: "Hashen gjør at signaturen blir kort uansett hvor stor recorden er. Endres én bit i Rec, blir H en helt annen verdi." } },
         { rec: true, sig: "tom", vis: "S = Sig(H, " + K("CA", "priv") + ") = " + RSA.h + "<sup>" + RSA.d + "</sup> mod " + RSA.n + " = " + S1,
           spor: { sporsmal: "Hvilken nøkkel signerer H?", valg: ["Bibliotekets private nøkkel", "Den private nøkkelen til Fjellvik TLS CA 2", "Den offentlige nøkkelen til Fjellvik TLS CA 2"], fasit: 1,
             forklaring: "Utstederens (CA-ens) private nøkkel signerer. Nettleseren sjekker med CA-ens offentlige nøkkel." },
           text: {
             eli5: "Kontoret stempler fingeravtrykket med sitt hemmelige stempel.",
-            normal: "Steg 3: S = Sig(H, " + K("CA", "priv") + "). Det er CA-ens private nøkkel som signerer, ikke subjektets og ikke «sertifikatet».",
+            normal: "Så signeres hashen: S = Sig(H, " + K("CA", "priv") + "). Det er CA-ens private nøkkel som signerer, ikke subjektets og ikke «sertifikatet».",
             teknisk: "Leke-RSA i stedet for ECDSA, for å vise prinsippet. Fjellvik TLS CA 2: modul 33, privat eksponent 7, offentlig eksponent 3 (3 · 7 = 21 ≡ 1 mod 20). " + RSA.h + "<sup>7</sup> mod 33 = " + S1 + ". d03 skriver det som Sig[H, Kpriv(CA)]." } },
         { rec: true, sig: "S", vis: "S legges inn i signaturfeltet", text: { eli5: "Stempelet festes på arket. Nå er sertifikatet ferdig.",
-            normal: "Steg 4: S legges til recorden. Sertifikatet er ferdig og kan sendes til hvem som helst.",
+            normal: "Til slutt legges S til recorden. Sertifikatet er ferdig og kan sendes til hvem som helst.",
             teknisk: "Signaturfeltet selv er ikke med i Rec. Det kan ikke dekke seg selv." } }
       ];
       IN.stepPlayer(gen, {
-        initial: [0], customInput: false,
+        initial: [0], customInput: false, navTopp: true, fastHoyde: true,
         generate: function () { return STEG; },
         render: function (st, ctx) {
           var stage = ctx.stage;
           clear(stage);
           var box = el("div", { class: "pki-genstage" });
           box.appendChild(kortTabell({ rec: st.rec, sig: st.sig }));
-          if (st.vis) box.appendChild(H("p", "pki-calc mono", st.vis));
+          // Regnelinja står i alle steg (skjult når steget ikke har noen), så notatet under ikke hopper.
+          box.appendChild(H("p", "pki-calc mono" + (st.vis ? "" : " sp-skjult"), st.vis || "&nbsp;"));
           box.appendChild(H("p", "pki-note", "Privat nøkkel: finnes ikke i sertifikatet."));
           stage.appendChild(box);
         }

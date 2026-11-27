@@ -108,12 +108,12 @@
       box.appendChild(el("p", { class: "iam-l-pre small", html: "<b>" + esc(partNavn(P[p.fra])) + "</b> ⇢ <b>" + esc(partNavn(P[p.til])) + "</b>: " + esc(p.tekst) }));
     });
     var ol = el("ol", { class: "iam-l-ol" });
+    // Alle meldinger tegnes fra start; de som ikke er nådd, er skjult (visibility), så lista ikke vokser.
     M.forEach(function (m, i) {
-      if (i >= k) return;
       var cur = i === k - 1, nr = m.nr != null ? String(m.nr) : String(i + 1);
       var hvem = m.fra === m.til ? "<b>" + esc(partNavn(P[m.fra])) + "</b> (internt)"
         : "<b>" + esc(partNavn(P[m.fra])) + "</b> " + (m.stiplet ? "⇢" : "→") + " <b>" + esc(partNavn(P[m.til])) + "</b>";
-      var li = el("li", { class: "iam-l-msg" + (cur ? " cur" : " done") + (m.stiplet ? " dash" : ""), "aria-current": cur ? "step" : null }, [
+      var li = el("li", { class: "iam-l-msg" + (i >= k ? " skjult" : cur ? " cur" : " done") + (m.stiplet ? " dash" : ""), "aria-current": cur ? "step" : null, "aria-hidden": i >= k ? "true" : null }, [
         el("span", { class: "iam-l-nr", "aria-hidden": "true", text: nr }),
         el("span", { class: "iam-l-body" }, [
           el("span", { class: "iam-l-hvem", html: hvem }),
@@ -122,8 +122,7 @@
       ]);
       ol.appendChild(li);
     });
-    if (!k) box.appendChild(el("p", { class: "small muted iam-l-tom", text: "Trykk «Neste» for første melding." }));
-    else box.appendChild(ol);
+    box.appendChild(ol);
     return box;
   }
 
@@ -132,7 +131,7 @@
     if (!host) return null;
     var M = cfg.meldinger;
     return IN.stepPlayer(host, {
-      initial: [1], customInput: false, speed: 1600,
+      initial: [1], customInput: false, speed: 1600, navTopp: true, fastHoyde: true,
       generate: function () {
         var st = [{ k: 0, tag: "Start", text: cfg.intro || "Partene i protokollen." }];
         M.forEach(function (m, i) {
