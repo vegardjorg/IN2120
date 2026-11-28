@@ -972,6 +972,22 @@
       "Trafikk som ingen regel treffer, avgjøres av standardpolicyen; fasit forutsetter at den er DROP."
     ],
     tips: ["Lag deg en tabell: kilde, protokoll, port → første treff.", "Kjenn portene: HTTP 80, HTTPS 443, SSH 22, Telnet 23, RDP 3389."],
+    // Steg for steg i Løsning (fw.js). Regelteksten er den samme som i oppgaven; pakkene er de åtte radene.
+    losViz: { fn: "fw.eksamen", tittel: "Steg for steg: pakkene gjennom regelsettet", cfg: {
+      tekst: "iptables –A FORWARD –s 131.234.142.33 -p tcp --dport 80 –j accept\niptables -A INPUT   -s 131.234.142.33 -j drop\niptables -A FORWARD -s 129.240.31.23 -p tcp -j drop\niptables -A FORWARD -s 129.240.31.23  -p tcp --dport 23 -j accept\niptables –A FORWARD –s 131.234.142.33 –p tcp -–dport 22 –j accept\niptables –A FORWARD –s 131.234.142.33 –j drop",
+      policy: "DROP", dropMerk: "som fasiten forutsetter",
+      policyMerk: "Arket oppgir ikke policyen. iptables bruker ACCEPT om ingen policy er satt, men fasiten forutsetter DROP.",
+      intro: "Velg en rad fra oppgaven eller bygg en egen pakke. Bytt standardpolicy for å se hvilke svar som avhenger av den.",
+      pakker: {
+        a: { etikett: "1", kort: "RDP fra .33", navn: "RDP-trafikk fra 131.234.142.33", kjede: "FORWARD", p: "tcp", s: "131.234.142.33", dport: 3389 },
+        b: { etikett: "2", kort: "HTTPS fra .33", navn: "HTTPS-trafikk fra 131.234.142.33", kjede: "FORWARD", p: "tcp", s: "131.234.142.33", dport: 443 },
+        c: { etikett: "3", kort: "SSH fra .33", navn: "SSH-trafikk fra 131.234.142.33", kjede: "FORWARD", p: "tcp", s: "131.234.142.33", dport: 22 },
+        d: { etikett: "4", kort: "HTTP fra .23", navn: "HTTP-trafikk fra 129.240.31.23", kjede: "FORWARD", p: "tcp", s: "129.240.31.23", dport: 80 },
+        e: { etikett: "5", kort: "HTTP fra 141.10.10.10", navn: "HTTP-trafikk fra 141.10.10.10", kjede: "FORWARD", p: "tcp", s: "141.10.10.10", dport: 80 },
+        f: { etikett: "6", kort: "HTTP fra .33", navn: "HTTP-trafikk fra 131.234.142.33", kjede: "FORWARD", p: "tcp", s: "131.234.142.33", dport: 80 },
+        g: { etikett: "7", kort: "Telnet fra .23", navn: "Telnet-trafikk fra 129.240.31.23", kjede: "FORWARD", p: "tcp", s: "129.240.31.23", dport: 23 },
+        h: { etikett: "8", kort: "UDP fra .23", navn: "UDP-trafikk fra 129.240.31.23 (her DNS, port 53)", kjede: "FORWARD", p: "udp", s: "129.240.31.23", dport: 53 }
+      } } },
     avvik: ["Standardpolicyen for FORWARD er ikke oppgitt. iptables har ACCEPT som standard, så fasit «Nei» for HTTP fra 141.10.10.10 og UDP fra 129.240.31.23 (som ingen regel treffer) forutsetter at policyen er satt til DROP.", "Regelteksten bruker tankestrek (–A, –s, –j, -–dport) og små bokstaver (accept/drop), mens iptables krever bindestrek og ACCEPT/DROP; dette er beholdt ordrett og påvirker ikke fasit."]
   });
   P("24", {

@@ -1,0 +1,69 @@
+/* IN2120 · fw.css: fargekoding av iptables-regler og steg for steg (assets/js/fw.js)
+   Farge er aldri eneste signal: IP-er er fete, porter har tooltip, ACCEPT/DROP står som ord, ✔/✘ i stegene. */
+:root {
+  --fw-acc: #2e7d32;  --fw-drop: #b3261e;
+  --fw-k: #455a64;    --fw-p: #00695c;   --fw-port: #8a5a00;
+  --fw-ip0: #1f5fa8;  --fw-ip1: #a0367a; --fw-ip2: #7a5230; --fw-ip3: #4a4ab0; --fw-ip4: #5f6b00;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fw-acc: #81c784;  --fw-drop: #f2857f;
+    --fw-k: #b0bec5;    --fw-p: #4db6ac;   --fw-port: #e0a94e;
+    --fw-ip0: #8ab8f0;  --fw-ip1: #e08cbd; --fw-ip2: #d7a77a; --fw-ip3: #a9a9f5; --fw-ip4: #c5d36a;
+  }
+}
+:root[data-theme="dark"] {
+  --fw-acc: #81c784;  --fw-drop: #f2857f;
+  --fw-k: #b0bec5;    --fw-p: #4db6ac;   --fw-port: #e0a94e;
+  --fw-ip0: #8ab8f0;  --fw-ip1: #e08cbd; --fw-ip2: #d7a77a; --fw-ip3: #a9a9f5; --fw-ip4: #c5d36a;
+}
+
+/* Tokenene (i regler, forklaringer og steg) */
+.fw-f, .fw-cmd, .fw-nr { color: var(--color-on-surface-variant); }
+.fw-k { color: var(--fw-k); font-weight: 700; }
+.fw-p { color: var(--fw-p); font-weight: 600; }
+.fw-port { color: var(--fw-port); font-weight: 600; text-decoration: underline dotted; text-underline-offset: 2px; cursor: help; }
+.fw-acc { color: var(--fw-acc); font-weight: 700; }
+.fw-drop { color: var(--fw-drop); font-weight: 700; }
+.fw-ip { font-weight: 700; border-radius: 3px; padding: 0 .12em; background: color-mix(in srgb, currentColor 11%, transparent); }
+.fw-ip-0 { color: var(--fw-ip0); } .fw-ip-1 { color: var(--fw-ip1); } .fw-ip-2 { color: var(--fw-ip2); }
+.fw-ip-3 { color: var(--fw-ip3); } .fw-ip-4 { color: var(--fw-ip4); }
+
+/* «Hva gjør reglene?» */
+.fw-h { margin: 1rem 0 .4rem; font-size: var(--text-sm, .95rem); }
+.fw-besk { list-style: none; margin: 0 0 .6rem; padding: 0; font-size: var(--text-sm, .92rem); }
+.fw-besk li { display: flex; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid var(--color-outline-variant); }
+.fw-besk-nr { flex: 0 0 1.3rem; font-weight: 700; font-family: var(--font-mono, monospace); color: var(--color-on-surface-variant); }
+.fw-besk-t { flex: 1; min-width: 0; }
+.fw-besk-k { color: var(--color-on-surface-variant); }
+.fw-besk-m { display: block; margin-top: .15rem; font-size: var(--text-xs, .82rem); color: var(--color-on-tone-warn); }
+.fw-besk-pol .fw-besk-t { color: var(--color-on-surface-variant); }
+
+/* Kontroller over spilleren */
+.fw-ctl { display: grid; gap: .35rem; margin: .4rem 0 .6rem; }
+.fw-ctl-rad { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1rem; }
+.fw-ctl-rad label { display: inline-flex; align-items: center; gap: .3rem; cursor: pointer; }
+.fw-ctl-l { font-weight: 600; }
+.fw-ctl select { font: inherit; padding: .15rem .3rem; border-radius: 6px; border: 1px solid var(--color-outline); background: var(--color-surface); color: var(--color-on-surface); max-width: 100%; }
+.fw-std { margin: 0; font-size: var(--text-xs, .82rem); color: var(--color-on-surface-variant); }
+
+/* Scenen */
+.fw-pk { margin: 0 0 .45rem; }
+table.fw-tab { border-collapse: collapse; font-size: 13px; width: 100%; }
+table.fw-tab th, table.fw-tab td { padding: .3rem .45rem; border-bottom: 1px solid var(--color-outline-variant); text-align: left; white-space: nowrap; }
+table.fw-tab thead th { border-bottom: 1px solid var(--color-outline); font-weight: 600; color: var(--color-on-surface-variant); }
+.fw-cur > td, li.fw-cur { background: color-mix(in srgb, var(--c-compare, #b9770a) 11%, transparent); }
+.fw-hit > td, li.fw-hit { background: color-mix(in srgb, var(--color-primary) 13%, transparent); }
+.fw-done > td, li.fw-done { color: var(--color-on-surface-variant); }
+.fw-dim { opacity: .72; }
+.fw-any { color: var(--color-outline); }
+.fw-polrad td, li.fw-polrad { font-size: 12.5px; color: var(--color-on-surface-variant); }
+.fw-mk { margin-left: .25em; font-weight: 700; }
+.fw-mk-ja { color: var(--fw-acc); }
+.fw-mk-nei { color: var(--fw-drop); }
+.fw-kort { list-style: none; margin: 0; padding: 0; font-size: 12.5px; }
+.fw-kort li { display: flex; flex-wrap: wrap; gap: .2rem .4rem; align-items: baseline; padding: .3rem .35rem; border-bottom: 1px solid var(--color-outline-variant); }
+.fw-kort .fw-nr { font-weight: 700; min-width: 1.1rem; }
+.fw-l { color: var(--color-on-surface-variant); font-weight: 400; }
+.fw-verdict { margin: .6rem 0 0; font-size: 1rem; }
+.fw-verdict.fw-venter b { color: var(--color-on-surface-variant); }

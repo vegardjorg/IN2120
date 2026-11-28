@@ -1055,6 +1055,7 @@
       }
       if (focus) btns[id].focus();
       if ((id === "losning" || id === "sensor") && self && self._vis) self._vis();   // B8: vurdert mot løsningen
+      if ((id === "losning" || id === "sensor") && visAvvik) visAvvik();
       // Fanerada kan rulle sidelengs på mobil: hold valgt fane synlig
       if (bar.scrollWidth > bar.clientWidth) {
         var br = btns[id].getBoundingClientRect(), rr = bar.getBoundingClientRect();
@@ -1087,6 +1088,13 @@
       // I banken står avviket rett under oppgaveteksten og figuren, over Inspera-øvingen
       var ins = qs(".bank-insp", op);
       if (ins && ins.parentNode) ins.parentNode.insertBefore(av, ins); else op.appendChild(av);
+      // Avviket kan røpe svaret: skjult til oppgaven er rettet/vurdert eller Løsning/Sensor åpnes
+      av.hidden = true;
+      var avObs = null;
+      var visAvvik = function () { av.hidden = false; if (avObs) { avObs.disconnect(); avObs = null; } };
+      var avSjekk = function () { if (qs(".insp-sum, .is-right, .is-wrong, .insp-vurd:not([hidden])", op)) visAvvik(); };
+      if (window.MutationObserver) { avObs = new MutationObserver(avSjekk); avObs.observe(op, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "hidden"] }); }
+      avSjekk();
     }
     built.oppgave = true;
 
@@ -1105,6 +1113,16 @@
           p.appendChild(el("h4", { class: "et-h", text: "Husk til eksamen" }));
           if (d.kjerne) p.appendChild(setContent(el("div", { class: "et-husk" }), htmlFromListish(d.kjerne, false)));
           if (d.tips) p.appendChild(setContent(el("div", { class: "et-husk" }), htmlFromListish(d.tips, false)));
+        }
+        // losViz: { fn: "fw.eksamen", tittel?, cfg }  interaktiv gjennomgang i Løsning (hoppes over om fila ikke er lastet)
+        if (d.losViz) {
+          var lvFn = String(d.losViz.fn || "").split(".").reduce(function (o, k) { return o && o[k]; }, IN);
+          if (typeof lvFn === "function") {
+            p.appendChild(el("h4", { class: "et-h", text: d.losViz.tittel || "Steg for steg" }));
+            var lvHost = el("div", { class: "et-losviz" });
+            p.appendChild(lvHost);
+            try { lvFn(lvHost, d.losViz.cfg || {}, d); } catch (e) { if (window.console) console.error(e); }
+          }
         }
       },
       sensor: function (p) { buildSensor(p, d, pf, type, order.indexOf("losning") >= 0); }

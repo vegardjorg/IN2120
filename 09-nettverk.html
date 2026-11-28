@@ -7,12 +7,13 @@
   <link rel="icon" href="data:,">
   <meta name="description" content="Nettverks- og kommunikasjonssikkerhet i IN2120: lag og porter, TLS 1.3 og fremoverhemmelighold, TLS-stripping og HSTS, brannmurer og iptables, IDS og Snort, IPsec, VPN og Tor, hvem som ser hva, og lagdelt forsvar – med stegspillere, øving i Inspera-format og eksamensoppgavene.">
   <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('in-theme');if(t!=='dark'&&t!=='system')t='light';if(t!=='system')d.setAttribute('data-theme',t);var l=localStorage.getItem('in-level');if(l!=='eli5'&&l!=='teknisk')l='normal';d.setAttribute('data-level',l);}catch(e){document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-level','normal');}})();</script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261128c">
-  <link rel="stylesheet" href="assets/css/viz.css?v=20261128c">
-  <link rel="stylesheet" href="assets/css/figurer.css?v=20261128c">
-  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261128c">
-  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261128c">
-  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261128c">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261128g">
+  <link rel="stylesheet" href="assets/css/fw.css?v=20261128g">
+  <link rel="stylesheet" href="assets/css/viz.css?v=20261128g">
+  <link rel="stylesheet" href="assets/css/figurer.css?v=20261128g">
+  <link rel="stylesheet" href="assets/css/ovelse.css?v=20261128g">
+  <link rel="stylesheet" href="assets/css/blokk-nettverk.css?v=20261128g">
+  <link rel="stylesheet" href="assets/css/begrep-tips.css?v=20261128g">
 </head>
 <body data-page="nettverk">
   <a class="skip-link" href="#main">Hopp til innhold</a>
@@ -291,6 +292,7 @@
       <div id="fx-iptables-kjeder"></div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> Én pakke gjennom fem regler <span class="tag tag-kjerne">kommer ofte</span></h4>
+      <div data-fw-scope>
       <div class="callout eksempel"><span class="lbl">Regelsettet</span>
         <p>Webtjener i DMZ 172.16.5.10, admin-PC 192.168.7.20, database 10.20.0.5, kjent angriper 203.0.113.66. All trafikken går gjennom brannmuren (FORWARD).</p>
 <pre class="mono">1  iptables -A FORWARD -p tcp -d 172.16.5.10 --dport 443 -j ACCEPT
@@ -298,8 +300,10 @@
 3  iptables -A FORWARD -p tcp -s 192.168.7.20 -d 172.16.5.10 --dport 22 -j ACCEPT
 4  iptables -A FORWARD -p tcp -s 172.16.5.10 -d 10.20.0.5 --dport 5432 -j ACCEPT
 5  iptables -A FORWARD -j DROP</pre></div>
-      <p class="small muted">Velg pakke a–f, gjett ACCEPT eller DROP, og gå så regel for regel. Prøv bryterne: uten regel 5 slipper e) og f) gjennom, og med regel 2 øverst blir a) stoppet.</p>
+      <details class="grense"><summary>Hva gjør reglene?</summary><div id="fw-besk-brannmur"></div></details>
+      <p class="small muted">Velg pakke a–f eller bygg en egen (kilde, mål, protokoll og tjeneste med standardport), gjett ACCEPT eller DROP, og gå så regel for regel. Prøv bryterne: uten regel 5 slipper e) og f) gjennom, med regel 2 øverst blir a) stoppet, og med standardpolicy DROP stoppes de igjen.</p>
       <div id="sp-brannmur"></div>
+      </div>
 
       <h4 class="ov-h"><span class="ov-tag">Øving</span> DMZ og to brannmurer: hvor skal tjenestene stå? <span class="tag">eksamensbasert</span></h4>
       <div id="viz-dmz"></div>
@@ -323,6 +327,7 @@
         </ul></div>
 
       <h4 class="ov-h"><span class="ov-tag">Inspera</span> Slipper reglene gjennom?</h4>
+      <div data-fw-scope>
       <div class="ov-intro">Les de åtte reglene under ovenfra og ned. For hver pakke: kryss av om den slipper gjennom. Alt er trafikk gjennom brannmuren.</div>
 <pre class="mono">1 iptables -A FORWARD -s 10.9.9.9 -p tcp --dport 443 -j ACCEPT
 2 iptables -A INPUT -s 172.20.1.1 -j DROP
@@ -333,6 +338,7 @@
 7 iptables -A FORWARD -s 10.9.9.9 -j DROP
 8 iptables -A FORWARD -j DROP</pre>
       <div id="ov-nett-5"></div>
+      </div>
 
       <p class="small muted fig-vis-led">Nettet fra H2023 32: web-tjeneren i ytre segment skal nå databasen i indre segment. Trafikken går <i>gjennom</i> brannmuren.</p>
       <div id="fv-brannmur"></div>
@@ -661,39 +667,40 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
 
   <footer class="footer">IN2120-guide · Blokk 9 · Nettverk · <a href="10-cyberops-ki.html">Neste: blokk 10, cyberoperasjoner og KI</a></footer>
 
-  <script src="assets/js/core.js?v=20261128c"></script>
-  <script src="assets/js/symboler.js?v=20261128c"></script>
-  <script src="assets/js/begreper-data.js?v=20261128c"></script>
-  <script src="assets/js/begrep-tips.js?v=20261128c"></script>
-  <script src="assets/js/pseudocode.js?v=20261128c"></script>
-  <script src="assets/js/stepplayer.js?v=20261128c"></script>
-  <script src="assets/js/varline.js?v=20261128c"></script>
-  <script src="assets/js/inspera.js?v=20261128c"></script>
-  <script src="assets/js/dra.js?v=20261128c"></script>
-  <script src="assets/js/ovelse.js?v=20261128c"></script>
-  <script src="assets/js/bank.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2025.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2024.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2023.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2022.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2021.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2020.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2019.js?v=20261128c"></script>
-  <script src="assets/js/eksamensbank/h2018.js?v=20261128c"></script>
-  <script src="assets/js/blokkvekt.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-felles.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2025.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-husk.js?v=20261128c"></script>
-  <script src="assets/js/figurer/forklar-b.js?v=20261128c"></script>
-  <script src="assets/js/figurer/forklar-c.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2024.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2023.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2022.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2021.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2020.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2019.js?v=20261128c"></script>
-  <script src="assets/js/figurer/fig-h2018.js?v=20261128c"></script>
-  <script src="assets/js/viz-nett.js?v=20261128c"></script>
+  <script src="assets/js/core.js?v=20261128g"></script>
+  <script src="assets/js/symboler.js?v=20261128g"></script>
+  <script src="assets/js/begreper-data.js?v=20261128g"></script>
+  <script src="assets/js/begrep-tips.js?v=20261128g"></script>
+  <script src="assets/js/fw.js?v=20261128g"></script>
+  <script src="assets/js/pseudocode.js?v=20261128g"></script>
+  <script src="assets/js/stepplayer.js?v=20261128g"></script>
+  <script src="assets/js/varline.js?v=20261128g"></script>
+  <script src="assets/js/inspera.js?v=20261128g"></script>
+  <script src="assets/js/dra.js?v=20261128g"></script>
+  <script src="assets/js/ovelse.js?v=20261128g"></script>
+  <script src="assets/js/bank.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2025.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2024.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2023.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2022.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2021.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2020.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2019.js?v=20261128g"></script>
+  <script src="assets/js/eksamensbank/h2018.js?v=20261128g"></script>
+  <script src="assets/js/blokkvekt.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-felles.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2025.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-husk.js?v=20261128g"></script>
+  <script src="assets/js/figurer/forklar-b.js?v=20261128g"></script>
+  <script src="assets/js/figurer/forklar-c.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2024.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2023.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2022.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2021.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2020.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2019.js?v=20261128g"></script>
+  <script src="assets/js/figurer/fig-h2018.js?v=20261128g"></script>
+  <script src="assets/js/viz-nett.js?v=20261128g"></script>
   <script>
   (function () {
     "use strict";
@@ -842,7 +849,7 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
     });
 
     safe("sp-brannmur", function () {
-      IN.nettBrannmur("#sp-brannmur", {
+      var fwCfg = {
         regler: [
           { nr: 1, kjede: "FORWARD", p: "tcp", d: "172.16.5.10", dport: 443, j: "ACCEPT" },
           { nr: 2, kjede: "FORWARD", p: "tcp", s: "203.0.113.66", j: "DROP" },
@@ -858,7 +865,11 @@ alert tcp $HOME_NET any -&gt; any 21 (msg:"FTP ut fra eget nett"; sid:1000103; r
           e: { kort: "ukjent → web:80", navn: "HTTP fra en ukjent maskin til webtjeneren", kjede: "FORWARD", p: "tcp", s: "198.51.100.9", d: "172.16.5.10", dport: 80 },
           f: { kort: "UDP admin → db:53", navn: "UDP fra admin-PC til databasen på port 53", kjede: "FORWARD", p: "udp", s: "192.168.7.20", d: "10.20.0.5", dport: 53 }
         }
-      });
+      };
+      fwCfg.brytere = true; fwCfg.flytt = 2; fwCfg.policy = "ACCEPT";
+      IN.fw.steg("#sp-brannmur", fwCfg);
+      var besk = IN.qs("#fw-besk-brannmur");
+      if (besk) besk.appendChild(IN.fw.beskrivListe(fwCfg.regler, { kart: IN.fw.kart(besk), policy: "ACCEPT", policyMerk: "Ingen policy er satt, så iptables' standard ACCEPT gjelder. Regel 5 sørger likevel for at alt annet stoppes." }));
     });
     safe("viz-dmz", function () { IN.nettDmz("#viz-dmz"); });
     safe("viz-dmz-fig", function () { IN.nettDmzFigur("#viz-dmz-fig"); });

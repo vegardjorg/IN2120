@@ -11,7 +11,7 @@
    IN.nettSekvens(host, { roller, varianter, legend? })
                                             sekvensdiagram med livslinjer; meldinger kan ha spor
    IN.nettNokkeltyveri(host)                «stjel privatnøkkelen i 2027»: efemær DH mot RSA-transport
-   IN.nettBrannmur(host, { regler, pakker }) iptables-regler pakke for pakke, gjett ACCEPT/DROP først
+   IN.nettBrannmur(host, { regler, pakker }) alias for IN.fw.steg (fw.js)
    IN.nettDmz(host)                         plasser tjenester i Internett / DMZ / indre nett (IN.bucketTask)
    IN.nettDmzFigur(host)                    DMZ-topologi med porter som slippes (statisk fasitfigur)
    IN.nettSnort(host)                       Snort-regelens deler (klikk for forklaring)
@@ -238,126 +238,12 @@
   };
 
   /* ---------- Brannmur: regelevaluering ----------
-     regler: [{ nr, kjede, p, s, d, dport, j, tekst }]
-     pakker: { "a": { kjede, p, s, d, dport, navn } } */
-  var FELT = [["kjede", "kjede"], ["p", "-p"], ["s", "-s"], ["d", "-d"], ["dport", "--dport"]];
-  function treff(r, pk, f) {
-    if (r[f] == null) return "any";
-    return String(r[f]) === String(pk[f]) ? "ja" : "nei";
-  }
-  function pakkeKort(pk) { return pk.p.toUpperCase() + " " + pk.s + " → " + pk.d + ":" + pk.dport; }
+     Flyttet til fw.js (IN.fw.steg: pakkebygger, standardpolicy, fargekoding). Beholdt som alias. */
   IN.nettBrannmur = function (host, cfg) {
-    host = host$(host); if (!host || !IN.stepPlayer) return null;
-    clear(host);
-    var fjern5 = el("input", { type: "checkbox" }), flytt2 = el("input", { type: "checkbox" });
-    var tools = el("div", { class: "nt-fw-tools small" }, [
-      el("label", {}, [fjern5, document.createTextNode(" Fjern den siste regelen (DROP)")]),
-      el("label", {}, [flytt2, document.createTextNode(" Flytt regel 2 øverst")])
-    ]);
-    host.appendChild(tools);
-    function regelsett() {
-      var r = cfg.regler.slice();
-      if (flytt2.checked) { var two = r.splice(1, 1)[0]; r.unshift(two); }
-      if (fjern5.checked) r = r.filter(function (x) { return !x.siste; });
-      return r;
-    }
-    var presets = {};
-    Object.keys(cfg.pakker).forEach(function (k) { presets[k + ") " + cfg.pakker[k].kort] = [k]; });
-    var w = wrapPlayer(host), cur = null;
-    var sp = IN.stepPlayer(w, {
-      presets: presets, customInput: false, navTopp: true, fastHoyde: true,
-      legend: [{ label: "feltet passer", color: "var(--nt-ok)" }, { label: "feltet passer ikke", color: "var(--nt-bad)" }, { label: "ikke oppgitt i regelen = hva som helst", color: "var(--color-outline)" }],
-      generate: function (inp) {
-        cur = inp;
-        var pk = cfg.pakker[inp[0]], rs = regelsett(), steps = [];
-        steps.push({ pk: pk, rs: rs, at: -1, text: {
-          eli5: "En pakke står i køen foran dørvakten. Hun skal lese listen ovenfra.",
-          normal: "Pakken: <b>" + pk.navn + "</b>. Reglene leses ovenfra, og første regel der alle oppgitte felt passer, bestemmer.",
-          teknisk: "Pakken rutes gjennom brannmuren og havner derfor i kjeden FORWARD. iptables sjekker reglene i rekkefølge; et felt som ikke står i regelen, matcher alt." } });
-        var hit = -1;
-        for (var i = 0; i < rs.length; i++) {
-          var r = rs[i], res = FELT.map(function (f) { return treff(r, pk, f[0]); });
-          var ok = res.indexOf("nei") < 0;
-          var feil = FELT.filter(function (f, k) { return res[k] === "nei"; }).map(function (f) { return f[1]; });
-          steps.push({ pk: pk, rs: rs, at: i, res: res, ok: ok, text: ok ? {
-            eli5: "Linje " + r.nr + " passer på pakken. Dørvakten slutter å lese og sier " + (r.j === "ACCEPT" ? "«kom inn»" : "«nei»") + ".",
-            normal: "Regel " + r.nr + " treffer: alle oppgitte felt passer. Resultat: <b>" + r.j + "</b>. Reglene under blir aldri lest for denne pakken.",
-            teknisk: "Regel " + r.nr + " matcher, og målet <code>-j " + r.j + "</code> er avsluttende. Første treff vinner, så rekkefølgen av unntak og hovedregler avgjør resultatet." } : {
-            eli5: "Linje " + r.nr + " passer ikke. Hun leser videre.",
-            normal: "Regel " + r.nr + " treffer ikke: " + feil.join(", ") + " passer ikke. Gå videre.",
-            teknisk: "Regel " + r.nr + " matcher ikke (" + feil.join(", ") + "). " + (res[0] === "nei" ? "Feil kjede: en INPUT-regel ser aldri videresendt trafikk." : "Neste regel.") } });
-          if (ok) { hit = i; break; }
-        }
-        if (hit < 0) steps.push({ pk: pk, rs: rs, at: rs.length, implicit: true, text: {
-          eli5: "Ingen linje passet. Denne dørvakten slipper da folk inn. Derfor bør siste linje være «alle andre: nei».",
-          normal: "Ingen regel traff. iptables har implisitt ACCEPT, så pakken <b>slipper gjennom</b>. Med en eksplisitt DROP til slutt hadde den blitt stoppet.",
-          teknisk: "Ingen regel matchet, og standardpolicy ACCEPT gjelder (nettverkslysarket s. 48). En eksplisitt <code>-j DROP</code> sist gir minste privilegium. Merk: H2025 24-fasiten antar at trafikk uten treff blir stoppet." } });
-        // Gjett før svaret: spørsmålet vises på første steg, før regel 1 sjekkes
-        var dom = hit >= 0 ? rs[hit].j : "ACCEPT";
-        if (steps[1]) steps[1].spor = {
-          sporsmal: {
-            eli5: "Les listen ovenfra selv. Slipper dørvakten inn pakken <span class=\"mono\">" + pakkeKort(pk) + "</span>?",
-            normal: "Les reglene ovenfra og finn første treff. Hva blir resultatet for <span class=\"mono\">" + pakkeKort(pk) + "</span>?",
-            teknisk: "Kjede " + pk.kjede + ", første treff vinner, implisitt ACCEPT uten treff. Resultat for <span class=\"mono\">" + pakkeKort(pk) + "</span>?"
-          },
-          valg: ["ACCEPT", "DROP"], fasit: dom === "DROP" ? 1 : 0,
-          forklaring: hit >= 0 ? "Regel " + rs[hit].nr + " er den første der alle oppgitte felt passer." : "Ingen regel passer, og iptables har implisitt ACCEPT."
-        };
-        return steps;
-      },
-      render: function (s, ctx) {
-        clear(ctx.stage);
-        var box = el("div", { class: "nt-scene" });
-        var pk = s.pk;
-        box.appendChild(H("p", "nt-fw-pk", "<b>Pakke:</b> <span class=\"mono\">" + pk.p.toUpperCase() + " " + pk.s + " → " + pk.d + ":" + pk.dport + "</span> <span class=\"muted small\">(kjede " + pk.kjede + ")</span>"));
-        // Smal scene: hver regel som en kompakt linje med felt-brikker i stedet for en tabell (409 px).
-        if (ctx.width > 0 && ctx.width < 440) {
-          var liste = el("ol", { class: "nt-fw-kort", "aria-label": "Regler, leses ovenfra" });
-          s.rs.forEach(function (r, i) {
-            var li = el("li", { class: i === s.at ? (s.ok ? "nt-hit" : "nt-cur") : i < s.at ? "nt-done" : "" });
-            li.appendChild(H("span", "nt-fw-nr mono", String(r.nr)));
-            FELT.forEach(function (f, k) {
-              if (r[f[0]] == null) return;
-              var cls = "nt-fw-b mono";
-              if (i === s.at && s.res) cls += " nt-m-" + s.res[k];
-              else if (i < s.at) cls += " nt-m-" + treff(r, pk, f[0]) + " nt-dim";
-              li.appendChild(H("span", cls, "<span class=\"nt-fw-l\">" + f[1] + "</span> " + String(r[f[0]])));
-            });
-            li.appendChild(H("span", "nt-fw-b mono nt-j-" + r.j.toLowerCase(), "-j " + r.j));
-            liste.appendChild(li);
-          });
-          box.appendChild(liste);
-        } else {
-        var tw = el("div", { class: "table-wrap" }), t = el("table", { class: "nt-fw" });
-        var hr = el("tr", {}, [H("th", null, "#")].concat(FELT.map(function (f) { return H("th", "mono", f[1]); })).concat([H("th", "mono", "-j")]));
-        t.appendChild(el("thead", {}, [hr]));
-        var tb = el("tbody");
-        s.rs.forEach(function (r, i) {
-          var tr = el("tr", { class: i === s.at ? (s.ok ? "nt-hit" : "nt-cur") : i < s.at ? "nt-done" : "" });
-          tr.appendChild(H("td", "mono", String(r.nr)));
-          FELT.forEach(function (f, k) {
-            var v = r[f[0]] == null ? "–" : String(r[f[0]]);
-            var cls = "mono";
-            if (i <= s.at && s.res && i === s.at) cls += " nt-m-" + s.res[k];
-            else if (i < s.at) { var rr = treff(r, pk, f[0]); cls += " nt-m-" + rr + " nt-dim"; }
-            tr.appendChild(H("td", cls, v));
-          });
-          tr.appendChild(H("td", "mono nt-j-" + r.j.toLowerCase(), r.j));
-          tb.appendChild(tr);
-        });
-        t.appendChild(tb); tw.appendChild(t); box.appendChild(tw);
-        }
-        // Resultatlinja står i alle steg («?» til svaret er klart), så høyden ikke endrer seg.
-        var verdict = null;
-        if (s.ok) verdict = s.rs[s.at].j;
-        if (s.implicit) verdict = "ACCEPT (implisitt)";
-        box.appendChild(H("p", "nt-verdict " + (!verdict ? "nt-venter" : /ACCEPT/.test(verdict) ? "nt-ok" : "nt-bad"), "Resultat: <b>" + (verdict || "?") + "</b>"));
-        ctx.stage.appendChild(box);
-      }
-    });
-    function rerun() { if (cur) sp.setInput(cur); }
-    fjern5.addEventListener("change", rerun); flytt2.addEventListener("change", rerun);
-    return sp;
+    if (!IN.fw || !IN.fw.steg) return null;
+    var c = {}; for (var k in cfg) c[k] = cfg[k];
+    if (c.brytere == null) { c.brytere = true; c.flytt = 2; }
+    return IN.fw.steg(host, c);
   };
 
   /* ---------- DMZ: plasser tjenestene ---------- */
