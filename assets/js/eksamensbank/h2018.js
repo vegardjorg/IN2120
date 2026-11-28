@@ -216,7 +216,7 @@
 
   O.push({
     key: "H2018-2.1", year: Y, oppgave_nr: "Oppgave 2.1", del: D2,
-    ark: "2.1 Diffie-Hellman", title: "Diffie-Hellman: navn og formål",
+    ark: "2.1 Diffie-Hellman", title: "Diffie og Hellman: protokoll og formål",
     points: 1, block: "krypto", tema: ["Diffie-Hellman", "nøkkelutveksling", "nøkkeletablering"],
     gjenganger: ["H2025-12"],
     ordrett: true,
@@ -1358,7 +1358,7 @@
 
   O.push({
     key: "H2018-10.2", year: Y, oppgave_nr: "Oppgave 10.2", del: D10,
-    ark: "10.2 Web Security", title: "Innlogging som omgår passordsjekken",
+    ark: "10.2 Web Security", title: "Innlogging med spesiell inndata i passordfeltet",
     points: 3, block: "angrep", tema: ["SQL-injeksjon", "webapplikasjon", "innlogging"],
     gjenganger: ["H2024-23"],
     ordrett: true,

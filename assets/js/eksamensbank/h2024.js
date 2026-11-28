@@ -160,7 +160,7 @@
       /* ---------------------------------------------------------------- 4 */
       {
         key: "H2024-4", year: Y, oppgave_nr: "Oppgave 4", del: D1,
-        ark: "Boksterminologi for testing", title: "Gråboks-testing",
+        ark: "Boksterminologi for testing", title: "Pentest med delvis kunnskap",
         points: 1, block: "pentest", tema: ["pentest", "gråboks", "boksterminologi"],
         gjenganger: ["H2022-4.3", "H2023-4", "H2025-4"],
         ordrett: true,
@@ -293,7 +293,7 @@
       /* ---------------------------------------------------------------- 8 */
       {
         key: "H2024-8", year: Y, oppgave_nr: "Oppgave 8", del: D1,
-        ark: "Passordknekking", title: "John the Ripper: parameteren rules",
+        ark: "Passordknekking", title: "John the Ripper: parameter for permutasjoner",
         points: 1, block: "pentest", tema: ["John the Ripper", "passordknekking", "ordliste", "regler"],
         gjenganger: ["H2023-8"],
         ordrett: true,
@@ -346,7 +346,7 @@
       /* ---------------------------------------------------------------- 10 */
       {
         key: "H2024-10", year: Y, oppgave_nr: "Oppgave 10", del: D1,
-        ark: "Datanettsikkerhet", title: "iptables, IPsec og Wireshark",
+        ark: "Datanettsikkerhet", title: "Nettverksverktøy: velg begrep",
         points: 3, block: "nettverk", tema: ["iptables", "IPsec", "VPN", "Wireshark"],
         gjenganger: ["H2023-11"],
         ordrett: true,
@@ -584,7 +584,7 @@
       /* ---------------------------------------------------------------- 17 */
       {
         key: "H2024-17", year: Y, oppgave_nr: "Oppgave 17", del: D2,
-        ark: "Blokkchiffer - operasjonsmoduser", title: "ECB og CTR fra diagram",
+        ark: "Blokkchiffer - operasjonsmoduser", title: "To operasjonsmoduser i diagram",
         points: 2, block: "krypto", tema: ["ECB", "CTR", "operasjonsmodus", "blokkchiffer"],
         gjenganger: ["H2023-20", "H2025-8"],
         ordrett: true,
@@ -703,7 +703,7 @@
       /* ---------------------------------------------------------------- 21 */
       {
         key: "H2024-21", year: Y, oppgave_nr: "Oppgave 21", del: D3,
-        ark: "Skadevare", title: "Dataorm, bakdør, trojaner, logisk bombe",
+        ark: "Skadevare", title: "Skadevaretyper: koble rad og kolonne",
         points: 1, block: "angrep", tema: ["skadevare", "dataorm", "bakdør", "trojaner", "logisk bombe"],
         gjenganger: ["H2023-24", "H2021-2.5", "H2022-3.4"],
         ordrett: true,
@@ -728,7 +728,7 @@
       /* ---------------------------------------------------------------- 22 */
       {
         key: "H2024-22", year: Y, oppgave_nr: "Oppgave 22", del: D3,
-        ark: "Skadevarebegreper", title: "Trojaner, kryptoutvinning, command injection, rootkit",
+        ark: "Skadevarebegreper", title: "Skadevare og angrep: sett inn begrep",
         points: 2, block: "angrep", tema: ["trojaner", "kryptoutvinning", "command injection", "rootkit"],
         gjenganger: ["H2023-25"],
         ordrett: true,
@@ -754,7 +754,7 @@
       /* ---------------------------------------------------------------- 23 */
       {
         key: "H2024-23", year: Y, oppgave_nr: "Oppgave 23", del: D3,
-        ark: "Sårbarhetsutnyttelse", title: "SQL-injeksjon og filter på klientsiden",
+        ark: "Sårbarhetsutnyttelse", title: "Innloggingsangrep og et filter mot 1==1",
         points: 6, block: "pentest", tema: ["SQL-injeksjon", "filter", "klientside", "proxy"],
         gjenganger: ["H2023-25", "H2023-28"],
         ordrett: true,
@@ -1234,7 +1234,7 @@
       /* ---------------------------------------------------------------- 38 */
       {
         key: "H2024-38", year: Y, oppgave_nr: "Oppgave 38", del: D8,
-        ark: "Retten er satt", title: "MAC-signatur, ARP-forgiftning og hvem som står bak",
+        ark: "Retten er satt", title: "MAC-signatur, ARP-tabell og hvem som står bak",
         points: 10, block: "nettverk", tema: ["MAC", "ubenektelighet", "ARP-spoofing", "mann-i-midten", "Ettercap", "Scapy"],
         ordrett: true,
         oppgave:

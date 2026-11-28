@@ -37,7 +37,7 @@
 
   O.push({
     key: "H2020-1.1", year: Y, oppgave_nr: "Oppgave 1.1", del: D1,
-    ark: "1.1 Generelle sikkerhetsmål", title: "KIT før og under nettbasert eksamen (fritekst)",
+    ark: "1.1 Generelle sikkerhetsmål", title: "Sikkerhetsmål før og under nettbasert eksamen (fritekst)",
     points: 6, block: "generelt", tema: ["KIT", "konfidensialitet", "integritet", "tilgjengelighet", "verdi"],
     gjenganger: ["H2024-1"],
     ordrett: true,
@@ -124,7 +124,7 @@
 
   O.push({
     key: "H2020-1.3", year: Y, oppgave_nr: "Oppgave 1.3", del: D1,
-    ark: "1.3 Begreper", title: "Trussel, sårbarhet, hendelse og verdi i én setning",
+    ark: "1.3 Begreper", title: "Riktig begrep for én setning",
     points: 1, block: "risiko", tema: ["risiko", "trussel", "trusselscenario"],
     gjenganger: ["H2021-1.2", "H2022-1.2"],
     ordrett: true,

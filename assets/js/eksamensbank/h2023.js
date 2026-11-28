@@ -298,7 +298,7 @@
       },
       {
         key: "H2023-12", year: Y, oppgave_nr: "Oppgave 12", del: D1,
-        ark: "Cyber Kill Chain", title: "Bevæpning og overlevering",
+        ark: "Cyber Kill Chain", title: "Cyber Kill Chain: hvilket steg?",
         points: 2, block: "cyberops", tema: ["cyber kill chain", "bevæpning", "overlevering"],
         gjenganger: ["H2021-10.1"], ordrett: true,
         oppgave: "<p>For hver beskrivelse nedenfor, velg hvilket steg i cyber-kill-chain som beskrivelsen passer til.</p><p><em>Poeng: 1 for hver riktig; 0 for hver feil eller ubesvart; maks 2; minimum 0.</em></p>",
@@ -528,7 +528,7 @@
       },
       {
         key: "H2023-20", year: Y, oppgave_nr: "Oppgave 20", del: D2,
-        ark: "Blokkchiffer - operasjonsmoduser", title: "Gjenkjenn CTR og CBC i diagram",
+        ark: "Blokkchiffer - operasjonsmoduser", title: "To operasjonsmoduser i diagram",
         points: 2, block: "krypto", tema: ["CTR", "CBC", "ECB", "operasjonsmodus"],
         gjenganger: ["H2024-17", "H2025-8"], ordrett: true,
         oppgave: "<p>For blokkchiffer brukes ulike operasjonsmoduser for kryptering av mer enn én blokk. Nedenfor ser du diagrammer som illustrerer kryptering for <b>to ulike</b> operasjonsmoduser. Sett riktig navn på hver av dem.</p><p><em>Poeng: 1 for hver riktig; -1 for hver feil; 0 for ubesvart; totalt maks 2; totalt minimum 0.</em></p>",
@@ -645,7 +645,7 @@
       },
       {
         key: "H2023-25", year: Y, oppgave_nr: "Oppgave 25", del: D3,
-        ark: "Skadevarebegreper", title: "Injeksjon og rootkit",
+        ark: "Skadevarebegreper", title: "Angrep og skadevare: sett inn begrep",
         points: 3, block: "angrep", tema: ["SQL-injeksjon", "kommandoinjeksjon", "rootkit"],
         gjenganger: ["H2024-22"], ordrett: true,
         oppgave: "<p>Sett inn riktig begrep for hver beskrivelse. All kode er satt i \"gåsøyne\" pga innstillinger i inspera - se bort fra dem.</p><p><em>Poeng: 1 for hvert riktig;, -1 for hver feil; maks 3; minimum 0.</em></p>",

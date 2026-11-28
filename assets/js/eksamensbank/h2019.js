@@ -36,7 +36,7 @@
 
   O.push({
     key: "H2019-1.1", year: Y, oppgave_nr: "Oppgave 1.1", del: D1,
-    ark: "1.1 Information Security", title: "KIT etter ISO 27000 pluss én egenskap",
+    ark: "1.1 Information Security", title: "Sikkerhetsegenskaper etter ISO 27000",
     points: 2, block: "generelt", tema: ["KIT", "ISO 27000", "autentisitet", "ubenektelighet"],
     ordrett: true,
     oppgave: "<p>Write the names (not the abbreviations) of the three (3) properties of <strong>information security</strong> according to the standard ISO 27000. Name one (1) additional property of information security (also according to the standard).</p><p><em>Points: max 2 total score</em></p><p><strong>Fill in your answer here</strong></p>",
@@ -785,7 +785,7 @@
 
   O.push({
     key: "H2019-6.2", year: Y, oppgave_nr: "Oppgave 6.2", del: D6,
-    ark: "6.2 Risk Estimation I", title: "Kvantitativ analyse og enheten for ALE",
+    ark: "6.2 Risk Estimation I", title: "Risikoanalyse: type og enheten for ALE",
     points: 2, block: "risiko", tema: ["kvantitativ risikoanalyse", "ALE", "ARO", "EF", "AV"],
     gjenganger: ["H2018-6.4"],
     ordrett: true,

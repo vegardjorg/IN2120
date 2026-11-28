@@ -522,7 +522,7 @@
   };
   A.skadevare = function (host) { return IN.matrise(host, D.skadevare); };
 
-  /* ---------- Rootkit-scenario (H2025 19) ---------- */
+  /* ---------- Skadevare-scenario (H2025 19), svaret er rootkit ---------- */
   D.rootkit = {
     id: "angrep-scen-rootkit",
     opphav: { type: "eksamen", variantAv: "H2025-19" },

@@ -354,7 +354,7 @@
 
   O.push({
     key: "H2021-3.2", year: Y, oppgave_nr: "Oppgave 3.2", del: D3,
-    ark: "3.2 Sikker krypteringsmodus", title: "Pingvinbildene: ECB vs. tellermodus",
+    ark: "3.2 Sikker krypteringsmodus", title: "Pingvinbildene: sikker og usikker modus",
     points: 2, block: "krypto", tema: ["ECB", "CTR", "tellermodus", "blokkmodus"],
     gjenganger: ["H2022-5.5", "H2023-20", "H2024-17", "H2025-8"],
     ordrett: true,

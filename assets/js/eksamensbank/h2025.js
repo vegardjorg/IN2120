@@ -175,7 +175,7 @@
 
   add({
     key: "H2025-4", oppgave_nr: "Oppgave 4", del: D1,
-    ark: "Boksterminologi for testing", title: "Pentest uten informasjon: svartboks",
+    ark: "Boksterminologi for testing", title: "Pentest uten informasjon",
     points: 1, block: "pentest", tema: ["pentest", "svartboks", "hvitboks", "gråboks"],
     gjenganger: ["H2022-4.3", "H2023-4", "H2024-4"],
     oppgave: "<p>I planleggingen av en pentest får du ingen informasjon om systemet du skal teste Hva kalles denne typen testing?</p>" +
@@ -311,7 +311,7 @@
 
   add({
     key: "H2025-8", oppgave_nr: "Oppgave 8", del: D2,
-    ark: "Blokkchiffer - operasjonsmoduser", title: "Gjenkjenn CBC, CTR og ECB",
+    ark: "Blokkchiffer - operasjonsmoduser", title: "Tre operasjonsmoduser i diagram",
     points: 3, block: "krypto", tema: ["blokkchiffer", "ECB", "CBC", "CTR", "operasjonsmodus"],
     gjenganger: ["H2023-20", "H2024-17"],
     oppgave: "<p>For blokkchiffer brukes ulike operasjonsmoduser for kryptering av mer enn én blokk. Nedenfor ser du diagrammer som illustrerer kryptering for <strong>tre ulike</strong> operasjonsmoduser. Sett riktig navn på hver av dem.</p>" +
@@ -721,7 +721,7 @@
 
   add({
     key: "H2025-19", oppgave_nr: "Oppgave 19", del: D3,
-    ark: "Skadevare", title: "Rootkit-scenario",
+    ark: "Skadevare", title: "Skadevare-scenario",
     points: 7, block: "angrep", tema: ["rootkit", "skadevare", "hendelseshåndtering", "reinstallering"],
     oppgave: "<p>Du er sikkerhetssjef i et selskap. I nettverksloggene sine har IT funnet ut at ên, og bare ên, spesifikk maskin sender kryptert datatrafikk ut på Internett til gitte tider av døgnet. Det er for tiden ingen som fysisk har tilgang til, eller bruker maskinen. Problemet viste seg å fortsette selv etter å ha rebootet maskinen. IT har undersøkt maskinen og har ikke funnet tegn til at den kjører noe annet enn standard OS-applikasjoner. De har verifisert at disse er identiske med filene som leveres fra produsenten. (De har gjort dette riktig, så filene er altså ikke manipulert). Antivirusløsningen deres finner ingen skadevare.</p>" +
       "<p>Maskinen fortsetter imidlertid å sende ut data. Du installerer en annen antivirusløsning - den finner og fjerner skadevaren. Du sjekker maskinens logger nøye, men finner ingen spor til at filen hverken kjører eller noensinne har kjørt (dette gjør du både før og etter at du installerte ny antivirusløsning, og svaret var identisk begge gangene).</p>" +
@@ -1208,7 +1208,7 @@
 
   add({
     key: "H2025-30", oppgave_nr: "Oppgave 30", del: D6,
-    ark: "Risikoanalyse", title: "Risikoformel: produkt og sum",
+    ark: "Risikoanalyse", title: "Risikoformel: kvantitativ og logaritmisk",
     points: 2, block: "risiko", tema: ["risikonivå", "sannsynlighet", "konsekvens", "kvantitativ", "kvalitativ"],
     oppgave: "<p>Oppgave 1: Angi korrekt matematisk formel (som tekst) for beregning av risikonivå når sannsynlighet og konsekvens uttrykkes kvantitativt. Hva kalles den matematiske operatoren?</p><p>Maks 1p.</p>" +
       "<p>Oppgave 2: Angi korrekt matematisk formel (som tekst) for beregning av risikonivå når sannsynlighet og konsekvens uttrykkes som (kvalitative) logaritmiske nivåer. Hva kalles den matematiske operatoren?</p><p>Maks 1p.</p>",
