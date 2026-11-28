@@ -195,6 +195,9 @@
     if (e.full) h.appendChild(document.createTextNode(" · " + e.full));
     t.appendChild(h);
     if (!skjul) t.appendChild(mk("span", "bt-tip-t", e.txt));
+    // Standardport (feltet port; portIP = ikke i kursmaterialet). Skjules som forklaringen i ubesvarte øvinger,
+    // ellers røper tipset svaret på portoppgaver (H2024 26, Snort-regler).
+    if (!skjul && e.port) t.appendChild(mk("span", "bt-tip-pt", "Standardport: " + e.port + (e.portIP ? " · ikke pensum" : "")));
     if (e.forveks) t.appendChild(mk("span", "bt-tip-fv", e.forveks));
     if (skjul) t.appendChild(mk("span", "bt-tip-se", "Hele forklaringen vises når du har svart."));
     var b = BG.BLOKK && BG.BLOKK[e.b];
@@ -317,6 +320,7 @@
       var dt = document.createElement("dt"), dd = document.createElement("dd");
       dt.innerHTML = "<b>" + e.ord + "</b>" + (e.full ? " · " + e.full : "");
       dd.innerHTML = e.txt || "";
+      if (e.port) { var pt = document.createElement("span"); pt.className = "ord-pt"; pt.textContent = "Standardport: " + e.port + (e.portIP ? " · ikke pensum" : ""); dd.appendChild(pt); }
       if (b) { var a = document.createElement("a"); a.href = b[0]; a.className = "ord-se"; a.textContent = BG.se(e); dd.appendChild(document.createTextNode(" ")); dd.appendChild(a); }
       if (e.forveks) { var fv = document.createElement("span"); fv.className = "ord-fv"; fv.textContent = e.forveks; dd.appendChild(fv); }
       dl.appendChild(dt); dl.appendChild(dd);

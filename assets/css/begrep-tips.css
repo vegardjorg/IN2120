@@ -47,6 +47,9 @@
 .bt-tip > span { display: block; }
 .bt-tip-h { font-weight: 600; margin-bottom: .15rem; }
 .bt-tip-h b { color: var(--color-primary); font-weight: 700; }
+/* Standardport (feltet port) */
+.bt-tip-pt { margin-top: .3rem; font-size: var(--text-xs, .8rem); font-weight: 600; }
+.ord-pt { display: block; margin-top: .15rem; font-size: var(--text-xs, .8rem); font-weight: 600; }
 /* «Må ikke forveksles med …» (feltet forveks) */
 .bt-tip-fv {
   margin-top: .3rem;
