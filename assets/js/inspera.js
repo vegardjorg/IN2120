@@ -594,6 +594,11 @@
         // Feltet kan flyttes inn i figuren (utenfor wrap), så det lagrer selv.
         node.addEventListener("change", function () { if (!checked) persist(); });
         if (tx) node.addEventListener("input", function () { if (!checked) persist(); });
+        // Enter i et tekstfelt retter oppgaven, som «Rett som på eksamen» (ikke under tegnkomposisjon).
+        if (tx) node.addEventListener("keydown", function (e) {
+          if (e.key !== "Enter" || e.isComposing || e.shiftKey || e.altKey || e.ctrlKey || e.metaKey) return;
+          e.preventDefault(); check(true);
+        });
       });
       var rader = [];
       if (q.tekst) {
